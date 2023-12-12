@@ -1,0 +1,6 @@
+# ignore ALL .DS_Store  and .log files
+*.log
+*.DS_Store
+
+# ignore ALL files in ANY temp directory
+temp/
