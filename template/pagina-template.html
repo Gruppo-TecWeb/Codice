@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{title}</title>
+    <meta name="keywords" content="{description}">
+    <meta name="description" content="{keywords}">
+    <meta name="author" content="Antonio Benetazzo, Alessandro Bressan, Sebastiano Lewental, Riccardo Zaupa">
+
+    <link rel="stylesheet" type="text/css" href="styles/style.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="styles/mobile.css" media="handheld, screen and (max-width:600px),
+            only screen and (max-device-width:600px)">
+    <link rel="stylesheet" type="text/css" href="styles/print.css" media="print">
+
+    <link rel="shortcut icon" type="images/png" href=""> <!--DA FARE-->
+    <script src=""></script> <!--DA FARE-->
+</head>
+
+<body id="{pageId}" onload="{onload}">
+    <header id="header">
+        <nav aria-label="Aiuti alla navigazione">
+            <a class="navigationHelp" href="#content">Vai al contenuto</a>
+        </nav>
+        <h1>{title}</h1>
+    </header>
+
+    <nav id="menu" aria-label="site menu">
+        <a class="navigationHelp" href="#content">Salta il menù di navigazione</a>
+        <ul>
+            {menu}
+        </ul>
+    </nav>
+    <nav id="breadcrumb" aria-label="Percorso">
+        {breadcrumbs}
+    </nav>
+    <main>
+        {content}
+    </main>
+    <footer>
+        <ul>
+            <li><a href="https://www.instagram.com/restrainingstirpe">Instagram</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="contattaci.html">Contattaci</a></li>
+            <li>Pensato e sviluppato da <a href="https://github.com/Gruppo-TecWeb">TecWeb</a>.</li>
+        </ul>
+    </footer>
+</body>
+
+</html>
