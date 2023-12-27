@@ -2,7 +2,7 @@
 
 require_once("DBAccess-utilities/utilities.php");
 
-$indexHTML = file_get_contents("template/pagina-template.html");
+$eventiHTML = file_get_contents("template/pagina-template.html");
 
 $title = 'Eventi &minus; Fungo';
 $pageId = 'eventi';
@@ -14,4 +14,4 @@ $breadcrumbs = '
 $content = '';
 $onload = '';
 
-echo replace_in_page($indexHTML, $title, $description, $keywords, $pageId, $menu, $breadcrumbs, $content, $onload);
+echo replace_in_page($eventiHTML, $title, $description, $keywords, $pageId, $menu, $breadcrumbs, $content, $onload);
