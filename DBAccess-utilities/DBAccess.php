@@ -5,7 +5,7 @@ namespace DB;
 class DBAccess
 {
     private const DB_HOST = "localhost";
-    private const DB_NAME = "demo";
+    private const DB_NAME = "fungo";
     private const DB_USER = "root";
     private const DB_PASS = "";
 
