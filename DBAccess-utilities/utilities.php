@@ -4,11 +4,11 @@ namespace Utilities;
 class Utilities {
 
     private const pages_array = [
-        'home'          => ['href' => 'index.php',         'anchor' => 'Home',         'lang' => 'en', 'menuOrder' => 1, 'parentId' => ''],
-        'eventi'        => ['href' => 'eventi.php',        'anchor' => 'Eventi',       'lang' => '',   'menuOrder' => 2, 'parentId' => 'home'],
-        'classifiche'   => ['href' => 'classifiche.php',  'anchor' => 'Classifiche',  'lang' => '',   'menuOrder' => 3, 'parentId' => 'home'],
-        'battle'        => ['href' => 'battle.php',        'anchor' => 'Battle',       'lang' => 'en', 'menuOrder' => 4, 'parentId' => 'home'],
-        'chi-siamo'     => ['href' => 'chi-siamo.php',    'anchor' => 'Chi siamo',    'lang' => '',   'menuOrder' => 5, 'parentId' => 'home']
+        'home'          => ['href' => 'index.php',          'anchor' => 'Home',         'lang' => 'en', 'menuOrder' => 1, 'parentId' => ''],
+        'eventi'        => ['href' => 'eventi.php',         'anchor' => 'Eventi',       'lang' => '',   'menuOrder' => 2, 'parentId' => 'home'],
+        'classifiche'   => ['href' => 'classifiche.php',    'anchor' => 'Classifiche',  'lang' => '',   'menuOrder' => 3, 'parentId' => 'home'],
+        'battle'        => ['href' => 'battle.php',         'anchor' => 'Battle',       'lang' => 'en', 'menuOrder' => 4, 'parentId' => 'home'],
+        'chi-siamo'     => ['href' => 'chi-siamo.php',      'anchor' => 'Chi siamo',    'lang' => '',   'menuOrder' => 5, 'parentId' => 'home']
     ];
 
     public function replace_in_page($pageHTML, $title, $description, $keywords, $pageId, $menu, $breadCrumbs, $content, $onload = '')
