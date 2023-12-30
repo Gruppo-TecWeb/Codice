@@ -3,11 +3,11 @@
 namespace Utilities;
 
 const pages_array = [
-    'home'          => ['href' => 'index.php',          'anchor' => 'Home',         'lang' => 'en', 'menuOrder' => 1, 'parentId' => ''],
-    'eventi'        => ['href' => 'eventi.php',         'anchor' => 'Eventi',       'lang' => '',   'menuOrder' => 2, 'parentId' => 'home'],
-    'classifiche'   => ['href' => 'classifiche.php',    'anchor' => 'Classifiche',  'lang' => '',   'menuOrder' => 3, 'parentId' => 'home'],
-    'battle'        => ['href' => 'battle.php',         'anchor' => 'Battle',       'lang' => 'en', 'menuOrder' => 4, 'parentId' => 'home'],
-    'chi-siamo'     => ['href' => 'chi-siamo.php',      'anchor' => 'Chi siamo',    'lang' => '',   'menuOrder' => 5, 'parentId' => 'home']
+    'index'         => ['href' => 'index.php',          'anchor' => 'Home',         'lang' => 'en', 'menuOrder' => 1, 'parentId' => ''],
+    'eventi'        => ['href' => 'eventi.php',         'anchor' => 'Eventi',       'lang' => '',   'menuOrder' => 2, 'parentId' => 'index'],
+    'classifiche'   => ['href' => 'classifiche.php',    'anchor' => 'Classifiche',  'lang' => '',   'menuOrder' => 3, 'parentId' => 'index'],
+    'battle'        => ['href' => 'battle.php',         'anchor' => 'Battle',       'lang' => 'en', 'menuOrder' => 4, 'parentId' => 'index'],
+    'chi-siamo'     => ['href' => 'chi-siamo.php',      'anchor' => 'Chi siamo',    'lang' => '',   'menuOrder' => 5, 'parentId' => 'index']
 ];
 
 function replace_in_page($pageHTML, $title, $description, $keywords, $pageId, $menu, $breadCrumbs, $content, $onload = '')
@@ -27,9 +27,9 @@ function replace_in_page($pageHTML, $title, $description, $keywords, $pageId, $m
 function get_menu($pageId)
 {
     $pages = array();
-    foreach (self::pages_array as $page) {
+    foreach (pages_array as $page) {
         $lang_tag = $page['lang'] ? ' lang="' . $page['lang'] . '"' : '';
-        $isCurrent = $page == self::pages_array[$pageId];
+        $isCurrent = $page == pages_array[$pageId];
         $menuOrder = $page['menuOrder'];
         $pages[$menuOrder] = '<li';
         if ($isCurrent) {
@@ -45,12 +45,12 @@ function get_menu($pageId)
 
 function get_breadcrumbs($pageId) {
     $breadcrumbs = '<p>Ti trovi in: ';
-    $page = self::pages_array[$pageId];
-    $parent = self::pages_array[$page['parentId']];
+    $page = pages_array[$pageId];
+    $parent = pages_array[$page['parentId']];
     while ($parent != '') {
         $lang_tag = $parent['lang'] ? ' lang="' . $parent['lang'] . '"' : '';
         $breadcrumbs .= '<a href="' . $parent['href'] . '"' . $lang_tag . '>' . $parent['anchor'] . '</a> &gt;&gt; ';
-        $parent = self::pages_array[$parent['parentId']];
+        $parent = pages_array[$parent['parentId']];
     }
     $lang_tag = $page['lang'] ? ' lang="' . $page['lang'] . '"' : '';
     $breadcrumbs .= '<span' . $lang_tag . '>' . $page['anchor'] . '</span>';

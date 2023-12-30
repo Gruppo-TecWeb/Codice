@@ -1,19 +1,17 @@
 <?php
 
-require_once("DBAccess-utilities/utilities.php");
-use Utilities\Utilities;
-
-$utilities = new Utilities();
+namespace Utilities;
+require_once("utilities/utilities.php");
 
 $eventiHTML = file_get_contents("template/pagina-template.html");
 
 $title = 'Battle &minus; Fungo';
-$pageId = 'battle';
+$pageId = basename(__FILE__, '.php');
 $description = '';
 $keywords = '';
-$menu = $utilities -> get_menu($pageId);
-$breadcrumbs = $utilities -> get_breadcrumbs($pageId);
+$menu = get_menu($pageId);
+$breadcrumbs = get_breadcrumbs($pageId);
 $content = '';
 $onload = '';
 
-echo $utilities -> replace_in_page($eventiHTML, $title, $description, $keywords, $pageId, $menu, $breadcrumbs, $content, $onload);
+echo replace_in_page($eventiHTML, $title, $description, $keywords, $pageId, $menu, $breadcrumbs, $content, $onload);
