@@ -39,7 +39,9 @@ function get_menu($pageId)
         }
         $pages[$menuOrder] .= '</li>';
     }
-    $menu = '<ul>' . implode('', $pages) . '</ul>';
+    $menu = '<ul>
+            ' . implode('
+            ', $pages) . '</ul>';
     return $menu;
 }
 
