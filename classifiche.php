@@ -22,7 +22,7 @@ $connection = new DBAccess();
 $connectionOk = $connection -> openDBConnection();
 if ($connectionOk) {
     $content .= '<h2>Classifiche</h2>
-    ';
+';
     $classifica = $connection -> get_classifica('fungo');
     if ($classifica != null) {
         $tabella = str_replace('{tipoEvento}', 'Fungo', $tabellaHTML);
