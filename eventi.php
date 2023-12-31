@@ -15,15 +15,28 @@ $description = '';
 $keywords = '';
 $menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
-$content = '';
+$content = file_get_contents("template/eventi.html");
 $onload = '';
 
 $connection = new DBAccess();
 $connectionOk = $connection->openDBConnection();
 
 if ($connectionOk) {
-    $lista_eventi = $connection->getlistaEventi();
+    $listaTitoli = $connection->executeSelectQuery("Select distinct titolo from eventi");
+
+    $opzioniTitoli = '';
+    foreach ($listaTitoli as $evento) {
+        $opzioniTitoli .= "<option value='" . $evento['titolo'] . "'>" . $evento['titolo'] . "</option>";
+    }
+    $content = str_replace('{listaTitoli}', $opzioniTitoli, $content);
+
+    if (isset($_GET['titolo']) && $_GET['titolo'] != '') {
+        $lista_eventi = $connection->getEventiByTitolo($_GET['titolo']);
+    } else {
+        $lista_eventi = $connection->getlistaEventi();
+    }
     $connection->closeDBConnection();
+    echo $_GET['titolo'];
 
     if ($lista_eventi == null) {
         $content .= '<p>Non ci sono eventi in programma</p>';
@@ -31,7 +44,7 @@ if ($connectionOk) {
         $content .= '<div id="lista-eventi">';
         foreach ($lista_eventi as $evento) {
             $content .= '<div class="evento">';
-            $content .= '<h2><a href="evento.php?id=' . urlencode($evento['id']) . '">' . htmlspecialchars($evento['titolo']) .' '. htmlspecialchars($evento['data']) . '</a></h2>';
+            $content .= '<p><a href="evento.php?id=' . urlencode($evento['id']) . '">' . htmlspecialchars($evento['titolo']) . ' ' . htmlspecialchars($evento['data']) . '</a></p>';
             $content .= '</div>';
         }
         $content .= '</div>';

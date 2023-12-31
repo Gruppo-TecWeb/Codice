@@ -74,4 +74,22 @@ class DBAccess
         where e.id = $id";
         return $this->executeSelectQuery($query)[0];
     }
+
+    public function getEventiByTitolo($titolo)
+    {
+        $query = "SELECT e.id,
+        e.titolo,
+        e.descrizione,
+        e.data,
+        e.ora,
+        e.luogo,
+        s.annoinizio,
+        s.meseinizio,
+        s.tipoevento
+        FROM eventi as e
+        join stagioni as s on e.stagione = s.id 
+        where e.titolo = '$titolo'
+        order by data desc";
+        return $this->executeSelectQuery($query);
+    }
 }
