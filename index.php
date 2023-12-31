@@ -1,7 +1,7 @@
 <?php
 
 namespace Utilities;
-include "utilities/utilities.php";
+require_once "utilities/utilities.php";
 
 $indexHTML = file_get_contents("template/pagina-template.html");
 
