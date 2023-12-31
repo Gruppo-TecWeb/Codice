@@ -43,7 +43,8 @@ function get_menu($pageId)
     return $menu;
 }
 
-function get_breadcrumbs($pageId) {
+function get_breadcrumbs($pageId, $other = '')
+{
     $breadcrumbs = '<p>Ti trovi in: ';
     $page = pages_array[$pageId];
     $parent = pages_array[$page['parentId']];
@@ -53,9 +54,13 @@ function get_breadcrumbs($pageId) {
         $parent = pages_array[$parent['parentId']];
     }
     $lang_tag = $page['lang'] ? ' lang="' . $page['lang'] . '"' : '';
-    $breadcrumbs .= '<span' . $lang_tag . '>' . $page['anchor'] . '</span>';
+    if ($other != '') {
+        $breadcrumbs .= '<a href="' . $page['href'] . '"' . $lang_tag . '>' . $page['anchor'] . '</a> &gt;&gt; ';
+        $breadcrumbs .= $other;
+    }
+    else {
+        $breadcrumbs .= '<span' . $lang_tag . '>' . $page['anchor'] . '</span>';
+    }
     $breadcrumbs .= '</p>';
     return $breadcrumbs;
-
-
 }
