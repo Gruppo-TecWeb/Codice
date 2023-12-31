@@ -1,10 +1,14 @@
 <h2>Eventi</h2>
 <p>Qui trovi tutti gli eventi in programma</p>
-<form method="get" action="eventi.php">
-    <label for="evento">Filtra per titolo</label>
-    <select name="titolo">
-        <option value="" selected>...</option>
-        {listaTitoli}
-    </select>
-    <input type="submit" value="Cerca">
-</form>
+<div class="form-container">
+    <form method="get" action="eventi.php">
+        <label for="titolo">Filtra per titolo</label>
+        <select name="titolo">
+            <option value="" selected>...</option>
+            {listaTitoli}
+        </select>
+        <label for="data">Filtra per data</label>
+        <input type="date" name="data">
+        <input type="submit" value="Cerca">
+    </form>
+</div>

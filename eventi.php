@@ -32,11 +32,12 @@ if ($connectionOk) {
 
     if (isset($_GET['titolo']) && $_GET['titolo'] != '') {
         $lista_eventi = $connection->getEventiByTitolo($_GET['titolo']);
+    } elseif (isset($_GET['data']) && $_GET['data'] != '') {
+        $lista_eventi = $connection->getEventiByData($_GET['data']);
     } else {
         $lista_eventi = $connection->getlistaEventi();
     }
     $connection->closeDBConnection();
-    echo $_GET['titolo'];
 
     if ($lista_eventi == null) {
         $content .= '<p>Non ci sono eventi in programma</p>';

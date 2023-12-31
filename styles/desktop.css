@@ -4,3 +4,48 @@
     position: absolute;
     text-indent: -999em;
 }
+
+/* PAGINA EVENTI */
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f2f2f2;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form-container label {
+    margin-bottom: 5px;
+}
+
+.form-container select,
+.form-container input[type="date"] {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.form-container input[type="submit"] {
+    padding: 5px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.form-container input[type="submit"]:hover {
+    background-color: #45a049;
+}
