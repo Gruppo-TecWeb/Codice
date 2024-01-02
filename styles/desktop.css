@@ -1,6 +1,75 @@
 /* TUTTE LE PAGINE (COMUNE) */
 
-.navigationHelp {
-    position: absolute;
+#header {
+    display: flex;
+}
+
+#header h1 {
+    position: unset;
+    transform: unset;
+    text-align: unset;
+    letter-spacing: unset;
+    margin: 0 0.5em;
+}
+
+#menu {
+    position: unset;
+    transform: unset;
+    background-color: unset;
+    border: unset;
+    border-radius: unset;
+    line-height: unset;
+    box-sizing: unset;
+    padding: unset;
+    width: 100%;
+    margin: 0 2em;
+    transform: translateY(50%);
+}
+
+#menu ul li {
+    font-size: unset;
+    font-weight: unset;
+    text-align: unset;
+    display: inline;
+    line-height: unset;
+    margin: 0 0.5em;
+    padding: 0.6em 1em;
+    cursor: pointer;
+    border-radius: 70px;
+    background-color: white;
+    border: 1px solid black;
+    transition: background-color 0.5s;
+}
+
+#menu ul li:hover {
+    background-color: #949494
+}
+
+#breadcrumbs {
+    white-space: unset;
+    overflow: unset;
+    position: unset;
+    max-width: unset;
+    transform: unset;
+    border-radius: unset;
+    border: unset;
+    background-color: unset;
+    display: block;
+    margin-top: 5em;
+}
+
+#breadcrumbs p {
+    height: unset;
+    font-size: unset;
+}
+
+#breadcrumbs p a {
+    text-decoration: none;
+    color: black;
+}
+
+#breadcrumbs a:first-child {
+    height: 1.5em;
+    content: url("../images/fungo.svg");
     text-indent: -999em;
 }

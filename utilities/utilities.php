@@ -44,13 +44,13 @@ function get_menu($pageId)
 }
 
 function get_breadcrumbs($pageId) {
-    $breadcrumbs = '<p>Ti trovi in: ';
+    $breadcrumbs = '<p>';
     $page = pages_array[$pageId];
-    $parent = pages_array[$page['parentId']];
+    $parent = $page['parentId'] != '' ? pages_array[$page['parentId']] : '';
     while ($parent != '') {
         $lang_tag = $parent['lang'] ? ' lang="' . $parent['lang'] . '"' : '';
-        $breadcrumbs .= '<a href="' . $parent['href'] . '"' . $lang_tag . '>' . $parent['anchor'] . '</a> &gt;&gt; ';
-        $parent = pages_array[$parent['parentId']];
+        $breadcrumbs .= '<a href="' . $parent['href'] . '"' . $lang_tag . '>' . $parent['anchor'] . '</a> &rsaquo;&rsaquo; ';
+        $parent = $parent['parentId'] != '' ? pages_array[$parent['parentId']] : '';
     }
     $lang_tag = $page['lang'] ? ' lang="' . $page['lang'] . '"' : '';
     $breadcrumbs .= '<span' . $lang_tag . '>' . $page['anchor'] . '</span>';
