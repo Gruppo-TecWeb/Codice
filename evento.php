@@ -10,10 +10,10 @@ use DB\DBAccess;
 $eventiHTML = file_get_contents("template/pagina-template.html");
 
 $title = '';
-$pageId = basename('eventi.php', '.php');
+$pageId = basename(__FILE__, '.php');
 $description = '';
 $keywords = '';
-$menu = get_menu($pageId);
+$menu = get_menu(basename('eventi.php', '.php'));
 $breadcrumbs = '';
 
 $content = '';
@@ -39,7 +39,8 @@ if ($connectionOk) {
         $content .= '<p>Stagione: ' . htmlspecialchars($annoinizio) . ' ' . htmlspecialchars($meseinizio) . '</p>';
         $content .= '</div>';
         $title = $titolo . ' ' . $data;
-        $breadcrumbs = get_breadcrumbs($pageId, $title);
+        $breadcrumbs = get_breadcrumbs(basename('eventi.php', '.php'), $title);
+        $title = $title . ' &minus; Fungo';
     }
 }
 

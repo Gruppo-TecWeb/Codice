@@ -22,21 +22,20 @@ $connection = new DBAccess();
 $connectionOk = $connection->openDBConnection();
 
 if ($connectionOk) {
-    $listaTitoli = $connection->executeSelectQuery("Select distinct titolo from eventi");
+    $titolo = isset($_GET['titolo']) ? $_GET['titolo'] : '';
+    $data = isset($_GET['data']) ? $_GET['data'] : '';
 
+    $listaTitoli = $connection->executeSelectQuery("Select distinct titolo from eventi");
     $opzioniTitoli = '';
     foreach ($listaTitoli as $evento) {
-        $opzioniTitoli .= "<option value='" . $evento['titolo'] . "'>" . $evento['titolo'] . "</option>";
+        $selected = ($evento['titolo'] == $titolo) ? ' selected' : '';
+        $opzioniTitoli .= "<option value='" . $evento['titolo'] . "'" . $selected . ">" . $evento['titolo'] . "</option>";
     }
     $content = str_replace('{listaTitoli}', $opzioniTitoli, $content);
+    $content = str_replace('{data}', $data, $content);
 
-    if (isset($_GET['titolo']) && $_GET['titolo'] != '') {
-        $lista_eventi = $connection->getEventiByTitolo($_GET['titolo']);
-    } elseif (isset($_GET['data']) && $_GET['data'] != '') {
-        $lista_eventi = $connection->getEventiByData($_GET['data']);
-    } else {
-        $lista_eventi = $connection->getlistaEventi();
-    }
+    $lista_eventi = $connection->getlistaEventi($titolo, $data);
+
     $connection->closeDBConnection();
 
     if ($lista_eventi == null) {

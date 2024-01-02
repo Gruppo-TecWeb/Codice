@@ -42,7 +42,7 @@ class DBAccess
         }
     }
 
-    public function getlistaEventi()
+    public function getListaEventi($titolo = '', $data = '')
     {
         $query = "SELECT e.id,
         e.titolo,
@@ -54,11 +54,22 @@ class DBAccess
         s.meseinizio,
         s.tipoevento
         FROM eventi as e
-        join stagioni as s on e.stagione = s.id 
-        order by data desc";
+        join stagioni as s on e.stagione = s.id";
+        $conditions = [];
+        if ($titolo != '') {
+            $conditions[] = "e.titolo = '$titolo'";
+        }
+        if ($data != '') {
+            $conditions[] = "e.data = '$data'";
+        }
+
+        if (!empty($conditions)) {
+            $query .= " WHERE " . implode(' AND ', $conditions);
+        }
+        $query .= " order by data desc";
         return $this->executeSelectQuery($query);
     }
-
+    
     public function getEvento($id)
     {
         $query = "SELECT e.titolo,
@@ -73,41 +84,5 @@ class DBAccess
         join stagioni as s on e.stagione = s.id 
         where e.id = $id";
         return $this->executeSelectQuery($query)[0];
-    }
-
-    public function getEventiByTitolo($titolo)
-    {
-        $query = "SELECT e.id,
-        e.titolo,
-        e.descrizione,
-        e.data,
-        e.ora,
-        e.luogo,
-        s.annoinizio,
-        s.meseinizio,
-        s.tipoevento
-        FROM eventi as e
-        join stagioni as s on e.stagione = s.id 
-        where e.titolo = '$titolo'
-        order by data desc";
-        return $this->executeSelectQuery($query);
-    }
-
-    public function getEventiByData($data)
-    {
-        $query = "SELECT e.id,
-        e.titolo,
-        e.descrizione,
-        e.data,
-        e.ora,
-        e.luogo,
-        s.annoinizio,
-        s.meseinizio,
-        s.tipoevento
-        FROM eventi as e
-        join stagioni as s on e.stagione = s.id 
-        where e.data = '$data'
-        order by data desc";
-        return $this->executeSelectQuery($query);
     }
 }
