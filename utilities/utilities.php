@@ -47,18 +47,17 @@ function get_breadcrumbs($pageId, $other = '')
 {
     $breadcrumbs = '<p>Ti trovi in: ';
     $page = pages_array[$pageId];
-    $parent = pages_array[$page['parentId']];
-    while ($parent != '') {
+    $parent = isset(pages_array[$page['parentId']]) ? pages_array[$page['parentId']] : null;
+    while ($parent != null) {
         $lang_tag = $parent['lang'] ? ' lang="' . $parent['lang'] . '"' : '';
         $breadcrumbs .= '<a href="' . $parent['href'] . '"' . $lang_tag . '>' . $parent['anchor'] . '</a> &gt;&gt; ';
-        $parent = pages_array[$parent['parentId']];
+        $parent = isset(pages_array[$parent['parentId']]) ? pages_array[$parent['parentId']] : null;
     }
     $lang_tag = $page['lang'] ? ' lang="' . $page['lang'] . '"' : '';
     if ($other != '') {
         $breadcrumbs .= '<a href="' . $page['href'] . '"' . $lang_tag . '>' . $page['anchor'] . '</a> &gt;&gt; ';
         $breadcrumbs .= $other;
-    }
-    else {
+    } else {
         $breadcrumbs .= '<span' . $lang_tag . '>' . $page['anchor'] . '</span>';
     }
     $breadcrumbs .= '</p>';
