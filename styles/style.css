@@ -3,18 +3,15 @@
  */
 
 :root {
-    --bgColor: #fff;
-    --txtColor: #101010;
-    --primaryColor: #d1c4e9;
-    --txtPrimaryColor: #aaa;
-    --secondaryColor: #aaa;
-    --txtSecondaryColor: #aaa;
-    --accentColor: fff;
-    --txtAccentColor: #fff;
-    --linkColor: #00f;
-    --visitedLinkColor: #fff;
-    --successColor: #0f0;
+    --bgColor: #000;
+    --txtColor: #FFF2EA;
+    --accentColor: #EF754A;
+    --secondaryColor: #262626;
+    --linkColor: #00F;
+    --visitedLinkColor: #FFF;
+    --successColor: #ACC3A6;
     --errorColor: #a00;
+    /* --accentColor: #d1c4e9; */
 }
 
 @font-face {
@@ -33,10 +30,41 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+body {
+    background-color: var(--bgColor);
+    margin-top: 3em;
+    color: var(--txtColor);
+}
+
 .navigationHelp {
     position: absolute;
     text-indent: -999em;
 }
+
+
+/* 
+ * ERROR
+ */
+
+
+/* 
+ * SUCESS
+ */
+
+
+/* 
+ * FORM
+ */
+
+
+/* 
+ * BUTTON
+ */
+
+
+/* 
+ * HEADER e MENU
+ */
 
 #header {
     position: fixed;
@@ -44,7 +72,7 @@
     left: 0;
     width: 100%;
     height: 2em;
-    background-color: var(--primaryColor);
+    background-color: var(--accentColor);
     border-bottom: 2px solid black;
 }
 
@@ -65,6 +93,7 @@
     font-size: 3.5em;
     text-align: center;
     letter-spacing: 0.15em;
+    color: var(--txtColor);
 }
 
 #menu {
@@ -74,31 +103,33 @@
     width: 90%;
     box-sizing: border-box;
     transform: translateX(-50%);
-    background-color: var(--primaryColor);
+    background-color: var(--secondaryColor);
     border: 2px solid black;
     border-radius: 16px;
     text-align: center;
-    padding: 0em 1em;
+    padding: 1em 1em;
 }
 
 #menu ul {
     list-style: none;
 }
 
-#menu ul li {
+#menu ul li {}
+
+#menu ul li a {
     line-height: 2.3em;
+    text-decoration: none;
+    color: black;
     font-size: 2em;
     font-weight: bold;
 }
 
-#menu ul li a {
-    text-decoration: none;
-    color: black;
-}
-
-#menu li.selected {
+#menu li#currentLink {
+    line-height: 2.3em;
+    font-size: 2em;
+    font-weight: bold;
     border-radius: 16px;
-    background-color: #E040FB;
+    background-color: var(--accentColor);
 }
 
 #menu[opened="false"] {
@@ -113,6 +144,11 @@
     transition: transform 0.3s, opacity 0.6s, width 0.4s;
 }
 
+
+/* 
+ * BREADCRUMBS
+ */
+
 #breadcrumbs {
     position: fixed;
     bottom: 2em;
@@ -125,13 +161,12 @@
     align-items: center;
     border-radius: 16px;
     border: solid 2px black;
-    background-color: var(--primaryColor);
+    background-color: var(--accentColor);
     overflow: scroll;
     white-space: nowrap;
 }
 
 #breadcrumbs p {
-    height: 1.5em;
     font-size: 1.8em;
 }
 
@@ -153,9 +188,19 @@
     cursor: pointer;
     text-indent: -999em;
     border: solid 2px black;
-    background-color: #E040FB;
+    background-color: var(--accentColor);
     border-radius: 6px;
 }
+
+
+/* 
+ * MAIN CON MAX WIDTH? solo desktiop
+ */
+
+
+/* 
+ * FOOTER
+ */
 
 
 /*

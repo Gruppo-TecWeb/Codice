@@ -44,7 +44,7 @@ function get_menu($pageId)
 }
 
 function get_breadcrumbs($pageId) {
-    $breadcrumbs = '<p>';
+    $breadcrumbs = '<p><span class="navigationHelp">Ti trovi in: </span>';
     $page = pages_array[$pageId];
     $parent = $page['parentId'] != '' ? pages_array[$page['parentId']] : '';
     while ($parent != '') {
