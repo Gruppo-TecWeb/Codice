@@ -70,7 +70,7 @@
 #menu {
     position: fixed;
     left: 50%;
-    bottom: 3.5em;
+    bottom: 5.5em;
     width: 90%;
     box-sizing: border-box;
     transform: translateX(-50%);
