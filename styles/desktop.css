@@ -1,7 +1,61 @@
 /* TUTTE LE PAGINE (COMUNE) */
 
-.navigationHelp {
-    position: absolute;
-    text-indent: -999em;
+
+
+/*****************
+/* PAGINA EVENTI */
+/*****************/
+
+/* Form di ricerca */
+.form-container {
+    margin-bottom: 40px;
 }
 
+form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+label {
+    margin-bottom: 0;
+    margin-right: 10px;
+}
+
+input,
+select {
+    width: auto;
+    margin-bottom: 0;
+}
+
+input[type="submit"] {
+    width: auto;
+    padding: 10px 20px;
+}
+
+/* Lista degli eventi */
+#lista{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Crea una griglia con colonne di almeno 300px */
+    gap: 20px; /* Imposta la distanza tra gli eventi */
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.evento {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f2f2f2;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    padding: 15px;
+}
+
+.evento a {
+    text-decoration: none;
+    color: #000;
+}
