@@ -34,18 +34,15 @@ input[type="submit"] {
 }
 
 /* Lista degli eventi */
-#lista{
+.lista_battle{
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Crea una griglia con colonne di almeno 300px */
     gap: 20px; /* Imposta la distanza tra gli eventi */
-    padding: 20px;
     max-width: 1200px;
     margin: auto;
 }
 
-.evento {
-    display: flex;
-    flex-direction: row;
+.battle {
     align-items: center;
     justify-content: space-between;
     background-color: #f2f2f2;
