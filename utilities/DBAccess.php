@@ -42,7 +42,7 @@ class DBAccess
         }
     }
 
-    public function getListaEventi($titolo = '', $data = '')
+    public function getListaEventi($titolo = '', $data = '', $filtro = '')
     {
         $query = "SELECT e.id,
         e.titolo,
@@ -62,14 +62,21 @@ class DBAccess
         if ($data != '') {
             $conditions[] = "e.data = '$data'";
         }
+        if ($filtro == 'futuri') {
+            $conditions[] = "e.data >= '" . date('Y-m-d') . "'";
+            $order = 'asc';
+        } else if ($filtro == 'passati') {
+            $conditions[] = "e.data < '" . date('Y-m-d') . "'";
+            $order = 'desc';
+        }
 
         if (!empty($conditions)) {
             $query .= " WHERE " . implode(' AND ', $conditions);
         }
-        $query .= " order by data desc";
+        $query .= " order by data $order";
         return $this->executeSelectQuery($query);
     }
-    
+
     public function getEvento($id)
     {
         $query = "SELECT e.titolo,

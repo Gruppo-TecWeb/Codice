@@ -24,6 +24,7 @@ $connectionOk = $connection->openDBConnection();
 if ($connectionOk) {
     $titolo = isset($_GET['titolo']) ? $_GET['titolo'] : '';
     $data = isset($_GET['data']) ? $_GET['data'] : '';
+    $filtro = isset($_GET['filtro']) ? $_GET['filtro'] : 'futuri';
 
     $listaTitoli = $connection->executeSelectQuery("Select distinct titolo from eventi");
     $opzioniTitoli = '';
@@ -34,7 +35,7 @@ if ($connectionOk) {
     $content = str_replace('{listaTitoli}', $opzioniTitoli, $content);
     $content = str_replace('{data}', $data, $content);
 
-    $lista_eventi = $connection->getlistaEventi($titolo, $data);
+    $lista_eventi = $connection->getListaEventi($titolo, $data, $filtro);
 
     $connection->closeDBConnection();
 
