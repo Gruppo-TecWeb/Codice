@@ -44,9 +44,12 @@ if ($connectionOk) {
     } else {
         $content .= '<div id="lista-eventi">';
         foreach ($lista_eventi as $evento) {
-            $content .= '<div class="evento">';
-            $content .= '<p><a href="evento.php?id=' . urlencode($evento['id']) . '">' . htmlspecialchars($evento['titolo']) . ' ' . htmlspecialchars($evento['data']) . '</a></p>';
-            $content .= '</div>';
+            $content .= '<article>';
+            $content .= '<a href="evento.php?id=' . urlencode($evento['id']) . '">';
+            $content .= '<img src="images/evento' . $evento['id'] . '.jpg">';
+            $content .= '<p>' . htmlspecialchars($evento['titolo']) . ' ' . htmlspecialchars($evento['data']) . '</p>';
+            $content .= '</a>';
+            $content .= '</article>';
         }
         $content .= '</div>';
     }

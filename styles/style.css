@@ -46,19 +46,32 @@ input[type="submit"] {
 
 /* Lista degli eventi */
 #lista-eventi {
-    padding: 10px;
-}
-
-.evento {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 15px;
-    padding: 15px;
+    position: relative;
     text-align: center;
+    margin-top: 0.25rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
-.evento a {
+#lista-eventi article {
+    background-color: #fff;
+    border-radius: 0.5em; 
+    box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.1); 
+    padding: 1em; 
+    text-align: center;
+    flex: 100% 0 1;
+    margin-right: 0em;
+    margin-bottom: 1em;
+    padding: 0.5em;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#lista-eventi article a {
     text-decoration: none;
     display: flex;
     width: 100%;
@@ -67,3 +80,28 @@ input[type="submit"] {
     color: #000;
 }
 
+#lista-eventi article img {
+    max-width: 100%;
+}
+
+#lista-eventi article:last-child{
+    margin-right: 0em;
+}
+
+#lista-eventi article p{
+    flex-grow: 1;
+}
+
+#evento-box {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#evento-box img{
+    max-width: 100%;
+}
+
+#evento-info{
+    padding: 1em;
+}

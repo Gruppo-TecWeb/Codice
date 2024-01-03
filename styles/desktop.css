@@ -36,26 +36,50 @@ input[type="submit"] {
 /* Lista degli eventi */
 #lista-eventi {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Crea una griglia con colonne di almeno 300px */
-    gap: 20px; /* Imposta la distanza tra gli eventi */
-    padding: 20px;
-    max-width: 1200px;
+    grid-template-columns: repeat(auto-fill, minmax(15em, 1fr)); 
+    gap: 1.25em; 
+    padding: 1.25em;
+    max-width: 75em; 
     margin: auto;
 }
 
-.evento {
+#lista-eventi article {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     background-color: #f2f2f2;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 15px;
-    padding: 15px;
+    border-radius: 0.5em; 
+    box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.1); 
+    margin-bottom: 0.9375em; 
+    padding: 0.9375em; 
 }
 
-.evento a {
+#lista-eventi article a {
     text-decoration: none;
     color: #000;
+}
+
+#lista-eventi article img {
+    width: 70%;
+    height: 80%;
+    object-fit: cover; /* Mantiene l'aspetto dell'immagine e la fa coprire completamente il contenitore */
+}
+
+#evento-box {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1.25em;
+    display: flex; /* Aggiunge il layout flexbox */
+}
+
+#evento-box img {
+    width: 20%; /* Imposta una larghezza fissa per l'immagine */
+    height: auto; /* Mantiene l'aspetto dell'immagine */
+    margin-bottom: 1.25em;
+}
+
+#evento-info {
+   margin-left: 1.25em;
 }

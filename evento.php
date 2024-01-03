@@ -30,14 +30,16 @@ if ($connectionOk) {
     if ($titolo == null) {
         $content .= '<p>Evento non trovato</p>';
     } else {
-        $content .= '<div id="' . $eventoId . '">';
-        $content .= '<h2>' . htmlspecialchars($titolo) . '</h2>';
-        $content .= '<p>Data: ' . htmlspecialchars($data) . '</p>';
+        $content .= '<p><a href="eventi.php">Torna alla lista degli eventi</a></p>';
+        $content .= '<h2>' . htmlspecialchars($titolo) . ' ' . htmlspecialchars($data) . '</h2>';
+        $content .= '<div id="evento-box">';
+        $content .= '<img src="images/evento' . $eventoId . '.jpg" alt="">';
+        $content .= '<div id="evento-info">';
         $content .= '<p>Ora: ' . htmlspecialchars($ora) . '</p>';
         $content .= '<p>Luogo: ' . htmlspecialchars($luogo) . '</p>';
         $content .= '<p>Descrizione: ' . htmlspecialchars($descrizione) . '</p>';
         $content .= '<p>Stagione: ' . htmlspecialchars($annoinizio) . ' ' . htmlspecialchars($meseinizio) . '</p>';
-        $content .= '</div>';
+        $content .= '</div></div>';
         $title = $titolo . ' ' . $data;
         $breadcrumbs = get_breadcrumbs(basename('eventi.php', '.php'), $title);
         $title = $title . ' &minus; Fungo';

@@ -95,6 +95,12 @@ INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Stagione) VALUES ('Mi
 INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Stagione) VALUES ('Micelio', NULL, '2023-12-05', '21:00:00', 'Distretto Est (Padova)', 2);
 INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Stagione) VALUES ('Micelio', NULL, '2023-12-12', '21:00:00', 'Distretto Est (Padova)', 2);
 INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Stagione) VALUES ('Micelio', NULL, '2023-12-19', '21:00:00', 'Distretto Est (Padova)', 2);
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Stagione) VALUES ('Micelio', NULL, '2024-12-19', '21:00:00', 'Distretto Est (Padova)', 2);
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Stagione) VALUES ('Micelio', NULL, '2024-10-19', '21:00:00', 'Distretto Est (Padova)', 2);
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Stagione) VALUES ('Micelio', NULL, '2024-9-19', '21:00:00', 'Distretto Est (Padova)', 2);
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Stagione) VALUES ('Micelio', NULL, '2024-8-19', '21:00:00', 'Distretto Est (Padova)', 2);
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Stagione) VALUES ('Micelio', NULL, '2024-7-19', '21:00:00', 'Distretto Est (Padova)', 2);
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Stagione) VALUES ('Micelio', NULL, '2024-11-19', '21:00:00', 'Distretto Est (Padova)', 2);
 
 -- insert di punteggi casuali con gli stessi rapper per tutti gli eventi di tipo 1 o 2
 INSERT INTO Punteggi (Partecipante, Evento, Punteggio) VALUES ('rapper1', 3, 50);
