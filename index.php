@@ -15,3 +15,6 @@ $content = '';
 $onload = '';
 
 echo replace_in_page($indexHTML, $title, $description, $keywords, $pageId, $menu, $breadcrumbs, $content, $onload);
+
+
+//carosello eventi

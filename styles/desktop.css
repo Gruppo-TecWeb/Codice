@@ -1,4 +1,40 @@
-/* TUTTE LE PAGINE (COMUNE) */
+/*
+ * COMUNE
+ */
+
+body {
+    margin-top: 5em;
+}
+
+.navigationHelp {
+    position: absolute;
+    text-indent: -999em;
+}
+
+
+/* 
+ * ERROR
+ */
+
+
+/* 
+ * SUCESS
+ */
+
+
+/* 
+ * FORM
+ */
+
+
+/* 
+ * BUTTON
+ */
+
+
+/* 
+ * HEADER e MENU
+ */
 
 #header {
     display: flex;
@@ -14,36 +50,58 @@
 
 #menu {
     position: unset;
-    transform: unset;
     background-color: unset;
     border: unset;
     border-radius: unset;
     line-height: unset;
     box-sizing: unset;
     padding: unset;
+    text-align: center;
     width: 100%;
     margin: 0 2em;
     transform: translateY(50%);
 }
 
 #menu ul li {
-    font-size: unset;
-    font-weight: unset;
-    text-align: unset;
     display: inline;
-    line-height: unset;
     margin: 0 0.5em;
+}
+
+#menu ul li a {
     padding: 0.6em 1em;
+    line-height: unset;
     cursor: pointer;
     border-radius: 70px;
     background-color: white;
     border: 1px solid black;
-    transition: background-color 0.5s;
+    text-decoration: none;
+    color: black;
+    font-size: 1em;
+    font-weight: bold;
+    transition: border-radius 0.5s, background-color 0.2s;
 }
 
-#menu ul li:hover {
-    background-color: #949494
+#menu ul li a:hover {
+    background-color: #949494;
+    border-radius: 12px;
 }
+
+#menu ul li#currentLink {
+    padding: 0.6em 1em;
+    border: 1px solid black;
+    text-decoration: none;
+    color: black;
+    font-size: 1em;
+    font-weight: bold;
+    transition: border-radius 0.5s, background-color 0.2s;
+    background-color: #949494;
+    border-radius: 12px;
+}
+
+
+/* 
+ * BREADCRUMBS
+ */
 
 #breadcrumbs {
     white-space: unset;
@@ -55,7 +113,6 @@
     border: unset;
     background-color: unset;
     display: block;
-    margin-top: 5em;
 }
 
 #breadcrumbs p {
@@ -73,3 +130,18 @@
     content: url("../images/fungo.svg");
     text-indent: -999em;
 }
+
+
+/* 
+ * MAIN CON MAX WIDTH? solo desktiop
+ */
+
+
+/* 
+ * FOOTER
+ */
+
+
+/*
+ * css classifiche
+ */
