@@ -7,7 +7,7 @@
 /* div modalità freestyle */
 #modalita_freestyle{
     text-align: center;
-    background-color: #d6d6d6;
+    background-color: #ffffff;
     /*Il colore di modalita_freestyle si sovrappone a .battle e rende il colore di .battle più scuro */
 
 }
@@ -19,11 +19,9 @@
     justify-content: space-evenly;
     margin: auto;
 }
-/*
-Che palle, c'è meno spazio occupato a dx
-*/
+
 .battle {
-    background-color: #f701014b;
+    background-color: #feacac;
     opacity: 100%;
     border-radius: 20px;
     border-style: solid;
