@@ -3,61 +3,54 @@
 
 
 /*****************
-/* PAGINA EVENTI */
+/* PAGINA BATTLE */
 /*****************/
 
-/* Form di ricerca */
-.form-container {
-    margin-bottom: 40px;
-}
-
-form {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-label {
-    margin-bottom: 0;
-    margin-right: 10px;
-}
-
-input,
-select {
-    width: auto;
-    margin-bottom: 0;
-}
-
-input[type="submit"] {
-    width: auto;
-    padding: 10px 20px;
-}
-
-/* Lista degli eventi */
-h2{
+/* div modalità freestyle */
+#modalita_freestyle{
     text-align: center;
+    background-color: #d6d6d6;
+    /*Il colore di modalita_freestyle si sovrappone a .battle e rende il colore di .battle più scuro */
+
 }
+/* Lista degli battle */
 #lista_battle{
     display: grid;
     grid-template-columns: repeat(auto-fill, 420px); /* Crea una griglia con colonne di almeno/massimo 300px */
-    gap:60px; /* Imposta la distanza tra gli eventi */
-    max-width: 1600px;
+    gap:40px; /* Imposta la distanza tra gli eventi */
     justify-content: space-evenly;
-    align-content: center;
     margin: auto;
 }
-
 /*
 Che palle, c'è meno spazio occupato a dx
 */
 .battle {
-  
     background-color: #f701014b;
-    border-radius: 8px;
+    opacity: 100%;
+    border-radius: 20px;
     border-style: solid;
-    padding: 5px;
     margin: auto;
+    padding: 0px 10px;
 }
 .battle h3{
     text-align: center;
+    border-style: solid;
+    
+    /*oppure border-radius: 10px;*/
+    border-bottom: 0;
+    padding: 5px;
+
+}
+.battle iframe{
+    border-radius: 50px;
+    
+    
+}
+.battle p{
+    border-style: solid dashed;
+    border-radius: 20px;
+    
+    /*oppure border-radius: 0px 0px 10px 10px;*/
+    border-top: 0;
+    padding: 5px;
 }
