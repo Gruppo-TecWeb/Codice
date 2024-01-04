@@ -8,14 +8,13 @@
 #modalita_freestyle{
     text-align: center;
     background-color: #ffffff;
-    /*Il colore di modalita_freestyle si sovrappone a .battle e rende il colore di .battle più scuro */
 
 }
-/* Lista degli battle */
+/* Lista delle battle */
 #lista_battle{
     display: grid;
     grid-template-columns: repeat(auto-fill, 420px); /* Crea una griglia con colonne di almeno/massimo 300px */
-    gap:40px; /* Imposta la distanza tra gli eventi */
+    gap:40px; /* Imposta la distanza tra le battle */
     justify-content: space-evenly;
     margin: auto;
 }
@@ -45,7 +44,6 @@
 .battle p{
     border-style: solid dashed;
     border-radius: 20px;
-    
     /*oppure border-radius: 0px 0px 10px 10px;*/
     border-top: 0;
     padding: 5px;
