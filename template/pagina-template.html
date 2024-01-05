@@ -16,24 +16,25 @@
 
     <link rel="shortcut icon" type="images/png" href="">
     <!--DA FARE-->
-    <script src=""></script>
-    <!--DA FARE-->
+    <script src="scripts/script.js"></script>
 </head>
 
 <body id="{pageId}" onload="{onload}">
-    <header id="header">
+    <header>
         <nav aria-label="Aiuti alla navigazione">
             <a class="navigationHelp" href="#content">Vai al contenuto</a>
         </nav>
         <h1>Fungo</h1>
-        <nav id="menu" aria-label="site menu">
+        <nav id="menu" aria-label="site menu" opened="false">
             <a class="navigationHelp" href="#content">Salta il menù di navigazione</a> {menu}
         </nav>
     </header>
-
-    <nav id="breadcrumbs" aria-label="Percorso">
-        {breadcrumbs}
-    </nav>
+    <div id="breadcrumbs-container">
+        <nav id="breadcrumbs" aria-label="Percorso">
+            {breadcrumbs}
+        </nav>
+        <button id="btnMenu" onclick="toggleMenu()" aria-hidden="true">Menu</button>
+    </div>
     <main id="content">
         {content}
     </main>
