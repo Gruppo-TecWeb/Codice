@@ -7,44 +7,43 @@
 /* div modalità freestyle */
 #modalita_freestyle{
     text-align: center;
-    background-color: #ffffff;
+    background-color: #7e7c7c;
 
 }
 /* Lista delle battle */
 #lista_battle{
     display: grid;
-    grid-template-columns: repeat(auto-fill, 420px); /* Crea una griglia con colonne di almeno/massimo 300px */
-    gap:40px; /* Imposta la distanza tra le battle */
+    grid-template-columns: repeat(auto-fill, 25em); /* Crea una griglia con colonne di almeno/massimo 300px */
+    gap: 4em; /* Imposta la distanza tra le battle */
     justify-content: space-evenly;
-    margin: auto;
+    
 }
 
 .battle {
-    background-color: #feacac;
-    opacity: 100%;
-    border-radius: 20px;
-    border-style: solid;
     margin: auto;
-    padding: 0px 10px;
+    background-color: #feacac;
+    border-radius: 1em;
+    border-style: solid;
+    padding: 0em 1em;
+    list-style: none;
+    
 }
 .battle h3{
-    text-align: center;
     border-style: solid;
-    
-    /*oppure border-radius: 10px;*/
     border-bottom: 0;
-    padding: 5px;
+    padding: 1em;
 
 }
 .battle iframe{
-    border-radius: 50px;
-    
-    
+    border-radius: 3em;
+
 }
-.battle p{
+.battle dd:last-child{
     border-style: solid dashed;
-    border-radius: 20px;
-    /*oppure border-radius: 0px 0px 10px 10px;*/
+    border-radius: 0px 0px 10px 10px;
     border-top: 0;
-    padding: 5px;
+    padding: 1em;
+}
+.battle dd {
+    margin-left: 0;
 }
