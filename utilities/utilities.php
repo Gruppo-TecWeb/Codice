@@ -6,7 +6,7 @@ const pages_array = [
     'index'         => ['href' => 'index.php',          'anchor' => 'Home',         'lang' => 'en', 'menuOrder' => 1, 'parentId' => ''],
     'eventi'        => ['href' => 'eventi.php',         'anchor' => 'Eventi',       'lang' => '',   'menuOrder' => 2, 'parentId' => 'index'],
     'classifiche'   => ['href' => 'classifiche.php',    'anchor' => 'Classifiche',  'lang' => '',   'menuOrder' => 3, 'parentId' => 'index'],
-    'battle'        => ['href' => 'battle.php',         'anchor' => 'Tipi di <psan lang="en">Battle<span>',       'lang' => 'en', 'menuOrder' => 4, 'parentId' => 'index'],
+    'battle'        => ['href' => 'battle.php',         'anchor' => 'Tipi di <psan lang="en">Battle<span>',       'lang' => '', 'menuOrder' => 4, 'parentId' => 'index'],
     'chi-siamo'     => ['href' => 'chi-siamo.php',      'anchor' => 'Chi siamo',    'lang' => '',   'menuOrder' => 5, 'parentId' => 'index']
 ];
 

@@ -30,9 +30,16 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-body {
+html {
     background-color: var(--bgColor);
-    margin-top: 3em;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-height: 100vh;
+    padding-top: 5em;
     color: var(--txtColor);
 }
 
@@ -62,11 +69,17 @@ body {
  */
 
 
+/*
+ * INPUT
+ */
+
+
 /* 
  * HEADER e MENU
  */
 
-#header {
+header {
+    display: flex;
     position: fixed;
     top: 0;
     left: 0;
@@ -76,72 +89,57 @@ body {
     border-bottom: 2px solid black;
 }
 
-#header img {
-    position: absolute;
-    bottom: 0;
-    height: 3em;
-    transform: rotate(338deg) translateY(50%);
-}
-
-#header h1 {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%, 50%);
+header h1 {
     text-shadow: 0 0 8px #ffffff;
     font-family: Hokia;
     font-size: 3.5em;
-    text-align: center;
-    letter-spacing: 0.15em;
+    margin: 0 0.5em;
     color: var(--txtColor);
 }
 
 #menu {
-    position: fixed;
-    left: 50%;
-    bottom: 5.5em;
-    width: 90%;
-    box-sizing: border-box;
-    transform: translateX(-50%);
-    background-color: var(--secondaryColor);
-    border: 2px solid black;
-    border-radius: 16px;
     text-align: center;
-    padding: 1em 1em;
+    width: 100%;
+    margin: 0 2em;
+    transform: translateY(50%);
 }
 
 #menu ul {
     list-style: none;
 }
 
-#menu ul li {}
+#menu ul li {
+    display: inline;
+    margin: 0 0.5em;
+}
 
 #menu ul li a {
-    line-height: 2.3em;
+    padding: 0.6em 1em;
+    cursor: pointer;
+    border-radius: 70px;
+    background-color: white;
+    border: 1px solid black;
     text-decoration: none;
     color: black;
-    font-size: 2em;
+    font-size: 1em;
     font-weight: bold;
+    transition: border-radius 0.5s, background-color 0.2s;
 }
 
-#menu li#currentLink {
-    line-height: 2.3em;
-    font-size: 2em;
+#menu ul li a:hover {
+    background-color: #949494;
+}
+
+#menu ul li#currentLink {
+    padding: 0.6em 1em;
+    border: 1px solid black;
+    text-decoration: none;
+    border-radius: 70px;
+    color: black;
+    font-size: 1em;
     font-weight: bold;
-    border-radius: 16px;
-    background-color: var(--accentColor);
-}
-
-#menu[opened="false"] {
-    width: 0;
-    transform: translate(-50%, 200%);
-    opacity: 0;
-    transition: transform 0.3s, opacity 0.3s, width 0.3s;
-}
-
-#menu[opened="true"] {
-    opacity: 1;
-    transition: transform 0.3s, opacity 0.6s, width 0.4s;
+    transition: border-radius 0.5s, background-color 0.2s;
+    background-color: #949494;
 }
 
 
@@ -149,47 +147,16 @@ body {
  * BREADCRUMBS
  */
 
-#breadcrumbs {
-    position: fixed;
-    bottom: 2em;
-    left: 50%;
-    max-width: 90%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 16px;
-    border: solid 2px black;
-    background-color: var(--accentColor);
-    overflow: scroll;
-    white-space: nowrap;
-}
+#breadcrumbs-container {}
 
-#breadcrumbs p {
-    font-size: 1.8em;
-}
+#breadcrumbs p {}
 
 #breadcrumbs p a {
     text-decoration: none;
-    color: black;
 }
 
-#breadcrumbs a:first-child {
-    height: 1.5em;
-    content: url("../images/fungo.svg");
-    text-indent: -999em;
-}
-
-#menu-btn {
-    height: 2.5em;
-    margin: 0.8em;
-    content: url("../images/burger_menu.svg");
-    cursor: pointer;
-    text-indent: -999em;
-    border: solid 2px black;
-    background-color: var(--accentColor);
-    border-radius: 6px;
+#btnMenu {
+    display: none;
 }
 
 
@@ -201,6 +168,10 @@ body {
 /* 
  * FOOTER
  */
+
+footer {
+    margin-top: auto;
+}
 
 
 /*
