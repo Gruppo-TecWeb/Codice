@@ -3,11 +3,14 @@
 namespace Utilities;
 
 const pages_array = [
-    'index'         => ['href' => 'index.php',          'anchor' => 'Home',         'lang' => 'en', 'menuOrder' => 1, 'parentId' => ''],
-    'eventi'        => ['href' => 'eventi.php',         'anchor' => 'Eventi',       'lang' => '',   'menuOrder' => 2, 'parentId' => 'index'],
-    'classifiche'   => ['href' => 'classifiche.php',    'anchor' => 'Classifiche',  'lang' => '',   'menuOrder' => 3, 'parentId' => 'index'],
-    'battle'        => ['href' => 'battle.php',         'anchor' => 'Battle',       'lang' => 'en', 'menuOrder' => 4, 'parentId' => 'index'],
-    'chi-siamo'     => ['href' => 'chi-siamo.php',      'anchor' => 'Chi siamo',    'lang' => '',   'menuOrder' => 5, 'parentId' => 'index']
+    'index'         => ['href' => 'index.php',          'anchor' => 'Home',                                     'lang' => 'en', 'menuOrder' => 1, 'parentId' => ''],
+    'eventi'        => ['href' => 'eventi.php',         'anchor' => 'Eventi',                                   'lang' => '',   'menuOrder' => 2, 'parentId' => 'index'],
+    'classifiche'   => ['href' => 'classifiche.php',    'anchor' => 'Classifiche',                              'lang' => '',   'menuOrder' => 3, 'parentId' => 'index'],
+    'battle'        => ['href' => 'battle.php',         'anchor' => 'Tipi di <span lang="en">Battle</span>',    'lang' => '',   'menuOrder' => 4, 'parentId' => 'index'],
+    'chi-siamo'     => ['href' => 'chi-siamo.php',      'anchor' => 'Chi siamo',                                'lang' => '',   'menuOrder' => 5, 'parentId' => 'index'],
+    'login'         => ['href' => 'login.php',          'anchor' => 'Login',                                    'lang' => '',   'menuOrder' => 0, 'parentId' => 'index'],
+    'profilo'       => ['href' => 'profilo.php',        'anchor' => 'Profilo',                                  'lang' => '',   'menuOrder' => 0, 'parentId' => 'index'],
+    'evento'        => ['href' => 'evento.php?id={id}', 'anchor' => '{evento}',                                 'lang' => '',   'menuOrder' => 0, 'parentId' => 'eventi']
 ];
 
 function replace_in_page($pageHTML, $title, $description, $keywords, $pageId, $menu, $breadCrumbs, $content, $onload = '')
@@ -28,16 +31,18 @@ function get_menu($pageId)
 {
     $pages = array();
     foreach (pages_array as $page) {
-        $lang_tag = $page['lang'] ? ' lang="' . $page['lang'] . '"' : '';
-        $isCurrent = $page == pages_array[$pageId];
-        $menuOrder = $page['menuOrder'];
-        $pages[$menuOrder] = '<li';
-        if ($isCurrent) {
-            $pages[$menuOrder] .= ' id="currentLink"' . $lang_tag . '>' . $page['anchor'];
-        } else {
-            $pages[$menuOrder] .= '><a href="' . $page['href'] . '"' . $lang_tag . '>' . $page['anchor'] . '</a>';
+        if ($page['menuOrder'] > 0) {
+            $lang_tag = $page['lang'] ? ' lang="' . $page['lang'] . '"' : '';
+            $isCurrent = $page == pages_array[$pageId];
+            $menuOrder = $page['menuOrder'];
+            $pages[$menuOrder] = '<li';
+            if ($isCurrent) {
+                $pages[$menuOrder] .= ' id="currentLink"' . $lang_tag . '>' . $page['anchor'];
+            } else {
+                $pages[$menuOrder] .= '><a href="' . $page['href'] . '"' . $lang_tag . '>' . $page['anchor'] . '</a>';
+            }
+            $pages[$menuOrder] .= '</li>';
         }
-        $pages[$menuOrder] .= '</li>';
     }
     $menu = '<ul>
             ' . implode('
@@ -58,6 +63,10 @@ function get_breadcrumbs($pageId) {
     $breadcrumbs .= '<span' . $lang_tag . '>' . $page['anchor'] . '</span>';
     $breadcrumbs .= '</p>';
     return $breadcrumbs;
-
-
+}
+function validate_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
 }

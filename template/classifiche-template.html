@@ -1,0 +1,14 @@
+        <h2>Classifiche</h2>
+        <div>
+            <form method="get" action="classifiche.php">
+                <fieldset>
+                    <legend>Puoi visualizzare le classifiche passate dal nostro archivio:</legend>
+                    <label for="classifica">Classifica: </label>
+                    <select id="classifica" name="classifica" required>
+                        {classifica}
+                    </select>
+                    <input type="submit" id="submit" name="submit" value="Visualizza classifica"/>
+                </fieldset>
+            </form>
+        </div>
+        {classifiche}

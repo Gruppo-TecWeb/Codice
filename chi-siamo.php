@@ -15,3 +15,4 @@ $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 
 echo replace_in_page($paginaHTML, $title, $description, $keywords, $pageId, $menu, $breadcrumbs, $contentHTML, $onload);
+?>

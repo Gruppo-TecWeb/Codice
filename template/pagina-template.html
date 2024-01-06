@@ -9,7 +9,7 @@
     <meta name="author" content="Antonio Benetazzo, Alessandro Bressan, Sebastiano Lewental, Riccardo Zaupa">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="styles/style.css" media="handheld, screen">
-    <link rel="stylesheet" type="text/css" href="styles/desktop.css" media="screen and (min-width:601px),
+    <link rel="stylesheet" type="text/css" href="styles/mini.css" media="screen and (max-width:600px),
             only screen and (min-device-width:601px)">
     <link rel="stylesheet" type="text/css" href="styles/print.css" media="print">
 
@@ -18,7 +18,7 @@
 </head>
 
 <body id="{pageId}" onload="{onload}">
-    <header id="header">
+    <header>
         <nav aria-label="Aiuti alla navigazione">
             <a class="navigationHelp" href="#content">Vai al contenuto</a>
         </nav>
@@ -29,7 +29,7 @@
         <a class="navigationHelp" href="#content">Salta il menù di navigazione</a>
         {menu}
     </nav>
-    <nav id="breadcrumb" aria-label="Percorso">
+    <nav id="breadcrumbs" aria-label="Percorso">
         {breadcrumbs}
     </nav>
     <main id="content">
@@ -38,7 +38,7 @@
     <footer>
         <ul>
             <li><a href="https://www.instagram.com/restrainingstirpe">Instagram</a></li>
-            <li><a href="login.html">Login</a></li>
+            <li><a href="login.php">Login</a></li>
             <li><a href="contattaci.html">Contattaci</a></li>
             <li>Pensato e sviluppato da <a href="https://github.com/Gruppo-TecWeb">TecWeb</a>.</li>
         </ul>
