@@ -42,7 +42,7 @@ function get_menu($pageId) {
 }
 
 function get_breadcrumbs($pageId) {
-    $breadcrumbs = '<p><span class="navigationHelp">Ti trovi in: </span>';
+    $breadcrumbs = '<p><span id="ti-trovi-in">Ti trovi in: </span>';
     $page = pages_array[$pageId];
     $parent = $page['parentId'] != '' ? pages_array[$page['parentId']] : '';
     while ($parent != '') {
