@@ -5,6 +5,8 @@ require_once("utilities/utilities.php");
 require_once("utilities/DBAccess.php");
 use DB\DBAccess;
 
+session_start();
+
 $paginaHTML = file_get_contents("template/pagina-template.html");
 $classificheHTML = file_get_contents("template/classifiche-template.html");
 $classificaHTML = file_get_contents("template/classifica-template.html");
@@ -15,6 +17,7 @@ $pageId = basename(__FILE__, '.php');
 $description = 'Classifiche attuali sulla base dei punteggi ottenuti durante le battle di freestyle rap degli eventi Fungo e Micelio.';
 $keywords = 'classifiche, fungo, micelio, freestyle, rap, freestyle rap, battle';
 $menu = get_menu($pageId);
+$reservedMenu = get_reserved_menu(isset($_SESSION["login"]), $pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $content = '';
 $onload = '';
@@ -100,5 +103,5 @@ $connection -> closeDBConnection();
 
 $classificheHTML = str_replace('{classifica}', trim($classifiche), $classificheHTML);
 $classificheHTML = str_replace('{classifiche}', $content, $classificheHTML);
-echo replace_in_page($paginaHTML, $title, $description, $keywords, $pageId, $menu, $breadcrumbs, trim($classificheHTML), $onload);
+echo replace_in_page($paginaHTML, $title, $description, $keywords, $pageId, $menu, $reservedMenu, $breadcrumbs, trim($classificheHTML), $onload);
 ?>

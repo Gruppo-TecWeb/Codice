@@ -94,7 +94,7 @@ class DBAccess
         }
     }
     public function login($username, $password) {
-        $query = "SELECT Username, Email, TipoUtente FROM Utenti WHERE Username = \"$username\";";
+        $query = "SELECT Username, Email, Admin FROM Utenti WHERE Username = \"$username\";";
         $queryResult = mysqli_query($this -> connection, $query) or die("Errore in DBAccess" .mysqli_error($this -> connection));
         $datiUtente = mysqli_fetch_assoc($queryResult);
         $query = "SELECT Password FROM Utenti WHERE Username = \"$username\";";
