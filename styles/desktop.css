@@ -7,7 +7,7 @@
 /* div modalità freestyle */
 #modalita_freestyle{
     text-align: center;
-    background-color: #7e7c7c;
+    background-color: #ebe3e3;
 
 }
 /* Lista delle battle */
@@ -22,7 +22,7 @@
 .battle {
     margin: auto;
     background-color: #feacac;
-    border-radius: 1em;
+    border-radius: 20px;
     border-style: solid;
     padding: 0em 1em;
     list-style: none;
@@ -35,7 +35,9 @@
 
 }
 .battle iframe{
-    border-radius: 3em;
+    width:400;
+    height:170;
+    border-radius: 30px;
 
 }
 .battle dd:last-child{
@@ -46,4 +48,17 @@
 }
 .battle dd {
     margin-left: 0;
+}
+
+#basi{
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 25em); /* Crea una griglia con colonne di almeno/massimo 300px */
+    justify-content: space-evenly;
+}
+.base dd{
+    margin-left: 0;
+}
+.base audio{
+    background-color: #feacac;
 }
