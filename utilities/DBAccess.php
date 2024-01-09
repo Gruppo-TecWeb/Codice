@@ -57,11 +57,11 @@ class DBAccess
             $conditions[] = "e.titolo = '$titolo'";
         }
         if ($data != '') {
-            $conditions[] = "e.data = '$data'";
+            $conditions[] = "e.data >= '$data'";
         }
-        if ($filtro == 'futuri') {
+        $order = 'asc';
+        if ($filtro == '') {
             $conditions[] = "e.data >= '" . date('Y-m-d') . "'";
-            $order = 'asc';
         } else if ($filtro == 'passati') {
             $conditions[] = "e.data < '" . date('Y-m-d') . "'";
             $order = 'desc';

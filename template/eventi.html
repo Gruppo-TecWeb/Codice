@@ -1,20 +1,21 @@
 <h2>Eventi</h2>
 <p>Qui trovi tutti gli eventi in programma</p>
+<div class="filtro-primario">
+    <button onclick="window.location.href='eventi.php?filtro=passati'">&laquo; Passati</button>
+    <button onclick="window.location.href='eventi.php?filtro=tutti'">&forall; Tutti</button>
+    <button onclick="window.location.href='eventi.php'">Prossimi &raquo; </button>
+</div>
 <div class="form-container">
     <form method="get" action="eventi.php">
+        <label for="data">Filtra per a partire da una data</label>
+        <input id='data' type="date" name="data" value="{data}">
         <label for="titolo">Filtra per titolo</label>
         <select name="titolo">
             <option value="" selected>...</option>
             {listaTitoli}
         </select>
-        <label for="data">Filtra per data</label>
-        <input type="date" name="data" value="{data}">
+        <input hidden name="filtro" value="{filtro}">
         <input type="submit" value="Cerca">
         <input type="button" value="Reset" onclick="window.location.href='eventi.php';">
     </form>
-</div>
-<div class="filtro-eventi">
-    <button onclick="window.location.href='eventi.php?filtro=passati'">&laquo; Passati</button>
-    <button onclick="window.location.href='eventi.php?filtro=tutti'">&forall; Tutti</button>
-    <button onclick="window.location.href='eventi.php?filtro=futuri'">Prossimi &raquo; </button>
 </div>
