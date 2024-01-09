@@ -186,36 +186,5 @@ footer {
 
 
 /*
- * HOME
- */
-
-#index {
-    padding-top: unset;
-}
-
-.titoloHome video {
-    height: 100vh;
-    width: 100%;
-    object-fit: cover;
-}
-
-.titolo {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    padding: 1.5em 2em;
-    border-top-left-radius: 12px;
-    border-bottom-left-radius: 12px;
-    border: 2px solid var(--accentColor);
-    background-color: var(--secondaryColor);
-}
-
-h1 {
-    font-family: "Hokia";
-    font-size: 2em;
-}
-
-
-/*
  * css classifiche
  */

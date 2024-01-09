@@ -148,13 +148,15 @@ header h1 {
  * BREADCRUMBS
  */
 
-#breadcrumbs-container {}
+
+/* #breadcrumbs-container {} */
 
 #breadcrumbs p {
     margin-bottom: 2em;
 }
 
-#breadcrumbs p a {}
+
+/* #breadcrumbs p a {} */
 
 #btnMenu {
     display: none;
@@ -187,39 +189,6 @@ footer #footer-credits h6 {
 
 footer ul {
     list-style: none;
-}
-
-
-/*
- * HOME
- */
-
-#index {
-    padding-top: unset;
-}
-
-.titoloHome {
-    height: 100vh;
-}
-
-.titoloHome video {
-    position: absolute;
-    right: 0;
-    height: 100vh;
-    aspect-ratio: 9/16;
-    object-fit: cover;
-    border-left: 2px solid var(--accentColor);
-}
-
-.titolo {
-    position: absolute;
-    top: 50%;
-    padding: 1.5em 2em;
-}
-
-h1 {
-    font-family: "Hokia";
-    font-size: 2em;
 }
 
 
