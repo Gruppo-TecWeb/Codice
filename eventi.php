@@ -46,7 +46,7 @@ if ($connectionOk) {
         foreach ($lista_eventi as $evento) {
             $content .= '<article>';
             $content .= '<a href="evento.php?id=' . urlencode($evento['id']) . '">';
-            $content .= '<img src="images/evento' . $evento['id'] . '.jpg">';
+            $content .= '<img src="images/'.$evento['locandina'].'">';
             $content .= '<p>' . htmlspecialchars($evento['titolo']) . ' ' . htmlspecialchars($evento['data']) . '</p>';
             $content .= '</a>';
             $content .= '</article>';

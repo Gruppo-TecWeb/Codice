@@ -89,6 +89,11 @@ INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('M
 INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Micelio', NULL, '2023-12-05', '21:00:00', 'Distretto Est (Padova)', 'micelio.jpg');
 INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Micelio', NULL, '2023-12-12', '21:00:00', 'Distretto Est (Padova)', 'micelio.jpg');
 INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Micelio', NULL, '2023-12-19', '21:00:00', 'Distretto Est (Padova)', 'micelio.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Micelio', NULL, '2024-02-19', '21:00:00', 'Distretto Est (Padova)', 'micelio.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Micelio', NULL, '2024-03-19', '21:00:00', 'Distretto Est (Padova)', 'micelio.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Micelio', NULL, '2024-01-19', '21:00:00', 'Distretto Est (Padova)', 'micelio.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Micelio', NULL, '2024-04-19', '21:00:00', 'Distretto Est (Padova)', 'micelio.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Micelio', NULL, '2024-12-19', '21:00:00', 'Distretto Est (Padova)', 'micelio.jpg');
 
 INSERT INTO ClassificheEventi (TipoEvento, DataInizio, Evento) VALUES ('Fungo', '2023-09-05', 3);
 INSERT INTO ClassificheEventi (TipoEvento, DataInizio, Evento) VALUES ('Fungo', '2023-09-05', 4);

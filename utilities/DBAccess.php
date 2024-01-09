@@ -50,11 +50,8 @@ class DBAccess
         e.data,
         e.ora,
         e.luogo,
-        s.annoinizio,
-        s.meseinizio,
-        s.tipoevento
-        FROM eventi as e
-        join stagioni as s on e.stagione = s.id";
+        e.locandina
+        FROM eventi as e";
         $conditions = [];
         if ($titolo != '') {
             $conditions[] = "e.titolo = '$titolo'";
@@ -83,12 +80,8 @@ class DBAccess
         e.descrizione,
         e.data,
         e.ora,
-        e.luogo,
-        s.annoinizio,
-        s.meseinizio,
-        s.tipoevento
+        e.luogo
         FROM eventi as e
-        join stagioni as s on e.stagione = s.id 
         where e.id = $id";
         return $this->executeSelectQuery($query)[0];
     }
