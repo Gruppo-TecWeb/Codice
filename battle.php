@@ -29,7 +29,7 @@ if($connectionOk)
         $percorso=$base['nome'];
         $lista_basi.="<li class='base'> <dl> <dt>";
         $lista_basi.=$titolo;
-        $lista_basi.="</dt> <dd> <audio controls> <source src='";
+        $lista_basi.="</dt> <dd> <audio> <source src='";
         $lista_basi.=$percorso;
         $lista_basi.="'type='audio/mp3'> </audio> </dd> </dl> </li>";
     }
