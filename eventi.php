@@ -26,34 +26,35 @@ if ($connectionOk) {
     $data = isset($_GET['data']) ? $_GET['data'] : '';
     $filtro = isset($_GET['filtro']) ? $_GET['filtro'] : '';
 
-    $listaTitoli = $connection->executeSelectQuery("Select distinct titolo from eventi");
-    $opzioniTitoli = '';
-    foreach ($listaTitoli as $evento) {
+    $lista_titoli_array = $connection->executeSelectQuery("Select distinct titolo from eventi");
+    $lista_titoli_string = '';
+    foreach ($lista_titoli_array as $evento) {
         $selected = ($evento['titolo'] == $titolo) ? ' selected' : '';
-        $opzioniTitoli .= "<option value='" . $evento['titolo'] . "'" . $selected . ">" . $evento['titolo'] . "</option>";
+        $lista_titoli_string .= "<option value='" . $evento['titolo'] . "'" . $selected . ">" . $evento['titolo'] . "</option>";
     }
-    $content = str_replace('{listaTitoli}', $opzioniTitoli, $content);
-    $content = str_replace('{data}', $data, $content);
-    $content = str_replace('{filtro}', $filtro, $content);
 
-    $lista_eventi = $connection->getListaEventi($titolo, $data, $filtro);
+    $lista_eventi_array = $connection->getListaEventi($titolo, $data, $filtro);
 
     $connection->closeDBConnection();
-
-    if ($lista_eventi == null) {
-        $content .= '<p>Non ci sono eventi in programma</p>';
+    $lista_eventi_string = '';
+    if ($lista_eventi_array == null) {
+        $lista_eventi_string .= '<p>Non ci sono eventi in programma</p>';
     } else {
-        $content .= '<div id="lista-eventi">';
-        foreach ($lista_eventi as $evento) {
-            $content .= '<article>';
-            $content .= '<a href="evento.php?id=' . urlencode($evento['id']) . '">';
-            $content .= '<img src="images/'.$evento['locandina'].'">';
-            $content .= '<p>' . htmlspecialchars($evento['titolo']) . ' ' . htmlspecialchars($evento['data']) . '</p>';
-            $content .= '</a>';
-            $content .= '</article>';
+        foreach ($lista_eventi_array as $evento) {
+            $lista_eventi_string .= '<article>';
+            $lista_eventi_string .= '<a href="evento.php?id=' . urlencode($evento['id']) . '">';
+            $lista_eventi_string .= '<img src="images/' . $evento['locandina'] . '">';
+            $lista_eventi_string .= '<p>' . htmlspecialchars($evento['titolo']) . ' ' . htmlspecialchars($evento['data']) . '</p>';
+            $lista_eventi_string .= '</a>';
+            $lista_eventi_string .= '</article>';
         }
-        $content .= '</div>';
     }
+    $content = multi_replace($content, [
+        '{listaTitoli}' => $lista_titoli_string,
+        '{data}' => $data,
+        '{filtro}' => $filtro,
+        '{listaEventi}' => $lista_eventi_string,
+    ]);
 }
 
 echo replace_in_page($eventiHTML, $title, $description, $keywords, $pageId, $menu, $breadcrumbs, $content, $onload);
