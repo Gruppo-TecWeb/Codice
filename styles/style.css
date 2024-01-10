@@ -1,16 +1,10 @@
-/*
- * parti comuni a tutte le pagine
- */
+/* TUTTE LE PAGINE (COMUNE) */
 
- .navigationHelp {
+.navigationHelp {
     position: absolute;
     text-indent: -999em;
 }
 
-/*
- * css classifiche
- */
- 
 
 /*****************
 /* PAGINA EVENTI */
@@ -18,90 +12,78 @@
 
 /* Form di ricerca */
 .form-container {
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
 form {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
 }
 
 label {
-    margin-bottom: 5px;
+    margin-bottom: 0;
+    margin-right: 10px;
 }
 
-input, select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
+input,
+select {
+    width: auto;
+    margin-bottom: 0;
 }
 
 input[type="submit"] {
-    background-color: #4CAF50;
-    color: #fff;
-    cursor: pointer;
+    width: auto;
+    padding: 10px 20px;
 }
 
 /* Lista degli eventi */
 #lista-eventi {
-    position: relative;
-    text-align: center;
-    margin-top: 0.25rem;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15em, 1fr)); 
+    gap: 1.25em; 
+    padding: 1.25em;
+    max-width: 75em; 
+    margin: auto;
 }
 
 #lista-eventi article {
-    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f2f2f2;
     border-radius: 0.5em; 
     box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.1); 
-    padding: 1em; 
-    text-align: center;
-    flex: 100% 0 1;
-    margin-right: 0em;
-    margin-bottom: 1em;
-    padding: 0.5em;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    margin-bottom: 0.9375em; 
+    padding: 0.9375em; 
 }
 
 #lista-eventi article a {
     text-decoration: none;
-    display: flex;
-    width: 100%;
-    height: 100%;
-    display: block;
     color: #000;
 }
 
 #lista-eventi article img {
-    max-width: 100%;
-}
-
-#lista-eventi article:last-child{
-    margin-right: 0em;
-}
-
-#lista-eventi article p{
-    flex-grow: 1;
+    width: 70%;
+    height: 80%;
+    object-fit: cover; /* Mantiene l'aspetto dell'immagine e la fa coprire completamente il contenitore */
 }
 
 #evento-box {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1.25em;
+    display: flex; /* Aggiunge il layout flexbox */
 }
 
-#evento-box img{
-    max-width: 100%;
+#evento-box img {
+    width: 20%; /* Imposta una larghezza fissa per l'immagine */
+    height: auto; /* Mantiene l'aspetto dell'immagine */
+    margin-bottom: 1.25em;
 }
 
-#evento-info{
-    padding: 1em;
+#evento-info {
+   margin-left: 1.25em;
 }

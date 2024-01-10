@@ -71,3 +71,27 @@ function get_breadcrumbs($pageId, $other = '')
     $breadcrumbs .= '</p>';
     return $breadcrumbs;
 }
+
+function formattaData($data) {
+    $mesi = [
+        1 => 'gennaio',
+        2 => 'febbraio',
+        3 => 'marzo',
+        4 => 'aprile',
+        5 => 'maggio',
+        6 => 'giugno',
+        7 => 'luglio',
+        8 => 'agosto',
+        9 => 'settembre',
+        10 => 'ottobre',
+        11 => 'novembre',
+        12 => 'dicembre'
+    ];
+
+    $dataOggetto = date_create_from_format('Y-m-d', $data);
+    $giorno = $dataOggetto->format('j');
+    $mese = $mesi[(int)$dataOggetto->format('n')];
+    $anno = $dataOggetto->format('Y');
+
+    return $giorno . ' ' . $mese . ' ' . $anno;
+}
