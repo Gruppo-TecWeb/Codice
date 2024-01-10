@@ -3,7 +3,7 @@
  */
 
 body {
-    padding-top: 4em;
+    padding-top: 3.5em;
 }
 
 .limitedWidth {
@@ -62,14 +62,14 @@ header h1 {
 #menu {
     position: fixed;
     left: 50%;
-    bottom: 5.5em;
+    bottom: 6em;
     box-sizing: border-box;
     width: 90%;
     margin: 0;
     padding: 1em 1em;
     z-index: var(--elevationHigh);
     transform: translateX(-50%);
-    border-radius: 16px;
+    border-radius: 8px;
     border: 2px solid var(--accentColor);
     background-color: var(--secondaryColor);
 }
@@ -87,9 +87,8 @@ header h1 {
     display: block;
     line-height: 2em;
     font-size: 1.5em;
-    border-radius: 16px;
+    border-radius: 3px;
     font-weight: bold;
-    color: var(--txtColor);
 }
 
 #menu ul li a:hover {
@@ -103,21 +102,20 @@ header h1 {
     transition: unset;
     line-height: 2em;
     font-size: 1.5em;
-    border-radius: 16px;
+    border-radius: 3px;
     font-weight: bold;
     background-color: var(--accentColor);
 }
 
-#menu[opened="false"] {
-    width: 0;
+#menu[data-opened="false"] {
     transform: translate(-50%, 200%);
     opacity: 0.1;
-    transition: transform 0.3s, opacity 0.3s, width 0.3s;
+    transition: transform 0.3s, opacity 0.3s;
 }
 
-#menu[opened="true"] {
+#menu[data-opened="true"] {
     opacity: 1;
-    transition: transform 0.3s, opacity 0.6s, width 0.4s;
+    transition: transform 0.3s, opacity 0.6s;
 }
 
 
@@ -130,21 +128,29 @@ header h1 {
     bottom: 2em;
     left: 50%;
     transform: translateX(-50%);
+    box-sizing: border-box;
+    min-width: 50%;
     max-width: 90%;
+    margin: 0;
+    padding: 0.5em;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     z-index: var(--elevationHigh);
-    border-radius: 16px;
+    border-radius: 8px;
     border: solid 2px black;
     background-color: var(--accentColor);
+    transition: min-width 0.5s;
+}
+
+#breadcrumbs {
+    margin-right: 0.5em;
     overflow: scroll;
     white-space: nowrap;
 }
 
 #breadcrumbs p {
-    margin: 0.5em;
     font-size: 1.2em;
 }
 
@@ -153,15 +159,13 @@ header h1 {
     text-indent: -999em;
 }
 
-#breadcrumbs p a {
-    color: var(--txtColor);
-}
+#breadcrumbs p a {}
 
 #btnMenu {
     display: block;
     height: 2.5em;
     content: url("../images/burger_menu.svg");
-    border-radius: 6px;
+    border-radius: 4px;
     border: solid 2px black;
     background-color: var(--accentColor);
 }
@@ -177,10 +181,12 @@ header h1 {
  */
 
 footer {
+    width: 90%;
+    box-sizing: border-box;
     margin-bottom: 6em;
-    margin-inline: 1.5em;
+    margin-inline: auto;
     padding: 1em 1em;
-    border-radius: 12px;
+    border-radius: 8px;
     border: solid 2px var(--accentColor);
 }
 

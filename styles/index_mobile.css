@@ -2,11 +2,21 @@
  * HOME
  */
 
+#breadcrumbs-container {
+    position: fixed;
+    left: 50%;
+    top: unset;
+    right: unset;
+}
+
 #index {
     padding-top: unset;
 }
 
 .titoloHome video {
+    position: unset;
+    aspect-ratio: unset;
+    border-left: unset;
     height: 100vh;
     width: 100%;
     object-fit: cover;
@@ -17,8 +27,8 @@
     top: 50%;
     right: 0;
     padding: 1.5em 2em;
-    border-top-left-radius: 12px;
-    border-bottom-left-radius: 12px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
     border: 2px solid var(--accentColor);
     background-color: var(--secondaryColor);
 }

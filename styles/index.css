@@ -1,6 +1,13 @@
 /*
- * HOME
- */
+* HOME
+*/
+
+#breadcrumbs-container {
+    position: absolute;
+    left: 0;
+    top: 5em;
+    right: 0;
+}
 
 #index {
     padding-top: unset;
@@ -28,11 +35,4 @@
 h1 {
     font-family: "Hokia";
     font-size: 2em;
-}
-
-#breadcrumbs-container {
-    position: absolute;
-    left: 0;
-    top: 5em;
-    right: 0;
 }
