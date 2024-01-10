@@ -49,16 +49,16 @@
 .battle dd {
     margin-left: 0;
 }
-
-#basi{
+#prova_tu{
+    text-align: center;
+}
+#lista_basi{
     list-style: none;
     display: grid;
     grid-template-columns: repeat(auto-fill, 25em); /* Crea una griglia con colonne di almeno/massimo 300px */
     justify-content: space-evenly;
+    background-color: #ebe3e3;
 }
 .base dd{
     margin-left: 0;
-}
-.base audio{
-    background-color: #feacac;
 }
