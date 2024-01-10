@@ -72,7 +72,7 @@ function get_breadcrumbs($pageId, $other = '')
     return $breadcrumbs;
 }
 
-function formattaData($data) {
+function format_date($data) {
     $mesi = [
         1 => 'gennaio',
         2 => 'febbraio',
