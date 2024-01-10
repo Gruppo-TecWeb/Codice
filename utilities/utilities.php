@@ -10,6 +10,14 @@ const pages_array = [
     'chi-siamo'     => ['href' => 'chi-siamo.php',      'anchor' => 'Chi siamo',    'lang' => '',   'menuOrder' => 5, 'parentId' => 'index']
 ];
 
+function multi_replace($source, $replacements)
+{
+    foreach ($replacements as $key => $value) {
+        $source = str_replace($key, $value, $source);
+    }
+    return $source;
+}
+
 function replace_in_page($pageHTML, $title, $description, $keywords, $pageId, $menu, $breadCrumbs, $content, $onload = '')
 {
     $pageHTML = str_replace("{title}", $title, $pageHTML);
