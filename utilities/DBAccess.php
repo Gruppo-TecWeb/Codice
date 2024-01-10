@@ -80,8 +80,12 @@ class DBAccess
         e.descrizione,
         e.data,
         e.ora,
-        e.luogo
+        e.luogo,
+        e.locandina,
+        ce.tipoevento,
+        ce.datainizio
         FROM eventi as e
+        left join classificheeventi as ce on e.id = ce.evento
         where e.id = $id";
         return $this->executeSelectQuery($query)[0];
     }

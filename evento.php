@@ -24,22 +24,23 @@ $connectionOk = $connection->openDBConnection();
 
 $eventoId = $_GET['id'];
 if ($connectionOk) {
-    [$titolo, $descrizione, $data, $ora, $luogo, $annoinizio, $meseinizio, $tipoevento] = $connection->getEvento($eventoId);
+    [$titolo, $descrizione, $data, $ora, $luogo, $locandina, $tipoEvento, $dataInizioClassifica] = $connection->getEvento($eventoId);
     $connection->closeDBConnection();
 
     if ($titolo == null) {
         $content .= '<p>Evento non trovato</p>';
     } else {
-        $content .= '<p><a href="eventi.php">Torna alla lista degli eventi</a></p>';
-        $content .= '<h2>' . htmlspecialchars($titolo) . ' ' . htmlspecialchars($data) . '</h2>';
-        $content .= '<div id="evento-box">';
-        $content .= '<img src="images/evento' . $eventoId . '.jpg" alt="">';
-        $content .= '<div id="evento-info">';
-        $content .= '<p>Ora: ' . htmlspecialchars($ora) . '</p>';
-        $content .= '<p>Luogo: ' . htmlspecialchars($luogo) . '</p>';
-        $content .= '<p>Descrizione: ' . htmlspecialchars($descrizione) . '</p>';
-        $content .= '<p>Stagione: ' . htmlspecialchars($annoinizio) . ' ' . htmlspecialchars($meseinizio) . '</p>';
-        $content .= '</div></div>';
+        $content = file_get_contents("template/evento.html");
+        $content = multi_replace($content, [
+            '{titolo}' => $titolo,
+            '{descrizione}' => $descrizione,
+            '{data}' => $data,
+            '{ora}' => $ora,
+            '{luogo}' => $luogo,
+            '{locandina}' => $locandina,
+            '{tipoEvento}' => $tipoEvento,
+            '{dataInizioClassifica}' => $dataInizioClassifica
+        ]);
         $title = $titolo . ' ' . $data;
         $breadcrumbs = get_breadcrumbs(basename('eventi.php', '.php'), $title);
         $title = $title . ' &minus; Fungo';
