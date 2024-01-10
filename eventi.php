@@ -16,7 +16,7 @@ $keywords = '';
 $menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $content = file_get_contents("template/eventi.html");
-$onload = '';
+$onload = 'init();';
 
 $connection = new DBAccess();
 $connectionOk = $connection->openDBConnection();
@@ -33,7 +33,7 @@ if ($connectionOk) {
         $lista_titoli_string .= "<option value='" . $evento['titolo'] . "'" . $selected . ">" . $evento['titolo'] . "</option>";
     }
 
-    $lista_eventi_array = $connection->getListaEventi($titolo, $data, $filtro);
+    $lista_eventi_array = $connection->getListaEventi($filtro, $data, $titolo);
 
     $connection->closeDBConnection();
     $lista_eventi_string = '';

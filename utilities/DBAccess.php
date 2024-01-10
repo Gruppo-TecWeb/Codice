@@ -42,7 +42,7 @@ class DBAccess
         }
     }
 
-    public function getListaEventi($titolo = '', $data = '', $filtro = '')
+    public function getListaEventi($filtro = '', $data = '', $titolo = '')
     {
         $query = "SELECT e.id,
         e.titolo,
@@ -53,18 +53,24 @@ class DBAccess
         e.locandina
         FROM eventi as e";
         $conditions = [];
+        $order = 'asc';
+        switch ($filtro) {
+            case 'passati':
+                $conditions[] = "e.data < '" . date('Y-m-d') . "'";
+                $order = 'desc';
+                break;
+            case 'tutti':
+                break;
+            case 'data':
+                $conditions[] = "e.data >= '$data'";
+                break;
+            default:
+                $conditions[] = "e.data >= '" . date('Y-m-d') . "'";
+                break;
+        }
+
         if ($titolo != '') {
             $conditions[] = "e.titolo = '$titolo'";
-        }
-        if ($data != '') {
-            $conditions[] = "e.data >= '$data'";
-        }
-        $order = 'asc';
-        if ($filtro == '') {
-            $conditions[] = "e.data >= '" . date('Y-m-d') . "'";
-        } else if ($filtro == 'passati') {
-            $conditions[] = "e.data < '" . date('Y-m-d') . "'";
-            $order = 'desc';
         }
 
         if (!empty($conditions)) {

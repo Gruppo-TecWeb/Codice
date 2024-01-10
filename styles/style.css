@@ -11,6 +11,23 @@
 /*****************/
 
 /* Form di ricerca */
+.filtro-primario a {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #000;
+    border: 1px solid #000;
+    transition: background-color 0.3s ease;
+}
+
+.filtro-primario a:hover {
+    background-color: #ccc;
+}
+
+.filtro-primario a.selected {
+    background-color: #f00; /* Cambia questo al colore che preferisci */
+}
+
 .form-container {
     margin-bottom: 40px;
 }
