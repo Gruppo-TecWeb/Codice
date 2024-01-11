@@ -20,7 +20,6 @@ if ($connectionOk) {
             $errore = false;
             $username = trim(filter_var($_POST["username"], FILTER_SANITIZE_STRING));
             $password = trim(filter_var($_POST["password"], FILTER_SANITIZE_STRING));
-            $note = trim(filter_var($_POST["note"], FILTER_SANITIZE_STRING));
             if ($username == "") {
                 $errore = true;
                 $messaggiPerForm .= "<li>Inserire Username.</li>";
