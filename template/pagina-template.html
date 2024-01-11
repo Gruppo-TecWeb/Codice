@@ -20,7 +20,7 @@
     <script src="scripts/script.js"></script>
 </head>
 
-<body id="{pageId}" onload="{onload}">
+<body id="{pageId}" onload="{onload}" data-menu-open="false">
     <header>
         <nav aria-label="Aiuti alla navigazione">
             <a class="navigationHelp" href="#content">Vai al contenuto</a>
@@ -28,11 +28,11 @@
         <a id="header-title" href="index.php">
             <h1>Fungo</h1>
         </a>
-        <nav id="menu" aria-label="site menu" data-opened="false">
+        <nav id="menu" aria-label="site menu" data-menu-open="false">
             <a class="navigationHelp" href="#content">Salta il menù di navigazione</a> {menu}
         </nav>
     </header>
-    <div class="limitedWidth" id="breadcrumbs-container">
+    <div class="limitedWidth" id="breadcrumbs-container" data-menu-open="false">
         <nav id="breadcrumbs" aria-label="Percorso">
             {breadcrumbs}
         </nav>

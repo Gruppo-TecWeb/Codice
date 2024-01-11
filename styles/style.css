@@ -9,7 +9,8 @@
     --accentColor: #EF754A;
     --secondaryColor: #262626;
     --linkColor: #00b4ff;
-    --visitedLinkColor: #ffd7bb;
+    --linkVisitedColor: #ffd7bb;
+    --linkHoverBgColor: #84848477;
     --successColor: #ACC3A6;
     --errorColor: #a00;
     --widthMax: 1024px;
@@ -52,8 +53,14 @@ a:link {
     color: var(--linkColor);
 }
 
+a:hover {
+    /* background-color: var(--linkHoverBgColor); */
+    text-decoration: underline;
+    text-decoration-color: var(--accentColor);
+}
+
 a:visited {
-    color: var(--visitedLinkColor);
+    color: var(--linkVisitedColor);
 }
 
 .navigationHelp {
@@ -167,7 +174,7 @@ header a h1 {
 
 #menu ul li {
     display: inline-block;
-    margin: 0 0.3em;
+    margin-inline: 0.3em;
 }
 
 #menu ul li a {
@@ -197,20 +204,9 @@ header a h1 {
     margin-block: 1em;
 }
 
-
-/* #breadcrumbs p {} */
-
-
-/* #breadcrumbs p a {} */
-
 #btnMenu {
     display: none;
 }
-
-
-/* 
- * MAIN CON MAX WIDTH? solo desktiop
- */
 
 
 /* 

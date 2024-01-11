@@ -4,7 +4,7 @@ function toggleMenu() {
     var nav = document.getElementById("menu");
     var bcContainer = document.getElementById("breadcrumbs-container");
     navOpened = !navOpened;
-    nav.setAttribute("data-opened", navOpened);
-    bcContainer.style.minWidth = navOpened ? "90%" : "";
-    document.body.style.overflowY = navOpened ? "hidden" : "unset";
+    nav.setAttribute("data-menu-open", navOpened);
+    bcContainer.setAttribute("data-menu-open", navOpened);
+    document.body.setAttribute("data-menu-open", navOpened);
 }
