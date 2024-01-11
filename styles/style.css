@@ -234,5 +234,40 @@ footer ul {
 
 
 /*
- * css classifiche
- */
+* HOME
+*/
+
+#index #breadcrumbs-container {
+    position: absolute;
+    left: 0;
+    top: 5em;
+    right: 0;
+}
+
+#index {
+    padding-top: unset;
+}
+
+#titoloHome {
+    height: 100vh;
+}
+
+.titoloHome video {
+    position: absolute;
+    right: 0;
+    height: 100vh;
+    aspect-ratio: 9/16;
+    object-fit: cover;
+    border-left: 2px solid var(--accentColor);
+}
+
+#titolo {
+    position: absolute;
+    top: 50%;
+    padding: 1.5em 2em;
+}
+
+#index h1 {
+    font-family: "Hokia";
+    font-size: 2em;
+}

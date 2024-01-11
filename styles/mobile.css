@@ -174,6 +174,7 @@ header a h1 {
 #btnMenu {
     display: block;
     height: 2.5em;
+    align-self: 1;
     /* aspect-ratio: 1; */
     background-size: 100%;
     background-repeat: no-repeat;
@@ -215,5 +216,41 @@ footer {
 
 
 /*
- * css classifiche
+ * HOME
  */
+
+#index #breadcrumbs-container {
+    position: fixed;
+    left: 50%;
+    top: unset;
+    right: unset;
+}
+
+#index {
+    padding-top: unset;
+}
+
+#titoloHome video {
+    position: unset;
+    aspect-ratio: unset;
+    border-left: unset;
+    height: 100vh;
+    width: 100%;
+    object-fit: cover;
+}
+
+#titolo {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    padding: 1.5em 2em;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border: 2px solid var(--accentColor);
+    background-color: var(--secondaryColor);
+}
+
+#index h1 {
+    font-family: "Hokia";
+    font-size: 2em;
+}
