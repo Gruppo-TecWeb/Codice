@@ -30,8 +30,7 @@ function replace_in_page($pageHTML, $title, $description, $keywords, $pageId, $m
     return $pageHTML;
 }
 
-function get_menu($pageId)
-{
+function get_menu($pageId) {
     $pages = array();
     foreach (pages_array as $page) {
         if ($page['menuOrder'] > 0) {
@@ -111,13 +110,13 @@ function get_reserved_menu($logged, $pageId) {
 }
 
 function get_breadcrumbs($pageId) {
-    $breadcrumbs = '<p>Ti trovi in: ';
+    $breadcrumbs = '<p><span id="ti-trovi-in">Ti trovi in: </span>';
     $page = pages_array[$pageId];
-    $parent = pages_array[$page['parentId']];
+    $parent = $page['parentId'] != '' ? pages_array[$page['parentId']] : '';
     while ($parent != '') {
         $lang_tag = $parent['lang'] ? ' lang="' . $parent['lang'] . '"' : '';
-        $breadcrumbs .= '<a href="' . $parent['href'] . '"' . $lang_tag . '>' . $parent['anchor'] . '</a> &gt;&gt; ';
-        $parent = pages_array[$parent['parentId']];
+        $breadcrumbs .= '<a href="' . $parent['href'] . '"' . $lang_tag . '>' . $parent['anchor'] . '</a> <span aria-hidden="true">&rsaquo;&rsaquo; </span>';
+        $parent = $parent['parentId'] != '' ? pages_array[$parent['parentId']] : '';
     }
     $lang_tag = $page['lang'] ? ' lang="' . $page['lang'] . '"' : '';
     $breadcrumbs .= '<span' . $lang_tag . '>' . $page['anchor'] . '</span>';
