@@ -45,6 +45,8 @@ if ($connectionOk) {
         $breadcrumbs = get_breadcrumbs(basename('eventi.php', '.php'), $title);
         $title = $title . ' &minus; Fungo';
     }
+} else {
+    $content = "I sistemi sono momentaneamente fuori servizio, ci scusiamo per il disagio";
 }
 
 echo replace_in_page($eventiHTML, $title, $description, $keywords, $pageId, $menu, $breadcrumbs, $content, $onload);

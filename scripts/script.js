@@ -1,4 +1,4 @@
-function init() {
+function init_eventi() {
     var urlParams = new URLSearchParams(window.location.search);
     var filtro = urlParams.get('filtro');
     setFilter(filtro);

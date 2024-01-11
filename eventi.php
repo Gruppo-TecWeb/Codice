@@ -16,7 +16,7 @@ $keywords = '';
 $menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $content = file_get_contents("template/eventi.html");
-$onload = 'init();';
+$onload = 'init_eventi();';
 
 $connection = new DBAccess();
 $connectionOk = $connection->openDBConnection();
@@ -56,6 +56,8 @@ if ($connectionOk) {
         '{filtro}' => $filtro,
         '{listaEventi}' => $lista_eventi_string,
     ]);
+} else {
+    $content = "<p>I sistemi sono momentaneamente fuori servizio, ci scusiamo per il disagio</p>";
 }
 
 echo replace_in_page($eventiHTML, $title, $description, $keywords, $pageId, $menu, $breadcrumbs, $content, $onload);

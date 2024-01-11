@@ -60,6 +60,7 @@ class DBAccess
                 $order = 'desc';
                 break;
             case 'tutti':
+                $order = 'desc';
                 break;
             case 'data':
                 $conditions[] = "e.data >= '$data'";
