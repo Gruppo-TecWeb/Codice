@@ -25,7 +25,6 @@ $connection = new DBAccess();
 $connectionOk = $connection -> openDBConnection();
 
 if ($connectionOk) {
-    session_start();
     if (isset($_SESSION["login"])) {
         header("location: profilo.php");
     }
