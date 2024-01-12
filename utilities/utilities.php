@@ -15,14 +15,13 @@ const pages_array = [
     'evento'      => ['href' => 'evento.php?id={id}', 'anchor' => '{evento}',                              'lang' => '',   'menuOrder' => 0, 'parentId' => 'eventi']
 ];
 
-function replace_in_page($pageHTML, $title, $description, $keywords, $pageId, $menu, $reservedMenu, $breadCrumbs, $content, $onload = '')
+function replace_in_page($pageHTML, $title, $description, $keywords, $pageId, $menu, $breadCrumbs, $content, $onload = '')
 {
     $pageHTML = str_replace("{title}", $title, $pageHTML);
     $pageHTML = str_replace("{description}", $description, $pageHTML);
     $pageHTML = str_replace("{keywords}", $keywords, $pageHTML);
     $pageHTML = str_replace("{pageId}", $pageId, $pageHTML);
     $pageHTML = str_replace("{menu}", $menu, $pageHTML);
-    $pageHTML = str_replace("{reserved}", $reservedMenu, $pageHTML);
     $pageHTML = str_replace("{breadcrumbs}", $breadCrumbs, $pageHTML);
     $pageHTML = str_replace("{content}", $content, $pageHTML);
     $pageHTML = str_replace("{onload}", $onload, $pageHTML);
@@ -30,7 +29,7 @@ function replace_in_page($pageHTML, $title, $description, $keywords, $pageId, $m
     return $pageHTML;
 }
 
-function get_menu($pageId) {
+function get_menu($logged, $pageId) {
     $pages = array();
     foreach (pages_array as $page) {
         if ($page['menuOrder'] > 0) {
@@ -46,63 +45,52 @@ function get_menu($pageId) {
             $pages[$menuOrder] .= '</li>';
         }
     }
-    $menu = '<ul>
-            ' . implode('
-            ', $pages) . '</ul>';
+    $menu = '' . implode('
+            ', $pages) . get_reserved_menu($logged, $pageId) . '';
     return $menu;
 }
 function get_reserved_menu($logged, $pageId) {
     if ($logged) {
         switch ($pageId) {
             case 'profilo':
-                $menu = '<ul>
-                        <li id="currentLink"' . (pages_array['profilo']['lang']? ' lang="' . pages_array['profilo']['lang'] . '"' : '')
+                $menu = '<li id="currentLink"' . (pages_array['profilo']['lang']? ' lang="' . pages_array['profilo']['lang'] . '"' : '')
                         .'>'.pages_array['profilo']['anchor'].'</li>
                         <li><a href="' . pages_array['logout']['href'] . '"'
                         . (pages_array['logout']['lang']? ' lang="' . pages_array['logout']['lang'] . '"' : '')
-                        .'>'.pages_array['logout']['anchor'].'</a></li>
-                    </ul>';
+                        .'>'.pages_array['logout']['anchor'].'</a></li>';
                 break;
             default:
-                $menu = '<ul>
-                    <li><a href="' . pages_array['profilo']['href'] . '"'
+                $menu = '<ul><li><a href="' . pages_array['profilo']['href'] . '"'
                     . (pages_array['profilo']['lang']? ' lang="' . pages_array['profilo']['lang'] . '"' : '')
                     .'>'.pages_array['profilo']['anchor'].'</a></li>
                     <li><a href="' . pages_array['logout']['href'] . '"'
                     . (pages_array['logout']['lang']? ' lang="' . pages_array['logout']['lang'] . '"' : '')
-                    .'>'.pages_array['logout']['anchor'].'</a></li>
-                </ul>';
+                    .'>'.pages_array['logout']['anchor'].'</a></li>';
                 break;
         }
     } else {
         switch ($pageId) {
             case 'registrati':
-                $menu = '<ul>
-                        <li><a href="' . pages_array['login']['href'] . '"'
+                $menu = '<li><a href="' . pages_array['login']['href'] . '"'
                         . (pages_array['login']['lang']? ' lang="' . pages_array['login']['lang'] . '"' : '')
                         .'>'.pages_array['login']['anchor'].'</a></li>
                         <li id="currentLink"' . (pages_array['registrati']['lang']? ' lang="' . pages_array['registrati']['lang'] . '"' : '')
-                        .'>'.pages_array['registrati']['anchor'].'</li>
-                    </ul>';
+                        .'>'.pages_array['registrati']['anchor'].'</li>';
                 break;
             case 'login':
-                $menu = '<ul>
-                        <li id="currentLink"' . (pages_array['login']['lang']? ' lang="' . pages_array['login']['lang'] . '"' : '')
+                $menu = '<li id="currentLink"' . (pages_array['login']['lang']? ' lang="' . pages_array['login']['lang'] . '"' : '')
                         .'>'.pages_array['login']['anchor'].'</li>
                         <li><a href="' . pages_array['registrati']['href'] . '"'
                         . (pages_array['registrati']['lang']? ' lang="' . pages_array['registrati']['lang'] . '"' : '')
-                        .'>'.pages_array['registrati']['anchor'].'</a></li>
-                    </ul>';
+                        .'>'.pages_array['registrati']['anchor'].'</a></li>';
                 break;
             default:
-                $menu = '<ul>
-                    <li><a href="' . pages_array['login']['href'] . '"'
+                $menu = '<li><a href="' . pages_array['login']['href'] . '"'
                     . (pages_array['login']['lang']? ' lang="' . pages_array['login']['lang'] . '"' : '')
                     .'>'.pages_array['login']['anchor'].'</a></li>
                     <li><a href="' . pages_array['registrati']['href'] . '"'
                     . (pages_array['registrati']['lang']? ' lang="' . pages_array['registrati']['lang'] . '"' : '')
-                    .'>'.pages_array['registrati']['anchor'].'</a></li>
-                </ul>';
+                    .'>'.pages_array['registrati']['anchor'].'</a></li>';
                 break;
         }
     }

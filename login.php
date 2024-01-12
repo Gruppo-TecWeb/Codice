@@ -14,8 +14,7 @@ $title = 'Login &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = 'Pagina dove poter effettuare l\'accesso all\'area autenticata del sito.';
 $keywords = 'login, freestyle rap, fungo, micelio, battle, eventi, classifiche';
-$menu = get_menu($pageId);
-$reservedMenu = get_reserved_menu(isset($_SESSION["login"]), $pageId);
+$menu = get_menu(isset($_SESSION["login"]), $pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 $erroriVAL = '';
@@ -43,7 +42,7 @@ if ($connectionOk) {
             $erroriVAL .= "<li>Inserire Password.</li>";
         }
         if (!$errore) {
-            $utente = $connection -> login($username, $password);echo $username;
+            $utente = $connection -> login($username, $password);
             if (!(is_null($utente))) {
                 $_SESSION["datiUtente"] = $utente;
                 $_SESSION["login"] = TRUE;
@@ -64,5 +63,5 @@ else {
 
 $loginHTML = str_replace("{messaggiForm}", $errori, $loginHTML);
 $loginHTML = str_replace("{valoreUsername}", $username, $loginHTML);
-echo replace_in_page($paginaHTML, $title, $description, $keywords, $pageId, $menu, $reservedMenu, $breadcrumbs, $loginHTML, $onload);
+echo replace_in_page($paginaHTML, $title, $description, $keywords, $pageId, $menu, $breadcrumbs, $loginHTML, $onload);
 ?>

@@ -99,11 +99,30 @@ class DBAccess
         $datiUtente = mysqli_fetch_assoc($queryResult);
         $query = "SELECT Password FROM Utenti WHERE Username = \"$username\";";
         $queryResult = mysqli_query($this -> connection, $query) or die("Errore in DBAccess" .mysqli_error($this -> connection));
-        $passwordUtente = mysqli_fetch_assoc($queryResult);
-        if ((mysqli_num_rows($queryResult) != 0) && (password_verify($password, $passwordUtente["password"]))) {
+        $passwordUtente = mysqli_fetch_assoc($queryResult)["Password"];
+        if ((mysqli_num_rows($queryResult) != 0) && (password_verify($password, $passwordUtente))) {
             return $datiUtente;
         } else {
             return null;
         }
     }
+    public function get_utente($username) {
+        $query = "SELECT Username, Email, Admin FROM Utenti WHERE Username = \"$username\";";
+        $queryResult = mysqli_query($this -> connection, $query) or die("Errore in DBAccess" .mysqli_error($this -> connection));
+        if (mysqli_num_rows($queryResult) != 0) {
+            $result = mysqli_fetch_assoc($queryResult);
+            $queryResult -> free();
+            return $result;
+        } else {
+            return null;
+        }
+    }
+    public function register($username, $password, $email) {
+        $password = password_hash($password, PASSWORD_BCRYPT);
+        $query = "INSERT INTO Utenti (Username, Password, Email)
+                    VALUES (\"$username\", \"$password\", \"$email\");";
+        mysqli_query($this -> connection, $query) or die(mysqli_error($this -> connection));
+        return mysqli_affected_rows($this -> connection);
+    }
 }
+?>

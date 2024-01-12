@@ -1,13 +1,15 @@
-        <h2>Classifiche</h2>
-        <div>
+        <h2 class="limitedWidth">Classifiche</h2>
+        <div class="limitedWidth">
             <form method="get" action="classifiche.php">
                 <fieldset>
                     <legend>Puoi visualizzare le classifiche passate dal nostro archivio:</legend>
                     <label for="classifica">Classifica: </label>
                     <select id="classifica" name="classifica" required>
+                        <option value="" selected></option>
                         {classifica}
                     </select>
                     <input type="submit" id="submit" name="submit" value="Visualizza"/>
+                    <input type="reset" id="reset" name="reset" value="Torna indietro"/>
                 </fieldset>
             </form>
         </div>

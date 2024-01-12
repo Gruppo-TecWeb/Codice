@@ -16,8 +16,7 @@ $title = 'Classifiche &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = 'Classifiche attuali sulla base dei punteggi ottenuti durante le battle di freestyle rap degli eventi Fungo e Micelio.';
 $keywords = 'classifiche, fungo, micelio, freestyle, rap, freestyle rap, battle';
-$menu = get_menu($pageId);
-$reservedMenu = get_reserved_menu(isset($_SESSION["login"]), $pageId);
+$menu = get_menu(isset($_SESSION["login"]), $pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $content = '';
 $onload = '';
@@ -25,7 +24,7 @@ $classifiche = '';
 $dataInizioScelta = null;
 $eventoScelto = null;
 
-if (isset($_GET["submit"]) && isset($_GET["classifica"])) {
+if (isset($_GET["submit"]) && isset($_GET["classifica"]) && $_GET["classifica"] != "") {
     $classifica = explode('{.}', validate_input($_GET["classifica"]));
     $eventoScelto = $classifica[0];
     $dataInizioScelta = date_create($classifica[1]);
@@ -94,14 +93,14 @@ if ($connectionOk) {
             $content .= '<p>Non sono presenti classifiche.</p>';
         }
     }
+
+    $connection -> closeDBConnection();
 }
 else {
     $content .= '<p>I sistemi sono momentaneamente fuori servizio, ci scusiamo per il disagio.</p>';
 }
 
-$connection -> closeDBConnection();
-
 $classificheHTML = str_replace('{classifica}', trim($classifiche), $classificheHTML);
 $classificheHTML = str_replace('{classifiche}', $content, $classificheHTML);
-echo replace_in_page($paginaHTML, $title, $description, $keywords, $pageId, $menu, $reservedMenu, $breadcrumbs, trim($classificheHTML), $onload);
+echo replace_in_page($paginaHTML, $title, $description, $keywords, $pageId, $menu, $breadcrumbs, trim($classificheHTML), $onload);
 ?>
