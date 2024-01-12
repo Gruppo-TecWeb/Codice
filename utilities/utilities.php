@@ -10,16 +10,11 @@ const pages_array = [
     'chi-siamo'     => ['href' => 'chi-siamo.php',      'anchor' => 'Chi siamo',    'lang' => '',   'menuOrder' => 5, 'parentId' => 'index']
 ];
 
-function multi_replace($source, $replacements)
-{
-    foreach ($replacements as $key => $value) {
-        $source = str_replace($key, $value, $source);
-    }
-    return $source;
+function multi_replace($source, $replacements) {
+    return str_replace(array_keys($replacements), $replacements, $source);
 }
 
-function replace_in_page($pageHTML, $title, $description, $keywords, $pageId, $menu, $breadCrumbs, $content, $onload = '')
-{
+function replace_in_page($pageHTML, $title, $description, $keywords, $pageId, $menu, $breadCrumbs, $content, $onload = '') {
     $pageHTML = str_replace("{title}", $title, $pageHTML);
     $pageHTML = str_replace("{description}", $description, $pageHTML);
     $pageHTML = str_replace("{keywords}", $keywords, $pageHTML);
@@ -32,8 +27,7 @@ function replace_in_page($pageHTML, $title, $description, $keywords, $pageId, $m
     return $pageHTML;
 }
 
-function get_menu($pageId)
-{
+function get_menu($pageId) {
     $pages = array();
     foreach (pages_array as $page) {
         $lang_tag = $page['lang'] ? ' lang="' . $page['lang'] . '"' : '';
@@ -51,8 +45,7 @@ function get_menu($pageId)
     return $menu;
 }
 
-function get_breadcrumbs($pageId, $other = '')
-{
+function get_breadcrumbs($pageId, $other = '') {
     $breadcrumbs = '<p>Ti trovi in: ';
     $page = pages_array[$pageId];
     $parent = isset(pages_array[$page['parentId']]) ? pages_array[$page['parentId']] : null;
