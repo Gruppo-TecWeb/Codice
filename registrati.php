@@ -20,6 +20,7 @@ $onload = '';
 $erroriVAL = '';
 $errori = '';
 $username = '';
+$email = '';
 
 $connection = new DBAccess();
 $connectionOk = $connection -> openDBConnection();
