@@ -4,7 +4,10 @@
 
  :root {
     --menuWidth: 90%;
-    --minMenuWidth: 50%;
+    --menuMinWidth: 50%;
+    --cardBorderRadius: 8px;
+    --cardBgColor: var(--secondaryColor);
+    --cardBorderColor: var(--accentColor);
 }
 
 body {
@@ -21,6 +24,12 @@ body[data-menu-open=true] {
     margin: unset;
     padding: unset;
     box-sizing: unset;
+}
+
+.mobileCard {
+    border-radius: var(--cardBorderRadius);
+    background-color: var(--cardBgColor);
+    border: solid 2px var(--cardBorderColor);
 }
 
 
@@ -47,6 +56,10 @@ body[data-menu-open=true] {
 /*
  * INPUT
  */
+
+input {
+    border-radius: 4px;
+}
 
 
 /* 
@@ -95,7 +108,6 @@ header a h1 {
     display: block;
     line-height: 2em;
     font-size: 1.5em;
-    border-radius: 3px;
     font-weight: bold;
 }
 
@@ -110,7 +122,6 @@ header a h1 {
     transition: unset;
     line-height: 2em;
     font-size: 1.5em;
-    border-radius: 3px;
     font-weight: bold;
     background-color: var(--accentColor);
 }
@@ -137,7 +148,7 @@ header a h1 {
     left: 50%;
     transform: translateX(-50%);
     box-sizing: border-box;
-    min-width: var(--minMenuWidth);
+    min-width: var(--menuMinWidth);
     max-width: var(--menuWidth);
     margin: 0;
     padding: 0.5em;
@@ -171,25 +182,34 @@ header a h1 {
     text-indent: -999em;
 }
 
-#btnMenu {
+#btn-menu {
     display: block;
     height: 2.5em;
-    align-self: 1;
-    /* aspect-ratio: 1; */
+    aspect-ratio: 1;
     background-size: 100%;
     background-repeat: no-repeat;
     border-radius: 4px;
-    /* border: solid 2px black; */
+    /* border: solid 2px var(--bgColor); */
     border: unset;
     background-color: var(--accentColor);
     transition: 0.5s;
 }
 
-#breadcrumbs-container[data-menu-open=false] #btnMenu {
+#btn-menu:active {
+    transform: scale(1.1);
+    transition: 0.1s;
+}
+
+#btn-menu span {
+    position: absolute;
+    text-indent: -999em;
+}
+
+#breadcrumbs-container[data-menu-open=false] #btn-menu {
     background-image: url("../images/burger_menu.svg");
 }
 
-#breadcrumbs-container[data-menu-open=true] #btnMenu {
+#breadcrumbs-container[data-menu-open=true] #btn-menu {
     background-image: url("../images/close.svg");
 }
 
@@ -239,7 +259,7 @@ footer {
     object-fit: cover;
 }
 
-#titolo {
+#titoloHome #titolo {
     position: absolute;
     top: 50%;
     right: 0;
@@ -250,7 +270,7 @@ footer {
     background-color: var(--secondaryColor);
 }
 
-#index h1 {
+#index #titoloHome h1 {
     font-family: "Hokia";
     font-size: 2em;
 }
