@@ -47,8 +47,8 @@ CREATE TABLE Punteggi (
     FOREIGN KEY (Evento) REFERENCES Eventi(id),
     FOREIGN KEY (Partecipante) REFERENCES Utenti(Username));
 
-INSERT INTO Utenti (Username, Password, Email, Admin) VALUES ('admin', 'admin', 'admin@mail.it', 'S'); -- la password va inserita col valore hashato
-INSERT INTO Utenti (Username, Password, Email) VALUES ('user', 'user', 'user@mail.it'); -- la password va inserita col valore hashato
+INSERT INTO Utenti (Username, Password, Email, Admin) VALUES ('admin', '$2y$10$6HccIqtLp.aSP1X4H/X3GeNJaXsTLVrNCPYIaMURXPUfxSL7qjphi', 'admin@mail.it', 'S');
+INSERT INTO Utenti (Username, Password, Email) VALUES ('user', '$2y$10$Z0Aa3dQjyumq4IUcqxlIK.Han8U1eeETu7utaA9WhT.iKcggzR49G', 'user@mail.it');
 INSERT INTO Utenti (Username, Password, Email) VALUES ('Juice WRLD', '', 'juicewrld@mail.it');
 INSERT INTO Utenti (Username, Password, Email) VALUES ('Lil Peep', '', 'lilpeep@mail.it');
 INSERT INTO Utenti (Username, Password, Email) VALUES ('XXXTentacion', '', 'xxxtentacion@mail.it');
