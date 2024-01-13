@@ -26,9 +26,14 @@ class DBAccess
     {
         mysqli_close($this->connection);
     }
-    public function get_tipi_evento($evento) {
-        $subQuery = $evento ? " WHERE Titolo = \"$evento\"" : "";
-        $query = "SELECT * FROM TipiEvento$subQuery;";
+    public function get_tipo_evento($evento) {
+        $query = $evento ? "SELECT * FROM TipiEvento WHERE Titolo = \"$evento\";"
+                    : "SELECT TipiEvento.Titolo, TipiEvento.Descrizione
+                    FROM TipiEvento
+                    JOIN ClassificheEventi ON TipiEvento.Titolo = ClassificheEventi.TipoEvento
+                    JOIN Eventi ON ClassificheEventi.Evento = Eventi.id
+                    ORDER BY Eventi.Data DESC
+                    LIMIT 1;";
         $queryResult = mysqli_query($this -> connection, $query)
             or die("Errore in DBAccess" .mysqli_error($this -> connection));
         if (mysqli_num_rows($queryResult) != 0) {
@@ -106,8 +111,19 @@ class DBAccess
             return null;
         }
     }
-    public function get_utente($username) {
+    public function get_utente_by_username($username) {
         $query = "SELECT Username, Email, Admin FROM Utenti WHERE Username = \"$username\";";
+        $queryResult = mysqli_query($this -> connection, $query) or die("Errore in DBAccess" .mysqli_error($this -> connection));
+        if (mysqli_num_rows($queryResult) != 0) {
+            $result = mysqli_fetch_assoc($queryResult);
+            $queryResult -> free();
+            return $result;
+        } else {
+            return null;
+        }
+    }
+    public function get_utente_by_email($email) {
+        $query = "SELECT Username, Email, Admin FROM Utenti WHERE Email = \"$email\";";
         $queryResult = mysqli_query($this -> connection, $query) or die("Errore in DBAccess" .mysqli_error($this -> connection));
         if (mysqli_num_rows($queryResult) != 0) {
             $result = mysqli_fetch_assoc($queryResult);
@@ -121,6 +137,17 @@ class DBAccess
         $password = password_hash($password, PASSWORD_BCRYPT);
         $query = "INSERT INTO Utenti (Username, Password, Email)
                     VALUES (\"$username\", \"$password\", \"$email\");";
+        mysqli_query($this -> connection, $query) or die(mysqli_error($this -> connection));
+        return mysqli_affected_rows($this -> connection);
+    }
+    public function change_email($username, $newEmail) {
+        $query = "UPDATE Utenti SET Email = \"$newEmail\" WHERE Username = \"$username\";";
+        mysqli_query($this -> connection, $query) or die(mysqli_error($this -> connection));
+        return mysqli_affected_rows($this -> connection);
+    }
+    public function change_password($username, $newPassword) {
+        $newPassword = password_hash($newPassword, PASSWORD_BCRYPT);
+        $query = "UPDATE Utenti SET Password = \"$newPassword\" WHERE Username = \"$username\";";
         mysqli_query($this -> connection, $query) or die(mysqli_error($this -> connection));
         return mysqli_affected_rows($this -> connection);
     }

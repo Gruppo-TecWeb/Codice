@@ -44,7 +44,7 @@ if ($connectionOk) {
             $utente = $connection -> login($username, $password);
             if (!(is_null($utente))) {
                 $_SESSION["datiUtente"] = $utente;
-                $_SESSION["login"] = TRUE;
+                $_SESSION["login"] = true;
                 header("location: profilo.php");
             } else {
                 $errore = true;

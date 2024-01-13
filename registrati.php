@@ -33,13 +33,17 @@ if ($connectionOk) {
         $errore = false;
         $username = validate_input($_POST["username"]);
         $password = validate_input($_POST["password"]);
+        $confermaPassword = validate_input($_POST["confermaPassword"]);
         $email = validate_input($_POST["email"]);
         if ($username == "") {
             $errore = true;
             $erroriVAL .= "<li>Inserire Username.</li>";
         }
         else {
-            $utente = $connection -> get_utente($username);
+            $utente = $connection -> get_utente_by_username($username);
+            if (is_null($utente)) {
+                $utente = $connection -> get_utente_by_email($email);
+            }
             if (!(is_null($utente))) {
                 $errore = true;
                 $erroriVAL .= "<li>Utente giá registrato. Vai alla pagina di <a href=\"login.php\" lang=\"en\">login</a>.</li>";
@@ -49,15 +53,19 @@ if ($connectionOk) {
             $errore = true;
             $erroriVAL .= "<li>Inserire Password.</li>";
         }
+        elseif ($password != $confermaPassword) {
+                $errore = true;
+                $erroriVAL .= "<li>Le password non coincidono.</li>";
+        }
         if ($email == "") {
             $errore = true;
-            $erroriVAL .= "<li>Inserire Email.</li>";
+            $erroriVAL .= "<li>Inserire E-Mail.</li>";
         }
         if (!$errore) {
             $utenteRegistrato = $connection -> register($username, $password, $email);
             if ($utenteRegistrato > 0) {
-                $_SESSION["datiUtente"] = array("username" => $username, "email" => $email);
-                $_SESSION["login"] = TRUE;
+                $_SESSION["datiUtente"] = array("Username" => $username, "Email" => $email);
+                $_SESSION["login"] = true;
                 header("location: profilo.php");
                 $messaggiPerForm .= "<li>Registrazione avvenuta correttamente.</li>";
             }
@@ -65,7 +73,7 @@ if ($connectionOk) {
                 $messaggiPerForm .= "<li>La registrazione non é avvenuta.</li>";
             }
         }
-        if ($errore) {
+        else {
             $errori = '<ul>' . $erroriVAL . '</ul>';
         }
     }

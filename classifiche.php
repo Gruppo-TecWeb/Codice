@@ -68,7 +68,7 @@ if ($connectionOk) {
     }
 
     // creo le classifiche
-    $tipiEvento = $connection -> get_tipi_evento($eventoScelto);
+    $tipiEvento = $connection -> get_tipo_evento($eventoScelto);
     foreach ($tipiEvento as $tipoEvento) {
         $titolo = $tipoEvento['Titolo'];
         $descrizione = $tipoEvento['Descrizione'];
