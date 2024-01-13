@@ -1,10 +1,6 @@
 function init_eventi() {
     var urlParams = new URLSearchParams(window.location.search);
     var filtro = urlParams.get('filtro');
-    setFilter(filtro);
-}
-
-function setFilter(filtro) {
     if (filtro === 'data') {
         document.getElementById('data').classList.add('selected');
         document.getElementById('link-passati').classList.remove('selected');
