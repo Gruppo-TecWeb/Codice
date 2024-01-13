@@ -6,12 +6,13 @@ function init_eventi() {
 
 function setFilter(filtro) {
     if (filtro === 'data') {
-        document.getElementById('data-container').classList.add('selected');
+        document.getElementById('data').classList.add('selected');
         document.getElementById('link-passati').classList.remove('selected');
         document.getElementById('link-tutti').classList.remove('selected');
         document.getElementById('link-prossimi').classList.remove('selected');
     } else {
         // Altrimenti, aggiungi la classe "selected" al link corrispondente
+        document.getElementById('data-container').classList.remove('selected');
         if (filtro === 'passati') {
             document.getElementById('link-passati').classList.add('selected');
         } else if (filtro === 'tutti') {

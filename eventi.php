@@ -25,7 +25,9 @@ if ($connectionOk) {
     $titolo = isset($_GET['titolo']) ? $_GET['titolo'] : '';
     $data = isset($_GET['data']) ? $_GET['data'] : '';
     $filtro = isset($_GET['filtro']) ? $_GET['filtro'] : '';
-
+    
+    $lista_eventi_array = $connection->getListaEventi($filtro, $data, $titolo);
+    
     $lista_titoli_array = $connection->executeSelectQuery("Select distinct titolo from eventi");
     $lista_titoli_string = '';
     foreach ($lista_titoli_array as $evento) {
@@ -33,7 +35,6 @@ if ($connectionOk) {
         $lista_titoli_string .= "<option value='" . $evento['titolo'] . "'" . $selected . ">" . $evento['titolo'] . "</option>";
     }
 
-    $lista_eventi_array = $connection->getListaEventi($filtro, $data, $titolo);
 
     $connection->closeDBConnection();
     $lista_eventi_string = '';
@@ -60,4 +61,13 @@ if ($connectionOk) {
     $content = "<p>I sistemi sono momentaneamente fuori servizio, ci scusiamo per il disagio</p>";
 }
 
-echo replace_in_page($eventiHTML, $title, $description, $keywords, $pageId, $menu, $breadcrumbs, $content, $onload);
+echo multi_replace($eventiHTML, [
+    '{title}' => $title,
+    '{description}' => $description,
+    '{keywords}' => $keywords,
+    '{pageId}' => $pageId,
+    '{menu}' => $menu,
+    '{breadcrumbs}' => $breadcrumbs,
+    '{content}' => $content,
+    '{onload}' => $onload
+]);

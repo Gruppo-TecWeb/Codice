@@ -28,6 +28,10 @@
     background-color: #f00; /* Cambia questo al colore che preferisci */
 }
 
+#data.selected {
+    background-color: #f00; /* Cambia questo al colore che preferisci */
+}
+
 .form-container {
     margin-bottom: 40px;
 }

@@ -7,7 +7,7 @@ require_once("utilities/DBAccess.php");
 
 use DB\DBAccess;
 
-$eventiHTML = file_get_contents("template/pagina-template.html");
+$eventoHTML = file_get_contents("template/pagina-template.html");
 
 $title = '';
 $pageId = basename(__FILE__, '.php');
@@ -46,7 +46,16 @@ if ($connectionOk) {
         $title = $title . ' &minus; Fungo';
     }
 } else {
-    $content = "I sistemi sono momentaneamente fuori servizio, ci scusiamo per il disagio";
+    $content = "<p>I sistemi sono momentaneamente fuori servizio, ci scusiamo per il disagio</p>";
 }
 
-echo replace_in_page($eventiHTML, $title, $description, $keywords, $pageId, $menu, $breadcrumbs, $content, $onload);
+echo multi_replace($eventoHTML, [
+    '{title}' => $title,
+    '{description}' => $description,
+    '{keywords}' => $keywords,
+    '{pageId}' => $pageId,
+    '{menu}' => $menu,
+    '{breadcrumbs}' => $breadcrumbs,
+    '{content}' => $content,
+    '{onload}' => $onload
+]);
