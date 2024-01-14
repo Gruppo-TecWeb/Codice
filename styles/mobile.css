@@ -90,9 +90,6 @@ header a h1 {
     padding: 1em 1em;
     z-index: var(--elevationHigh);
     transform: translateX(-50%);
-    border-radius: 8px;
-    border: 2px solid var(--accentColor);
-    background-color: var(--secondaryColor);
 }
 
 #menu ul li {
@@ -156,10 +153,8 @@ header a h1 {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    overflow: hidden;
     z-index: var(--elevationHigh);
-    border-radius: 8px;
-    border: solid 2px var(--secondaryColor);
-    background-color: var(--accentColor);
     transition: min-width 0.5s;
 }
 
@@ -206,17 +201,12 @@ header a h1 {
 }
 
 #breadcrumbs-container[data-menu-open=false] #btn-menu {
-    background-image: url("../images/burger_menu.svg");
+    background-image: url("../assets/icons/burger_menu.svg");
 }
 
 #breadcrumbs-container[data-menu-open=true] #btn-menu {
-    background-image: url("../images/close.svg");
+    background-image: url("../assets/icons/close.svg");
 }
-
-
-/* 
- * MAIN CON MAX WIDTH? solo desktiop
- */
 
 
 /* 
@@ -251,12 +241,9 @@ footer {
 }
 
 #titoloHome video {
-    position: unset;
-    aspect-ratio: unset;
     border-left: unset;
-    height: 100vh;
     width: 100%;
-    object-fit: cover;
+    max-width: unset;
 }
 
 #titoloHome #titolo {

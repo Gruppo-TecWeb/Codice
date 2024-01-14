@@ -23,7 +23,7 @@
 
 @font-face {
     font-family: Hokia;
-    src: url('../fonts/Hokia\ Regular.ttf');
+    src: url('../assets/fonts/Hokia\ Regular.ttf');
 }
 
 
@@ -263,9 +263,11 @@ footer ul {
 
 #titoloHome video {
     height: 100vh;
-    aspect-ratio: 9/16;
+    width: fit-content;
+    max-width: 40%;
     object-fit: cover;
     border-left: 2px solid var(--accentColor);
+    transition: 1s;
 }
 
 #titoloHome #titolo {
@@ -275,4 +277,8 @@ footer ul {
 #index #titoloHome h1 {
     font-family: "Hokia";
     font-size: 2em;
+}
+
+#index #eventi-home-principali {
+    border-top: 2px solid var(--accentColor);
 }
