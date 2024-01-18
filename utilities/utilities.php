@@ -15,8 +15,11 @@ const pages_array = [
     'evento'      => ['href' => 'evento.php?id={id}', 'anchor' => '{evento}',                              'lang' => '',   'menuOrder' => 0, 'parentId' => 'eventi']
 ];
 
-function replace_in_page($pageHTML, $title, $description, $keywords, $pageId, $menu, $breadCrumbs, $content, $onload = '')
-{
+function multi_replace($source, $replacements) {
+    return str_replace(array_keys($replacements), $replacements, $source);
+}
+
+function replace_in_page($pageHTML, $title, $description, $keywords, $pageId, $menu, $breadCrumbs, $content, $onload = '') {
     $pageHTML = str_replace("{title}", $title, $pageHTML);
     $pageHTML = str_replace("{description}", $description, $pageHTML);
     $pageHTML = str_replace("{keywords}", $keywords, $pageHTML);
@@ -115,10 +118,40 @@ function get_breadcrumbs($pageId) {
         $parent = $parent['parentId'] != '' ? pages_array[$parent['parentId']] : '';
     }
     $lang_tag = $page['lang'] ? ' lang="' . $page['lang'] . '"' : '';
-    $breadcrumbs .= '<span' . $lang_tag . '>' . $page['anchor'] . '</span>';
+    if ($other != '') {
+        $breadcrumbs .= '<a href="' . $page['href'] . '"' . $lang_tag . '>' . $page['anchor'] . '</a> &gt;&gt; ';
+        $breadcrumbs .= $other;
+    } else {
+        $breadcrumbs .= '<span' . $lang_tag . '>' . $page['anchor'] . '</span>';
+    }
     $breadcrumbs .= '</p>';
     return $breadcrumbs;
 }
+
+function format_date($data) {
+    $mesi = [
+        1 => 'gennaio',
+        2 => 'febbraio',
+        3 => 'marzo',
+        4 => 'aprile',
+        5 => 'maggio',
+        6 => 'giugno',
+        7 => 'luglio',
+        8 => 'agosto',
+        9 => 'settembre',
+        10 => 'ottobre',
+        11 => 'novembre',
+        12 => 'dicembre'
+    ];
+
+    $dataOggetto = date_create_from_format('Y-m-d', $data);
+    $giorno = $dataOggetto->format('j');
+    $mese = $mesi[(int)$dataOggetto->format('n')];
+    $anno = $dataOggetto->format('Y');
+
+    return $giorno . ' ' . $mese . ' ' . $anno;
+}
+
 function validate_input($data) {
     $data = trim($data);
     $data = stripslashes($data);

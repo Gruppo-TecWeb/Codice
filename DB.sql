@@ -46,7 +46,7 @@ CREATE TABLE Punteggi (
     PRIMARY KEY (Partecipante, Evento),
     FOREIGN KEY (Evento) REFERENCES Eventi(id),
     FOREIGN KEY (Partecipante) REFERENCES Utenti(Username));
-
+    
 INSERT INTO Utenti (Username, Password, Email, Admin) VALUES ('admin', '$2y$10$6HccIqtLp.aSP1X4H/X3GeNJaXsTLVrNCPYIaMURXPUfxSL7qjphi', 'admin@mail.it', 'S');
 INSERT INTO Utenti (Username, Password, Email) VALUES ('user', '$2y$10$Z0Aa3dQjyumq4IUcqxlIK.Han8U1eeETu7utaA9WhT.iKcggzR49G', 'user@mail.it');
 INSERT INTO Utenti (Username, Password, Email) VALUES ('Juice WRLD', '', 'juicewrld@mail.it');
@@ -72,23 +72,28 @@ INSERT INTO TipiEvento (Titolo) VALUES ('Micelio');
 INSERT INTO Classifiche (TipoEvento, DataInizio, DataFine) VALUES ('Fungo', '2023-09-05', '2023-10-17');
 INSERT INTO Classifiche (TipoEvento, DataInizio, DataFine) VALUES ('Micelio', '2023-11-07', '2023-12-19');
 
-INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Meal the mic', 'Rapcolta alimentare', '2023-04-29', '18:00:00', 'Circolo culturale Carichi Sospesi (Padova)', 'media/locandine/meal_the_mic.jpg');
-INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Hip hop night', 'Freestyel battle', '2023-07-13', '18:00:00', 'Parco Morandi (Padova)', 'media/locandine/hip_hop_night.jpg');
-INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Fungo', NULL, '2023-09-05', '21:00:00', '', 'media/locandine/fungo.jpg');
-INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Fungo', NULL, '2023-09-12', '21:00:00', '', 'media/locandine/fungo.jpg');
-INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Fungo', NULL, '2023-09-19', '21:00:00', '', 'media/locandine/fungo.jpg');
-INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Fungo', NULL, '2023-09-26', '21:00:00', '', 'media/locandine/fungo.jpg');
-INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Fungo', NULL, '2023-10-03', '21:00:00', '', 'media/locandine/fungo.jpg');
-INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Fungo', NULL, '2023-10-10', '21:00:00', '', 'media/locandine/fungo.jpg');
-INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Fungo', NULL, '2023-10-17', '21:00:00', '', 'media/locandine/fungo.jpg');
-INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Micelio', NULL, '2023-11-07', '21:00:00', 'Distretto Est (Padova)', 'media/locandine/micelio.jpg');
-INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Micelio', NULL, '2023-11-14', '21:00:00', 'Distretto Est (Padova)', 'media/locandine/micelio.jpg');
-INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Meal the mic vol.2', 'Rapcolta alimentare', '2023-11-18', '18:00:00', 'Distretto Est (Padova)', 'media/locandine/meal_the_mic_vol2.jpg');
-INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Micelio', NULL, '2023-11-21', '21:00:00', 'Distretto Est (Padova)', 'media/locandine/micelio.jpg');
-INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Micelio', NULL, '2023-11-28', '21:00:00', 'Distretto Est (Padova)', 'media/locandine/micelio.jpg');
-INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Micelio', NULL, '2023-12-05', '21:00:00', 'Distretto Est (Padova)', 'media/locandine/micelio.jpg');
-INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Micelio', NULL, '2023-12-12', '21:00:00', 'Distretto Est (Padova)', 'media/locandine/micelio.jpg');
-INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Micelio', NULL, '2023-12-19', '21:00:00', 'Distretto Est (Padova)', 'media/locandine/micelio.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Meal the mic', 'Rapcolta alimentare', '2023-04-29', '18:00:00', 'Circolo culturale Carichi Sospesi (Padova)', 'meal_the_mic.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Hip hop night', 'Freestyel battle', '2023-07-13', '18:00:00', 'Parco Morandi (Padova)', 'hip_hop_night.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Fungo', NULL, '2023-09-05', '21:00:00', '', 'fungo.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Fungo', NULL, '2023-09-12', '21:00:00', '', 'fungo.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Fungo', NULL, '2023-09-19', '21:00:00', '', 'fungo.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Fungo', NULL, '2023-09-26', '21:00:00', '', 'fungo.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Fungo', NULL, '2023-10-03', '21:00:00', '', 'fungo.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Fungo', NULL, '2023-10-10', '21:00:00', '', 'fungo.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Fungo', NULL, '2023-10-17', '21:00:00', '', 'fungo.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Micelio', NULL, '2023-11-07', '21:00:00', 'Distretto Est (Padova)', 'micelio.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Micelio', NULL, '2023-11-14', '21:00:00', 'Distretto Est (Padova)', 'micelio.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Meal the mic vol.2', 'Rapcolta alimentare', '2023-11-18', '18:00:00', 'Distretto Est (Padova)', 'meal_the_mic_vol2.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Micelio', NULL, '2023-11-21', '21:00:00', 'Distretto Est (Padova)', 'micelio.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Micelio', NULL, '2023-11-28', '21:00:00', 'Distretto Est (Padova)', 'micelio.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Micelio', NULL, '2023-12-05', '21:00:00', 'Distretto Est (Padova)', 'micelio.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Micelio', NULL, '2023-12-12', '21:00:00', 'Distretto Est (Padova)', 'micelio.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Micelio', NULL, '2023-12-19', '21:00:00', 'Distretto Est (Padova)', 'micelio.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Micelio', NULL, '2024-02-19', '21:00:00', 'Distretto Est (Padova)', 'micelio.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Micelio', NULL, '2024-03-19', '21:00:00', 'Distretto Est (Padova)', 'micelio.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Micelio', NULL, '2024-01-19', '21:00:00', 'Distretto Est (Padova)', 'micelio.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Micelio', NULL, '2024-04-19', '21:00:00', 'Distretto Est (Padova)', 'micelio.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Micelio', NULL, '2024-12-19', '21:00:00', 'Distretto Est (Padova)', 'micelio.jpg');
 
 INSERT INTO ClassificheEventi (TipoEvento, DataInizio, Evento) VALUES ('Fungo', '2023-09-05', 3);
 INSERT INTO ClassificheEventi (TipoEvento, DataInizio, Evento) VALUES ('Fungo', '2023-09-05', 4);

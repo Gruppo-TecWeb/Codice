@@ -1,4 +1,4 @@
-/*
+*
  * VARIABILI CSS
  */
 
@@ -281,4 +281,115 @@ footer ul {
 
 #index #eventi-home-principali {
     border-top: 2px solid var(--accentColor);
+}
+
+/* TUTTE LE PAGINE (COMUNE) */
+
+.navigationHelp {
+    position: absolute;
+    text-indent: -999em;
+}
+
+
+/*****************
+/* PAGINA EVENTI */
+/*****************/
+
+/* Form di ricerca */
+.filtro-primario a {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #000;
+    border: 1px solid #000;
+    transition: background-color 0.3s ease;
+}
+
+.filtro-primario a:hover {
+    background-color: #ccc;
+}
+
+.filtro-primario a.selected {
+    background-color: #f00; /* Cambia questo al colore che preferisci */
+}
+
+#data.selected {
+    background-color: #f00; /* Cambia questo al colore che preferisci */
+}
+
+.form-container {
+    margin-bottom: 40px;
+}
+
+form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+label {
+    margin-bottom: 0;
+    margin-right: 10px;
+}
+
+input,
+select {
+    width: auto;
+    margin-bottom: 0;
+}
+
+input[type="submit"] {
+    width: auto;
+    padding: 10px 20px;
+}
+
+/* Lista degli eventi */
+#lista-eventi {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15em, 1fr)); 
+    gap: 1.25em; 
+    padding: 1.25em;
+    max-width: 75em; 
+    margin: auto;
+}
+
+#lista-eventi article {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f2f2f2;
+    border-radius: 0.5em; 
+    box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.1); 
+    margin-bottom: 0.9375em; 
+    padding: 0.9375em; 
+}
+
+#lista-eventi article a {
+    text-decoration: none;
+    color: #000;
+}
+
+#lista-eventi article img {
+    width: 70%;
+    height: 80%;
+    object-fit: cover; /* Mantiene l'aspetto dell'immagine e la fa coprire completamente il contenitore */
+}
+
+#evento-box {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1.25em;
+    display: flex; /* Aggiunge il layout flexbox */
+}
+
+#evento-box img {
+    width: 20%; /* Imposta una larghezza fissa per l'immagine */
+    height: auto; /* Mantiene l'aspetto dell'immagine */
+    margin-bottom: 1.25em;
+}
+
+#evento-info {
+   margin-left: 1.25em;
 }
