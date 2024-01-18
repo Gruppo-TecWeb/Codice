@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <title>Profilo utente {valoreUsername}</title>
+        <meta name="description" content="Questa pagina mostra le informazioni del profilo utente.">
+    </head>
+    <body>
+        <header id="header">
+            <h1>Pagina profilo</h1>
+        </header>
+
+        <main id="content">
+            <section>
+                <h2>I tuoi dati personali.</h2>
+                <form method="post" action="profilo.php">
+                    {messaggiForm}
+                    <fieldset>
+                        <label for="username">Username: </label>
+                        <input type="text" name="username" value="{valoreUsername}"/>
+                        <input type="submit" id="submit" name="submitUsername" value="Modifica"/>
+                        <input type="reset" id="reset" value="Annulla"/><br/>
+                        <label for="password">Password: </label>
+                        <input type="password" name="password" value=""/>
+                        <input type="submit" id="submit" name="submitPassword" value="Modifica"/>
+                        <input type="reset" id="reset" value="Annulla"/><br/>
+                        <label for="note">Note: </label>
+                        <input type="text" name="note" value="{valoreNote}"/>
+                        <input type="submit" id="submit" name="submitNote" value="Modifica"/>
+                        <input type="reset" id="reset" value="Annulla"/>
+                    </fieldset>
+                </form>
+            </section>
+            <ul>
+                <li><a href="login.php">Login</a></li>
+                <li><a href="registrati.php">Registrati</a></li>
+                <li><a href="logout.php">Logout.</a></li>
+            </ul>
+        </main>
+
+        <footer>
+            <p><span>Sito di prova.</span></p>
+        </footer>
+
+    </body>
+</html>
