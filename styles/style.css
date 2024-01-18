@@ -7,6 +7,8 @@
     --txtColor: #FFF2EA;
     --unfocusedTxtColor: #949494;
     --accentColor: #EF754A;
+    --accentColor: #ef534a;
+    /*meglio???*/
     --secondaryColor: #262626;
     --linkColor: #00b4ff;
     --linkVisitedColor: #ffd7bb;
@@ -21,7 +23,7 @@
 
 @font-face {
     font-family: Hokia;
-    src: url('../fonts/Hokia\ Regular.ttf');
+    src: url('../assets/fonts/Hokia\ Regular.ttf');
 }
 
 
@@ -179,20 +181,23 @@ header a h1 {
 
 #menu ul li a {
     padding: 0.6em 1em;
+    border-radius: 3px;
     background-color: var(--secondaryColor);
     border: 1px solid var(--accentColor);
     transition: background-color 0.2s;
 }
 
 #menu ul li a:hover {
-    background-color: #949494;
+    background-color: #453B3B;
 }
 
 #menu ul li#currentLink {
     padding: 0.6em 1em;
+    border-radius: 3px;
     border: 1px solid var(--accentColor);
     font-weight: bold;
-    background-color: #949494;
+    color: var(--linkVisitedColor);
+    background-color: #453B3B;
 }
 
 
@@ -204,7 +209,7 @@ header a h1 {
     margin-block: 1em;
 }
 
-#btnMenu {
+#btn-menu {
     display: none;
 }
 
@@ -234,5 +239,46 @@ footer ul {
 
 
 /*
- * css classifiche
- */
+* HOME
+*/
+
+#index #breadcrumbs-container {
+    position: absolute;
+    left: 0;
+    top: 5em;
+    right: 0;
+}
+
+#index {
+    padding-top: unset;
+}
+
+#titoloHome {
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row-reverse;
+}
+
+#titoloHome video {
+    height: 100vh;
+    width: fit-content;
+    max-width: 40%;
+    object-fit: cover;
+    border-left: 2px solid var(--accentColor);
+    transition: 1s;
+}
+
+#titoloHome #titolo {
+    padding: 1.5em 2em;
+}
+
+#index #titoloHome h1 {
+    font-family: "Hokia";
+    font-size: 2em;
+}
+
+#index #eventi-home-principali {
+    border-top: 2px solid var(--accentColor);
+}

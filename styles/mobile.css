@@ -4,7 +4,10 @@
 
  :root {
     --menuWidth: 90%;
-    --minMenuWidth: 50%;
+    --menuMinWidth: 50%;
+    --cardBorderRadius: 8px;
+    --cardBgColor: var(--secondaryColor);
+    --cardBorderColor: var(--accentColor);
 }
 
 body {
@@ -21,6 +24,12 @@ body[data-menu-open=true] {
     margin: unset;
     padding: unset;
     box-sizing: unset;
+}
+
+.mobileCard {
+    border-radius: var(--cardBorderRadius);
+    background-color: var(--cardBgColor);
+    border: solid 2px var(--cardBorderColor);
 }
 
 
@@ -47,6 +56,10 @@ body[data-menu-open=true] {
 /*
  * INPUT
  */
+
+input {
+    border-radius: 4px;
+}
 
 
 /* 
@@ -77,9 +90,6 @@ header a h1 {
     padding: 1em 1em;
     z-index: var(--elevationHigh);
     transform: translateX(-50%);
-    border-radius: 8px;
-    border: 2px solid var(--accentColor);
-    background-color: var(--secondaryColor);
 }
 
 #menu ul li {
@@ -95,7 +105,6 @@ header a h1 {
     display: block;
     line-height: 2em;
     font-size: 1.5em;
-    border-radius: 3px;
     font-weight: bold;
 }
 
@@ -110,7 +119,6 @@ header a h1 {
     transition: unset;
     line-height: 2em;
     font-size: 1.5em;
-    border-radius: 3px;
     font-weight: bold;
     background-color: var(--accentColor);
 }
@@ -137,7 +145,7 @@ header a h1 {
     left: 50%;
     transform: translateX(-50%);
     box-sizing: border-box;
-    min-width: var(--minMenuWidth);
+    min-width: var(--menuMinWidth);
     max-width: var(--menuWidth);
     margin: 0;
     padding: 0.5em;
@@ -145,10 +153,8 @@ header a h1 {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    overflow: hidden;
     z-index: var(--elevationHigh);
-    border-radius: 8px;
-    border: solid 2px var(--secondaryColor);
-    background-color: var(--accentColor);
     transition: min-width 0.5s;
 }
 
@@ -171,31 +177,36 @@ header a h1 {
     text-indent: -999em;
 }
 
-#btnMenu {
+#btn-menu {
     display: block;
     height: 2.5em;
-    /* aspect-ratio: 1; */
+    aspect-ratio: 1;
     background-size: 100%;
     background-repeat: no-repeat;
     border-radius: 4px;
-    /* border: solid 2px black; */
+    /* border: solid 2px var(--bgColor); */
     border: unset;
     background-color: var(--accentColor);
     transition: 0.5s;
 }
 
-#breadcrumbs-container[data-menu-open=false] #btnMenu {
-    background-image: url("../images/burger_menu.svg");
+#btn-menu:active {
+    transform: scale(1.1);
+    transition: 0.1s;
 }
 
-#breadcrumbs-container[data-menu-open=true] #btnMenu {
-    background-image: url("../images/close.svg");
+#btn-menu span {
+    position: absolute;
+    text-indent: -999em;
 }
 
+#breadcrumbs-container[data-menu-open=false] #btn-menu {
+    background-image: url("../assets/icons/burger_menu.svg");
+}
 
-/* 
- * MAIN CON MAX WIDTH? solo desktiop
- */
+#breadcrumbs-container[data-menu-open=true] #btn-menu {
+    background-image: url("../assets/icons/close.svg");
+}
 
 
 /* 
@@ -215,5 +226,38 @@ footer {
 
 
 /*
- * css classifiche
+ * HOME
  */
+
+#index #breadcrumbs-container {
+    position: fixed;
+    left: 50%;
+    top: unset;
+    right: unset;
+}
+
+#index {
+    padding-top: unset;
+}
+
+#titoloHome video {
+    border-left: unset;
+    width: 100%;
+    max-width: unset;
+}
+
+#titoloHome #titolo {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    padding: 1.5em 2em;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border: 2px solid var(--accentColor);
+    background-color: var(--secondaryColor);
+}
+
+#index #titoloHome h1 {
+    font-family: "Hokia";
+    font-size: 2em;
+}
