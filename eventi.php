@@ -7,13 +7,15 @@ require_once("utilities/DBAccess.php");
 
 use DB\DBAccess;
 
+session_start();
+
 $eventiHTML = file_get_contents("template/pagina-template.html");
 
 $title = 'Eventi &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = '';
 $keywords = '';
-$menu = get_menu($pageId);
+$menu = get_menu(isset($_SESSION["login"]), $pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $content = file_get_contents("template/eventi.html");
 $onload = 'init_eventi();';

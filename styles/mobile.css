@@ -1,11 +1,265 @@
 /*
- * parti comuni a tutte le pagine
+* COMUNE
+ */
+
+ :root {
+    --menuWidth: 90%;
+    --menuMinWidth: 50%;
+    --cardBgColor: var(--secondaryColor);
+    --cardBorderColor: var(--accentColor);
+}
+
+body {
+    padding-top: 3.5em;
+}
+
+body[data-menu-open=true] {
+    overflow-y: hidden;
+}
+
+.limitedWidth {
+    width: unset;
+    max-width: unset;
+    margin: unset;
+    padding: unset;
+    box-sizing: unset;
+}
+
+.mobileCard {
+    border-radius: var(--cardBorderRadius);
+    background-color: var(--cardBgColor);
+    border: solid 2px var(--cardBorderColor);
+}
+
+
+/* 
+ * ERROR
+ */
+
+
+/* 
+ * SUCESS
+ */
+
+
+/* 
+ * FORM
+ */
+
+
+/* 
+ * BUTTON
  */
 
 
 /*
- * css classifiche
+ * INPUT
  */
+
+input {
+    border-radius: 4px;
+}
+
+
+/* 
+ * HEADER e MENU
+ */
+
+header {
+    display: unset;
+}
+
+header a h1 {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    height: unset;
+    margin: 0;
+    letter-spacing: 0.15em;
+}
+
+#menu {
+    position: fixed;
+    left: 50%;
+    bottom: 6em;
+    box-sizing: border-box;
+    width: var(--menuWidth);
+    margin: 0;
+    padding: 1em 1em;
+    z-index: var(--elevationHigh);
+    transform: translateX(-50%);
+}
+
+#menu ul li {
+    display: block;
+    margin: 0.1em 0;
+}
+
+#menu ul li a {
+    padding: unset;
+    border: unset;
+    background-color: unset;
+    transition: unset;
+    display: block;
+    line-height: 2em;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+#menu ul li a:hover {
+    background-color: var(--linkHoverBgColor);
+}
+
+#menu ul li#currentLink {
+    padding: unset;
+    border: unset;
+    color: unset;
+    transition: unset;
+    line-height: 2em;
+    font-size: 1.5em;
+    font-weight: bold;
+    background-color: var(--accentColor);
+}
+
+#menu[data-menu-open="false"] {
+    transform: translate(-50%, 200%);
+    opacity: 0.1;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+#menu[data-menu-open="true"] {
+    opacity: 1;
+    transition: transform 0.4s, opacity 0.2s;
+}
+
+
+/* 
+ * BREADCRUMBS
+ */
+
+#breadcrumbs-container {
+    position: fixed;
+    bottom: 2em;
+    left: 50%;
+    transform: translateX(-50%);
+    box-sizing: border-box;
+    min-width: var(--menuMinWidth);
+    max-width: var(--menuWidth);
+    margin: 0;
+    padding: 0.5em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+    z-index: var(--elevationHigh);
+    transition: min-width 0.5s;
+}
+
+#breadcrumbs-container[data-menu-open=true] {
+    min-width: var(--menuWidth);
+}
+
+#breadcrumbs {
+    margin-right: 0.5em;
+    overflow: scroll;
+    white-space: nowrap;
+}
+
+#breadcrumbs p {
+    font-size: 1.2em;
+}
+
+#breadcrumbs p #ti-trovi-in {
+    position: absolute;
+    text-indent: -999em;
+}
+
+#btn-menu {
+    display: block;
+    height: 2.5em;
+    aspect-ratio: 1;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    border-radius: 4px;
+    /* border: solid 2px var(--bgColor); */
+    border: unset;
+    background-color: var(--accentColor);
+    transition: 0.5s;
+}
+
+#btn-menu:active {
+    transform: scale(1.1);
+    transition: 0.1s;
+}
+
+#btn-menu span {
+    position: absolute;
+    text-indent: -999em;
+}
+
+#breadcrumbs-container[data-menu-open=false] #btn-menu {
+    background-image: url("../assets/icons/burger_menu.svg");
+}
+
+#breadcrumbs-container[data-menu-open=true] #btn-menu {
+    background-image: url("../assets/icons/close.svg");
+}
+
+
+/* 
+ * FOOTER
+ */
+
+footer {
+    /* width: var(--menuWidth); */
+    width: 100%;
+    box-sizing: border-box;
+    /* margin-inline: auto; */
+    padding: 1em 1em;
+    padding-bottom: 6em;
+    /* border-radius: 8px;
+    border: solid 2px var(--accentColor); */
+}
+
+
+/*
+ * HOME
+ */
+
+#index #breadcrumbs-container {
+    position: fixed;
+    left: 50%;
+    top: unset;
+    right: unset;
+}
+
+#index {
+    padding-top: unset;
+}
+
+#titoloHome video {
+    border-left: unset;
+    width: 100%;
+    max-width: unset;
+}
+
+#titoloHome #titolo {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    padding: 1.5em 2em;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border: 2px solid var(--accentColor);
+    background-color: var(--secondaryColor);
+}
+
+#index #titoloHome h1 {
+    font-family: "Hokia";
+    font-size: 2em;
+}
  
 
 /*****************
