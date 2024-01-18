@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <title>Login</title>
+    </head>
+    <body>
+        <header id="header">
+            <h1>Login</h1>
+        </header>
+
+        <main id="content">
+            <section>
+                <h2>Inserisci i dati per il login.</h2>
+                <form method="post" action="login.php">
+                    {messaggiForm}
+                    <fieldset>
+                        <label for="username">Username: </label>
+                        <input type="text" name="username" value="{valoreUsername}" required="required"/><br/>
+                        <label for="password">Password: </label>
+                        <input type="password" name="password" value="{valorePassword}" required="required"/>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Bottoni</legend>
+                        <input type="submit" id="submit" name="submit" value="Login"/>
+                        <input type="reset" id="reset" value="Annulla"/>
+                    </fieldset>
+                </form>
+            </section>
+            <ul>
+                <li><a href="registrati.php">Registrati.</a></li>
+                <li><a href="profilo.php">Profilo personale.</a></li>
+                <li><a href="logout.php">Logout.</a></li>
+            </ul>
+        </main>
+
+        <footer>
+            <p><span>Sito di prova.</span></p>
+        </footer>
+
+    </body>
+</html>
