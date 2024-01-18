@@ -1,0 +1,136 @@
+@font-face {
+    font-family: Hokia;
+    src: url(Hokia\ Regular.ttf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2em;
+    background-color: #D1C4E9;
+    border-bottom: 2px solid black;
+}
+
+header img {
+    height: 3em;
+    position: absolute;
+    bottom: 0;
+    transform: rotate(338deg) translateY(50%);
+}
+
+header h1 {
+    position: absolute;
+    text-shadow: 0 0 8px #ffffff;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    font-family: Hokia;
+    font-size: 3.5em;
+    text-align: center;
+    letter-spacing: 0.15em;
+}
+
+nav {
+    position: fixed;
+    left: 50%;
+    bottom: 3.5em;
+    transform: translateX(-50%);
+    background-color: #d1c4e9;
+    border: 2px solid black;
+    border-radius: 16px;
+    line-height: 2.3em;
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 0em 1em;
+    width: 90%;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav ul li a {
+    color: black;
+    text-decoration: none;
+}
+
+nav li.selected {
+    border-radius: 16px;
+    background-color: #E040FB;
+}
+
+nav[opened="false"] {
+    opacity: 0;
+    transform: translate(-50%, 200%);
+    transition: transform 0.3s, opacity 0.3s, width 0.3s;
+    width: 0;
+}
+
+nav[opened="true"] {
+    opacity: 1;
+    transition: transform 0.3s, opacity 0.6s, width 0.4s;
+}
+
+#navbar-mobile {
+    position: fixed;
+    display: flex;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 90%;
+    border-radius: 16px;
+    margin: 1em 0;
+    background-color: #D1C4E9;
+    border: solid 2px black;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#breadcrumbs {
+    white-space: nowrap;
+    overflow: scroll;
+}
+
+ul#breadcrumbs li {
+    display: inline-block;
+    font-size: 1.8em;
+    height: 1.5em;
+}
+
+ul#breadcrumbs li a {
+    color: black;
+    text-decoration: none;
+}
+
+ul#breadcrumbs li:first-child a {
+    height: 1.5em;
+    content: url("mushroom-svgrepo-com.svg");
+    text-indent: -999em;
+}
+
+ul#breadcrumbs li:not(:first-child)::before {
+    content: "\203A";
+    margin: 0 0.2em;
+}
+
+#menu-btn {
+    text-indent: -999em;
+    content: url(burger-advanced-svgrepo-com.svg);
+    background-color: #E040FB;
+    border: solid 2px black;
+    border-radius: 6px;
+    height: 2.5em;
+    margin: 0.8em;
+    cursor: pointer;
+}

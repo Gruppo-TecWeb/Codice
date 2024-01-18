@@ -3,44 +3,55 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title}</title>
     <meta name="keywords" content="{description}">
     <meta name="description" content="{keywords}">
     <meta name="author" content="Antonio Benetazzo, Alessandro Bressan, Sebastiano Lewental, Riccardo Zaupa">
+    <meta name="theme-color" content="#EF754A">
 
-    <link rel="stylesheet" type="text/css" href="styles/style.css" media="handheld, screen">
-    <link rel="stylesheet" type="text/css" href="styles/desktop.css" media="screen and (min-width:601px),
-            only screen and (min-device-width:601px)">
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/mobile.css" media="screen and (max-width: 600px)">
     <link rel="stylesheet" type="text/css" href="styles/print.css" media="print">
 
-    <link rel="shortcut icon" type="images/png" href=""> <!--DA FARE-->
-    <script src=""></script> <!--DA FARE-->
+    <link rel="shortcut icon" type="images/png" href="">
+    <!--DA FARE-->
+    <script src="scripts/script.js"></script>
 </head>
 
-<body id="{pageId}" onload="{onload}">
-    <header id="header">
+<body id="{pageId}" onload="{onload}" data-menu-open="false">
+    <header>
         <nav aria-label="Aiuti alla navigazione">
             <a class="navigationHelp" href="#content">Vai al contenuto</a>
         </nav>
-        <h1>Fungo</h1>
+        <a id="header-title" href="index.php">
+            <h1>Fungo</h1>
+        </a>
+        <nav id="menu" aria-label="site menu" data-menu-open="false">
+            <a class="navigationHelp" href="#content">Salta il menù di navigazione</a>
+            <ul>
+                {menu}
+            </ul>
+        </nav>
     </header>
-
-    <nav id="menu" aria-label="site menu">
-        <a class="navigationHelp" href="#content">Salta il menù di navigazione</a>
-        {menu}
-    </nav>
-    <nav id="breadcrumb" aria-label="Percorso">
-        {breadcrumbs}
-    </nav>
+    <div class="limitedWidth" id="breadcrumbs-container" data-menu-open="false">
+        <nav id="breadcrumbs" aria-label="Percorso">
+            {breadcrumbs}
+        </nav>
+        <button id="btnMenu" onclick="toggleMenu()" aria-hidden="true">Menu</button>
+    </div>
     <main id="content">
         {content}
     </main>
+    <!-- <a href="#content">Torna su????</a> -->
     <footer>
-        <ul>
+        <div class="limitedWidth" id="footer-credits">
+            <h6>Fungo</h6>
+            <p>Pensato e sviluppato da <a href="https://github.com/Gruppo-TecWeb">TecWeb</a></p>
+        </div>
+        <ul class="limitedWidth">
             <li><a href="https://www.instagram.com/restrainingstirpe">Instagram</a></li>
-            <li><a href="login.html">Login</a></li>
             <li><a href="contattaci.html">Contattaci</a></li>
-            <li>Pensato e sviluppato da <a href="https://github.com/Gruppo-TecWeb">TecWeb</a>.</li>
         </ul>
     </footer>
 </body>
