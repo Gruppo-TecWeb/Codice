@@ -108,7 +108,7 @@ function get_reserved_menu($logged, $pageId) {
     return $menu;
 }
 
-function get_breadcrumbs($pageId) {
+function get_breadcrumbs($pageId, $other = '') {
     $breadcrumbs = '<p><span id="ti-trovi-in">Ti trovi in: </span>';
     $page = pages_array[$pageId];
     $parent = $page['parentId'] != '' ? pages_array[$page['parentId']] : '';

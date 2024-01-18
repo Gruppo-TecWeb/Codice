@@ -13,7 +13,7 @@ $title = '';
 $pageId = basename(__FILE__, '.php');
 $description = '';
 $keywords = '';
-$menu = get_menu(basename('eventi.php', '.php'));
+$menu = get_menu(isset($_SESSION["login"]), basename('eventi.php', '.php'));
 $breadcrumbs = '';
 
 $content = '';
