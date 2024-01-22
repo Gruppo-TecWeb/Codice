@@ -6,8 +6,8 @@
     --bgColor: #000;
     --txtColor: #FFF2EA;
     --unfocusedTxtColor: #949494;
-    --accentColor: #EF754A;
-    --accentColor: #ef534a;
+    /* --accentColor: #EF754A; */
+    --accentColor: #EF534A;
     /*meglio???*/
     --secondaryColor: #262626;
     --linkColor: #00b4ff;
@@ -103,8 +103,11 @@ a:visited {
  * INPUT
  */
 
-input {
+input,
+select,
+textarea {
     padding: 0.5em 0.8em;
+    border-radius: 2px;
     caret-color: var(--accentColor);
     background-color: var(--secondaryColor);
     border: 1px solid var(--accentColor);
@@ -116,11 +119,15 @@ input::placeholder {
     color: var(--unfocusedTxtColor);
 }
 
-input:hover {
+input:hover,
+select:hover,
+textarea:hover {
     box-shadow: 0 0 14px var(--accentColor) inset;
 }
 
-input:focus {
+input:focus,
+select:focus,
+textarea:focus {
     box-shadow: 0 0 8px var(--accentColor) inset;
     outline: none;
 }
@@ -245,7 +252,7 @@ footer ul {
 #index #breadcrumbs-container {
     position: absolute;
     left: 0;
-    top: 5em;
+    top: 4em;
     right: 0;
 }
 
@@ -267,7 +274,6 @@ footer ul {
     max-width: 40%;
     object-fit: cover;
     border-left: 2px solid var(--accentColor);
-    transition: 1s;
 }
 
 #titoloHome #titolo {
