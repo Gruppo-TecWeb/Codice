@@ -5,6 +5,7 @@
  :root {
     --menuWidth: 90%;
     --menuMinWidth: 50%;
+    --cardBorderRadius: 8px;
     --cardBgColor: var(--secondaryColor);
     --cardBorderColor: var(--accentColor);
 }
@@ -260,13 +261,15 @@ footer {
     font-family: "Hokia";
     font-size: 2em;
 }
- 
 
-/*****************
-/* PAGINA EVENTI */
-/*****************/
+
+/*
+ * PAGINA EVENTI
+ */
+
 
 /* Form di ricerca */
+
 .form-container {
     margin-bottom: 20px;
 }
@@ -281,7 +284,8 @@ label {
     margin-bottom: 5px;
 }
 
-input, select {
+input,
+select {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
@@ -294,7 +298,9 @@ input[type="submit"] {
     cursor: pointer;
 }
 
+
 /* Lista degli eventi */
+
 #lista-eventi {
     position: relative;
     text-align: center;
@@ -307,15 +313,14 @@ input[type="submit"] {
 
 #lista-eventi article {
     background-color: #fff;
-    border-radius: 0.5em; 
-    box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.1); 
-    padding: 1em; 
+    border-radius: 0.5em;
+    box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.1);
+    padding: 1em;
     text-align: center;
     flex: 100% 0 1;
     margin-right: 0em;
     margin-bottom: 1em;
     padding: 0.5em;
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -334,11 +339,11 @@ input[type="submit"] {
     max-width: 100%;
 }
 
-#lista-eventi article:last-child{
+#lista-eventi article:last-child {
     margin-right: 0em;
 }
 
-#lista-eventi article p{
+#lista-eventi article p {
     flex-grow: 1;
 }
 
@@ -348,10 +353,10 @@ input[type="submit"] {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-#evento-box img{
+#evento-box img {
     max-width: 100%;
 }
 
-#evento-info{
+#evento-info {
     padding: 1em;
 }
