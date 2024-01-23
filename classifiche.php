@@ -102,5 +102,13 @@ else {
 
 $classificheHTML = str_replace('{classifica}', trim($classifiche), $classificheHTML);
 $classificheHTML = str_replace('{classifiche}', $content, $classificheHTML);
-echo replace_in_page($paginaHTML, $title, $description, $keywords, $pageId, $menu, $breadcrumbs, trim($classificheHTML), $onload);
-?>
+echo multi_replace($paginaHTML,[
+    '{title}' => $title,
+    '{description}' => $description,
+    '{keywords}' => $keywords,
+    '{pageId}' => $pageId,
+    '{menu}' => $menu,
+    '{breadcrumbs}' => $breadcrumbs,
+    '{content}' => trim($classificheHTML),
+    '{onload}' => $onload
+]);

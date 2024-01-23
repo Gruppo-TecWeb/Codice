@@ -62,5 +62,13 @@ else {
 
 $loginHTML = str_replace("{messaggiForm}", $errori, $loginHTML);
 $loginHTML = str_replace("{valoreUsername}", $username, $loginHTML);
-echo replace_in_page($paginaHTML, $title, $description, $keywords, $pageId, $menu, $breadcrumbs, $loginHTML, $onload);
-?>
+echo multi_replace($paginaHTML,[
+    '{title}' => $title,
+    '{description}' => $description,
+    '{keywords}' => $keywords,
+    '{pageId}' => $pageId,
+    '{menu}' => $menu,
+    '{breadcrumbs}' => $breadcrumbs,
+    '{content}' => $loginHTML,
+    '{onload}' => $onload
+]);

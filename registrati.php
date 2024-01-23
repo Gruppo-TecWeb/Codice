@@ -85,5 +85,14 @@ else {
 $registratiHTML = str_replace("{messaggiForm}", $errori, $registratiHTML);
 $registratiHTML = str_replace("{valoreUsername}", $username, $registratiHTML);
 $registratiHTML = str_replace("{valoreEmail}", $email, $registratiHTML);
-echo replace_in_page($paginaHTML, $title, $description, $keywords, $pageId, $menu, $breadcrumbs, $registratiHTML, $onload);
-?>
+echo multi_replace($paginaHTML,[
+    '{title}' => $title,
+    '{description}' => $description,
+    '{keywords}' => $keywords,
+    '{pageId}' => $pageId,
+    '{menu}' => $menu,
+    '{breadcrumbs}' => $breadcrumbs,
+    '{content}' => $registratiHTML,
+    '{onload}' => $onload
+
+]);

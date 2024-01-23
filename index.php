@@ -16,5 +16,14 @@ $menu = get_menu(isset($_SESSION["login"]), $pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 
-echo replace_in_page($paginaHTML, $title, $description, $keywords, $pageId, $menu, $breadcrumbs, $content, $onload);
+echo multi_replace($paginaHTML,[
+    '{title}' => $title,
+    '{description}' => $description,
+    '{keywords}' => $keywords,
+    '{pageId}' => $pageId,
+    '{menu}' => $menu,
+    '{breadcrumbs}' => $breadcrumbs,
+    '{content}' => $content,
+    '{onload}' => $onload
+]);
 ?>

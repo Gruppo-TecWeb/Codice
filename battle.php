@@ -5,7 +5,7 @@ require_once("utilities/utilities.php");
 
 session_start();
 
-$eventiHTML = file_get_contents("template/pagina-template.html");
+$paginaHTML = file_get_contents("template/pagina-template.html");
 
 $title = 'Battle &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
@@ -16,4 +16,13 @@ $breadcrumbs = get_breadcrumbs($pageId);
 $content = '';
 $onload = '';
 
-echo replace_in_page($eventiHTML, $title, $description, $keywords, $pageId, $menu, $breadcrumbs, $content, $onload);
+echo multi_replace($paginaHTML,[
+    '{title}' => $title,
+    '{description}' => $description,
+    '{keywords}' => $keywords,
+    '{pageId}' => $pageId,
+    '{menu}' => $menu,
+    '{breadcrumbs}' => $breadcrumbs,
+    '{content}' => $content,
+    '{onload}' => $onload
+]);

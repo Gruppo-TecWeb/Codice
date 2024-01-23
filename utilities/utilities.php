@@ -19,19 +19,6 @@ function multi_replace($source, $replacements) {
     return str_replace(array_keys($replacements), $replacements, $source);
 }
 
-function replace_in_page($pageHTML, $title, $description, $keywords, $pageId, $menu, $breadCrumbs, $content, $onload = '') {
-    $pageHTML = str_replace("{title}", $title, $pageHTML);
-    $pageHTML = str_replace("{description}", $description, $pageHTML);
-    $pageHTML = str_replace("{keywords}", $keywords, $pageHTML);
-    $pageHTML = str_replace("{pageId}", $pageId, $pageHTML);
-    $pageHTML = str_replace("{menu}", $menu, $pageHTML);
-    $pageHTML = str_replace("{breadcrumbs}", $breadCrumbs, $pageHTML);
-    $pageHTML = str_replace("{content}", $content, $pageHTML);
-    $pageHTML = str_replace("{onload}", $onload, $pageHTML);
-
-    return $pageHTML;
-}
-
 function get_menu($logged, $pageId) {
     $pages = array();
     foreach (pages_array as $page) {

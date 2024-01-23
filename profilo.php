@@ -107,5 +107,13 @@ $profiloHTML = str_replace('{formModificaDatiUtente}', $formModificaDatiUtente, 
 $profiloHTML = str_replace('{messaggiForm}', $errori, $profiloHTML);
 $profiloHTML = str_replace('{formEmail}', $formEmail, $profiloHTML);
 $profiloHTML = str_replace('{messaggiProfilo}', $messaggiProfilo, $profiloHTML);
-echo replace_in_page($paginaHTML, $title, $description, $keywords, $pageId, $menu, $breadcrumbs, $profiloHTML, $onload);
-?>
+echo multi_replace($paginaHTML,[
+    '{title}' => $title,
+    '{description}' => $description,
+    '{keywords}' => $keywords,
+    '{pageId}' => $pageId,
+    '{menu}' => $menu,
+    '{breadcrumbs}' => $breadcrumbs,
+    '{content}' => $profiloHTML,
+    '{onload}' => $onload
+]);
