@@ -7,13 +7,15 @@ require_once("utilities/DBAccess.php");
 
 use DB\DBAccess;
 
+session_start();
+
 $eventoHTML = file_get_contents("template/pagina-template.html");
 
 $title = '';
 $pageId = basename(__FILE__, '.php');
 $description = '';
 $keywords = '';
-$menu = get_menu(isset($_SESSION["login"]), basename('eventi.php', '.php'));
+$menu = get_menu(isset($_SESSION["login"]), $pageId);
 $breadcrumbs = '';
 
 $content = '';
@@ -41,8 +43,9 @@ if ($connectionOk) {
             '{tipoEvento}' => $tipoEvento,
             '{dataInizioClassifica}' => $dataInizioClassifica
         ]);
-        $title = $titolo . ' ' . $data;
-        $breadcrumbs = get_breadcrumbs(basename('eventi.php', '.php'), $title);
+        $breadcrumbs = get_breadcrumbs($pageId);
+        $breadcrumbs = str_replace('{id}', $eventoId, $breadcrumbs);
+        $breadcrumbs = str_replace('{evento}', $titolo.' '.$data, $breadcrumbs);
         $title = $title . ' &minus; Fungo';
     }
 } else {

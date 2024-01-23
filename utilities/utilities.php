@@ -107,51 +107,20 @@ function get_reserved_menu($logged, $pageId) {
     }
     return $menu;
 }
-
-function get_breadcrumbs($pageId, $other = '') {
-    $breadcrumbs = '<p><span id="ti-trovi-in">Ti trovi in: </span>';
+function get_breadcrumbs($pageId) {
+    $breadcrumbs = '';
     $page = pages_array[$pageId];
     $parent = $page['parentId'] != '' ? pages_array[$page['parentId']] : '';
     while ($parent != '') {
         $lang_tag = $parent['lang'] ? ' lang="' . $parent['lang'] . '"' : '';
-        $breadcrumbs .= '<a href="' . $parent['href'] . '"' . $lang_tag . '>' . $parent['anchor'] . '</a> <span aria-hidden="true">&rsaquo;&rsaquo; </span>';
+        $breadcrumbs = '<a href="' . $parent['href'] . '"' . $lang_tag . '>' . $parent['anchor'] . '</a> <span aria-hidden="true">&rsaquo;&rsaquo; </span>' . $breadcrumbs;
         $parent = $parent['parentId'] != '' ? pages_array[$parent['parentId']] : '';
     }
     $lang_tag = $page['lang'] ? ' lang="' . $page['lang'] . '"' : '';
-    if ($other != '') {
-        $breadcrumbs .= '<a href="' . $page['href'] . '"' . $lang_tag . '>' . $page['anchor'] . '</a> &gt;&gt; ';
-        $breadcrumbs .= $other;
-    } else {
-        $breadcrumbs .= '<span' . $lang_tag . '>' . $page['anchor'] . '</span>';
-    }
-    $breadcrumbs .= '</p>';
+    $breadcrumbs .= '<span' . $lang_tag . '>' . $page['anchor'] . '</span>';
+    $breadcrumbs = '<p><span id="ti-trovi-in">Ti trovi in: </span>' . $breadcrumbs . '</p>';
     return $breadcrumbs;
 }
-
-function format_date($data) {
-    $mesi = [
-        1 => 'gennaio',
-        2 => 'febbraio',
-        3 => 'marzo',
-        4 => 'aprile',
-        5 => 'maggio',
-        6 => 'giugno',
-        7 => 'luglio',
-        8 => 'agosto',
-        9 => 'settembre',
-        10 => 'ottobre',
-        11 => 'novembre',
-        12 => 'dicembre'
-    ];
-
-    $dataOggetto = date_create_from_format('Y-m-d', $data);
-    $giorno = $dataOggetto->format('j');
-    $mese = $mesi[(int)$dataOggetto->format('n')];
-    $anno = $dataOggetto->format('Y');
-
-    return $giorno . ' ' . $mese . ' ' . $anno;
-}
-
 function validate_input($data) {
     $data = trim($data);
     $data = stripslashes($data);

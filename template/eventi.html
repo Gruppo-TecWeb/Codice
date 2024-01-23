@@ -1,6 +1,6 @@
-<h2>Eventi</h2>
-<p>Qui trovi tutti gli eventi in programma</p>
-<div class="filtro-primario">
+<h2 class="limitedWidth">Eventi</h2>
+<p class="limitedWidth">Qui trovi tutti gli eventi in programma</p>
+<div class="filtro-primario limitedWidth">
     <a href="eventi.php?filtro=passati" id="link-passati">&laquo; Passati</a>
     <a href="eventi.php?filtro=tutti" id="link-tutti">&forall; Tutti</a>
     <a href="eventi.php" id="link-prossimi">Prossimi &raquo;</a>
@@ -11,7 +11,7 @@
         <input id='data' type="date" name="data" value="{data}" onchange="this.form.submit()">
     </form>
 </div>
-<div class="form-container">
+<div class="form-container limitedWidth">
     <form method="get" action="eventi.php">
         <label for="titolo">Filtra per titolo</label>
         <select name="titolo" onchange="this.form.submit()">
@@ -23,6 +23,6 @@
         <input type="button" value="Reset" onclick="window.location.href='eventi.php';">
     </form>
 </div>
-<div id="lista-eventi">
+<div id="lista-eventi" class="limitedWidth">
     {listaEventi}
 </div>
