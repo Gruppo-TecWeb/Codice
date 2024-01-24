@@ -49,7 +49,7 @@ if ($connectionOk) {
         $title = $title . ' &minus; Fungo';
     }
 } else {
-    $content = "<p>I sistemi sono momentaneamente fuori servizio, ci scusiamo per il disagio</p>";
+    header("location: errore500.php");
 }
 
 echo multi_replace($eventoHTML, [

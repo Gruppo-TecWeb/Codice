@@ -98,7 +98,7 @@ if ($connectionOk) {
     $connection -> closeDBConnection();
 }
 else {
-    $content .= '<p>I sistemi sono momentaneamente fuori servizio, ci scusiamo per il disagio.</p>';
+    header("location: errore500.php");
 }
 
 $profiloHTML = str_replace('{username}', $username, $profiloHTML);
