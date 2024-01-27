@@ -26,10 +26,10 @@ class DBAccess {
         mysqli_close($this->connection);
     }
 
-    function executeQuery($query, ...$args) {
+    private function executeQuery($query, ...$args) {
         mysqli_report(MYSQLI_REPORT_STRICT);
         try {
-            $stmt = $this->connection->prepare($query) or die($this->connection->error);
+            $stmt = $this->connection->prepare($query) or die("Errore in DBAccess: " . mysqli_error($this->connection));
             $stmt->execute($args);
             $res = $stmt->get_result();
             return match ($res) {
@@ -37,7 +37,7 @@ class DBAccess {
                 default => $res->fetch_all(MYSQLI_ASSOC),
             };
         } catch (Exception) {
-            die($this->connection->error);
+            die("Errore in DBAccess: " . mysqli_error($this->connection));
         } finally {
             if (isset($stmt)) {
                 $stmt->close();
@@ -47,7 +47,7 @@ class DBAccess {
             }
         }
     }
-    public function executeQuery4($query) {
+    public function executeSelectQuery($query) {
         $queryResult = mysqli_query($this->connection, $query) or die("Errore in DBAccess: " . mysqli_error($this->connection));
         if (mysqli_num_rows($queryResult) == 0) {
             return null;
@@ -112,19 +112,30 @@ class DBAccess {
         left join classificheeventi as ce on e.id = ce.evento
         where e.id = ?";
         try {
-            return $this->executeQuery($query, $id)[0];
+            return $this->executeQuery(
+                $query,
+                $id
+            )[0];
         } catch (Exception) {
             return null;
         }
     }
+
+    public function getTitoliEventi() {
+        return $this->executeQuery(
+            "SELECT DISTINCT titolo FROM eventi;"
+        );
+    }
     public function get_tipo_evento($evento) {
-        $query = $evento ? "SELECT * FROM TipiEvento WHERE Titolo = ?;"
-            : "SELECT TipiEvento.Titolo, TipiEvento.Descrizione
-                    FROM TipiEvento
-                    JOIN ClassificheEventi ON TipiEvento.Titolo = ClassificheEventi.TipoEvento
-                    JOIN Eventi ON ClassificheEventi.Evento = Eventi.id
-                    ORDER BY Eventi.Data DESC
-                    LIMIT 1;";
+        $query = $evento ?
+            "SELECT * FROM TipiEvento WHERE Titolo = ?;" :
+            "SELECT TipiEvento.Titolo, 
+             TipiEvento.Descrizione
+             FROM TipiEvento
+             JOIN ClassificheEventi ON TipiEvento.Titolo = ClassificheEventi.TipoEvento
+             JOIN Eventi ON ClassificheEventi.Evento = Eventi.id
+             ORDER BY Eventi.Data DESC
+             LIMIT 1;";
         return $this->executeQuery($query, $evento);
     }
     public function get_classifiche() {
