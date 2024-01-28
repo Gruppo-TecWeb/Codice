@@ -26,6 +26,21 @@
     src: url('../assets/fonts/Hokia\ Regular.ttf');
 }
 
+@font-face {
+    font-family: Fimlen;
+    src: url('../assets/fonts/fimlen.regular.otf');
+}
+
+@font-face {
+    font-family: Qualva;
+    src: url('../assets/fonts/RetroQalva-DemoVersion-Regular.ttf');
+}
+
+@font-face {
+    font-family: Horizontale;
+    src: url('../assets/fonts/horizontale.regular.ttf');
+}
+
 
 /*
  * COMUNE
@@ -282,12 +297,19 @@ footer ul {
 }
 
 #titoloHome #titolo {
-    padding: 1.5em 2em;
+    width: 100%;
+    height: 100%;
 }
 
 #index #titoloHome h1 {
+    padding: 0.1em;
     font-family: "Hokia";
-    font-size: 2em;
+    font-family: "Horizontale";
+    font-family: "Qualva";
+    font-family: "Fimlen";
+    font-size: 17vw;
+    background-color: var(--accentColor);
+    border-bottom: 2px solid var(--accentColor);
 }
 
 #index #eventi-home-principali {
