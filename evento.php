@@ -21,7 +21,7 @@ $breadcrumbs = '';
 $content = '';
 $onload = '';
 
-$connection = new DBAccess();
+$connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
 
 $eventoId = $_GET['id'];

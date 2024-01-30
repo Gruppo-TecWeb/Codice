@@ -30,7 +30,7 @@ if (isset($_GET["submit"]) && isset($_GET["classifica"]) && $_GET["classifica"] 
     $dataInizioScelta = date_create($classifica[1]);
 }
 
-$connection = new DBAccess();
+$connection = DBAccess::getInstance();
 $connectionOk = $connection -> openDBConnection();
 if ($connectionOk) {
     // creo la lista delle classifiche per la scelta dall'archivio

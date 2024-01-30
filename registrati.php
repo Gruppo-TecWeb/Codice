@@ -22,7 +22,7 @@ $errori = '';
 $username = '';
 $email = '';
 
-$connection = new DBAccess();
+$connection = DBAccess::getInstance();
 $connectionOk = $connection -> openDBConnection();
 
 if ($connectionOk) {

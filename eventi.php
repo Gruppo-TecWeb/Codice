@@ -20,7 +20,7 @@ $breadcrumbs = get_breadcrumbs($pageId);
 $content = file_get_contents("template/eventi.html");
 $onload = 'init_eventi();';
 
-$connection = new DBAccess();
+$connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
 
 if ($connectionOk) {

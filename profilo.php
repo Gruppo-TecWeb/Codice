@@ -25,7 +25,7 @@ $formEmail = '';
 $formModificaDatiUtente = '';
 $messaggiProfilo = "";
 
-$connection = new DBAccess();
+$connection = DBAccess::getInstance();
 $connectionOk = $connection -> openDBConnection();
 if ($connectionOk) {
     if (isset($_SESSION["login"])) {

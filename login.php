@@ -21,7 +21,7 @@ $erroriVAL = '';
 $errori = '';
 $username = '';
 
-$connection = new DBAccess();
+$connection = DBAccess::getInstance();
 $connectionOk = $connection -> openDBConnection();
 
 if ($connectionOk) {
