@@ -7,7 +7,7 @@ use DB\DBAccess;
 
 session_start();
 
-$paginaHTML = file_get_contents("template/pagina-template.html");
+$paginaHTML = file_get_contents("template/pagina.html");
 $classificheHTML = file_get_contents("template/classifiche-template.html");
 $classificaHTML = file_get_contents("template/classifica-template.html");
 $rigaHTML = file_get_contents("template/tabella-riga-template.html");

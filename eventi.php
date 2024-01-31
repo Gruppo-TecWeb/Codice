@@ -9,7 +9,7 @@ use DB\DBAccess;
 
 session_start();
 
-$eventiHTML = file_get_contents("template/pagina-template.html");
+$eventiHTML = file_get_contents("template/pagina.html");
 
 $title = 'Eventi &minus; Fungo';
 $pageId = basename(__FILE__, '.php');

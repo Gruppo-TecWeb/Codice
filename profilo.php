@@ -7,7 +7,7 @@ use DB\DBAccess;
 
 session_start();
 
-$paginaHTML = file_get_contents("template/pagina-template.html");
+$paginaHTML = file_get_contents("template/pagina.html");
 $profiloHTML = file_get_contents("template/profilo-template.html");
 
 $title = 'Profilo personale &minus; Fungo';
