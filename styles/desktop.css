@@ -8,10 +8,12 @@
 #modalita_freestyle{
     text-align: center;
     background-color: #ebe3e3;
+    /*display: none;*/
 
 }
 /* Lista delle battle */
 #lista_battle{
+    
     display: grid;
     grid-template-columns: repeat(auto-fill,30em); /* Crea una griglia con colonne di almeno/massimo 300px */
     gap: 5em; /* Imposta la distanza tra le battle */
@@ -22,7 +24,7 @@
 
 .battle {
     margin: auto;
-    background-color: #feacac;
+    background-color: #ffa750;
     border-radius: 20px;
     border-style: solid;
     padding: 0em 1em;
@@ -39,6 +41,7 @@
     width:400;
     height:170;
     border-radius: 30px;
+    /*display: none;*/
 
 }
 .battle dd:last-child{
@@ -59,7 +62,7 @@
 #lista_basi{
     list-style: none;
     justify-content: space-evenly;
-    background-color: #ebe3e3;
+    /*background-color: #000000;*/
 }
 .base{
     width:auto;
