@@ -6,6 +6,7 @@ require_once("utilities/DBAccess.php");
 use DB\DBAccess;
 
 $pagTemplate = file_get_contents("template/pagina-template.html");
+$content = file_get_contents("template/battle.html");
 
 
 $title = 'Battle &minus; Fungo';
@@ -14,8 +15,7 @@ $description = "Introduzione regole e modalità freestyle per neofiti dell'argom
 $keywords = 'Modalità freestyle, Chyper, Kickback, Royal rumble';
 $menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
-$content = file_get_contents("battle.html");
-$onload = '';
+$onload = 'onlyOnePlayer()';
 
 
 
@@ -29,7 +29,7 @@ if($connectionOk)
         $percorso=$base['nome'];
         $lista_basi.="<li class='base'> <dl> <dt>";
         $lista_basi.=$titolo;
-        $lista_basi.="</dt> <dd> <audio> <source src='";
+        $lista_basi.="</dt> <dd> <audio controls> <source src='";
         $lista_basi.=$percorso;
         $lista_basi.="'type='audio/mp3'> </audio> </dd> </dl> </li>";
     }
