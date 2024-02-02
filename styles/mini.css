@@ -1,6 +1,77 @@
-/* TUTTE LE PAGINE (COMUNE) */
+/* 
+ * PAGINA BATTLE 
+ */
 
-.navigationHelp {
-    position: absolute;
-    text-indent: -999em;
+
+/* div modalità freestyle */
+
+#modalita_freestyle {
+    text-align: center;
+    background-color: #ebe3e3;
+    /*display: none;*/
+}
+
+
+/* Lista delle battle */
+
+#lista_battle {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 30em);
+    /* Crea una griglia con colonne di almeno/massimo 300px */
+    gap: 5em;
+    /* Imposta la distanza tra le battle */
+    justify-content: space-evenly;
+    padding-left: 0;
+    /* padding nullo */
+}
+
+.battle {
+    margin: auto;
+    background-color: #ffa750;
+    border-radius: 20px;
+    border-style: solid;
+    padding: 0em 1em;
+    list-style: none;
+}
+
+.battle h3 {
+    border-style: solid;
+    border-bottom: 0;
+    padding: 1em;
+}
+
+.battle iframe {
+    width: 400;
+    height: 170;
+    border-radius: 30px;
+    /* display: none; */
+}
+
+.battle dd:last-child {
+    border-style: solid dashed;
+    border-radius: 0px 0px 10px 10px;
+    border-top: 0;
+    padding: 1em;
+}
+
+.battle dd {
+    margin-left: 0;
+}
+
+#prova_tu {
+    text-align: left;
+}
+
+#lista_basi {
+    list-style: none;
+    justify-content: space-evenly;
+    /*background-color: #000000;*/
+}
+
+.base {
+    width: auto;
+}
+
+.base dd {
+    margin-left: 0;
 }

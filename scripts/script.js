@@ -8,7 +8,7 @@ function toggleMenu() {
     bcContainer.setAttribute("data-menu-open", navOpened);
     document.body.setAttribute("data-menu-open", navOpened);
 }
-  
+
 function init_eventi() {
     var urlParams = new URLSearchParams(window.location.search);
     var filtro = urlParams.get('filtro');
@@ -28,4 +28,17 @@ function init_eventi() {
             document.getElementById('link-prossimi').classList.add('selected');
         }
     }
+}
+
+function onlyOnePlayer() {
+    container = document.getElementById("lista_basi")
+    container.addEventListener("play", function(event) {
+        basi = container.getElementsByTagName("audio")
+        for (i = 0; i < basi.length; i++) {
+            base = basi[i];
+            if (base !== event.target) {
+                base.pause();
+            }
+        }
+    }, true);
 }
