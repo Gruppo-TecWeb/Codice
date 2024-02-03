@@ -30,19 +30,9 @@ function init_eventi() {
     }
 }
 
-function onlyOnePlayer() {
-    container = document.getElementById("lista_basi")
-    container.addEventListener("play", function(event) {
-        basi = container.getElementsByTagName("audio")
-        for (i = 0; i < basi.length; i++) {
-            base = basi[i];
-            if (base !== event.target) {
-                base.pause();
-            }
-        }
-    }, true);
-}
+
 function setIframe(battle){
+    
     title=new Array(
         'Minuto',
         '4/4',
@@ -78,15 +68,13 @@ function setIframe(battle){
         'Viene dato un argomento su cui i rapper dovranno cantare. Esiste la variante in cui i rapper cantano come se facessero parte di due fazioni opposte tra loro(es grassi <abbr title="versus">vs</abbr> magri): <a href="https://www.youtube.com/watch?v=OQd6xAAm9nU" target="_blank">Esempio fazioni</a>',
         'I rapper si sfidano senza alcun supporto musicale, concentrandosi solo sulle loro abilità vocali e liriche',
         'Prima dell\'inizio di ogni turno ai rapper verranno forniti degli oggetti che non conoscono a priori e dovranno rappare su quelli. Gli oggetti possono essere forniti dal pubblico o nascosti dentro un contenitore.',
-
     );
 
-    document.getElementsByTagName("h3")[0].innerHTML=title[battle];
+    document.getElementsByTagName("h3")[0].innerHTML="Esempio " + title[battle];
 
     iframe=document.getElementsByTagName("iframe")[0];
     iframe.src=link[battle];
     iframe.title=title[battle];
-    iframe.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; auto";
   
     document.getElementById("descrizione_battle").innerHTML=descrizione[battle];
 }

@@ -9,6 +9,7 @@
     /* --accentColor: #EF754A; */
     --accentColor: #EF534A;
     /*meglio???*/
+    --buttonHover: #453B3B;
     --secondaryColor: #262626;
     --linkColor: #00b4ff;
     --linkVisitedColor: #ffd7bb;
@@ -19,6 +20,7 @@
     --elevationHigh: 1000;
     --elevationMiddle: 1;
     --elevationLow: 0;
+    
 }
 
 @font-face {
@@ -463,72 +465,50 @@ input[type="submit"] {
     border-radius: 20px;
     border-style: solid;
     margin: 1em;
- }
- /*vorrei il margin e padding!= 0 su tutta la pagina*/
- .battle {
-    margin: 2em;
-    padding: 1em 1em;
-    list-style: none;
-    text-align: center;
-    width: 96em;
-
-}
-
-.battle h3 {
-    border-style: solid;
-    border-bottom: 0;
     padding: 1em;
-}
+ }
 
-.battle iframe {
-    width: 48em;
-    height: 27em;
-    border-radius: 30px;
+ #container_iframe iframe {
+    width: 48vw;
+    height: 27vw;
+    border-radius: 20px;
+    margin: 0em 1em 0em 0em;
     
 }
+#container_iframe h3{
+    text-align: center;
+    padding: 1em 0em;
 
-.battle dd:last-child {
-    border-style: solid dashed;
-    border-radius: 0px 0px 10px 10px;
-    border-top: 0;
-    padding: 1em;
 }
+ /*vorrei il margin e padding!= 0 su tutta la pagina*/
 
-.battle dd {
-    margin-left: 0;
-}
-form{
+ #lista_battle {
     display: flex;
     flex-direction: column;
     margin: auto;
-}
-form button{
-    margin: 1em;
-    padding: 1em;
-    border-radius: 10px;
-    background-color: #453B3B;
-    color: var(--linkVisitedColor);
-    cursor: pointer;
-    width: 10em;
-
-}
-form label{
-    display: none;
-}
-
-#prova_tu {
-    text-align: left;
-}
-
-#lista_basi {
     list-style: none;
-    justify-content: space-evenly;
+    cursor: pointer;
 }
 
-.base {
-    width: auto;
+.descrizioneBattle {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    text-align: center;
+    border-style: solid;
+    padding: 0.5em 0em;
+    background-color:var(--secondaryColor) ;
+}
+.descrizioneBattle:hover {
+    background-color:var(--buttonHover) ;
 }
 
-.base dd {
-    margin-left: 0;
+.descrizioneBattle dt{
+    border-style: solid;
+    border-width: 0px 2px 0px 0px;
+    padding: 0.5em;
+}
+.descrizioneBattle dd {
+    list-style: none;
+    padding: 0.5em;
 }
