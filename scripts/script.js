@@ -78,3 +78,9 @@ function setIframe(battle){
   
     document.getElementById("descrizione_battle").innerHTML=descrizione[battle];
 }
+
+function playerAudio(base) {
+    percorso="assets/media/basi/";
+    container = document.getElementById("audio_container");
+    container.innerHTML ='<h3>' + base.slice(0,-4) + '</h3><audio controls id="audio"><source src="' + percorso + base + '" type="audio/mpeg"></audio>';
+}
