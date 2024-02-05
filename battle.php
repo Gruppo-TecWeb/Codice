@@ -16,9 +16,9 @@ $description = "Introduzione regole e modalità freestyle per neofiti dell'argom
 $keywords = 'Modalità freestyle, Chyper, Kickback, Royal rumble';
 $menu = get_menu(isset($_SESSION["login"]), $pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
-$onload = 'onlyOnePlayer()';
+$onload = '';
 
-
+/*ELIMINABILE
 $connection = new DBAccess();
 $connectionOk = $connection->openDBConnection();
 
@@ -37,7 +37,7 @@ if ($connectionOk) {
     }
     $content = str_replace("{lista_basi}", $lista_basi, $content);
 }
-
+*/
 echo multi_replace($battleHTML, [
     '{title}' => $title,
     '{description}' => $description,

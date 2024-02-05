@@ -458,6 +458,10 @@ input[type="submit"] {
 
 /* div modalità freestyle */
 
+#intro_battle h2{
+    text-align: center;
+}
+
 #container_battle {
     display: flex;
     flex-direction: row;
@@ -466,6 +470,7 @@ input[type="submit"] {
     border-style: solid;
     margin: 1em;
     padding: 1em;
+    align-items: center;
  }
 
  #container_iframe iframe {
@@ -477,7 +482,7 @@ input[type="submit"] {
 }
 #container_iframe h3{
     text-align: center;
-    padding: 1em 0em;
+    padding: 0em 0em 1em 0em;
 
 }
  /*vorrei il margin e padding!= 0 su tutta la pagina*/
@@ -485,18 +490,17 @@ input[type="submit"] {
  #lista_battle {
     display: flex;
     flex-direction: column;
-    list-style: none;
     cursor: pointer;   
 }
 
 .descrizioneBattle {
     display: flex;
     flex-direction: row;
-    list-style: none;
-    text-align: center;
     border-style: solid;
     padding: 0.5em 0em;
-    background-color:var(--secondaryColor) ;
+    align-items: center;
+    background-color:var(--secondaryColor);
+    border-color: var(--accentColor);
 }
 .descrizioneBattle:hover {
     background-color:var(--buttonHover) ;
@@ -508,6 +512,5 @@ input[type="submit"] {
     padding: 0.5em;
 }
 .descrizioneBattle dd {
-    list-style: none;
     padding: 0.5em;
 }
