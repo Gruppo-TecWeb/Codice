@@ -457,6 +457,10 @@ input[type="submit"] {
 #lista_basi li{
     padding: 1em;
     background-color: var(--secondaryColor);
+    cursor: pointer;
+    border-style: solid;
+    border-color: var(--accentColor);
+    border-width: 0.1em 0em 0em 0em;
 }
 #lista_basi li:hover{
     border-style: solid;
@@ -470,9 +474,6 @@ input[type="submit"] {
     bottom: 0;
     background-color: var(--accentColor);
     padding: 1em;
-    border-style: solid;
-    border-color: #000;
-    border-width: 0.5em 0em 0em 0em;
 
 }
 #audio_container h3{
