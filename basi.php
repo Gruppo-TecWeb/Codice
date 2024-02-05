@@ -12,16 +12,11 @@ $content = file_get_contents("template/basi.html");
 
 $title = 'Battle &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
-$description = "Introduzione regole e modalità freestyle per neofiti dell'argomento";
-$keywords = 'Modalità freestyle, Chyper, Kickback, Royal rumble';
+$description = "Basi per freestyle di rap";
+$keywords = 'Basi, Beats, Instrumental, Freestyle, Rap';
 $menu = get_menu(isset($_SESSION["login"]), $pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
-
-
-$connection = new DBAccess();
-$connectionOk = $connection->openDBConnection();
-
 
 echo multi_replace($basiHTML, [
     '{title}' => $title,
