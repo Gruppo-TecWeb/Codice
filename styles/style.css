@@ -485,9 +485,8 @@ input[type="submit"] {
  #lista_battle {
     display: flex;
     flex-direction: column;
-    margin: auto;
     list-style: none;
-    cursor: pointer;
+    cursor: pointer;   
 }
 
 .descrizioneBattle {
