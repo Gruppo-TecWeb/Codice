@@ -483,16 +483,19 @@ input[type="submit"] {
 #container_iframe h3{
     text-align: center;
     padding: 0em 0em 1em 0em;
+    
 
 }
- /*vorrei il margin e padding!= 0 su tutta la pagina*/
 
- #lista_battle {
+ #lista_battle button{
+    cursor: pointer;
+    border-radius: 20px;
+    height: 4em;
+}
+#lista_battle{
     display: flex;
     flex-direction: column;
-    cursor: pointer;   
 }
-
 .descrizioneBattle {
     display: flex;
     flex-direction: row;
@@ -501,6 +504,7 @@ input[type="submit"] {
     align-items: center;
     background-color:var(--secondaryColor);
     border-color: var(--accentColor);
+    color: var(--txtColor);
 }
 .descrizioneBattle:hover {
     background-color:var(--buttonHover) ;

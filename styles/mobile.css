@@ -373,3 +373,21 @@ input[type="submit"] {
     align-items: center;
     justify-content: center;
 }
+#container_iframe iframe {
+    width: 80vw;
+    height: 45vw;
+    margin: 0;
+    
+}
+#container_iframe{
+    position: sticky;
+    top: 0;
+}
+#container_battle{
+    margin: 0;
+    border-radius: 0px;
+    border-width: 0.1em 0em 0em 0em;    
+}
+#lista_battle button{
+    height: 6em;
+}
