@@ -362,3 +362,111 @@ input[type="submit"] {
 #evento-info {
     padding: 1em;
 }
+
+
+/*
+ * PAGINA BASI
+*/
+
+#audio_container {
+    position: sticky;
+    box-sizing: border-box;
+    width: var(--menuWidth);
+    min-height: 44px;
+    margin: auto;
+    padding: 0;
+    bottom: calc(2em + 44px + 2px);
+    overflow: hidden;
+    display: block;
+    align-items: center;
+    background-color: var(--accentColor);
+}
+
+#audio_container h3 {
+    width: unset;
+    margin: 0.15em 1em;
+    font-size: 1.25em;
+    color: var(--secondaryColor);
+}
+
+#audio_container #audio {
+    display: none;
+    width: inherit;
+    height: 44px;
+}
+
+.playerControls {
+    display: flex;
+    flex-direction: row;
+}
+
+.playerControls input {
+    width: 100%;
+    height: 44px;
+    margin: 0;
+    margin-left: 2px;
+    border-radius: 4px;
+    -webkit-appearance: none;
+    outline: none;
+}
+
+.playerControls input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 44px;
+    border-radius: 4px;
+    background: var(--accentColor);
+    cursor: pointer;
+}
+
+.playerControls input::-moz-range-thumb {
+    width: 20px;
+    height: 44px;
+    border-radius: 4px;
+    background: var(--accentColor);
+    cursor: pointer;
+}
+
+.playerControls button {
+    min-height: 44px;
+    aspect-ratio: 1;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    border: unset;
+    background-size: 65%;
+    background-position: center;
+    transition: 0.5s;
+}
+
+.playerControls button span {
+    position: absolute;
+    text-indent: -999em;
+}
+
+.playerControls button:active {
+    transform: scale(1.1);
+    transition: 0.1s;
+}
+
+#audio_container[data-player-fixed="true"] {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#breadcrumbs-container[data-player-fixed=true] {
+    min-width: var(--menuWidth);
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+}
+
+#btn-play {
+    background-color: var(--accentColor);
+    background-image: url("../assets/icons/play.svg");
+}
+
+#btn-skip {
+    border-radius: 4px;
+    background-color: var(--secondaryColor);
+    background-image: url("../assets/icons/play-skip-forward.svg");
+}

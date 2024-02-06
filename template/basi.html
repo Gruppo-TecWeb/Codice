@@ -12,7 +12,7 @@
         <li class="base" role="button" title="Dilated Peoples - The Platform (Erik Sermon Remix)" onclick="playerAudio('Dilated Peoples - The Platform (Erik Sermon Remix).mp3')">
             Dilated Peoples - The Platform (Erik Sermon Remix)
         </li>
-        
+
         <li class="base" role="button" title="DJ Premier - BAP" onclick="playerAudio('DJ Premier - BAP.mp3')">
             DJ Premier - BAP
         </li>
@@ -59,8 +59,13 @@
             Timbaland - They Ain_t Ready
         </li>
     </ul>
-    <div id="audio_container">
-        <h3>Big L Ebonics</h3>
+    <div id="audio_container" class="mobileCard" data-player-fixed="">
+        <h3>Titolo</h3>
+        <div class="playerControls">
+            <button id="btn-play"><span><span lang="en">Play</span>/Pausa</span></button>
+            <button id="btn-skip"><span>Prossima traccia</span></button>
+            <input type="range" min="0" max="100" step="1" onchange="" />
+        </div>
         <audio id="audio" controls>
             <source src="assets/media/basi/Big L Ebonics.mp3" type="audio/mpeg">
         </audio>

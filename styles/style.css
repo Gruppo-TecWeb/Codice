@@ -20,7 +20,6 @@
     --elevationHigh: 1000;
     --elevationMiddle: 1;
     --elevationLow: 0;
-    
 }
 
 @font-face {
@@ -450,11 +449,12 @@ input[type="submit"] {
     color: #000;
 }
 
+
 /* 
  * PAGINA BASI 
  */
 
-#lista_basi li{
+#lista_basi li {
     padding: 1em;
     background-color: var(--secondaryColor);
     cursor: pointer;
@@ -462,11 +462,13 @@ input[type="submit"] {
     border-color: var(--accentColor);
     border-width: 0.1em 0em 0em 0em;
 }
-#lista_basi li:hover{
+
+#lista_basi li:hover {
     border-style: solid;
     padding: 1em;
     background-color: var(--linkHoverBgColor);
 }
+
 #audio_container {
     display: flex;
     flex-direction: row;
@@ -474,12 +476,13 @@ input[type="submit"] {
     bottom: 0;
     background-color: var(--accentColor);
     padding: 1em;
-
 }
-#audio_container h3{
+
+#audio_container h3 {
     align-self: center;
     width: 30vw;
 }
-#audio_container #audio{
-    width: 70vw;  
+
+#audio_container #audio {
+    width: 70vw;
 }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="512px" height="512px" viewBox="0 0 512 512" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="path_1" />
+    <clipPath id="clip_1">
+      <use xlink:href="#path_1" clip-rule="evenodd" fill-rule="evenodd" />
+    </clipPath>
+  </defs>
+  <g id="play-skip-forward">
+    <path d="M512 0L512 0L512 512L0 512L0 0L512 0Z" id="play-skip-forward" fill="none" stroke="none" />
+    <path d="M400 64C391.163 64 384 71.1634 384 80L384 216.43L151.23 77.11C140.28 70.449 126.571 70.2804 115.46 76.67C103.46 83.47 96 96.63 96 111L96 401C96 415.37 103.46 428.53 115.46 435.33C126.573 441.714 140.281 441.542 151.23 434.88L384 295.57L384 432C384 440.837 391.163 448 400 448C408.837 448 416 440.837 416 432L416 80C416 71.1634 408.837 64 400 64L400 64Z" id="Shape" fill="#EF534A" stroke="none" clip-path="url(#clip_1)" />
+  </g>
+</svg>

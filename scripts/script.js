@@ -31,7 +31,31 @@ function init_eventi() {
 }
 
 function playerAudio(base) {
-    percorso="assets/media/basi/";
+    percorso = "assets/media/basi/";
     container = document.getElementById("audio_container");
-    container.innerHTML ='<h3>' + base.slice(0,-4) + '</h3><audio controls autoplay id="audio"><source src="' + percorso + base + '" type="audio/mpeg"></audio>';
+    container.innerHTML = '<h3>' + base.slice(0, -4) + '</h3><audio controls autoplay id="audio"><source src="' + percorso + base + '" type="audio/mpeg"></audio>';
+}
+
+function setFissaPlayerBase(fissato) {
+    var bcContainer = document.getElementById("breadcrumbs-container");
+    var playerBasi = document.getElementById("audio_container");
+    bcContainer.setAttribute("data-player-fixed", fissato);
+    playerBasi.setAttribute("data-player-fixed", fissato);
+}
+
+function observePlayerPinned() {
+    var observer = new IntersectionObserver(function(entries) {
+
+        alert(entries[0].intersectionRatio);
+        if (entries[0].intersectionRatio === 1) {
+            setFissaPlayerBase(true);
+        } else {
+            // alert(entries[0].intersectionRatio);
+            setFissaPlayerBase(false);
+
+        }
+
+    }, { threshold: [0, 0.5, 1], rootMargin: "0px 0px 0px 0px", root: document.getElementById("basi_container") });
+
+    observer.observe(document.querySelector("#audio_container"));
 }
