@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS Eventi;
 DROP TABLE IF EXISTS Classifiche;
 DROP TABLE IF EXISTS TipiEvento;
 DROP TABLE IF EXISTS Utenti;
+DROP TABLE IF EXISTS Basi;
 
 CREATE TABLE Utenti (
     Username VARCHAR(100) PRIMARY KEY,
@@ -46,9 +47,16 @@ CREATE TABLE Punteggi (
     PRIMARY KEY (Partecipante, Evento),
     FOREIGN KEY (Evento) REFERENCES Eventi(id),
     FOREIGN KEY (Partecipante) REFERENCES Utenti(Username));
+
+CREATE TABLE Basi
+(
+   id INT PRIMARY KEY auto_increment,
+   nome VARCHAR (255)
+);
     
 INSERT INTO Utenti (Username, Password, Email, Admin) VALUES ('admin', '$2y$10$6HccIqtLp.aSP1X4H/X3GeNJaXsTLVrNCPYIaMURXPUfxSL7qjphi', 'admin@mail.it', 'S');
 INSERT INTO Utenti (Username, Password, Email) VALUES ('user', '$2y$10$Z0Aa3dQjyumq4IUcqxlIK.Han8U1eeETu7utaA9WhT.iKcggzR49G', 'user@mail.it');
+
 INSERT INTO Utenti (Username, Password, Email) VALUES ('Juice WRLD', '', 'juicewrld@mail.it');
 INSERT INTO Utenti (Username, Password, Email) VALUES ('Lil Peep', '', 'lilpeep@mail.it');
 INSERT INTO Utenti (Username, Password, Email) VALUES ('XXXTentacion', '', 'xxxtentacion@mail.it');
@@ -334,3 +342,23 @@ INSERT INTO Punteggi (Partecipante, Evento, Punteggio) VALUES ('Mac Miller', 17,
 INSERT INTO Punteggi (Partecipante, Evento, Punteggio) VALUES ('Juice WRLD', 17, 1);
 INSERT INTO Punteggi (Partecipante, Evento, Punteggio) VALUES ('Travis Scott', 17, 1);
 INSERT INTO Punteggi (Partecipante, Evento, Punteggio) VALUES ('Eminem', 17, 1);
+
+Insert into Basi (nome) values ("11 - Goodbye - Big Joe.mp4");
+Insert into Basi (nome) values ("Big L  Ebonics.mp3");
+Insert into Basi (nome) values ("Busta Rhymes - Psycobusta.mp3");
+Insert into Basi (nome) values ("Dilated Peoples - The Platform (Erik Sermon Remix).mp3");
+Insert into Basi (nome) values ("DJ Premier - BAP.mp3");
+Insert into Basi (nome) values ("DJ Premier - That White.mp3");
+Insert into Basi (nome) values ("Full Clip-Gangstarr.mp3");
+Insert into Basi (nome) values ("Funkdoobiest - Lost in Thought.mp4");
+Insert into Basi (nome) values ("Gang Starr - Battle.mp3");
+Insert into Basi (nome) values ("J. Cole - Fire Squad.wav");
+Insert into Basi (nome) values ("Jam Baxter - Fine (Prod GhostTown).mp4");
+Insert into Basi (nome) values ("Method Man _ Redman - A-Yo.mp4");
+Insert into Basi (nome) values ("Movie Villains.mp4");
+Insert into Basi (nome) values ("Noyz Narcos - Trucemala.mp3");
+Insert into Basi (nome) values ("RA Rugged man - Dangerous Three.mp3");
+Insert into Basi (nome) values ("Step Brothers (Alchemist _ Evidence) - Step Masters.mp4");
+Insert into Basi (nome) values ("Tecniche Perfette - 5.mp4");
+Insert into Basi (nome) values ("Wu Tang Clan _ Mobb Deep - Phat Beat.mp3");
+Insert into Basi (nome) values ("Timbaland - They Ain_t Ready.mp3");

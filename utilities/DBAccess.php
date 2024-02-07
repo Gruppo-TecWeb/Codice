@@ -26,6 +26,7 @@ class DBAccess {
         mysqli_close($this->connection);
     }
 
+
     private function executeQuery($query, ...$args) {
         mysqli_report(MYSQLI_REPORT_STRICT);
         try {
@@ -47,6 +48,7 @@ class DBAccess {
             }
         }
     }
+
     public function executeSelectQuery($query) {
         $queryResult = mysqli_query($this->connection, $query) or die("Errore in DBAccess: " . mysqli_error($this->connection));
         if (mysqli_num_rows($queryResult) == 0) {
@@ -226,5 +228,21 @@ class DBAccess {
             password_hash($newPassword, PASSWORD_BCRYPT),
             $username
         );
+    }
+
+    public function get_basi() {
+        $query = "Select * from basi";
+        $queryResult = mysqli_query($this->connection, $query)
+            or die("Errore in DBAccess" . mysqli_error($this->connection));
+        if (mysqli_num_rows($queryResult) != 0) {
+            $result = array();
+            while ($row = mysqli_fetch_assoc($queryResult)) {
+                $result[] = $row;
+            }
+            $queryResult->free();
+            return $result;
+        } else {
+            return null;
+        }
     }
 }
