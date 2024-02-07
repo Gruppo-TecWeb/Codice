@@ -6,8 +6,8 @@
     --bgColor: #000;
     --txtColor: #FFF2EA;
     --unfocusedTxtColor: #949494;
-    --accentColor: #EF754A;
-    --accentColor: #ef534a;
+    /* --accentColor: #EF754A; */
+    --accentColor: #EF534A;
     /*meglio???*/
     --secondaryColor: #262626;
     --linkColor: #00b4ff;
@@ -70,6 +70,11 @@ a:visited {
     text-indent: -999em;
 }
 
+.navigationHelp:focus {
+    text-indent: unset;
+    /* DEBUG */
+}
+
 .limitedWidth {
     width: 100%;
     max-width: var(--widthMax);
@@ -109,8 +114,11 @@ main {
  * INPUT
  */
 
-input {
+input,
+select,
+textarea {
     padding: 0.5em 0.8em;
+    border-radius: 2px;
     caret-color: var(--accentColor);
     background-color: var(--secondaryColor);
     border: 1px solid var(--accentColor);
@@ -122,11 +130,15 @@ input::placeholder {
     color: var(--unfocusedTxtColor);
 }
 
-input:hover {
+input:hover,
+select:hover,
+textarea:hover {
     box-shadow: 0 0 14px var(--accentColor) inset;
 }
 
-input:focus {
+input:focus,
+select:focus,
+textarea:focus {
     box-shadow: 0 0 8px var(--accentColor) inset;
     outline: none;
 }
@@ -251,7 +263,7 @@ footer ul {
 #index #breadcrumbs-container {
     position: absolute;
     left: 0;
-    top: 5em;
+    top: 4em;
     right: 0;
 }
 
@@ -273,7 +285,6 @@ footer ul {
     max-width: 40%;
     object-fit: cover;
     border-left: 2px solid var(--accentColor);
-    transition: 1s;
 }
 
 #titoloHome #titolo {
@@ -402,6 +413,124 @@ input[type="submit"] {
 #evento-info {
     margin-left: 1.25em;
     color: black;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: #fff;
+    cursor: pointer;
+}
+
+
+/* Lista degli eventi */
+
+#lista-eventi {
+    padding: 10px;
+}
+
+.evento {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    padding: 15px;
+    text-align: center;
+}
+
+.evento a {
+    text-decoration: none;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    display: block;
+    color: #000;
+}
+
+
+/* 
+ * PAGINA BATTLE 
+ */
+
+
+/* div modalità freestyle */
+
+#modalita_freestyle {
+    text-align: center;
+    background-color: #ebe3e3;
+    /*display: none;*/
+}
+
+
+/* Lista delle battle */
+
+#lista_battle {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 30em);
+    /* Crea una griglia con colonne di almeno/massimo 300px */
+    gap: 5em;
+    /* Imposta la distanza tra le battle */
+    justify-content: space-evenly;
+    padding-left: 0;
+    /* padding nullo */
+}
+
+.battle {
+    margin: auto;
+    background-color: #ffa750;
+    border-radius: 20px;
+    border-style: solid;
+    padding: 0em 1em;
+    list-style: none;
+}
+
+.battle h3 {
+    border-style: solid;
+    border-bottom: 0;
+    padding: 1em;
+}
+
+.battle iframe {
+    width: 400;
+    height: 170;
+    border-radius: 30px;
+    /* display: none; */
+}
+
+.battle dd:last-child {
+    border-style: solid dashed;
+    border-radius: 0px 0px 10px 10px;
+    border-top: 0;
+    padding: 1em;
+}
+
+.battle dd {
+    margin-left: 0;
+}
+
+#prova_tu {
+    text-align: left;
+}
+
+#lista_basi {
+    list-style: none;
+    justify-content: space-evenly;
+    /*background-color: #000000;*/
+}
+
+.base {
+    width: auto;
+}
+
+.base dd {
+    margin-left: 0;
 }
 
 
