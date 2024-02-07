@@ -30,8 +30,29 @@ function init_eventi() {
     }
 }
 
-function playerAudio(base) {
+function playerAudio(nomeBase) {
     percorso="assets/media/basi/";
     container = document.getElementById("audio_container");
-    container.innerHTML ='<h3>' + base.slice(0,-4) + '</h3><audio controls autoplay id="audio"><source src="' + percorso + base + '" type="audio/mpeg"></audio>';
+    container.innerHTML ='<h3>' + nomeBase.slice(0,-4) + '</h3><audio controls autoplay id="audio"><source src="' + percorso + nomeBase + '" type="audio/mpeg"></audio>';
+    let aud = document.getElementById("audio");
+    aud.onended = playerAudioNext(nomeBase)
+}
+function playerAudioNext(nomeBase) { //Forse Js vede il nome del prossimo titolo con i % al posto degli spazi???
+    let basi = document.getElementsByClassName("base");
+     
+    for (let i = 0; i < basi.length; i++) {
+        if (basi[i].getAttribute("title") == nomeBase.slice(0,-4)) {
+            let next = basi[i+1];
+            if (next) {
+                
+                console.log(basi[i].getAttribute("title"));
+                console.log(next.getAttribute("title"));
+                console.log(next);
+
+                playerAudio(next.getAttribute("title"));
+                console.log("OK");
+            }
+            break;
+        }
+    }
 }
