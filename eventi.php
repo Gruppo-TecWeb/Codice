@@ -20,7 +20,7 @@ $breadcrumbs = get_breadcrumbs($pageId);
 $content = file_get_contents("template/eventi.html");
 $onload = 'init_eventi();';
 
-$connection = new DBAccess();
+$connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
 
 if ($connectionOk) {
@@ -60,7 +60,7 @@ if ($connectionOk) {
         '{listaEventi}' => $lista_eventi_string,
     ]);
 } else {
-    $content = "<p>I sistemi sono momentaneamente fuori servizio, ci scusiamo per il disagio</p>";
+    header("location: errore500.php");
 }
 
 echo multi_replace($eventiHTML, [

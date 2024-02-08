@@ -1,17 +1,17 @@
 <?php
 
 namespace Utilities;
-require_once "utilities/utilities.php";
+require_once("utilities/utilities.php");
 
 session_start();
 
 $paginaHTML = file_get_contents("template/pagina-template.html");
-$content = file_get_contents("template/home-template.html");
+$errore500HTML = file_get_contents("template/errore500-template.html");
 
-$title = 'Fungo';
+$title = 'Errore 500 &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
-$description = '';
-$keywords = '';
+$description = 'Pagina di errore 500.';
+$keywords = 'error 500';
 $menu = get_menu(isset($_SESSION["login"]), $pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
@@ -23,6 +23,6 @@ echo multi_replace($paginaHTML,[
     '{pageId}' => $pageId,
     '{menu}' => $menu,
     '{breadcrumbs}' => $breadcrumbs,
-    '{content}' => $content,
+    '{content}' => $errore500HTML,
     '{onload}' => $onload
 ]);
