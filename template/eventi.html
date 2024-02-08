@@ -1,14 +1,21 @@
 <h2 class="limitedWidth">Eventi</h2>
 <p class="limitedWidth">Qui trovi tutti gli eventi in programma</p>
 <div class="filtro-primario limitedWidth">
+    <form method="get">
+        <label for="filtro">Filtra per eventi </label>
+        <input type="submit" id="link-passati" value="&laquo; Passati">
+        <input type="submit" id="link-tutti" value="&forall; Tutti">
+        <input type="submit" id="link-prossimi" value="Prossimi &raquo;">
+        <!--
     <a href="eventi.php?filtro=passati" id="link-passati">&laquo; Passati</a>
     <a href="eventi.php?filtro=tutti" id="link-tutti">&forall; Tutti</a>
     <a href="eventi.php" id="link-prossimi">Prossimi &raquo;</a>
-
-    <form method="get" action="eventi.php" id="data-container">
-        <label for="data" id="data-label">Oppure filtra per a partire da una data</label>
-        <input hidden name="filtro" value="data">
-        <input id='data' type="date" name="data" value="{data}" onchange="this.form.submit()">
+    -->
+        <div id="data-container">
+            <label for="data" id="data-label">Oppure filtra per a partire da una data</label>
+            <input hidden name="filtro" value="data">
+            <input id="data" type="date" name="data" value="{data}" onchange="this.form.submit()">
+        </div>
     </form>
 </div>
 <div class="form-container limitedWidth">
