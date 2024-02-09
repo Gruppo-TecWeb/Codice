@@ -18,7 +18,7 @@ $keywords = '';
 $menu = get_menu(isset($_SESSION["login"]), $pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $content = file_get_contents("template/eventi.html");
-$onload = 'init_eventi();';
+$onload = '';
 
 $connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
@@ -26,10 +26,11 @@ $connectionOk = $connection->openDBConnection();
 if ($connectionOk) {
     $titolo = isset($_GET['titolo']) ? $_GET['titolo'] : '';
     $data = isset($_GET['data']) ? $_GET['data'] : '';
-    $filtro = isset($_GET['filtro']) ? $_GET['filtro'] : '';
-    
+    //$filtro = isset($_GET['filtro']) ? $_GET['filtro'] : '';
+    $filtro = $data != '' ? 'data' : '';
+
     $lista_eventi_array = $connection->getListaEventi($filtro, $data, $titolo);
-    
+
     $lista_titoli_array = $connection->executeSelectQuery("Select distinct titolo from eventi");
     $lista_titoli_string = '';
     foreach ($lista_titoli_array as $evento) {
