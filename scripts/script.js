@@ -34,23 +34,22 @@ function playerAudio(nomeBase) {
     percorso="assets/media/basi/";
     container = document.getElementById("audio_container");
     container.innerHTML ='<h3>' + nomeBase.slice(0,-4) + '</h3><audio controls autoplay id="audio"><source src="' + percorso + nomeBase + '" type="audio/mpeg"></audio>';
-    document.getElementById("audio").onended = playerAudioNext(nomeBase); 
+    //document.getElementById("audio").onended = playerAudioNext(nomeBase); 
     //Non fa "onended", forse perchè la funzione viene eseguita da un onclick e quindi vanno in conflitto?
 
 }
 
-function playerAudioNext(nomeBase) { 
-    let checkAudio=false;
+function playerAudioNext(nomeBase) { //forse devo include playerAudioNext()
     let basi = document.getElementsByClassName("base");
-    for (let i = 0; i < basi.length  && !checkAudio; i++) {
+    for (let i = 0; i < basi.length; i++) {
         if (basi[i].getAttribute("title") == nomeBase.slice(0,-4)) {
             let next = basi[i+1];
             if (next) {
                 title=(next.getAttribute("title")+".mp3");
                 console.log(title);
-                checkAudio=true; //Per evitare che venga eseguito il ciclo for una volta trovato il titolo successivo
                 playerAudio(title);
             }
+            break
             
         }
     }
