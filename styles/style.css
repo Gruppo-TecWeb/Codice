@@ -9,6 +9,7 @@
     /* --accentColor: #EF754A; */
     --accentColor: #EF534A;
     /*meglio???*/
+    --buttonHover: #453B3B;
     --secondaryColor: #262626;
     --linkColor: #00b4ff;
     --linkVisitedColor: #ffd7bb;
@@ -19,6 +20,7 @@
     --elevationHigh: 1000;
     --elevationMiddle: 1;
     --elevationLow: 0;
+
 }
 
 @font-face {
@@ -418,72 +420,66 @@ footer ul {
 
 
 /* div modalità freestyle */
-
-#modalita_freestyle {
+#intro_battle h2 {
     text-align: center;
-    background-color: #ebe3e3;
-    /*display: none;*/
 }
 
+#container_battle {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--accentColor);
+    padding: 1em;
+    align-items: center;
+}
 
-/* Lista delle battle */
+#container_iframe iframe {
+    width: 48vw;
+    height: 27vw;
+    border-radius: 20px;
+    margin: 0em 1em 0em 0em;
+
+}
+
+#container_iframe h3 {
+    text-align: center;
+    padding: 0em 0em 1em 0em;
+}
 
 #lista_battle {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 30em);
-    /* Crea una griglia con colonne di almeno/massimo 300px */
-    gap: 5em;
-    /* Imposta la distanza tra le battle */
-    justify-content: space-evenly;
-    padding-left: 0;
-    /* padding nullo */
+    display: flex;
+    flex-direction: column;
 }
 
-.battle {
-    margin: auto;
-    background-color: #ffa750;
+#lista_battle button {
+    cursor: pointer;
     border-radius: 20px;
+    height: 4em;
+}
+
+.descrizioneBattle {
+    display: flex;
+    flex-direction: row;
     border-style: solid;
-    padding: 0em 1em;
-    list-style: none;
+    padding: 0.5em 0em;
+    align-items: center;
+    background-color: var(--secondaryColor);
+    border-color: var(--accentColor);
+    color: var(--txtColor);
 }
 
-.battle h3 {
+.descrizioneBattle:hover {
+    background-color: var(--buttonHover);
+}
+
+.descrizioneBattle dt {
     border-style: solid;
-    border-bottom: 0;
-    padding: 1em;
+    border-width: 0px 2px 0px 0px;
+    padding: 0.5em;
 }
 
-.battle iframe {
-    width: 400;
-    height: 170;
-    border-radius: 30px;
-    /* display: none; */
-}
-
-.battle dd:last-child {
-    border-style: solid dashed;
-    border-radius: 0px 0px 10px 10px;
-    border-top: 0;
-    padding: 1em;
-}
-
-.battle dd {
-    margin-left: 0;
-}
-
-#prova_tu {
-    text-align: left;
-}
-
-#lista_basi {
-    list-style: none;
-    justify-content: space-evenly;
-    /*background-color: #000000;*/
-}
-
-.base {
-    width: auto;
+.descrizioneBattle dd {
+    padding: 0.5em;
+    
 }
 
 .base dd {

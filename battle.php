@@ -12,12 +12,11 @@ $content = file_get_contents("template/battle.html");
 
 $title = 'Battle &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
-$description = "Introduzione regole e modalità freestyle per neofiti dell'argomento";
-$keywords = 'Modalità freestyle, Chyper, Kickback, Royal rumble';
+$description = "Introduzione regole e modalità freestyle rap battle con esempi";
+$keywords = 'Tipi di battle, 4/4, Minuto, Chyper, 3/4, Kickback, Royal rumble, Argomento, Acapella, Oggetti';
 $menu = get_menu(isset($_SESSION["login"]), $pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
-$onload = 'onlyOnePlayer()';
-
+$onload = '';
 
 $connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
@@ -36,8 +35,7 @@ if ($connectionOk) {
         $lista_basi .= "'type='audio/mp3'> </audio> </dd> </dl> </li>";
     }
     $content = str_replace("{lista_basi}", $lista_basi, $content);
-}
-else {
+} else {
     header("location: errore500.php");
 }
 
