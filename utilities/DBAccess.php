@@ -183,24 +183,16 @@ class DBAccess {
         }
     }
     public function get_utente_by_username($username) {
-        try {
-            return $this->executeQuery(
-                "SELECT Username, Email, Admin FROM Utenti WHERE Username = ?;",
-                $username
-            )[0];
-        } catch (Exception) {
-            return null;
-        }
+        return $this->executeQuery(
+            "SELECT Username, Email, Admin FROM Utenti WHERE Username = ?;",
+            $username
+        );
     }
     public function get_utente_by_email($email) {
-        try {
-            return $this->executeQuery(
-                "SELECT Username, Email, Admin FROM Utenti WHERE Email = ?;",
-                $email
-            )[0];
-        } catch (Exception) {
-            return null;
-        }
+        return $this->executeQuery(
+            "SELECT Username, Email, Admin FROM Utenti WHERE Email = ?;",
+            $email
+        );
     }
     public function register($username, $password, $email) {
         return $this->executeQuery(
