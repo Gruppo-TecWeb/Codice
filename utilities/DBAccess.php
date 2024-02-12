@@ -58,7 +58,7 @@ class DBAccess {
         }
     }
 
-    public function getListaEventi($filtro = '', $data = '', $titolo = '') {
+    public function getListaEventi($data = '', $titolo = '') {
         $query = "SELECT e.id,
         e.titolo,
         e.descrizione,
@@ -68,31 +68,12 @@ class DBAccess {
         e.locandina
         FROM eventi as e";
         $conditions = [];
-        $order = 'asc';
-        switch ($filtro) {
-            case 'passati':
-                $conditions[] = "e.data < '" . date('Y-m-d') . "'";
-                $order = 'desc';
-                break;
-            case 'tutti':
-                $order = 'desc';
-                break;
-            case 'data':
-                $conditions[] = "e.data >= '$data'";
-                break;
-            default:
-                $conditions[] = "e.data >= '" . date('Y-m-d') . "'";
-                break;
-        }
-
+        $conditions[] = $data != '' ? "e.data >= '$data'" : "e.data >= '" . date('Y-m-d') . "'";
         if ($titolo != '') {
             $conditions[] = "e.titolo = '$titolo'";
         }
-
-        if (!empty($conditions)) {
-            $query .= " WHERE " . implode(' AND ', $conditions);
-        }
-        $query .= " order by data $order";
+        $query .= " WHERE " . implode(' AND ', $conditions);
+        $query .= " order by data asc";
         return $this->executeQuery($query);
     }
 

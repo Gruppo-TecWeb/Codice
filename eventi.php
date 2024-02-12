@@ -29,8 +29,8 @@ if ($connectionOk) {
     //$filtro = isset($_GET['filtro']) ? $_GET['filtro'] : '';
     $filtro = $data != '' ? 'data' : '';
 
-    $lista_eventi_array = $connection->getListaEventi($filtro, $data, $titolo);
-    
+    $lista_eventi_array = $connection->getListaEventi($data, $titolo);
+
     $lista_titoli_array = $connection->getTitoliEventi();
     $lista_titoli_string = '';
     foreach ($lista_titoli_array as $evento) {
