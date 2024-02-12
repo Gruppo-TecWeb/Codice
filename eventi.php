@@ -30,7 +30,7 @@ if ($connectionOk) {
     $filtro = $data != '' ? 'data' : '';
 
     $lista_eventi_array = $connection->getListaEventi($data, $titolo);
-
+    
     $lista_titoli_array = $connection->getTitoliEventi();
     $lista_titoli_string = '';
     foreach ($lista_titoli_array as $evento) {
