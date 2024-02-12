@@ -30,8 +30,8 @@ if ($connectionOk) {
     $filtro = $data != '' ? 'data' : '';
 
     $lista_eventi_array = $connection->getListaEventi($filtro, $data, $titolo);
-
-    $lista_titoli_array = $connection->executeSelectQuery("Select distinct titolo from eventi");
+    
+    $lista_titoli_array = $connection->getTitoliEventi();
     $lista_titoli_string = '';
     foreach ($lista_titoli_array as $evento) {
         $selected = ($evento['titolo'] == $titolo) ? ' selected' : '';
