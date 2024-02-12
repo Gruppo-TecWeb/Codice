@@ -167,20 +167,12 @@ class DBAccess {
         );
     }
     public function login($username, $password) {
-        try {
-            $c = $this->executeQuery(
-                "SELECT Username, Email, Password, Admin FROM Utenti WHERE Username = ? ;",
-                $username
-            )[0];
-            if (password_verify($password, $c['Password'])) {
-                unset($c['Password']);
-                return $c;
-            } else {
-                return null;
-            }
-        } catch (Exception) {
-            return null;
-        }
+        $c = $this->executeQuery(
+            "SELECT Username, Email, Password, Admin FROM Utenti WHERE Username = ? ;",
+            $username
+        );
+        $res = $c ? $c[0] : null;
+        return $res && password_verify($password, $res['Password']) ? $res : null;
     }
     public function get_utente_by_username($username) {
         return $this->executeQuery(
