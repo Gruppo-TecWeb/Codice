@@ -149,7 +149,7 @@ class DBAccess {
              JOIN Eventi ON ClassificheEventi.Evento = Eventi.id
              ORDER BY Eventi.Data DESC
              LIMIT 1;";
-        return $this->executeQuery($query, $evento);
+        return $evento? $this->executeQuery($query, $evento)[0]: $this->executeQuery($query)[0];
     }
     public function get_classifiche() {
         return $this->executeQuery(
