@@ -308,55 +308,29 @@ footer ul {
 
 /* Form di ricerca */
 
-.filtro-primario a {
-    display: inline-block;
-    padding: 10px 20px;
-    text-decoration: none;
-    color: white;
-    border: 1px solid white;
-    transition: background-color 0.3s ease;
-}
-
-.filtro-primario a:hover {
-    background-color: #ccc;
-}
-
-.filtro-primario a.selected {
-    background-color: #f00;
-    /* Cambia questo al colore che preferisci */
-}
-
-#data.selected {
-    background-color: #f00;
-    /* Cambia questo al colore che preferisci */
-}
-
-.form-container {
-    margin-bottom: 40px;
-}
-
-form {
+#form-eventi {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
 }
 
-label {
+#form-eventi fieldset {
+    border: none;
+}
+
+#form-eventi label {
     margin-bottom: 0;
     margin-right: 10px;
 }
 
-input,
-select {
+#form-eventi input {
     width: auto;
     margin-bottom: 0;
 }
 
-input[type="submit"] {
-    width: auto;
-    padding: 10px 20px;
+#form-eventi select{
+    margin-left: 10px;
 }
-
 
 /* Lista degli eventi */
 
@@ -393,7 +367,11 @@ input[type="submit"] {
     /* Mantiene l'aspetto dell'immagine e la fa coprire completamente il contenitore */
 }
 
-#evento-box {
+/*
+ * PAGINA EVENTO
+ */
+
+ #evento-box {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -413,27 +391,6 @@ input[type="submit"] {
 #evento-info {
     margin-left: 1.25em;
     color: black;
-}
-
-input,
-select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    box-sizing: border-box;
-}
-
-input[type="submit"] {
-    background-color: #4CAF50;
-    color: #fff;
-    cursor: pointer;
-}
-
-
-/* Lista degli eventi */
-
-#lista-eventi {
-    padding: 10px;
 }
 
 .evento {
