@@ -21,17 +21,18 @@ $breadcrumbs = '';
 $content = '';
 $onload = '';
 
-$connection = new DBAccess();
+$connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
 
 $eventoId = $_GET['id'];
 if ($connectionOk) {
-    [$titolo, $descrizione, $data, $ora, $luogo, $locandina, $tipoEvento, $dataInizioClassifica] = $connection->getEvento($eventoId);
+    $evento = $connection->getEvento($eventoId);
     $connection->closeDBConnection();
-
-    if ($titolo == null) {
+    if ($evento == null) {
         $content .= '<p>Evento non trovato</p>';
     } else {
+        [$titolo, $descrizione, $data, $ora, $luogo, $locandina, $tipoEvento, $dataInizioClassifica] = array_values($evento);
+
         $content = file_get_contents("template/evento.html");
         $content = multi_replace($content, [
             '{titolo}' => $titolo,
@@ -44,12 +45,15 @@ if ($connectionOk) {
             '{dataInizioClassifica}' => $dataInizioClassifica
         ]);
         $breadcrumbs = get_breadcrumbs($pageId);
-        $breadcrumbs = str_replace('{id}', $eventoId, $breadcrumbs);
-        $breadcrumbs = str_replace('{evento}', $titolo.' '.$data, $breadcrumbs);
+        $title = $titolo . ' ' . $data;
+        $breadcrumbs = multi_replace($breadcrumbs, [
+            '{id}' => $eventoId,
+            '{evento}' => $title
+        ]);
         $title = $title . ' &minus; Fungo';
     }
 } else {
-    $content = "<p>I sistemi sono momentaneamente fuori servizio, ci scusiamo per il disagio</p>";
+    header("location: errore500.php");
 }
 
 echo multi_replace($eventoHTML, [

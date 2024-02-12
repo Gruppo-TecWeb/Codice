@@ -21,7 +21,7 @@ $erroriVAL = '';
 $errori = '';
 $username = '';
 
-$connection = new DBAccess();
+$connection = DBAccess::getInstance();
 $connectionOk = $connection -> openDBConnection();
 
 if ($connectionOk) {
@@ -57,7 +57,7 @@ if ($connectionOk) {
     }
 }
 else {
-    $content .= '<p>I sistemi sono momentaneamente fuori servizio, ci scusiamo per il disagio.</p>';
+    header("location: errore500.php");
 }
 
 $loginHTML = str_replace("{messaggiForm}", $errori, $loginHTML);

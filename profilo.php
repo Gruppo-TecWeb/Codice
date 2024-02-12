@@ -1,8 +1,10 @@
 <?php
 
 namespace Utilities;
+
 require_once("utilities/utilities.php");
 require_once("utilities/DBAccess.php");
+
 use DB\DBAccess;
 
 session_start();
@@ -25,8 +27,8 @@ $formEmail = '';
 $formModificaDatiUtente = '';
 $messaggiProfilo = "";
 
-$connection = new DBAccess();
-$connectionOk = $connection -> openDBConnection();
+$connection = DBAccess::getInstance();
+$connectionOk = $connection->openDBConnection();
 if ($connectionOk) {
     if (isset($_SESSION["login"])) {
         $utente = $_SESSION["datiUtente"];
@@ -35,8 +37,7 @@ if ($connectionOk) {
 
         if (isset($_GET["submitEmail"])) {
             $formModificaDatiUtente = file_get_contents("template/form-modifica-email-template.html");
-        }
-        elseif (isset($_GET["submitPassword"])) {
+        } elseif (isset($_GET["submitPassword"])) {
             $formModificaDatiUtente = file_get_contents("template/form-modifica-password-template.html");
         }
 
@@ -46,41 +47,37 @@ if ($connectionOk) {
             if ($formEmail == "") {
                 $errore = true;
                 $erroriVAL .= "<li>Inserire nuova e-Mail.</li>";
-            }
-            else {
-                $utente = $connection -> get_utente_by_email($formEmail);
+            } else {
+                $utente = $connection->get_utente_by_email($formEmail);
                 if (!(is_null($utente))) {
                     $errore = true;
                     $erroriVAL .= "<li>Un utente risulta giá registrato con questa e-Mail.</li>";
                 }
             }
             if (!$errore) {
-                $mailModificata = $connection -> change_email($username, $formEmail);
+                $mailModificata = $connection->change_email($username, $formEmail);
                 if ($mailModificata) {
                     $_SESSION["datiUtente"]["Email"] = $formEmail;
                     $email = $formEmail;
                     $messaggiProfilo .= "<li>E-Mail aggiornata con successo.</li>";
                 }
-            }
-            else {
+            } else {
                 $formModificaDatiUtente = file_get_contents("template/form-modifica-email-template.html");
                 $errori = '<ul>' . $erroriVAL . '</ul>';
             }
-        }
-        elseif (isset($_POST["submitNewPassword"])) {
+        } elseif (isset($_POST["submitNewPassword"])) {
             $errore = false;
             $formPassword = validate_input($_POST["password"]);
             $formConfermaPassword = validate_input($_POST["confermaPassword"]);
             if ($formPassword == "") {
                 $errore = true;
                 $erroriVAL .= "<li>Inserire nuova password.</li>";
-            }
-            elseif ($formPassword != $formConfermaPassword) {
+            } elseif ($formPassword != $formConfermaPassword) {
                 $errore = true;
                 $erroriVAL .= "<li>Le password non coincidono.</li>";
             }
             if (!$errore) {
-                $passwordModificata = $connection -> change_password($username, $formPassword);
+                $passwordModificata = $connection->change_password($username, $formPassword);
                 if ($passwordModificata) {
                     $messaggiProfilo .= "<li>Password aggiornata con successo.</li>";
                 }
@@ -90,15 +87,13 @@ if ($connectionOk) {
                 $errori = '<ul>' . $erroriVAL . '</ul>';
             }
         }
-    }
-    else {
+    } else {
         header("location: login.php");
     }
 
-    $connection -> closeDBConnection();
-}
-else {
-    $content .= '<p>I sistemi sono momentaneamente fuori servizio, ci scusiamo per il disagio.</p>';
+    $connection->closeDBConnection();
+} else {
+    header("location: errore500.php");
 }
 
 $profiloHTML = str_replace('{username}', $username, $profiloHTML);
@@ -107,7 +102,7 @@ $profiloHTML = str_replace('{formModificaDatiUtente}', $formModificaDatiUtente, 
 $profiloHTML = str_replace('{messaggiForm}', $errori, $profiloHTML);
 $profiloHTML = str_replace('{formEmail}', $formEmail, $profiloHTML);
 $profiloHTML = str_replace('{messaggiProfilo}', $messaggiProfilo, $profiloHTML);
-echo multi_replace($paginaHTML,[
+echo multi_replace($paginaHTML, [
     '{title}' => $title,
     '{description}' => $description,
     '{keywords}' => $keywords,

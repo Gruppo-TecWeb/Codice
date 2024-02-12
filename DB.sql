@@ -24,7 +24,7 @@ CREATE TABLE Classifiche (
     PRIMARY KEY (TipoEvento, DataInizio));
 
 CREATE TABLE Eventi (
-    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    Id INTEGER PRIMARY KEY AUTO_INCREMENT,
     Titolo VARCHAR(100) NOT NULL,
     Descrizione TEXT,
     Data DATE NOT NULL,
@@ -38,21 +38,19 @@ CREATE TABLE ClassificheEventi (
     Evento INTEGER NOT NULL,
     PRIMARY KEY (TipoEvento, DataInizio, Evento),
     FOREIGN KEY (TipoEvento, DataInizio) REFERENCES Classifiche(TipoEvento, DataInizio),
-    FOREIGN KEY (Evento) REFERENCES Eventi(id));
+    FOREIGN KEY (Evento) REFERENCES Eventi(Id));
 
 CREATE TABLE Punteggi (
     Partecipante VARCHAR(100) NOT NULL,
     Evento INTEGER NOT NULL,
     Punteggio INTEGER NOT NULL,
     PRIMARY KEY (Partecipante, Evento),
-    FOREIGN KEY (Evento) REFERENCES Eventi(id),
+    FOREIGN KEY (Evento) REFERENCES Eventi(Id),
     FOREIGN KEY (Partecipante) REFERENCES Utenti(Username));
 
-CREATE TABLE Basi
-(
-   id INT PRIMARY KEY auto_increment,
-   nome VARCHAR (255)
-);
+CREATE TABLE Basi (
+   Id INT PRIMARY KEY auto_increment,
+   Nome VARCHAR (255));
     
 INSERT INTO Utenti (Username, Password, Email, Admin) VALUES ('admin', '$2y$10$6HccIqtLp.aSP1X4H/X3GeNJaXsTLVrNCPYIaMURXPUfxSL7qjphi', 'admin@mail.it', 'S');
 INSERT INTO Utenti (Username, Password, Email) VALUES ('user', '$2y$10$Z0Aa3dQjyumq4IUcqxlIK.Han8U1eeETu7utaA9WhT.iKcggzR49G', 'user@mail.it');
@@ -78,7 +76,7 @@ INSERT INTO TipiEvento (Titolo) VALUES ('Fungo');
 INSERT INTO TipiEvento (Titolo) VALUES ('Micelio');
 
 INSERT INTO Classifiche (TipoEvento, DataInizio, DataFine) VALUES ('Fungo', '2023-09-05', '2023-10-17');
-INSERT INTO Classifiche (TipoEvento, DataInizio, DataFine) VALUES ('Micelio', '2023-11-07', '2023-12-19');
+INSERT INTO Classifiche (TipoEvento, DataInizio, DataFine) VALUES ('Micelio', '2023-11-07', '2024-12-19');
 
 INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Meal the mic', 'Rapcolta alimentare', '2023-04-29', '18:00:00', 'Circolo culturale Carichi Sospesi (Padova)', 'meal_the_mic.jpg');
 INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Hip hop night', 'Freestyel battle', '2023-07-13', '18:00:00', 'Parco Morandi (Padova)', 'hip_hop_night.jpg');
@@ -117,6 +115,11 @@ INSERT INTO ClassificheEventi (TipoEvento, DataInizio, Evento) VALUES ('Micelio'
 INSERT INTO ClassificheEventi (TipoEvento, DataInizio, Evento) VALUES ('Micelio', '2023-11-07', 15);
 INSERT INTO ClassificheEventi (TipoEvento, DataInizio, Evento) VALUES ('Micelio', '2023-11-07', 16);
 INSERT INTO ClassificheEventi (TipoEvento, DataInizio, Evento) VALUES ('Micelio', '2023-11-07', 17);
+INSERT INTO ClassificheEventi (TipoEvento, DataInizio, Evento) VALUES ('Micelio', '2023-11-07', 18);
+INSERT INTO ClassificheEventi (TipoEvento, DataInizio, Evento) VALUES ('Micelio', '2023-11-07', 19);
+INSERT INTO ClassificheEventi (TipoEvento, DataInizio, Evento) VALUES ('Micelio', '2023-11-07', 20);
+INSERT INTO ClassificheEventi (TipoEvento, DataInizio, Evento) VALUES ('Micelio', '2023-11-07', 21);
+INSERT INTO ClassificheEventi (TipoEvento, DataInizio, Evento) VALUES ('Micelio', '2023-11-07', 22);
 
 INSERT INTO Punteggi (Partecipante, Evento, Punteggio) VALUES ('XXXTentacion', 3, 8);
 INSERT INTO Punteggi (Partecipante, Evento, Punteggio) VALUES ('Kendrick Lamar', 3, 6);
@@ -343,22 +346,22 @@ INSERT INTO Punteggi (Partecipante, Evento, Punteggio) VALUES ('Juice WRLD', 17,
 INSERT INTO Punteggi (Partecipante, Evento, Punteggio) VALUES ('Travis Scott', 17, 1);
 INSERT INTO Punteggi (Partecipante, Evento, Punteggio) VALUES ('Eminem', 17, 1);
 
-Insert into Basi (nome) values ("11 - Goodbye - Big Joe.mp4");
-Insert into Basi (nome) values ("Big L  Ebonics.mp3");
-Insert into Basi (nome) values ("Busta Rhymes - Psycobusta.mp3");
-Insert into Basi (nome) values ("Dilated Peoples - The Platform (Erik Sermon Remix).mp3");
-Insert into Basi (nome) values ("DJ Premier - BAP.mp3");
-Insert into Basi (nome) values ("DJ Premier - That White.mp3");
-Insert into Basi (nome) values ("Full Clip-Gangstarr.mp3");
-Insert into Basi (nome) values ("Funkdoobiest - Lost in Thought.mp4");
-Insert into Basi (nome) values ("Gang Starr - Battle.mp3");
-Insert into Basi (nome) values ("J. Cole - Fire Squad.wav");
-Insert into Basi (nome) values ("Jam Baxter - Fine (Prod GhostTown).mp4");
-Insert into Basi (nome) values ("Method Man _ Redman - A-Yo.mp4");
-Insert into Basi (nome) values ("Movie Villains.mp4");
-Insert into Basi (nome) values ("Noyz Narcos - Trucemala.mp3");
-Insert into Basi (nome) values ("RA Rugged man - Dangerous Three.mp3");
-Insert into Basi (nome) values ("Step Brothers (Alchemist _ Evidence) - Step Masters.mp4");
-Insert into Basi (nome) values ("Tecniche Perfette - 5.mp4");
-Insert into Basi (nome) values ("Wu Tang Clan _ Mobb Deep - Phat Beat.mp3");
-Insert into Basi (nome) values ("Timbaland - They Ain_t Ready.mp3");
+INSERT INTO Basi (Nome) VALUES ("11 - Goodbye - Big Joe.mp4");
+INSERT INTO Basi (Nome) VALUES ("Big L  Ebonics.mp3");
+INSERT INTO Basi (Nome) VALUES ("Busta Rhymes - Psycobusta.mp3");
+INSERT INTO Basi (Nome) VALUES ("Dilated Peoples - The Platform (Erik Sermon Remix).mp3");
+INSERT INTO Basi (Nome) VALUES ("DJ Premier - BAP.mp3");
+INSERT INTO Basi (Nome) VALUES ("DJ Premier - That White.mp3");
+INSERT INTO Basi (Nome) VALUES ("Full Clip-Gangstarr.mp3");
+INSERT INTO Basi (Nome) VALUES ("Funkdoobiest - Lost in Thought.mp4");
+INSERT INTO Basi (Nome) VALUES ("Gang Starr - Battle.mp3");
+INSERT INTO Basi (Nome) VALUES ("J. Cole - Fire Squad.wav");
+INSERT INTO Basi (Nome) VALUES ("Jam Baxter - Fine (Prod GhostTown).mp4");
+INSERT INTO Basi (Nome) VALUES ("Method Man _ Redman - A-Yo.mp4");
+INSERT INTO Basi (Nome) VALUES ("Movie Villains.mp4");
+INSERT INTO Basi (Nome) VALUES ("Noyz Narcos - Trucemala.mp3");
+INSERT INTO Basi (Nome) VALUES ("RA Rugged man - Dangerous Three.mp3");
+INSERT INTO Basi (Nome) VALUES ("Step Brothers (Alchemist _ EvIdence) - Step Masters.mp4");
+INSERT INTO Basi (Nome) VALUES ("Tecniche Perfette - 5.mp4");
+INSERT INTO Basi (Nome) VALUES ("Wu Tang Clan _ Mobb Deep - Phat Beat.mp3");
+INSERT INTO Basi (Nome) VALUES ("Timbaland - They Ain_t Ready.mp3");

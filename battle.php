@@ -1,11 +1,11 @@
 <?php
 
 namespace Utilities;
-
 require_once("utilities/utilities.php");
 require_once("utilities/DBAccess.php");
-
 use DB\DBAccess;
+
+session_start();
 
 $battleHTML = file_get_contents("template/pagina-template.html");
 $content = file_get_contents("template/battle.html");
@@ -18,8 +18,7 @@ $menu = get_menu(isset($_SESSION["login"]), $pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 
-/*ELIMINABILE
-$connection = new DBAccess();
+$connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
 
 if ($connectionOk) {
@@ -36,8 +35,10 @@ if ($connectionOk) {
         $lista_basi .= "'type='audio/mp3'> </audio> </dd> </dl> </li>";
     }
     $content = str_replace("{lista_basi}", $lista_basi, $content);
+} else {
+    header("location: errore500.php");
 }
-*/
+
 echo multi_replace($battleHTML, [
     '{title}' => $title,
     '{description}' => $description,

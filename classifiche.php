@@ -21,87 +21,86 @@ $breadcrumbs = get_breadcrumbs($pageId);
 $content = '';
 $onload = '';
 $classifiche = '';
-$dataInizioScelta = null;
-$eventoScelto = null;
 
-if (isset($_GET["submit"]) && isset($_GET["classifica"]) && $_GET["classifica"] != "") {
-    $classifica = explode('{.}', validate_input($_GET["classifica"]));
-    $eventoScelto = $classifica[0];
-    $dataInizioScelta = date_create($classifica[1]);
-}
-
-$connection = new DBAccess();
+$connection = DBAccess::getInstance();
 $connectionOk = $connection -> openDBConnection();
 if ($connectionOk) {
+    $sceltaEffettuata = false;
+    $titoloEvento = '';
+    $dataInizioEvento = null;
+
+    if (isset($_GET["submit"]) && isset($_GET["classifica"]) && $_GET["classifica"] != "") {
+        $classifica = explode('{.}', validate_input($_GET["classifica"]));
+        $titoloEvento = $classifica[0];
+        $dataInizioEvento = date_create($classifica[1]);
+        $sceltaEffettuata = true;
+    }
+    else {
+        $titoloEvento = $connection -> get_tipo_evento(null)['Titolo'];
+        $dataInizioEvento = date_create($connection -> get_data_inizio_corrente($titoloEvento));
+    }
+
     // creo la lista delle classifiche per la scelta dall'archivio
     $resultClassifiche = $connection -> get_classifiche();
     foreach ($resultClassifiche as $resultClassifica) {
-        $data = '';
         $dataInizio = date_create($resultClassifica['DataInizio']);
         $dataFine = $resultClassifica['DataFine'] ? date_create($resultClassifica['DataFine']) : $dataInizio;
         $evento = $resultClassifica['TipoEvento'];
+        $dataVisualizzata = '';
+        $selected = '';
+
+        // formatto la data in base all'intervallo di tempo, da rivedere...
         if ($dataInizio == $dataFine) {
-            $data = date_format($dataInizio, 'Y');
+            $dataVisualizzata = date_format($dataInizio, 'd/m/y');
         }
         elseif (date_format($dataInizio, 'Y') != date_format($dataFine, 'Y')) {
-            $data = date_format($dataInizio, 'Y') . ' - ' . date_format($dataFine, 'Y');
+            $dataVisualizzata = date_format($dataInizio, 'Y') . ' - ' . date_format($dataFine, 'Y');
         }
         elseif (date_format($dataInizio, 'm') != date_format($dataFine, 'm')) {
-            $data = date_format($dataInizio, 'm/y') . ' - ' . date_format($dataFine, 'm/y');
+            $dataVisualizzata = date_format($dataInizio, 'm/y') . ' - ' . date_format($dataFine, 'm/y');
         }
         else {
-            $data = date_format($dataInizio, 'd/m/y') . ' - ' . date_format($dataFine, 'd/m/y');
+            $dataVisualizzata = date_format($dataInizio, 'd/m/y') . ' - ' . date_format($dataFine, 'd/m/y');
         }
-        if ((isset($_GET["submit"]) && isset($_GET["classifica"])) && $eventoScelto == $evento && $dataInizioScelta == $dataInizio) {
-            $classifiche .= '<option value="' . $evento
-                . '{.}' . date_format($dataInizio, 'Y-m-d') . '" selected>'
-                . $evento . ' ' . $data . '</option>
-                        ';
-            $eventoScelto = $evento;
-            $dataInizioScelta = $dataInizio;
-        } else {
-            $classifiche .= '<option value="' . $evento
-                . '{.}' . date_format($dataInizio, 'Y-m-d') . '">'
-                . $evento . ' ' . $data . '</option>
-                            ';
+
+        if ($titoloEvento == $evento && date_format($dataInizioEvento, 'Y-m-d') == date_format($dataInizio, 'Y-m-d')) {
+            $titoloEvento = $evento;
+            $dataInizioEvento = $dataInizio;
+            $selected = ' selected';
         }
+        $classifiche .= '<option value="' . $evento
+            . '{.}' . date_format($dataInizio, 'Y-m-d') . '"' . $selected . '>'
+            . $evento . ' ' . $dataVisualizzata . '</option>
+                    ';
     }
 
-    // creo le classifiche
-    $tipiEvento = $connection -> get_tipo_evento($eventoScelto);
-    foreach ($tipiEvento as $tipoEvento) {
-        $titolo = $tipoEvento['Titolo'];
-        $descrizione = $tipoEvento['Descrizione'];
-        // controllo se ho scelto dall'archivio una classifica
-        $dataInizio = is_null($dataInizioScelta) ? ($connection -> get_data_inizio_corrente($titolo)) : date_format($dataInizioScelta, 'Y-m-d');
-        $classifica = $connection -> get_classifica($titolo, $dataInizio);
-        if ($classifica != null) {
-            $tabella = str_replace('{tipoEvento}', $titolo, $classificaHTML);
-            $tabella = str_replace('{desTipoEvento}', $descrizione, $tabella);
-            $righe = '';
-            foreach ($classifica as $riga) {
-                $rigaHTML_temp = $rigaHTML;
-                $rigaHTML_temp = str_replace('{ranking}', $riga['ranking'], $rigaHTML_temp);
-                $rigaHTML_temp = str_replace('{freestyler}', $riga['partecipante'], $rigaHTML_temp);
-                $rigaHTML_temp = str_replace('{punti}', $riga['punti'], $rigaHTML_temp);
-                $righe .= $rigaHTML_temp;
-            }
-            $tabella = str_replace('{tableContent}', $righe, $tabella);
-            $content .= $tabella;
+    // creo le classifiche per la visualizzazione
+    $descrizioneEvento = $connection -> get_tipo_evento($titoloEvento)['Descrizione'];
+    $classifica = $connection -> get_classifica($titoloEvento, date_format($dataInizioEvento, 'Y-m-d'));
+    if ($classifica != null) {
+        $tabella = str_replace('{tipoEvento}', $titoloEvento, $classificaHTML);
+        $tabella = str_replace('{desTipoEvento}', $descrizioneEvento, $tabella);
+        $righe = '';
+        foreach ($classifica as $riga) {
+            $rigaHTML_temp = $rigaHTML;
+            $rigaHTML_temp = str_replace('{ranking}', $riga['ranking'], $rigaHTML_temp);
+            $rigaHTML_temp = str_replace('{freestyler}', $riga['partecipante'], $rigaHTML_temp);
+            $rigaHTML_temp = str_replace('{punti}', $riga['punti'], $rigaHTML_temp);
+            $righe .= $rigaHTML_temp;
         }
-        else {
-            $content .= '<p>Non sono presenti classifiche.</p>';
-        }
+        $tabella = str_replace('{tableContent}', $righe, $tabella);
+        $content .= $tabella;
+    }
+    else {
+        $content .= '<p>Non sono presenti classifiche.</p>';
     }
 
     $connection -> closeDBConnection();
 }
 else {
-    $content .= '<p>I sistemi sono momentaneamente fuori servizio, ci scusiamo per il disagio.</p>';
+    header("location: errore500.php");
 }
 
-$classificheHTML = str_replace('{classifica}', trim($classifiche), $classificheHTML);
-$classificheHTML = str_replace('{classifiche}', $content, $classificheHTML);
 echo multi_replace($paginaHTML,[
     '{title}' => $title,
     '{description}' => $description,
@@ -110,5 +109,7 @@ echo multi_replace($paginaHTML,[
     '{menu}' => $menu,
     '{breadcrumbs}' => $breadcrumbs,
     '{content}' => trim($classificheHTML),
-    '{onload}' => $onload
+    '{onload}' => $onload,
+    '{classifica}' => trim($classifiche),
+    '{classifiche}' => $content
 ]);
