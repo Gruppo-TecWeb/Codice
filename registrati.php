@@ -41,10 +41,10 @@ if ($connectionOk) {
         }
         else {
             $utente = $connection -> get_utente_by_username($username);
-            if (is_null($utente)) {
+            if (!$utente) {
                 $utente = $connection -> get_utente_by_email($email);
             }
-            if (!(is_null($utente))) {
+            if ($utente) {
                 $errore = true;
                 $erroriVAL .= "<li>Utente giá registrato. Vai alla pagina di <a href=\"login.php\" lang=\"en\">login</a>.</li>";
             }

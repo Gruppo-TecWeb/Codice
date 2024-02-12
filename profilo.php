@@ -49,7 +49,7 @@ if ($connectionOk) {
             }
             else {
                 $utente = $connection -> get_utente_by_email($formEmail);
-                if (!(is_null($utente))) {
+                if ($utente) {
                     $errore = true;
                     $erroriVAL .= "<li>Un utente risulta giá registrato con questa e-Mail.</li>";
                 }
