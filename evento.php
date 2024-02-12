@@ -26,7 +26,7 @@ $connectionOk = $connection->openDBConnection();
 
 $eventoId = $_GET['id'];
 if ($connectionOk) {
-    [$titolo, $descrizione, $data, $ora, $luogo, $locandina, $tipoEvento, $dataInizioClassifica] = $connection->getEvento($eventoId);
+    [$titolo, $descrizione, $data, $ora, $luogo, $locandina, $tipoEvento, $dataInizioClassifica] = array_values($connection->getEvento($eventoId));
     $connection->closeDBConnection();
 
     if ($titolo == null) {
