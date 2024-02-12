@@ -2,6 +2,8 @@
 
 namespace DB;
 
+use Exception;
+
 class DBAccess {
     private const DB_HOST = "localhost";
     private const DB_NAME = "fungo";
@@ -10,11 +12,9 @@ class DBAccess {
 
     private $connection;
     private static $instance = null;
-    private function __construct()
-    {
+    private function __construct() {
     }
-    public static function getInstance()
-    {
+    public static function getInstance() {
         if (self::$instance == null) {
             self::$instance = new DBAccess();
         }
@@ -35,17 +35,26 @@ class DBAccess {
         mysqli_close($this->connection);
     }
 
-    public function executeSelectQuery($query) {
-        $queryResult = mysqli_query($this->connection, $query) or die("Errore in DBAccess: " . mysqli_error($this->connection));
-        if (mysqli_num_rows($queryResult) == 0) {
-            return null;
-        } else {
-            $result = array();
-            while ($row = mysqli_fetch_array($queryResult)) {
-                $result[] = $row;
+
+    private function executeQuery($query, ...$args) {
+        mysqli_report(MYSQLI_REPORT_STRICT);
+        try {
+            $stmt = $this->connection->prepare($query) or die("Errore in DBAccess: " . mysqli_error($this->connection));
+            $stmt->execute($args);
+            $res = $stmt->get_result();
+            return match ($res) {
+                false => true,
+                default => $res->fetch_all(MYSQLI_ASSOC),
+            };
+        } catch (Exception) {
+            die("Errore in DBAccess: " . mysqli_error($this->connection));
+        } finally {
+            if (isset($stmt)) {
+                $stmt->close();
             }
-            $queryResult->free();
-            return $result;
+            if (isset($res) && gettype($res) == 'mysqli_result') {
+                $res->free();
+            }
         }
     }
 
@@ -84,7 +93,7 @@ class DBAccess {
             $query .= " WHERE " . implode(' AND ', $conditions);
         }
         $query .= " order by data $order";
-        return $this->executeSelectQuery($query);
+        return $this->executeQuery($query);
     }
 
     public function getEvento($id) {
@@ -98,144 +107,99 @@ class DBAccess {
         ce.datainizio
         FROM eventi as e
         left join classificheeventi as ce on e.id = ce.evento
-        where e.id = $id";
-        return $this->executeSelectQuery($query)[0];
+        where e.id = ?";
+        return ($ris = $this->executeQuery($query, $id)) ? $ris[0] : null;
+    }
+
+    public function getTitoliEventi() {
+        return $this->executeQuery(
+            "SELECT DISTINCT titolo FROM eventi;"
+        );
     }
     public function get_tipo_evento($evento) {
-        $query = $evento ? "SELECT * FROM TipiEvento WHERE Titolo = \"$evento\";"
-            : "SELECT TipiEvento.Titolo, TipiEvento.Descrizione
-                    FROM TipiEvento
-                    JOIN ClassificheEventi ON TipiEvento.Titolo = ClassificheEventi.TipoEvento
-                    JOIN Eventi ON ClassificheEventi.Evento = Eventi.id
-                    ORDER BY Eventi.Data DESC
-                    LIMIT 1;";
-        $queryResult = mysqli_query($this->connection, $query)
-            or die("Errore in DBAccess" . mysqli_error($this->connection));
-        if (mysqli_num_rows($queryResult) != 0) {
-            $result  = mysqli_fetch_assoc($queryResult);
-            $queryResult->free();
-            return $result;
-        } else {
-            return null;
-        }
+        $query = $evento ?
+            "SELECT * FROM TipiEvento WHERE Titolo = ?;" :
+            "SELECT TipiEvento.Titolo, 
+             TipiEvento.Descrizione
+             FROM TipiEvento
+             JOIN ClassificheEventi ON TipiEvento.Titolo = ClassificheEventi.TipoEvento
+             JOIN Eventi ON ClassificheEventi.Evento = Eventi.id
+             ORDER BY Eventi.Data DESC
+             LIMIT 1;";
+        $res = $evento ? $this->executeQuery($query, $evento) : $this->executeQuery($query);
+        return $res ? $res[0] : null;
     }
     public function get_classifiche() {
-        $query = "SELECT * FROM Classifiche;";
-        $queryResult = mysqli_query($this->connection, $query)
-            or die("Errore in DBAccess" . mysqli_error($this->connection));
-        if (mysqli_num_rows($queryResult) != 0) {
-            $result = array();
-            while ($row = mysqli_fetch_assoc($queryResult)) {
-                $result[] = $row;
-            }
-            $queryResult->free();
-            return $result;
-        } else {
-            return null;
-        }
+        return $this->executeQuery(
+            "SELECT * FROM Classifiche;"
+        );
     }
     public function get_data_inizio_corrente($tipoEvento) {
-        $query = "SELECT DataInizio FROM Classifiche WHERE TipoEvento = \"$tipoEvento\" AND DataInizio <= CURDATE() ORDER BY DataInizio DESC LIMIT 1;";
-        $queryResult = mysqli_query($this->connection, $query)
-            or die("Errore in DBAccess" . mysqli_error($this->connection));
-        if (mysqli_num_rows($queryResult) != 0) {
-            $result = mysqli_fetch_assoc($queryResult);
-            $queryResult->free();
-            return $result['DataInizio'];
-        } else {
-            return null;
-        }
+        return ($ris = $this->executeQuery(
+            "SELECT DataInizio FROM Classifiche WHERE TipoEvento =? AND DataInizio <= CURDATE() ORDER BY DataInizio DESC LIMIT 1;",
+            $tipoEvento
+        )) ? $ris[0]['DataInizio'] : null;
     }
     public function get_classifica($tipoEvento, $dataInizio) {
-        $query = "SELECT @n := @n + 1 AS ranking, partecipante, punti
-                    FROM (SELECT @n := 0) m, (
-                        SELECT Punteggi.Partecipante AS partecipante, SUM(Punteggi.Punteggio) AS punti
-                        FROM Punteggi
-                        JOIN Eventi ON Punteggi.Evento = Eventi.id
-                        JOIN ClassificheEventi ON Eventi.id = ClassificheEventi.Evento
-                        JOIN Classifiche ON ClassificheEventi.TipoEvento = Classifiche.TipoEvento AND ClassificheEventi.DataInizio = Classifiche.DataInizio
-                        WHERE Classifiche.TipoEvento = \"$tipoEvento\" AND Classifiche.DataInizio = \"$dataInizio\"
-                        GROUP BY Punteggi.Partecipante
-                        ORDER BY Punti DESC) r;";
-        $queryResult = mysqli_query($this->connection, $query)
-            or die("Errore in DBAccess" . mysqli_error($this->connection));
-        if (mysqli_num_rows($queryResult) != 0) {
-            $result = array();
-            while ($row = mysqli_fetch_assoc($queryResult)) {
-                $result[] = $row;
-            }
-            $queryResult->free();
-            return $result;
-        } else {
-            return null;
-        }
+        return $this->executeQuery(
+            "SELECT @n := @n + 1 AS ranking, partecipante, punti
+            FROM (SELECT @n := 0) m, (
+            SELECT Punteggi.Partecipante AS partecipante, SUM(Punteggi.Punteggio) AS punti
+            FROM Punteggi
+            JOIN Eventi ON Punteggi.Evento = Eventi.id
+            JOIN ClassificheEventi ON Eventi.id = ClassificheEventi.Evento
+            JOIN Classifiche ON ClassificheEventi.TipoEvento = Classifiche.TipoEvento AND ClassificheEventi.DataInizio = Classifiche.DataInizio
+            WHERE Classifiche.TipoEvento = ? AND Classifiche.DataInizio = ?
+            GROUP BY Punteggi.Partecipante
+            ORDER BY Punti DESC) r;",
+            $tipoEvento,
+            $dataInizio
+        );
     }
     public function login($username, $password) {
-        $query = "SELECT Username, Email, Admin FROM Utenti WHERE Username = \"$username\";";
-        $queryResult = mysqli_query($this->connection, $query) or die("Errore in DBAccess" . mysqli_error($this->connection));
-        $datiUtente = mysqli_fetch_assoc($queryResult);
-        $query = "SELECT Password FROM Utenti WHERE Username = \"$username\";";
-        $queryResult = mysqli_query($this->connection, $query) or die("Errore in DBAccess" . mysqli_error($this->connection));
-        $passwordUtente = mysqli_fetch_assoc($queryResult)["Password"];
-        if ((mysqli_num_rows($queryResult) != 0) && (password_verify($password, $passwordUtente))) {
-            return $datiUtente;
-        } else {
-            return null;
-        }
+        $c = $this->executeQuery(
+            "SELECT Username, Email, Password, Admin FROM Utenti WHERE Username = ? ;",
+            $username
+        );
+        $res = $c ? $c[0] : null;
+        return $res && password_verify($password, $res['Password']) ? $res : null;
     }
     public function get_utente_by_username($username) {
-        $query = "SELECT Username, Email, Admin FROM Utenti WHERE Username = \"$username\";";
-        $queryResult = mysqli_query($this->connection, $query) or die("Errore in DBAccess" . mysqli_error($this->connection));
-        if (mysqli_num_rows($queryResult) != 0) {
-            $result = mysqli_fetch_assoc($queryResult);
-            $queryResult->free();
-            return $result;
-        } else {
-            return null;
-        }
+        return ($ris = $this->executeQuery(
+            "SELECT Username, Email, Admin FROM Utenti WHERE Username = ?;",
+            $username
+        )) ? $ris[0] : null;
     }
     public function get_utente_by_email($email) {
-        $query = "SELECT Username, Email, Admin FROM Utenti WHERE Email = \"$email\";";
-        $queryResult = mysqli_query($this->connection, $query) or die("Errore in DBAccess" . mysqli_error($this->connection));
-        if (mysqli_num_rows($queryResult) != 0) {
-            $result = mysqli_fetch_assoc($queryResult);
-            $queryResult->free();
-            return $result;
-        } else {
-            return null;
-        }
+        return ($ris = $this->executeQuery(
+            "SELECT Username, Email, Admin FROM Utenti WHERE Email = ?;",
+            $email
+        )) ? $ris[0] : null;
     }
     public function register($username, $password, $email) {
-        $password = password_hash($password, PASSWORD_BCRYPT);
-        $query = "INSERT INTO Utenti (Username, Password, Email)
-                    VALUES (\"$username\", \"$password\", \"$email\");";
-        mysqli_query($this->connection, $query) or die(mysqli_error($this->connection));
-        return mysqli_affected_rows($this->connection);
+        return $this->executeQuery(
+            "INSERT INTO Utenti (Username, Password, Email) VALUES (?, ?,?);",
+            $username,
+            password_hash($password, PASSWORD_BCRYPT),
+            $email
+        );
     }
     public function change_email($username, $newEmail) {
-        $query = "UPDATE Utenti SET Email = \"$newEmail\" WHERE Username = \"$username\";";
-        mysqli_query($this->connection, $query) or die(mysqli_error($this->connection));
-        return mysqli_affected_rows($this->connection);
+        return $this->executeQuery(
+            "UPDATE Utenti SET Email = ? WHERE Username = ?;",
+            $newEmail,
+            $username
+        );
     }
     public function change_password($username, $newPassword) {
-        $newPassword = password_hash($newPassword, PASSWORD_BCRYPT);
-        $query = "UPDATE Utenti SET Password = \"$newPassword\" WHERE Username = \"$username\";";
-        mysqli_query($this->connection, $query) or die(mysqli_error($this->connection));
-        return mysqli_affected_rows($this->connection);
+        return $this->executeQuery(
+            "UPDATE Utenti SET Password = ? WHERE Username = ?;",
+            password_hash($newPassword, PASSWORD_BCRYPT),
+            $username
+        );
     }
+
     public function get_basi() {
-        $query = "Select * from basi";
-        $queryResult = mysqli_query($this->connection, $query)
-            or die("Errore in DBAccess" . mysqli_error($this->connection));
-        if (mysqli_num_rows($queryResult) != 0) {
-            $result = array();
-            while ($row = mysqli_fetch_assoc($queryResult)) {
-                $result[] = $row;
-            }
-            $queryResult->free();
-            return $result;
-        } else {
-            return null;
-        }
+        return $this->executeQuery("Select * from basi");
     }
 }
