@@ -12,11 +12,9 @@ class DBAccess {
 
     private $connection;
     private static $instance = null;
-    private function __construct()
-    {
+    private function __construct() {
     }
-    public static function getInstance()
-    {
+    public static function getInstance() {
         if (self::$instance == null) {
             self::$instance = new DBAccess();
         }
@@ -57,20 +55,6 @@ class DBAccess {
             if (isset($res) && gettype($res) == 'mysqli_result') {
                 $res->free();
             }
-        }
-    }
-
-    public function executeSelectQuery($query) {
-        $queryResult = mysqli_query($this->connection, $query) or die("Errore in DBAccess: " . mysqli_error($this->connection));
-        if (mysqli_num_rows($queryResult) == 0) {
-            return null;
-        } else {
-            $result = array();
-            while ($row = mysqli_fetch_array($queryResult)) {
-                $result[] = $row;
-            }
-            $queryResult->free();
-            return $result;
         }
     }
 
@@ -149,7 +133,7 @@ class DBAccess {
              JOIN Eventi ON ClassificheEventi.Evento = Eventi.id
              ORDER BY Eventi.Data DESC
              LIMIT 1;";
-        return $evento? $this->executeQuery($query, $evento)[0]: $this->executeQuery($query)[0];
+        return $evento ? $this->executeQuery($query, $evento)[0] : $this->executeQuery($query)[0];
     }
     public function get_classifiche() {
         return $this->executeQuery(
