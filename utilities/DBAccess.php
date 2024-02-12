@@ -108,14 +108,7 @@ class DBAccess {
         FROM eventi as e
         left join classificheeventi as ce on e.id = ce.evento
         where e.id = ?";
-        try {
-            return $this->executeQuery(
-                $query,
-                $id
-            )[0];
-        } catch (Exception) {
-            return null;
-        }
+        return ($ris = $this->executeQuery($query, $id)) ? $ris[0] : null;
     }
 
     public function getTitoliEventi() {
@@ -133,7 +126,8 @@ class DBAccess {
              JOIN Eventi ON ClassificheEventi.Evento = Eventi.id
              ORDER BY Eventi.Data DESC
              LIMIT 1;";
-        return $evento ? $this->executeQuery($query, $evento)[0] : $this->executeQuery($query)[0];
+        $res = $evento ? $this->executeQuery($query, $evento) : $this->executeQuery($query);
+        return $res ? $res[0] : null;
     }
     public function get_classifiche() {
         return $this->executeQuery(
@@ -141,14 +135,10 @@ class DBAccess {
         );
     }
     public function get_data_inizio_corrente($tipoEvento) {
-        try {
-            return $this->executeQuery(
-                "SELECT DataInizio FROM Classifiche WHERE TipoEvento =? AND DataInizio <= CURDATE() ORDER BY DataInizio DESC LIMIT 1;",
-                $tipoEvento
-            )[0]['DataInizio'];
-        } catch (Exception) {
-            return null;
-        }
+        return ($ris = $this->executeQuery(
+            "SELECT DataInizio FROM Classifiche WHERE TipoEvento =? AND DataInizio <= CURDATE() ORDER BY DataInizio DESC LIMIT 1;",
+            $tipoEvento
+        )) ? $ris[0]['DataInizio'] : null;
     }
     public function get_classifica($tipoEvento, $dataInizio) {
         return $this->executeQuery(
@@ -175,16 +165,16 @@ class DBAccess {
         return $res && password_verify($password, $res['Password']) ? $res : null;
     }
     public function get_utente_by_username($username) {
-        return $this->executeQuery(
+        return ($ris = $this->executeQuery(
             "SELECT Username, Email, Admin FROM Utenti WHERE Username = ?;",
             $username
-        );
+        )) ? $ris[0] : null;
     }
     public function get_utente_by_email($email) {
-        return $this->executeQuery(
+        return ($ris = $this->executeQuery(
             "SELECT Username, Email, Admin FROM Utenti WHERE Email = ?;",
             $email
-        );
+        )) ? $ris[0] : null;
     }
     public function register($username, $password, $email) {
         return $this->executeQuery(
@@ -210,18 +200,6 @@ class DBAccess {
     }
 
     public function get_basi() {
-        $query = "Select * from basi";
-        $queryResult = mysqli_query($this->connection, $query)
-            or die("Errore in DBAccess" . mysqli_error($this->connection));
-        if (mysqli_num_rows($queryResult) != 0) {
-            $result = array();
-            while ($row = mysqli_fetch_assoc($queryResult)) {
-                $result[] = $row;
-            }
-            $queryResult->free();
-            return $result;
-        } else {
-            return null;
-        }
+        return $this->executeQuery("Select * from basi");
     }
 }
