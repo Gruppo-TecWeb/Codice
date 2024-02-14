@@ -32,29 +32,33 @@ if ($connectionOk) {
     $connection->closeDBConnection();
 
     $lista_titoli_string = '';
+    $option = get_content_between_markers($content, 'listaTitoli');
     foreach ($lista_titoli_array as $evento) {
         $selected = ($evento['titolo'] == $titolo) ? ' selected' : '';
-        $lista_titoli_string .= "<option value='" . $evento['titolo'] . "'" . $selected . ">" . $evento['titolo'] . "</option>";
+        $lista_titoli_string .= multi_replace($option, [
+            '{titoloEvento}' => $evento['titolo'],
+            '{selezioneEvento}' => $selected
+        ]);
     }
 
     $lista_eventi_string = '';
     if ($lista_eventi_array == null) {
         $lista_eventi_string .= '<p>Non ci sono eventi in programma</p>';
     } else {
+        $article = get_content_between_markers($content, 'listaEventi');
         foreach ($lista_eventi_array as $evento) {
-            $lista_eventi_string .= '<article>';
-            $lista_eventi_string .= '<a href="evento.php?id=' . urlencode($evento['id']) . '">';
-            $lista_eventi_string .= '<p>' . $evento['data'] . '</p>';
-            $lista_eventi_string .= '<img src="assets/media/locandine/' . $evento['locandina'] . '">';
-            $lista_eventi_string .= '<p>' . htmlspecialchars($evento['titolo']) . '</p>';
-            $lista_eventi_string .= '</a>';
-            $lista_eventi_string .= '</article>';
+            $lista_eventi_string .= multi_replace($article, [
+                '{idEvento}' => urlencode($evento['id']),
+                '{dataEvento}' => $evento['data'],
+                '{locandinaEvento}' => $evento['locandina'],
+                '{titoloEvento}' => htmlspecialchars($evento['titolo'])
+            ]);
         }
     }
-    $content = multi_replace($content, [
-        '{data}' => $data,
-        '{listaTitoli}' => $lista_titoli_string,
-        '{listaEventi}' => $lista_eventi_string,
+    $content = str_replace('{data}', $data, $content);
+    $content = replace_content_between_markers($content, [
+        'listaTitoli' => $lista_titoli_string,
+        'listaEventi' => $lista_eventi_string
     ]);
 } else {
     header("location: errore500.php");

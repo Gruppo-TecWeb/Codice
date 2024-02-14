@@ -10,6 +10,8 @@
         <select id="titolo" name="titolo" onchange="this.form.submit()">
             <option value="" selected>...</option>
             {listaTitoli}
+            <option value="{titoloEvento}" {selezioneEvento}>{titoloEvento}</option>
+            {/listaTitoli}
         </select>
     </fieldset>
     <fieldset class="limitedWidth">
@@ -18,4 +20,12 @@
 </form>
 <div id="lista-eventi" class="limitedWidth">
     {listaEventi}
+    <article>
+        <a href="evento.php?id={idEvento}">
+            <p>{dataEvento}</p>
+            <img src="assets/media/locandine/{locandinaEvento}">
+            <p>{titoloEvento}</p>
+        </a>;
+    </article>
+    {/listaEventi}
 </div>

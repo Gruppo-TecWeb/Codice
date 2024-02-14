@@ -115,3 +115,27 @@ function validate_input($data) {
     $data = htmlspecialchars($data);
     return $data;
 }
+
+function get_content_between_markers($content, $marker) {
+    $start = strpos($content, '{' . $marker . '}');
+    $end = strpos($content, '{/' . $marker . '}');
+    if ($start === false || $end === false) {
+        return '';
+    }
+    $start += strlen($marker) + 2;
+    return substr($content, $start, $end - $start);    
+}
+
+function replace_content_between_markers($content, $replacements) {
+    foreach ($replacements as $marker => $replacement) {
+        $start = strpos($content, '{' . $marker . '}');
+        $end = strpos($content, '{/' . $marker . '}');
+        if ($start !== false && $end !== false) {
+            $start += strlen($marker) + 2;
+            $content = substr_replace($content, $replacement, $start, $end - $start);
+            $content = str_replace('{' . $marker . '}', '', $content);
+            $content = str_replace('{/' . $marker . '}', '', $content);
+        }
+    }
+    return $content;
+}
