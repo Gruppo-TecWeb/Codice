@@ -30,27 +30,36 @@ function init_eventi() {
     }
 }
 
+
+/*
+BASI
+*/
+
 function playerAudio(nomeBase) {
     percorso="assets/media/basi/";
-    container = document.getElementById("audio_container");
-    container.innerHTML ='<h3>' + nomeBase.slice(0,-4) + '</h3><audio controls autoplay id="audio"><source src="' + percorso + nomeBase + '" type="audio/mpeg"></audio>';
-    //document.getElementById("audio").onended = playerAudioNext(nomeBase); 
-    //Non fa "onended", forse perchè la funzione viene eseguita da un onclick e quindi vanno in conflitto?
-
+    //settaggio title
+    title=document.getElementsByTagName("h3")[0]
+    title.innerHTML=nomeBase.slice(0,-4); 
+    //settaggio audio
+    audio = document.getElementById("audio");
+    audio.setAttribute("autoplay", "true");
+    audio.src = percorso + nomeBase;
+    //cambio audio automatico finito il beat
+    document.getElementById("audio").onended = function() {
+        nextAudio(nomeBase);
+    }
 }
+function nextAudio(nomeBase) {
+    let basi = document.getElementsByClassName("base");   
 
-function playerAudioNext(nomeBase) { //forse devo include playerAudioNext()
-    let basi = document.getElementsByClassName("base");
     for (let i = 0; i < basi.length; i++) {
         if (basi[i].getAttribute("title") == nomeBase.slice(0,-4)) {
             let next = basi[i+1];
             if (next) {
                 title=(next.getAttribute("title")+".mp3");
-                console.log(title);
                 playerAudio(title);
             }
-            break
-            
+            break    
         }
     }
 }
