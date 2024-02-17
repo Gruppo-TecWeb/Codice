@@ -45,10 +45,8 @@ function playerAudio(nomeBase) {
     audio.setAttribute("autoplay", "true");
     audio.src = percorso + nomeBase;
     //cambio audio automatico finito il beat
-    console.log(autoNext);
     if(autoNext){
         document.getElementById("audio").onended = function() {
-            console.log(autoNext);
             nextAudio(nomeBase);
         }
     }
