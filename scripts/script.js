@@ -34,7 +34,7 @@ function init_eventi() {
 /*
 BASI
 */
-
+var autoNext=false;
 function playerAudio(nomeBase) {
     percorso="assets/media/basi/";
     //settaggio title
@@ -45,10 +45,20 @@ function playerAudio(nomeBase) {
     audio.setAttribute("autoplay", "true");
     audio.src = percorso + nomeBase;
     //cambio audio automatico finito il beat
-    document.getElementById("audio").onended = function() {
-        nextAudio(nomeBase);
+    console.log(autoNext);
+    if(autoNext){
+        document.getElementById("audio").onended = function() {
+            console.log(autoNext);
+            nextAudio(nomeBase);
+        }
     }
+    
 }
+
+function autoPlay() {
+    autoNext = !autoNext;
+}
+
 function nextAudio(nomeBase) {
     let basi = document.getElementsByClassName("base");   
 
