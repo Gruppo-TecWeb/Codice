@@ -57,6 +57,61 @@ function setIframe(battle){
     document.getElementById("descrizione_battle").innerHTML=descrizione[battle];
 }
 
+/*
+BASI
+*/
+var autoNext=false;
+function playerAudio(nomeBase) {
+    percorso="assets/media/basi/";
+    
+    //settaggio title
+    title=document.getElementsByTagName("h3")[0]
+    console.log(nomeBase);
+    title.innerHTML=nomeBase.slice(0,-4); 
+
+    //settaggio audio
+    audio = document.getElementById("audio");
+    audio.setAttribute("autoplay", "true");
+    audio.src = percorso + nomeBase;
+
+    //cambio audio automatico finito il beat se l'utente vuole
+    document.getElementById("autoNext").onclick = function() {
+        autoNext = !autoNext;
+        console.log(autoNext);
+
+        autoPlay(nomeBase);
+    }
+        autoPlay(nomeBase);
+      
+}
+function autoPlay(nomeBase){
+    if(autoNext){
+        audio.onended = function() {
+            nextAudio(nomeBase);  
+        }
+    }else{
+        audio.onended = function() {
+            audio.setAttribute("autoplay", "false");
+        }
+    } 
+}
+
+function nextAudio(nomeBase) {
+    let basi = document.getElementsByClassName("base");   
+
+    for (let i = 0; i < basi.length; i++) {
+        if (basi[i].getAttribute("title") == nomeBase.slice(0,-4)) {
+            let next = basi[i+1];
+            if (next) {
+                title=(next.getAttribute("title")+".mp3");
+                playerAudio(title);
+            }
+            break    
+        }
+    }
+}
+
+
 function onlyOnePlayer() {
     container = document.getElementById("lista_basi")
     container.addEventListener("play", function(event) {

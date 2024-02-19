@@ -502,3 +502,39 @@ div.error500 img {
     max-width: 40em;
     margin: 0 auto;
 }
+
+    
+
+/* 
+ * PAGINA BASI 
+ */
+
+#lista_basi li{
+    padding: 1em;
+    background-color: var(--secondaryColor);
+    cursor: pointer;
+    border-style: solid;
+    border-color: var(--accentColor);
+    border-width: 0.1em 0em 0em 0em;
+}
+#lista_basi li:hover{
+    border-style: solid;
+    padding: 1em;
+    background-color: var(--linkHoverBgColor);
+}
+#audio_container {
+    display: flex;
+    flex-direction: row;
+    position: sticky;
+    bottom: 0;
+    background-color: var(--accentColor);
+    padding: 1em;
+
+}
+#audio_container h3{
+    align-self: center;
+    width: 30vw;
+}
+#audio_container #audio{
+    width: 70vw;  
+}

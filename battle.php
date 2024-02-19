@@ -18,6 +18,7 @@ $menu = get_menu(isset($_SESSION["login"]), $pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 
+/* Io(BRE) non uso il DB
 $connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
 
@@ -38,6 +39,7 @@ if ($connectionOk) {
 } else {
     header("location: errore500.php");
 }
+*/
 
 echo multi_replace($battleHTML, [
     '{title}' => $title,
