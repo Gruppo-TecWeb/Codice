@@ -37,7 +37,7 @@ function setIframe(battle){
         'https://www.youtube.com/embed/S8Ze0GCgo4k?si=-nNRKZxPbIgU_2uI&amp;autoplay=1',
     );
     
-    link=document.getElementsByTagName("a").href;
+    //link=document.getElementsByTagName("a").href;
     
     descrizione=new Array(
         "I rapper fanno un minuto di <span lang=\"en\">freestyle</span> a testa, semplice</form> semplice.",
