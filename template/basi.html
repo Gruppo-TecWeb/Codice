@@ -1,12 +1,18 @@
 <div id="basi_container">
     <ul id="lista_basi">
         <!--Dovrei mettere aria-label="Riproduzione <span lang="en">beat</span>"?
-        se si dove? nel li? nel ul?-->
+        se si dove? nel li? nel ul?
+    
+            #button dentro li
+            #title="Riproduzione "canzone"
+            #uscita simbolo riproduzione on-hover
+    
+        -->
         <li class="base" role="button" title="11 - Goodbye - Big Joe" onclick="playerAudio('11 - Goodbye - Big Joe.mp3')">
             11 - <span lang="en">Goodbye</span> - Big Joe
         </li>
-        <li class="base" role="button" title="Big L Ebonics" onclick="playerAudio('Big L Ebonics.mp3')" >
-            Big L Ebonics
+        <li class="base" title="Riproduzione Big L Ebonics">
+            <button onclick="playerAudio('Big L Ebonics.mp3')">Big L Ebonics</button>
         </li>
         <li class="base" role="button" title="Busta Rhymes - Psycobusta" onclick="playerAudio('Busta Rhymes - Psycobusta.mp3')">
             Busta Rhymes - Psycobusta
@@ -65,7 +71,6 @@
     <div id="audio_container">
 
         <button id="autoNext" title="autoPlay">autoPlay</button>
-        
         <h3>Big L Ebonics</h3>
         <audio id="audio" controls>
             <source src="assets/media/basi/Big L Ebonics.mp3" type="audio/mpeg">
