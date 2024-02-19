@@ -345,23 +345,3 @@ INSERT INTO Punteggi (Partecipante, Evento, Punteggio) VALUES ('Mac Miller', 17,
 INSERT INTO Punteggi (Partecipante, Evento, Punteggio) VALUES ('Juice WRLD', 17, 1);
 INSERT INTO Punteggi (Partecipante, Evento, Punteggio) VALUES ('Travis Scott', 17, 1);
 INSERT INTO Punteggi (Partecipante, Evento, Punteggio) VALUES ('Eminem', 17, 1);
-
-INSERT INTO Basi (Nome) VALUES ("11 - Goodbye - Big Joe.mp4");
-INSERT INTO Basi (Nome) VALUES ("Big L  Ebonics.mp3");
-INSERT INTO Basi (Nome) VALUES ("Busta Rhymes - Psycobusta.mp3");
-INSERT INTO Basi (Nome) VALUES ("Dilated Peoples - The Platform (Erik Sermon Remix).mp3");
-INSERT INTO Basi (Nome) VALUES ("DJ Premier - BAP.mp3");
-INSERT INTO Basi (Nome) VALUES ("DJ Premier - That White.mp3");
-INSERT INTO Basi (Nome) VALUES ("Full Clip-Gangstarr.mp3");
-INSERT INTO Basi (Nome) VALUES ("Funkdoobiest - Lost in Thought.mp4");
-INSERT INTO Basi (Nome) VALUES ("Gang Starr - Battle.mp3");
-INSERT INTO Basi (Nome) VALUES ("J. Cole - Fire Squad.wav");
-INSERT INTO Basi (Nome) VALUES ("Jam Baxter - Fine (Prod GhostTown).mp4");
-INSERT INTO Basi (Nome) VALUES ("Method Man _ Redman - A-Yo.mp4");
-INSERT INTO Basi (Nome) VALUES ("Movie Villains.mp4");
-INSERT INTO Basi (Nome) VALUES ("Noyz Narcos - Trucemala.mp3");
-INSERT INTO Basi (Nome) VALUES ("RA Rugged man - Dangerous Three.mp3");
-INSERT INTO Basi (Nome) VALUES ("Step Brothers (Alchemist _ EvIdence) - Step Masters.mp4");
-INSERT INTO Basi (Nome) VALUES ("Tecniche Perfette - 5.mp4");
-INSERT INTO Basi (Nome) VALUES ("Wu Tang Clan _ Mobb Deep - Phat Beat.mp3");
-INSERT INTO Basi (Nome) VALUES ("Timbaland - They Ain_t Ready.mp3");
