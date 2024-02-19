@@ -450,6 +450,75 @@ input[type="submit"] {
     color: #000;
 }
 
+
+/* 
+ * PAGINA BATTLE 
+ */
+
+
+/* div modalità freestyle */
+#intro_battle h2 {
+    text-align: center;
+}
+
+#container_battle {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--accentColor);
+    padding: 1em;
+    align-items: center;
+}
+
+#container_iframe iframe {
+    width: 48vw;
+    height: 27vw;
+    border-radius: 20px;
+    margin: 0em 1em 0em 0em;
+
+}
+
+#container_iframe h3 {
+    text-align: center;
+    padding: 0em 0em 1em 0em;
+}
+
+#lista_battle {
+    display: flex;
+    flex-direction: column;
+}
+
+#lista_battle button {
+    cursor: pointer;
+    border-radius: 20px;
+    height: 4em;
+}
+
+.descrizioneBattle {
+    display: flex;
+    flex-direction: row;
+    border-style: solid;
+    padding: 0.5em 0em;
+    align-items: center;
+    background-color: var(--secondaryColor);
+    border-color: var(--accentColor);
+    color: var(--txtColor);
+}
+
+.descrizioneBattle:hover {
+    background-color: var(--buttonHover);
+}
+
+.descrizioneBattle dt {
+    border-style: solid;
+    border-width: 0px 2px 0px 0px;
+    padding: 0.5em;
+}
+
+.descrizioneBattle dd {
+    padding: 0.5em;
+    
+}
+
 /* 
  * PAGINA BASI 
  */
