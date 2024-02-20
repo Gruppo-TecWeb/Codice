@@ -6,13 +6,11 @@
     --bgColor: #000;
     --txtColor: #FFF2EA;
     --unfocusedTxtColor: #949494;
-    /* --accentColor: #EF754A; */
     --accentColor: #EF534A;
-    /*meglio???*/
     --secondaryColor: #262626;
     --linkColor: #00b4ff;
     --linkVisitedColor: #ffd7bb;
-    --linkHoverBgColor: #84848477;
+    --linkHoverBgColor: #453B3B;
     --successColor: #ACC3A6;
     --errorColor: #a00;
     --widthMax: 1024px;
@@ -56,7 +54,6 @@ a:link {
 }
 
 a:hover {
-    /* background-color: var(--linkHoverBgColor); */
     text-decoration: underline;
     text-decoration-color: var(--accentColor);
 }
@@ -177,9 +174,12 @@ header a h1 {
 }
 
 #menu {
-    text-align: center;
+    display: flex;
     width: 100%;
-    transform: translateY(40%);
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(50%);
 }
 
 #menu ul {
@@ -189,27 +189,25 @@ header a h1 {
 #menu ul li {
     display: inline-block;
     margin-inline: 0.3em;
-}
-
-#menu ul li a {
-    padding: 0.6em 1em;
     border-radius: 3px;
     background-color: var(--secondaryColor);
     border: 1px solid var(--accentColor);
     transition: background-color 0.2s;
 }
 
-#menu ul li a:hover {
-    background-color: #453B3B;
+#menu ul li:hover {
+    background-color: var(--linkHoverBgColor);
+}
+
+#menu ul li>* {
+    display: inline-block;
+    padding: 0.6em 1em;
 }
 
 #menu ul li#currentLink {
-    padding: 0.6em 1em;
-    border-radius: 3px;
-    border: 1px solid var(--accentColor);
     font-weight: bold;
     color: var(--linkVisitedColor);
-    background-color: #453B3B;
+    background-color: var(--linkHoverBgColor);
 }
 
 

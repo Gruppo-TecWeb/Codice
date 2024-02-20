@@ -81,10 +81,10 @@ header a h1 {
 }
 
 #menu {
+    display: block;
     position: fixed;
     left: 50%;
     bottom: calc(2em + 44px);
-    /* considerare che il btn puo essere > 44px */
     box-sizing: border-box;
     width: var(--menuWidth);
     padding: 1em;
@@ -95,19 +95,20 @@ header a h1 {
 }
 
 #menu ul li {
-    display: block;
-    margin: 0.1em 0;
-}
-
-#menu ul li a {
-    padding: unset;
     border: unset;
     background-color: unset;
     transition: unset;
     display: block;
+    margin: 0.1em 0;
+    overflow: hidden;
     line-height: 2em;
     font-size: 1.5em;
     font-weight: bold;
+}
+
+#menu ul li>* {
+    padding: unset;
+    display: block;
 }
 
 #menu ul li a:hover {
@@ -115,13 +116,7 @@ header a h1 {
 }
 
 #menu ul li#currentLink {
-    padding: unset;
-    border: unset;
-    color: unset;
-    transition: unset;
-    line-height: 2em;
-    font-size: 1.5em;
-    font-weight: bold;
+    color: var(--secondaryColor);
     background-color: var(--accentColor);
 }
 
@@ -182,8 +177,7 @@ header a h1 {
 
 #btn-menu {
     display: block;
-    height: 2.5em;
-    min-height: 44px;
+    height: 44px;
     aspect-ratio: 1;
     background-size: 100%;
     background-repeat: no-repeat;

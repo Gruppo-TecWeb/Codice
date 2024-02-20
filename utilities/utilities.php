@@ -28,7 +28,7 @@ function get_menu($logged, $pageId) {
             $menuOrder = $page['menuOrder'];
             $pages[$menuOrder] = '<li';
             if ($isCurrent) {
-                $pages[$menuOrder] .= ' id="currentLink"' . $lang_tag . '>' . $page['anchor'];
+                $pages[$menuOrder] .= ' id="currentLink">' . '<span' . $lang_tag . '>' . $page['anchor'] . '</span>';
             } else {
                 $pages[$menuOrder] .= '><a href="' . $page['href'] . '"' . $lang_tag . '>' . $page['anchor'] . '</a>';
             }
