@@ -10,7 +10,7 @@ function toggleMenu() {
 }
 
 function setIframe(battle){
-    
+    //title=document.getElementsByTagName("h4");
     title=new Array(
         'Minuto',
         '4/4',
@@ -24,6 +24,7 @@ function setIframe(battle){
 
     );
 
+        
     link=new Array(
         'https://www.youtube.com/embed/RszfbKxb460?si=S66nOyYSoWWfIMRV&amp;start=98&amp;end=210&amp;autoplay=1',
         'https://www.youtube.com/embed/2ttgML437Ho?si=UpESmYDGIApC8Ykd&amp;start=370&amp;end=510&amp;autoplay=1',
@@ -35,6 +36,8 @@ function setIframe(battle){
         'https://www.youtube.com/embed/OvVk892HzmE?si=zJjNgjiI8RlPKi7Y&amp;start=762&amp;autoplay=1',
         'https://www.youtube.com/embed/S8Ze0GCgo4k?si=-nNRKZxPbIgU_2uI&amp;autoplay=1',
     );
+    
+    //link=document.getElementsByTagName("a").href;
     
     descrizione=new Array(
         "I rapper fanno un minuto di <span lang=\"en\">freestyle</span> a testa, semplice</form> semplice.",
@@ -78,12 +81,12 @@ function playerAudio(nomeBase) {
     document.getElementById("autoNext").onclick = function() {
         autoNext = !autoNext;
         console.log(autoNext);
-
         autoPlay(nomeBase);
     }
         autoPlay(nomeBase);
       
 }
+
 function autoPlay(nomeBase){
     if(autoNext){
         audio.onended = function() {
