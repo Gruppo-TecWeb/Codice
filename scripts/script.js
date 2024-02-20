@@ -9,6 +9,9 @@ function toggleMenu() {
     document.body.setAttribute("data-menu-open", navOpened);
 }
 
+/*
+BATTLE
+*/
 function setIframe(battle){
     //title=document.getElementsByTagName("h4");
     title=new Array(
@@ -160,17 +163,4 @@ function showPlay(){
         }
     }
     
-}
-
-function onlyOnePlayer() {
-    container = document.getElementById("lista_basi")
-    container.addEventListener("play", function(event) {
-        basi = container.getElementsByTagName("audio")
-        for (i = 0; i < basi.length; i++) {
-            base = basi[i];
-            if (base !== event.target) {
-                base.pause();
-            }
-        }
-    }, true);
 }
