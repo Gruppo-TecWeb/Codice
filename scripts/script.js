@@ -114,6 +114,26 @@ function nextAudio(nomeBase) {
     }
 }
 
+function showPlay(){
+    basi=document.getElementsByClassName("base")
+    
+    for (let i = 0; i < basi.length; i++) {
+        bottone=basi[i].getElementsByTagName("button");
+        basi[i].onmouseover = function() {
+            console.log(bottone[i]);
+            bottone[i].innerHTML='<img src="..\\assets\\icons\\playArancionePieno.png"></img>';
+        }
+        basi[i].onmouseout = function() {
+            console.log(bottone[i]);
+            bottone[i].innerHTML=i+1;    
+        }
+        break;
+    }
+}
+
+
+
+
 
 function onlyOnePlayer() {
     container = document.getElementById("lista_basi")

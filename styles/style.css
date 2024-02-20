@@ -521,6 +521,25 @@ div.error500 img {
     border-style: solid;
     padding: 1em;
     background-color: var(--linkHoverBgColor);
+    
+
+}
+#lista_basi button{
+    background: transparent;
+    border-style: none;
+    cursor: pointer;
+    color: var(--txtColor);
+    opacity: 0.6;
+}
+
+#lista_basi button:hover{
+    text-indent: -999em;
+    color: var(--txtColor);
+    opacity: 1;
+}
+#lista_basi img{
+    width: 1em;
+    height: 1em;
 }
 #audio_container {
     display: flex;
