@@ -76,9 +76,10 @@ function playerAudio(nomeBase) {
     audio = document.getElementById("audio");
     audio.setAttribute("autoplay", "true");
     audio.src = percorso + nomeBase;
-    audio.onplaying = function(){
 
-        
+    
+    /*
+    audio.onplaying = function(){
         for (let i = 0; i < basi.length; i++) {
             //document.getElementsByClassName("base")[playingBeat].getElementsByTagName("button")=i+1;
             bottone=document.getElementsByClassName("base")[i].getElementsByTagName("button")
@@ -100,16 +101,8 @@ function playerAudio(nomeBase) {
             }
         }
 
-    }
-    basi[i].onmouseover = function() {
-        bottone=basi[i].getElementsByTagName("button");                      
-        bottone[0].innerHTML='<img src="..\\assets\\icons\\playArancionePieno.png"></img>';
-    }
-    basi[i].onmouseout = function() {
-        bottone=basi[i].getElementsByTagName("button");
-        bottone[0].innerHTML=i+1;    
-    }
-    
+    }*/
+
 
     //cambio audio automatico finito il beat se l'utente vuole
     document.getElementById("autoNext").onclick = function() {
@@ -119,37 +112,6 @@ function playerAudio(nomeBase) {
         autoPlay(nomeBase);
       
 }
-
-
-function showPlay(){
-    basi=document.getElementsByClassName("base")
-    for (let i = 0; i < basi.length; i++) {
-            /*playing[i]=!playing[i];  
-            console.log(playing);
-            bottone=basi[i].getElementsByTagName("button");  
-                              
-            bottone[0].innerHTML='<img src="..\\assets\\icons\\playArancionePieno.png"></img>';
-            */
-            //playingBeat=i;  
-        
-            
-        //if(!playing && !i){
-
-            basi[i].onmouseover = function() {
-                bottone=basi[i].getElementsByTagName("button");                      
-                bottone[0].innerHTML='<img src="..\\assets\\icons\\playArancionePieno.png"></img>';
-            }
-            basi[i].onmouseout = function() {
-                bottone=basi[i].getElementsByTagName("button");
-                bottone[0].innerHTML=i+1;    
-            }
-        //}
-    }
-    
-}
-
-
-
 
 function autoPlay(nomeBase){
     if(autoNext){
@@ -164,7 +126,6 @@ function autoPlay(nomeBase){
 }
 
 function nextAudio(nomeBase) {
-    console.log(nextAudio);
     let basi = document.getElementsByClassName("base");   
     
     for (let i = 0; i < basi.length; i++) {
@@ -178,15 +139,28 @@ function nextAudio(nomeBase) {
                 title=(nextButton[0].getAttribute("title").slice(10)+".mp3");
                 playerAudio(title);
             }
-            break    
+            break;  
         }
     }
 }
 
+function showPlay(){
+    basi=document.getElementsByClassName("base")
+    for (let i = 0; i < basi.length; i++) {
+        basi[i].onmouseover = function() {
+            bottone=basi[i].getElementsByTagName("button");    
+            bottone[0].style.opacity=1;                  
+            bottone[0].innerHTML='<img src="..\\assets\\icons\\playArancionePieno.png"></img>';
+        }
+        basi[i].onmouseout = function() {
+            bottone=basi[i].getElementsByTagName("button");
+            bottone[0].style.opacity=0.6;
+            bottone[0].innerHTML=i+1;
 
-
-
-
+        }
+    }
+    
+}
 
 function onlyOnePlayer() {
     container = document.getElementById("lista_basi")

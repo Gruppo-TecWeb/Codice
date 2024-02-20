@@ -530,16 +530,11 @@ div.error500 img {
     cursor: pointer;
     color: var(--txtColor);
     opacity: 0.6;
-}
-
-#lista_basi button:hover{
-    text-indent: -999em;
-    color: var(--txtColor);
-    opacity: 1;
+    margin-right: 1em;
 }
 #lista_basi img{
-    width: 1em;
-    height: 1em;
+    width: 1.2em;
+    height: 1.2em;
 }
 #audio_container {
     display: flex;
