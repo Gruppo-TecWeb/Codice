@@ -4,6 +4,7 @@
 
 [Regole per la consegna del progetto](https://stem.elearning.unipd.it/mod/page/view.php?id=384922) <br>
 [Regole per il concorso Accattivante Accessibile 2024](https://stem.elearning.unipd.it/pluginfile.php/640465/mod_resource/content/2/Concorso24.pdf)
+[Regole accessibilità WCAG](https://www.w3.org/Translations/WCAG21-it/)
 
 ## Altri studenti
 
