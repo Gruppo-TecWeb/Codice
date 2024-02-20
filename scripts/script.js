@@ -69,7 +69,7 @@ function playerAudio(nomeBase) {
     
     //settaggio title
     title=document.getElementsByTagName("h3")[0]
-    console.log(nomeBase);
+    //console.log(nomeBase);
     title.innerHTML=nomeBase.slice(0,-4); 
 
     //settaggio audio
@@ -77,10 +77,36 @@ function playerAudio(nomeBase) {
     audio.setAttribute("autoplay", "true");
     audio.src = percorso + nomeBase;
 
+    
+    /*
+    audio.onplaying = function(){
+        for (let i = 0; i < basi.length; i++) {
+            //document.getElementsByClassName("base")[playingBeat].getElementsByTagName("button")=i+1;
+            bottone=document.getElementsByClassName("base")[i].getElementsByTagName("button")
+            console.log(bottone[0].title.slice(10) + "==" + nomeBase.slice(0,-4));
+            if(bottone[0].title.slice(10)==nomeBase.slice(0,-4)){
+
+                playingBeat=i;
+                bottone[0].innerHTML='<img src="..\\assets\\icons\\playArancionePieno.png"></img>';
+                console.log(bottone[0].innerHTML);
+                
+                basi[i].onmouseover = function() {
+                   // bottone=basi[i].getElementsByTagName("button");                      
+                    //bottone[0].innerHTML='<img src="..\\assets\\icons\\playArancionePieno.png"></img>';
+                }
+                basi[i].onmouseout = function() {
+                    //bottone=basi[i].getElementsByTagName("button");
+                    //bottone[0].innerHTML=i+1;    
+                }
+            }
+        }
+
+    }*/
+
+
     //cambio audio automatico finito il beat se l'utente vuole
     document.getElementById("autoNext").onclick = function() {
         autoNext = !autoNext;
-        console.log(autoNext);
         autoPlay(nomeBase);
     }
         autoPlay(nomeBase);
@@ -101,19 +127,40 @@ function autoPlay(nomeBase){
 
 function nextAudio(nomeBase) {
     let basi = document.getElementsByClassName("base");   
-
+    
     for (let i = 0; i < basi.length; i++) {
-        if (basi[i].getAttribute("title") == nomeBase.slice(0,-4)) {
+
+
+        let bottone = basi[i].getElementsByTagName("button");    
+        if (bottone[0].getAttribute("title").slice(10) == nomeBase.slice(0,-4)) {
             let next = basi[i+1];
             if (next) {
-                title=(next.getAttribute("title")+".mp3");
+                let nextButton = next.getElementsByTagName("button");
+                title=(nextButton[0].getAttribute("title").slice(10)+".mp3");
                 playerAudio(title);
             }
-            break    
+            break;  
         }
     }
 }
 
+function showPlay(){
+    basi=document.getElementsByClassName("base")
+    for (let i = 0; i < basi.length; i++) {
+        basi[i].onmouseover = function() {
+            bottone=basi[i].getElementsByTagName("button");    
+            bottone[0].style.opacity=1;                  
+            bottone[0].innerHTML='<img src="..\\assets\\icons\\playArancionePieno.png"></img>';
+        }
+        basi[i].onmouseout = function() {
+            bottone=basi[i].getElementsByTagName("button");
+            bottone[0].style.opacity=0.6;
+            bottone[0].innerHTML=i+1;
+
+        }
+    }
+    
+}
 
 function onlyOnePlayer() {
     container = document.getElementById("lista_basi")

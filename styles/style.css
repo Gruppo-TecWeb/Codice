@@ -542,6 +542,20 @@ div.error500 img {
     border-style: solid;
     padding: 1em;
     background-color: var(--linkHoverBgColor);
+    
+
+}
+#lista_basi button{
+    background: transparent;
+    border-style: none;
+    cursor: pointer;
+    color: var(--txtColor);
+    opacity: 0.6;
+    margin-right: 1em;
+}
+#lista_basi img{
+    width: 1.2em;
+    height: 1.2em;
 }
 #audio_container {
     display: flex;
