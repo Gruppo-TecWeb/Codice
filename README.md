@@ -1,6 +1,20 @@
 # Codice
 
-<https://github.com/gabrielrovesti/Pop-Tech> (prendere ispirazione da qui)
+## Regolamenti
+
+[Regole per la consegna del progetto](https://stem.elearning.unipd.it/mod/page/view.php?id=384922) <br>
+[Regole per il concorso Accattivante Accessibile 2024](https://stem.elearning.unipd.it/pluginfile.php/640465/mod_resource/content/2/Concorso24.pdf)
+
+## Altri studenti
+
+### Anni scorsi
+ - [Onoranze Stecca](https://github.com/MrBrune01/OnoranzeStecca) [28 + 2]
+ - [Pop Tech](https://github.com/gabrielrovesti/Pop-Tech) [30 e lode]
+ - [Film - soundstage](https://github.com/ggardin/tecweb) [30 e lode] [Vincitori conconcorso Accessibilità]
+
+### Quest'anno
+ - [Clue Catchers](https://github.com/samuele-visentin/unipd-TecWeb) [30 + 2]
+ - [Sushi Brombeis](https://github.com/Barutta02/TecWeb) [29,5 + 2]
 
 ## Possibile modo di lavorare
 
