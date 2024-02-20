@@ -91,6 +91,26 @@ main {
     flex: 1;
 }
 
+h2 {
+    margin: 1em 0;
+}
+
+h3 {
+    margin-bottom: 0.8em;
+}
+
+h4 {
+    margin-bottom: 0.5em;
+}
+
+h5 {
+    margin-bottom: 0.5em;
+}
+
+div {
+    margin: 0.5em 0;
+}
+
 
 /* 
  * ERROR
@@ -105,6 +125,11 @@ main {
 /* 
  * FORM
  */
+
+fieldset {
+    border: none;
+    margin: 0.3em 0;
+}
 
 
 /* 
@@ -314,10 +339,6 @@ footer ul {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-#form-eventi fieldset {
-    border: none;
 }
 
 #form-eventi label {
@@ -537,4 +558,67 @@ div.error500 img {
 }
 #audio_container #audio{
     width: 70vw;  
+}
+
+    
+
+/* 
+ * PAGINA CLASSIFICHE 
+ */
+
+#form-classifiche label {
+    margin-bottom: 0;
+    margin-right: 10px;
+}
+
+#form-classifiche select{
+    margin-left: 10px;
+}
+
+table#tabella-classifica {
+    min-width: 38vw;
+    margin-right: 2vw;
+    border-collapse: collapse;
+}
+
+table#tabella-classifica caption {
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+table#tabella-classifica thead {
+    background-color: var(--accentColor);
+    color: var(--txtColor);
+}
+
+table#tabella-classifica th, table#tabella-classifica td {
+    padding: 0.3em 0.5em;
+}
+
+table#tabella-classifica th {
+    text-align: left;
+}
+
+table#tabella-classifica .classifica-punti {
+    text-align: right;
+}
+
+div.div-classifica p {
+    text-align: right;
+}
+
+div#Micelio {
+    background-image: radial-gradient(closest-side at 82%, rgba(0,0,0,0), rgba(0,0,0,1)), url(../assets/media/micelio_classifica.jpg);
+}
+
+div#Fungo {
+    background-image: radial-gradient(closest-side at 82%, rgba(0,0,0,0), rgba(0,0,0,1)), url(../assets/media/fungo_classifica.jpg);
+}
+
+div.div-classifica {
+    background-repeat: no-repeat;
+    background-position-x: right;
+    background-size: contain;
+    display: flex;
+    flex-direction: row-reverse;
 }

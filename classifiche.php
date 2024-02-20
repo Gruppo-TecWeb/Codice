@@ -29,7 +29,7 @@ if ($connectionOk) {
     $titoloEvento = '';
     $dataInizioEvento = null;
 
-    if (isset($_GET["submit"]) && isset($_GET["classifica"]) && $_GET["classifica"] != "") {
+    if (!isset($_GET["reset"]) && isset($_GET["classifica"]) && $_GET["classifica"] != "") {
         $classifica = explode('{.}', validate_input($_GET["classifica"]));
         $titoloEvento = $classifica[0];
         $dataInizioEvento = date_create($classifica[1]);

@@ -72,8 +72,8 @@ INSERT INTO Utenti (Username, Password, Email) VALUES ('Kanye West', '', 'kanyew
 INSERT INTO Utenti (Username, Password, Email) VALUES ('Jay-Z', '', 'jayz@mail.it');
 INSERT INTO Utenti (Username, Password, Email) VALUES ('Snoop Dogg', '', 'snoopdogg@mail.it');
 
-INSERT INTO TipiEvento (Titolo) VALUES ('Fungo');
-INSERT INTO TipiEvento (Titolo) VALUES ('Micelio');
+INSERT INTO TipiEvento (Titolo, Descrizione) VALUES ('Fungo', 'Il Fungo prende il nome dall''iconica struttura presente in piazza zanellato a Padova, dove ha luogo solitamente ogni martedì. Si tratta di una serie di eventi legati al mondo <span lang="en">rap freestyle</span> durante i quali si svolgono delle battle tra i vari partecipanti. Le classifiche sono i risultati di questi incontri.');
+INSERT INTO TipiEvento (Titolo, Descrizione) VALUES ('Micelio', 'Il Micelio è la versione invernale del Fungo e ha luogo solitamente ogni martedì presso il Distretto Est, a Padova. Si tratta di una serie di eventi legati al mondo <span lang="en">rap freestyle</span> durante i quali si svolgono delle battle tra i vari partecipanti. Le classifiche sono i risultati di questi incontri.');
 
 INSERT INTO Classifiche (TipoEvento, DataInizio, DataFine) VALUES ('Fungo', '2023-09-05', '2023-10-17');
 INSERT INTO Classifiche (TipoEvento, DataInizio, DataFine) VALUES ('Micelio', '2023-11-07', '2024-12-19');
