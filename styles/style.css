@@ -545,8 +545,11 @@ div.error500 img {
 /* 
  * PAGINA BASI 
  */
+#beats_container{
+    margin: 0em;
+}
 
-#lista_basi li{
+#lista_beats li{
     padding: 1em;
     background-color: var(--secondaryColor);
     cursor: pointer;
@@ -555,14 +558,14 @@ div.error500 img {
     border-width: 0.1em 0em 0em 0em;
 }
 
-#lista_basi li:hover{
+#lista_beats li:hover{
     border-style: solid;
     padding: 1em;
     background-color: var(--linkHoverBgColor);
     
 
 }
-#lista_basi button{
+#lista_beats button{
     background: transparent;
     border-style: none;
     cursor: pointer;
@@ -570,7 +573,7 @@ div.error500 img {
     opacity: 0.6;
     margin-right: 1em;
 }
-#lista_basi img{
+#lista_beats img{
     width: 1.2em;
     height: 1.2em;
 }
@@ -581,7 +584,7 @@ div.error500 img {
     bottom: 0;
     background-color: var(--accentColor);
     padding: 1em;
-
+    margin:0em;
 }
 #audio_container h3{
     align-self: center;

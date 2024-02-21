@@ -151,7 +151,7 @@ function autoPlay(nomeBase){
 }
 
 function nextAudio(nomeBase) {
-    let basi = document.getElementsByClassName("base");   
+    let basi = document.getElementsByClassName("beat");   
     
     for (let i = 0; i < basi.length; i++) {
 
@@ -170,7 +170,7 @@ function nextAudio(nomeBase) {
 }
 
 function showPlayBasi(){
-    basi=document.getElementsByClassName("base")
+    basi=document.getElementsByClassName("beat")
     for (let i = 0; i < basi.length; i++) {
         basi[i].onmouseover = function() {
             bottone=basi[i].getElementsByTagName("button");    
