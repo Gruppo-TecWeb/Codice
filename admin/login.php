@@ -1,19 +1,21 @@
 <?php
 
 namespace Utilities;
-require_once("utilities/utilities.php");
-require_once("utilities/DBAccess.php");
+require_once("../utilities/utilities.php");
+require_once("../utilities/DBAccess.php");
 use DB\DBAccess;
 
 session_start();
 
-$paginaHTML = file_get_contents("template/pagina-template.html");
-$loginHTML = file_get_contents("template/login-template.html");
+$paginaHTML = file_get_contents("../template/pagina-template.html");
+$loginHTML = file_get_contents("../template/admin/login-template.html");
+$logout = isset($_SESSION["login"]) ? file_get_contents("template/admin/logout-template.html") : '';
 
 $title = 'Login &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = 'Pagina dove poter effettuare l\'accesso all\'area autenticata del sito.';
 $keywords = 'login, freestyle rap, fungo, micelio, battle, eventi, classifiche';
+$percorso = '../';
 $menu = get_menu(isset($_SESSION["login"]), $pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
@@ -57,7 +59,7 @@ if ($connectionOk) {
     }
 }
 else {
-    header("location: errore500.php");
+    header("location: ../errore500.php");
 }
 
 $loginHTML = str_replace("{messaggiForm}", $errori, $loginHTML);
@@ -70,5 +72,7 @@ echo multi_replace($paginaHTML,[
     '{menu}' => $menu,
     '{breadcrumbs}' => $breadcrumbs,
     '{content}' => $loginHTML,
-    '{onload}' => $onload
+    '{onload}' => $onload,
+    '{logout}' => $logout,
+    '{percorso}' => $percorso
 ]);

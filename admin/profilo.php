@@ -2,20 +2,22 @@
 
 namespace Utilities;
 
-require_once("utilities/utilities.php");
-require_once("utilities/DBAccess.php");
+require_once("../utilities/utilities.php");
+require_once("../utilities/DBAccess.php");
 
 use DB\DBAccess;
 
 session_start();
 
-$paginaHTML = file_get_contents("template/pagina-template.html");
-$profiloHTML = file_get_contents("template/profilo-template.html");
+$paginaHTML = file_get_contents("../template/pagina-template.html");
+$profiloHTML = file_get_contents("../template/admin/profilo-template.html");
+$logout = isset($_SESSION["login"]) ? file_get_contents("../template/admin/logout-template.html") : '';
 
 $title = 'Profilo personale &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = 'Pagina profilo contenente le informazioni relative al proprio profilo utente.';
 $keywords = '';
+$percorso = '../';
 $menu = get_menu(isset($_SESSION["login"]), $pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
@@ -93,7 +95,7 @@ if ($connectionOk) {
 
     $connection->closeDBConnection();
 } else {
-    header("location: errore500.php");
+    header("location: ../errore500.php");
 }
 
 $profiloHTML = str_replace('{username}', $username, $profiloHTML);
@@ -110,5 +112,7 @@ echo multi_replace($paginaHTML, [
     '{menu}' => $menu,
     '{breadcrumbs}' => $breadcrumbs,
     '{content}' => $profiloHTML,
-    '{onload}' => $onload
+    '{onload}' => $onload,
+    '{logout}' => $logout,
+    '{percorso}' => $percorso
 ]);

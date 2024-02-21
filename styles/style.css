@@ -111,6 +111,10 @@ div {
     margin: 0.5em 0;
 }
 
+.no-script {
+    display: none;
+}
+
 
 /* 
  * ERROR
@@ -605,14 +609,13 @@ div.error500 img {
     margin-right: 10px;
 }
 
-#form-classifiche select{
-    margin-left: 10px;
+table#tabella-classifica {
+    min-width: 48%;
+    border-collapse: collapse;
 }
 
-table#tabella-classifica {
-    min-width: 38vw;
-    margin-right: 2vw;
-    border-collapse: collapse;
+.div-classifica p {
+    min-width: 48%;
 }
 
 table#tabella-classifica caption {
@@ -655,4 +658,5 @@ div.div-classifica {
     background-size: contain;
     display: flex;
     flex-direction: row-reverse;
+    justify-content: space-between;
 }

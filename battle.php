@@ -9,11 +9,13 @@ session_start();
 
 $battleHTML = file_get_contents("template/pagina-template.html");
 $content = file_get_contents("template/battle.html");
+$logout = isset($_SESSION["login"]) ? file_get_contents("template/admin/logout-template.html") : '';
 
 $title = 'Battle &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = "Introduzione regole e modalità freestyle rap battle con esempi";
 $keywords = 'Tipi di battle, 4/4, Minuto, Chyper, 3/4, Kickback, Royal rumble, Argomento, Acapella, Oggetti';
+$percorso = '';
 $menu = get_menu(isset($_SESSION["login"]), $pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = 'showPlayBattle()';
@@ -49,5 +51,7 @@ echo multi_replace($battleHTML, [
     '{menu}' => $menu,
     '{breadcrumbs}' => $breadcrumbs,
     '{content}' => $content,
-    '{onload}' => $onload
+    '{onload}' => $onload,
+    '{logout}' => $logout,
+    '{percorso}' => $percorso
 ]);
