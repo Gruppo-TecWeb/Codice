@@ -13,8 +13,8 @@ function toggleMenu() {
 BATTLE
 */
 function setIframe(battle){
-    //title=document.getElementsByTagName("h4");
-    title=new Array(
+{
+    /*title=new Array(
         'Minuto',
         '4/4',
         'Cypher',
@@ -25,9 +25,9 @@ function setIframe(battle){
         'Acappella',
         'Oggetti',
 
-    );
+    );*/
 
-        
+    /*    
     link=new Array(
         'https://www.youtube.com/embed/RszfbKxb460?si=S66nOyYSoWWfIMRV&amp;start=98&amp;end=210&amp;autoplay=1',
         'https://www.youtube.com/embed/2ttgML437Ho?si=UpESmYDGIApC8Ykd&amp;start=370&amp;end=510&amp;autoplay=1',
@@ -40,8 +40,6 @@ function setIframe(battle){
         'https://www.youtube.com/embed/S8Ze0GCgo4k?si=-nNRKZxPbIgU_2uI&amp;autoplay=1',
     );
     
-    //link=document.getElementsByTagName("a").href;
-    
     descrizione=new Array(
         "I rapper fanno un minuto di <span lang=\"en\">freestyle</span> a testa, semplice</form> semplice.",
         "La modalità più classica tra tutte, a turno i rapper fanno 4/4 a testa!",
@@ -53,14 +51,39 @@ function setIframe(battle){
         'I rapper si sfidano senza alcun supporto musicale, concentrandosi solo sulle loro abilità vocali e liriche',
         'Prima dell\'inizio di ogni turno ai rapper verranno forniti degli oggetti che non conoscono a priori e dovranno rappare su quelli. Gli oggetti possono essere forniti dal pubblico o nascosti dentro un contenitore.',
     );
+*/
+}
+    descBattle=document.getElementsByClassName("descrizioneBattle")[battle];
 
-    document.getElementsByTagName("h3")[0].innerHTML="Esempio " + title[battle];
+    //creazione variabili per battle cliccata
+    titleModalità=descBattle.getElementsByTagName("a")[0].title;
+    link=descBattle.getElementsByTagName("a")[0].href;
+    /*settaggio descrizione SE NECESSARIA
+    desc=descBattle.getElementsByTagName("dd")[0].innerHTML;
+    */
 
+    //settaggio iframe
+    document.getElementsByTagName("h3")[0].innerHTML=titleModalità;
     iframe=document.getElementsByTagName("iframe")[0];
-    iframe.src=link[battle];
-    iframe.title=title[battle];
-  
-    document.getElementById("descrizione_battle").innerHTML=descrizione[battle];
+    iframe.src=link;
+    iframe.title=titleModalità;
+    /*settaggio descrizione SE NECESSARIA
+    document.getElementById("descBattle").innerHTML=desc;
+    */
+}
+
+function showPlayBattle(){
+    battle=document.getElementsByClassName("descrizioneBattle")
+    for (let i = 0; i < battle.length; i++) {
+        battle[i].onmouseover = function() {
+        battle[i].getElementsByTagName("img")[0].style.opacity=1;
+        }
+
+        battle[i].onmouseout = function() {
+            battle[i].getElementsByTagName("img")[0].style.opacity=0;
+        }
+    }
+    
 }
 
 /*
@@ -72,7 +95,6 @@ function playerAudio(nomeBase) {
     
     //settaggio title
     title=document.getElementsByTagName("h3")[0]
-    //console.log(nomeBase);
     title.innerHTML=nomeBase.slice(0,-4); 
 
     //settaggio audio
@@ -80,7 +102,7 @@ function playerAudio(nomeBase) {
     audio.setAttribute("autoplay", "true");
     audio.src = percorso + nomeBase;
 
-    
+{
     /*
     audio.onplaying = function(){
         for (let i = 0; i < basi.length; i++) {
@@ -105,9 +127,9 @@ function playerAudio(nomeBase) {
         }
 
     }*/
+};
 
-
-    //cambio audio automatico finito il beat se l'utente vuole
+    //bottone riproduzione automatica
     document.getElementById("autoNext").onclick = function() {
         autoNext = !autoNext;
         autoPlay(nomeBase);
@@ -163,16 +185,3 @@ function showPlayBasi(){
     }
 }
 
-function showPlayBattle(){
-    battle=document.getElementsByClassName("descrizioneBattle")
-    for (let i = 0; i < battle.length; i++) {
-        battle[i].onmouseover = function() {
-        battle[i].getElementsByTagName("img")[0].style.opacity=1;
-        }
-        
-        battle[i].onmouseout = function() {
-            battle[i].getElementsByTagName("img")[0].style.opacity=0;
-        }
-    }
-    
-}

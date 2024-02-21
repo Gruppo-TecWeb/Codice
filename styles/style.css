@@ -446,32 +446,35 @@ footer ul {
 }
 
 #container_battle {
+
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: center;
     background-color: var(--accentColor);
     padding: 1em;
     align-items: center;
     margin: 0em;
-}
 
+}
+#container_iframe{
+    margin:0em;
+    text-align: center;
+    color:var(--secondaryColor);
+    font-size:larger;
+    
+}
 
 #container_iframe iframe {
-    width: 48vw;
-    height: 27vw;
+    width: 80vw;
+    height: 36vw;
     border-radius: 20px;
-    margin: 0em 1em 0em 0em;
 
-}
-
-
-#container_iframe h3 {
-    text-align: center;
-    padding: 0em 0em 1em 0em;
 }
 
 #lista_battle {
     display: flex;
     flex-direction: column;
+    width: 96vw;
 }
 #lista_battle img{
     opacity: 0;
