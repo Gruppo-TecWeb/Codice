@@ -412,6 +412,10 @@ table#tabella-classifica {
     margin: auto;
 }
 
+.div-classifica p {
+    min-width: inherit;
+}
+
 table#tabella-classifica caption {
     font-size: 1.5em;
     margin-bottom: 0.5em;

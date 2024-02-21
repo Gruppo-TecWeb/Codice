@@ -19,7 +19,7 @@ $keywords = 'classifiche, fungo, micelio, freestyle, rap, freestyle rap, battle'
 $menu = get_menu(isset($_SESSION["login"]), $pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $content = '';
-$onload = '';
+$onload = 'hideSubmitButtons()';
 $classifiche = '';
 
 $connection = DBAccess::getInstance();
