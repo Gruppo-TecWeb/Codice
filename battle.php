@@ -16,7 +16,7 @@ $description = "Introduzione regole e modalità freestyle rap battle con esempi"
 $keywords = 'Tipi di battle, 4/4, Minuto, Chyper, 3/4, Kickback, Royal rumble, Argomento, Acapella, Oggetti';
 $menu = get_menu(isset($_SESSION["login"]), $pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
-$onload = '';
+$onload = 'showPlayBattle()';
 
 /* Io(BRE) non uso il DB
 $connection = DBAccess::getInstance();

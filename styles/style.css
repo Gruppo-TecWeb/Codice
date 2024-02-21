@@ -451,7 +451,9 @@ footer ul {
     background-color: var(--accentColor);
     padding: 1em;
     align-items: center;
+    margin: 0em;
 }
+
 
 #container_iframe iframe {
     width: 48vw;
@@ -460,6 +462,7 @@ footer ul {
     margin: 0em 1em 0em 0em;
 
 }
+
 
 #container_iframe h3 {
     text-align: center;
@@ -470,11 +473,24 @@ footer ul {
     display: flex;
     flex-direction: column;
 }
+#lista_battle img{
+    opacity: 0;
+}
+
+#lista_battle img:hover{
+    opacity: 1;
+}
 
 #lista_battle button {
     cursor: pointer;
     border-radius: 20px;
     height: 4em;
+    justify-content: space-between;
+}
+#lista_battle img{
+    width: 2em;
+    height: 2em;
+    margin: 1em;
 }
 
 .descrizioneBattle {
@@ -538,6 +554,7 @@ div.error500 img {
     border-color: var(--accentColor);
     border-width: 0.1em 0em 0em 0em;
 }
+
 #lista_basi li:hover{
     border-style: solid;
     padding: 1em;

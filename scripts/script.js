@@ -147,7 +147,7 @@ function nextAudio(nomeBase) {
     }
 }
 
-function showPlay(){
+function showPlayBasi(){
     basi=document.getElementsByClassName("base")
     for (let i = 0; i < basi.length; i++) {
         basi[i].onmouseover = function() {
@@ -159,7 +159,19 @@ function showPlay(){
             bottone=basi[i].getElementsByTagName("button");
             bottone[0].style.opacity=0.6;
             bottone[0].innerHTML=i+1;
+        }
+    }
+}
 
+function showPlayBattle(){
+    battle=document.getElementsByClassName("descrizioneBattle")
+    for (let i = 0; i < battle.length; i++) {
+        battle[i].onmouseover = function() {
+        battle[i].getElementsByTagName("img")[0].style.opacity=1;
+        }
+        
+        battle[i].onmouseout = function() {
+            battle[i].getElementsByTagName("img")[0].style.opacity=0;
         }
     }
     

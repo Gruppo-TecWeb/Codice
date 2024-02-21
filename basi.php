@@ -16,7 +16,7 @@ $description = "Basi per freestyle di rap";
 $keywords = 'Basi, Beats, Instrumental, Freestyle, Rap';
 $menu = get_menu(isset($_SESSION["login"]), $pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
-$onload = 'showPlay()';
+$onload = 'showPlayBasi()';
 
 echo multi_replace($basiHTML, [
     '{title}' => $title,
