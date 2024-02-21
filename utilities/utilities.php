@@ -3,18 +3,18 @@
 namespace Utilities;
 
 const pages_array = [
-    'index'       => ['href' => 'index.php',          'anchor' => 'Home',                                  'lang' => 'en', 'menuOrder' => 1, 'parentId' => ''],
-    'eventi'      => ['href' => 'eventi.php',         'anchor' => 'Eventi',                                'lang' => '',   'menuOrder' => 2, 'parentId' => 'index'],
-    'classifiche' => ['href' => 'classifiche.php',    'anchor' => 'Classifiche',                           'lang' => '',   'menuOrder' => 3, 'parentId' => 'index'],
-    'battle'      => ['href' => 'battle.php',         'anchor' => 'Tipi di <span lang="en">Battle</span>', 'lang' => '',   'menuOrder' => 4, 'parentId' => 'index'],
-    'beats'       => ['href' => 'beats.php',          'anchor' => 'Beats',                                 'lang' => '',   'menuOrder' => 5, 'parentId' => 'index'],
-    'chi-siamo'   => ['href' => 'chi-siamo.php',      'anchor' => 'Chi siamo',                             'lang' => '',   'menuOrder' => 6, 'parentId' => 'index'],
-    'login'       => ['href' => 'login.php',          'anchor' => 'Login',                                 'lang' => 'en', 'menuOrder' => 0, 'parentId' => 'index'],
-    'profilo'     => ['href' => 'profilo.php',        'anchor' => 'Profilo',                               'lang' => '',   'menuOrder' => 0, 'parentId' => 'index'],
-    'logout'      => ['href' => 'logout.php',         'anchor' => 'Logout',                                'lang' => 'en', 'menuOrder' => 0, 'parentId' => 'index'],
-    'registrati'  => ['href' => 'registrati.php',     'anchor' => 'Registrati',                            'lang' => '',   'menuOrder' => 0, 'parentId' => 'index'],
-    'evento'      => ['href' => 'evento.php?id={id}', 'anchor' => '{evento}',                              'lang' => '',   'menuOrder' => 0, 'parentId' => 'eventi'],
-    'errore500'   => ['href' => 'errore500.php',      'anchor' => 'Errore 500',                            'lang' => '',   'menuOrder' => 0, 'parentId' => 'index']
+    'index'       => ['href' => '{percorso}index.php',            'anchor' => 'Home',                                  'lang' => 'en', 'menuOrder' => 1, 'parentId' => ''],
+    'eventi'      => ['href' => '{percorso}eventi.php',           'anchor' => 'Eventi',                                'lang' => '',   'menuOrder' => 2, 'parentId' => 'index'],
+    'classifiche' => ['href' => '{percorso}classifiche.php',      'anchor' => 'Classifiche',                           'lang' => '',   'menuOrder' => 3, 'parentId' => 'index'],
+    'battle'      => ['href' => '{percorso}battle.php',           'anchor' => 'Tipi di <span lang="en">Battle</span>', 'lang' => '',   'menuOrder' => 4, 'parentId' => 'index'],
+    'beats'       => ['href' => '{percorso}beats.php',            'anchor' => 'Beats',                                 'lang' => '',   'menuOrder' => 5, 'parentId' => 'index'],
+    'chi-siamo'   => ['href' => '{percorso}chi-siamo.php',        'anchor' => 'Chi siamo',                             'lang' => '',   'menuOrder' => 6, 'parentId' => 'index'],
+    'login'       => ['href' => '{percorso}admin/login.php',      'anchor' => 'Login',                                 'lang' => 'en', 'menuOrder' => 0, 'parentId' => 'index'],
+    'profilo'     => ['href' => '{percorso}admin/profilo.php',    'anchor' => 'Profilo',                               'lang' => '',   'menuOrder' => 0, 'parentId' => 'index'],
+    'logout'      => ['href' => '{percorso}admin/logout.php',     'anchor' => 'Logout',                                'lang' => 'en', 'menuOrder' => 0, 'parentId' => 'index'],
+    'registrati'  => ['href' => '{percorso}admin/registrati.php', 'anchor' => 'Registrati',                            'lang' => '',   'menuOrder' => 0, 'parentId' => 'index'],
+    'evento'      => ['href' => '{percorso}evento.php?id={id}',   'anchor' => '{evento}',                              'lang' => '',   'menuOrder' => 0, 'parentId' => 'eventi'],
+    'errore500'   => ['href' => '{percorso}errore500.php',        'anchor' => 'Errore 500',                            'lang' => '',   'menuOrder' => 0, 'parentId' => 'index']
 ];
 
 function multi_replace($source, $replacements) {

@@ -4,7 +4,6 @@ DROP TABLE IF EXISTS Eventi;
 DROP TABLE IF EXISTS Classifiche;
 DROP TABLE IF EXISTS TipiEvento;
 DROP TABLE IF EXISTS Utenti;
-DROP TABLE IF EXISTS Basi;
 
 CREATE TABLE Utenti (
     Username VARCHAR(100) PRIMARY KEY,
@@ -47,10 +46,6 @@ CREATE TABLE Punteggi (
     PRIMARY KEY (Partecipante, Evento),
     FOREIGN KEY (Evento) REFERENCES Eventi(Id),
     FOREIGN KEY (Partecipante) REFERENCES Utenti(Username));
-
-CREATE TABLE Basi (
-   Id INT PRIMARY KEY auto_increment,
-   Nome VARCHAR (255));
     
 INSERT INTO Utenti (Username, Password, Email, Admin) VALUES ('admin', '$2y$10$6HccIqtLp.aSP1X4H/X3GeNJaXsTLVrNCPYIaMURXPUfxSL7qjphi', 'admin@mail.it', 'S');
 INSERT INTO Utenti (Username, Password, Email) VALUES ('user', '$2y$10$Z0Aa3dQjyumq4IUcqxlIK.Han8U1eeETu7utaA9WhT.iKcggzR49G', 'user@mail.it');

@@ -1,19 +1,21 @@
 <?php
 
 namespace Utilities;
-require_once("utilities/utilities.php");
-require_once("utilities/DBAccess.php");
+require_once("../utilities/utilities.php");
+require_once("../utilities/DBAccess.php");
 use DB\DBAccess;
 
 session_start();
 
-$paginaHTML = file_get_contents("template/pagina-template.html");
-$registratiHTML = file_get_contents("template/registrati-template.html");
+$paginaHTML = file_get_contents("../template/pagina-template.html");
+$registratiHTML = file_get_contents("../template/admin/registrati-template.html");
+$logout = isset($_SESSION["login"]) ? file_get_contents("template/admin/logout-template.html") : '';
 
 $title = 'Registrati &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = 'Pagina dove poter effettuare l\'accesso all\'area autenticata del sito.';
 $keywords = 'registrati, freestyle rap, fungo, micelio, battle, eventi, classifiche';
+$percorso = '../';
 $menu = get_menu(isset($_SESSION["login"]), $pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
@@ -46,7 +48,7 @@ if ($connectionOk) {
             }
             if (!is_null($utente)) {
                 $errore = true;
-                $erroriVAL .= "<li>Utente giá registrato. Vai alla pagina di <a href=\"login.php\" lang=\"en\">login</a>.</li>";
+                $erroriVAL .= "<li>Utente giá registrato. Vai alla pagina di <a href=\"admin/login.php\" lang=\"en\">login</a>.</li>";
             }
         }
         if ($password == "") {
@@ -79,7 +81,7 @@ if ($connectionOk) {
     }
 }
 else {
-    header("location: errore500.php");
+    header("location: ../errore500.php");
 }
 
 $registratiHTML = str_replace("{messaggiForm}", $errori, $registratiHTML);
@@ -93,6 +95,7 @@ echo multi_replace($paginaHTML,[
     '{menu}' => $menu,
     '{breadcrumbs}' => $breadcrumbs,
     '{content}' => $registratiHTML,
-    '{onload}' => $onload
-
+    '{onload}' => $onload,
+    '{logout}' => $logout,
+    '{percorso}' => $percorso
 ]);

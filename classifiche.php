@@ -16,12 +16,13 @@ $title = 'Classifiche &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = 'Classifiche attuali sulla base dei punteggi ottenuti durante le battle di freestyle rap degli eventi Fungo e Micelio.';
 $keywords = 'classifiche, fungo, micelio, freestyle, rap, freestyle rap, battle';
+$percorso = '';
 $menu = get_menu(isset($_SESSION["login"]), $pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $content = '';
 $onload = 'hideSubmitButtons()';
 $classifiche = '';
-$logout = isset($_SESSION["login"]) ? file_get_contents("template/logout-template.html") : '';
+$logout = isset($_SESSION["login"]) ? file_get_contents("template/admin/logout-template.html") : '';
 
 $connection = DBAccess::getInstance();
 $connectionOk = $connection -> openDBConnection();
@@ -113,5 +114,6 @@ echo multi_replace($paginaHTML,[
     '{onload}' => $onload,
     '{classifica}' => trim($classifiche),
     '{classifiche}' => $content,
-    '{logout}' => $logout
+    '{logout}' => $logout,
+    '{percorso}' => $percorso
 ]);

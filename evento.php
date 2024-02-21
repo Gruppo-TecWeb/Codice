@@ -10,12 +10,13 @@ use DB\DBAccess;
 session_start();
 
 $eventoHTML = file_get_contents("template/pagina-template.html");
-$logout = isset($_SESSION["login"]) ? file_get_contents("template/logout-template.html") : '';
+$logout = isset($_SESSION["login"]) ? file_get_contents("template/admin/logout-template.html") : '';
 
 $title = '';
 $pageId = basename(__FILE__, '.php');
 $description = '';
 $keywords = '';
+$percorso = '';
 $menu = get_menu(isset($_SESSION["login"]), $pageId);
 $breadcrumbs = '';
 
@@ -66,5 +67,6 @@ echo multi_replace($eventoHTML, [
     '{breadcrumbs}' => $breadcrumbs,
     '{content}' => $content,
     '{onload}' => $onload,
-    '{logout}' => $logout
+    '{logout}' => $logout,
+    '{percorso}' => $percorso
 ]);
