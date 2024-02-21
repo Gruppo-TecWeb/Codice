@@ -7,6 +7,7 @@ session_start();
 
 $paginaHTML = file_get_contents("template/pagina-template.html");
 $contentHTML = file_get_contents("template/chi-siamo-content.html");
+$logout = isset($_SESSION["login"]) ? file_get_contents("template/logout-template.html") : '';
 
 $title = 'Chi siamo &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
@@ -24,5 +25,6 @@ echo multi_replace($paginaHTML,[
     '{menu}' => $menu,
     '{breadcrumbs}' => $breadcrumbs,
     '{content}' => $contentHTML,
-    '{onload}' => $onload
+    '{onload}' => $onload,
+    '{logout}' => $logout
 ]);

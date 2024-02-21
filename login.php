@@ -9,6 +9,7 @@ session_start();
 
 $paginaHTML = file_get_contents("template/pagina-template.html");
 $loginHTML = file_get_contents("template/login-template.html");
+$logout = isset($_SESSION["login"]) ? file_get_contents("template/logout-template.html") : '';
 
 $title = 'Login &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
@@ -70,5 +71,6 @@ echo multi_replace($paginaHTML,[
     '{menu}' => $menu,
     '{breadcrumbs}' => $breadcrumbs,
     '{content}' => $loginHTML,
-    '{onload}' => $onload
+    '{onload}' => $onload,
+    '{logout}' => $logout
 ]);

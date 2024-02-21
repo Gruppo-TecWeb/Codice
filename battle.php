@@ -9,6 +9,7 @@ session_start();
 
 $battleHTML = file_get_contents("template/pagina-template.html");
 $content = file_get_contents("template/battle.html");
+$logout = isset($_SESSION["login"]) ? file_get_contents("template/logout-template.html") : '';
 
 $title = 'Battle &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
@@ -49,5 +50,6 @@ echo multi_replace($battleHTML, [
     '{menu}' => $menu,
     '{breadcrumbs}' => $breadcrumbs,
     '{content}' => $content,
-    '{onload}' => $onload
+    '{onload}' => $onload,
+    '{logout}' => $logout
 ]);

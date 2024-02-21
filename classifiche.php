@@ -21,6 +21,7 @@ $breadcrumbs = get_breadcrumbs($pageId);
 $content = '';
 $onload = 'hideSubmitButtons()';
 $classifiche = '';
+$logout = isset($_SESSION["login"]) ? file_get_contents("template/logout-template.html") : '';
 
 $connection = DBAccess::getInstance();
 $connectionOk = $connection -> openDBConnection();
@@ -111,5 +112,6 @@ echo multi_replace($paginaHTML,[
     '{content}' => trim($classificheHTML),
     '{onload}' => $onload,
     '{classifica}' => trim($classifiche),
-    '{classifiche}' => $content
+    '{classifiche}' => $content,
+    '{logout}' => $logout
 ]);

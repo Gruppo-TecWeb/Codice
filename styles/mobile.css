@@ -403,10 +403,6 @@ input[type="submit"] {
     margin-right: 10px;
 }
 
-#form-classifiche select{
-    margin-left: 10px;
-}
-
 table#tabella-classifica {
     min-width: inherit;
     margin: auto;
