@@ -10,7 +10,6 @@ use DB\DBAccess;
 session_start();
 
 $paginaHTML = file_get_contents("template/pagina-template.html");
-$profiloHTML = file_get_contents("template/profilo-template.html");
 
 $title = 'Profilo personale &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
@@ -18,6 +17,7 @@ $description = 'Pagina profilo contenente le informazioni relative al proprio pr
 $keywords = '';
 $menu = get_menu(isset($_SESSION["login"]), $pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
+$content = file_get_contents("template/profilo.html");
 $onload = '';
 $erroriVAL = '';
 $errori = '';
@@ -96,12 +96,15 @@ if ($connectionOk) {
     header("location: errore500.php");
 }
 
-$profiloHTML = str_replace('{username}', $username, $profiloHTML);
-$profiloHTML = str_replace('{email}', $email, $profiloHTML);
-$profiloHTML = str_replace('{formModificaDatiUtente}', $formModificaDatiUtente, $profiloHTML);
-$profiloHTML = str_replace('{messaggiForm}', $errori, $profiloHTML);
-$profiloHTML = str_replace('{formEmail}', $formEmail, $profiloHTML);
-$profiloHTML = str_replace('{messaggiProfilo}', $messaggiProfilo, $profiloHTML);
+$content = multi_replace($content, [
+    '{username}' => $username,
+    '{email}' => $email,
+    '{formModificaDatiUtente}' => $formModificaDatiUtente,
+    '{messaggiForm}' => $errori,
+    '{formEmail}' => $formEmail,
+    '{messaggiProfilo}' => $messaggiProfilo
+]);
+
 echo multi_replace($paginaHTML, [
     '{title}' => $title,
     '{description}' => $description,
@@ -109,6 +112,6 @@ echo multi_replace($paginaHTML, [
     '{pageId}' => $pageId,
     '{menu}' => $menu,
     '{breadcrumbs}' => $breadcrumbs,
-    '{content}' => $profiloHTML,
+    '{content}' => $content,
     '{onload}' => $onload
 ]);
