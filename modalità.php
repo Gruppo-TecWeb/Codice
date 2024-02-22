@@ -11,10 +11,10 @@ $battleHTML = file_get_contents("template/pagina-template.html");
 $content = file_get_contents("template/modalità.html");
 $logout = isset($_SESSION["login"]) ? file_get_contents("template/admin/logout-template.html") : '';
 
-$title = 'Battle &minus; Fungo';
+$title = 'Modlità &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = "Introduzione regole e modalità freestyle rap battle con esempi";
-$keywords = 'Tipi di battle, 4/4, Minuto, Chyper, 3/4, Kickback, Royal rumble, Argomento, Acapella, Oggetti';
+$keywords = 'Modalità battle, regole , 4/4, Minuto, Chyper, 3/4, Kickback, Royal rumble, Argomento, Acapella, Oggetti';
 $percorso = '';
 $menu = get_menu(isset($_SESSION["login"]), $pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
