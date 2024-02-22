@@ -21,21 +21,7 @@ $onload = '';
 $connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
 
-if ($connectionOk) {
-    $lista_basi = '';
-    $percorso_basi = 'assets/media/basi/';
-    $resultBasi = $connection->get_basi();
-    foreach ($resultBasi as $base) {
-        $titolo = basename($base['nome']);
-        $nome = $base['nome'];
-        $lista_basi .= "<li class='base'> <dl> <dt>";
-        $lista_basi .= $titolo;
-        $lista_basi .= "</dt> <dd> <audio controls> <source src='";
-        $lista_basi .= $percorso_basi . $nome;
-        $lista_basi .= "'type='audio/mp3'> </audio> </dd> </dl> </li>";
-    }
-    $content = str_replace("{lista_basi}", $lista_basi, $content);
-} else {
+if(!$connectionOk){
     header("location: errore500.php");
 }
 
