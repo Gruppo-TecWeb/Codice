@@ -1,14 +1,15 @@
 <?php
 
 namespace Utilities;
+
 require_once("utilities/utilities.php");
 require_once("utilities/DBAccess.php");
+
 use DB\DBAccess;
 
 session_start();
 
 $paginaHTML = file_get_contents("template/pagina-template.html");
-$registratiHTML = file_get_contents("template/registrati-template.html");
 
 $title = 'Registrati &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
@@ -16,6 +17,7 @@ $description = 'Pagina dove poter effettuare l\'accesso all\'area autenticata de
 $keywords = 'registrati, freestyle rap, fungo, micelio, battle, eventi, classifiche';
 $menu = get_menu(isset($_SESSION["login"]), $pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
+$content = file_get_contents("template/registrati.html");
 $onload = '';
 $erroriVAL = '';
 $errori = '';
@@ -23,7 +25,7 @@ $username = '';
 $email = '';
 
 $connection = DBAccess::getInstance();
-$connectionOk = $connection -> openDBConnection();
+$connectionOk = $connection->openDBConnection();
 
 if ($connectionOk) {
     if (isset($_SESSION["login"])) {
@@ -38,11 +40,10 @@ if ($connectionOk) {
         if ($username == "") {
             $errore = true;
             $erroriVAL .= "<li>Inserire Username.</li>";
-        }
-        else {
-            $utente = $connection -> get_utente_by_username($username);
+        } else {
+            $utente = $connection->get_utente_by_username($username);
             if (is_null($utente)) {
-                $utente = $connection -> get_utente_by_email($email);
+                $utente = $connection->get_utente_by_email($email);
             }
             if (!is_null($utente)) {
                 $errore = true;
@@ -52,47 +53,45 @@ if ($connectionOk) {
         if ($password == "") {
             $errore = true;
             $erroriVAL .= "<li>Inserire Password.</li>";
-        }
-        elseif ($password != $confermaPassword) {
-                $errore = true;
-                $erroriVAL .= "<li>Le password non coincidono.</li>";
+        } elseif ($password != $confermaPassword) {
+            $errore = true;
+            $erroriVAL .= "<li>Le password non coincidono.</li>";
         }
         if ($email == "") {
             $errore = true;
             $erroriVAL .= "<li>Inserire E-Mail.</li>";
         }
         if (!$errore) {
-            $utenteRegistrato = $connection -> register($username, $password, $email);
+            $utenteRegistrato = $connection->register($username, $password, $email);
             if ($utenteRegistrato > 0) {
                 $_SESSION["datiUtente"] = array("Username" => $username, "Email" => $email);
                 $_SESSION["login"] = true;
                 header("location: profilo.php");
                 $messaggiPerForm .= "<li>Registrazione avvenuta correttamente.</li>";
-            }
-            else {
+            } else {
                 $messaggiPerForm .= "<li>La registrazione non é avvenuta.</li>";
             }
-        }
-        else {
+        } else {
             $errori = '<ul>' . $erroriVAL . '</ul>';
         }
     }
-}
-else {
+} else {
     header("location: errore500.php");
 }
 
-$registratiHTML = str_replace("{messaggiForm}", $errori, $registratiHTML);
-$registratiHTML = str_replace("{valoreUsername}", $username, $registratiHTML);
-$registratiHTML = str_replace("{valoreEmail}", $email, $registratiHTML);
-echo multi_replace($paginaHTML,[
+$content = multi_replace($content, [
+    '{messaggiForm}' => $errori,
+    '{valoreUsername}' => $username,
+    '{valoreEmail}' => $email
+]);
+
+echo multi_replace($paginaHTML, [
     '{title}' => $title,
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{menu}' => $menu,
     '{breadcrumbs}' => $breadcrumbs,
-    '{content}' => $registratiHTML,
+    '{content}' => $content,
     '{onload}' => $onload
-
 ]);
