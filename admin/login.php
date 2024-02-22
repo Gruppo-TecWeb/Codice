@@ -12,11 +12,12 @@ $loginHTML = file_get_contents("../template/admin/login-template.html");
 $logout = isset($_SESSION["login"]) ? file_get_contents("template/admin/logout-template.html") : '';
 
 $title = 'Login &minus; Fungo';
-$pageId = basename(__FILE__, '.php');
+$pageId = 'admin/' . basename(__FILE__, '.php');
 $description = 'Pagina dove poter effettuare l\'accesso all\'area autenticata del sito.';
 $keywords = 'login, freestyle rap, fungo, micelio, battle, eventi, classifiche';
 $percorso = '../';
-$menu = get_menu(isset($_SESSION["login"]), $pageId);
+$percorsoAdmin = '';
+$menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 $erroriVAL = '';
@@ -28,7 +29,7 @@ $connectionOk = $connection -> openDBConnection();
 
 if ($connectionOk) {
     if (isset($_SESSION["login"])) {
-        header("location: profilo.php");
+        header("location: amministrazione.php");
     }
     if (isset($_POST["submit"])) {
         $errore = false;
@@ -47,7 +48,7 @@ if ($connectionOk) {
             if (!(is_null($utente))) {
                 $_SESSION["datiUtente"] = $utente;
                 $_SESSION["login"] = true;
-                header("location: profilo.php");
+                header("location: amministrazione.php");
             } else {
                 $errore = true;
                 $erroriVAL .= "<li>Username e/o password errati.</li>";
@@ -74,5 +75,6 @@ echo multi_replace($paginaHTML,[
     '{content}' => $loginHTML,
     '{onload}' => $onload,
     '{logout}' => $logout,
-    '{percorso}' => $percorso
+    '{percorso}' => $percorso,
+    '{percorsoAdmin}' => $percorsoAdmin
 ]);

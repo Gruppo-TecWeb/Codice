@@ -17,7 +17,8 @@ $pageId = basename(__FILE__, '.php');
 $description = '';
 $keywords = '';
 $percorso = '';
-$menu = get_menu(isset($_SESSION["login"]), $pageId);
+$percorsoAdmin = 'admin/';
+$menu = get_menu($pageId);
 $breadcrumbs = '';
 
 $content = '';
@@ -68,5 +69,6 @@ echo multi_replace($eventoHTML, [
     '{content}' => $content,
     '{onload}' => $onload,
     '{logout}' => $logout,
-    '{percorso}' => $percorso
+    '{percorso}' => $percorso,
+    '{percorsoAdmin}' => $percorsoAdmin
 ]);

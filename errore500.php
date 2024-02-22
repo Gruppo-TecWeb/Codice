@@ -14,7 +14,8 @@ $pageId = basename(__FILE__, '.php');
 $description = 'Pagina di errore 500.';
 $keywords = 'error 500';
 $percorso = '';
-$menu = get_menu(isset($_SESSION["login"]), $pageId);
+$percorsoAdmin = 'admin/';
+$menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 
@@ -28,5 +29,6 @@ echo multi_replace($paginaHTML,[
     '{content}' => $errore500HTML,
     '{onload}' => $onload,
     '{logout}' => $logout,
-    '{percorso}' => $percorso
+    '{percorso}' => $percorso,
+    '{percorsoAdmin}' => $percorsoAdmin
 ]);

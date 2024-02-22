@@ -690,3 +690,50 @@ div.div-classifica {
     flex-direction: row-reverse;
     justify-content: space-between;
 }
+
+    
+
+/* 
+ * AREA DI AMMINISTRAZIONE 
+ */
+
+ div#admin-window {
+    display: flex;
+    flex-direction: row;
+    border-radius: 3px;
+    background-color: var(--secondaryColor);
+    border-top: 1px solid var(--accentColor);
+    border-right: 1px solid var(--accentColor);
+    border-bottom: 1px solid var(--accentColor);
+    transition: background-color 0.2s;
+ }
+ 
+ #admin-menu ul {
+     list-style: none;
+ }
+ 
+ #admin-menu ul li {
+     display: grid;
+     margin-right: 3em;
+ }
+ 
+ #admin-menu ul li a {
+     padding: 0.6em 1em;
+     border-radius: 3px;
+     background-color: var(--secondaryColor);
+     border: 1px solid var(--accentColor);
+     transition: background-color 0.2s;
+     border-collapse: collapse;
+ }
+ 
+ #admin-menu ul li a:hover {
+     background-color: #453B3B;
+ }
+ 
+ #admin-menu ul li#currentLink {
+     padding: 0.6em 1em;
+     border: none;
+     color: var(--linkVisitedColor);
+     border-left: 1px solid var(--accentColor);
+     border-radius: 3px;
+ }

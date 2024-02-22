@@ -3,25 +3,31 @@
 namespace Utilities;
 
 const pages_array = [
-    'index'       => ['href' => '{percorso}index.php',            'anchor' => 'Home',                                  'lang' => 'en', 'menuOrder' => 1, 'parentId' => ''],
-    'eventi'      => ['href' => '{percorso}eventi.php',           'anchor' => 'Eventi',                                'lang' => '',   'menuOrder' => 2, 'parentId' => 'index'],
-    'classifiche' => ['href' => '{percorso}classifiche.php',      'anchor' => 'Classifiche',                           'lang' => '',   'menuOrder' => 3, 'parentId' => 'index'],
-    'modalità'    => ['href' => '{percorso}modalità.php',         'anchor' => 'Modalità',                              'lang' => '',   'menuOrder' => 4, 'parentId' => 'index'],
-    'beats'       => ['href' => '{percorso}beats.php',            'anchor' => '<span lang="en">Beats</span>',          'lang' => '',   'menuOrder' => 5, 'parentId' => 'index'],
-    'chi-siamo'   => ['href' => '{percorso}chi-siamo.php',        'anchor' => 'Chi siamo',                             'lang' => '',   'menuOrder' => 6, 'parentId' => 'index'],
-    'login'       => ['href' => '{percorso}admin/login.php',      'anchor' => 'Login',                                 'lang' => 'en', 'menuOrder' => 0, 'parentId' => 'index'],
-    'profilo'     => ['href' => '{percorso}admin/profilo.php',    'anchor' => 'Profilo',                               'lang' => '',   'menuOrder' => 0, 'parentId' => 'index'],
-    'logout'      => ['href' => '{percorso}admin/logout.php',     'anchor' => 'Logout',                                'lang' => 'en', 'menuOrder' => 0, 'parentId' => 'index'],
-    'registrati'  => ['href' => '{percorso}admin/registrati.php', 'anchor' => 'Registrati',                            'lang' => '',   'menuOrder' => 0, 'parentId' => 'index'],
-    'evento'      => ['href' => '{percorso}evento.php?id={id}',   'anchor' => '{evento}',                              'lang' => '',   'menuOrder' => 0, 'parentId' => 'eventi'],
-    'errore500'   => ['href' => '{percorso}errore500.php',        'anchor' => 'Errore 500',                            'lang' => '',   'menuOrder' => 0, 'parentId' => 'index']
+    'index'                 => ['href' => '{percorso}index.php',                'anchor' => 'Home',                    'lang' => 'en', 'menuOrder' => 1, 'adminMenuOrder' => 0, 'parentId' => ''],
+    'eventi'                => ['href' => '{percorso}eventi.php',               'anchor' => 'Eventi',                  'lang' => '',   'menuOrder' => 2, 'adminMenuOrder' => 0, 'parentId' => 'index'],
+    'evento'                => ['href' => '{percorso}evento.php?id={id}',       'anchor' => '{evento}',                'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 0, 'parentId' => 'eventi'],
+    'classifiche'           => ['href' => '{percorso}classifiche.php',          'anchor' => 'Classifiche',             'lang' => '',   'menuOrder' => 3, 'adminMenuOrder' => 0, 'parentId' => 'index'],
+    'modalità'              => ['href' => '{percorso}modalità.php',             'anchor' => 'Modalità',                'lang' => '',   'menuOrder' => 4, 'adminMenuOrder' => 0, 'parentId' => 'index'],
+    'beats'                 => ['href' => '{percorso}beats.php',                'anchor' => 'Beats',                   'lang' => 'en', 'menuOrder' => 5, 'adminMenuOrder' => 0, 'parentId' => 'index'],
+    'chi-siamo'             => ['href' => '{percorso}chi-siamo.php',            'anchor' => 'Chi siamo',               'lang' => '',   'menuOrder' => 6, 'adminMenuOrder' => 0, 'parentId' => 'index'],
+    'admin/registrati'      => ['href' => '{percorsoAdmin}registrati.php',      'anchor' => 'Registrati',              'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 0, 'parentId' => 'index'],
+    'admin/login'           => ['href' => '{percorsoAdmin}login.php',           'anchor' => 'Login',                   'lang' => 'en', 'menuOrder' => 0, 'adminMenuOrder' => 0, 'parentId' => 'index'],
+    'admin/amministrazione' => ['href' => '{percorsoAdmin}amministrazione.php', 'anchor' => 'Area di amministrazione', 'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 0, 'parentId' => 'index'],
+    'admin/profilo'         => ['href' => '{percorsoAdmin}profilo.php',         'anchor' => 'Profilo Personale',       'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 1, 'parentId' => 'admin/amministrazione'],
+    'admin/eventi'          => ['href' => '{percorsoAdmin}eventi.php',          'anchor' => 'Gestione Eventi',         'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 2, 'parentId' => 'admin/amministrazione'],
+    'admin/classifiche'     => ['href' => '{percorsoAdmin}classifiche.php',     'anchor' => 'Gestione Classifiche',    'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 3, 'parentId' => 'admin/amministrazione'],
+    'admin/tipievento'      => ['href' => '{percorsoAdmin}tipievento.php',      'anchor' => 'Gestione Tipi Evento',    'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 4, 'parentId' => 'admin/amministrazione'],
+    'admin/rappers'         => ['href' => '{percorsoAdmin}rappers.php',         'anchor' => 'Gestione Rappers',        'lang' => 'en', 'menuOrder' => 0, 'adminMenuOrder' => 5, 'parentId' => 'admin/amministrazione'],
+    'admin/amministratori'  => ['href' => '{percorsoAdmin}amministratori.php',  'anchor' => 'Gestione Amministratori', 'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 6, 'parentId' => 'admin/amministrazione'],
+    'admin/logout'          => ['href' => '{percorsoAdmin}logout.php',          'anchor' => 'Logout',                  'lang' => 'en', 'menuOrder' => 0, 'adminMenuOrder' => 7, 'parentId' => 'index'],
+    'errore500'             => ['href' => '{percorso}errore500.php',            'anchor' => 'Errore 500',              'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 0, 'parentId' => 'index']
 ];
 
 function multi_replace($source, $replacements) {
     return str_replace(array_keys($replacements), $replacements, $source);
 }
 
-function get_menu($logged, $pageId) {
+function get_menu($pageId) {
     $pages = array();
     foreach (pages_array as $page) {
         if ($page['menuOrder'] > 0) {
@@ -35,6 +41,26 @@ function get_menu($logged, $pageId) {
                 $pages[$menuOrder] .= '><a href="' . $page['href'] . '"' . $lang_tag . '>' . $page['anchor'] . '</a>';
             }
             $pages[$menuOrder] .= '</li>';
+        }
+    }
+    $menu = '' . implode('
+            ', $pages);
+    return $menu;
+}
+function get_admin_menu($pageId) {
+    $pages = array();
+    foreach (pages_array as $page) {
+        if ($page['adminMenuOrder'] > 0) {
+            $lang_tag = $page['lang'] ? ' lang="' . $page['lang'] . '"' : '';
+            $isCurrent = $page == pages_array[$pageId];
+            $adminMenuOrder = $page['adminMenuOrder'];
+            $pages[$adminMenuOrder] = '<li';
+            if ($isCurrent) {
+                $pages[$adminMenuOrder] .= ' id="currentLink"' . $lang_tag . '>' . $page['anchor'];
+            } else {
+                $pages[$adminMenuOrder] .= '><a href="' . $page['href'] . '"' . $lang_tag . '>' . $page['anchor'] . '</a>';
+            }
+            $pages[$adminMenuOrder] .= '</li>';
         }
     }
     $menu = '' . implode('

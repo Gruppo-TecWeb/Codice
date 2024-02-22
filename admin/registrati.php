@@ -9,14 +9,15 @@ session_start();
 
 $paginaHTML = file_get_contents("../template/pagina-template.html");
 $registratiHTML = file_get_contents("../template/admin/registrati-template.html");
-$logout = isset($_SESSION["login"]) ? file_get_contents("template/admin/logout-template.html") : '';
+$logout = isset($_SESSION["login"]) ? file_get_contents("../template/admin/logout-template.html") : '';
 
 $title = 'Registrati &minus; Fungo';
-$pageId = basename(__FILE__, '.php');
+$pageId = 'admin/' . basename(__FILE__, '.php');
 $description = 'Pagina dove poter effettuare l\'accesso all\'area autenticata del sito.';
 $keywords = 'registrati, freestyle rap, fungo, micelio, battle, eventi, classifiche';
 $percorso = '../';
-$menu = get_menu(isset($_SESSION["login"]), $pageId);
+$percorsoAdmin = '';
+$menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 $erroriVAL = '';
@@ -97,5 +98,6 @@ echo multi_replace($paginaHTML,[
     '{content}' => $registratiHTML,
     '{onload}' => $onload,
     '{logout}' => $logout,
-    '{percorso}' => $percorso
+    '{percorso}' => $percorso,
+    '{percorsoAdmin}' => $percorsoAdmin
 ]);
