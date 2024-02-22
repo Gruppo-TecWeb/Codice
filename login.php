@@ -1,14 +1,15 @@
 <?php
 
 namespace Utilities;
+
 require_once("utilities/utilities.php");
 require_once("utilities/DBAccess.php");
+
 use DB\DBAccess;
 
 session_start();
 
 $paginaHTML = file_get_contents("template/pagina-template.html");
-$loginHTML = file_get_contents("template/login-template.html");
 
 $title = 'Login &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
@@ -16,13 +17,14 @@ $description = 'Pagina dove poter effettuare l\'accesso all\'area autenticata de
 $keywords = 'login, freestyle rap, fungo, micelio, battle, eventi, classifiche';
 $menu = get_menu(isset($_SESSION["login"]), $pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
+$content = file_get_contents("template/login.html");
 $onload = '';
 $erroriVAL = '';
 $errori = '';
 $username = '';
 
 $connection = DBAccess::getInstance();
-$connectionOk = $connection -> openDBConnection();
+$connectionOk = $connection->openDBConnection();
 
 if ($connectionOk) {
     if (isset($_SESSION["login"])) {
@@ -41,7 +43,7 @@ if ($connectionOk) {
             $erroriVAL .= "<li>Inserire Password.</li>";
         }
         if (!$errore) {
-            $utente = $connection -> login($username, $password);
+            $utente = $connection->login($username, $password);
             if (!(is_null($utente))) {
                 $_SESSION["datiUtente"] = $utente;
                 $_SESSION["login"] = true;
@@ -55,20 +57,21 @@ if ($connectionOk) {
             $errori = '<ul>' . $erroriVAL . '</ul>';
         }
     }
-}
-else {
+} else {
     header("location: errore500.php");
 }
+$content = multi_replace($content, [
+    '{messaggiForm}' => $errori,
+    '{valoreUsername}' => $username
+]);
 
-$loginHTML = str_replace("{messaggiForm}", $errori, $loginHTML);
-$loginHTML = str_replace("{valoreUsername}", $username, $loginHTML);
-echo multi_replace($paginaHTML,[
+echo multi_replace($paginaHTML, [
     '{title}' => $title,
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{menu}' => $menu,
     '{breadcrumbs}' => $breadcrumbs,
-    '{content}' => $loginHTML,
+    '{content}' => $content,
     '{onload}' => $onload
 ]);
