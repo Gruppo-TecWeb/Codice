@@ -51,18 +51,18 @@ if ($connectionOk) {
         $dataVisualizzata = '';
         $selected = '';
 
-        // formatto la data in base all'intervallo di tempo, da rivedere...
+        // <time datetime="2024-04-04">04 Aprile 2024</time>
         if ($dataInizio == $dataFine) {
-            $dataVisualizzata = date_format($dataInizio, 'd/m/y');
+            $dataVisualizzata = '<time datetime="' . date_format($dataInizio, 'Y-m-d') . '">' . date_format($dataInizio, 'd/m/y') . '</time>';
         }
         elseif (date_format($dataInizio, 'Y') != date_format($dataFine, 'Y')) {
-            $dataVisualizzata = date_format($dataInizio, 'Y') . ' - ' . date_format($dataFine, 'Y');
+            $dataVisualizzata = '<time datetime="' . date_format($dataInizio, 'Y') . '">' . date_format($dataInizio, 'Y') . '</time>' . ' - ' . '<time datetime="' . date_format($dataFine, 'Y') . '">' . date_format($dataFine, 'Y') . '</time>';
         }
         elseif (date_format($dataInizio, 'm') != date_format($dataFine, 'm')) {
-            $dataVisualizzata = date_format($dataInizio, 'm/y') . ' - ' . date_format($dataFine, 'm/y');
+            $dataVisualizzata = '<time datetime="' . date_format($dataInizio, 'Y-m') . '">' . date_format($dataInizio, 'm/y') . '</time>' . ' - ' . '<time datetime="' . date_format($dataFine, 'Y-m') . '">' . date_format($dataFine, 'm/y') . '</time>';
         }
         else {
-            $dataVisualizzata = date_format($dataInizio, 'd/m/y') . ' - ' . date_format($dataFine, 'd/m/y');
+            $dataVisualizzata = '<time datetime="' . date_format($dataInizio, 'Y-m-d') . '">' . date_format($dataInizio, 'd/m/y') . '</time>' . ' - ' . '<time datetime="' . date_format($dataFine, 'Y-m-d') . '">' . date_format($dataFine, 'd/m/y') . '</time>';
         }
 
         if ($titoloEvento == $evento && date_format($dataInizioEvento, 'Y-m-d') == date_format($dataInizio, 'Y-m-d')) {
