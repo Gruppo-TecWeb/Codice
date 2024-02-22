@@ -5,7 +5,7 @@ require_once "utilities/utilities.php";
 
 session_start();
 
-$paginaHTML = file_get_contents("template/pagina.html");
+$paginaHTML = file_get_contents("template/template-pagina.html");
 $content = file_get_contents("template/home-template.html");
 
 $title = 'Fungo';

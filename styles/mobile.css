@@ -26,6 +26,11 @@ body[data-menu-open=true] {
     box-sizing: unset;
 }
 
+.logo {
+    font-size: 2.2rem;
+    letter-spacing: 0.15em;
+}
+
 .mobileCard {
     border-radius: var(--cardBorderRadius);
     background-color: var(--cardBgColor);
@@ -63,22 +68,26 @@ input {
 
 
 /* 
- * HEADER e MENU
+ * HEADER
  */
 
 header {
-    display: unset;
+    height: 1.75em;
+    justify-content: center;
 }
 
-header a h1 {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%, 50%);
-    height: unset;
+header>a {
     margin: 0;
-    letter-spacing: 0.15em;
 }
+
+header .logo {
+    font: 2.2rem;
+}
+
+
+/* 
+ * MENU
+ */
 
 #menu {
     display: block;
@@ -87,37 +96,11 @@ header a h1 {
     bottom: calc(2em + 44px);
     box-sizing: border-box;
     width: var(--menuWidth);
-    padding: 1em;
+    padding-bottom: 1em;
     z-index: var(--elevationHigh);
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
     transform: translateX(-50%);
-}
-
-#menu ul li {
-    border: unset;
-    background-color: unset;
-    transition: unset;
-    display: block;
-    margin: 0.1em 0;
-    overflow: hidden;
-    line-height: 2em;
-    font-size: 1.5em;
-    font-weight: bold;
-}
-
-#menu ul li>* {
-    padding: unset;
-    display: block;
-}
-
-#menu ul li a:hover {
-    background-color: var(--linkHoverBgColor);
-}
-
-#menu ul li#currentLink {
-    color: var(--secondaryColor);
-    background-color: var(--accentColor);
 }
 
 #menu[data-menu-open="false"] {
@@ -129,6 +112,41 @@ header a h1 {
 #menu[data-menu-open="true"] {
     opacity: 1;
     transition: transform 0.4s, opacity 0.2s;
+}
+
+#menu h3 {
+    position: static;
+    width: 100%;
+    padding: 0 1em;
+    margin-bottom: 0.75em;
+    box-sizing: border-box;
+    border-bottom: 2px solid var(--accentColor);
+    text-align: left;
+    text-indent: unset;
+    line-height: 2em;
+    font-size: 1.2em;
+    font-weight: normal;
+}
+
+#menu ul li {
+    display: block;
+    margin-inline: 0;
+}
+
+.menuItem {
+    display: block;
+    padding: unset;
+    border: unset;
+    background-color: unset;
+    margin: 0.1em 0.75em;
+    line-height: 2em;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+#menu #currentLink {
+    color: var(--secondaryColor);
+    background-color: var(--accentColor);
 }
 
 
@@ -179,9 +197,10 @@ header a h1 {
     display: block;
     height: 44px;
     aspect-ratio: 1;
+    border-radius: 0;
+    border: unset;
     background-size: 100%;
     background-repeat: no-repeat;
-    border: unset;
     background-color: var(--accentColor);
     transition: 0.5s;
 }
@@ -189,11 +208,6 @@ header a h1 {
 #btn-menu:active {
     transform: scale(1.1);
     transition: 0.1s;
-}
-
-#btn-menu span {
-    position: absolute;
-    text-indent: -999em;
 }
 
 #breadcrumbs-container[data-menu-open=false] #btn-menu {
@@ -210,15 +224,32 @@ header a h1 {
  */
 
 footer {
-    /* width: var(--menuWidth); */
     width: 100%;
     box-sizing: border-box;
-    /* margin-inline: auto; */
     padding: 1em 1em;
-    padding-bottom: 6em;
-    /* border-radius: 8px;
-    border: solid 2px var(--accentColor); */
+    padding-bottom: calc(2em + 44px + 1em);
 }
+
+footer #footer-content {
+    grid-template-columns: 1fr;
+    gap: 2em;
+}
+
+footer .logo {
+    position: static;
+}
+
+
+/* 
+footer section:not(:first-of-type)::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-top: -1em;
+    height: 1px;
+    background-color: var(--accentColor);
+} */
 
 
 /*

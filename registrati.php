@@ -7,7 +7,7 @@ use DB\DBAccess;
 
 session_start();
 
-$paginaHTML = file_get_contents("template/pagina.html");
+$paginaHTML = file_get_contents("template/template-pagina.html");
 $registratiHTML = file_get_contents("template/registrati-template.html");
 
 $title = 'Registrati &minus; Fungo';

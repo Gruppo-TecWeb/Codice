@@ -7,6 +7,7 @@
     --txtColor: #FFF2EA;
     --unfocusedTxtColor: #949494;
     --accentColor: #EF534A;
+    --txtColorOnAccent: #000;
     --secondaryColor: #262626;
     --linkColor: #00b4ff;
     --linkVisitedColor: #ffd7bb;
@@ -20,8 +21,8 @@
 }
 
 @font-face {
-    font-family: Hokia;
-    src: url('../assets/fonts/Hokia\ Regular.ttf');
+    font-family: Horizontale;
+    src: url('../assets/fonts/Horizontale.ttf');
 }
 
 
@@ -72,12 +73,30 @@ a:visited {
     /* DEBUG */
 }
 
+.screenReaderOnly {
+    position: absolute;
+    text-indent: -999em;
+}
+
 .limitedWidth {
     width: 100%;
     max-width: var(--widthMax);
     margin-inline: auto;
-    padding-inline: 3em;
+    padding-inline: 3rem;
     box-sizing: border-box;
+}
+
+.logo {
+    text-shadow: 0 0 8px var(--txtColor);
+    font-family: Horizontale;
+    font-size: 2.5rem;
+    color: var(--txtColor);
+}
+
+.title {
+    text-shadow: 0 0 8px var(--txtColor);
+    font-family: Horizontale;
+    color: var(--txtColor);
 }
 
 
@@ -100,6 +119,23 @@ a:visited {
  * BUTTON
  */
 
+button,
+.button {
+    padding: 0.5em 0.8em;
+    border-radius: 3px;
+    font-weight: bold;
+    border: 1px solid var(--accentColor);
+    color: var(--txtColorOnAccent);
+    background-color: var(--accentColor);
+    transition: 0.3s;
+}
+
+button:hover,
+.button:hover {
+    background-color: var(--secondaryColor);
+    color: var(--accentColor);
+}
+
 
 /*
  * INPUT
@@ -111,9 +147,9 @@ textarea {
     padding: 0.5em 0.8em;
     border-radius: 2px;
     caret-color: var(--accentColor);
-    background-color: var(--secondaryColor);
     border: 1px solid var(--accentColor);
     color: var(--txtColor);
+    background-color: var(--secondaryColor);
     transition: 0.3s;
 }
 
@@ -136,7 +172,7 @@ textarea:focus {
 
 input[type=submit] {
     font-weight: bold;
-    color: var(--bgColor);
+    color: var(--txtColorOnAccent);
     background-color: var(--accentColor);
 }
 
@@ -147,11 +183,12 @@ input[type=submit]:hover {
 
 
 /* 
- * HEADER e MENU
+ * HEADER
  */
 
 header {
     display: flex;
+    align-items: flex-end;
     position: fixed;
     top: 0;
     left: 0;
@@ -161,25 +198,32 @@ header {
     background-color: var(--accentColor);
 }
 
-header a#header-title {
+header>* {
+    transform: translateY(50%);
+}
+
+header>a {
+    margin-inline: 5vw;
     text-decoration: none;
 }
 
-header a h1 {
-    text-shadow: 0 0 8px var(--txtColor);
-    font-family: Hokia;
-    font-size: 3.5em;
-    margin-inline: 5vw;
-    color: var(--txtColor);
+header .logo {
+    font-size: 3r em;
 }
 
+
+/* 
+ * MENU
+ */
+
 #menu {
-    display: flex;
     width: 100%;
     text-align: center;
-    align-items: center;
-    justify-content: center;
-    transform: translateY(50%);
+}
+
+#menu h3 {
+    position: absolute;
+    text-indent: -999em;
 }
 
 #menu ul {
@@ -189,22 +233,21 @@ header a h1 {
 #menu ul li {
     display: inline-block;
     margin-inline: 0.3em;
+}
+
+.menuItem {
+    padding: 0.6em 1em;
     border-radius: 3px;
-    background-color: var(--secondaryColor);
     border: 1px solid var(--accentColor);
+    background-color: var(--secondaryColor);
     transition: background-color 0.2s;
 }
 
-#menu ul li:hover {
+.menuItem:hover {
     background-color: var(--linkHoverBgColor);
 }
 
-#menu ul li>* {
-    display: inline-block;
-    padding: 0.6em 1em;
-}
-
-#menu ul li#currentLink {
+#menu #currentLink {
     font-weight: bold;
     color: var(--linkVisitedColor);
     background-color: var(--linkHoverBgColor);
@@ -229,22 +272,67 @@ header a h1 {
  */
 
 footer {
+    position: relative;
     margin-top: auto;
     background-color: var(--secondaryColor);
-    border-top: 2px solid var(--accentColor);
-    padding-block: 2em;
+    border-top: 6px solid var(--accentColor);
+    padding-top: 2em;
+    padding-bottom: 4em;
 }
 
-footer #footer-credits h6 {
-    position: relative;
-    text-shadow: 0 0 8px #ffffff;
-    font-family: Hokia;
-    font-size: 2.5em;
-    color: var(--txtColor);
+footer #footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 2em 1em;
+}
+
+
+/* footer section:not(:first-of-type)::before {
+    content: '';
+    position: absolute;
+    top: 2em;
+    bottom: 4em;
+    margin-left: -1rem;
+    width: 2px;
+    background-color: var(--accentColor);
+} */
+
+footer h3 {
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+footer .logo {
+    position: absolute;
+    top: 0;
+    transform: translateY(-50%);
+    margin: 0;
+}
+
+footer #footer-info {
+    padding-top: 2em;
 }
 
 footer ul {
     list-style: none;
+}
+
+footer #footer-credits {
+    justify-self: center;
+    grid-column: 1 / -1;
+}
+
+#btn-scroll-up {
+    position: absolute;
+    top: 0;
+    justify-self: end;
+    transform: translateY(-50%);
+    height: 44px;
+    padding: 0;
+    aspect-ratio: 1;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-image: url("../assets/icons/arrow-up.svg");
 }
 
 
