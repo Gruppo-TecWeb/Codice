@@ -48,7 +48,7 @@ if ($connectionOk) {
                 $pagination .= "<span>$i</span> ";
             }
             else{
-                $pagination .= "<a href='?pagina=$i&data=$data_encoded&titolo=$titolo_encoded'>$i</a> ";
+                $pagination .= "<a href='?pagina=$i&data=$data_encoded&titolo=$titolo_encoded' aria-label='Vai alla pagina $i'>$i</a> ";
             }
         }
     }
