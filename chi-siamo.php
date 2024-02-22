@@ -6,7 +6,7 @@ require_once("utilities/utilities.php");
 session_start();
 
 $paginaHTML = file_get_contents("template/pagina-template.html");
-$contentHTML = file_get_contents("template/chi-siamo-content.html");
+$contentHTML = file_get_contents("template/chi-siamo.html");
 
 $title = 'Chi siamo &minus; Fungo';
 $pageId = basename(__FILE__, '.php');

@@ -6,7 +6,7 @@ require_once("utilities/utilities.php");
 session_start();
 
 $paginaHTML = file_get_contents("template/pagina-template.html");
-$errore500HTML = file_get_contents("template/errore500-template.html");
+$errore500HTML = file_get_contents("template/errore500.html");
 
 $title = 'Errore 500 &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
