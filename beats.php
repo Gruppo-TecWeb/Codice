@@ -7,7 +7,6 @@ use DB\DBAccess;
 
 session_start();
 
-
 $beatsHTML = file_get_contents("template/pagina-template.html");
 $content = file_get_contents("template/beats.html");
 $logout = isset($_SESSION["login"]) ? file_get_contents("template/admin/logout-template.html") : '';
@@ -30,5 +29,6 @@ echo multi_replace($beatsHTML, [
     '{breadcrumbs}' => $breadcrumbs,
     '{content}' => $content,
     '{onload}' => $onload,
+    '{logout}' => $logout,
     '{percorso}' => $percorso
 ]);
