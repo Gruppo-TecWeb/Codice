@@ -452,10 +452,10 @@ footer ul {
 #container_battle {
 
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     background-color: var(--accentColor);
-    padding: 1em;
+    padding: 0em;
     align-items: center;
     margin: 0em;
 
@@ -465,64 +465,86 @@ footer ul {
     text-align: center;
     color:var(--secondaryColor);
     font-size:larger;
+    width: 50%;
+    margin: 1em;
     
 }
 
 #container_iframe iframe {
-    width: 80vw;
-    height: 36vw;
+    width: 48vw;
+    height: 27vw;
     border-radius: 20px;
+    border-style: none;
+    
 
 }
 
 #lista_battle {
     display: flex;
     flex-direction: column;
-    width: 96vw;
+    width: 50%;
 }
 
 
-#lista_battle button {
+.descBattle button {
     cursor: pointer;
     border-radius: 20px;
     height: 4em;
     justify-content: space-between;
+    background-color: transparent;
+    border-style: none;
+    background-image: url("../assets/icons/playArancionePieno.png");
+    background-repeat: no-repeat;
+    background-size: 40%;
+    background-position: center;
+  
+    color: transparent;
 }
-.descrizioneBattle {
+.descBattle:hover button{
+    opacity: 1;
+}
+.descBattle {
     display: flex;
     flex-direction: row;
     border-style: solid;
-    padding: 0.5em 0em;
     align-items: center;
+    justify-content: space-between;
+    margin: 0em;
+    border: 0;
     background-color: var(--secondaryColor);
     border-color: var(--accentColor);
     color: var(--txtColor);
 }
 
-.descrizioneBattle:hover {
+
+/*qua c'è anche il margin del footer da correggere*/
+.descBattle:first-child {
+    border-top: 0em;
+}
+.descBattle:last-child {
+    border-bottom: 0em;
+}
+
+
+.descBattle:hover {
     background-color: var(--buttonHover);
 }
-.descrizioneBattle dt {
+.descBattle dt {
     border-style: solid;
     border-width: 0px 2px 0px 0px;
 }
-.descrizioneBattle h4 {
+.descBattle dt a{
+    display: block;
+    text-align: center;
     padding: 0.5em;
     margin: 0em;
-    width: 6em;
+    width: 5em;
 }
-
-.descrizioneBattle dd {
+.descBattle dd {
     padding: 0.5em;
+    text-align: center;
     
 }
-#lista_battle img{
-    width: 2em;
-    height: 2em;
-    margin: 1em;
-    opacity: 0;
-}
-
 #lista_battle img:hover{
     opacity: 1;
 }
@@ -563,11 +585,17 @@ div.error500 img {
 }
 
 #lista_beats li:hover{
-    border-style: solid;
+    
     padding: 1em;
     background-color: var(--linkHoverBgColor);
-    
+}
 
+#lista_beats li:hover button{
+    background-image: url("../assets/icons/playArancionePieno.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    color: transparent;
 }
 #lista_beats button{
     background: transparent;

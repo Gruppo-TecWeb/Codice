@@ -53,7 +53,7 @@ function setIframe(battle){
     );
 */
 }
-    descBattle=document.getElementsByClassName("descrizioneBattle")[battle];
+    descBattle=document.getElementsByClassName("descBattle")[battle];
 
     //creazione variabili per battle cliccata
     titleModalità=descBattle.getElementsByTagName("a")[0].title;
@@ -72,19 +72,6 @@ function setIframe(battle){
     */
 }
 
-function showPlayBattle(){
-    battle=document.getElementsByClassName("descrizioneBattle")
-    for (let i = 0; i < battle.length; i++) {
-        battle[i].onmouseover = function() {
-        battle[i].getElementsByTagName("img")[0].style.opacity=1;
-        }
-
-        battle[i].onmouseout = function() {
-            battle[i].getElementsByTagName("img")[0].style.opacity=0;
-        }
-    }
-    
-}
 
 /*
 BASI
@@ -169,21 +156,7 @@ function nextAudio(nomeBase) {
     }
 }
 
-function showPlayBasi(){
-    basi=document.getElementsByClassName("beat")
-    for (let i = 0; i < basi.length; i++) {
-        basi[i].onmouseover = function() {
-            bottone=basi[i].getElementsByTagName("button");    
-            bottone[0].style.opacity=1;                  
-            bottone[0].innerHTML='<img src="..\\assets\\icons\\playArancionePieno.png"></img>';
-        }
-        basi[i].onmouseout = function() {
-            bottone=basi[i].getElementsByTagName("button");
-            bottone[0].style.opacity=0.6;
-            bottone[0].innerHTML=i+1;
-        }
-    }
-}
+
 
 
 

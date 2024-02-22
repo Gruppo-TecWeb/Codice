@@ -370,26 +370,28 @@ input[type="submit"] {
  #container_battle {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }
 #container_iframe iframe {
-    width: 80vw;
-    height: 45vw;
-    margin: 0;
+    width: 96vw;
+    height:45vw;
+    /*
+    
+    */
     
 }
 #container_iframe{
     position: sticky;
     top: 0;
+    background-color: var(--accentColor);
+    width: 100%;
+    height: 100%;
+    
+
 }
-#container_battle{
-    margin: 0;
-    border-radius: 0px;
-    border-width: 0.1em 0em 0em 0em;    
-}
-#lista_battle button{
-    height: 6em;
+
+
+#lista_battle{
+    width: 96vw;
 }
 
     
