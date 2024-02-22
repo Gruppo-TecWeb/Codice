@@ -25,6 +25,8 @@ $connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
 
 if ($connectionOk) {
+    $eventi_per_pagina = 8;
+    $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
     $titolo = isset($_GET['titolo']) ? $_GET['titolo'] : '';
     $data = isset($_GET['data']) ? $_GET['data'] : '';
 
@@ -32,12 +34,23 @@ if ($connectionOk) {
     $lista_titoli_array = $connection->getTitoliEventi();
     $connection->closeDBConnection();
 
+    // Costruzione della paginazione
+    $pagination = '';
+    $numero_pagine = ceil(count($lista_eventi_array) / $eventi_per_pagina);
+    $offset = ($pagina - 1) * $eventi_per_pagina;
+    $lista_eventi_array = array_slice($lista_eventi_array, $offset, $eventi_per_pagina);
+    for ($i = 1; $i <= $numero_pagine; $i++) {
+        $pagination .= "<a href='?pagina=$i&data=$data&titolo=$titolo'>$i</a> ";
+    }
+
+    // Costruzione delle liste di titoli
     $lista_titoli_string = '';
     foreach ($lista_titoli_array as $evento) {
         $selected = ($evento['titolo'] == $titolo) ? ' selected' : '';
         $lista_titoli_string .= "<option value='" . $evento['titolo'] . "'" . $selected . ">" . $evento['titolo'] . "</option>";
     }
 
+    // Costruzione della lista di eventi
     $lista_eventi_string = '';
     if ($lista_eventi_array == null) {
         $lista_eventi_string .= '<p>Non ci sono eventi in programma</p>';
@@ -52,10 +65,13 @@ if ($connectionOk) {
             $lista_eventi_string .= '</article>';
         }
     }
+
+    // Sostituzione dei segnaposto
     $content = multi_replace($content, [
         '{data}' => $data,
         '{listaTitoli}' => $lista_titoli_string,
         '{listaEventi}' => $lista_eventi_string,
+        '{pagination}' => $pagination,
     ]);
 } else {
     header("location: errore500.php");
