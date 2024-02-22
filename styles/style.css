@@ -99,6 +99,10 @@ a:visited {
     color: var(--txtColor);
 }
 
+#menu-skip ul {
+    list-style: none;
+}
+
 
 /* 
  * ERROR
@@ -286,17 +290,6 @@ footer #footer-content {
     gap: 2em 1em;
 }
 
-
-/* footer section:not(:first-of-type)::before {
-    content: '';
-    position: absolute;
-    top: 2em;
-    bottom: 4em;
-    margin-left: -1rem;
-    width: 2px;
-    background-color: var(--accentColor);
-} */
-
 footer h3 {
     font-size: 1.5em;
     margin-bottom: 0.5em;
@@ -318,7 +311,6 @@ footer ul {
 }
 
 footer #footer-credits {
-    justify-self: center;
     grid-column: 1 / -1;
 }
 

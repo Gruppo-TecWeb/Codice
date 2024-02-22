@@ -14,8 +14,8 @@ body {
     padding-top: 3.5em;
 }
 
-body[data-menu-open=true] {
-    overflow-y: hidden;
+body.js[data-menu-open=true] {
+    /* overflow-y: hidden; */
 }
 
 .limitedWidth {
@@ -93,6 +93,7 @@ header .logo {
     display: block;
     position: fixed;
     left: 50%;
+    transform: translateX(-50%);
     bottom: calc(2em + 44px);
     box-sizing: border-box;
     width: var(--menuWidth);
@@ -100,16 +101,16 @@ header .logo {
     z-index: var(--elevationHigh);
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
-    transform: translateX(-50%);
 }
 
-#menu[data-menu-open="false"] {
+#menu.js[data-menu-open="false"] {
     transform: translate(-50%, 200%);
     opacity: 0.1;
     transition: transform 0.3s, opacity 0.3s;
 }
 
 #menu[data-menu-open="true"] {
+    transform: translateX(-50%);
     opacity: 1;
     transition: transform 0.4s, opacity 0.2s;
 }
@@ -129,6 +130,11 @@ header .logo {
 }
 
 #menu ul li {
+    /* display: block;
+    margin-inline: 0; */
+}
+
+#menu.js ul li {
     display: block;
     margin-inline: 0;
 }
@@ -138,10 +144,13 @@ header .logo {
     padding: unset;
     border: unset;
     background-color: unset;
-    margin: 0.1em 0.75em;
-    line-height: 2em;
     font-size: 1.5em;
     font-weight: bold;
+}
+
+#menu.js .menuItem {
+    margin: 0.1em 0.75em;
+    line-height: 2em;
 }
 
 #menu #currentLink {
@@ -169,8 +178,14 @@ header .logo {
     align-items: center;
     overflow: hidden;
     z-index: var(--elevationHigh);
+}
+
+#breadcrumbs-container.js {
     transition: 0.5s;
 }
+
+
+/* #breadcrumbs-container.js[data-menu-open=true] { */
 
 #breadcrumbs-container[data-menu-open=true] {
     min-width: var(--menuWidth);
@@ -203,6 +218,7 @@ header .logo {
     background-repeat: no-repeat;
     background-color: var(--accentColor);
     transition: 0.5s;
+    background-image: url("../assets/icons/burger_menu.svg");
 }
 
 #btn-menu:active {
@@ -210,11 +226,7 @@ header .logo {
     transition: 0.1s;
 }
 
-#breadcrumbs-container[data-menu-open=false] #btn-menu {
-    background-image: url("../assets/icons/burger_menu.svg");
-}
-
-#breadcrumbs-container[data-menu-open=true] #btn-menu {
+#breadcrumbs-container.js[data-menu-open=true] #btn-menu {
     background-image: url("../assets/icons/close.svg");
 }
 
@@ -238,18 +250,6 @@ footer #footer-content {
 footer .logo {
     position: static;
 }
-
-
-/* 
-footer section:not(:first-of-type)::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin-top: -1em;
-    height: 1px;
-    background-color: var(--accentColor);
-} */
 
 
 /*

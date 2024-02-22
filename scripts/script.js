@@ -1,14 +1,25 @@
-var navOpened = false;
+var menu = null;
+var bcContainer = null;
+var menuOpened = false;
+
+window.addEventListener("load", (event) => { // Quando questo script si avvia, aggiungo la classe "js" cosi' da abilitare il menu a scomparsa
+    menu = document.getElementById("menu");
+    bcContainer = document.getElementById("breadcrumbs-container");
+    menuOpened = menu.getAttribute("data-menu-open") === "true" ? true : false;
+    toggleMenu();
+
+    menu.classList.add("js");
+    bcContainer.classList.add("js");
+    document.body.classList.add("js");
+});
 
 function toggleMenu() {
-    var nav = document.getElementById("menu");
-    var bcContainer = document.getElementById("breadcrumbs-container");
-    navOpened = !navOpened;
-    nav.setAttribute("data-menu-open", navOpened);
-    bcContainer.setAttribute("data-menu-open", navOpened);
-    document.body.setAttribute("data-menu-open", navOpened);
+    menuOpened = !menuOpened;
+    menu.setAttribute("data-menu-open", menuOpened);
+    bcContainer.setAttribute("data-menu-open", menuOpened);
+    document.body.setAttribute("data-menu-open", menuOpened);
 }
-  
+
 function init_eventi() {
     var urlParams = new URLSearchParams(window.location.search);
     var filtro = urlParams.get('filtro');

@@ -19,9 +19,9 @@
     <script src="scripts/script.js"></script>
 </head>
 
-<body id="{pageId}" onload="{onload}" data-menu-open="false">
+<body id="{pageId}" onload="{onload}" data-menu-open="true">
     <header>
-        <nav aria-label="Aiuti alla navigazione">
+        <nav id="menu-skip" aria-label="Aiuti alla navigazione">
             <ul>
                 <li><a class="navigationHelp" href="#content">Vai al contenuto</a></li>
                 <li><a class="navigationHelp" href="#menu">Vai al menù principale</a></li>
@@ -30,14 +30,14 @@
         <a class="logo" href="index.php">
             <h1 class="logo">Fungo</h1>
         </a>
-        <nav id="menu" class="mobileCard" aria-labelledby="menu-title" data-menu-open="false">
+        <nav id="menu" class="mobileCard" aria-labelledby="menu-title" data-menu-open="true">
             <h3 id="menu-title">Menù</h3>
             <ul>
                 {menu}
             </ul>
         </nav>
     </header>
-    <div id="breadcrumbs-container" class="limitedWidth mobileCard" data-menu-open="false">
+    <div id="breadcrumbs-container" class="limitedWidth mobileCard" data-menu-open="true">
         <nav id="breadcrumbs" aria-label="Percorso">
             {breadcrumbs}
         </nav>
