@@ -1,0 +1,43 @@
+<h2 class="limitedWidth">Classifiche</h2>
+<div class="limitedWidth">
+    <form method="get" action="classifiche.php">
+        <fieldset>
+            <legend>Puoi visualizzare le classifiche passate dal nostro archivio:</legend>
+            <label for="classifica">Classifica: </label>
+            <select id="classifica" name="classifica" required>
+                {listaClassifiche}
+                <option value="{tipoEvento}{.}{dataInizio}" {selezioneClassifica}>{opzioneClassifica}</option>
+                {/listaClassifiche}
+            </select>
+            <input type="submit" id="submit" name="submit" value="Visualizza" />
+            <input type="submit" id="reset" name="reset" value="Torna indietro" />
+        </fieldset>
+    </form>
+</div>
+{tabellaClassifica}
+<div class="limitedWidth" id="{tipoEvento}">
+    <p>{desTipoEvento}</p>
+    <span id="sumTabella" class="navigationHelp">Tabella che riassume la classifica del {tipoEvento} con l'indicazione
+        di <span lang="en">ranking</span>,
+        nome d'arte del <span lang="en">freestyler</span>, punteggio ottenuto.</span>
+    <table aria-describedby="sumTabella">
+        <caption>Classifica {tipoEvento}</caption>
+        <thead>
+            <tr>
+                <th scope="col" lang="en">Ranking</th>
+                <th scope="col" lang="en">Freestyler</th>
+                <th scope="col">Punti</th>
+            </tr>
+        </thead>
+        <tbody>
+            {rigaClassifica}
+            <tr>
+                <th scope="row"><span class="classifica ranking">{ranking}</span></th>
+                <td data-title="Freestyler">{freestyler}</td>
+                <td data-title="Punti">{punti}</td>
+            </tr>
+            {/rigaClassifica}
+        </tbody>
+    </table>
+</div>
+{/tabellaClassifica}
