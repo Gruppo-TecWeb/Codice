@@ -391,3 +391,57 @@ input[type="submit"] {
 #lista_battle button{
     height: 6em;
 }
+
+    
+
+/* 
+ * PAGINA CLASSIFICHE 
+ */
+
+#form-classifiche label {
+    margin-bottom: 0;
+    margin-right: 10px;
+}
+
+table#tabella-classifica {
+    min-width: inherit;
+    margin: auto;
+}
+
+.div-classifica p {
+    min-width: inherit;
+}
+
+table#tabella-classifica caption {
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+table#tabella-classifica thead {
+    background-color: var(--accentColor);
+    color: var(--txtColor);
+}
+
+table#tabella-classifica th, table#tabella-classifica td {
+    padding: 0.3em 0.5em;
+}
+
+table#tabella-classifica th {
+    text-align: left;
+}
+
+table#tabella-classifica .classifica-punti {
+    text-align: right;
+}
+
+div.div-classifica p {
+    text-align: left;
+}
+
+div.div-classifica {
+    display: initial;
+}
+
+div#Micelio, div#Fungo {
+    background-image: none;
+}

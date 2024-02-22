@@ -72,8 +72,8 @@ INSERT INTO Utenti (Username, Password, Email) VALUES ('Kanye West', '', 'kanyew
 INSERT INTO Utenti (Username, Password, Email) VALUES ('Jay-Z', '', 'jayz@mail.it');
 INSERT INTO Utenti (Username, Password, Email) VALUES ('Snoop Dogg', '', 'snoopdogg@mail.it');
 
-INSERT INTO TipiEvento (Titolo) VALUES ('Fungo');
-INSERT INTO TipiEvento (Titolo) VALUES ('Micelio');
+INSERT INTO TipiEvento (Titolo, Descrizione) VALUES ('Fungo', 'Il Fungo prende il nome dall''iconica struttura presente in piazza zanellato a Padova, dove ha luogo solitamente ogni martedì. Si tratta di una serie di eventi legati al mondo <span lang="en">rap freestyle</span> durante i quali si svolgono delle battle tra i vari partecipanti. Le classifiche sono i risultati di questi incontri.');
+INSERT INTO TipiEvento (Titolo, Descrizione) VALUES ('Micelio', 'Il Micelio è la versione invernale del Fungo e ha luogo solitamente ogni martedì presso il Distretto Est, a Padova. Si tratta di una serie di eventi legati al mondo <span lang="en">rap freestyle</span> durante i quali si svolgono delle battle tra i vari partecipanti. Le classifiche sono i risultati di questi incontri.');
 
 INSERT INTO Classifiche (TipoEvento, DataInizio, DataFine) VALUES ('Fungo', '2023-09-05', '2023-10-17');
 INSERT INTO Classifiche (TipoEvento, DataInizio, DataFine) VALUES ('Micelio', '2023-11-07', '2024-12-19');
@@ -345,23 +345,3 @@ INSERT INTO Punteggi (Partecipante, Evento, Punteggio) VALUES ('Mac Miller', 17,
 INSERT INTO Punteggi (Partecipante, Evento, Punteggio) VALUES ('Juice WRLD', 17, 1);
 INSERT INTO Punteggi (Partecipante, Evento, Punteggio) VALUES ('Travis Scott', 17, 1);
 INSERT INTO Punteggi (Partecipante, Evento, Punteggio) VALUES ('Eminem', 17, 1);
-
-INSERT INTO Basi (Nome) VALUES ("11 - Goodbye - Big Joe.mp4");
-INSERT INTO Basi (Nome) VALUES ("Big L  Ebonics.mp3");
-INSERT INTO Basi (Nome) VALUES ("Busta Rhymes - Psycobusta.mp3");
-INSERT INTO Basi (Nome) VALUES ("Dilated Peoples - The Platform (Erik Sermon Remix).mp3");
-INSERT INTO Basi (Nome) VALUES ("DJ Premier - BAP.mp3");
-INSERT INTO Basi (Nome) VALUES ("DJ Premier - That White.mp3");
-INSERT INTO Basi (Nome) VALUES ("Full Clip-Gangstarr.mp3");
-INSERT INTO Basi (Nome) VALUES ("Funkdoobiest - Lost in Thought.mp4");
-INSERT INTO Basi (Nome) VALUES ("Gang Starr - Battle.mp3");
-INSERT INTO Basi (Nome) VALUES ("J. Cole - Fire Squad.wav");
-INSERT INTO Basi (Nome) VALUES ("Jam Baxter - Fine (Prod GhostTown).mp4");
-INSERT INTO Basi (Nome) VALUES ("Method Man _ Redman - A-Yo.mp4");
-INSERT INTO Basi (Nome) VALUES ("Movie Villains.mp4");
-INSERT INTO Basi (Nome) VALUES ("Noyz Narcos - Trucemala.mp3");
-INSERT INTO Basi (Nome) VALUES ("RA Rugged man - Dangerous Three.mp3");
-INSERT INTO Basi (Nome) VALUES ("Step Brothers (Alchemist _ EvIdence) - Step Masters.mp4");
-INSERT INTO Basi (Nome) VALUES ("Tecniche Perfette - 5.mp4");
-INSERT INTO Basi (Nome) VALUES ("Wu Tang Clan _ Mobb Deep - Phat Beat.mp3");
-INSERT INTO Basi (Nome) VALUES ("Timbaland - They Ain_t Ready.mp3");

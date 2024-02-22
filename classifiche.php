@@ -18,7 +18,8 @@ $keywords = 'classifiche, fungo, micelio, freestyle, rap, freestyle rap, battle'
 $menu = get_menu(isset($_SESSION["login"]), $pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $content = file_get_contents("template/classifiche.html");
-$onload = '';
+$onload = 'hideSubmitButton()';
+$logout = isset($_SESSION["login"]) ? file_get_contents("template/logout.html") : '';
 
 $connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
@@ -29,7 +30,7 @@ if ($connectionOk) {
     $titoloEvento = '';
     $dataInizioEvento = null;
 
-    if (isset($_GET["submit"]) && isset($_GET["classifica"]) && $_GET["classifica"] != "") {
+    if (!isset($_GET["reset"]) && isset($_GET["classifica"]) && $_GET["classifica"] != "") {
         $classifica = explode('{.}', validate_input($_GET["classifica"]));
         $titoloEvento = $classifica[0];
         $dataInizioEvento = date_create($classifica[1]);
@@ -114,4 +115,5 @@ echo multi_replace($paginaHTML, [
     '{breadcrumbs}' => $breadcrumbs,
     '{content}' => $content,
     '{onload}' => $onload,
+    '{logout}' => $logout
 ]);

@@ -7,6 +7,7 @@ session_start();
 
 $paginaHTML = file_get_contents("template/pagina-template.html");
 $errore500HTML = file_get_contents("template/errore500.html");
+$logout = isset($_SESSION["login"]) ? file_get_contents("template/logout-template.html") : '';
 
 $title = 'Errore 500 &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
@@ -24,5 +25,6 @@ echo multi_replace($paginaHTML,[
     '{menu}' => $menu,
     '{breadcrumbs}' => $breadcrumbs,
     '{content}' => $errore500HTML,
-    '{onload}' => $onload
+    '{onload}' => $onload,
+    '{logout}' => $logout
 ]);

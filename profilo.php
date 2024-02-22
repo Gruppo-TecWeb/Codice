@@ -10,6 +10,7 @@ use DB\DBAccess;
 session_start();
 
 $paginaHTML = file_get_contents("template/pagina-template.html");
+$logout = isset($_SESSION["login"]) ? file_get_contents("template/logout.html") : '';
 
 $title = 'Profilo personale &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
@@ -113,5 +114,6 @@ echo multi_replace($paginaHTML, [
     '{menu}' => $menu,
     '{breadcrumbs}' => $breadcrumbs,
     '{content}' => $content,
-    '{onload}' => $onload
+    '{onload}' => $onload,
+    '{logout}' => $logout
 ]);

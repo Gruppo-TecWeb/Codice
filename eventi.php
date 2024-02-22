@@ -10,6 +10,7 @@ use DB\DBAccess;
 session_start();
 
 $eventiHTML = file_get_contents("template/pagina-template.html");
+$logout = isset($_SESSION["login"]) ? file_get_contents("template/logout.html") : '';
 
 $title = 'Eventi &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
@@ -72,5 +73,6 @@ echo multi_replace($eventiHTML, [
     '{menu}' => $menu,
     '{breadcrumbs}' => $breadcrumbs,
     '{content}' => $content,
-    '{onload}' => $onload
+    '{onload}' => $onload,
+    '{logout}' => $logout
 ]);

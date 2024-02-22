@@ -9,9 +9,12 @@ function toggleMenu() {
     document.body.setAttribute("data-menu-open", navOpened);
 }
 
+/*
+BATTLE
+*/
 function setIframe(battle){
-    
-    title=new Array(
+{
+    /*title=new Array(
         'Minuto',
         '4/4',
         'Cypher',
@@ -22,8 +25,9 @@ function setIframe(battle){
         'Acappella',
         'Oggetti',
 
-    );
+    );*/
 
+    /*    
     link=new Array(
         'https://www.youtube.com/embed/RszfbKxb460?si=S66nOyYSoWWfIMRV&amp;start=98&amp;end=210&amp;autoplay=1',
         'https://www.youtube.com/embed/2ttgML437Ho?si=UpESmYDGIApC8Ykd&amp;start=370&amp;end=510&amp;autoplay=1',
@@ -47,25 +51,149 @@ function setIframe(battle){
         'I rapper si sfidano senza alcun supporto musicale, concentrandosi solo sulle loro abilità vocali e liriche',
         'Prima dell\'inizio di ogni turno ai rapper verranno forniti degli oggetti che non conoscono a priori e dovranno rappare su quelli. Gli oggetti possono essere forniti dal pubblico o nascosti dentro un contenitore.',
     );
+*/
+}
+    descBattle=document.getElementsByClassName("descrizioneBattle")[battle];
 
-    document.getElementsByTagName("h3")[0].innerHTML="Esempio " + title[battle];
+    //creazione variabili per battle cliccata
+    titleModalità=descBattle.getElementsByTagName("a")[0].title;
+    link=descBattle.getElementsByTagName("a")[0].href;
+    /*settaggio descrizione SE NECESSARIA
+    desc=descBattle.getElementsByTagName("dd")[0].innerHTML;
+    */
 
+    //settaggio iframe
+    document.getElementsByTagName("h3")[0].innerHTML=titleModalità;
     iframe=document.getElementsByTagName("iframe")[0];
-    iframe.src=link[battle];
-    iframe.title=title[battle];
-  
-    document.getElementById("descrizione_battle").innerHTML=descrizione[battle];
+    iframe.src=link;
+    iframe.title=titleModalità;
+    /*settaggio descrizione SE NECESSARIA
+    document.getElementById("descBattle").innerHTML=desc;
+    */
 }
 
-function onlyOnePlayer() {
-    container = document.getElementById("lista_basi")
-    container.addEventListener("play", function(event) {
-        basi = container.getElementsByTagName("audio")
-        for (i = 0; i < basi.length; i++) {
-            base = basi[i];
-            if (base !== event.target) {
-                base.pause();
+function showPlayBattle(){
+    battle=document.getElementsByClassName("descrizioneBattle")
+    for (let i = 0; i < battle.length; i++) {
+        battle[i].onmouseover = function() {
+        battle[i].getElementsByTagName("img")[0].style.opacity=1;
+        }
+
+        battle[i].onmouseout = function() {
+            battle[i].getElementsByTagName("img")[0].style.opacity=0;
+        }
+    }
+    
+}
+
+/*
+BASI
+*/
+var autoNext=false;
+function playerAudio(nomeBase) {
+    percorso="assets/media/basi/";
+    
+    //settaggio title
+    title=document.getElementsByTagName("h3")[0]
+    title.innerHTML=nomeBase.slice(0,-4); 
+
+    //settaggio audio
+    audio = document.getElementById("audio");
+    audio.setAttribute("autoplay", "true");
+    audio.src = percorso + nomeBase;
+
+{
+    /*
+    audio.onplaying = function(){
+        for (let i = 0; i < basi.length; i++) {
+            //document.getElementsByClassName("base")[playingBeat].getElementsByTagName("button")=i+1;
+            bottone=document.getElementsByClassName("base")[i].getElementsByTagName("button")
+            console.log(bottone[0].title.slice(10) + "==" + nomeBase.slice(0,-4));
+            if(bottone[0].title.slice(10)==nomeBase.slice(0,-4)){
+
+                playingBeat=i;
+                bottone[0].innerHTML='<img src="..\\assets\\icons\\playArancionePieno.png"></img>';
+                console.log(bottone[0].innerHTML);
+                
+                basi[i].onmouseover = function() {
+                   // bottone=basi[i].getElementsByTagName("button");                      
+                    //bottone[0].innerHTML='<img src="..\\assets\\icons\\playArancionePieno.png"></img>';
+                }
+                basi[i].onmouseout = function() {
+                    //bottone=basi[i].getElementsByTagName("button");
+                    //bottone[0].innerHTML=i+1;    
+                }
             }
         }
-    }, true);
+
+    }*/
+};
+
+    //bottone riproduzione automatica
+    document.getElementById("autoNext").onclick = function() {
+        autoNext = !autoNext;
+        autoPlay(nomeBase);
+    }
+        autoPlay(nomeBase);
+      
+}
+
+function autoPlay(nomeBase){
+    if(autoNext){
+        audio.onended = function() {
+            nextAudio(nomeBase);  
+        }
+    }else{
+        audio.onended = function() {
+            audio.setAttribute("autoplay", "false");
+        }
+    } 
+}
+
+function nextAudio(nomeBase) {
+    let basi = document.getElementsByClassName("beat");   
+    
+    for (let i = 0; i < basi.length; i++) {
+
+
+        let bottone = basi[i].getElementsByTagName("button");    
+        if (bottone[0].getAttribute("title").slice(10) == nomeBase.slice(0,-4)) {
+            let next = basi[i+1];
+            if (next) {
+                let nextButton = next.getElementsByTagName("button");
+                title=(nextButton[0].getAttribute("title").slice(10)+".mp3");
+                playerAudio(title);
+            }
+            break;  
+        }
+    }
+}
+
+function showPlayBasi(){
+    basi=document.getElementsByClassName("beat")
+    for (let i = 0; i < basi.length; i++) {
+        basi[i].onmouseover = function() {
+            bottone=basi[i].getElementsByTagName("button");    
+            bottone[0].style.opacity=1;                  
+            bottone[0].innerHTML='<img src="..\\assets\\icons\\playArancionePieno.png"></img>';
+        }
+        basi[i].onmouseout = function() {
+            bottone=basi[i].getElementsByTagName("button");
+            bottone[0].style.opacity=0.6;
+            bottone[0].innerHTML=i+1;
+        }
+    }
+}
+
+
+
+/*
+CLASSIFICHE
+*/
+
+function hideSubmitButtons(){
+    var submitButtons = document.getElementsByClassName("hidden-by-js");
+    for (let i = 0; i < submitButtons.length; i++) {
+        submitButtons[i].classList.add("no-script");
+    }
 }
