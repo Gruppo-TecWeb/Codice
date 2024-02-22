@@ -37,10 +37,20 @@ if ($connectionOk) {
     // Costruzione della paginazione
     $pagination = '';
     $numero_pagine = ceil(count($lista_eventi_array) / $eventi_per_pagina);
-    $offset = ($pagina - 1) * $eventi_per_pagina;
-    $lista_eventi_array = array_slice($lista_eventi_array, $offset, $eventi_per_pagina);
-    for ($i = 1; $i <= $numero_pagine; $i++) {
-        $pagination .= "<a href='?pagina=$i&data=$data&titolo=$titolo'>$i</a> ";
+    if ($numero_pagine > 1) {
+        $pagination .= "<span>Pagine: </span>";
+        $offset = ($pagina - 1) * $eventi_per_pagina;
+        $lista_eventi_array = array_slice($lista_eventi_array, $offset, $eventi_per_pagina);
+        for ($i = 1; $i <= $numero_pagine; $i++) {
+            $data_encoded = htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
+            $titolo_encoded = htmlspecialchars($titolo, ENT_QUOTES, 'UTF-8');
+            if($i == $pagina) {
+                $pagination .= "<span>$i</span> ";
+            }
+            else{
+                $pagination .= "<a href='?pagina=$i&data=$data_encoded&titolo=$titolo_encoded'>$i</a> ";
+            }
+        }
     }
 
     // Costruzione delle liste di titoli
