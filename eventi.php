@@ -47,7 +47,7 @@ if ($connectionOk) {
         foreach ($lista_eventi_array as $evento) {
             $lista_eventi_string .= '<article>';
             $lista_eventi_string .= '<a href="evento.php?id=' . urlencode($evento['id']) . '">';
-            $lista_eventi_string .= '<p>' . $evento['data'] . '</p>';
+            $lista_eventi_string .= '<time datetime="' . $evento['data'] . '">' . $evento['data'] . '</time>';
             $lista_eventi_string .= '<img src="assets/media/locandine/' . $evento['locandina'] . '">';
             $lista_eventi_string .= '<p>' . htmlspecialchars($evento['titolo']) . '</p>';
             $lista_eventi_string .= '</a>';

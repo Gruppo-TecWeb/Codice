@@ -12,7 +12,7 @@ session_start();
 $eventoHTML = file_get_contents("template/template-pagina.html");
 $logout = isset($_SESSION["login"]) ? file_get_contents("template/admin/logout-template.html") : '';
 
-$title = '';
+$title = 'Evento &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = '';
 $keywords = '';
@@ -48,12 +48,10 @@ if ($connectionOk) {
             '{dataInizioClassifica}' => $dataInizioClassifica
         ]);
         $breadcrumbs = get_breadcrumbs($pageId);
-        $title = $titolo . ' ' . $data;
         $breadcrumbs = multi_replace($breadcrumbs, [
             '{id}' => $eventoId,
-            '{evento}' => $title
+            '{evento}' => 'Evento',
         ]);
-        $title = $title . ' &minus; Fungo';
     }
 } else {
     header("location: errore500.php");
