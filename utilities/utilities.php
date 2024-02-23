@@ -22,23 +22,28 @@ function multi_replace($source, $replacements) {
 }
 
 function get_menu($logged, $pageId) {
-    $pages = array();
+    $paginaHTML = file_get_contents("template/pagina-template.html");
+    $menu = '';
+    $liCurrent = get_content_between_markers($paginaHTML, 'liCurrent');
+    $liNotCurrent = get_content_between_markers($paginaHTML, 'liNotCurrent');
     foreach (pages_array as $page) {
         if ($page['menuOrder'] > 0) {
             $lang_tag = $page['lang'] ? ' lang="' . $page['lang'] . '"' : '';
             $isCurrent = $page == pages_array[$pageId];
-            $menuOrder = $page['menuOrder'];
-            $pages[$menuOrder] = '<li';
             if ($isCurrent) {
-                $pages[$menuOrder] .= ' id="currentLink"' . $lang_tag . '>' . $page['anchor'];
+                $menu .= multi_replace($liCurrent, [
+                    '{lang}' => $lang_tag,
+                    '{anchor}' => $page['anchor']
+                ]);
             } else {
-                $pages[$menuOrder] .= '><a href="' . $page['href'] . '"' . $lang_tag . '>' . $page['anchor'] . '</a>';
+                $menu .= multi_replace($liNotCurrent, [
+                    '{pageHref}' => $page['href'],
+                    '{lang}' => $lang_tag,
+                    '{anchor}' => $page['anchor']
+                ]);
             }
-            $pages[$menuOrder] .= '</li>';
         }
     }
-    $menu = '' . implode('
-            ', $pages);
     return $menu;
 }
 function get_breadcrumbs($pageId) {
@@ -69,7 +74,7 @@ function get_content_between_markers($content, $marker) {
         return '';
     }
     $start += strlen($marker) + 2;
-    return substr($content, $start, $end - $start);    
+    return substr($content, $start, $end - $start);
 }
 
 function replace_content_between_markers($content, $replacements) {

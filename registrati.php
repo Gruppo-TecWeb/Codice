@@ -85,13 +85,14 @@ $content = multi_replace($content, [
     '{valoreEmail}' => $email
 ]);
 
-echo multi_replace($paginaHTML, [
+echo replace_content_between_markers(multi_replace($paginaHTML, [
     '{title}' => $title,
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
-    '{menu}' => $menu,
     '{breadcrumbs}' => $breadcrumbs,
     '{content}' => $content,
-    '{onload}' => $onload
+    '{onload}' => $onload,
+]), [
+    'menu' => $menu,
 ]);

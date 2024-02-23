@@ -9,7 +9,7 @@ use DB\DBAccess;
 
 session_start();
 
-$eventiHTML = file_get_contents("template/pagina-template.html");
+$paginaHTML = file_get_contents("template/pagina-template.html");
 $logout = isset($_SESSION["login"]) ? file_get_contents("template/logout.html") : '';
 
 $title = 'Eventi &minus; Fungo';
@@ -65,14 +65,15 @@ if ($connectionOk) {
     header("location: errore500.php");
 }
 
-echo multi_replace($eventiHTML, [
+echo replace_content_between_markers(multi_replace($paginaHTML, [
     '{title}' => $title,
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
-    '{menu}' => $menu,
     '{breadcrumbs}' => $breadcrumbs,
     '{content}' => $content,
     '{onload}' => $onload,
     '{logout}' => $logout
+]), [
+    'menu' => $menu,
 ]);

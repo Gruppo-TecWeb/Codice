@@ -6,7 +6,7 @@ require_once("utilities/utilities.php");
 session_start();
 
 $paginaHTML = file_get_contents("template/pagina-template.html");
-$contentHTML = file_get_contents("template/chi-siamo.html");
+$content = file_get_contents("template/chi-siamo.html");
 $logout = isset($_SESSION["login"]) ? file_get_contents("template/logout.html") : '';
 
 $title = 'Chi siamo &minus; Fungo';
@@ -17,14 +17,15 @@ $menu = get_menu(isset($_SESSION["login"]), $pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 
-echo multi_replace($paginaHTML,[
+echo replace_content_between_markers(multi_replace($paginaHTML, [
     '{title}' => $title,
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
-    '{menu}' => $menu,
     '{breadcrumbs}' => $breadcrumbs,
-    '{content}' => $contentHTML,
+    '{content}' => $content,
     '{onload}' => $onload,
     '{logout}' => $logout
+]), [
+    'menu' => $menu,
 ]);

@@ -32,6 +32,13 @@
             <a class="navigationHelp" href="#content">Salta il menù di navigazione</a>
             <ul>
                 {menu}
+                    {liCurrent}
+                    <li id="currentLink" {lang}>{anchor}</li>
+                    {/liCurrent}
+                    {liNotCurrent}
+                    <li><a href="{pageHref}" {lang}>{anchor}</a></li>
+                    {/liNotCurrent}
+                {/menu}
             </ul>
         </nav>
     </header>
