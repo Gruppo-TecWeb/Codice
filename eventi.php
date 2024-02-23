@@ -9,7 +9,7 @@ use DB\DBAccess;
 
 session_start();
 
-$eventiHTML = file_get_contents("template/pagina-template.html");
+$eventiHTML = file_get_contents("template/template-pagina.html");
 $logout = isset($_SESSION["login"]) ? file_get_contents("template/admin/logout-template.html") : '';
 
 $title = 'Eventi &minus; Fungo';

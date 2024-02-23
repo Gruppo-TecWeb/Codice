@@ -7,7 +7,7 @@ use DB\DBAccess;
 
 session_start();
 
-$paginaHTML = file_get_contents("../template/pagina-template.html");
+$paginaHTML = file_get_contents("../template/template-pagina.html");
 $registratiHTML = file_get_contents("../template/admin/registrati-template.html");
 $logout = isset($_SESSION["login"]) ? file_get_contents("../template/admin/logout-template.html") : '';
 

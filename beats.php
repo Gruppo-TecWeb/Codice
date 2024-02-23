@@ -7,7 +7,7 @@ use DB\DBAccess;
 
 session_start();
 
-$beatsHTML = file_get_contents("template/pagina-template.html");
+$beatsHTML = file_get_contents("template/template-pagina.html");
 $content = file_get_contents("template/beats.html");
 $logout = isset($_SESSION["login"]) ? file_get_contents("template/admin/logout-template.html") : '';
 

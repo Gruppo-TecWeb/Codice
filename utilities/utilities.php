@@ -34,11 +34,11 @@ function get_menu($pageId) {
             $lang_tag = $page['lang'] ? ' lang="' . $page['lang'] . '"' : '';
             $isCurrent = $page == pages_array[$pageId];
             $menuOrder = $page['menuOrder'];
-            $pages[$menuOrder] = '<li';
+            $pages[$menuOrder] = '<li>';
             if ($isCurrent) {
-                $pages[$menuOrder] .= ' id="currentLink"' . $lang_tag . '>' . $page['anchor'];
+                $pages[$menuOrder] .= '<span aria-current="page" id="currentLink" class="menuItem"' . $lang_tag . '>' . $page['anchor'] . '</span>';
             } else {
-                $pages[$menuOrder] .= '><a href="' . $page['href'] . '"' . $lang_tag . '>' . $page['anchor'] . '</a>';
+                $pages[$menuOrder] .= '<a class="menuItem" href="' . $page['href'] . '"' . $lang_tag . '>' . $page['anchor'] . '</a>';
             }
             $pages[$menuOrder] .= '</li>';
         }

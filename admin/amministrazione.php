@@ -6,7 +6,7 @@ require_once("../utilities/utilities.php");
 
 session_start();
 
-$paginaHTML = file_get_contents("../template/pagina-template.html");
+$paginaHTML = file_get_contents("../template/template-pagina.html");
 $adminHTML = file_get_contents("../template/admin/admin-template.html");
 $adminContentHTML = file_get_contents("../template/admin/admin-content.html");
 $logout = isset($_SESSION["login"]) ? file_get_contents("../template/admin/logout-template.html") : '';
