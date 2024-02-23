@@ -111,10 +111,10 @@ echo replace_content_between_markers(multi_replace($paginaHTML, [
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
-    '{breadcrumbs}' => $breadcrumbs,
     '{content}' => $content,
     '{onload}' => $onload,
     '{logout}' => $logout
 ]), [
+    'breadcrumbs' => $breadcrumbs,
     'menu' => $menu,
 ]);

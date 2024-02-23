@@ -47,17 +47,32 @@ function get_menu($logged, $pageId) {
     return $menu;
 }
 function get_breadcrumbs($pageId) {
-    $breadcrumbs = '';
+    $paginaHTML = file_get_contents("template/pagina-template.html");
+    $breadcrumbs = get_content_between_markers($paginaHTML, 'breadcrumbs');
     $page = pages_array[$pageId];
+    $parentBreadcrumb = '';
     $parent = $page['parentId'] != '' ? pages_array[$page['parentId']] : '';
     while ($parent != '') {
+        $parentBreadcrumbTemplate = get_content_between_markers($paginaHTML, 'parentBreadcrumb');
         $lang_tag = $parent['lang'] ? ' lang="' . $parent['lang'] . '"' : '';
-        $breadcrumbs = '<a href="' . $parent['href'] . '"' . $lang_tag . '>' . $parent['anchor'] . '</a> <span aria-hidden="true">&rsaquo;&rsaquo; </span>' . $breadcrumbs;
+        $parentBreadcrumb = multi_replace($parentBreadcrumbTemplate, [
+            '{pageHref}' => $parent['href'],
+            '{lang}' => $lang_tag,
+            '{parent}' => $parent['anchor']
+        ]) . $parentBreadcrumb;
+
         $parent = $parent['parentId'] != '' ? pages_array[$parent['parentId']] : '';
     }
     $lang_tag = $page['lang'] ? ' lang="' . $page['lang'] . '"' : '';
-    $breadcrumbs .= '<span' . $lang_tag . '>' . $page['anchor'] . '</span>';
-    $breadcrumbs = '<p><span id="ti-trovi-in">Ti trovi in: </span>' . $breadcrumbs . '</p>';
+    $breadcrumbs = replace_content_between_markers(
+        multi_replace($breadcrumbs, [
+            '{lang}' => $lang_tag,
+            '{anchor}' => $page['anchor']
+        ]),
+        [
+            'parentBreadcrumb' => $parentBreadcrumb
+        ]
+    );
     return $breadcrumbs;
 }
 function validate_input($data) {

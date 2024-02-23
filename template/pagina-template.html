@@ -44,7 +44,14 @@
     </header>
     <div id="breadcrumbs-container" class="limitedWidth mobileCard" data-menu-open="false">
         <nav id="breadcrumbs" aria-label="Percorso">
-            {breadcrumbs}
+            {breadcrumbs}   
+            <p><span id="ti-trovi-in">Ti trovi in: </span>
+                {parentBreadcrumb}
+                <a href="{pageHref}" {lang}>{parent}</a> <span aria-hidden="true">&rsaquo;&rsaquo; </span>
+                {/parentBreadcrumb}
+                <span {lang}>{anchor}</span>
+            </p>
+            {/breadcrumbs}
         </nav>
         <button id="btn-menu" onclick="toggleMenu()" aria-hidden="true" tabindex="-1"><span>Menu</span></button>
         <!--TabIndex tolto per non focussare il btn con screen reader-->
