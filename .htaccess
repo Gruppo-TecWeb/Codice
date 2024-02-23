@@ -1,5 +1,11 @@
-ErrorDocument 400 http://localhost/Fungo/errore500.php
-ErrorDocument 401 http://localhost/Fungo/errore500.php
-ErrorDocument 403 http://localhost/Fungo/errore500.php
-ErrorDocument 404 http://localhost/Fungo/errore500.php
-ErrorDocument 500 http://localhost/Fungo/errore500.php
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule "^.*$" "errore500.php"
+
+ErrorDocument 400 /errore500.php
+ErrorDocument 401 /errore500.php
+ErrorDocument 403 /errore500.php
+ErrorDocument 404 /errore500.php
+ErrorDocument 500 /errore500.php

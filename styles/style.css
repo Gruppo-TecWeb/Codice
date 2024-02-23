@@ -51,6 +51,10 @@ body {
     background-color: var(--bgColor);
 }
 
+body main {
+    padding-bottom: 4em;
+}
+
 a:link {
     color: var(--linkColor);
 }
@@ -91,29 +95,6 @@ main {
     display: flex;
     flex-direction: column;
     flex: 1;
-}
-
-
-/* ABOMINIO TOTALE DA SCOMUNICARE!  */
-
-h2 {
-    margin: 1em 0;
-}
-
-h3 {
-    margin-bottom: 0.8em;
-}
-
-h4 {
-    margin-bottom: 0.5em;
-}
-
-h5 {
-    margin-bottom: 0.5em;
-}
-
-div {
-    margin: 0.5em 0;
 }
 
 .no-script {
@@ -251,7 +232,7 @@ header>a {
 }
 
 header .logo {
-    font-size: 3r em;
+    font-size: 3rem;
 }
 
 
@@ -633,6 +614,10 @@ footer #footer-credits {
  * PAGINA ERRORE 500
  */
 
+#errore500 main {
+    padding-bottom: 0;
+}
+
 div.error500 {
     display: flex;
     flex-direction: column;
@@ -741,6 +726,10 @@ table#tabella-classifica td {
 
 table#tabella-classifica th {
     text-align: left;
+}
+
+table#tabella-classifica tbody tr:nth-child(odd) {
+    background-color: var(--secondaryColor);
 }
 
 table#tabella-classifica .classifica-punti {

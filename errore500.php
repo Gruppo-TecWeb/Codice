@@ -19,6 +19,8 @@ $menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 
+http_response_code(500);
+
 echo multi_replace($paginaHTML,[
     '{title}' => $title,
     '{description}' => $description,

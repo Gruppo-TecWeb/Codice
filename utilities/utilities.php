@@ -20,7 +20,7 @@ const pages_array = [
     'admin/rappers'         => ['href' => '{percorsoAdmin}rappers.php',         'anchor' => 'Gestione Rappers',        'lang' => 'en', 'menuOrder' => 0, 'adminMenuOrder' => 5, 'parentId' => 'admin/amministrazione'],
     'admin/amministratori'  => ['href' => '{percorsoAdmin}amministratori.php',  'anchor' => 'Gestione Amministratori', 'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 6, 'parentId' => 'admin/amministrazione'],
     'admin/logout'          => ['href' => '{percorsoAdmin}logout.php',          'anchor' => 'Logout',                  'lang' => 'en', 'menuOrder' => 0, 'adminMenuOrder' => 7, 'parentId' => 'index'],
-    'errore500'             => ['href' => '{percorso}errore500.php',            'anchor' => 'Errore 500',              'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 0, 'parentId' => 'index']
+    'errore500'             => ['href' => '{percorso}errore500.php',            'anchor' => 'Errore 500',              'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 0, 'parentId' => '']
 ];
 
 function multi_replace($source, $replacements) {
