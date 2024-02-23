@@ -37,9 +37,9 @@ if ($connectionOk) {
         $email = $utente["Email"];
 
         if (isset($_GET["submitEmail"])) {
-            $formModificaDatiUtente = file_get_contents("template/form-modifica-email-template.html");
+            $formModificaDatiUtente = get_content_between_markers($content, 'formModificaEmail');
         } elseif (isset($_GET["submitPassword"])) {
-            $formModificaDatiUtente = file_get_contents("template/form-modifica-password-template.html");
+            $formModificaDatiUtente = get_content_between_markers($content, 'formModificaPassword');
         }
 
         if (isset($_POST["submitNewEmail"])) {
@@ -63,7 +63,7 @@ if ($connectionOk) {
                     $messaggiProfilo .= "<li>E-Mail aggiornata con successo.</li>";
                 }
             } else {
-                $formModificaDatiUtente = file_get_contents("template/form-modifica-email-template.html");
+                $formModificaDatiUtente = get_content_between_markers($content, 'formModificaEmail');
                 $errori = '<ul>' . $erroriVAL . '</ul>';
             }
         } elseif (isset($_POST["submitNewPassword"])) {
@@ -84,7 +84,7 @@ if ($connectionOk) {
                 }
             }
             if ($errore) {
-                $formModificaDatiUtente = file_get_contents("template/form-modifica-password-template.html");
+                $formModificaDatiUtente = get_content_between_markers($content, 'formModificaPassword');
                 $errori = '<ul>' . $erroriVAL . '</ul>';
             }
         }
@@ -97,10 +97,11 @@ if ($connectionOk) {
     header("location: errore500.php");
 }
 
-$content = multi_replace($content, [
+$content = multi_replace(replace_content_between_markers($content, [
+    'formModificaDatiUtente' => $formModificaDatiUtente,
+]), [
     '{username}' => $username,
     '{email}' => $email,
-    '{formModificaDatiUtente}' => $formModificaDatiUtente,
     '{messaggiForm}' => $errori,
     '{formEmail}' => $formEmail,
     '{messaggiProfilo}' => $messaggiProfilo
