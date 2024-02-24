@@ -29,17 +29,38 @@
     </article>
     {/listaEventi}
 </div>
+
+<nav aria-label="pagination" class="l-cluster pagination">
+    <ul class="pagination__list">
+        <li><a href="path/to/page">Previous <span class="visuallyhidden">page</span></a></li>
+        <li><a class="pagination__list__first" href="path/to/page"><span class="visuallyhidden">page</span> 1<span
+                    class="visuallyhidden"> (first page)</span></a></li>
+        <li><a class="ellipsis">&#8230;</a></li>
+        <li><a href="path/to/page"><span class="visuallyhidden">page</span> 6</a></li>
+        <li><a href="path/to/page"><span class="visuallyhidden">page</span> 7</a></li>
+        <li><a href="#" aria-label="page 8" aria-current="page">8</a></li>
+        <li><a href="path/to/page"><span class="visuallyhidden">page</span> 9</a></li>
+        <li><a href="path/to/page"><span class="visuallyhidden">page</span> 10</a></li>
+        <li><a class="ellipsis">&#8230;</a></li>
+        <li><a class="pagination__list__last" href="path/to/page"><span class="visuallyhidden">page</span> 20<span
+                    class="visuallyhidden"> (last page)</span></a></li>
+        <li><a href="path/to/page">Next <span class="visuallyhidden">page</span></a></li>
+    </ul>
+</nav>
+
 {pagination}
-<nav id="pagination" class="limitedWidth" aria-label="Scorri tra le pagine degli eventi">
+<nav id="paginazione-eventi" class="limitedWidth" role="navigation" aria-label="Scorri tra le pagine degli eventi">
     <span>Pagine: </span>
-    {pages}
-    {currentPage}
-    <span aria-current="page">{numeroPagina}</span>
-    {/currentPage}
-    {notCurrentPage}
-    <a href="eventi.php?pagina={numeroPagina}&data={data}&titolo={titolo}"
-        aria-label='Vai alla pagina {numeroPagina}'>{numeroPagina}</a>
-    {/notCurrentPage}
-    {/pages}
+    <ul>
+        {pages}
+        {currentPage}
+        <li class="elemento-paginazione-eventi"><a href="#" aria-label="Pagina {numeroPagina}" aria-current="true">{numeroPagina}</a></li>
+        {/currentPage}
+        {notCurrentPage}
+        <li class="elemento-paginazione-eventi"><a href="eventi.php?pagina={numeroPagina}&data={data}&titolo={titolo}"
+                aria-label='Vai alla pagina {numeroPagina}'>{numeroPagina}</a></li>
+        {/notCurrentPage}
+        {/pages}
+    </ul>
 </nav>
 {/pagination}

@@ -27,7 +27,7 @@ $connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
 
 if ($connectionOk) {
-    $eventi_per_pagina = 8;
+    $eventi_per_pagina = 12;
     $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
     $titolo = isset($_GET['titolo']) ? $_GET['titolo'] : '';
     $data = isset($_GET['data']) ? $_GET['data'] : '';
