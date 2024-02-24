@@ -9,7 +9,7 @@ use DB\DBAccess;
 
 session_start();
 
-$eventiHTML = file_get_contents("template/pagina-template.html");
+$eventiHTML = file_get_contents("template/template-pagina.html");
 $logout = isset($_SESSION["login"]) ? file_get_contents("template/admin/logout-template.html") : '';
 
 $title = 'Eventi &minus; Fungo';
@@ -17,7 +17,8 @@ $pageId = basename(__FILE__, '.php');
 $description = '';
 $keywords = '';
 $percorso = '';
-$menu = get_menu(isset($_SESSION["login"]), $pageId);
+$percorsoAdmin = 'admin/';
+$menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $content = file_get_contents("template/eventi.html");
 $onload = '';
@@ -46,7 +47,7 @@ if ($connectionOk) {
         foreach ($lista_eventi_array as $evento) {
             $lista_eventi_string .= '<article>';
             $lista_eventi_string .= '<a href="evento.php?id=' . urlencode($evento['id']) . '">';
-            $lista_eventi_string .= '<p>' . $evento['data'] . '</p>';
+            $lista_eventi_string .= '<time datetime="' . $evento['data'] . '">' . $evento['data'] . '</time>';
             $lista_eventi_string .= '<img src="assets/media/locandine/' . $evento['locandina'] . '">';
             $lista_eventi_string .= '<p>' . htmlspecialchars($evento['titolo']) . '</p>';
             $lista_eventi_string .= '</a>';
@@ -72,5 +73,6 @@ echo multi_replace($eventiHTML, [
     '{content}' => $content,
     '{onload}' => $onload,
     '{logout}' => $logout,
-    '{percorso}' => $percorso
+    '{percorso}' => $percorso,
+    '{percorsoAdmin}' => $percorsoAdmin
 ]);

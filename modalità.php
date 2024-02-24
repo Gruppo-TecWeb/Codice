@@ -7,7 +7,7 @@ use DB\DBAccess;
 
 session_start();
 
-$battleHTML = file_get_contents("template/pagina-template.html");
+$battleHTML = file_get_contents("template/template-pagina.html");
 $content = file_get_contents("template/modalità.html");
 $logout = isset($_SESSION["login"]) ? file_get_contents("template/admin/logout-template.html") : '';
 
@@ -16,7 +16,8 @@ $pageId = basename(__FILE__, '.php');
 $description = "Introduzione regole e modalità freestyle rap battle con esempi";
 $keywords = 'Modalità battle, regole , 4/4, Minuto, Chyper, 3/4, Kickback, Royal rumble, Argomento, Acapella, Oggetti';
 $percorso = '';
-$menu = get_menu(isset($_SESSION["login"]), $pageId);
+$percorsoAdmin = 'admin/';
+$menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 
@@ -53,5 +54,6 @@ echo multi_replace($battleHTML, [
     '{content}' => $content,
     '{onload}' => $onload,
     '{logout}' => $logout,
-    '{percorso}' => $percorso
+    '{percorso}' => $percorso,
+    '{percorsoAdmin}' => $percorsoAdmin
 ]);

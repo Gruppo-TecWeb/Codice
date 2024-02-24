@@ -7,7 +7,7 @@ use DB\DBAccess;
 
 session_start();
 
-$paginaHTML = file_get_contents("template/pagina-template.html");
+$paginaHTML = file_get_contents("template/template-pagina.html");
 $classificheHTML = file_get_contents("template/classifiche-template.html");
 $classificaHTML = file_get_contents("template/classifica-template.html");
 $rigaHTML = file_get_contents("template/tabella-riga-template.html");
@@ -17,7 +17,8 @@ $pageId = basename(__FILE__, '.php');
 $description = 'Classifiche attuali sulla base dei punteggi ottenuti durante le battle di freestyle rap degli eventi Fungo e Micelio.';
 $keywords = 'classifiche, fungo, micelio, freestyle, rap, freestyle rap, battle';
 $percorso = '';
-$menu = get_menu(isset($_SESSION["login"]), $pageId);
+$percorsoAdmin = 'admin/';
+$menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $content = '';
 $onload = 'hideSubmitButtons()';
@@ -115,5 +116,6 @@ echo multi_replace($paginaHTML,[
     '{classifica}' => trim($classifiche),
     '{classifiche}' => $content,
     '{logout}' => $logout,
-    '{percorso}' => $percorso
+    '{percorso}' => $percorso,
+    '{percorsoAdmin}' => $percorsoAdmin
 ]);

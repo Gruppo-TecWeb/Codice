@@ -9,15 +9,16 @@ use DB\DBAccess;
 
 session_start();
 
-$eventoHTML = file_get_contents("template/pagina-template.html");
+$eventoHTML = file_get_contents("template/template-pagina.html");
 $logout = isset($_SESSION["login"]) ? file_get_contents("template/admin/logout-template.html") : '';
 
-$title = '';
+$title = 'Evento &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = '';
 $keywords = '';
 $percorso = '';
-$menu = get_menu(isset($_SESSION["login"]), $pageId);
+$percorsoAdmin = 'admin/';
+$menu = get_menu($pageId);
 $breadcrumbs = '';
 
 $content = '';
@@ -47,12 +48,10 @@ if ($connectionOk) {
             '{dataInizioClassifica}' => $dataInizioClassifica
         ]);
         $breadcrumbs = get_breadcrumbs($pageId);
-        $title = $titolo . ' ' . $data;
         $breadcrumbs = multi_replace($breadcrumbs, [
             '{id}' => $eventoId,
-            '{evento}' => $title
+            '{evento}' => 'Evento',
         ]);
-        $title = $title . ' &minus; Fungo';
     }
 } else {
     header("location: errore500.php");
@@ -68,5 +67,6 @@ echo multi_replace($eventoHTML, [
     '{content}' => $content,
     '{onload}' => $onload,
     '{logout}' => $logout,
-    '{percorso}' => $percorso
+    '{percorso}' => $percorso,
+    '{percorsoAdmin}' => $percorsoAdmin
 ]);

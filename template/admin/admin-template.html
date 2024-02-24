@@ -1,17 +1,13 @@
-<div id="admin-window">
+<div  class="limitedWidth">
     <h2>Pannello di amministrazione</h2>
-    <nav id="admin-menu">
-        <ul>
-            <li><a href="profilo.php">Profilo</a></li>
-            <li><a href="eventi.php">Eventi</a></li>
-            <li><a href="classifiche.php">Classifiche</a></li>
-            <li><a href="tipi_evento.php">Tipi Evento</a></li>
-            <li><a href="rappers.php">Rappers</a></li>
-            <li><a href="amministratori.php">Amministratori</a></li>
-            <li><a href="admin/logout.php">Logout</a></li>
-        </ul>
-    </nav>
-    <section id="admin-content">
-        <!-- Qui verrà visualizzato il contenuto delle varie sezioni al click del relativo link nel menù -->
-    </section>
+    <div id="admin-window">
+        <nav id="admin-menu">
+            <ul>
+                {adminMenu}
+            </ul>
+        </nav>
+        <div id="admin-content">
+            {adminContent}
+        </div>
+    </div>
 </div>

@@ -9,16 +9,19 @@ use DB\DBAccess;
 
 session_start();
 
-$paginaHTML = file_get_contents("../template/pagina-template.html");
+$paginaHTML = file_get_contents("../template/template-pagina.html");
+$adminHTML = file_get_contents("../template/admin/admin-template.html");
 $profiloHTML = file_get_contents("../template/admin/profilo-template.html");
 $logout = isset($_SESSION["login"]) ? file_get_contents("../template/admin/logout-template.html") : '';
 
 $title = 'Profilo personale &minus; Fungo';
-$pageId = basename(__FILE__, '.php');
+$pageId = 'admin/' . basename(__FILE__, '.php');
 $description = 'Pagina profilo contenente le informazioni relative al proprio profilo utente.';
 $keywords = '';
 $percorso = '../';
-$menu = get_menu(isset($_SESSION["login"]), $pageId);
+$percorsoAdmin = '';
+$menu = get_menu($pageId);
+$adminMenu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 $erroriVAL = '';
@@ -31,6 +34,7 @@ $messaggiProfilo = "";
 
 $connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
+
 if ($connectionOk) {
     if (isset($_SESSION["login"])) {
         $utente = $_SESSION["datiUtente"];
@@ -38,9 +42,9 @@ if ($connectionOk) {
         $email = $utente["Email"];
 
         if (isset($_GET["submitEmail"])) {
-            $formModificaDatiUtente = file_get_contents("template/form-modifica-email-template.html");
+            $formModificaDatiUtente = file_get_contents("../template/admin/form-modifica-email-template.html");
         } elseif (isset($_GET["submitPassword"])) {
-            $formModificaDatiUtente = file_get_contents("template/form-modifica-password-template.html");
+            $formModificaDatiUtente = file_get_contents("../template/admin/form-modifica-password-template.html");
         }
 
         if (isset($_POST["submitNewEmail"])) {
@@ -98,21 +102,24 @@ if ($connectionOk) {
     header("location: ../errore500.php");
 }
 
-$profiloHTML = str_replace('{username}', $username, $profiloHTML);
-$profiloHTML = str_replace('{email}', $email, $profiloHTML);
-$profiloHTML = str_replace('{formModificaDatiUtente}', $formModificaDatiUtente, $profiloHTML);
-$profiloHTML = str_replace('{messaggiForm}', $errori, $profiloHTML);
-$profiloHTML = str_replace('{formEmail}', $formEmail, $profiloHTML);
-$profiloHTML = str_replace('{messaggiProfilo}', $messaggiProfilo, $profiloHTML);
 echo multi_replace($paginaHTML, [
+    '{content}' => $adminHTML,
+    '{adminContent}' => $profiloHTML,
+    '{username}' => $username,
+    '{email}' => $email,
+    '{formModificaDatiUtente}' => $formModificaDatiUtente,
+    '{messaggiForm}' => $errori,
+    '{formEmail}' => $formEmail,
+    '{messaggiProfilo}' => $messaggiProfilo,
     '{title}' => $title,
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{menu}' => $menu,
+    '{adminMenu}' => $adminMenu,
     '{breadcrumbs}' => $breadcrumbs,
-    '{content}' => $profiloHTML,
     '{onload}' => $onload,
     '{logout}' => $logout,
-    '{percorso}' => $percorso
+    '{percorso}' => $percorso,
+    '{percorsoAdmin}' => $percorsoAdmin
 ]);
