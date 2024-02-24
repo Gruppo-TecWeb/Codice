@@ -46,10 +46,9 @@ if ($connectionOk) {
         for ($i = 1; $i <= $numero_pagine; $i++) {
             $data_encoded = htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
             $titolo_encoded = htmlspecialchars($titolo, ENT_QUOTES, 'UTF-8');
-            if($i == $pagina) {
+            if ($i == $pagina) {
                 $pagination .= "<span>$i</span> ";
-            }
-            else{
+            } else {
                 $pagination .= "<a href='?pagina=$i&data=$data_encoded&titolo=$titolo_encoded' aria-label='Vai alla pagina $i'>$i</a> ";
             }
         }
@@ -82,12 +81,13 @@ if ($connectionOk) {
             ]);
         }
     }
-    $content = str_replace('{data}', $data, $content);
-    $content = replace_content_between_markers($content, [
+    $content = multi_replace($content, [
         '{data}' => $data,
+        '{pagination}' => $pagination,
+    ]);
+    $content = replace_content_between_markers($content, [
         'listaTitoli' => $lista_titoli_string,
         'listaEventi' => $lista_eventi_string,
-        '{pagination}' => $pagination,
     ]);
 } else {
     header("location: errore500.php");
