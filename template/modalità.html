@@ -27,9 +27,9 @@ Regole generali:
 
 <!--Come legge 3/4 lo screen reader? tre backslash quattro? dovrebbe leggere tre quarti-->
 
-<div id="container_battle">
+<div id="container_battle" aria-label="Successivamente ci saranno un video di youtube e la possibilità di scegliere che modalità ascoltare/vedere">
 
-    <div id="container_iframe">
+    <div id="container_iframe" onclick="iframeChangeButton()">
         <h3>Esempio Minuto</h3>
         <iframe
             id="iframe_battle" 
@@ -52,7 +52,7 @@ Regole generali:
             </dt>
             <dd>I <span lang="en">rapper<span> fanno un minuto di <span lang="en">freestyle</span> a testa, semplice semplice.</dd>
             <dd>
-                <button  type="button" title="Riproduci Esempio Minuto" onclick=setIframe(0)>
+                <button  type="button" title="Riproduci Esempio Minuto" onclick=setIframe(0) data-playing="">
                     Riproduci
                 </button>
             </dd>
@@ -67,7 +67,7 @@ Regole generali:
             </dt>
             <dd>La modalità più classica tra tutte, a turno i <span lang="en">rapper<span> fanno <span aria-label="quattro quarti"><strong><sup>4</sup>/<sub>4</sub></strong></span> a testa!</dd>
             <dd>
-                <button class="descrizioneBattle" type="button" title="Riproduci esempio 4/4" onclick=setIframe(1)>
+                <button class="descrizioneBattle" type="button" title="Riproduci esempio 4/4" onclick=setIframe(1) data-playing="">
                     Riproduci
                 </button>
             </dd>
@@ -85,7 +85,7 @@ Regole generali:
                 riscaldamento pre-<span lang="en">battle</span>
             </dd>
             <dd>
-                <button type="button" title="Riproduci Esempio Cypher" onclick=setIframe(2)>
+                <button type="button" title="Riproduci Esempio Cypher" onclick=setIframe(2) data-playing="">
                     Riproduci
                 </button>
             </dd>
@@ -104,7 +104,7 @@ Regole generali:
                 cui l'avversario dovrà rispondere, e così via!
             </dd>
             <dd>
-                <button  type="button" title="Riproduci Esempio 3/4" onclick=setIframe(3)>
+                <button  type="button" title="Riproduci Esempio 3/4" onclick=setIframe(3) data-playing="false">
                     Riproduci
                 </button>
             </dd>
@@ -121,7 +121,7 @@ Regole generali:
                 tutto seguendo il tempo dei <span aria-label="quattro quarti"><strong><sup>4</sup>/<sub>3</sub></strong></span>!
             </dd>
             <dd>
-                <button type="button" title="Riproduci Esempio KickBack" onclick=setIframe(4)>
+                <button type="button" title="Riproduci Esempio KickBack" onclick=setIframe(4) data-playing="false">
                     Riproduci
                 </button>
             </dd>
@@ -137,7 +137,7 @@ Regole generali:
                 altri continuano ad affrontarsi
             </dd>
             <dd>
-                <button type="button" title="Riproduci Esempio Royal rumble" onclick=setIframe(5)>
+                <button type="button" title="Riproduci Esempio Royal rumble" onclick=setIframe(5) data-playing="false">
                     Riproduci
                 </button>
             </dd>
@@ -155,7 +155,7 @@ Regole generali:
                     href="https://www.youtube.com/watch?v=OQd6xAAm9nU" target="_blank">Variante fazioni</a>
             </dd>
             <dd>
-                <button type="button" title="Riproduci Esempio Argomento" onclick=setIframe(6)>
+                <button type="button" title="Riproduci Esempio Argomento" onclick=setIframe(6) data-playing="false">
                     Riproduci
                 </button>
             </dd>
@@ -171,7 +171,7 @@ Regole generali:
             <dd>I <span lang="en">rapper<span> si sfidano senza alcun supporto musicale, concentrandosi solo sulle loro abilità vocali e
                 liriche</dd>
             <dd>
-                <button type="button" title="Riproduci Esempio Acappella" onclick=setIframe(7)>
+                <button type="button" title="Riproduci Esempio Acappella" onclick=setIframe(7) data-playing="false">
                     Riproduci
                 </button>
             </dd>
@@ -187,7 +187,7 @@ Regole generali:
             <dd>All'inizio di ogni turno ai <span lang="en">rapper<span> verranno forniti degli oggetti che non conoscono a priori e
                 dovranno rappare su quelli.</dd>
             <dd>
-                <button type="button" title="Riproduci Esempio Oggetti" onclick=setIframe(8)>
+                <button type="button" title="Riproduci Esempio Oggetti" onclick=setIframe(8) data-playing="false">
                     Riproduci
                 </button>
             </dd>

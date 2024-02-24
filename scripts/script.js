@@ -12,46 +12,46 @@ function toggleMenu() {http://localhost/index.php
 /*
 BATTLE
 */
-
 function pauseIframe() {
     console.log("pause");
-    let video = document.getElementById("iframe_battle")
-    video.contentWindow.postMessage( '{"event":"command", "func":"pauseVideo", "args":""}', '*');
-    pressedButton.style.backgroundImage='url("../assets/icons/Play.png")';
+    iframe.contentWindow.postMessage( '{"event":"command", "func":"pauseVideo", "args":""}', '*');
+    pressedButton.setAttribute("data-isPlaying", "false");
     pressedButton.title="Riproduci " + newTitle;
 }
 
 function playIframe() {
     console.log("play");
-    let video = document.getElementById("iframe_battle")
-    video.contentWindow.postMessage('{"event":"command","func":"' + 'playVideo' + '","args":""}', '*');
-    pressedButton.style.backgroundImage='url("../assets/icons/Pause.png")';
+    
+    iframe.contentWindow.postMessage('{"event":"command","func":"' + 'playVideo' + '","args":""}', '*');
+    pressedButton.setAttribute("data-isPlaying", "true");
     pressedButton.title="Interrompi " + newTitle;
 }
 
 function newIframe(){
-
     //settaggio iframe
     link=thisBattle.getElementsByTagName("a")[0].href;
     actualTitle.innerHTML=newTitle;
     iframe.src=link;
     iframe.title=newTitle;
+    
 
-    //settaggio bottone pause nel caso di switch canzone
+    //settaggio bottone della canzone precedentemente in riproduzione
     for(i=0;i<descBattles.length;i++){
         buttonPP=descBattles[i].getElementsByTagName("button")[0];
         if(buttonPP.title.substr(0,10)=="Interrompi"){
             //console.log(buttonPP.title + "==Interrompi " + newTitle);
-            buttonPP.style.backgroundImage='url("../assets/icons/Play.png")';
+            buttonPP.setAttribute("data-isPlaying", "false");
             buttonPP.title="Riproduci " + newTitle;
         }
     }
-        pressedButton.style.backgroundImage='url("../assets/icons/Pause.png")';
-        pressedButton.title="Interrompi " + newTitle;
+
+    //settaggio bottone nuova canzone
+    pressedButton.setAttribute("data-isPlaying", "true");
+    pressedButton.title="Interrompi " + newTitle;   
 }
  
 function setIframe(battle){
-
+    //variabili varie
     descBattles=document.getElementsByClassName("descBattle");
     thisBattle=descBattles[battle];
     pressedButton=thisBattle.getElementsByTagName("button")[0];
@@ -59,6 +59,7 @@ function setIframe(battle){
     actualTitle=document.getElementsByTagName("h3")[0];
     newTitle=thisBattle.getElementsByTagName("a")[0].title;
 
+    
     if(pressedButton.title.substr(0,10)=="Interrompi"){
         pauseIframe();
     }else{
@@ -71,24 +72,38 @@ function setIframe(battle){
 }
 
 
-
 /*
 BASI
 */
-function newBeat(){
 
+function getDuration() {
+    audio.onloadedmetadata( function(){
+        alert(audio.duration);
+    });
+}
+
+function newBeat(){
+    //cambia gli statement dell'audio che era in riproduzione precedentemente
     for(let i=0;i<beats.length;i++){
         buttonPP=beats[i].getElementsByTagName("button")[0];
         if(buttonPP.title.substr(0,10)=="Interrompi"){
-            buttonPP.style.backgroundImage='url("../assets/icons/Play.png")';
-            buttonPP.title="Riproduci " + newTitle;
-        }
+            buttonPP.setAttribute("data-isPlaying","false")
+            buttonPP.title="Riproduci " + buttonPP.title.substr(10);
+        } 
     }
+    //settaggio title
+    pressedButton.setAttribute("data-isPlaying","true")
+    actualTitle.innerHTML=newTitle; 
+    pressedButton.title="Interrompi " + newTitle;
     
+    //settaggio audio
+    audio.setAttribute("autoplay", "true");
+    audio.src = percorso + newTitle + ".mp3"; 
 }
 
 var autoNext=false;
 function playerAudio(nomeBase) {
+
     //variabili varie
     percorso="assets/media/basi/";
     audio = document.getElementById("audio");
@@ -96,41 +111,28 @@ function playerAudio(nomeBase) {
     actualTitle = audioContainer.getElementsByTagName("h3")[0];
     newTitle = nomeBase.slice(0,-4);
     beats = document.getElementsByClassName("beat")
-    pressedButton=beats[0].getElementsByTagName("button")[0];
-    
     for(let i=0;i<beats.length;i++){
-        if(actualTitle.innerHTML==newTitle){
+        if(beats[i].getElementsByTagName("button")[0].title.slice(10)==newTitle || beats[i].getElementsByTagName("button")[0].title.slice(11)==newTitle){
             pressedButton=beats[i].getElementsByTagName("button")[0];
-            //console.log(pressedButton);
-            break;
         }
     }
+   console.log(audio.duration)
 
-     //settaggio title
-     actualTitle.innerHTML=newTitle; 
+    if(actualTitle.innerHTML==newTitle){
+        if(pressedButton.title.slice(0,10)=="Interrompi"){
+            console.log("pause");
+            audio.pause();
+            pressedButton.setAttribute("data-isPlaying","false")
+            pressedButton.title="Riproduci " + newTitle;
 
-     //settaggio audio
-     audio.setAttribute("autoplay", "true");
-     audio.src = percorso + newTitle + ".mp3";
-
-    //bottone play/pause //change beat
-    if(pressedButton.title.substr(0,10)=="Interrompi"){
-        console.log("pause");
-        audio.pause();
-        pressedButton.style.backgroundImage='url("../assets/icons/Play.png")';
-        pressedButton.title="Riproduci " + newTitle;
-
-    }else{
-        
-        console.log(actualTitle.innerHTML+"=="+newTitle);
-        if(actualTitle.innerHTML==newTitle){
+        }else{
             console.log("play");
             audio.play();
-            pressedButton.style.backgroundImage='url("../assets/icons/Pause.png")';
+            pressedButton.setAttribute("data-isPlaying","true")
             pressedButton.title="Interrompi " + newTitle;
-        }else{
-            newBeat();
-        }
+        }    
+    }else{
+        newBeat();
     }
     
     //bottone riproduzione automatica

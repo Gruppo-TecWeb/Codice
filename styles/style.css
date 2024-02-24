@@ -485,6 +485,21 @@ footer ul {
     width: 50%;
 }
 
+#lista_battle button[data-isPlaying="false"]{
+    background-image: url("../assets/icons/Play.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 40%;
+    color: transparent;
+}
+#lista_battle button[data-isPlaying="true"]{
+    background-image: url("../assets/icons/Pause.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 40%;
+    color: transparent;
+}
+
 
 
 .descBattle {
@@ -590,19 +605,42 @@ div.error500 img {
     
 }
 
-#lista_beats li:hover{
-    
+#lista_beats li:hover{ 
     padding: 1em;
     background-color: var(--linkHoverBgColor);
 }
 
-#lista_beats li:hover button{
+#lista_beats li:hover button[data-isPlaying="false"]{
     background-image: url("../assets/icons/Play.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
     color: transparent;
 }
+#lista_beats li:hover button[data-isPlaying="true"]{
+    background-image: url("../assets/icons/Pause.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    color: transparent;
+}
+
+#lista_beats button[data-isPlaying="false"] {
+    background-image: url("../assets/icons/Play.png");
+    opacity: 1;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    color: transparent;
+}
+#lista_beats button[data-isPlaying="true"] {
+    background-image: url("../assets/icons/Pause.png");
+    color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    opacity: 1;
+} 
 #lista_beats button{
     background: transparent;
     border-style: none;
@@ -612,7 +650,9 @@ div.error500 img {
     margin-right: 1em;
     min-width: 1em;
     background-size: 40%;
+    
 }
+
 #audio_container {
     display: flex;
     flex-direction: row;
