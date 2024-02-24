@@ -1,15 +1,16 @@
 <?php
 
 namespace Utilities;
+
 require_once("../utilities/utilities.php");
 require_once("../utilities/DBAccess.php");
+
 use DB\DBAccess;
 
 session_start();
 
 $paginaHTML = file_get_contents("../template/template-pagina.html");
-$registratiHTML = file_get_contents("../template/admin/registrati-template.html");
-$logout = isset($_SESSION["login"]) ? file_get_contents("../template/admin/logout-template.html") : '';
+$content = file_get_contents("../template/admin/registrati-template.html");
 
 $title = 'Registrati &minus; Fungo';
 $pageId = 'admin/' . basename(__FILE__, '.php');
@@ -17,20 +18,21 @@ $description = 'Pagina dove poter effettuare l\'accesso all\'area autenticata de
 $keywords = 'registrati, freestyle rap, fungo, micelio, battle, eventi, classifiche';
 $percorso = '../';
 $percorsoAdmin = '';
-$menu = get_menu($pageId);
-$breadcrumbs = get_breadcrumbs($pageId);
+$menu = get_menu($pageId, $percorso);
+$breadcrumbs = get_breadcrumbs($pageId, $percorso);
 $onload = '';
 $erroriVAL = '';
 $errori = '';
 $username = '';
 $email = '';
+$logout = '';
 
 $connection = DBAccess::getInstance();
-$connectionOk = $connection -> openDBConnection();
+$connectionOk = $connection->openDBConnection();
 
 if ($connectionOk) {
     if (isset($_SESSION["login"])) {
-        header("location: profilo.php");
+        header("location: index.php");
     }
     if (isset($_POST["submit"])) {
         $errore = false;
@@ -41,11 +43,10 @@ if ($connectionOk) {
         if ($username == "") {
             $errore = true;
             $erroriVAL .= "<li>Inserire Username.</li>";
-        }
-        else {
-            $utente = $connection -> get_utente_by_username($username);
+        } else {
+            $utente = $connection->get_utente_by_username($username);
             if (is_null($utente)) {
-                $utente = $connection -> get_utente_by_email($email);
+                $utente = $connection->get_utente_by_email($email);
             }
             if (!is_null($utente)) {
                 $errore = true;
@@ -55,49 +56,58 @@ if ($connectionOk) {
         if ($password == "") {
             $errore = true;
             $erroriVAL .= "<li>Inserire Password.</li>";
-        }
-        elseif ($password != $confermaPassword) {
-                $errore = true;
-                $erroriVAL .= "<li>Le password non coincidono.</li>";
+        } elseif ($password != $confermaPassword) {
+            $errore = true;
+            $erroriVAL .= "<li>Le password non coincidono.</li>";
         }
         if ($email == "") {
             $errore = true;
             $erroriVAL .= "<li>Inserire E-Mail.</li>";
         }
         if (!$errore) {
-            $utenteRegistrato = $connection -> register($username, $password, $email);
+            $utenteRegistrato = $connection->register($username, $password, $email);
             if ($utenteRegistrato > 0) {
                 $_SESSION["datiUtente"] = array("Username" => $username, "Email" => $email);
                 $_SESSION["login"] = true;
-                header("location: profilo.php");
+                header("location: index.php");
                 $messaggiPerForm .= "<li>Registrazione avvenuta correttamente.</li>";
-            }
-            else {
+            } else {
                 $messaggiPerForm .= "<li>La registrazione non é avvenuta.</li>";
             }
-        }
-        else {
+        } else {
             $errori = '<ul>' . $erroriVAL . '</ul>';
         }
     }
-}
-else {
+} else {
     header("location: ../errore500.php");
 }
 
-$registratiHTML = str_replace("{messaggiForm}", $errori, $registratiHTML);
-$registratiHTML = str_replace("{valoreUsername}", $username, $registratiHTML);
-$registratiHTML = str_replace("{valoreEmail}", $email, $registratiHTML);
-echo multi_replace($paginaHTML,[
-    '{title}' => $title,
-    '{description}' => $description,
-    '{keywords}' => $keywords,
-    '{pageId}' => $pageId,
-    '{menu}' => $menu,
-    '{breadcrumbs}' => $breadcrumbs,
-    '{content}' => $registratiHTML,
-    '{onload}' => $onload,
-    '{logout}' => $logout,
-    '{percorso}' => $percorso,
-    '{percorsoAdmin}' => $percorsoAdmin
-]);
+if (isset($_SESSION["login"])) {
+    $logout = get_content_between_markers($paginaHTML, 'logout');
+}
+
+echo multi_replace(replace_content_between_markers(
+    multi_replace(
+        replace_content_between_markers($paginaHTML, [
+            'breadcrumbs' => $breadcrumbs,
+            'menu' => $menu,
+            'logout' => $logout
+        ]),
+        [
+            '{title}' => $title,
+            '{description}' => $description,
+            '{keywords}' => $keywords,
+            '{pageId}' => $pageId,
+            '{content}' => $content,
+            '{onload}' => $onload,
+            '{percorso}' => $percorso,
+            '{adminContent}' => $adminContent,
+            '{messaggiForm}' => $errori,
+            '{valoreUsername}' => $username,
+            '{valoreEmail}' => $email
+        ]
+    ),
+    [
+        'adminMenu' => $adminMenu
+    ]
+), ['{percorsoAdmin}' => $percorsoAdmin]);

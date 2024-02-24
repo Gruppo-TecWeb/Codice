@@ -9,8 +9,7 @@ use DB\DBAccess;
 
 session_start();
 
-$eventoHTML = file_get_contents("template/template-pagina.html");
-$logout = isset($_SESSION["login"]) ? file_get_contents("template/admin/logout-template.html") : '';
+$paginaHTML = file_get_contents("template/template-pagina.html");
 
 $title = 'Evento &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
@@ -18,11 +17,12 @@ $description = '';
 $keywords = '';
 $percorso = '';
 $percorsoAdmin = 'admin/';
-$menu = get_menu($pageId);
-$breadcrumbs = '';
+$menu = get_menu($pageId, $percorso);
+$breadcrumbs = get_breadcrumbs($pageId, $percorso);
 
 $content = '';
 $onload = '';
+$logout = '';
 
 $connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
@@ -47,7 +47,7 @@ if ($connectionOk) {
             '{tipoEvento}' => $tipoEvento,
             '{dataInizioClassifica}' => $dataInizioClassifica
         ]);
-        $breadcrumbs = get_breadcrumbs($pageId);
+        $title = $titolo . ' ' . $data;
         $breadcrumbs = multi_replace($breadcrumbs, [
             '{id}' => $eventoId,
             '{evento}' => 'Evento',
@@ -57,16 +57,21 @@ if ($connectionOk) {
     header("location: errore500.php");
 }
 
-echo multi_replace($eventoHTML, [
+if (isset($_SESSION["login"])) {
+    $logout = get_content_between_markers($paginaHTML, 'logout');
+}
+
+echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'breadcrumbs' => $breadcrumbs,
+    'menu' => $menu,
+    'logout' => $logout
+]), [
     '{title}' => $title,
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
-    '{menu}' => $menu,
-    '{breadcrumbs}' => $breadcrumbs,
     '{content}' => $content,
     '{onload}' => $onload,
-    '{logout}' => $logout,
     '{percorso}' => $percorso,
     '{percorsoAdmin}' => $percorsoAdmin
 ]);
