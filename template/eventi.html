@@ -19,13 +19,14 @@
         <input type="button" id="reset" value="Reset" onclick="window.location.href='eventi.php'">
     </fieldset>
 </form>
-<div id="lista-eventi" class="limitedWidth">
-    {listaEventi}<article>
+<ul id="lista-eventi" class="limitedWidth">
+    {listaEventi}
+    <li>
         <a href="evento.php?id={idEvento}">
             <p><time datetime="{valueDataEvento}">{dataEvento}</time></p>
             <img src="assets/media/locandine/{locandinaEvento}">
-            <p>{titoloEvento}</p>
+            <h3>{titoloEvento}</h3>
         </a>
-    </article>
+    </li>
     {/listaEventi}
-</div>
+</ul>
