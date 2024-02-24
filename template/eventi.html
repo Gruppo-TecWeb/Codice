@@ -1,21 +1,31 @@
+<a href="#lista-eventi" class="navigationHelp">Salta ai risultati prodotti dalla ricerca</a>
 <h2 class="limitedWidth">Eventi</h2>
 <p class="limitedWidth">Qui trovi tutti gli eventi in programma</p>
 <form method="get" action="eventi.php" id="form-eventi">
     <fieldset class="limitedWidth">
         <label for="data">Filtra a partire da una data</label>
-        <input id="data" type="date" name="data" value="{data}" onchange="this.form.submit()">
+        <input type="date" name="data" id="data" value="{data}">
     </fieldset>
     <fieldset class="limitedWidth">
         <label for="titolo">Filtra per titolo</label>
         <select id="titolo" name="titolo" onchange="this.form.submit()">
             <option value="" selected>...</option>
-            {listaTitoli}
+            {listaTitoli}<option value="{titoloEvento}" {selezioneEvento}>{titoloEvento}</option>
+            {/listaTitoli}
         </select>
     </fieldset>
     <fieldset class="limitedWidth">
-        <input type="button" value="Reset" onclick="window.location.href='eventi.php';">
+        <input type="submit" id="submit" value="Filtra">
+        <input type="button" id="reset" value="Reset" onclick="window.location.href='eventi.php'">
     </fieldset>
 </form>
 <div id="lista-eventi" class="limitedWidth">
-    {listaEventi}
+    {listaEventi}<article>
+        <a href="evento.php?id={idEvento}">
+            <p><time datetime="{valueDataEvento}">{dataEvento}</time></p>
+            <img src="assets/media/locandine/{locandinaEvento}">
+            <p>{titoloEvento}</p>
+        </a>
+    </article>
+    {/listaEventi}
 </div>

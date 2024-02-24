@@ -1,19 +1,21 @@
 <?php
 
 namespace Utilities;
+
 require_once("../utilities/utilities.php");
 require_once("../utilities/DBAccess.php");
+
 use DB\DBAccess;
 
 session_start();
 
 $paginaHTML = file_get_contents("../template/template-pagina.html");
 $content = file_get_contents("../template/admin/template-admin.html");
-$adminContent = file_get_contents("../template/admin/tipievento-template.html");
+$adminContent = file_get_contents("../template/admin/admin-content.html");
 
-$title = 'Tipi Evento &minus; Fungo';
+$title = 'Area di amministrazione &minus; Fungo';
 $pageId = 'admin/' . basename(__FILE__, '.php');
-$description = '';
+$description = 'Pagina principale dell\'area di amministrazione del sito.';
 $keywords = '';
 $percorso = '../';
 $percorsoAdmin = '';
@@ -27,16 +29,6 @@ if (!isset($_SESSION["login"])) {
     header("location: login.php");
 }
 
-$connection = DBAccess::getInstance();
-$connectionOk = $connection->openDBConnection();
-
-if ($connectionOk) {
-    // fare quello che c'è da fare...
-    $connection->closeDBConnection();
-} else {
-    header("location: ../errore500.php");
-}
-
 if (isset($_SESSION["login"])) {
     $logout = get_content_between_markers($paginaHTML, 'logout');
 }
@@ -47,15 +39,19 @@ echo multi_replace(replace_content_between_markers(
             'breadcrumbs' => $breadcrumbs,
             'menu' => $menu,
             'logout' => $logout
-        ]), [
-        '{title}' => $title,
-        '{description}' => $description,
-        '{keywords}' => $keywords,
-        '{pageId}' => $pageId,
-        '{content}' => $content,
-        '{onload}' => $onload,
-        '{percorso}' => $percorso,
-        '{adminContent}' => $adminContent
-    ]), [
-    'adminMenu' => $adminMenu
-]), ['{percorsoAdmin}' => $percorsoAdmin]);
+        ]),
+        [
+            '{title}' => $title,
+            '{description}' => $description,
+            '{keywords}' => $keywords,
+            '{pageId}' => $pageId,
+            '{content}' => $content,
+            '{onload}' => $onload,
+            '{percorso}' => $percorso,
+            '{adminContent}' => $adminContent
+        ]
+    ),
+    [
+        'adminMenu' => $adminMenu
+    ]
+), ['{percorsoAdmin}' => $percorsoAdmin]);

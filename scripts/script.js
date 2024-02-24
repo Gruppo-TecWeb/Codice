@@ -20,7 +20,7 @@ function toggleMenu() {
     document.body.setAttribute("data-menu-open", menuOpened);
 }
 
-function init_home() {
+function init_index() {
     var logo = document.querySelector('header a h1');
     var hero = document.querySelector('#hero h2');
     logo.classList.add('js');
@@ -184,8 +184,6 @@ function nextAudio(nomeBase) {
         }
     }
 }
-
-
 
 
 
