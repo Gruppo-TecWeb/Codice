@@ -39,19 +39,29 @@ if ($connectionOk) {
     // Costruzione della paginazione
     $pagination = '';
     $numero_pagine = ceil(count($lista_eventi_array) / $eventi_per_pagina);
+    $paginationTemplate = get_content_between_markers($content, 'pagination');
     if ($numero_pagine > 1) {
-        $pagination .= "<span>Pagine: </span>";
+        $pages = '';
         $offset = ($pagina - 1) * $eventi_per_pagina;
         $lista_eventi_array = array_slice($lista_eventi_array, $offset, $eventi_per_pagina);
         for ($i = 1; $i <= $numero_pagine; $i++) {
             $data_encoded = htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
             $titolo_encoded = htmlspecialchars($titolo, ENT_QUOTES, 'UTF-8');
+            $currentPageTemplate = get_content_between_markers($paginationTemplate, 'currentPage');
+            $notCurrentPageTemplate = get_content_between_markers($paginationTemplate, 'notCurrentPage');
             if ($i == $pagina) {
-                $pagination .= "<span>$i</span> ";
+                $pages .= str_replace('{numeroPagina}', $i, $currentPageTemplate);
             } else {
-                $pagination .= "<a href='?pagina=$i&data=$data_encoded&titolo=$titolo_encoded' aria-label='Vai alla pagina $i'>$i</a> ";
+                $pages .= multi_replace($notCurrentPageTemplate, [
+                    '{numeroPagina}' => $i,
+                    '{data}' => $data_encoded,
+                    '{titolo}' => $titolo_encoded
+                ]);
             }
         }
+        $pagination = replace_content_between_markers($paginationTemplate, [
+            'pages' => $pages
+        ]);
     }
 
     // Costruzione delle liste di titoli
@@ -83,11 +93,11 @@ if ($connectionOk) {
     }
     $content = multi_replace($content, [
         '{data}' => $data,
-        '{pagination}' => $pagination,
     ]);
     $content = replace_content_between_markers($content, [
         'listaTitoli' => $lista_titoli_string,
         'listaEventi' => $lista_eventi_string,
+        'pagination' => $pagination,
     ]);
 } else {
     header("location: errore500.php");

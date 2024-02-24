@@ -29,6 +29,17 @@
     </article>
     {/listaEventi}
 </div>
+{pagination}
 <nav id="pagination" class="limitedWidth" aria-label="Scorri tra le pagine degli eventi">
-    {pagination}
-</nav>  
+    <span>Pagine: </span>
+    {pages}
+    {currentPage}
+    <span aria-current="page">{numeroPagina}</span>
+    {/currentPage}
+    {notCurrentPage}
+    <a href="eventi.php?pagina={numeroPagina}&data={data}&titolo={titolo}"
+        aria-label='Vai alla pagina {numeroPagina}'>{numeroPagina}</a>
+    {/notCurrentPage}
+    {/pages}
+</nav>
+{/pagination}
