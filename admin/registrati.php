@@ -1,8 +1,10 @@
 <?php
 
 namespace Utilities;
+
 require_once("../utilities/utilities.php");
 require_once("../utilities/DBAccess.php");
+
 use DB\DBAccess;
 
 session_start();
@@ -23,9 +25,10 @@ $erroriVAL = '';
 $errori = '';
 $username = '';
 $email = '';
+$logout = '';
 
 $connection = DBAccess::getInstance();
-$connectionOk = $connection -> openDBConnection();
+$connectionOk = $connection->openDBConnection();
 
 if ($connectionOk) {
     if (isset($_SESSION["login"])) {
@@ -40,11 +43,10 @@ if ($connectionOk) {
         if ($username == "") {
             $errore = true;
             $erroriVAL .= "<li>Inserire Username.</li>";
-        }
-        else {
-            $utente = $connection -> get_utente_by_username($username);
+        } else {
+            $utente = $connection->get_utente_by_username($username);
             if (is_null($utente)) {
-                $utente = $connection -> get_utente_by_email($email);
+                $utente = $connection->get_utente_by_email($email);
             }
             if (!is_null($utente)) {
                 $errore = true;
@@ -54,63 +56,58 @@ if ($connectionOk) {
         if ($password == "") {
             $errore = true;
             $erroriVAL .= "<li>Inserire Password.</li>";
-        }
-        elseif ($password != $confermaPassword) {
-                $errore = true;
-                $erroriVAL .= "<li>Le password non coincidono.</li>";
+        } elseif ($password != $confermaPassword) {
+            $errore = true;
+            $erroriVAL .= "<li>Le password non coincidono.</li>";
         }
         if ($email == "") {
             $errore = true;
             $erroriVAL .= "<li>Inserire E-Mail.</li>";
         }
         if (!$errore) {
-            $utenteRegistrato = $connection -> register($username, $password, $email);
+            $utenteRegistrato = $connection->register($username, $password, $email);
             if ($utenteRegistrato > 0) {
                 $_SESSION["datiUtente"] = array("Username" => $username, "Email" => $email);
                 $_SESSION["login"] = true;
                 header("location: index.php");
                 $messaggiPerForm .= "<li>Registrazione avvenuta correttamente.</li>";
-            }
-            else {
+            } else {
                 $messaggiPerForm .= "<li>La registrazione non é avvenuta.</li>";
             }
-        }
-        else {
+        } else {
             $errori = '<ul>' . $erroriVAL . '</ul>';
         }
     }
-}
-else {
+} else {
     header("location: ../errore500.php");
 }
 
 if (isset($_SESSION["login"])) {
-    $paginaHTML = replace_content_between_markers($paginaHTML, [
-        'logout' => get_content_between_markers($paginaHTML, 'logout')
-    ]);
-} else {
-    $paginaHTML = replace_content_between_markers($paginaHTML, [
-        'logout' => ''
-    ]);
+    $logout = get_content_between_markers($paginaHTML, 'logout');
 }
 
 echo multi_replace(replace_content_between_markers(
     multi_replace(
         replace_content_between_markers($paginaHTML, [
             'breadcrumbs' => $breadcrumbs,
-            'menu' => $menu
-        ]), [
-        '{title}' => $title,
-        '{description}' => $description,
-        '{keywords}' => $keywords,
-        '{pageId}' => $pageId,
-        '{content}' => $content,
-        '{onload}' => $onload,
-        '{percorso}' => $percorso,
-        '{adminContent}' => $adminContent,
-        '{messaggiForm}' => $errori,
-        '{valoreUsername}' => $username,
-        '{valoreEmail}' => $email
-    ]), [
-    'adminMenu' => $adminMenu
-]), ['{percorsoAdmin}' => $percorsoAdmin]);
+            'menu' => $menu,
+            'logout' => $logout
+        ]),
+        [
+            '{title}' => $title,
+            '{description}' => $description,
+            '{keywords}' => $keywords,
+            '{pageId}' => $pageId,
+            '{content}' => $content,
+            '{onload}' => $onload,
+            '{percorso}' => $percorso,
+            '{adminContent}' => $adminContent,
+            '{messaggiForm}' => $errori,
+            '{valoreUsername}' => $username,
+            '{valoreEmail}' => $email
+        ]
+    ),
+    [
+        'adminMenu' => $adminMenu
+    ]
+), ['{percorsoAdmin}' => $percorsoAdmin]);

@@ -21,6 +21,7 @@ $menu = get_menu($pageId, $percorso);
 $adminMenu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId, $percorso);
 $onload = '';
+$logout = '';
 
 if (!isset($_SESSION["login"])) {
     header("location: login.php");
@@ -37,20 +38,15 @@ if ($connectionOk) {
 }
 
 if (isset($_SESSION["login"])) {
-    $paginaHTML = replace_content_between_markers($paginaHTML, [
-        'logout' => get_content_between_markers($paginaHTML, 'logout')
-    ]);
-} else {
-    $paginaHTML = replace_content_between_markers($paginaHTML, [
-        'logout' => ''
-    ]);
+    $logout = get_content_between_markers($paginaHTML, 'logout');
 }
 
 echo multi_replace(replace_content_between_markers(
     multi_replace(
         replace_content_between_markers($paginaHTML, [
             'breadcrumbs' => $breadcrumbs,
-            'menu' => $menu
+            'menu' => $menu,
+            'logout' => $logout
         ]), [
         '{title}' => $title,
         '{description}' => $description,

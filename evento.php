@@ -22,6 +22,7 @@ $breadcrumbs = get_breadcrumbs($pageId, $percorso);
 
 $content = '';
 $onload = '';
+$logout = '';
 
 $connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
@@ -57,18 +58,13 @@ if ($connectionOk) {
 }
 
 if (isset($_SESSION["login"])) {
-    $paginaHTML = replace_content_between_markers($paginaHTML, [
-        'logout' => get_content_between_markers($paginaHTML, 'logout')
-    ]);
-} else {
-    $paginaHTML = replace_content_between_markers($paginaHTML, [
-        'logout' => ''
-    ]);
+    $logout = get_content_between_markers($paginaHTML, 'logout');
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
     'breadcrumbs' => $breadcrumbs,
-    'menu' => $menu
+    'menu' => $menu,
+    'logout' => $logout
 ]), [
     '{title}' => $title,
     '{description}' => $description,

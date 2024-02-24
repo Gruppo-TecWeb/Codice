@@ -1,8 +1,10 @@
 <?php
 
 namespace Utilities;
+
 require_once("../utilities/utilities.php");
 require_once("../utilities/DBAccess.php");
+
 use DB\DBAccess;
 
 session_start();
@@ -31,6 +33,7 @@ $messaggioProfilo = '';
 $messaggioForm = '';
 $messaggiProfilo = '';
 $messaggiForm = '';
+$logout = '';
 
 if (!isset($_SESSION["login"])) {
     header("location: login.php");
@@ -75,7 +78,9 @@ if ($connectionOk) {
         } else {
             $formModificaEmail = get_content_between_markers($adminContent, 'formModificaEmail');
             $messaggiForm = replace_content_between_markers(
-                get_content_between_markers($adminContent, 'messaggiForm'), ['messaggioForm' => $messaggiForm]);
+                get_content_between_markers($adminContent, 'messaggiForm'),
+                ['messaggioForm' => $messaggiForm]
+            );
         }
     } elseif (isset($_POST["submitNewPassword"])) {
         $errore = false;
@@ -96,7 +101,9 @@ if ($connectionOk) {
         } else {
             $formModificaPassword = get_content_between_markers($adminContent, 'formModificaPassword');
             $messaggiForm = replace_content_between_markers(
-                get_content_between_markers($adminContent, 'messaggiForm'), ['messaggioForm' => $messaggiForm]);
+                get_content_between_markers($adminContent, 'messaggiForm'),
+                ['messaggioForm' => $messaggiForm]
+            );
         }
     }
 
@@ -106,36 +113,37 @@ if ($connectionOk) {
 }
 
 if (isset($_SESSION["login"])) {
-    $paginaHTML = replace_content_between_markers($paginaHTML, [
-        'logout' => get_content_between_markers($paginaHTML, 'logout')
-    ]);
-} else {
-    $paginaHTML = replace_content_between_markers($paginaHTML, [
-        'logout' => ''
-    ]);
+    $logout = get_content_between_markers($paginaHTML, 'logout');
 }
 
 echo multi_replace(replace_content_between_markers(
     multi_replace(
         replace_content_between_markers($paginaHTML, [
             'breadcrumbs' => $breadcrumbs,
-            'menu' => $menu
-        ]), [
-        '{title}' => $title,
-        '{description}' => $description,
-        '{keywords}' => $keywords,
-        '{pageId}' => $pageId,
-        '{content}' => $content,
-        '{onload}' => $onload,
-        '{percorso}' => $percorso,
-        '{adminContent}' => replace_content_between_markers($adminContent, ['messaggiProfilo' => $messaggiProfilo]),
-        '{username}' => $username,
-        '{email}' => $email,
-        '{messaggiForm}' => $errori,
-        '{formEmail}' => $formEmail
-    ]), [
-    'adminMenu' => $adminMenu,
-    'formModificaEmail' => replace_content_between_markers($formModificaEmail, ['messaggiForm' => $messaggiForm]),
-    'formModificaPassword' => replace_content_between_markers($formModificaPassword, ['messaggiForm' => $messaggiForm])
-]), ['{percorsoAdmin}' => $percorsoAdmin,
-        '{formEmail}' => $formEmail]);
+            'menu' => $menu,
+            'logout' => $logout
+        ]),
+        [
+            '{title}' => $title,
+            '{description}' => $description,
+            '{keywords}' => $keywords,
+            '{pageId}' => $pageId,
+            '{content}' => $content,
+            '{onload}' => $onload,
+            '{percorso}' => $percorso,
+            '{adminContent}' => replace_content_between_markers($adminContent, ['messaggiProfilo' => $messaggiProfilo]),
+            '{username}' => $username,
+            '{email}' => $email,
+            '{messaggiForm}' => $errori,
+            '{formEmail}' => $formEmail
+        ]
+    ),
+    [
+        'adminMenu' => $adminMenu,
+        'formModificaEmail' => replace_content_between_markers($formModificaEmail, ['messaggiForm' => $messaggiForm]),
+        'formModificaPassword' => replace_content_between_markers($formModificaPassword, ['messaggiForm' => $messaggiForm])
+    ]
+), [
+    '{percorsoAdmin}' => $percorsoAdmin,
+    '{formEmail}' => $formEmail
+]);
