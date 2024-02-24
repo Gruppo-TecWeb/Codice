@@ -11,7 +11,7 @@ session_start();
 
 $paginaHTML = file_get_contents("template/template-pagina.html");
 
-$title = '';
+$title = 'Evento &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = '';
 $keywords = '';
@@ -49,9 +49,8 @@ if ($connectionOk) {
         $title = $titolo . ' ' . $data;
         $breadcrumbs = multi_replace($breadcrumbs, [
             '{id}' => $eventoId,
-            '{evento}' => $title
+            '{evento}' => 'Evento',
         ]);
-        $title = $title . ' &minus; Fungo';
     }
 } else {
     header("location: errore500.php");
