@@ -9,15 +9,16 @@ use DB\DBAccess;
 
 session_start();
 
-$paginaHTML = file_get_contents("template/pagina-template.html");
-$logout = isset($_SESSION["login"]) ? file_get_contents("template/logout.html") : '';
+$paginaHTML = file_get_contents("template/template-pagina.html");
 
 $title = '';
 $pageId = basename(__FILE__, '.php');
 $description = '';
 $keywords = '';
-$menu = get_menu(isset($_SESSION["login"]), $pageId);
-$breadcrumbs = '';
+$percorso = '';
+$percorsoAdmin = 'admin/';
+$menu = get_menu($pageId, $percorso);
+$breadcrumbs = get_breadcrumbs($pageId, $percorso);
 
 $content = '';
 $onload = '';
@@ -45,7 +46,6 @@ if ($connectionOk) {
             '{tipoEvento}' => $tipoEvento,
             '{dataInizioClassifica}' => $dataInizioClassifica
         ]);
-        $breadcrumbs = get_breadcrumbs($pageId);
         $title = $titolo . ' ' . $data;
         $breadcrumbs = multi_replace($breadcrumbs, [
             '{id}' => $eventoId,
@@ -57,15 +57,26 @@ if ($connectionOk) {
     header("location: errore500.php");
 }
 
-echo replace_content_between_markers(multi_replace($paginaHTML, [
+if (isset($_SESSION["login"])) {
+    $paginaHTML = replace_content_between_markers($paginaHTML, [
+        'logout' => get_content_between_markers($paginaHTML, 'logout')
+    ]);
+} else {
+    $paginaHTML = replace_content_between_markers($paginaHTML, [
+        'logout' => ''
+    ]);
+}
+
+echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'breadcrumbs' => $breadcrumbs,
+    'menu' => $menu
+]), [
     '{title}' => $title,
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{content}' => $content,
     '{onload}' => $onload,
-    '{logout}' => $logout
-]), [
-    'breadcrumbs' => $breadcrumbs,
-    'menu' => $menu,
+    '{percorso}' => $percorso,
+    '{percorsoAdmin}' => $percorsoAdmin
 ]);

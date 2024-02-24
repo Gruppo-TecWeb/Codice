@@ -5,27 +5,39 @@ require_once("utilities/utilities.php");
 
 session_start();
 
-$paginaHTML = file_get_contents("template/pagina-template.html");
+$paginaHTML = file_get_contents("template/template-pagina.html");
 $content = file_get_contents("template/errore500.html");
-$logout = isset($_SESSION["login"]) ? file_get_contents("template/logout.html") : '';
 
 $title = 'Errore 500 &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = 'Pagina di errore 500.';
 $keywords = 'error 500';
-$menu = get_menu(isset($_SESSION["login"]), $pageId);
-$breadcrumbs = get_breadcrumbs($pageId);
+$percorso = '';
+$percorsoAdmin = 'admin/';
+$menu = get_menu($pageId, $percorso);
+$breadcrumbs = get_breadcrumbs($pageId, $percorso);
 $onload = '';
 
-echo replace_content_between_markers(multi_replace($paginaHTML, [
+if (isset($_SESSION["login"])) {
+    $paginaHTML = replace_content_between_markers($paginaHTML, [
+        'logout' => get_content_between_markers($paginaHTML, 'logout')
+    ]);
+} else {
+    $paginaHTML = replace_content_between_markers($paginaHTML, [
+        'logout' => ''
+    ]);
+}
+
+echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'breadcrumbs' => $breadcrumbs,
+    'menu' => $menu
+]), [
     '{title}' => $title,
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{content}' => $content,
     '{onload}' => $onload,
-    '{logout}' => $logout
-]), [
-    'breadcrumbs' => $breadcrumbs,
-    'menu' => $menu,
+    '{percorso}' => $percorso,
+    '{percorsoAdmin}' => $percorsoAdmin
 ]);

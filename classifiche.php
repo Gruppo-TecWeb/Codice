@@ -9,17 +9,18 @@ use DB\DBAccess;
 
 session_start();
 
-$paginaHTML = file_get_contents("template/pagina-template.html");
+$paginaHTML = file_get_contents("template/template-pagina.html");
+$content = file_get_contents("template/classifiche.html");
 
 $title = 'Classifiche &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = 'Classifiche attuali sulla base dei punteggi ottenuti durante le battle di freestyle rap degli eventi Fungo e Micelio.';
 $keywords = 'classifiche, fungo, micelio, freestyle, rap, freestyle rap, battle';
-$menu = get_menu(isset($_SESSION["login"]), $pageId);
-$breadcrumbs = get_breadcrumbs($pageId);
-$content = file_get_contents("template/classifiche.html");
-$onload = 'hideSubmitButton()';
-$logout = isset($_SESSION["login"]) ? file_get_contents("template/logout.html") : '';
+$percorso = '';
+$percorsoAdmin = 'admin/';
+$menu = get_menu($pageId, $percorso);
+$breadcrumbs = get_breadcrumbs($pageId, $percorso);
+$onload = 'hideSubmitButtons()';
 
 $connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
@@ -49,7 +50,7 @@ if ($connectionOk) {
         $dataVisualizzata = '';
         $selected = '';
 
-        // formatto la data in base all'intervallo di tempo, da rivedere...
+        // <time datetime="2024-04-04">04 Aprile 2024</time>
         if ($dataInizio == $dataFine) {
             $dataVisualizzata = date_format($dataInizio, 'd/m/y');
         } elseif (date_format($dataInizio, 'Y') != date_format($dataFine, 'Y')) {
@@ -106,15 +107,26 @@ if ($connectionOk) {
     header("location: errore500.php");
 }
 
-echo replace_content_between_markers(multi_replace($paginaHTML, [
+if (isset($_SESSION["login"])) {
+    $paginaHTML = replace_content_between_markers($paginaHTML, [
+        'logout' => get_content_between_markers($paginaHTML, 'logout')
+    ]);
+} else {
+    $paginaHTML = replace_content_between_markers($paginaHTML, [
+        'logout' => ''
+    ]);
+}
+
+echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'breadcrumbs' => $breadcrumbs,
+    'menu' => $menu
+]), [
     '{title}' => $title,
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{content}' => $content,
     '{onload}' => $onload,
-    '{logout}' => $logout
-]), [
-    'breadcrumbs' => $breadcrumbs,
-    'menu' => $menu,
+    '{percorso}' => $percorso,
+    '{percorsoAdmin}' => $percorsoAdmin
 ]);

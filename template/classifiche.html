@@ -4,23 +4,25 @@
         <fieldset>
             <legend>Puoi visualizzare le classifiche passate dal nostro archivio:</legend>
             <label for="classifica">Classifica: </label>
-            <select id="classifica" name="classifica" required>
+            <select id="classifica" name="classifica"  onchange="this.form.submit()">
                 {listaClassifiche}
                 <option value="{tipoEvento}{.}{dataInizio}" {selezioneClassifica}>{opzioneClassifica}</option>
                 {/listaClassifiche}
             </select>
-            <input type="submit" id="submit" name="submit" value="Visualizza" />
-            <input type="submit" id="reset" name="reset" value="Torna indietro" />
+        </fieldset>
+        <fieldset>
+            <input type="submit" name="form_submit" class="hidden-by-js" value="Visualizza">
+            <input type="submit" name="reset" value="Torna indietro" onclick="window.location.href='classifiche.php';">
         </fieldset>
     </form>
 </div>
 {tabellaClassifica}
-<div class="limitedWidth" id="{tipoEvento}">
+<div class="limitedWidth div-classifica" id="{tipoEvento}">
     <p>{desTipoEvento}</p>
     <span id="sumTabella" class="navigationHelp">Tabella che riassume la classifica del {tipoEvento} con l'indicazione
         di <span lang="en">ranking</span>,
         nome d'arte del <span lang="en">freestyler</span>, punteggio ottenuto.</span>
-    <table aria-describedby="sumTabella">
+    <table id="tabella-classifica" aria-describedby="sumTabella">
         <caption>Classifica {tipoEvento}</caption>
         <thead>
             <tr>
