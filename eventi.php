@@ -26,8 +26,8 @@ $connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
 
 if ($connectionOk) {
-    $titolo = isset($_GET['titolo']) ? $_GET['titolo'] : '';
-    $data = isset($_GET['data']) ? $_GET['data'] : '';
+    $titolo = isset($_GET['Titolo']) ? $_GET['Titolo'] : '';
+    $data = isset($_GET['Data']) ? $_GET['Data'] : '';
 
     $lista_eventi_array = $connection->getListaEventi($data, $titolo);
     $lista_titoli_array = $connection->getTitoliEventi();
@@ -36,9 +36,9 @@ if ($connectionOk) {
     $lista_titoli_string = '';
     $option = get_content_between_markers($content, 'listaTitoli');
     foreach ($lista_titoli_array as $evento) {
-        $selected = ($evento['titolo'] == $titolo) ? ' selected' : '';
+        $selected = ($evento['Titolo'] == $titolo) ? ' selected' : '';
         $lista_titoli_string .= multi_replace($option, [
-            '{titoloEvento}' => $evento['titolo'],
+            '{titoloEvento}' => $evento['Titolo'],
             '{selezioneEvento}' => $selected
         ]);
     }
@@ -50,10 +50,11 @@ if ($connectionOk) {
         $article = get_content_between_markers($content, 'listaEventi');
         foreach ($lista_eventi_array as $evento) {
             $lista_eventi_string .= multi_replace($article, [
-                '{idEvento}' => urlencode($evento['id']),
-                '{dataEvento}' => $evento['data'],
-                '{locandinaEvento}' => $evento['locandina'],
-                '{titoloEvento}' => htmlspecialchars($evento['titolo'])
+                '{idEvento}' => urlencode($evento['Id']),
+                '{valueDataEvento}' => $evento['Data'],
+                '{dataEvento}' => $evento['Data'],
+                '{locandinaEvento}' => $evento['Locandina'],
+                '{titoloEvento}' => htmlspecialchars($evento['Titolo'])
             ]);
         }
     }
