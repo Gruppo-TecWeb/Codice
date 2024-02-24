@@ -50,7 +50,6 @@ if ($connectionOk) {
         $dataVisualizzata = '';
         $selected = '';
 
-        // <time datetime="2024-04-04">04 Aprile 2024</time>
         if ($dataInizio == $dataFine) {
             $dataVisualizzata = date_format($dataInizio, 'd/m/y');
         } elseif (date_format($dataInizio, 'Y') != date_format($dataFine, 'Y')) {
