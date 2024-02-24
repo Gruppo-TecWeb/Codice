@@ -36,8 +36,8 @@ if ($connectionOk) {
 
     $lista_titoli_string = '';
     foreach ($lista_titoli_array as $evento) {
-        $selected = ($evento['titolo'] == $titolo) ? ' selected' : '';
-        $lista_titoli_string .= "<option value='" . $evento['titolo'] . "'" . $selected . ">" . $evento['titolo'] . "</option>";
+        $selected = ($evento['Titolo'] == $titolo) ? ' selected' : '';
+        $lista_titoli_string .= "<option value='" . $evento['Titolo'] . "'" . $selected . ">" . $evento['Titolo'] . "</option>";
     }
 
     $lista_eventi_string = '';
@@ -46,10 +46,10 @@ if ($connectionOk) {
     } else {
         foreach ($lista_eventi_array as $evento) {
             $lista_eventi_string .= '<article>';
-            $lista_eventi_string .= '<a href="evento.php?id=' . urlencode($evento['id']) . '">';
-            $lista_eventi_string .= '<time datetime="' . $evento['data'] . '">' . $evento['data'] . '</time>';
-            $lista_eventi_string .= '<img src="assets/media/locandine/' . $evento['locandina'] . '">';
-            $lista_eventi_string .= '<p>' . htmlspecialchars($evento['titolo']) . '</p>';
+            $lista_eventi_string .= '<a href="evento.php?id=' . urlencode($evento['Id']) . '">';
+            $lista_eventi_string .= '<time datetime="' . $evento['Data'] . '">' . $evento['Data'] . '</time>';
+            $lista_eventi_string .= '<img src="assets/media/locandine/' . $evento['Locandina'] . '">';
+            $lista_eventi_string .= '<p>' . htmlspecialchars($evento['Titolo']) . '</p>';
             $lista_eventi_string .= '</a>';
             $lista_eventi_string .= '</article>';
         }
