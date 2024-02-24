@@ -14,7 +14,11 @@ $description = '';
 $keywords = '';
 $menu = get_menu(isset($_SESSION["login"]), $pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
-$onload = '';
+$onload = 'init_home()';
+
+// $from = 'href="index.php"';
+// $to = '';
+// str_replace($from, $to, $paginaHTML); da rimuovere il link alla pagina corrente
 
 echo multi_replace($paginaHTML,[
     '{title}' => $title,

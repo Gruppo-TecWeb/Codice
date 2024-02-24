@@ -233,22 +233,20 @@ footer {
 
 #index #breadcrumbs-container {
     position: fixed;
-    left: 50%;
-    top: unset;
-    right: unset;
+    text-indent: unset;
 }
 
 #index {
     padding-top: unset;
 }
 
-#titoloHome video {
+#hero video {
     border-left: unset;
     width: 100%;
     max-width: unset;
 }
 
-#titoloHome #titolo {
+#hero #titolo {
     position: absolute;
     top: 50%;
     right: 0;
@@ -259,8 +257,7 @@ footer {
     background-color: var(--secondaryColor);
 }
 
-#index #titoloHome h1 {
-    font-family: "Hokia";
+#index #hero h2 {
     font-size: 2em;
 }
 

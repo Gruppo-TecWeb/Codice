@@ -8,6 +8,7 @@
     --unfocusedTxtColor: #949494;
     /* --accentColor: #EF754A; */
     --accentColor: #EF534A;
+    /* #e6291e QUESTOOOO */
     /*meglio???*/
     --secondaryColor: #262626;
     --linkColor: #00b4ff;
@@ -22,23 +23,8 @@
 }
 
 @font-face {
-    font-family: Hokia;
-    src: url('../assets/fonts/Hokia\ Regular.ttf');
-}
-
-@font-face {
-    font-family: Fimlen;
-    src: url('../assets/fonts/fimlen.regular.otf');
-}
-
-@font-face {
-    font-family: Qualva;
-    src: url('../assets/fonts/RetroQalva-DemoVersion-Regular.ttf');
-}
-
-@font-face {
     font-family: Horizontale;
-    src: url('../assets/fonts/horizontale.regular.ttf');
+    src: url('../assets/fonts/Horizontale.ttf');
 }
 
 
@@ -71,7 +57,6 @@ a:link {
 }
 
 a:hover {
-    /* background-color: var(--linkHoverBgColor); */
     text-decoration: underline;
     text-decoration-color: var(--accentColor);
 }
@@ -271,16 +256,28 @@ footer ul {
 
 #index #breadcrumbs-container {
     position: absolute;
-    left: 0;
-    top: 4em;
-    right: 0;
+    text-indent: -999em;
 }
 
 #index {
     padding-top: unset;
 }
 
-#titoloHome {
+#index header a {
+    transition: all 0.5s;
+}
+
+#index header a h1.js {
+    position: absolute;
+    text-indent: -999em;
+}
+
+#index header a h1.js.scrolled {
+    position: unset;
+    text-indent: unset;
+}
+
+#hero {
     height: 100vh;
     display: flex;
     justify-content: space-between;
@@ -288,7 +285,7 @@ footer ul {
     flex-direction: row-reverse;
 }
 
-#titoloHome video {
+#hero video {
     height: 100vh;
     width: fit-content;
     max-width: 40%;
@@ -296,20 +293,29 @@ footer ul {
     border-left: 2px solid var(--accentColor);
 }
 
-#titoloHome #titolo {
+#hero #titolo {
     width: 100%;
     height: 100%;
 }
 
-#index #titoloHome h1 {
+#index #hero h2 {
+    margin-top: 2rem;
     padding: 0.1em;
-    font-family: "Hokia";
+    cursor: default;
     font-family: "Horizontale";
-    font-family: "Qualva";
-    font-family: "Fimlen";
-    font-size: 17vw;
+    font-size: 10vw;
     background-color: var(--accentColor);
     border-bottom: 2px solid var(--accentColor);
+}
+
+#index #hero p {
+    border: 2px solid var(--accentColor);
+    padding: 1em;
+    background: var(--secondaryColor);
+}
+
+#index #eventi-home {
+    height: 100vh;
 }
 
 #index #eventi-home-principali {

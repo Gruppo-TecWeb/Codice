@@ -1,14 +1,29 @@
 var navOpened = false;
 
 function toggleMenu() {
-    var nav = document.getElementById("menu");
-    var bcContainer = document.getElementById("breadcrumbs-container");
-    navOpened = !navOpened;
-    nav.setAttribute("data-menu-open", navOpened);
-    bcContainer.setAttribute("data-menu-open", navOpened);
-    document.body.setAttribute("data-menu-open", navOpened);
+    menuOpened = !menuOpened;
+    menu.setAttribute("data-menu-open", menuOpened);
+    bcContainer.setAttribute("data-menu-open", menuOpened);
+    document.body.setAttribute("data-menu-open", menuOpened);
 }
-  
+
+function init_home() {
+    var logo = document.querySelector('header a h1');
+    var hero = document.querySelector('#hero h2');
+    logo.classList.add('js');
+
+
+    window.addEventListener('scroll', function() {
+        var position = hero.getBoundingClientRect();
+
+        if (position.bottom < 0) {
+            logo.classList.add('scrolled');
+        } else {
+            logo.classList.remove('scrolled');
+        }
+    });
+}
+
 function init_eventi() {
     var urlParams = new URLSearchParams(window.location.search);
     var filtro = urlParams.get('filtro');
