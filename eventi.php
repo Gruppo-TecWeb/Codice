@@ -9,8 +9,8 @@ use DB\DBAccess;
 
 session_start();
 
-$eventiHTML = file_get_contents("template/template-pagina.html");
-$logout = isset($_SESSION["login"]) ? file_get_contents("template/admin/logout-template.html") : '';
+$paginaHTML = file_get_contents("template/template-pagina.html");
+$content = file_get_contents("template/eventi.html");
 
 $title = 'Eventi &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
@@ -18,9 +18,8 @@ $description = '';
 $keywords = '';
 $percorso = '';
 $percorsoAdmin = 'admin/';
-$menu = get_menu($pageId);
-$breadcrumbs = get_breadcrumbs($pageId);
-$content = file_get_contents("template/eventi.html");
+$menu = get_menu($pageId, $percorso);
+$breadcrumbs = get_breadcrumbs($pageId, $percorso);
 $onload = '';
 
 $connection = DBAccess::getInstance();
@@ -35,44 +34,58 @@ if ($connectionOk) {
     $connection->closeDBConnection();
 
     $lista_titoli_string = '';
+    $option = get_content_between_markers($content, 'listaTitoli');
     foreach ($lista_titoli_array as $evento) {
-        $selected = ($evento['Titolo'] == $titolo) ? ' selected' : '';
-        $lista_titoli_string .= "<option value='" . $evento['Titolo'] . "'" . $selected . ">" . $evento['Titolo'] . "</option>";
+        $selected = ($evento['titolo'] == $titolo) ? ' selected' : '';
+        $lista_titoli_string .= multi_replace($option, [
+            '{titoloEvento}' => $evento['titolo'],
+            '{selezioneEvento}' => $selected
+        ]);
     }
 
     $lista_eventi_string = '';
     if ($lista_eventi_array == null) {
         $lista_eventi_string .= '<p>Non ci sono eventi in programma</p>';
     } else {
+        $article = get_content_between_markers($content, 'listaEventi');
         foreach ($lista_eventi_array as $evento) {
-            $lista_eventi_string .= '<article>';
-            $lista_eventi_string .= '<a href="evento.php?id=' . urlencode($evento['Id']) . '">';
-            $lista_eventi_string .= '<time datetime="' . $evento['Data'] . '">' . $evento['Data'] . '</time>';
-            $lista_eventi_string .= '<img src="assets/media/locandine/' . $evento['Locandina'] . '">';
-            $lista_eventi_string .= '<p>' . htmlspecialchars($evento['Titolo']) . '</p>';
-            $lista_eventi_string .= '</a>';
-            $lista_eventi_string .= '</article>';
+            $lista_eventi_string .= multi_replace($article, [
+                '{idEvento}' => urlencode($evento['id']),
+                '{dataEvento}' => $evento['data'],
+                '{locandinaEvento}' => $evento['locandina'],
+                '{titoloEvento}' => htmlspecialchars($evento['titolo'])
+            ]);
         }
     }
-    $content = multi_replace($content, [
-        '{data}' => $data,
-        '{listaTitoli}' => $lista_titoli_string,
-        '{listaEventi}' => $lista_eventi_string,
+    $content = str_replace('{data}', $data, $content);
+    $content = replace_content_between_markers($content, [
+        'listaTitoli' => $lista_titoli_string,
+        'listaEventi' => $lista_eventi_string
     ]);
 } else {
     header("location: errore500.php");
 }
 
-echo multi_replace($eventiHTML, [
+if (isset($_SESSION["login"])) {
+    $paginaHTML = replace_content_between_markers($paginaHTML, [
+        'logout' => get_content_between_markers($paginaHTML, 'logout')
+    ]);
+} else {
+    $paginaHTML = replace_content_between_markers($paginaHTML, [
+        'logout' => ''
+    ]);
+}
+
+echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'breadcrumbs' => $breadcrumbs,
+    'menu' => $menu
+]), [
     '{title}' => $title,
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
-    '{menu}' => $menu,
-    '{breadcrumbs}' => $breadcrumbs,
     '{content}' => $content,
     '{onload}' => $onload,
-    '{logout}' => $logout,
     '{percorso}' => $percorso,
     '{percorsoAdmin}' => $percorsoAdmin
 ]);

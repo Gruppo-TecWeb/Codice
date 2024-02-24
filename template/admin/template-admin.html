@@ -1,0 +1,18 @@
+<div  class="limitedWidth">
+    <h2>Pannello di amministrazione</h2>
+    <div id="admin-window">
+        <nav id="admin-menu">
+            <ul>
+                {adminMenu}
+                {liCurrent}<li><span aria-current="page" id="currentLink" class="adminMenuItem" {lang}>{anchor}</span></li>
+                {/liCurrent}
+                {liNotCurrent}<li><a href="{pageHref}" class="menuItem" {lang}>{anchor}</a></li>
+                {/liNotCurrent}
+                {/adminMenu}
+            </ul>
+        </nav>
+        <div id="admin-content">
+            {adminContent}
+        </div>
+    </div>
+</div>

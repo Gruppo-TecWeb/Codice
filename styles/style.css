@@ -93,29 +93,6 @@ main {
     flex: 1;
 }
 
-
-/* ABOMINIO TOTALE DA SCOMUNICARE!  */
-
-h2 {
-    margin: 1em 0;
-}
-
-h3 {
-    margin-bottom: 0.8em;
-}
-
-h4 {
-    margin-bottom: 0.5em;
-}
-
-h5 {
-    margin-bottom: 0.5em;
-}
-
-div {
-    margin: 0.5em 0;
-}
-
 .no-script {
     display: none;
 }
@@ -806,7 +783,7 @@ div#admin-window {
     background-color: #453B3B;
 }
 
-#admin-menu ul li#currentLink {
+#admin-menu ul li #currentLink {
     padding: 0.6em 1em;
     border: none;
     color: var(--linkVisitedColor);

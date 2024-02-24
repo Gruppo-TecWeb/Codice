@@ -11,6 +11,8 @@
         <select name="titolo" id="titolo">
             <option value="">Tutti gli eventi</option>
             {listaTitoli}
+            <option value="{titoloEvento}" {selezioneEvento}>{titoloEvento}</option>
+            {/listaTitoli}
         </select>
     </fieldset>
     <fieldset class="limitedWidth">
@@ -20,4 +22,12 @@
 </form>
 <div id="lista-eventi" class="limitedWidth">
     {listaEventi}
+    <article>
+        <a href="evento.php?id={idEvento}">
+            <p>{dataEvento}</p>
+            <img src="assets/media/locandine/{locandinaEvento}">
+            <p>{titoloEvento}</p>
+        </a>;
+    </article>
+    {/listaEventi}
 </div>

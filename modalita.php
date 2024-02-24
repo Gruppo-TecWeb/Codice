@@ -6,17 +6,17 @@ require_once("utilities/utilities.php");
 session_start();
 
 $paginaHTML = file_get_contents("template/template-pagina.html");
-$content = file_get_contents("template/chi-siamo.html");
+$content = file_get_contents("template/modalita.html");
 
-$title = 'Chi siamo &minus; Fungo';
+$title = 'Battle &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
-$description = 'Pagina di presentazione del collettivo rap Restraining Stirpe Crew. Organizziamo e gestiamo gli eventi legati al Fungo e al Micelio, durante i quali si svolgono battle di freestyle rap, live di musica rap e dj set.';
-$keywords = 'restraining stirpe, freestyle, freestyle rap, rap, battle, live, dj set, micelio, fungo';
+$description = '';
 $percorso = '';
 $percorsoAdmin = 'admin/';
+$keywords = '';
 $menu = get_menu($pageId, $percorso);
 $breadcrumbs = get_breadcrumbs($pageId, $percorso);
-$onload = '';
+$onload = 'showPlayBattle()';
 
 if (isset($_SESSION["login"])) {
     $paginaHTML = replace_content_between_markers($paginaHTML, [

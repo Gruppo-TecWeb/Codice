@@ -9,11 +9,11 @@ session_start();
 
 $paginaHTML = file_get_contents("../template/template-pagina.html");
 $content = file_get_contents("../template/admin/template-admin.html");
-$adminContent = file_get_contents("../template/admin/eventi-template.html");
+$adminContent = file_get_contents("../template/admin/admin-content.html");
 
-$title = 'Tipi Evento &minus; Fungo';
+$title = 'Area di amministrazione &minus; Fungo';
 $pageId = 'admin/' . basename(__FILE__, '.php');
-$description = '';
+$description = 'Pagina principale dell\'area di amministrazione del sito.';
 $keywords = '';
 $percorso = '../';
 $percorsoAdmin = '';
@@ -24,16 +24,6 @@ $onload = '';
 
 if (!isset($_SESSION["login"])) {
     header("location: login.php");
-}
-
-$connection = DBAccess::getInstance();
-$connectionOk = $connection->openDBConnection();
-
-if ($connectionOk) {
-    // fare quello che c'è da fare...
-    $connection->closeDBConnection();
-} else {
-    header("location: ../errore500.php");
 }
 
 if (isset($_SESSION["login"])) {

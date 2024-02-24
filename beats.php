@@ -7,9 +7,8 @@ use DB\DBAccess;
 
 session_start();
 
-$beatsHTML = file_get_contents("template/template-pagina.html");
+$paginaHTML = file_get_contents("template/template-pagina.html");
 $content = file_get_contents("template/beats.html");
-$logout = isset($_SESSION["login"]) ? file_get_contents("template/admin/logout-template.html") : '';
 
 $title = 'Battle &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
@@ -17,20 +16,30 @@ $description = "Basi per freestyle di rap";
 $keywords = 'Basi, Beats, Instrumental, Freestyle, Rap';
 $percorso = '';
 $percorsoAdmin = 'admin/';
-$menu = get_menu($pageId);
-$breadcrumbs = get_breadcrumbs($pageId);
+$menu = get_menu($pageId, $percorso);
+$breadcrumbs = get_breadcrumbs($pageId, $percorso);
 $onload = '';
 
-echo multi_replace($beatsHTML, [
+if (isset($_SESSION["login"])) {
+    $paginaHTML = replace_content_between_markers($paginaHTML, [
+        'logout' => get_content_between_markers($paginaHTML, 'logout')
+    ]);
+} else {
+    $paginaHTML = replace_content_between_markers($paginaHTML, [
+        'logout' => ''
+    ]);
+}
+
+echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'breadcrumbs' => $breadcrumbs,
+    'menu' => $menu
+]), [
     '{title}' => $title,
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
-    '{menu}' => $menu,
-    '{breadcrumbs}' => $breadcrumbs,
     '{content}' => $content,
     '{onload}' => $onload,
-    '{logout}' => $logout,
     '{percorso}' => $percorso,
     '{percorsoAdmin}' => $percorsoAdmin
 ]);
