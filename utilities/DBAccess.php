@@ -59,42 +59,41 @@ class DBAccess {
     }
 
     public function getListaEventi($data = '', $titolo = '') {
-        $query = "SELECT e.id,
-        e.titolo,
-        e.descrizione,
-        e.data,
-        e.ora,
-        e.luogo,
-        e.locandina
-        FROM eventi as e";
+        $query = "SELECT e.Id,
+        e.Titolo,
+        e.Descrizione,
+        e.Data,
+        e.Ora,
+        e.Luogo,
+        e.Locandina
+        FROM Eventi as e";
         $conditions = [];
-        $conditions[] = $data != '' ? "e.data >= '$data'" : "e.data >= '" . date('Y-m-d') . "'";
+        $conditions[] = $data != '' ? "e.Data >= '$data'" : "e.Data >= '" . date('Y-m-d') . "'";
         if ($titolo != '') {
-            $conditions[] = "e.titolo = '$titolo'";
+            $conditions[] = "e.Titolo = '$titolo'";
         }
-        $query .= " WHERE " . implode(' AND ', $conditions);
-        $query .= " order by data asc";
+        $query .= " WHERE " . implode(' AND ', $conditions) . " ORDER BY Data ASC";
         return $this->executeQuery($query);
     }
 
     public function getEvento($id) {
-        $query = "SELECT e.titolo,
-        e.descrizione,
-        e.data,
-        e.ora,
-        e.luogo,
-        e.locandina,
-        ce.tipoevento,
-        ce.datainizio
-        FROM eventi as e
-        left join classificheeventi as ce on e.id = ce.evento
-        where e.id = ?";
+        $query = "SELECT e.Titolo,
+        e.Descrizione,
+        e.Data,
+        e.Ora,
+        e.Luogo,
+        e.Locandina,
+        ce.Tipoevento,
+        ce.Datainizio
+        FROM Eventi AS e
+        LEFT JOIN Classificheeventi AS ce ON e.Id = ce.Evento
+        WHERE e.Id = ?";
         return ($ris = $this->executeQuery($query, $id)) ? $ris[0] : null;
     }
 
     public function getTitoliEventi() {
         return $this->executeQuery(
-            "SELECT DISTINCT titolo FROM eventi;"
+            "SELECT DISTINCT Titolo FROM Eventi;"
         );
     }
     public function get_tipo_evento($evento) {
