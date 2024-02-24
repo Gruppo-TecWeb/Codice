@@ -616,23 +616,9 @@ div.error500 img {
     background-position: center;
     background-size: 100%;
     color: transparent;
-}
-#lista_beats li:hover button[data-isPlaying="true"]{
-    background-image: url("../assets/icons/Pause.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100%;
-    color: transparent;
+    opacity: 1;
 }
 
-#lista_beats button[data-isPlaying="false"] {
-    background-image: url("../assets/icons/Play.png");
-    opacity: 1;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100%;
-    color: transparent;
-}
 #lista_beats button[data-isPlaying="true"] {
     background-image: url("../assets/icons/Pause.png");
     color: transparent;
@@ -640,7 +626,7 @@ div.error500 img {
     background-position: center;
     background-size: 100%;
     opacity: 1;
-} 
+}
 #lista_beats button{
     background: transparent;
     border-style: none;
