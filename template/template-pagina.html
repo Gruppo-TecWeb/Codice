@@ -44,12 +44,8 @@
     </header>
     <div id="breadcrumbs-container" class="limitedWidth mobileCard" data-menu-open="true">
         <nav id="breadcrumbs" aria-label="Percorso">
-            {breadcrumbs}   
-            <p><span id="ti-trovi-in">Ti trovi in: </span>
-                {parentBreadcrumb}
-                <a href="{pageHref}" {lang}>{parent}</a> <span aria-hidden="true">&rsaquo;&rsaquo; </span>
-                {/parentBreadcrumb}
-                <span {lang}>{anchor}</span>
+            {breadcrumbs}<p>
+                <span id="ti-trovi-in">Ti trovi in: </span>{parentBreadcrumb}<a href="{pageHref}" {lang}>{parent}</a> <span aria-hidden="true">&rsaquo;&rsaquo; </span>{/parentBreadcrumb}<span {lang}>{anchor}</span>
             </p>
             {/breadcrumbs}
         </nav>

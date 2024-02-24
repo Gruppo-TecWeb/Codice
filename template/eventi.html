@@ -9,8 +9,7 @@
         <label for="titolo">Filtra per titolo</label>
         <select id="titolo" name="titolo" onchange="this.form.submit()">
             <option value="" selected>...</option>
-            {listaTitoli}
-            <option value="{titoloEvento}" {selezioneEvento}>{titoloEvento}</option>
+            {listaTitoli}<option value="{titoloEvento}" {selezioneEvento}>{titoloEvento}</option>
             {/listaTitoli}
         </select>
     </fieldset>
@@ -19,13 +18,12 @@
     </fieldset>
 </form>
 <div id="lista-eventi" class="limitedWidth">
-    {listaEventi}
-    <article>
+    {listaEventi}<article>
         <a href="evento.php?id={idEvento}">
-            <p>{dataEvento}</p>
+            <p><time datetime="{valueDataEvento}">{dataEvento}</time></p>
             <img src="assets/media/locandine/{locandinaEvento}">
             <p>{titoloEvento}</p>
-        </a>;
+        </a>
     </article>
     {/listaEventi}
 </div>

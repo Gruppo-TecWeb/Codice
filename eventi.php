@@ -51,6 +51,7 @@ if ($connectionOk) {
         foreach ($lista_eventi_array as $evento) {
             $lista_eventi_string .= multi_replace($article, [
                 '{idEvento}' => urlencode($evento['id']),
+                '{valueDataEvento}' => $evento['data'],
                 '{dataEvento}' => $evento['data'],
                 '{locandinaEvento}' => $evento['locandina'],
                 '{titoloEvento}' => htmlspecialchars($evento['titolo'])
