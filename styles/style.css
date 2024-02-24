@@ -475,8 +475,13 @@ footer #footer-credits {
 }
 
 #evento-info {
-    margin-left: 1.25em;
+    margin-left: 2.5em;
     color: black;
+}
+
+#evento-info dt {
+    font-weight: bold;
+    margin-top: 0.5em;
 }
 
 .evento {
@@ -496,7 +501,6 @@ footer #footer-credits {
     display: block;
     color: #000;
 }
-
 
 /* 
  * PAGINA BATTLE 
