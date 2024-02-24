@@ -3,95 +3,68 @@
 namespace Utilities;
 
 const pages_array = [
-    'index'       => ['href' => 'index.php',          'anchor' => 'Home',                                  'lang' => 'en', 'menuOrder' => 1, 'parentId' => ''],
-    'eventi'      => ['href' => 'eventi.php',         'anchor' => 'Eventi',                                'lang' => '',   'menuOrder' => 2, 'parentId' => 'index'],
-    'classifiche' => ['href' => 'classifiche.php',    'anchor' => 'Classifiche',                           'lang' => '',   'menuOrder' => 3, 'parentId' => 'index'],
-    'battle'      => ['href' => 'battle.php',         'anchor' => 'Tipi di <span lang="en">Battle</span>', 'lang' => '',   'menuOrder' => 4, 'parentId' => 'index'],
-    'chi-siamo'   => ['href' => 'chi-siamo.php',      'anchor' => 'Chi siamo',                             'lang' => '',   'menuOrder' => 5, 'parentId' => 'index'],
-    'login'       => ['href' => 'login.php',          'anchor' => 'Login',                                 'lang' => 'en', 'menuOrder' => 0, 'parentId' => 'index'],
-    'profilo'     => ['href' => 'profilo.php',        'anchor' => 'Profilo',                               'lang' => '',   'menuOrder' => 0, 'parentId' => 'index'],
-    'logout'      => ['href' => 'logout.php',         'anchor' => 'Logout',                                'lang' => 'en', 'menuOrder' => 0, 'parentId' => 'index'],
-    'registrati'  => ['href' => 'registrati.php',     'anchor' => 'Registrati',                            'lang' => '',   'menuOrder' => 0, 'parentId' => 'index'],
-    'evento'      => ['href' => 'evento.php?id={id}', 'anchor' => '{evento}',                              'lang' => '',   'menuOrder' => 0, 'parentId' => 'eventi']
+    'index'                 => ['href' => '{percorso}index.php',                'anchor' => 'Home',                    'lang' => 'en', 'menuOrder' => 1, 'adminMenuOrder' => 0, 'parentId' => ''],
+    'eventi'                => ['href' => '{percorso}eventi.php',               'anchor' => 'Eventi',                  'lang' => '',   'menuOrder' => 2, 'adminMenuOrder' => 0, 'parentId' => 'index'],
+    'evento'                => ['href' => '{percorso}evento.php?id={id}',       'anchor' => '{evento}',                'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 0, 'parentId' => 'eventi'],
+    'classifiche'           => ['href' => '{percorso}classifiche.php',          'anchor' => 'Classifiche',             'lang' => '',   'menuOrder' => 3, 'adminMenuOrder' => 0, 'parentId' => 'index'],
+    'modalità'              => ['href' => '{percorso}modalità.php',             'anchor' => 'Modalità',                'lang' => '',   'menuOrder' => 4, 'adminMenuOrder' => 0, 'parentId' => 'index'],
+    'beats'                 => ['href' => '{percorso}beats.php',                'anchor' => 'Beats',                   'lang' => 'en', 'menuOrder' => 5, 'adminMenuOrder' => 0, 'parentId' => 'index'],
+    'chi-siamo'             => ['href' => '{percorso}chi-siamo.php',            'anchor' => 'Chi siamo',               'lang' => '',   'menuOrder' => 6, 'adminMenuOrder' => 0, 'parentId' => 'index'],
+    'admin/registrati'      => ['href' => '{percorsoAdmin}registrati.php',      'anchor' => 'Registrati',              'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 0, 'parentId' => 'index'],
+    'admin/login'           => ['href' => '{percorsoAdmin}login.php',           'anchor' => 'Login',                   'lang' => 'en', 'menuOrder' => 0, 'adminMenuOrder' => 0, 'parentId' => 'index'],
+    'admin/amministrazione' => ['href' => '{percorsoAdmin}amministrazione.php', 'anchor' => 'Area di amministrazione', 'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 0, 'parentId' => 'index'],
+    'admin/profilo'         => ['href' => '{percorsoAdmin}profilo.php',         'anchor' => 'Profilo Personale',       'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 1, 'parentId' => 'admin/amministrazione'],
+    'admin/eventi'          => ['href' => '{percorsoAdmin}eventi.php',          'anchor' => 'Gestione Eventi',         'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 2, 'parentId' => 'admin/amministrazione'],
+    'admin/classifiche'     => ['href' => '{percorsoAdmin}classifiche.php',     'anchor' => 'Gestione Classifiche',    'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 3, 'parentId' => 'admin/amministrazione'],
+    'admin/tipievento'      => ['href' => '{percorsoAdmin}tipievento.php',      'anchor' => 'Gestione Tipi Evento',    'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 4, 'parentId' => 'admin/amministrazione'],
+    'admin/rappers'         => ['href' => '{percorsoAdmin}rappers.php',         'anchor' => 'Gestione Rappers',        'lang' => 'en', 'menuOrder' => 0, 'adminMenuOrder' => 5, 'parentId' => 'admin/amministrazione'],
+    'admin/amministratori'  => ['href' => '{percorsoAdmin}amministratori.php',  'anchor' => 'Gestione Amministratori', 'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 6, 'parentId' => 'admin/amministrazione'],
+    'admin/logout'          => ['href' => '{percorsoAdmin}logout.php',          'anchor' => 'Logout',                  'lang' => 'en', 'menuOrder' => 0, 'adminMenuOrder' => 7, 'parentId' => 'index'],
+    'errore500'             => ['href' => '{percorso}errore500.php',            'anchor' => 'Errore 500',              'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 0, 'parentId' => 'index']
 ];
 
 function multi_replace($source, $replacements) {
     return str_replace(array_keys($replacements), $replacements, $source);
 }
 
-function get_menu($logged, $pageId) {
+function get_menu($pageId) {
     $pages = array();
     foreach (pages_array as $page) {
         if ($page['menuOrder'] > 0) {
             $lang_tag = $page['lang'] ? ' lang="' . $page['lang'] . '"' : '';
             $isCurrent = $page == pages_array[$pageId];
             $menuOrder = $page['menuOrder'];
-            $pages[$menuOrder] = '<li';
+            $pages[$menuOrder] = '<li>';
             if ($isCurrent) {
-                $pages[$menuOrder] .= ' id="currentLink"' . $lang_tag . '>' . $page['anchor'];
+                $pages[$menuOrder] .= '<span aria-current="page" id="currentLink" class="menuItem"' . $lang_tag . '>' . $page['anchor'] . '</span>';
             } else {
-                $pages[$menuOrder] .= '><a href="' . $page['href'] . '"' . $lang_tag . '>' . $page['anchor'] . '</a>';
+                $pages[$menuOrder] .= '<a class="menuItem" href="' . $page['href'] . '"' . $lang_tag . '>' . $page['anchor'] . '</a>';
             }
             $pages[$menuOrder] .= '</li>';
         }
     }
     $menu = '' . implode('
-            ', $pages) . '
-            ' . get_reserved_menu($logged, $pageId) . '';
+            ', $pages);
     return $menu;
 }
-function get_reserved_menu($logged, $pageId) {
-    $liMenu = '<li><a href="{href}"{lang}>{anchor}</a></li>';
-    $currentLiMenu = '<li id="currentLink"{lang}>{anchor}</li>';
-    $menu = '';
-    $langTagProfilo = pages_array['profilo']['lang'] ? ' lang="' . pages_array['profilo']['lang'] . '"' : '';
-    $langTagLogout = pages_array['logout']['lang'] ? ' lang="' . pages_array['logout']['lang'] . '"' : '';
-    $langTagRegistrati = pages_array['registrati']['lang'] ? ' lang="' . pages_array['registrati']['lang'] . '"' : '';
-    $langTagLogin = pages_array['login']['lang'] ? ' lang="' . pages_array['login']['lang'] . '"' : '';
-    if ($logged) {
-        switch ($pageId) {
-            case 'profilo':
-                $menu .= str_replace('{lang}', $langTagProfilo, $currentLiMenu);
-                $menu = str_replace('{anchor}', pages_array['profilo']['anchor'], $menu);
-                $menu .= str_replace('{href}', pages_array['logout']['href'], $liMenu);
-                $menu = str_replace('{lang}', $langTagLogout, $menu);
-                $menu = str_replace('{anchor}', pages_array['logout']['anchor'], $menu);
-                break;
-            default:
-                $menu .= str_replace('{href}', pages_array['profilo']['href'], $liMenu);
-                $menu = str_replace('{lang}', $langTagProfilo, $menu);
-                $menu = str_replace('{anchor}', pages_array['profilo']['anchor'], $menu);
-                $menu .= str_replace('{href}', pages_array['logout']['href'], $liMenu);
-                $menu = str_replace('{lang}', $langTagLogout, $menu);
-                $menu = str_replace('{anchor}', pages_array['logout']['anchor'], $menu);
-                break;
-        }
-    } else {
-        switch ($pageId) {
-            case 'registrati':
-                $menu .= str_replace('{lang}', $langTagRegistrati, $currentLiMenu);
-                $menu = str_replace('{anchor}', pages_array['registrati']['anchor'], $menu);
-                $menu .= str_replace('{href}', pages_array['login']['href'], $liMenu);
-                $menu = str_replace('{lang}', $langTagLogin, $menu);
-                $menu = str_replace('{anchor}', pages_array['login']['anchor'], $menu);
-                break;
-            case 'login':
-                $menu .= str_replace('{href}', pages_array['registrati']['href'], $liMenu);
-                $menu = str_replace('{lang}', $langTagRegistrati, $menu);
-                $menu = str_replace('{anchor}', pages_array['registrati']['anchor'], $menu);
-                $menu .= str_replace('{lang}', $langTagLogin, $currentLiMenu);
-                $menu = str_replace('{anchor}', pages_array['login']['anchor'], $menu);
-                break;
-            default:
-                $menu .= str_replace('{href}', pages_array['registrati']['href'], $liMenu);
-                $menu = str_replace('{lang}', $langTagRegistrati, $menu);
-                $menu = str_replace('{anchor}', pages_array['registrati']['anchor'], $menu);
-                $menu .= str_replace('{href}', pages_array['login']['href'], $liMenu);
-                $menu = str_replace('{lang}', $langTagLogin, $menu);
-                $menu = str_replace('{anchor}', pages_array['login']['anchor'], $menu);
-                break;
+function get_admin_menu($pageId) {
+    $pages = array();
+    foreach (pages_array as $page) {
+        if ($page['adminMenuOrder'] > 0) {
+            $lang_tag = $page['lang'] ? ' lang="' . $page['lang'] . '"' : '';
+            $isCurrent = $page == pages_array[$pageId];
+            $adminMenuOrder = $page['adminMenuOrder'];
+            $pages[$adminMenuOrder] = '<li';
+            if ($isCurrent) {
+                $pages[$adminMenuOrder] .= ' id="currentLink"' . $lang_tag . '>' . $page['anchor'];
+            } else {
+                $pages[$adminMenuOrder] .= '><a href="' . $page['href'] . '"' . $lang_tag . '>' . $page['anchor'] . '</a>';
+            }
+            $pages[$adminMenuOrder] .= '</li>';
         }
     }
+    $menu = '' . implode('
+            ', $pages);
     return $menu;
 }
 function get_breadcrumbs($pageId) {

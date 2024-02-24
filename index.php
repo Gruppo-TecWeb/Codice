@@ -5,14 +5,17 @@ require_once "utilities/utilities.php";
 
 session_start();
 
-$paginaHTML = file_get_contents("template/pagina-template.html");
-$content = file_get_contents("template/home.html");
+$paginaHTML = file_get_contents("template/template-pagina.html");
+$content = file_get_contents("template/home-template.html");
+$logout = isset($_SESSION["login"]) ? file_get_contents("template/admin/logout-template.html") : '';
 
 $title = 'Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = '';
 $keywords = '';
-$menu = get_menu(isset($_SESSION["login"]), $pageId);
+$percorso = '';
+$percorsoAdmin = 'admin/';
+$menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = 'init_home()';
 
@@ -28,6 +31,8 @@ echo multi_replace($paginaHTML,[
     '{menu}' => $menu,
     '{breadcrumbs}' => $breadcrumbs,
     '{content}' => $content,
-    '{onload}' => $onload
+    '{onload}' => $onload,
+    '{logout}' => $logout,
+    '{percorso}' => $percorso,
+    '{percorsoAdmin}' => $percorsoAdmin
 ]);
-?>

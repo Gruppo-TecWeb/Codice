@@ -1,0 +1,17 @@
+<h3>Profilo personale</h3>
+            <dl id="datiUtente">
+                <dt>Username:</dt>
+                <dd>{username}</dd>
+                <dt>E-Mail:</dt>
+                <dd>{email}</dd>
+            </dl>
+            <div id="modificaDati">
+                {formModificaDatiUtente}
+                {messaggiProfilo}
+                <form name="modifica" method="get" action="profilo.php">
+                    <fieldset class="bottoni">
+                        <input type="submit" id="submitEmail" name="submitEmail" value="Modifica e-Mail"/>
+                        <input type="submit" id="submitPassword" name="submitPassword" value="Modifica password"/>
+                    </fieldset>
+                </form>
+            </div>

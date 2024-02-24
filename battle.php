@@ -5,7 +5,7 @@ require_once("utilities/utilities.php");
 
 session_start();
 
-$paginaHTML = file_get_contents("template/pagina-template.html");
+$paginaHTML = file_get_contents("template/template-pagina.html");
 
 $title = 'Battle &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
