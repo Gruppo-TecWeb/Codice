@@ -76,6 +76,33 @@ class DBAccess {
         return $this->executeQuery($query);
     }
 
+    public function getEventiSelezionabili($dataInizio, $dataFine) {
+        $query = "SELECT *
+        FROM Eventi
+        WHERE Eventi.Data >= ? AND Eventi.Data <= ? AND Eventi.Id NOT IN (
+            SELECT Eventi.Id
+            FROM Eventi
+            JOIN ClassificheEventi ON Eventi.Id = ClassificheEventi.Evento
+        )
+        ORDER BY Eventi.Data ASC";
+        return $this->executeQuery($query, $dataInizio, $dataFine);
+    }
+
+    public function getEventiSelezionati($tipoEvento, $dataInizio) {
+        $query = "SELECT Eventi.Id,
+        Eventi.Titolo,
+        Eventi.Descrizione,
+        Eventi.Data,
+        Eventi.Ora,
+        Eventi.Luogo,
+        Eventi.Locandina
+        FROM Eventi
+        JOIN ClassificheEventi ON Eventi.Id = ClassificheEventi.Evento
+        WHERE ClassificheEventi.TipoEvento = ? AND ClassificheEventi.DataInizio = ?
+        ORDER BY Eventi.Data ASC";
+        return $this->executeQuery($query, $tipoEvento, $dataInizio);
+    }
+
     public function getEvento($id) {
         $query = "SELECT e.Titolo,
         e.Descrizione,
@@ -96,7 +123,14 @@ class DBAccess {
             "SELECT DISTINCT Titolo FROM Eventi;"
         );
     }
-    public function get_tipo_evento($evento) {
+
+    public function getTipiEvento() {
+        return $this->executeQuery(
+            "SELECT * FROM TipiEvento;"
+        );
+    }
+
+    public function get_tipo_evento($evento = null) {
         $query = $evento ?
             "SELECT * FROM TipiEvento WHERE Titolo = ?;" :
             "SELECT TipiEvento.Titolo, 

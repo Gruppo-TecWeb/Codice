@@ -21,6 +21,7 @@ $percorsoAdmin = 'admin/';
 $menu = get_menu($pageId, $percorso);
 $breadcrumbs = get_breadcrumbs($pageId, $percorso);
 $onload = 'hideSubmitButtons()';
+$nessunaClassifica = '';
 
 $connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
@@ -37,7 +38,7 @@ if ($connectionOk) {
         $dataInizioEvento = date_create($classifica[1]);
         $sceltaEffettuata = true;
     } else {
-        $titoloEvento = $connection->get_tipo_evento(null)['Titolo'];
+        $titoloEvento = $connection->get_tipo_evento()['Titolo'];
         $dataInizioEvento = date_create($connection->get_data_inizio_corrente($titoloEvento));
     }
 
@@ -98,7 +99,7 @@ if ($connectionOk) {
             'rigaClassifica' => $righe
         ]);
     } else {
-        $content .= '<p>Non sono presenti classifiche.</p>';
+        $nessunaClassifica = get_content_between_markers($content, 'nessunaClassifica');
     }
 
     $connection->closeDBConnection();
@@ -124,7 +125,7 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
-    '{content}' => $content,
+    '{content}' => replace_content_between_markers($content, ['nessunaClassifica' => $nessunaClassifica]),
     '{onload}' => $onload,
     '{percorso}' => $percorso,
     '{percorsoAdmin}' => $percorsoAdmin

@@ -18,7 +18,7 @@ CREATE TABLE TipiEvento (
 CREATE TABLE Classifiche (
     TipoEvento VARCHAR(100),
     DataInizio DATE NOT NULL,
-    DataFine DATE,
+    DataFine DATE NOT NULL,
     FOREIGN KEY (TipoEvento) REFERENCES TipiEvento(Titolo),
     PRIMARY KEY (TipoEvento, DataInizio));
 

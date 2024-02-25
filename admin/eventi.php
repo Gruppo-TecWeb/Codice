@@ -8,8 +8,8 @@ use DB\DBAccess;
 session_start();
 
 $paginaHTML = file_get_contents("../template/template-pagina.html");
-$content = file_get_contents("../template/admin/template-admin.html");
-$adminContent = file_get_contents("../template/admin/eventi-template.html");
+$content = file_get_contents("../template/admin/template-pagina-admin.html");
+$adminContent = file_get_contents("../template/admin/eventi.html");
 
 $title = 'Tipi Evento &minus; Fungo';
 $pageId = 'admin/' . basename(__FILE__, '.php');

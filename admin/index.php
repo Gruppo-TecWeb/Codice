@@ -8,8 +8,8 @@ use DB\DBAccess;
 session_start();
 
 $paginaHTML = file_get_contents("../template/template-pagina.html");
-$content = file_get_contents("../template/admin/template-admin.html");
-$adminContent = file_get_contents("../template/admin/admin-content.html");
+$content = file_get_contents("../template/admin/template-pagina-admin.html");
+$adminContent = file_get_contents("../template/admin/index.html");
 
 $title = 'Area di amministrazione &minus; Fungo';
 $pageId = 'admin/' . basename(__FILE__, '.php');

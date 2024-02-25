@@ -1,8 +1,13 @@
 <div class="limitedWidth">
             <h2>Inserisci i dati per la registrazione.</h2>
-            <form method="post" action="admin/registrati.php">
+            <form method="post" action="registrati.php">
                 <div id="messaggiForm">
                     {messaggiForm}
+                    <ul>
+                        {messaggioForm}<li>{messaggio}</li>{/messaggioForm}
+                        {messaggioFormConLink}<li>{messaggio}<a href="{pageHref}"{lang}>{anchor}</a></li>{/messaggioFormConLink}
+                    </ul>
+                    {/messaggiForm}
                 </div>
                 <fieldset class="inserimentoDati">
                     <div id="usernameField">

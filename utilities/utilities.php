@@ -53,7 +53,7 @@ function get_menu($pageId, $percorso) {
     return $menu;
 }
 function get_admin_menu($pageId) {
-    $paginaHTML = file_get_contents("../template/admin/template-admin.html");
+    $paginaHTML = file_get_contents("../template/admin/template-pagina-admin.html");
     $adminMenu = '';
     $liCurrent = get_content_between_markers($paginaHTML, 'liCurrent');
     $liNotCurrent = get_content_between_markers($paginaHTML, 'liNotCurrent');
