@@ -1,22 +1,38 @@
 <section id="hero">
-    <video muted autoplay loop poster="assets/media/evento_micelio.jpg">
-        <source src="assets/media/video_fungo.mp4" type="video/mp4">
-        <source src="assets/media/video_fungo.webm" type="video/webm">
-    </video>
     <div id="titolo">
-        <h2>Fungo</h2>
-        <p>Collettivo Rap, Padova</p>
+        <h2 class="title">Fungo</h2>
+        <h3>Collettivo Rap, Padova</h3>
+        <p>descrizionme descrizionme, da mettere sotto</p>
+    </div>
+    <div class="videoPlayer">
+        <video controls muted autoplay loop poster="assets/media/evento_micelio.jpg" width="1080" height="1920">
+            <source src="assets/media/video_fungo.mp4" type="video/mp4">
+            <source src="assets/media/video_fungo.webm" type="video/webm">
+            Il tuo browser non supporta questo video.
+        </video>
+        <div class="controls">
+            <button id="btn-video">  
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path id="pause" d="M208 432h-48a16 16 0 01-16-16V96a16 16 0 0116-16h48a16 16 0 0116 16v320a16 16 0 01-16 16zM352 432h-48a16 16 0 01-16-16V96a16 16 0 0116-16h48a16 16 0 0116 16v320a16 16 0 01-16 16z"/>
+                    <path id="play" fill="transparent" d="M133 440a35.37 35.37 0 01-17.5-4.67c-12-6.8-19.46-20-19.46-34.33V111c0-14.37 7.46-27.53 19.46-34.33a35.13 35.13 0 0135.77.45l247.85 148.36a36 36 0 010 61l-247.89 148.4A35.5 35.5 0 01133 440z"/>
+                </svg>
+                <span class="navigationHelp">Pausa/<span lang="en">Play</span></span>
+            </button>
+        </div>
     </div>
 </section>
 <section id="eventi-home">
+    <h2>I nostri eventi principai</h2>
     <dl id="eventi-home-principali">
         <div class="eventoHomePrincipale">
             <dt>Fungo</dt>
-            <dd>Ogni stagione estiva blabla blabla... con chatgpt</dd>
+            <dd>Il Fungo prende il nome dall'iconica struttura presente in piazza zanellato a Padova, dove ha luogo solitamente ogni martedì. Si tratta di una serie di eventi legati al mondo rap freestyle durante i quali si svolgono delle battle tra i vari
+                partecipanti. Le classifiche sono i risultati di questi incontri.</dd>
         </div>
         <div class="eventoHomePrincipale">
             <dt>Micelio</dt>
-            <dd>Dinverno, allinterno blaarf... con chatgpt</dd>
+            <dd>Il Micelio è la versione invernale del Fungo e ha luogo solitamente ogni martedì presso il Distretto Est, a Padova. Si tratta di una serie di eventi legati al mondo rap freestyle durante i quali si svolgono delle battle tra i vari partecipanti.
+                Le classifiche sono i risultati di questi incontri.</dd>
         </div>
     </dl>
 

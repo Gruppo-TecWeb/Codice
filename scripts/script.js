@@ -21,11 +21,22 @@ function toggleMenu() {
 }
 
 function init_index() {
-    var logo = document.querySelector('header a h1');
-    var hero = document.querySelector('#hero h2');
+    const logo = document.querySelector('header a h1');
+    const hero = document.querySelector('#hero h2');
+    const video = document.querySelector("video");
+    const btnPlay = document.querySelector("#btn-video");
+    const controls = document.querySelector(".controls");
+
+
     logo.classList.add('js');
+    video.removeAttribute("controls");
+    controls.classList.add('js');
+    btnPlay.classList.add('js');
 
 
+    btnPlay.addEventListener('click', function() {
+        playPauseMedia(video, btnPlay);
+    });
     window.addEventListener('scroll', function() {
         var position = hero.getBoundingClientRect();
 
@@ -35,6 +46,16 @@ function init_index() {
             logo.classList.remove('scrolled');
         }
     });
+}
+
+function playPauseMedia(media, button) {
+    if (media.paused) {
+        media.play();
+        button.classList.remove("playing");
+    } else {
+        media.pause();
+        button.classList.add("playing");
+    }
 }
 
 /*
@@ -121,8 +142,8 @@ function playerAudio(nomeBase) {
     {
         /*
         audio.onplaying = function(){
+            //document.getElementsByClassName("base")[playingBeat].getElementsByTagName("button")=i+1;
             for (let i = 0; i < basi.length; i++) {
-                //document.getElementsByClassName("base")[playingBeat].getElementsByTagName("button")=i+1;
                 bottone=document.getElementsByClassName("base")[i].getElementsByTagName("button")
                 console.log(bottone[0].title.slice(10) + "==" + nomeBase.slice(0,-4));
                 if(bottone[0].title.slice(10)==nomeBase.slice(0,-4)){
@@ -131,12 +152,12 @@ function playerAudio(nomeBase) {
                     bottone[0].innerHTML='<img src="..\\assets\\icons\\playArancionePieno.png"></img>';
                     console.log(bottone[0].innerHTML);
                     
+                    // bottone=basi[i].getElementsByTagName("button");                      
                     basi[i].onmouseover = function() {
-                       // bottone=basi[i].getElementsByTagName("button");                      
                         //bottone[0].innerHTML='<img src="..\\assets\\icons\\playArancionePieno.png"></img>';
                     }
+                    //bottone=basi[i].getElementsByTagName("button");
                     basi[i].onmouseout = function() {
-                        //bottone=basi[i].getElementsByTagName("button");
                         //bottone[0].innerHTML=i+1;    
                     }
                 }
@@ -171,12 +192,12 @@ function nextAudio(nomeBase) {
 
     for (let i = 0; i < basi.length; i++) {
 
-
         let bottone = basi[i].getElementsByTagName("button");
+
         if (bottone[0].getAttribute("title").slice(10) == nomeBase.slice(0, -4)) {
             let next = basi[i + 1];
+            let nextButton = next.getElementsByTagName("button");
             if (next) {
-                let nextButton = next.getElementsByTagName("button");
                 title = (nextButton[0].getAttribute("title").slice(10) + ".mp3");
                 playerAudio(title);
             }
@@ -190,8 +211,8 @@ function nextAudio(nomeBase) {
 /*
 CLASSIFICHE
 */
-
 function hideSubmitButtons() {
+
     var submitButtons = document.getElementsByClassName("hidden-by-js");
     for (let i = 0; i < submitButtons.length; i++) {
         submitButtons[i].classList.add("no-script");

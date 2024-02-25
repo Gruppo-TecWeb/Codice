@@ -16,9 +16,11 @@
     --successColor: #ACC3A6;
     --errorColor: #a00;
     --widthMax: 1024px;
-    --elevationHigh: 1000;
+    --elevationAbove: 100;
+    --elevationHigh: 10;
     --elevationMiddle: 1;
     --elevationLow: 0;
+    --elevationBelow: -1;
 }
 
 @font-face {
@@ -152,6 +154,7 @@ button,
 
 button:hover,
 .button:hover {
+    cursor: pointer;
     background-color: var(--secondaryColor);
     color: var(--accentColor);
 }
@@ -214,7 +217,7 @@ header {
     left: 0;
     width: 100%;
     height: 2em;
-    z-index: var(--elevationHigh);
+    z-index: var(--elevationAbove);
     background-color: var(--accentColor);
 }
 
@@ -338,15 +341,12 @@ footer #footer-credits {
     height: 44px;
     padding: 0;
     aspect-ratio: 1;
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-image: url("../assets/icons/arrow-up.svg");
 }
 
 
 /*
-* HOME
-*/
+ * HOME
+ */
 
 #index #breadcrumbs-container {
     position: absolute;
@@ -357,55 +357,91 @@ footer #footer-credits {
     padding-top: unset;
 }
 
-#index header a {
-    transition: all 0.5s;
+#index header>a {
+    cursor: default;
+    pointer-events: none;
 }
 
-#index header a h1.js {
-    position: absolute;
-    text-indent: -999em;
+#index header a h1.logo {
+    transition: opacity 0.1s;
 }
 
-#index header a h1.js.scrolled {
-    position: unset;
+#index header a h1.logo.js {
+    overflow: hidden;
+    text-indent: 120%;
+    white-space: nowrap;
+    opacity: 0.1;
+}
+
+#index header a h1.logo.js.scrolled {
+    overflow: unset;
     text-indent: unset;
+    opacity: 1;
 }
 
-#hero {
+#index #hero {
     height: 100vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-direction: row-reverse;
+    flex-direction: row;
+    border-bottom: 2px solid var(--accentColor);
 }
 
-#hero video {
-    height: 100vh;
-    width: fit-content;
-    max-width: 40%;
-    object-fit: cover;
-    border-left: 2px solid var(--accentColor);
-}
-
-#hero #titolo {
+#index #hero #titolo {
     width: 100%;
     height: 100%;
+    container-type: size;
+    resize: horizontal;
 }
 
 #index #hero h2 {
     margin-top: 2rem;
     padding: 0.1em;
+    width: 100%;
+    box-sizing: border-box;
     cursor: default;
+    text-shadow: unset;
     font-family: "Horizontale";
-    font-size: 10vw;
+    font-size: 16cqw;
     background-color: var(--accentColor);
     border-bottom: 2px solid var(--accentColor);
 }
 
-#index #hero p {
+#index #hero h3 {
     border: 2px solid var(--accentColor);
     padding: 1em;
     background: var(--secondaryColor);
+}
+
+#index #hero .videoPlayer {
+    position: relative;
+    height: 100vh;
+    max-width: 40%;
+    border-left: 2px solid var(--accentColor);
+}
+
+#index #hero .videoPlayer video {
+    width: fit-content;
+    height: 100%;
+    object-fit: cover;
+}
+
+#index #hero .videoPlayer #btn-video {
+    position: absolute;
+    bottom: 2rem;
+    left: 3rem;
+    min-height: 3em;
+    min-width: 3em;
+    padding: 0;
+}
+
+#index #hero .videoPlayer #btn-video.playing #play {
+    fill: var(--txtColorOnAccent);
+}
+
+#index #hero .videoPlayer #btn-video.playing #pause {
+    fill: transparent;
 }
 
 #index #eventi-home {

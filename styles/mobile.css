@@ -57,6 +57,12 @@ body.js[data-menu-open=true] {
  * BUTTON
  */
 
+button,
+.button {
+    min-height: 44px;
+    min-width: 44px;
+}
+
 
 /*
  * INPUT
@@ -98,7 +104,7 @@ header .logo {
     box-sizing: border-box;
     width: var(--menuWidth);
     padding-bottom: 1em;
-    z-index: var(--elevationHigh);
+    z-index: var(--elevationAbove);
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
 }
@@ -177,7 +183,7 @@ header .logo {
     justify-content: space-between;
     align-items: center;
     overflow: hidden;
-    z-index: var(--elevationHigh);
+    z-index: var(--elevationAbove);
 }
 
 #breadcrumbs-container.js {
@@ -214,11 +220,11 @@ header .logo {
     aspect-ratio: 1;
     border-radius: 0;
     border: unset;
-    background-size: 100%;
-    background-repeat: no-repeat;
     background-color: var(--accentColor);
     transition: 0.5s;
     background-image: url("../assets/icons/burger_menu.svg");
+    background-size: 100%;
+    background-repeat: no-repeat;
 }
 
 #btn-menu:active {
@@ -261,30 +267,54 @@ footer .logo {
     text-indent: unset;
 }
 
-#index {
-    padding-top: unset;
+#index #hero {
+    height: unset;
+    flex-direction: column-reverse;
 }
 
-#hero video {
-    border-left: unset;
-    width: 100%;
-    max-width: unset;
-}
-
-#hero #titolo {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    padding: 1.5em 2em;
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-    border: 2px solid var(--accentColor);
-    background-color: var(--secondaryColor);
+#index #hero #titolo {
+    height: unset;
+    container-type: unset;
 }
 
 #index #hero h2 {
-    font-size: 2em;
+    position: absolute;
+    left: 50%;
+    top: 43%;
+    transform: translate(-50%, -50%);
+    width: unset;
+    margin: unset;
+    text-shadow: 0 0 8px var(--txtColor);
+    font-size: 3em;
+    background-color: unset;
+    border: unset;
+    z-index: var(--elevationHigh);
 }
+
+#index #hero h3 {
+    position: absolute;
+    left: 50%;
+    top: 52%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: center;
+    padding: unset;
+    background-color: unset;
+    border: unset;
+    z-index: var(--elevationHigh);
+}
+
+#index #hero .videoPlayer {
+    max-width: unset;
+    border-left: unset;
+}
+
+#index #hero .videoPlayer video {
+    width: 100%;
+    z-index: var(--elevationMiddle);
+}
+
+#index #hero .videoPlayer .controls button {}
 
 
 /*
@@ -385,38 +415,36 @@ input[type="submit"] {
     padding: 1em;
 }
 
+
 /* 
  * PAGINA BATTLE
  */
 
- #container_battle {
+#container_battle {
     display: flex;
     flex-direction: column;
 }
+
 #container_iframe iframe {
     width: 96vw;
-    height:45vw;
+    height: 45vw;
     /*
     
     */
-    
 }
-#container_iframe{
+
+#container_iframe {
     position: sticky;
     top: 0;
     background-color: var(--accentColor);
     width: 100%;
     height: 100%;
-    
-
 }
 
-
-#lista_battle{
+#lista_battle {
     width: 96vw;
 }
 
-    
 
 /* 
  * PAGINA CLASSIFICHE 
@@ -446,7 +474,8 @@ table#tabella-classifica thead {
     color: var(--txtColor);
 }
 
-table#tabella-classifica th, table#tabella-classifica td {
+table#tabella-classifica th,
+table#tabella-classifica td {
     padding: 0.3em 0.5em;
 }
 
@@ -466,6 +495,7 @@ div.div-classifica {
     display: initial;
 }
 
-div#Micelio, div#Fungo {
+div#Micelio,
+div#Fungo {
     background-image: none;
 }
