@@ -137,7 +137,7 @@ function playerAudio(nomeBase) {
             pressedButton=beats[i].getElementsByTagName("button")[0];
         }
     }
-
+    
     if(actualTitle.innerHTML==newTitle){
         if(pressedButton.title.slice(0,10)=="Interrompi"){
             console.log("pause");
@@ -156,36 +156,44 @@ function playerAudio(nomeBase) {
     }
     
     //bottone riproduzione automatica
-    document.getElementById("autoNext").onclick = function() {
-        autoNext = !autoNext;
-        autoPlay(nomeBase);
-    }
+    
         autoPlay(nomeBase);
       
 }
 
 
 function autoPlay(nomeBase){
+    document.getElementById("autoNext").onclick = function() {
+        autoNext = !autoNext;
+        console.log(autoNext);
+    
     if(autoNext){
         audio.onended = function() {
-            nextAudio(nomeBase);  
+            audio.setAttribute("autoplay", "true");
+            console.log("nomeBase");
+            nextAudio(nomeBase);
+
         }
     }else{
         audio.onended = function() {
             audio.setAttribute("autoplay", "false");
         }
     } 
+    }
 }
 
-function nextAudio(nomeBase) {
-    let basi = document.getElementsByClassName("beat");   
-    
-    for (let i = 0; i < basi.length; i++) {
-
-
-        let bottone = basi[i].getElementsByTagName("button");    
-        if (bottone[0].getAttribute("title").slice(10) == nomeBase.slice(0,-4)) {
-            let next = basi[i+1];
+function nextAudio(nomeBase) {  
+    console.log("dentro nextAudio");
+    for (let i = 0; i < beats.length; i++) {
+       
+        bottone = beats[i].getElementsByTagName("button")[0]
+        console.log(bottone.getAttribute("title").slice(10));
+        console.log(bottone.getAttribute("title").slice(10)+"=="+nomeBase);    
+        if (bottone.getAttribute("title").slice(10) == 
+        nomeBase.slice(0,-4) || bottone.getAttribute("title").slice(11) == nomeBase.slice(0,-4)) {
+            
+            let next = beats[i+1];
+            console.log(next);
             if (next) {
                 let nextButton = next.getElementsByTagName("button");
                 actualTitle=(nextButton[0].getAttribute("title").slice(10)+".mp3");
