@@ -540,20 +540,30 @@ footer #footer-credits {
     flex-direction: column;
     width: 50%;
 }
+#lista_battle button {
+    cursor: pointer;
+    height: 2em;
+    border-style: none;
+    justify-content: space-between;
+    color: transparent;
+    background-color: transparent;
+    background-image: url("../assets/icons/Play.png");
+    background-repeat: no-repeat;
+    background-size: 30%;
+    background-position: center;
+}
 
 #lista_battle button[data-isPlaying="false"]{
     background-image: url("../assets/icons/Play.png");
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 40%;
-    color: transparent;
+    background-size: 30%;
 }
 #lista_battle button[data-isPlaying="true"]{
     background-image: url("../assets/icons/Pause.png");
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 40%;
-    color: transparent;
+    background-size: 30%;
 }
 
 
@@ -611,13 +621,11 @@ footer #footer-credits {
     border-style: none;
     justify-content: space-between;
     color: transparent;
-
     background-color: transparent;
     background-image: url("../assets/icons/Play.png");
     background-repeat: no-repeat;
     background-size: 40%;
     background-position: center;
-    color: transparent;
 }
 
 
@@ -651,7 +659,7 @@ div.error500 img {
     margin: 0em;
 }
 
-#lista_beats li {
+#lista_beats .beat {
     padding: 1em;
     background-color: var(--secondaryColor);
     cursor: pointer;
@@ -660,12 +668,12 @@ div.error500 img {
     border-width: 0.1em 0em 0em 0em;
 }
 
-#lista_beats li:hover {
+#lista_beats .beat:hover {
     padding: 1em;
     background-color: var(--linkHoverBgColor);
 }
 
-#lista_beats li:hover button[data-isPlaying="false"]{
+#lista_beats .beat:hover button[data-isPlaying="false"]{
     background-image: url("../assets/icons/Play.png");
     background-repeat: no-repeat;
     background-position: center;
@@ -694,6 +702,15 @@ div.error500 img {
     
 }
 
+
+#lista_beats .audioBeats[data-java="true"]{
+    display: none;
+}
+#lista_beats .durata{
+    position:sticky;
+    float: right;
+    padding: 0.4em;
+}
 #audio_container {
     display: flex;
     flex-direction: row;

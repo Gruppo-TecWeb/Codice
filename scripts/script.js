@@ -105,6 +105,23 @@ function newBeat(){
     audio.src = percorso + newTitle + ".mp3"; 
 }
 
+function setAudioDuration(){
+    span=document.getElementsByClassName("durata");
+    audios=document.getElementsByClassName("audioBeats");
+    for(let i=0;i<span.length;i++){
+        audios[i].setAttribute("data-java","true");
+        durata=Math.floor(audios[i].duration/60) + ":" + Math.floor(audios[i].duration%60);
+        minuti=durata.slice(0,durata.indexOf(":"));
+        secondi=durata.slice(durata.indexOf(":")+1);
+        if(secondi.length==1){
+            span[i].innerHTML = minuti + ":0" + secondi; 
+        }else{
+            span[i].innerHTML = durata; 
+        }
+    }
+}
+
+
 var autoNext=false;
 function playerAudio(nomeBase) {
     
@@ -120,7 +137,6 @@ function playerAudio(nomeBase) {
             pressedButton=beats[i].getElementsByTagName("button")[0];
         }
     }
-   console.log(audio.duration)
 
     if(actualTitle.innerHTML==newTitle){
         if(pressedButton.title.slice(0,10)=="Interrompi"){

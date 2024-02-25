@@ -20,7 +20,7 @@ $percorso = '';
 $percorsoAdmin = 'admin/';
 $menu = get_menu($pageId, $percorso);
 $breadcrumbs = get_breadcrumbs($pageId, $percorso);
-$onload = '';
+$onload = 'setAudioDuration()';
 $logout = '';
 
 if (isset($_SESSION["login"])) {
