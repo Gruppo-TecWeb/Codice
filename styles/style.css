@@ -739,7 +739,7 @@ table#tabella-classifica caption {
 
 table#tabella-classifica thead {
     background-color: var(--accentColor);
-    color: var(--txtColor);
+    color: var(--txtColorOnAccent);
 }
 
 table#tabella-classifica th,
