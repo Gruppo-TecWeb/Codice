@@ -156,16 +156,16 @@ function playerAudio(nomeBase) {
     }
     
     //bottone riproduzione automatica
-    
+    document.getElementById("autoNext").onclick = function() {
+        autoNext = !autoNext;
+        console.log(autoNext);
         autoPlay(nomeBase);
-      
+    }
 }
 
 
 function autoPlay(nomeBase){
-    document.getElementById("autoNext").onclick = function() {
-        autoNext = !autoNext;
-        console.log(autoNext);
+   
     
     if(autoNext){
         audio.onended = function() {
@@ -179,7 +179,7 @@ function autoPlay(nomeBase){
             audio.setAttribute("autoplay", "false");
         }
     } 
-    }
+    
 }
 
 function nextAudio(nomeBase) {  
@@ -187,19 +187,30 @@ function nextAudio(nomeBase) {
     for (let i = 0; i < beats.length; i++) {
        
         bottone = beats[i].getElementsByTagName("button")[0]
-        console.log(bottone.getAttribute("title").slice(10));
-        console.log(bottone.getAttribute("title").slice(10)+"=="+nomeBase);    
-        if (bottone.getAttribute("title").slice(10) == 
-        nomeBase.slice(0,-4) || bottone.getAttribute("title").slice(11) == nomeBase.slice(0,-4)) {
-            
+        //console.log(bottone.getAttribute("title").slice(10));
+        console.log(bottone.getAttribute("title").slice(10)+"=="+nomeBase.slice(0,-4));    
+        if (bottone.getAttribute("title").slice(10) == nomeBase.slice(0,-4)) {
             let next = beats[i+1];
-            console.log(next);
             if (next) {
                 let nextButton = next.getElementsByTagName("button");
+                console.log(nextButton[0].getAttribute("title").slice(10));
                 actualTitle=(nextButton[0].getAttribute("title").slice(10)+".mp3");
                 playerAudio(actualTitle);
             }
             break;  
+        }else{
+            console.log(bottone.getAttribute("title").slice(11)+ "==" +nomeBase.slice(0,-4))
+            if(bottone.getAttribute("title").slice(11) == nomeBase.slice(0,-4)){
+                let next = beats[i+1];
+                if (next) {
+                    let nextButton = next.getElementsByTagName("button");
+                    console.log(nextButton[0].getAttribute("title").slice(11)+".mp3");
+                    actualTitle=(nextButton[0].getAttribute("title").slice(11)+".mp3");
+
+                    playerAudio(actualTitle);
+                }
+                break;  
+            }
         }
     }
 }
