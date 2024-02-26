@@ -428,7 +428,7 @@ footer #footer-credits {
     margin: auto;
 }
 
-#lista-eventi article {
+#lista-eventi li {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -440,12 +440,12 @@ footer #footer-credits {
     padding: 0.9375em;
 }
 
-#lista-eventi article a {
+#lista-eventi li a {
     text-decoration: none;
     color: #000;
 }
 
-#lista-eventi article img {
+#lista-eventi li img {
     width: 70%;
     height: 80%;
     object-fit: cover;
@@ -475,8 +475,13 @@ footer #footer-credits {
 }
 
 #evento-info {
-    margin-left: 1.25em;
+    margin-left: 2.5em;
     color: black;
+}
+
+#evento-info dt {
+    font-weight: bold;
+    margin-top: 0.5em;
 }
 
 .evento {
@@ -496,7 +501,6 @@ footer #footer-credits {
     display: block;
     color: #000;
 }
-
 
 /* 
  * PAGINA BATTLE 

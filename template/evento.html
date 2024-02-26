@@ -2,12 +2,18 @@
 <h2 class="limitedWidth">{titolo}</h2>
 <div id="evento-box" class="limitedWidth">
     <img src="assets/media/locandine/{locandina}">
-    <div id="evento-info">
-        <p>Data: <time datetime="{data}"><span>{data}</span></time></p>
-        <p>Tipo evento: {tipoEvento}</p>
-        <p>Data inizio: {dataInizioClassifica}</p>
-        <p>Ora: <time datetime="{ora}">{ora}</time></p>
-        <p>Luogo: {luogo}</p>
-        <p>Descrizione: {descrizione} </p>
-    </div>
+    <dl id="evento-info">
+        <dt>Data:</dt>
+        <dd><time datetime="{data}">{data}</time></dd>
+        <dt>Tipo evento:</dt>
+        <dd>{tipoEvento}</dd>
+        <dt>Data inizio:</dt>
+        <dd>{dataInizioClassifica}</dd>
+        <dt>Ora:</dt>
+        <dd><time datetime="{ora}">{ora}</time></dd>
+        <dt>Luogo:</dt>
+        <dd>{luogo}</dd>
+        <dt>Descrizione:</dt>
+        <dt>{descrizione}</dt>
+    </dl>
 </div>
