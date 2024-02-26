@@ -14,10 +14,9 @@ body {
     padding-top: 3.5em;
 }
 
-body.js[data-menu-open=true] {
-    /* overflow-y: hidden; */
-}
-
+/*body.js[data-menu-open=true] {
+     overflow-y: hidden; 
+}*/
 .limitedWidth {
     width: unset;
     max-width: unset;
@@ -129,10 +128,10 @@ header .logo {
     font-weight: normal;
 }
 
-#menu ul li {
-    /* display: block;
-    margin-inline: 0; */
-}
+/* #menu ul li {
+    display: block;
+    margin-inline: 0;
+} */
 
 #menu.js ul li {
     display: block;

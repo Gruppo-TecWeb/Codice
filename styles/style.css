@@ -515,10 +515,9 @@ footer #footer-credits {
     justify-content: center;
     background-color: var(--accentColor);
     padding: 0em;
-    align-items: center;
     margin: 0em;
 }
-
+/*
 #container_iframe {
     margin: 0em;
     text-align: center;
@@ -536,13 +535,14 @@ footer #footer-credits {
 }
 
 #lista_battle {
-    display: flex;
-    flex-direction: column;
+   
     width: 50%;
 }
-/*.descBattle dt:first-child[data-java="true"]{
+
+.descBattle dt:first-child[data-java="true"]{
     padding: 1em;
-}*/
+}
+
 #lista_battle button {
     cursor: pointer;
     height: 2em;
@@ -554,6 +554,7 @@ footer #footer-credits {
     background-size: 30%;
     background-position: center;
 }
+
 
 #lista_battle button[data-isPlaying="false"]{
     background-image: url("../assets/icons/Play.png");
@@ -567,7 +568,7 @@ footer #footer-credits {
     background-position: center;
     background-size: 30%;
 }
-
+*/
 
 
 .descBattle{
@@ -586,13 +587,7 @@ footer #footer-credits {
 
 /*qua c'è anche il margin del footer da correggere*/
 
-.descBattle:first-child {
-    border-top: 0em;
-}
 
-.descBattle:last-child {
-    border-bottom: 0em;
-}
 
 .descBattle:hover {
     background-color: var(--buttonHover);
@@ -602,9 +597,6 @@ footer #footer-credits {
     border-style: solid;
     border-width: 0em 0.2em 0em 0em;
     border-color: var(--accentColor);
-}
-
-.descBattle dt a {
     display: block;
     text-align: center;
     padding: 0.5em;
@@ -616,7 +608,7 @@ footer #footer-credits {
     padding: 0.5em;
     text-align: center;
 }
-
+/*
 .descBattle button {
     cursor: pointer;
     height: 2em;
@@ -634,7 +626,7 @@ footer #footer-credits {
 .descBattle:hover button {
     opacity: 1;
 }
-
+*/
 
 /*
  * PAGINA ERRORE 500
@@ -669,12 +661,20 @@ div.error500 img {
     border-color: var(--accentColor);
     border-width: 0.1em 0em 0em 0em;
 }
-
+#lista_beats .beat dt, #lista_beats .beat dd{
+    display: inline;
+}
 #lista_beats .beat:hover {
     padding: 1em;
     background-color: var(--linkHoverBgColor);
 }
+.titoloContainer{
+    display: inline-flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
 
+}
 #lista_beats .beat:hover button[data-isPlaying="false"]{
     background-image: url("../assets/icons/Play.png");
     background-repeat: no-repeat;

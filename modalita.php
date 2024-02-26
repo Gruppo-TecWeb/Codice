@@ -17,7 +17,7 @@ $percorsoAdmin = 'admin/';
 $keywords = '';
 $menu = get_menu($pageId, $percorso);
 $breadcrumbs = get_breadcrumbs($pageId, $percorso);
-$onload = '';
+$onload = 'setLinks()';
 $logout = '';
 
 if (isset($_SESSION["login"])) {

@@ -81,7 +81,7 @@ function setIframe(battle){
     }
 }
 //onload
-/*function setLinks(){
+function setLinks(){
     descBattles=document.getElementsByClassName("descBattle")
     for(i=0;i<descBattles.length;i++){
         titles=descBattles[i].getElementsByTagName("strong")[0].innerHTML;
@@ -89,31 +89,14 @@ function setIframe(battle){
         descBattles[i].getElementsByTagName("dt")[0].innerHTML=titles
         descBattles[i].getElementsByTagName("dt")[0].setAttribute("data-java",true);
     }
-}*/
+}
 
 
 /*
 BASI
 */
 
-function newBeat(){
-    //cambia gli statement dell'audio che era in riproduzione precedentemente
-    for(let i=0;i<beats.length;i++){
-        buttonPP=beats[i].getElementsByTagName("button")[0];
-        if(buttonPP.title.substr(0,10)=="Interrompi"){
-            buttonPP.setAttribute("data-isPlaying","false")
-            buttonPP.title="Riproduci " + buttonPP.title.substr(10);
-        } 
-    }
-    //settaggio title
-    pressedButton.setAttribute("data-isPlaying","true")
-    actualTitle.innerHTML=newTitle; 
-    pressedButton.title="Interrompi " + newTitle;
-    
-    //settaggio audio
-    audio.setAttribute("autoplay", "true");
-    audio.src = percorso + newTitle + ".mp3"; 
-}
+
 
 function setAudioDuration(){
     span=document.getElementsByClassName("durata");
@@ -137,20 +120,27 @@ function playerAudio(nomeBase) {
     
     //variabili varie
     percorso="assets/media/basi/";
+
     audio = document.getElementById("audio");
     audioContainer=document.getElementById("audio_container");
-    actualTitle = audioContainer.getElementsByTagName("h3")[0];
-    newTitle = nomeBase.slice(0,-4);
+    h3 = audioContainer.getElementsByTagName("h3")[0];
+    newTitle = nomeBase.slice(0,-4).replaceAll("-"," ");
+
     beats = document.getElementsByClassName("beat")
+    
     for(let i=0;i<beats.length;i++){
-        if(beats[i].getElementsByTagName("button")[0].title.slice(10)==newTitle || beats[i].getElementsByTagName("button")[0].title.slice(11)==newTitle){
+        if(beats[i].getElementsByTagName("button")[0].getAttribute("data-title-beat")==nomeBase.slice(0,-4)){
             pressedButton=beats[i].getElementsByTagName("button")[0];
+            console.log(pressedButton.getAttribute("data-title-beat"));
+            
         }
     }
+
     
-    if(actualTitle.innerHTML==newTitle){
+    if(h3.innerHTML==newTitle){
         if(pressedButton.title.slice(0,10)=="Interrompi"){
-            console.log("pause");
+            //console.log("pause");
+            audio.pause();
             pressedButton.setAttribute("data-isPlaying","false")
             pressedButton.title="Riproduci " + newTitle;
 
@@ -160,11 +150,30 @@ function playerAudio(nomeBase) {
             pressedButton.title="Interrompi " + newTitle;
         }    
     }else{
-        newBeat();
+        newBeat(nomeBase);
     }
     
     //bottone riproduzione automatica
     autoPlay(nomeBase);
+}
+
+function newBeat(nomeBase){
+    //cambia gli statement dell'audio che era in riproduzione precedentemente
+    for(let i=0;i<beats.length;i++){
+        buttonPP=beats[i].getElementsByTagName("button")[0];
+        if(buttonPP.title.substr(0,10)=="Interrompi"){
+            buttonPP.setAttribute("data-isPlaying","false")
+            buttonPP.title="Riproduci " + buttonPP.getAttribute("data-title-beat");
+        } 
+    }
+    //settaggio title
+    pressedButton.setAttribute("data-isPlaying","true")
+    h3.innerHTML=newTitle; 
+    pressedButton.title="Interrompi " + newTitle;
+    
+    //settaggio audio
+    audio.setAttribute("autoplay", "true");
+    audio.src = percorso + nomeBase; 
 }
 
 
@@ -177,32 +186,31 @@ function autoPlay(nomeBase){
         if(autoNext){
             
             audio.setAttribute("autoplay", "true");
-    
                 nextAudio(nomeBase);
         }else{
             
-                audio.setAttribute("autoplay", "false");
+            audio.setAttribute("autoplay", "false");
 
             }
         }
 }
 
 function nextAudio(nomeBase) {  
-    newTitle = nomeBase.slice(0,-4);
+    newTitle = nomeBase.slice(0,-4).replaceAll("-"," ");
     beats = document.getElementsByClassName("beat")
     for(let i=0;i<beats.length;i++){
-        if(beats[i].getElementsByTagName("button")[0].title.slice(10)==newTitle || beats[i].getElementsByTagName("button")[0].title.slice(11)==newTitle){
+        if(beats[i].getElementsByTagName("button")[0].getAttribute("data-title-beat")==nomeBase.slice(0,-4)){
             pressedButton=beats[i].getElementsByTagName("button")[0];
         }
     }
 
     for (let i = 0; i < beats.length; i++) {
         bottone = beats[i].getElementsByTagName("button")[0]
-        if(bottone.getAttribute("title").slice(11) == nomeBase.slice(0,-4) || bottone.getAttribute("title").slice(10) == nomeBase.slice(0,-4)){
+        if(bottone.getAttribute("data-title-beat") == nomeBase.slice(0,-4)){
             let next = beats[i+1];
             if (next) {
                 let nextButton = next.getElementsByTagName("button");
-                newTitle=(nextButton[0].getAttribute("title").slice(10).trim()+".mp3");
+                newTitle=nextButton[0].getAttribute("data-title-beat")+".mp3";
                 playerAudio(newTitle);
             }
             break;  
