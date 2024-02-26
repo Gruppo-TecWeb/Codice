@@ -36,9 +36,26 @@ if ($connectionOk) {
     $lista_titoli_array = $connection->getTitoliEventi();
     $connection->closeDBConnection();
 
+    $numero_pagine = ceil(count($lista_eventi_array) / $eventi_per_pagina);
+
+    // Costruzione del messaggio di risultati
+    $navRisultatiEventi = '';
+    $risultatiEventi = '';
+    if ($numero_pagine > 0) {
+        $navRisultatiEventiTemplate = get_content_between_markers($content, 'navRisultatiEventi');
+        $risultatiEventiTemplate = get_content_between_markers($navRisultatiEventiTemplate, 'risultatiEventi');
+        $risultatiEventi .= multi_replace($risultatiEventiTemplate, [
+            '{pagina}' => $pagina,
+            '{numeroPagine}' => $numero_pagine,
+            '{risultati}' => count($lista_eventi_array)
+        ]);
+        $navRisultatiEventi .= replace_content_between_markers($navRisultatiEventiTemplate, [
+            'risultatiEventi' => $risultatiEventi
+        ]);
+    }
+
     // Costruzione della paginazione
     $pagination = '';
-    $numero_pagine = ceil(count($lista_eventi_array) / $eventi_per_pagina);
     $paginationTemplate = get_content_between_markers($content, 'pagination');
     if ($numero_pagine > 1) {
         $currentPageTemplate = get_content_between_markers($paginationTemplate, 'currentPage');
@@ -74,16 +91,10 @@ if ($connectionOk) {
             '{titolo}' => $titolo,
             '{messaggio}' => 'Successiva'
         ]) : '';
-        $pagination = multi_replace(
-            replace_content_between_markers($paginationTemplate, [
-                'pages' => $pages
-            ]),
-            [
-                '{pagina}' => $pagina,
-                '{numeroPagine}' => $numero_pagine,
-                '{risultati}' => count($lista_eventi_array)
-            ]
-        );
+        $pagination = replace_content_between_markers($paginationTemplate, [
+            'pages' => $pages,
+            'risultatiEventi' => $risultatiEventi
+        ]);
     }
 
     // Costruzione delle liste di titoli
@@ -122,6 +133,7 @@ if ($connectionOk) {
         'listaTitoli' => $lista_titoli_string,
         'listaEventi' => $lista_eventi_string,
         'pagination' => $pagination,
+        'navRisultatiEventi' => $navRisultatiEventi
     ]);
 } else {
     header("location: errore500.php");
