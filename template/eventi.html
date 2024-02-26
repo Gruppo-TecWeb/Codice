@@ -25,8 +25,9 @@
         <time datetime="{valueDataEvento}">{dataEvento}</time>
         {/messaggioFiltri}
     </p>
+    {listaEventi}
     <ul id="lista-eventi">
-        {listaEventi}
+        {eventoElement}
         <li>
             <a href="evento.php?id={idEvento}">
                 <p><time datetime="{valueDataEvento}">{dataEvento}</time></p>
@@ -34,6 +35,10 @@
                 <h3>{titoloEvento}</h3>
             </a>
         </li>
-        {/listaEventi}
+        {/eventoElement}
     </ul>
+    {messaggioListaEventi}
+    <p>{messaggio}, sfoglia i nostri <a href="eventi.php?data={dataEventiPassati}">eventi passati</a></p>
+    {/messaggioListaEventi}
+    {/listaEventi}
 </div>

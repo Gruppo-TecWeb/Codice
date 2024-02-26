@@ -46,11 +46,23 @@ if ($connectionOk) {
 
     $lista_eventi_string = '';
     if ($lista_eventi_array == null) {
-        $lista_eventi_string .= '<p>Non ci sono eventi in programma</p>';
+        $messaggioListaEventiTemplate = get_content_between_markers($content, 'messaggioListaEventi');
+        if($titolo != '' || $data != ''){
+            $lista_eventi_string .= multi_replace($messaggioListaEventiTemplate, [
+                '{messaggio}' => 'Nessun evento corrisponde ai criteri di ricerca'
+            ]);
+        }
+        else{
+            $lista_eventi_string .= multi_replace($messaggioListaEventiTemplate, [
+                '{messaggio}' => 'Non ci sono eventi in programma'
+            ]);
+        }
     } else {
-        $article = get_content_between_markers($content, 'listaEventi');
+        $lista_eventi_string .= get_content_between_markers($content, 'listaEventi');
+        $eventoTemplate = get_content_between_markers($content, 'eventoElement');
+        $eventi_string = '';
         foreach ($lista_eventi_array as $evento) {
-            $lista_eventi_string .= multi_replace($article, [
+            $eventi_string .= multi_replace($eventoTemplate, [
                 '{idEvento}' => urlencode($evento['Id']),
                 '{valueDataEvento}' => $evento['Data'],
                 '{dataEvento}' => $evento['Data'],
@@ -58,6 +70,9 @@ if ($connectionOk) {
                 '{titoloEvento}' => htmlspecialchars($evento['Titolo'])
             ]);
         }
+        $lista_eventi_string = replace_content_between_markers($lista_eventi_string, [
+            'eventoElement' => $eventi_string
+        ]);
     }
 
     $messaggioFiltri = $titolo == '' && $data == '' ? 'i prossimi eventi' : '';
