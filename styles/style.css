@@ -433,13 +433,20 @@ footer #footer-credits {
     object-fit: cover;
 }
 
+#index #hero .videoPlayer #audio-descrizione {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background: var(--secondaryColor);
+}
+
 #index #hero .videoPlayer #btn-video {
     display: none;
     position: absolute;
     bottom: 2rem;
-    left: 3rem;
-    min-height: 3em;
-    min-width: 3em;
+    left: 2rem;
+    height: 3em;
+    width: 3em;
     padding: 0;
 }
 
@@ -459,8 +466,34 @@ footer #footer-credits {
     height: 100vh;
 }
 
-#index #eventi-home-principali {
+#index #eventi-home h3 {
+    float: left;
+    padding: 0.5em 1em;
+    box-sizing: border-box;
+    writing-mode: tb-rl;
+    font-size: 1.5em;
+    font-family: 'Horizontale';
+    color: var(--txtColorOnAccent);
+    background-color: var(--accentColor);
+}
+
+#index #eventi-home dl {
+    width: 100%;
     border-top: 2px solid var(--accentColor);
+}
+
+.eventoPrincipaleHome {}
+
+.eventoPrincipaleHome dt {
+    font-size: 1.5em;
+    color: var(--txtColorOnAccent);
+    background-color: var(--accentColor);
+}
+
+.eventoPrincipaleHome dd img {
+    width: 50%;
+    height: 25vh;
+    object-fit: cover;
 }
 
 

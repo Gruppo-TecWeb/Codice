@@ -2,18 +2,26 @@
     <div id="titolo">
         <h2 class="title">Fungo</h2>
         <h3>Collettivo Rap, Padova</h3>
-        <p>Uniti dalla passione per il <span lang="en">freestyle rap</span>, organizziano periodicamente eventi di puro scambio di <span lang="en">flow</span> e <span lang="en">vibe</span>: <strong>sfide di <span lang="en">freestyle</span></strong>, progetti
+        <p>Uniti dalla passione per il <span lang="en">freestyle rap</span>, organizziamo periodicamente eventi di puro scambio di <span lang="en">flow</span> e <span lang="en">vibe</span>: <strong>sfide di <span lang="en">freestyle</span></strong>, progetti
             sociali e culturali, incontri con talenti emergenti e molto altro,
             <a href="{percorso}chi-siamo.php">scopri di più su di noi</a>. Tutti sono invitati a partecipare (gratuitamente) sia come spettatori che come protagonisti sul palco, hai talento o sei interessato? Vieni al prossimo evento.</p>
     </div>
-    <div class="videoPlayer">
-        <video controls muted autoplay loop poster="assets/media/evento_micelio.jpg" width="1080" height="1920">
+    <div class="videoPlayer" aria-hidden="true">
+        <video aria-label="Video di presentazione" controls muted autoplay loop poster="assets/media/poster.jpg" width="1080" height="1920">
             <source src="assets/media/video_fungo.mp4" type="video/mp4">
             <source src="assets/media/video_fungo.webm" type="video/webm">
             <p>Il tuo browser non supporta questo video</p>
         </video>
-        <div class="controls">
-            <button id="btn-video">  
+        <div class="controls" aria-label="Controlli e info video">
+            <!-- <p aria-label="Video descrizione" id="video-descrizione" class="navigationHelp">
+                Brevi sequenze in cui la sera illuminata dalla luce dei lampioni di una piazza, una folla di giovani è radunata vicino all'iconica struttura circolare con una tettoia, che ricorda un Fungo, mentre al centro alcune persone stanno facendo
+                <span
+                    lang="en">freestyle</span> o ballando <span lang="en">break dance</span>,
+            </p> -->
+            <p aria-label="Audio descrizione" id="audio-descrizione">
+                Video senza audio
+            </p>
+            <button title="Play/Pausa" id="btn-video" tabindex="-1">  
                 <span class="navigationHelp">Pausa/<span lang="en">Play</span></span>
                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                     <path id="pause" d="M208 432h-48a16 16 0 01-16-16V96a16 16 0 0116-16h48a16 16 0 0116 16v320a16 16 0 01-16 16zM352 432h-48a16 16 0 01-16-16V96a16 16 0 0116-16h48a16 16 0 0116 16v320a16 16 0 01-16 16z"/>
@@ -24,15 +32,22 @@
     </div>
 </section>
 <section id="eventi-home">
-    <h2>I nostri eventi principai</h2>
-    <dl id="eventi-home-principali">
-        <div class="eventoHomePrincipale">
+    <h3>I nostri eventi principali</h3>
+    <dl>
+        <div class="eventoPrincipaleHome">
             <dt>Fungo</dt>
+            <dd><img src="assets/media/fungo_evento.png" alt="">
+                <p>L'iconica strutture con la tettoia circolare da cui proviene il nome Fungo.</p>
+            </dd>
             <dd>Il Fungo prende il nome dall'iconica struttura presente in piazza zanellato a Padova, dove ha luogo solitamente ogni martedì. Si tratta di una serie di eventi legati al mondo rap freestyle durante i quali si svolgono delle battle tra i vari
                 partecipanti. Le classifiche sono i risultati di questi incontri.</dd>
         </div>
-        <div class="eventoHomePrincipale">
+        <div class="eventoPrincipaleHome">
             <dt>Micelio</dt>
+            <dd><img src="assets/media/micelio_evento.jpg" alt="">
+                <p>Il ling dove avvengono le <span lang="en">battle</span> al Micelio.</p>
+            </dd>
+
             <dd>Il Micelio è la versione invernale del Fungo e ha luogo solitamente ogni martedì presso il Distretto Est, a Padova. Si tratta di una serie di eventi legati al mondo rap freestyle durante i quali si svolgono delle battle tra i vari partecipanti.
                 Le classifiche sono i risultati di questi incontri.</dd>
         </div>
