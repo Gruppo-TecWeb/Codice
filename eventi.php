@@ -59,11 +59,24 @@ if ($connectionOk) {
             ]);
         }
     }
-    $content = str_replace('{data}', $data, $content);
-    $content = replace_content_between_markers($content, [
-        'listaTitoli' => $lista_titoli_string,
-        'listaEventi' => $lista_eventi_string
-    ]);
+
+    $messaggioFiltri = $titolo == '' && $data == '' ? 'i prossimi eventi' : '';
+    $messaggioFiltri .= $titolo != '' ? 'eventi con titolo: ' . $titolo : '';
+    $messaggioFiltri .= $data != '' ? ($messaggioFiltri == '' ? 'eventi' : '') . ' a partire dalla data: ' . multi_replace(get_content_between_markers($content, 'messaggioFiltri'), [
+        '{valueDataEvento}' => $data,
+        '{dataEvento}' => date_format(date_create($data), 'd/m/Y')
+    ]) : '';
+
+    $content = multi_replace(
+        replace_content_between_markers($content, [
+            'listaTitoli' => $lista_titoli_string,
+            'listaEventi' => $lista_eventi_string,
+            'messaggioFiltri' => $messaggioFiltri
+        ]),
+        [
+            '{data}' => $data,
+        ]
+    );
 } else {
     header("location: errore500.php");
 }
