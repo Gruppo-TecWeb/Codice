@@ -41,27 +41,49 @@ if ($connectionOk) {
     $numero_pagine = ceil(count($lista_eventi_array) / $eventi_per_pagina);
     $paginationTemplate = get_content_between_markers($content, 'pagination');
     if ($numero_pagine > 1) {
-        $pages = '';
-        $offset = ($pagina - 1) * $eventi_per_pagina;
-        $lista_eventi_array = array_slice($lista_eventi_array, $offset, $eventi_per_pagina);
+        $currentPageTemplate = get_content_between_markers($paginationTemplate, 'currentPage');
+        $notCurrentPageTemplate = get_content_between_markers($paginationTemplate, 'notCurrentPage');
+        $data_encoded = htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
+        $titolo_encoded = htmlspecialchars($titolo, ENT_QUOTES, 'UTF-8');
+        $pages = $pagina > 1 ? multi_replace($notCurrentPageTemplate, [
+            '{numeroPagina}' => $pagina - 1,
+            '{data}' => $data_encoded,
+            '{titolo}' => $titolo_encoded,
+            '{messaggio}' => 'Precedente'
+        ]) : '';
         for ($i = 1; $i <= $numero_pagine; $i++) {
-            $data_encoded = htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
-            $titolo_encoded = htmlspecialchars($titolo, ENT_QUOTES, 'UTF-8');
-            $currentPageTemplate = get_content_between_markers($paginationTemplate, 'currentPage');
-            $notCurrentPageTemplate = get_content_between_markers($paginationTemplate, 'notCurrentPage');
             if ($i == $pagina) {
                 $pages .= str_replace('{numeroPagina}', $i, $currentPageTemplate);
-            } else {
+            } else if ($i == 1 || $i == $numero_pagine || ($i >= $pagina - 2 && $i <= $pagina + 2)) {
                 $pages .= multi_replace($notCurrentPageTemplate, [
                     '{numeroPagina}' => $i,
+                    '{data}' => $data_encoded,
+                    '{titolo}' => $titolo_encoded,
+                    '{messaggio}' => $i
+                ]);
+            } else if ($i == $pagina - 3 || $i == $pagina + 3) {
+                $pages .= multi_replace(get_content_between_markers($paginationTemplate, 'ellipsis'), [
                     '{data}' => $data_encoded,
                     '{titolo}' => $titolo_encoded
                 ]);
             }
         }
-        $pagination = replace_content_between_markers($paginationTemplate, [
-            'pages' => $pages
-        ]);
+        $pages .= $pagina < $numero_pagine ? multi_replace($notCurrentPageTemplate, [
+            '{numeroPagina}' => $pagina + 1,
+            '{data}' => $data,
+            '{titolo}' => $titolo,
+            '{messaggio}' => 'Successiva'
+        ]) : '';
+        $pagination = multi_replace(
+            replace_content_between_markers($paginationTemplate, [
+                'pages' => $pages
+            ]),
+            [
+                '{pagina}' => $pagina,
+                '{numeroPagine}' => $numero_pagine,
+                '{risultati}' => count($lista_eventi_array)
+            ]
+        );
     }
 
     // Costruzione delle liste di titoli
@@ -76,6 +98,8 @@ if ($connectionOk) {
     }
 
     // Costruzione della lista di eventi
+    $offset = ($pagina - 1) * $eventi_per_pagina;
+    $lista_eventi_array = array_slice($lista_eventi_array, $offset, $eventi_per_pagina);
     $lista_eventi_string = '';
     if ($lista_eventi_array == null) {
         $lista_eventi_string .= '<p>Non ci sono eventi in programma</p>';
