@@ -35,6 +35,12 @@
         {/associaEventi}
     </form>
 
+    {messaggiForm}<ul>
+        {messaggioForm}<li>{messaggio}</li>{/messaggioForm}
+    </ul>
+    {/messaggiForm}
+
+    <!-- Tabella che elenca le classifiche esistenti con possibilità di modificarle o eliminarle. -->
     <span id="sumTabella" class="navigationHelp">Tabella che elenca le classifiche esistenti con l'indicazione del tipo evento, 
         la data d'inizio e la data di fine. Per ciascuna riga sono presenti anche dei bottoni 
         che permettono di visualizzare il dettaglio di quella classifica o di eliminarla.</span>
@@ -56,8 +62,8 @@
                 <td data-title="Data Fine">{dataFine}</td>
                 <td data-title="Azioni">
                     <form method="get" action="classifiche.php">
-                        <input type="hidden" name="tipoEvento" value="{tipoEvento}">
-                        <input type="hidden" name="dataInizio" value="{dataInizio}">
+                        <input type="hidden" name="tipoEvento" value="{valueTipoEvento}">
+                        <input type="hidden" name="dataInizio" value="{valueDataInizio}">
                         <button type="submit" name="modifica" value="true">Modifica</button>
                         <button type="submit" name="elimina" value="true">Elimina</button>
                     </form>

@@ -35,7 +35,6 @@ class DBAccess {
         mysqli_close($this->connection);
     }
 
-
     private function executeQuery($query, ...$args) {
         mysqli_report(MYSQLI_REPORT_STRICT);
         try {
@@ -143,17 +142,20 @@ class DBAccess {
         $res = $evento ? $this->executeQuery($query, $evento) : $this->executeQuery($query);
         return $res ? $res[0] : null;
     }
+
     public function get_classifiche() {
         return $this->executeQuery(
             "SELECT * FROM Classifiche;"
         );
     }
+
     public function get_data_inizio_corrente($tipoEvento) {
         return ($ris = $this->executeQuery(
             "SELECT DataInizio FROM Classifiche WHERE TipoEvento =? AND DataInizio <= CURDATE() ORDER BY DataInizio DESC LIMIT 1;",
             $tipoEvento
         )) ? $ris[0]['DataInizio'] : null;
     }
+
     public function get_classifica($tipoEvento, $dataInizio) {
         return $this->executeQuery(
             "SELECT @n := @n + 1 AS ranking, partecipante, punti
@@ -170,6 +172,15 @@ class DBAccess {
             $dataInizio
         );
     }
+
+    public function delete_classifica($tipoEvento, $dataInizio) {
+        return $this->executeQuery(
+            "DELETE FROM Classifiche WHERE TipoEvento = ? AND DataInizio = ?;",
+            $tipoEvento,
+            $dataInizio
+        );
+    }
+
     public function login($username, $password) {
         $c = $this->executeQuery(
             "SELECT Username, Email, Password, Admin FROM Utenti WHERE Username = ? ;",
@@ -178,18 +189,21 @@ class DBAccess {
         $res = $c ? $c[0] : null;
         return $res && password_verify($password, $res['Password']) ? $res : null;
     }
+
     public function get_utente_by_username($username) {
         return ($ris = $this->executeQuery(
             "SELECT Username, Email, Admin FROM Utenti WHERE Username = ?;",
             $username
         )) ? $ris[0] : null;
     }
+
     public function get_utente_by_email($email) {
         return ($ris = $this->executeQuery(
             "SELECT Username, Email, Admin FROM Utenti WHERE Email = ?;",
             $email
         )) ? $ris[0] : null;
     }
+
     public function register($username, $password, $email) {
         return $this->executeQuery(
             "INSERT INTO Utenti (Username, Password, Email) VALUES (?, ?,?);",
@@ -198,6 +212,7 @@ class DBAccess {
             $email
         );
     }
+
     public function change_email($username, $newEmail) {
         return $this->executeQuery(
             "UPDATE Utenti SET Email = ? WHERE Username = ?;",
@@ -205,15 +220,12 @@ class DBAccess {
             $username
         );
     }
+
     public function change_password($username, $newPassword) {
         return $this->executeQuery(
             "UPDATE Utenti SET Password = ? WHERE Username = ?;",
             password_hash($newPassword, PASSWORD_BCRYPT),
             $username
         );
-    }
-
-    public function get_basi() {
-        return $this->executeQuery("Select * from basi");
     }
 }

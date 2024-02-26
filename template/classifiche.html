@@ -5,7 +5,8 @@
             <legend>Puoi visualizzare le classifiche passate dal nostro archivio:</legend>
             <label for="classifica">Classifica: </label>
             <select id="classifica" name="classifica"  onchange="this.form.submit()">
-                {listaClassifiche}<option value="{tipoEvento}{.}{dataInizio}"{selezioneClassifica}>{opzioneClassifica}</option>
+                {listaClassificheDefault}<option value="Scegli la classifica" selected>Scegli la classifica</option>
+                {/listaClassificheDefault}{listaClassifiche}<option value="{tipoEvento}{.}{dataInizio}"{selezioneClassifica}>{opzioneClassifica}</option>
                 {/listaClassifiche}
             </select>
         </fieldset>
@@ -40,4 +41,4 @@
     </table>
 </div>
 {/tabellaClassifica}
-{nessunaClassifica}<p>Non sono presenti classifiche</p>{/nessunaClassifica}
+{nessunaClassifica}<p class="limitedWidth">Non sono presenti classifiche</p>{/nessunaClassifica}

@@ -21,6 +21,7 @@ $percorsoAdmin = '';
 $menu = get_menu($pageId, $percorso);
 $breadcrumbs = get_breadcrumbs($pageId, $percorso);
 $onload = '';
+$logout = '';
 $username = '';
 $messaggioForm = '';
 $messaggiForm = '';
@@ -75,7 +76,8 @@ if (isset($_SESSION["login"])) {
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
     'breadcrumbs' => $breadcrumbs,
-    'menu' => $menu
+    'menu' => $menu,
+    'logout' => $logout
 ]), [
     '{title}' => $title,
     '{description}' => $description,

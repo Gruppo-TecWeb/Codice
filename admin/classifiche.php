@@ -24,6 +24,7 @@ $adminMenu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId, $percorso);
 $onload = '';
 $logout = '';
+$messaggiForm = '';
 
 if (!isset($_SESSION["login"])) {
     header("location: login.php");
@@ -48,14 +49,14 @@ if ($connectionOk) {
     // costruisco la lista di option per la selezione del tipo evento
     $legend = isset($_GET["modifica"]) ? 'Modifica classifica' : 'Aggiungi classifica';
     $listaTipoEvento = '';
-    $selezioneTipoEventoDefault = isset($_GET["tipoEvento"]) ? '' : ' selected';
+    $selezioneTipoEventoDefault = isset($_GET["tipoEvento"]) && !isset($_GET["elimina"]) ? '' : ' selected';
     $valueDataInizio = isset($_GET["dataInizio"]) ? ' value="' . $_GET["dataInizio"] . '"' : '';
     $valueDataFine = isset($_GET["dataFine"]) ? ' value="' . $_GET["dataFine"] . '"' : '';
     $tipiEvento = $connection->getTipiEvento();
     $optionTipoEvento = get_content_between_markers($adminContent, 'listaTipoEvento');
     foreach ($tipiEvento as $tipoEvento) {
         $selezioneTipoEvento = '';
-        if (isset($_GET["tipoEvento"])) {
+        if (isset($_GET["tipoEvento"]) && !isset($_GET["elimina"])) {
             $selezioneTipoEvento = $_GET["tipoEvento"] == $tipoEvento['Titolo'] ? ' selected' : '';
         }
         $listaTipoEvento .= multi_replace($optionTipoEvento, [
@@ -96,6 +97,19 @@ if ($connectionOk) {
         }
     }
 
+    // elimino una classifica
+    if (isset($_GET["elimina"])) {
+        $messaggioForm = get_content_between_markers($adminContent, 'messaggioForm');
+        $connection->delete_classifica($_GET["tipoEvento"], $_GET["dataInizio"]);
+        if (count($connection->get_classifica($_GET["tipoEvento"], $_GET["dataInizio"])) == 0) {
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Classifica eliminata correttamente"]);
+        } else {
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);
+        }
+        $messaggiForm = replace_content_between_markers(
+            get_content_between_markers($adminContent, 'messaggiForm'), ['messaggioForm' => $messaggiForm]);
+    }
+
     // visualizzazione classificche presenti nel db
     $classifiche = $connection->get_classifiche();
     $rigaClassifica = get_content_between_markers($adminContent, 'rigaClassifica');
@@ -104,14 +118,17 @@ if ($connectionOk) {
         $righeClassifiche .= multi_replace($rigaClassifica, [
             '{tipoEvento}' => $classifica['TipoEvento'],
             '{dataInizio}' => date_format(date_create($classifica['DataInizio']), 'd/m/y'),
-            '{dataFine}' => date_format(date_create($classifica['DataFine']), 'd/m/y')
+            '{dataFine}' => date_format(date_create($classifica['DataFine']), 'd/m/y'),
+            '{valueTipoEvento}' => $classifica['TipoEvento'],
+            '{valueDataInizio}' => date_format(date_create($classifica['DataInizio']), 'Y-m-d')
         ]);
     }
 
     // da completare logica per creazione classifica
-    // da completare logica per modifica classifica
+
     // da completare logica per gestione punteggi
-    // da completare logica per eliminazione classifica
+
+    // da completare logica per modifica classifica
 
     $adminContent = multi_replace(replace_content_between_markers($adminContent, [
         'listaTipoEvento' => $listaTipoEvento,
@@ -147,7 +164,7 @@ echo multi_replace(replace_content_between_markers(
             '{content}' => $content,
             '{onload}' => $onload,
             '{percorso}' => $percorso,
-            '{adminContent}' => $adminContent
+            '{adminContent}' => replace_content_between_markers($adminContent, ['messaggiForm' => $messaggiForm])
         ]
     ),
     [

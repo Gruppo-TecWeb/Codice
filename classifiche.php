@@ -21,7 +21,6 @@ $percorsoAdmin = 'admin/';
 $menu = get_menu($pageId, $percorso);
 $breadcrumbs = get_breadcrumbs($pageId, $percorso);
 $onload = 'hideSubmitButtons()';
-$nessunaClassifica = '';
 
 $connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
@@ -94,12 +93,19 @@ if ($connectionOk) {
             ]);
         }
         $content = replace_content_between_markers($content, [
+            'listaClassificheDefault' => '',
             'listaClassifiche' => $classifiche,
             'tabellaClassifica' => $tabella,
-            'rigaClassifica' => $righe
+            'rigaClassifica' => $righe,
+            'nessunaClassifica' => ''
         ]);
     } else {
-        $nessunaClassifica = get_content_between_markers($content, 'nessunaClassifica');
+        $content = replace_content_between_markers($content, [
+            'listaClassificheDefault' => get_content_between_markers($content, 'listaClassificheDefault'),
+            'listaClassifiche' => '',
+            'tabellaClassifica' => '',
+            'nessunaClassifica' => get_content_between_markers($content, 'nessunaClassifica')
+        ]);
     }
 
     $connection->closeDBConnection();
@@ -113,13 +119,14 @@ if (isset($_SESSION["login"])) {
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
     'breadcrumbs' => $breadcrumbs,
-    'menu' => $menu
+    'menu' => $menu,
+    'logout' => $logout
 ]), [
     '{title}' => $title,
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
-    '{content}' => replace_content_between_markers($content, ['nessunaClassifica' => $nessunaClassifica]),
+    '{content}' => $content,
     '{onload}' => $onload,
     '{percorso}' => $percorso,
     '{percorsoAdmin}' => $percorsoAdmin

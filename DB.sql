@@ -36,7 +36,7 @@ CREATE TABLE ClassificheEventi (
     DataInizio DATE NOT NULL,
     Evento INTEGER NOT NULL,
     PRIMARY KEY (TipoEvento, DataInizio, Evento),
-    FOREIGN KEY (TipoEvento, DataInizio) REFERENCES Classifiche(TipoEvento, DataInizio),
+    FOREIGN KEY (TipoEvento, DataInizio) REFERENCES Classifiche(TipoEvento, DataInizio) ON DELETE CASCADE,
     FOREIGN KEY (Evento) REFERENCES Eventi(Id));
 
 CREATE TABLE Punteggi (
