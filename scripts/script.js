@@ -80,6 +80,16 @@ function setIframe(battle){
         }
     }
 }
+//onload
+/*function setLinks(){
+    descBattles=document.getElementsByClassName("descBattle")
+    for(i=0;i<descBattles.length;i++){
+        titles=descBattles[i].getElementsByTagName("strong")[0].innerHTML;
+
+        descBattles[i].getElementsByTagName("dt")[0].innerHTML=titles
+        descBattles[i].getElementsByTagName("dt")[0].setAttribute("data-java",true);
+    }
+}*/
 
 
 /*
@@ -141,12 +151,10 @@ function playerAudio(nomeBase) {
     if(actualTitle.innerHTML==newTitle){
         if(pressedButton.title.slice(0,10)=="Interrompi"){
             console.log("pause");
-            audio.pause();
             pressedButton.setAttribute("data-isPlaying","false")
             pressedButton.title="Riproduci " + newTitle;
 
         }else{
-            console.log("play");
             audio.play();
             pressedButton.setAttribute("data-isPlaying","true")
             pressedButton.title="Interrompi " + newTitle;
@@ -156,61 +164,48 @@ function playerAudio(nomeBase) {
     }
     
     //bottone riproduzione automatica
-    document.getElementById("autoNext").onclick = function() {
-        autoNext = !autoNext;
-        console.log(autoNext);
-        autoPlay(nomeBase);
-    }
+    autoPlay(nomeBase);
 }
 
 
 function autoPlay(nomeBase){
-   
-    
-    if(autoNext){
-        audio.onended = function() {
+    document.getElementById("autoNext").onclick = function() {
+        autoNext = !autoNext;
+        console.log(autoNext);
+    }
+    audio.onended = function() {
+        if(autoNext){
+            
             audio.setAttribute("autoplay", "true");
-            console.log("nomeBase");
-            nextAudio(nomeBase);
-
-        }
-    }else{
-        audio.onended = function() {
-            audio.setAttribute("autoplay", "false");
-        }
-    } 
     
+                nextAudio(nomeBase);
+        }else{
+            
+                audio.setAttribute("autoplay", "false");
+
+            }
+        }
 }
 
 function nextAudio(nomeBase) {  
-    console.log("dentro nextAudio");
+    newTitle = nomeBase.slice(0,-4);
+    beats = document.getElementsByClassName("beat")
+    for(let i=0;i<beats.length;i++){
+        if(beats[i].getElementsByTagName("button")[0].title.slice(10)==newTitle || beats[i].getElementsByTagName("button")[0].title.slice(11)==newTitle){
+            pressedButton=beats[i].getElementsByTagName("button")[0];
+        }
+    }
+
     for (let i = 0; i < beats.length; i++) {
-       
         bottone = beats[i].getElementsByTagName("button")[0]
-        //console.log(bottone.getAttribute("title").slice(10));
-        console.log(bottone.getAttribute("title").slice(10)+"=="+nomeBase.slice(0,-4));    
-        if (bottone.getAttribute("title").slice(10) == nomeBase.slice(0,-4)) {
+        if(bottone.getAttribute("title").slice(11) == nomeBase.slice(0,-4) || bottone.getAttribute("title").slice(10) == nomeBase.slice(0,-4)){
             let next = beats[i+1];
             if (next) {
                 let nextButton = next.getElementsByTagName("button");
-                console.log(nextButton[0].getAttribute("title").slice(10));
-                actualTitle=(nextButton[0].getAttribute("title").slice(10)+".mp3");
-                playerAudio(actualTitle);
+                newTitle=(nextButton[0].getAttribute("title").slice(10).trim()+".mp3");
+                playerAudio(newTitle);
             }
             break;  
-        }else{
-            console.log(bottone.getAttribute("title").slice(11)+ "==" +nomeBase.slice(0,-4))
-            if(bottone.getAttribute("title").slice(11) == nomeBase.slice(0,-4)){
-                let next = beats[i+1];
-                if (next) {
-                    let nextButton = next.getElementsByTagName("button");
-                    console.log(nextButton[0].getAttribute("title").slice(11)+".mp3");
-                    actualTitle=(nextButton[0].getAttribute("title").slice(11)+".mp3");
-
-                    playerAudio(actualTitle);
-                }
-                break;  
-            }
         }
     }
 }
