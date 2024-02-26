@@ -545,6 +545,23 @@ footer #footer-credits {
     width: 50%;
 }
 
+#lista_battle button[data-isPlaying="false"]{
+    background-image: url("../assets/icons/Play.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 40%;
+    color: transparent;
+}
+#lista_battle button[data-isPlaying="true"]{
+    background-image: url("../assets/icons/Pause.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 40%;
+    color: transparent;
+}
+
+
+
 .descBattle {
     display: flex;
     flex-direction: row;
@@ -597,13 +614,16 @@ footer #footer-credits {
     height: 2em;
     border-style: none;
     justify-content: space-between;
+    color: transparent;
+
     background-color: transparent;
-    background-image: url("../assets/icons/playArancionePieno.png");
+    background-image: url("../assets/icons/Play.png");
     background-repeat: no-repeat;
     background-size: 40%;
     background-position: center;
     color: transparent;
 }
+
 
 .descBattle:hover button {
     opacity: 1;
@@ -649,15 +669,24 @@ div.error500 img {
     background-color: var(--linkHoverBgColor);
 }
 
-#lista_beats li:hover button {
-    background-image: url("../assets/icons/playArancionePieno.png");
+#lista_beats li:hover button[data-isPlaying="false"]{
+    background-image: url("../assets/icons/Play.png");
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 100%;
+    background-size: 80%;
     color: transparent;
+    opacity: 1;
 }
 
-#lista_beats button {
+#lista_beats button[data-isPlaying="true"] {
+    background-image: url("../assets/icons/Pause.png");
+    color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 80%;
+    opacity: 1;
+}
+#lista_beats button{
     background: transparent;
     border-style: none;
     cursor: pointer;
@@ -665,6 +694,8 @@ div.error500 img {
     opacity: 0.6;
     margin-right: 1em;
     min-width: 1em;
+    background-size: 40%;
+    
 }
 
 #audio_container {
