@@ -405,35 +405,46 @@ footer #footer-credits {
     font-family: "Horizontale";
     font-size: 16cqw;
     background-color: var(--accentColor);
-    border-bottom: 2px solid var(--accentColor);
 }
 
 #index #hero h3 {
-    border: 2px solid var(--accentColor);
     padding: 1em;
     background: var(--secondaryColor);
+}
+
+#index #hero #titolo p {
+    padding: 1em;
+    padding-top: 0;
+    background: var(--secondaryColor);
+    border-bottom: 2px solid var(--accentColor);
+    line-height: 1.5em;
 }
 
 #index #hero .videoPlayer {
     position: relative;
     height: 100vh;
-    max-width: 40%;
     border-left: 2px solid var(--accentColor);
 }
 
 #index #hero .videoPlayer video {
     width: fit-content;
+    max-width: 40vw;
     height: 100%;
     object-fit: cover;
 }
 
 #index #hero .videoPlayer #btn-video {
+    display: none;
     position: absolute;
     bottom: 2rem;
     left: 3rem;
     min-height: 3em;
     min-width: 3em;
     padding: 0;
+}
+
+#index #hero .videoPlayer #btn-video.js {
+    display: block;
 }
 
 #index #hero .videoPlayer #btn-video.playing #play {

@@ -284,7 +284,7 @@ footer .logo {
     transform: translate(-50%, -50%);
     width: unset;
     margin: unset;
-    text-shadow: 0 0 8px var(--txtColor);
+    text-shadow: 0 0 8px var(--txtColor), 0 0 8px black;
     font-size: 3em;
     background-color: unset;
     border: unset;
@@ -299,22 +299,39 @@ footer .logo {
     width: 100%;
     text-align: center;
     padding: unset;
+    text-shadow: 0 0 8px black, 0 0 14px var(--txtColor);
     background-color: unset;
     border: unset;
     z-index: var(--elevationHigh);
 }
 
+#index #hero #titolo p {
+    padding: calc((100% - var(--menuWidth)) / 2);
+    border-bottom: unset;
+    border-top: 2px solid var(--accentColor);
+}
+
 #index #hero .videoPlayer {
-    max-width: unset;
+    width: 100%;
     border-left: unset;
 }
 
 #index #hero .videoPlayer video {
+    max-width: unset;
     width: 100%;
     z-index: var(--elevationMiddle);
 }
 
-#index #hero .videoPlayer .controls button {}
+#index #hero .videoPlayer #btn-video {
+    left: calc((100% - var(--menuWidth)) / 2);
+    border: transparent;
+    background: transparent;
+    fill: var(--accentColor);
+}
+
+#index #hero .videoPlayer #btn-video.playing #play {
+    fill: var(--accentColor);
+}
 
 
 /*
