@@ -27,10 +27,11 @@ $connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
 
 if ($connectionOk) {
-    $titolo = isset($_GET['Titolo']) ? $_GET['Titolo'] : '';
-    $data = isset($_GET['Data']) ? $_GET['Data'] : '';
+    $titolo = isset($_GET['titolo']) ? $_GET['titolo'] : '';
+    $data = isset($_GET['data']) ? $_GET['data'] : '';
 
     $lista_eventi_array = $connection->getListaEventi($data, $titolo);
+    $lista_eventi_array;
     $lista_titoli_array = $connection->getTitoliEventi();
     $connection->closeDBConnection();
 
