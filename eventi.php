@@ -32,8 +32,9 @@ if ($connectionOk) {
 
     $lista_eventi_array = $connection->getListaEventi($data, $titolo);
     $lista_titoli_array = $connection->getTitoliEventi();
+    $oldest_date = $lista_eventi_array==null? $connection->get_oldest_date() : '';
     $connection->closeDBConnection();
-
+    
     $lista_titoli_string = '';
     $option = get_content_between_markers($content, 'listaTitoli');
     foreach ($lista_titoli_array as $evento) {
@@ -43,20 +44,19 @@ if ($connectionOk) {
             '{selezioneEvento}' => $selected
         ]);
     }
-
+    
     $lista_eventi_string = '';
     if ($lista_eventi_array == null) {
         $messaggioListaEventiTemplate = get_content_between_markers($content, 'messaggioListaEventi');
-        if($titolo != '' || $data != ''){
-            $lista_eventi_string .= multi_replace($messaggioListaEventiTemplate, [
-                '{messaggio}' => 'Nessun evento corrisponde ai criteri di ricerca'
-            ]);
+        if ($titolo != '' || $data != '') {
+            $messaggio = 'Nessun evento corrisponde ai criteri di ricerca';
+        } else {
+            $messaggio = 'Non ci sono eventi in programma';
         }
-        else{
-            $lista_eventi_string .= multi_replace($messaggioListaEventiTemplate, [
-                '{messaggio}' => 'Non ci sono eventi in programma'
-            ]);
-        }
+        $lista_eventi_string .= multi_replace($messaggioListaEventiTemplate, [
+            '{messaggio}' => $messaggio,
+            '{dataEventiPassati}' => $oldest_date
+        ]);
     } else {
         $lista_eventi_string .= get_content_between_markers($content, 'listaEventi');
         $eventoTemplate = get_content_between_markers($content, 'eventoElement');
@@ -71,7 +71,8 @@ if ($connectionOk) {
             ]);
         }
         $lista_eventi_string = replace_content_between_markers($lista_eventi_string, [
-            'eventoElement' => $eventi_string
+            'eventoElement' => $eventi_string,
+            'messaggioListaEventi' => ''
         ]);
     }
 

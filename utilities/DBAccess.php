@@ -96,6 +96,11 @@ class DBAccess {
             "SELECT DISTINCT Titolo FROM Eventi;"
         );
     }
+    public function get_oldest_date() {
+        return ($ris = $this->executeQuery(
+            "SELECT Data FROM Eventi ORDER BY Data ASC LIMIT 1;"
+        )) ? $ris[0]['Data'] : null;
+    }
     public function get_tipo_evento($evento) {
         $query = $evento ?
             "SELECT * FROM TipiEvento WHERE Titolo = ?;" :
