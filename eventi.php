@@ -21,13 +21,14 @@ $percorsoAdmin = 'admin/';
 $menu = get_menu($pageId, $percorso);
 $breadcrumbs = get_breadcrumbs($pageId, $percorso);
 $onload = '';
+$logout = '';
 
 $connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
 
 if ($connectionOk) {
-    $titolo = isset($_GET['Titolo']) ? $_GET['Titolo'] : '';
-    $data = isset($_GET['Data']) ? $_GET['Data'] : '';
+    $titolo = isset($_GET['titolo']) ? $_GET['titolo'] : '';
+    $data = isset($_GET['data']) ? $_GET['data'] : '';
 
     $lista_eventi_array = $connection->getListaEventi($data, $titolo);
     $lista_titoli_array = $connection->getTitoliEventi();
@@ -68,18 +69,13 @@ if ($connectionOk) {
 }
 
 if (isset($_SESSION["login"])) {
-    $paginaHTML = replace_content_between_markers($paginaHTML, [
-        'logout' => get_content_between_markers($paginaHTML, 'logout')
-    ]);
-} else {
-    $paginaHTML = replace_content_between_markers($paginaHTML, [
-        'logout' => ''
-    ]);
+    $logout = get_content_between_markers($paginaHTML, 'logout');
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
     'breadcrumbs' => $breadcrumbs,
-    'menu' => $menu
+    'menu' => $menu,
+    'logout' => $logout
 ]), [
     '{title}' => $title,
     '{description}' => $description,

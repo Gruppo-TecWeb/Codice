@@ -1,8 +1,10 @@
 <?php
 
 namespace Utilities;
+
 require_once("../utilities/utilities.php");
 require_once("../utilities/DBAccess.php");
+
 use DB\DBAccess;
 
 session_start();
@@ -24,7 +26,7 @@ $messaggioForm = '';
 $messaggiForm = '';
 
 $connection = DBAccess::getInstance();
-$connectionOk = $connection -> openDBConnection();
+$connectionOk = $connection->openDBConnection();
 
 if ($connectionOk) {
     if (isset($_SESSION["login"])) {
@@ -45,7 +47,7 @@ if ($connectionOk) {
             $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Inserire Password"]);
         }
         if (!$errore) {
-            $utente = $connection -> login($username, $password);
+            $utente = $connection->login($username, $password);
             if (!(is_null($utente))) {
                 $_SESSION["datiUtente"] = $utente;
                 $_SESSION["login"] = true;
@@ -68,13 +70,7 @@ else {
 }
 
 if (isset($_SESSION["login"])) {
-    $paginaHTML = replace_content_between_markers($paginaHTML, [
-        'logout' => get_content_between_markers($paginaHTML, 'logout')
-    ]);
-} else {
-    $paginaHTML = replace_content_between_markers($paginaHTML, [
-        'logout' => ''
-    ]);
+    $logout = get_content_between_markers($paginaHTML, 'logout');
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [

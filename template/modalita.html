@@ -1,18 +1,20 @@
-Una <span lang="en">battle freestyle</span> è un'arte, in cui i rapper improvvisano le rime senza avere testi
+Una <span lang="en">battle freestyle</span> è un'arte, in cui i <span lang="en">rapper<span> improvvisano le rime senza avere testi
 precedentemente scritti. L'obiettivo è creare rime in tempo reale basandosi su ciò che sta accadendo nel momento.
 
 Regole generali:
+
+
+
 <div id="intro_battle" title="Regole battle">
     <ul>
-        <li>A meno che non detto esplicitamente, i rapper cantano per 4/4 a testa.</li>
-        <li>Alla fine della battle il pubblico farà casino per ogni rapper/squadra, passa chi riceve più casino;
+        <li>A meno che non detto esplicitamente, i <span lang="en">rapper<span> cantano per 
+            <span aria-label="quattro quarti"><strong><sup>4</sup>/<sub>4</sub></strong></span>
+             a testa.</li>
+        <li>Alla fine della battle il pubblico farà casino per ogni <span lang="en">rapper<span>/squadra, passa chi riceve più casino;
              se non c'è un chiaro vincitore i cantanti faranno un'ulteriore battle! </li>
         <li>OGNI COSA DETTA DAI <span lang="en">FREESTYLER</span> NON VA PRESA SERIAMENTE,
             IL GIOCO STA ANCHE IN QUELLO!</li>
-        
     </ul>
-
-
     <h2>Tipi di battle</h2>
 </div>
 
@@ -25,31 +27,32 @@ Regole generali:
 
 <!--Come legge 3/4 lo screen reader? tre backslash quattro? dovrebbe leggere tre quarti-->
 
-<div id="container_battle">
+<div id="container_battle" aria-label="Successivamente ci saranno un video di youtube e la possibilità di scegliere che modalità ascoltare/vedere">
 
-    <div id="container_iframe">
+    <div id="container_iframe" onclick="iframeChangeButton()">
         <h3>Esempio Minuto</h3>
-        <iframe src="https://www.youtube.com/embed/RszfbKxb460?si=S66nOyYSoWWfIMRV&amp;start=98&amp;end=210"
+        <iframe
+            id="iframe_battle" 
+            src="https://www.youtube.com/embed/RszfbKxb460?enablejsapi=1&amp;si=S66nOyYSoWWfIMRV&amp;start=98&amp;end=210"
             title="Esempio Minuto"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"
             allowfullscreen>
         </iframe>
-        <!--settaggio descrizione SE NECESSARIA
-        <div id="descBattle"></div>
-        -->
     </div>
+
+
 
     <dl id="lista_battle" title="Spiegazioni delle modalità e riproduzione di un esempio di ognuna">
         <div class="descBattle">
             <dt>
                 <a title="Esempio Minuto" 
-                    href="https://www.youtube.com/embed/RszfbKxb460?si=S66nOyYSoWWfIMRV&amp;start=98&amp;end=210&amp;autoplay=1">
+                    href="https://www.youtube.com/embed/RszfbKxb460?enablejsapi=1&amp;si=S66nOyYSoWWfIMRV&amp;start=98&amp;end=210&amp;autoplay=1">
                     <strong>Minuto</strong>
                 </a>
             </dt>
-            <dd>I rapper fanno un minuto di <span lang="en">freestyle</span> a testa, semplice semplice.</dd>
+            <dd>I <span lang="en">rapper<span> fanno un minuto di <span lang="en">freestyle</span> a testa, semplice semplice.</dd>
             <dd>
-                <button  type="button" title="Riproduci Esempio Minuto" onclick=setIframe(0)>
+                <button  type="button" title="Riproduci Esempio Minuto" onclick=setIframe(0) data-playing="">
                     Riproduci
                 </button>
             </dd>
@@ -58,13 +61,13 @@ Regole generali:
         <div class="descBattle">
             <dt>
                 <a  title="Esempio 4/4" 
-                    href="https://www.youtube.com/embed/2ttgML437Ho?si=UpESmYDGIApC8Ykd&amp;start=370&amp;end=510&amp;autoplay=1">
-                    <strong>4/4</strong>
+                    href="https://www.youtube.com/embed/2ttgML437Ho?enablejsapi=1&amp;si=UpESmYDGIApC8Ykd&amp;start=370&amp;end=510&amp;autoplay=1">
+                    <span aria-label="quattro quarti"><strong><sup>4</sup>/<sub>4</sub></strong></span>
                 </a>
             </dt>
-            <dd>La modalità più classica tra tutte, a turno i rapper fanno 4/4 a testa!</dd>
+            <dd>La modalità più classica tra tutte, a turno i <span lang="en">rapper<span> fanno <span aria-label="quattro quarti"><strong><sup>4</sup>/<sub>4</sub></strong></span> a testa!</dd>
             <dd>
-                <button class="descrizioneBattle" type="button" title="Riproduci esempio 4/4" onclick=setIframe(1)>
+                <button class="descrizioneBattle" type="button" title="Riproduci esempio 4/4" onclick=setIframe(1) data-playing="">
                     Riproduci
                 </button>
             </dd>
@@ -73,16 +76,16 @@ Regole generali:
         <div class="descBattle">
             <dt>
                 <a title="Esempio Cypher"
-                    href="https://www.youtube.com/embed/n2qPwcpdeeQ?si=TkMwig5ASAn-QDDp&amp;start=117&amp;end=364&amp;autoplay=1">
-                <strong>Cypher</strong>
+                    href="https://www.youtube.com/embed/n2qPwcpdeeQ?enablejsapi=1&amp;si=TkMwig5ASAn-QDDp&amp;start=117&amp;end=364&amp;autoplay=1">
+                <span lang="en"><strong>cypher</strong><span>
                 </a>
             </dt>
             <dd>
-                Un cypher è un cerchio di rapper che a turno rappano; modalità spesso utilizzata come sorta di
+                Un cypher è un cerchio di <span lang="en">rapper<span> che a turno rappano; modalità spesso utilizzata come sorta di
                 riscaldamento pre-<span lang="en">battle</span>
             </dd>
             <dd>
-                <button type="button" title="Riproduci Esempio Cypher" onclick=setIframe(2)>
+                <button type="button" title="Riproduci Esempio Cypher" onclick=setIframe(2) data-playing="">
                     Riproduci
                 </button>
             </dd>
@@ -92,16 +95,16 @@ Regole generali:
         <div class="descBattle">
             <dt>
                 <a title="Esempio 3/4"
-                    href="https://www.youtube.com/embed/n2qPwcpdeeQ?si=TkMwig5ASAn-QDDp&amp;start=779&amp;end=1014&amp;autoplay=1">
-                <strong>3/4</strong>
+                    href="https://www.youtube.com/embed/n2qPwcpdeeQ?enablejsapi=1&amp;si=TkMwig5ASAn-QDDp&amp;start=779&amp;end=1014&amp;autoplay=1">
+                <strong><span aria-label="quattro quarti"><strong><sup>4</sup>/<sub>3</sub></strong></span></strong>
                 </a>
             </dt>
             <dd>
-                Un rapper canta per 3/4 e l'altro dovrà chiudere la rima occupando il 4/4 per poi continuare per 3/4 a
+                Un <span lang="en">rapper<span> canta per <span aria-label="quattro quarti"><strong><sup>4</sup>/<sub>3</sub></strong></span> e l'altro dovrà chiudere la rima occupando il <span aria-label="quattro quarti"><strong><sup>4</sup>/<sub>4</sub></strong></span> per poi continuare per <span aria-label="quattro quarti"><strong><sup>4</sup>/<sub>3</sub></strong></span> a
                 cui l'avversario dovrà rispondere, e così via!
             </dd>
             <dd>
-                <button  type="button" title="Riproduci Esempio 3/4" onclick=setIframe(3)>
+                <button  type="button" title="Riproduci Esempio 3/4" onclick=setIframe(3) data-playing="false">
                     Riproduci
                 </button>
             </dd>
@@ -109,16 +112,16 @@ Regole generali:
         <div class="descBattle">
             <dt>
                 <a title="Esempio KickBack"
-                    href="https://www.youtube.com/embed/n2qPwcpdeeQ?si=78l2svzMAuQgGem-&amp;start=1604&amp;end=3610&amp;autoplay=1">
+                    href="https://www.youtube.com/embed/n2qPwcpdeeQ?enablejsapi=1&amp;si=78l2svzMAuQgGem-&amp;start=1604&amp;end=3610&amp;autoplay=1">
                 <strong>KickBack</strong>
                 </a>
             </dt>
             <dd>
-                Un rapper fa una domanda all'altro, l'altro dovrà rispondere e fare poi una domanda a sua volta,
-                tutto seguendo il tempo dei 3/4!
+                Un <span lang="en">rapper<span> fa una domanda all'altro, l'altro dovrà rispondere e fare poi una domanda a sua volta,
+                tutto seguendo il tempo dei <span aria-label="quattro quarti"><strong><sup>4</sup>/<sub>3</sub></strong></span>!
             </dd>
             <dd>
-                <button type="button" title="Riproduci Esempio KickBack" onclick=setIframe(4)>
+                <button type="button" title="Riproduci Esempio KickBack" onclick=setIframe(4) data-playing="false">
                     Riproduci
                 </button>
             </dd>
@@ -126,15 +129,15 @@ Regole generali:
         <div class="descBattle">
             <dt>
                 <a title="Esempio Royal rumble"
-                    href="https://www.youtube.com/embed/Czp97FOKaDM?si=1T1fmAYfknrT4rnP&amp;autoplay=1">
-                    <strong>Royal rumble</strong>
+                    href="https://www.youtube.com/embed/Czp97FOKaDM?enablejsapi=1&amp;si=1T1fmAYfknrT4rnP&amp;autoplay=1">
+                    <span lang="en"><strong>Royal rumble</strong></span>
                 </a>
             </dt>
-            <dd>Qua i rapper cantano a rotazione, ad ogni match il rapper che meno è piaciuto viene eliminato e gli
+            <dd>Qua i <span lang="en">rapper<span> cantano a rotazione, ad ogni match il <span lang="en">rapper<span> che meno è piaciuto viene eliminato e gli
                 altri continuano ad affrontarsi
             </dd>
             <dd>
-                <button type="button" title="Riproduci Esempio Royal rumble" onclick=setIframe(5)>
+                <button type="button" title="Riproduci Esempio Royal rumble" onclick=setIframe(5) data-playing="false">
                     Riproduci
                 </button>
             </dd>
@@ -143,16 +146,16 @@ Regole generali:
         <div class="descBattle">
             <dt>
                 <a title="Esempio Argomento"
-                    href="https://www.youtube.com/embed/95SZIlMiFfQ?si=tTn5cuhA1s2pQeTS&amp;start=4&amp;end=&amp;autoplay=1">
+                    href="https://www.youtube.com/embed/95SZIlMiFfQ?enablejsapi=1&amp;si=tTn5cuhA1s2pQeTS&amp;start=4&amp;end=&amp;autoplay=1">
                     <strong>Argomento</strong>
                 </a>
             </dt>
             <dd>
-                Viene dato un argomento su cui i rapper dovranno cantare. <a title="Variante fazioni"
+                Viene dato un argomento su cui i <span lang="en">rapper<span> dovranno cantare. <a title="Variante fazioni"
                     href="https://www.youtube.com/watch?v=OQd6xAAm9nU" target="_blank">Variante fazioni</a>
             </dd>
             <dd>
-                <button type="button" title="Riproduci Esempio Argomento" onclick=setIframe(6)>
+                <button type="button" title="Riproduci Esempio Argomento" onclick=setIframe(6) data-playing="false">
                     Riproduci
                 </button>
             </dd>
@@ -161,14 +164,14 @@ Regole generali:
         <div class="descBattle">
             <dt>
                 <a title="Esempio Acappella"
-                    href="https://www.youtube.com/embed/OvVk892HzmE?si=zJjNgjiI8RlPKi7Y&amp;start=762&amp;autoplay=1">
+                    href="https://www.youtube.com/embed/OvVk892HzmE?enablejsapi=1&amp;si=zJjNgjiI8RlPKi7Y&amp;start=762&amp;autoplay=1">
                     <strong>Acappella</strong>
                 </a>
             </dt>
-            <dd>I rapper si sfidano senza alcun supporto musicale, concentrandosi solo sulle loro abilità vocali e
+            <dd>I <span lang="en">rapper<span> si sfidano senza alcun supporto musicale, concentrandosi solo sulle loro abilità vocali e
                 liriche</dd>
             <dd>
-                <button type="button" title="Riproduci Esempio Acappella" onclick=setIframe(7)>
+                <button type="button" title="Riproduci Esempio Acappella" onclick=setIframe(7) data-playing="false">
                     Riproduci
                 </button>
             </dd>
@@ -177,19 +180,17 @@ Regole generali:
         <div class="descBattle">
             <dt>
                 <a title="Esempio Oggetti"
-                    href="https://www.youtube.com/embed/S8Ze0GCgo4k?si=-nNRKZxPbIgU_2uI&amp;autoplay=1">
+                    href="https://www.youtube.com/embed/S8Ze0GCgo4k?enablejsapi=1&amp;si=-nNRKZxPbIgU_2uI&amp;autoplay=1">
                     <strong>Oggetti</strong>
                 </a>
             </dt>
-            <dd>All'inizio di ogni turno ai rapper verranno forniti degli oggetti che non conoscono a priori e
+            <dd>All'inizio di ogni turno ai <span lang="en">rapper<span> verranno forniti degli oggetti che non conoscono a priori e
                 dovranno rappare su quelli.</dd>
             <dd>
-                <button type="button" title="Riproduci Esempio Oggetti" onclick=setIframe(8)>
+                <button type="button" title="Riproduci Esempio Oggetti" onclick=setIframe(8) data-playing="false">
                     Riproduci
                 </button>
             </dd>
         </div>
     </dl>
 </div>
-
-<!--Come legge 3/4 lo screen reader? tre backslash quattro? dovrebbe leggere tre quarti-->
