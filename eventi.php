@@ -31,7 +31,6 @@ if ($connectionOk) {
     $data = isset($_GET['data']) ? $_GET['data'] : '';
 
     $lista_eventi_array = $connection->getListaEventi($data, $titolo);
-    $lista_eventi_array;
     $lista_titoli_array = $connection->getTitoliEventi();
     $connection->closeDBConnection();
 
