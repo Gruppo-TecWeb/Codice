@@ -452,6 +452,19 @@ footer #footer-credits {
     /* Mantiene l'aspetto dell'immagine e la fa coprire completamente il contenitore */
 }
 
+/* Paginazione eventi */
+
+#paginazione-eventi ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.25em;
+}
+
+#paginazione-eventi ul li {
+    margin: 0 0.3125em;
+}
 
 /*
  * PAGINA EVENTO
