@@ -5,15 +5,19 @@
     <dl id="evento-info">
         <dt>Data:</dt>
         <dd><time datetime="{data}">{data}</time></dd>
+        {stagioneEvento}
         <dt>Tipo evento:</dt>
         <dd>{tipoEvento}</dd>
-        <dt>Data inizio:</dt>
-        <dd>{dataInizioClassifica}</dd>
+        <dt>Data inizio stagione:</dt>
+        <dd><time datetime="{dataInizioClassifica}">{dataInizioClassifica}</time></dd>
+        {/stagioneEvento}
         <dt>Ora:</dt>
         <dd><time datetime="{ora}">{ora}</time></dd>
         <dt>Luogo:</dt>
         <dd>{luogo}</dd>
+        {descrizioneEvento}
         <dt>Descrizione:</dt>
-        <dt>{descrizione}</dt>
+        <dd>{descrizione}</dd>
+        {/descrizioneEvento}
     </dl>
 </div>
