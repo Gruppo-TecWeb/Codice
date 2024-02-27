@@ -22,10 +22,10 @@
 {navRisultatiEventi}
 <nav id="risultati-eventi" class="limitedWidth" aria-label="Visualizza il numero di risultati e l'indicazione del numero di pagina">
     {risultatiEventi}
-    <p><span>Risultati totali: {risultati}. Pagina {pagina} di {numeroPagine}: </span></p>
+    <p><span>Risultati totali: {risultati}. Pagina {pagina} di {numeroPagine}. </span></p>
     {/risultatiEventi}
 </nav>
-{/navRisultati}
+{/navRisultatiEventi}
 <div id="lista-eventi" class="limitedWidth">
     {listaEventi}<article>
         <a href="evento.php?id={idEvento}">
@@ -39,7 +39,7 @@
 {pagination}
 <nav id="paginazione-eventi" class="limitedWidth" role="navigation" aria-label="Scorri tra le pagine degli eventi">
     {risultatiEventi}
-    <p><span>Risultati totali: {risultati}. Pagina {pagina} di {numeroPagine}: </span></p>
+    <p><span>Risultati totali: {risultati}. Pagina {pagina} di {numeroPagine}. </span></p>
     {/risultatiEventi}
     <ul>
         {pages}
