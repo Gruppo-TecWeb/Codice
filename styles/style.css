@@ -669,7 +669,14 @@ div.error500 img {
     flex-direction: row-reverse;
     justify-content: flex-end;
     align-items: center;
+    border-width: 0em 0.1em 0em 0em;
+    border-style: solid;
+    padding-right: 1em;
 
+}
+.descBeats{
+    margin-left: 1em;
+    margin-right: 50px;
 }
 #lista_beats .beat:hover button[data-isPlaying="false"]{
     background-image: url("../assets/icons/Play.png");
