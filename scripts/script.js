@@ -106,10 +106,18 @@ function setAudioDuration(){
         durata=Math.floor(audios[i].duration/60) + ":" + Math.floor(audios[i].duration%60);
         minuti=durata.slice(0,durata.indexOf(":"));
         secondi=durata.slice(durata.indexOf(":")+1);
-        if(secondi.length==1){
-            span[i].innerHTML ="<time datatime=PT" + minuti + "M" + secondi + "S>" + minuti + ":" + "0" + secondi + "</time>"; 
+        if(minuti==1){
+            if(secondi.length==1){
+                span[i].innerHTML ="<time aria-hidden='true' datatime=PT" + minuti + "M" + secondi + "S>" + minuti + ":" + "0" + secondi + "</time>"+ "<span class='navigationHelp'>"+minuti+"minuto e "+secondi+"secondi"+"</span>"; 
+            }else{
+                span[i].innerHTML = "<time aria-hidden='true' datatime=PT" + minuti + "M" + secondi + "S>" + minuti + ":" + secondi + "</time>"+ "<span class='navigationHelp'>"+minuti+" minuto e "+secondi+" secondi"+"</span>"; 
+            }
         }else{
-            span[i].innerHTML = "<time datatime=PT" + minuti + "M" + secondi + "S>" + minuti + ":" + secondi + "</time>";
+            if(secondi.length==1){
+                span[i].innerHTML ="<time aria-hidden='true' datatime=PT" + minuti + "M" + secondi + "S>" + minuti + ":" + "0" + secondi + "</time>"+ "<span class='navigationHelp'>"+minuti+"minuti e "+secondi+"secondi"+"</span>"; 
+            }else{
+                span[i].innerHTML = "<time aria-hidden='true' datatime=PT" + minuti + "M" + secondi + "S>" + minuti + ":" + secondi + "</time>"+ "<span class='navigationHelp'>"+minuti+" minuti e "+secondi+" secondi"+"</span>"; 
+            }
         }
     }
 }
