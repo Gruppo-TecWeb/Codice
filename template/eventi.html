@@ -15,7 +15,7 @@
         </select>
     </fieldset>
     <fieldset class="limitedWidth">
-        <input type="submit" id="submit" value="Filtra">
+        <input type="submit" id="submitFiltri" value="Filtra">
         <input type="button" id="reset" value="Reset" onclick="window.location.href='eventi.php'">
     </fieldset>
 </form>
@@ -26,14 +26,27 @@
     {/risultatiEventi}
 </nav>
 {/navRisultatiEventi}
-<div id="lista-eventi" class="limitedWidth">
-    {listaEventi}<article>
-        <a href="evento.php?id={idEvento}">
-            <p><time datetime="{valueDataEvento}">{dataEvento}</time></p>
-            <img src="assets/media/locandine/{locandinaEvento}">
-            <p>{titoloEvento}</p>
-        </a>
-    </article>
+<div class="limitedWidth">
+    <p>Stai visualizzando
+        {messaggioFiltri}
+        <time datetime="{valueDataEvento}">{dataEvento}</time>
+        {/messaggioFiltri}
+    </p>
+    {listaEventi}
+    <ul id="lista-eventi">
+        {eventoElement}
+        <li>
+            <a href="evento.php?id={idEvento}">
+                <p><time datetime="{valueDataEvento}">{dataEvento}</time></p>
+                <img src="assets/media/locandine/{locandinaEvento}">
+                <h3>{titoloEvento}</h3>
+            </a>
+        </li>
+        {/eventoElement}
+    </ul>
+    {messaggioListaEventi}
+    <p>{messaggio}, sfoglia i nostri <a href="eventi.php?data={dataEventiPassati}">eventi passati</a></p>
+    {/messaggioListaEventi}
     {/listaEventi}
 </div>
 {pagination}

@@ -86,7 +86,7 @@ class DBAccess {
         ce.Tipoevento,
         ce.Datainizio
         FROM Eventi AS e
-        LEFT JOIN Classificheeventi AS ce ON e.Id = ce.Evento
+        LEFT JOIN ClassificheEventi AS ce ON e.Id = ce.Evento
         WHERE e.Id = ?";
         return ($ris = $this->executeQuery($query, $id)) ? $ris[0] : null;
     }
@@ -95,6 +95,11 @@ class DBAccess {
         return $this->executeQuery(
             "SELECT DISTINCT Titolo FROM Eventi;"
         );
+    }
+    public function get_oldest_date() {
+        return ($ris = $this->executeQuery(
+            "SELECT Data FROM Eventi ORDER BY Data ASC LIMIT 1;"
+        )) ? $ris[0]['Data'] : null;
     }
     public function get_tipo_evento($evento) {
         $query = $evento ?

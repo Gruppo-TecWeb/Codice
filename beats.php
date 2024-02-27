@@ -12,7 +12,7 @@ session_start();
 $paginaHTML = file_get_contents("template/template-pagina.html");
 $content = file_get_contents("template/beats.html");
 
-$title = 'Battle &minus; Fungo';
+$title = 'Beats &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = "Basi per freestyle di rap";
 $keywords = 'Basi, Beats, Instrumental, Freestyle, Rap';
