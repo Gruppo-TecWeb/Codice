@@ -656,7 +656,7 @@ div.error500 img {
 #lista_beats .beat {
     padding: 1em;
     background-color: var(--secondaryColor);
-    cursor: pointer;
+    /*cursor: pointer;*/
     border-style: solid;
     border-color: var(--accentColor);
     border-width: 0.1em 0em 0em 0em;

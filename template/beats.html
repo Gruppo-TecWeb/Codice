@@ -1,15 +1,29 @@
+<div id="intro_beats" class="limitedWidth">
+    <h2>Beats</h2>
+    <p>Qui troverai una lista di basi strumentali da utilizzare per le tue <span lang="en">battle</span> o per le tue canzoni!</p>
+    <p>Seleziona la base che preferisci e clicca sul pulsante <span lang="en">play</span> per ascoltarla.</p>
+    <p>Se vuoi ascoltare tutte le basi in sequenza, clicca sul pulsante <span lang="en">autoPlay</span> e goditi la musica!</p>
+</div>
+
+
 <div id="beats_container">
     <dl id="lista_beats">
-        <div class="beat" onclick="playerAudio('chord-base-ambient-music.mp3')">
+        <div class="beat" >
             <div class="titoloContainer">
                 <dt>
-                <span lang="en">chord base ambient music</span>
+                    <span lang="en">chord base ambient music</span>
                 </dt>
                 <dd class="navigationHelp"></dd>
                 <dd>
-                    <button type="button" data-title-beat="chord-base-ambient-music" title="Riproduci chord base ambient music" data-isPlaying="false">1</button>
+                    <button type="button" onclick="playerAudio('chord-base-ambient-music.mp3')"
+                    title="Riproduci chord base ambient music" data-title-beat="chord-base-ambient-music" data-isPlaying="false">1</button>
                 </dd>
             </div>
+            <dd>
+                <a href="#audio">
+                    <span class="navigationHelp">Vai al player della canzone</span>
+                </a>
+            </dd>
             <dd>
                 <audio class="audioBeats" controls data-java="false">
                     <source src="../assets/media/basi/chord-base-ambient-music.mp3" type="audio/mpeg">
@@ -19,15 +33,21 @@
             <dd class="durata"></dd>
         </div>
 
-        <div class="beat" onclick="playerAudio('cool-beat.mp3')">
+        <div class="beat" >
             <div class="titoloContainer">
                 <dt>
                     <span lang="en">cool beat</span>
                     </dt>
                 <dd>
-                    <button type="button" data-title-beat="cool-beat" title="Riproduci cool beat" data-isPlaying="false">2</button>
+                    <button type="button" onclick="playerAudio('cool-beat.mp3')" 
+                    title="Riproduci cool beat" data-title-beat="cool-beat" data-isPlaying="false">2</button>
                 </dd>
             </div>
+            <dd>
+                <a href="#audio">
+                    <span class="navigationHelp">Vai al player della canzone</span>
+                </a>
+            </dd>
             <dd>
                 <audio class="audioBeats" controls data-java="false">
                     <source src="../assets/media/basi/cool-beat.mp3" type="audio/mpeg">
@@ -36,15 +56,21 @@
             <dd class="durata"></dd>
         </div>
         
-        <div class="beat" onclick="playerAudio('electro-tribal-beat.mp3')">
+        <div class="beat">
             <div class="titoloContainer">
                 <dt>
                     <span lang="en">electro tribal beat</span>
                     </dt>
                 <dd>
-                    <button type="button" data-title-beat="electro-tribal-beat" title="Riproduci electro tribal beat" data-isPlaying="false">3</button>
+                    <button type="button" onclick="playerAudio('electro-tribal-beat.mp3')" 
+                    title="Riproduci electro tribal beat" data-title-beat="electro-tribal-beat" data-isPlaying="false">3</button>
                 </dd>
             </div>
+            <dd>
+                <a href="#audio">
+                    <span class="navigationHelp">Vai al player della canzone</span>
+                </a>
+            </dd>
             <dd>
                 <audio class="audioBeats" controls data-java="false">
                     <source src="../assets/media/basi/electro-tribal-beat.mp3" type="audio/mpeg">
@@ -53,15 +79,21 @@
             <dd class="durata"></dd>
         </div>
         
-        <div class="beat" onclick="playerAudio('elegant-piano-trap-base.mp3')">
+        <div class="beat" >
             <div class="titoloContainer">
                 <dt>
                     <span lang="en">elegant piano trap base</span>
                     </dt>
                 <dd>
-                    <button type="button" data-title-beat="elegant-piano-trap-base" title="Riproduci elegant piano trap base" data-isPlaying="false">4</button>
+                    <button type="button" onclick="playerAudio('elegant-piano-trap-base.mp3')"
+                    title="Riproduci elegant piano trap base" data-title-beat="elegant-piano-trap-base" data-isPlaying="false">4</button>
                 </dd>
             </div>
+            <dd>
+                <a href="#audio">
+                    <span class="navigationHelp">Vai al player della canzone</span>
+                </a>
+            </dd>
             <dd>
                 <audio class="audioBeats" controls data-java="false">
                     <source src="../assets/media/basi/elegant-piano-trap-base.mp3" type="audio/mpeg">
@@ -70,15 +102,21 @@
             <dd class="durata"></dd>
         </div>
         
-        <div class="beat" onclick="playerAudio('hip-hoptrap-cotton-mouth.mp3')">
+        <div class="beat">
             <div class="titoloContainer">
                 <dt>
                     <span lang="en">hip hoptrap cotton mouth</span>
                 </dt>
                 <dd>
-                    <button type="button" data-title-beat="hip-hoptrap-cotton-mouth" title="Riproduci hip hoptrap cotton mouth" data-isPlaying="false">5</button>
+                    <button type="button" onclick="playerAudio('hip-hoptrap-cotton-mouth.mp3')"
+                    title="Riproduci hip hoptrap cotton mouth" data-title-beat="hip-hoptrap-cotton-mouth" data-isPlaying="false">5</button>
                 </dd>
             </div>
+            <dd>
+                <a href="#audio">
+                    <span class="navigationHelp">Vai al player della canzone</span>
+                </a>
+            </dd>
             <dd>
                 <audio class="audioBeats" controls data-java="false">
                     <source src="../assets/media/basi/hip-hoptrap-cotton-mouth.mp3" type="audio/mpeg">
@@ -87,15 +125,21 @@
             <dd class="durata"></dd>
         </div>
 
-        <div class="beat" onclick="playerAudio('lonewolf-dark-hard-sad-trap-beat.mp3')">
+        <div class="beat">
             <div class="titoloContainer">
                 <dt>
                     <span lang="en">lonewolf dark hard sad trap beat</span>
                 </dt>    
                 <dd>
-                    <button type="button" data-title-beat="lonewolf-dark-hard-sad-trap-beat" title="Riproduci lonewolf dark hard sad trap beat" data-isPlaying="false">6</button>
+                    <button type="button" onclick="playerAudio('lonewolf-dark-hard-sad-trap-beat.mp3')"
+                    title="Riproduci lonewolf dark hard sad trap beat" data-title-beat="lonewolf-dark-hard-sad-trap-beat" data-isPlaying="false">6</button>
                 </dd>
             </div>
+            <dd>
+                <a href="#audio">
+                    <span class="navigationHelp">Vai al player della canzone</span>
+                </a>
+            </dd>
             <dd>
                 <audio class="audioBeats" controls data-java="false">
                     <source src="../assets/media/basi/lonewolf-dark-hard-sad-trap-beat.mp3" type="audio/mpeg">
@@ -104,15 +148,21 @@
             <dd class="durata"></dd>
         </div>
 
-        <div class="beat" onclick="playerAudio('meet-my-crew.mp3')">
+        <div class="beat">
             <div class="titoloContainer">
                 <dt>
                     <span lang="en">meet my crew</span>
                 </dt>
                 <dd>
-                    <button type="button" data-title-beat="meet-my-crew" title="Riproduci meet my crew" data-isPlaying="false">7</button>
+                    <button type="button" onclick="playerAudio('meet-my-crew.mp3')"
+                    title="Riproduci meet my crew" data-title-beat="meet-my-crew" data-isPlaying="false">7</button>
                 </dd>
             </div>
+            <dd>
+                <a href="#audio">
+                    <span class="navigationHelp">Vai al player della canzone</span>
+                </a>
+            </dd>
             <dd>
                 <audio class="audioBeats" controls data-java="false">
                     <source src="../assets/media/basi/meet-my-crew.mp3" type="audio/mpeg">
@@ -121,15 +171,21 @@
             <dd class="durata"></dd>
         </div>
 
-        <div class="beat" onclick="playerAudio('ogi-feel-the-beat.mp3')">
+        <div class="beat">
             <div class="titoloContainer">
                 <dt>
                     <span lang="en">ogi feel the beat</span>
                 </dt>
                 <dd>
-                    <button type="button" data-title-beat="ogi-feel-the-beat" title="Riproduci ogi feel the beat" data-isPlaying="false">8</button>
+                    <button type="button" onclick="playerAudio('ogi-feel-the-beat.mp3')"
+                    title="Riproduci ogi feel the beat" data-title-beat="ogi-feel-the-beat" data-isPlaying="false">8</button>
                 </dd>
             </div>
+            <dd>
+                <a href="#audio">
+                    <span class="navigationHelp">Vai al player della canzone</span>
+                </a>
+            </dd>
             <dd>
                 <audio class="audioBeats" controls data-java="false">
                     <source src="../assets/media/basi/ogi-feel-the-beat.mp3" type="audio/mpeg">
@@ -138,15 +194,21 @@
             <dd class="durata"></dd>
         </div>
 
-        <div class="beat" onclick="playerAudio('rk-beats-trap-beat.mp3')">
+        <div class="beat">
             <div class="titoloContainer">
                 <dt>
                     <span lang="en">rk beats trap beat</span>
                 </dt>
                 <dd>
-                    <button type="button" data-title-beat="rk-beats-trap-beat" title="Riproduci rk beats trap beat" data-isPlaying="false">9</button>
+                    <button type="button" onclick="playerAudio('rk-beats-trap-beat.mp3')"
+                    title="Riproduci rk beats trap beat" data-title-beat="rk-beats-trap-beat" data-isPlaying="false">9</button>
                 </dd>
             </div>
+            <dd>
+                <a href="#audio">
+                    <span class="navigationHelp">Vai al player della canzone</span>
+                </a>
+            </dd>
             <dd>
                 <audio class="audioBeats" controls data-java="false">
                     <source src="../assets/media/basi/rk-beats-trap-beat.mp3" type="audio/mpeg">
@@ -155,15 +217,21 @@
             <dd class="durata"></dd>
         </div>
 
-        <div class="beat" onclick="playerAudio('trap-beat.mp3')">
+        <div class="beat">
             <div class="titoloContainer">
                 <dt>
                     <span lang="en">trap beat</span>
                 </dt>
                 <dd>
-                    <button type="button" data-title-beat="trap-beat" title="Riproduci trap beat" data-isPlaying="false">10</button>
+                    <button type="button" onclick="playerAudio('trap-beat.mp3')"
+                    title="Riproduci trap beat" data-title-beat="trap-beat" data-isPlaying="false">10</button>
                 </dd>
             </div>
+            <dd>
+                <a href="#audio">
+                    <span class="navigationHelp">Vai al player della canzone</span>
+                </a>
+            </dd>
             <dd>
                 <audio class="audioBeats" controls data-java="false">
                     <source src="../assets/media/basi/trap-beat.mp3" type="audio/mpeg">
@@ -172,15 +240,21 @@
             <dd class="durata"></dd>
         </div>
 
-        <div class="beat" onclick="playerAudio('trap-beat-rk-beats-777-drunk-time.mp3')">
+        <div class="beat">
             <div class="titoloContainer">
                 <dt>
                     <span lang="en">trap beat rk beats 777 drunk time</span>
                 </dt>
                 <dd>
-                    <button type="button" data-title-beat="trap-beat-rk-beats-777-drunk-time" title="Riproduci trap beat rk beats 777 drunk time" data-isPlaying="false">11</button>
+                    <button type="button" onclick="playerAudio('trap-beat-rk-beats-777-drunk-time.mp3')"
+                    title="Riproduci trap beat rk beats 777 drunk time" data-title-beat="trap-beat-rk-beats-777-drunk-time" data-isPlaying="false">11</button>
                 </dd>
             </div>
+            <dd>
+                <a href="#audio">
+                    <span class="navigationHelp">Vai al player della canzone</span>
+                </a>
+            </dd>
             <dd>
                 <audio class="audioBeats" controls data-java="false">
                     <source src="../assets/media/basi/trap-beat-rk-beats-777-drunk-time.mp3" type="audio/mpeg">
@@ -189,15 +263,21 @@
             <dd class="durata"></dd>
         </div>
 
-        <div class="beat" onclick="playerAudio('trap-x-dark.mp3')">
+        <div class="beat">
             <div class="titoloContainer">
                 <dt>
                     <span lang="en">trap x dark</span>
                 </dt>
                 <dd>
-                    <button type="button" data-title-beat="trap-x-dark" title="Riproduci trap x dark" data-isPlaying="false">12</button>
+                    <button type="button" onclick="playerAudio('trap-x-dark.mp3')"
+                    title="Riproduci trap x dark" data-title-beat="trap-x-dark" data-isPlaying="false">12</button>
                 </dd>
             </div>
+            <dd>
+                <a href="#audio">
+                    <span class="navigationHelp">Vai al player della canzone</span>
+                </a>
+            </dd>
             <dd>
                 <audio class="audioBeats" controls data-java="false">
                     <source src="../assets/media/basi/trap-x-dark.mp3" type="audio/mpeg">
