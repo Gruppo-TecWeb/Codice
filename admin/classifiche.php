@@ -34,7 +34,8 @@ $connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
 
 if ($connectionOk) {
-    if (isset($_GET["modifica"]) || isset($_GET["conferma"]) || isset($_GET["aggiungi"]) || isset($_GET["punteggi"]) || isset($_GET["mostraEventi"])) {
+    $rigaClassifica = get_content_between_markers($adminContent, 'rigaClassifica');
+    if (isset($_POST["modifica"]) || isset($_POST["mostraEventi"])) {
         $adminContent = replace_content_between_markers($adminContent, [
             'associaEventi' => get_content_between_markers($adminContent, 'associaEventi'),
             'aggiungi' => '',
@@ -47,31 +48,56 @@ if ($connectionOk) {
     }
     
     // costruisco la lista di option per la selezione del tipo evento
-    $legend = isset($_GET["modifica"]) ? 'Modifica classifica' : 'Aggiungi classifica';
+    $legend = (isset($_POST["modifica"]) || isset($_POST["mostraEventi"])) ? 'Modifica classifica' : 'Aggiungi classifica';
     $listaTipoEvento = '';
-    $selezioneTipoEventoDefault = isset($_GET["tipoEvento"]) && !isset($_GET["elimina"]) ? '' : ' selected';
-    $valueDataInizio = isset($_GET["dataInizio"]) ? ' value="' . $_GET["dataInizio"] . '"' : '';
-    $valueDataFine = isset($_GET["dataFine"]) ? ' value="' . $_GET["dataFine"] . '"' : '';
+    $selezioneTipoEventoDefault = isset($_POST["tipoEvento"]) && !isset($_POST["elimina"]) ? '' : ' selected';
     $tipiEvento = $connection->getTipiEvento();
     $optionTipoEvento = get_content_between_markers($adminContent, 'listaTipoEvento');
+    $valueTipoEvento = '';
     foreach ($tipiEvento as $tipoEvento) {
         $selezioneTipoEvento = '';
-        if (isset($_GET["tipoEvento"]) && !isset($_GET["elimina"])) {
-            $selezioneTipoEvento = $_GET["tipoEvento"] == $tipoEvento['Titolo'] ? ' selected' : '';
+        if (isset($_POST["tipoEvento"]) && !isset($_POST["elimina"])) {
+            $selezioneTipoEvento = $_POST["tipoEvento"] == $tipoEvento['Titolo'] ? ' selected' : '';
+            $valueTipoEvento = $_POST["tipoEvento"];
         }
         $listaTipoEvento .= multi_replace($optionTipoEvento, [
             '{tipoEvento}' => $tipoEvento['Titolo'],
             '{selezioneTipoEvento}' => $selezioneTipoEvento
         ]);
     }
+    if (isset($_POST["modifica"])) {
+        $valueDataInizio = $_POST["dataInizio"];
+        $valueNuovaDataInizio = ' value="' . $_POST["dataInizio"] . '"';
+        $valueNuovaDataFine = ' value="' . $_POST["dataFine"] . '"';
+    } elseif (isset($_POST["mostraEventi"])) {
+        $valueDataInizio = $_POST["dataInizio"];
+        $valueNuovaDataInizio = ' value="' . $_POST["nuovaDataInizio"] . '"';
+        $valueNuovaDataFine = ' value="' . $_POST["nuovaDataFine"] . '"';
+        $adminContent = multi_replace($adminContent, ['{valueAzione}' => isset($_POST["azione"]) ? $_POST["azione"] : 'aggiungi']);
+    } else {
+        $valueDataInizio = '';
+        $valueNuovaDataInizio = '';
+        $valueNuovaDataFine = '';
+    }
+    $adminContent = multi_replace(replace_content_between_markers($adminContent, [
+            'listaTipoEvento' => $listaTipoEvento]), [
+        '{legend}' => $legend,
+        '{selezioneTipoEventoDefault}' => $selezioneTipoEventoDefault,
+        '{valueNuovaDataInizio}' => $valueNuovaDataInizio,
+        '{valueNuovaDataFine}' => $valueNuovaDataFine,
+        '{valueTipoEvento}' => $valueTipoEvento,
+        '{valueDataInizio}' => $valueDataInizio,
+        '{valueAzione}' => isset($_POST["modifica"]) ? 'modifica' : 'aggiungi'
+        ]);
 
     // costruisco la lista di eventi selezionabili e selezionati
     $listaEventi = '';
-    $nessunEvento = '';
-    if (isset($_GET["mostraEventi"])) {
-        $eventiSelezionati = $connection->getEventiSelezionati($_GET["tipoEvento"], $_GET["dataInizio"]);
-        $eventiSelezionabili = $connection->getEventiSelezionabili($_GET["dataInizio"], $_GET["dataFine"]);
-        $checkEvento = get_content_between_markers($adminContent, 'listaEventi');
+    if (isset($_POST["modifica"]) || isset($_POST["conferma"]) || isset($_POST["punteggi"]) || isset($_POST["mostraEventi"])) {
+        $eventiSelezionati = $connection->getEventiSelezionati($_POST["tipoEvento"], $_POST["dataInizio"]);
+        $eventiSelezionabili = $connection->getEventiSelezionabili(
+            isset($_POST["nuovaDataInizio"]) ? $_POST["nuovaDataInizio"] : $_POST["dataInizio"],
+            isset($_POST["nuovaDataFine"]) ? $_POST["nuovaDataFine"] : $_POST["dataFine"]);
+        $checkEvento = get_content_between_markers($adminContent, 'checkEvento');
 
         foreach ($eventiSelezionati as $eventoSelezionato) {
             $listaEventi .= multi_replace($checkEvento, [
@@ -91,17 +117,36 @@ if ($connectionOk) {
                 '{eventoChecked}' => ''
             ]);
         }
+        $listaEventi = replace_content_between_markers(get_content_between_markers($adminContent, 'listaEventi'), [
+                'checkEvento' => $listaEventi]);
 
         if ($listaEventi == '') {
             $nessunEvento = get_content_between_markers($adminContent, 'nessunEvento');
         }
     }
 
-    // elimino una classifica
-    if (isset($_GET["elimina"])) {
+    // modifica di una classifica
+    if (isset($_POST["conferma"]) && isset($_POST["azione"]) && $_POST["azione"] == 'modifica') {
         $messaggioForm = get_content_between_markers($adminContent, 'messaggioForm');
-        $connection->delete_classifica($_GET["tipoEvento"], $_GET["dataInizio"]);
-        if (count($connection->get_classifica($_GET["tipoEvento"], $_GET["dataInizio"])) == 0) {
+        $connection->update_classifica($_POST["tipoEvento"], $_POST["dataInizio"], $_POST["nuovoTipoEvento"], $_POST["nuovaDataInizio"], $_POST["nuovaDataFine"]);
+        $eventiSelezionati = $_POST["eventi"];
+        $connection->update_classifica_eventi($_POST["nuovoTipoEvento"], $_POST["nuovaDataInizio"], $eventiSelezionati);
+        //gestione errori sql da migliorare
+        if (count($connection->get_classifica($_POST["tipoEvento"], $_POST["dataInizio"])) > 0) {
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Classifica modificata correttamente"]);
+        } else {
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);
+        }
+        $messaggiForm = replace_content_between_markers(
+            get_content_between_markers($adminContent, 'messaggiForm'), ['messaggioForm' => $messaggiForm]);
+    }
+
+    // eliminazione di una classifica
+    if (isset($_POST["elimina"])) {
+        $messaggioForm = get_content_between_markers($adminContent, 'messaggioForm');
+        $connection->delete_classifica($_POST["tipoEvento"], $_POST["dataInizio"]);
+        //gestione errori sql da migliorare
+        if (count($connection->get_classifica($_POST["tipoEvento"], $_POST["dataInizio"])) == 0) {
             $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Classifica eliminata correttamente"]);
         } else {
             $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);
@@ -110,9 +155,8 @@ if ($connectionOk) {
             get_content_between_markers($adminContent, 'messaggiForm'), ['messaggioForm' => $messaggiForm]);
     }
 
-    // visualizzazione classificche presenti nel db
+    // visualizzazione classifiche presenti nel db
     $classifiche = $connection->get_classifiche();
-    $rigaClassifica = get_content_between_markers($adminContent, 'rigaClassifica');
     $righeClassifiche = '';
     foreach ($classifiche as $classifica) {
         $righeClassifiche .= multi_replace($rigaClassifica, [
@@ -120,7 +164,8 @@ if ($connectionOk) {
             '{dataInizio}' => date_format(date_create($classifica['DataInizio']), 'd/m/y'),
             '{dataFine}' => date_format(date_create($classifica['DataFine']), 'd/m/y'),
             '{valueTipoEvento}' => $classifica['TipoEvento'],
-            '{valueDataInizio}' => date_format(date_create($classifica['DataInizio']), 'Y-m-d')
+            '{valueDataInizio}' => date_format(date_create($classifica['DataInizio']), 'Y-m-d'),
+            '{valueDataFine}' => date_format(date_create($classifica['DataFine']), 'Y-m-d')
         ]);
     }
 
@@ -128,17 +173,15 @@ if ($connectionOk) {
 
     // da completare logica per gestione punteggi
 
-    // da completare logica per modifica classifica
-
     $adminContent = multi_replace(replace_content_between_markers($adminContent, [
-        'listaTipoEvento' => $listaTipoEvento,
-        'listaEventi' => $listaEventi,
-        'nessunEvento' => $nessunEvento,
-        'rigaClassifica' => $righeClassifiche]), [
-            '{selezioneTipoEventoDefault}' => $selezioneTipoEventoDefault,
-            '{legend}' => $legend,
-            '{valueDataInizio}' => $valueDataInizio,
-            '{valueDataFine}' => $valueDataFine]);
+            'listaEventi' => $listaEventi,
+            'nessunEvento' => $nessunEvento,
+            'rigaClassifica' => $righeClassifiche]), [
+        '{selezioneTipoEventoDefault}' => $selezioneTipoEventoDefault,
+        '{legend}' => $legend,
+        '{valueDataInizio}' => $valueDataInizio,
+        '{valueDataFine}' => $valueDataFine
+    ]);
 
     $connection->closeDBConnection();
 } else {
@@ -149,14 +192,14 @@ if (isset($_SESSION["login"])) {
     $logout = get_content_between_markers($paginaHTML, 'logout');
 }
 
-echo multi_replace(replace_content_between_markers(
-    multi_replace(
-        replace_content_between_markers($paginaHTML, [
-            'breadcrumbs' => $breadcrumbs,
-            'menu' => $menu,
-            'logout' => $logout
-        ]),
-        [
+echo multi_replace(
+    replace_content_between_markers(
+        multi_replace(
+            replace_content_between_markers($paginaHTML, [
+                'breadcrumbs' => $breadcrumbs,
+                'menu' => $menu,
+                'logout' => $logout
+            ]), [
             '{title}' => $title,
             '{description}' => $description,
             '{keywords}' => $keywords,
@@ -165,9 +208,8 @@ echo multi_replace(replace_content_between_markers(
             '{onload}' => $onload,
             '{percorso}' => $percorso,
             '{adminContent}' => replace_content_between_markers($adminContent, ['messaggiForm' => $messaggiForm])
-        ]
-    ),
-    [
+        ]), [
         'adminMenu' => $adminMenu
-    ]
-), ['{percorsoAdmin}' => $percorsoAdmin]);
+    ]), [
+    '{percorsoAdmin}' => $percorsoAdmin
+]);

@@ -173,6 +173,33 @@ class DBAccess {
         );
     }
 
+    public function update_classifica($tipoEvento, $dataInizio, $nuovoTipoEvento, $nuovaDataInizio, $nuovaDataFine) {
+        $this->executeQuery(
+            "UPDATE Classifiche SET TipoEvento = ?, DataInizio = ?, DataFine = ? WHERE TipoEvento = ? AND DataInizio = ?;",
+            $nuovoTipoEvento,
+            $nuovaDataInizio,
+            $nuovaDataFine,
+            $tipoEvento,
+            $dataInizio
+        );
+    }
+
+    public function update_classifica_eventi($tipoEvento, $dataInizio, $eventiSelezionati) {
+        $this->executeQuery(
+            "DELETE FROM ClassificheEventi WHERE TipoEvento = ? AND DataInizio = ?;",
+            $tipoEvento,
+            $dataInizio
+        );
+        foreach ($eventiSelezionati as $eventoSelezionato) {
+            $this->executeQuery(
+                "INSERT INTO ClassificheEventi (TipoEvento, DataInizio, Evento) VALUES (?, ?, ?);",
+                $tipoEvento,
+                $dataInizio,
+                $eventoSelezionato
+            );
+        }
+    }
+
     public function delete_classifica($tipoEvento, $dataInizio) {
         return $this->executeQuery(
             "DELETE FROM Classifiche WHERE TipoEvento = ? AND DataInizio = ?;",
