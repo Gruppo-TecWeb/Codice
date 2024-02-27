@@ -34,7 +34,7 @@ if ($connectionOk) {
 
     $lista_eventi_array = $connection->getListaEventi($data, $titolo);
     $lista_titoli_array = $connection->getTitoliEventi();
-    $oldest_date = $lista_eventi_array==null? $connection->get_oldest_date() : '';
+    $oldest_date = $lista_eventi_array == null ? $connection->get_oldest_date() : '';
     $connection->closeDBConnection();
 
     $numero_pagine = ceil(count($lista_eventi_array) / $eventi_per_pagina);
@@ -143,12 +143,12 @@ if ($connectionOk) {
         ]);
     }
 
-    $messaggioFiltri = $titolo == '' && $data == '' ? 'i prossimi eventi' : '';
-    $messaggioFiltri .= $titolo != '' ? 'eventi con titolo: ' . $titolo : '';
-    $messaggioFiltri .= $data != '' ? ($messaggioFiltri == '' ? 'eventi' : '') . ' a partire dalla data: ' . multi_replace(get_content_between_markers($content, 'messaggioFiltri'), [
+    $messaggioFiltri = $data == '' ? 'i prossimi eventi' : '';
+    $messaggioFiltri .= $data != '' ? 'eventi a partire dalla data: ' . multi_replace(get_content_between_markers($content, 'messaggioFiltri'), [
         '{valueDataEvento}' => $data,
         '{dataEvento}' => date_format(date_create($data), 'd/m/Y')
     ]) : '';
+    $messaggioFiltri .= $titolo != '' ? ' con titolo: ' . $titolo : '';
 
     $content = multi_replace(
         replace_content_between_markers($content, [
