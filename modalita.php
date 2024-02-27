@@ -9,7 +9,7 @@ session_start();
 $paginaHTML = file_get_contents("template/template-pagina.html");
 $content = file_get_contents("template/modalita.html");
 
-$title = 'Battle &minus; Fungo';
+$title = 'Modalità &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = '';
 $percorso = '';
@@ -17,7 +17,7 @@ $percorsoAdmin = 'admin/';
 $keywords = '';
 $menu = get_menu($pageId, $percorso);
 $breadcrumbs = get_breadcrumbs($pageId, $percorso);
-$onload = 'showPlayBattle()';
+$onload = 'setLinks()';
 $logout = '';
 
 if (isset($_SESSION["login"])) {

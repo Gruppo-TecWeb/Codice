@@ -14,10 +14,9 @@ body {
     padding-top: 3.5em;
 }
 
-body.js[data-menu-open=true] {
-    /* overflow-y: hidden; */
-}
-
+/*body.js[data-menu-open=true] {
+     overflow-y: hidden; 
+}*/
 .limitedWidth {
     width: unset;
     max-width: unset;
@@ -129,10 +128,10 @@ header .logo {
     font-weight: normal;
 }
 
-#menu ul li {
-    /* display: block;
-    margin-inline: 0; */
-}
+/* #menu ul li {
+    display: block;
+    margin-inline: 0;
+} */
 
 #menu.js ul li {
     display: block;
@@ -398,11 +397,7 @@ input[type="submit"] {
 }
 #container_iframe iframe {
     width: 96vw;
-    height:45vw;
-    /*
-    
-    */
-    
+    height:45vw;  
 }
 #container_iframe{
     position: sticky;
@@ -418,7 +413,17 @@ input[type="submit"] {
 #lista_battle{
     width: 96vw;
 }
-
+/* 
+ * PAGINA BEATS
+*/
+#lista_beats .beat button[data-isPlaying="false"]{
+    background-image: url("../assets/icons/Play.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 70%;
+    color: transparent;
+    opacity: 1;
+}
     
 
 /* 
