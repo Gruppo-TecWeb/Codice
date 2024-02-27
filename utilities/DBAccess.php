@@ -148,10 +148,18 @@ class DBAccess {
         return $res ? $res[0] : null;
     }
 
-    public function get_classifiche() {
-        return $this->executeQuery(
-            "SELECT * FROM Classifiche;"
-        );
+    public function get_classifiche($tipoEvento = null, $dataInizio = null) {
+        if ($tipoEvento && $dataInizio) {
+            return $this->executeQuery(
+                "SELECT * FROM Classifiche WHERE TipoEvento = ? AND DataInizio = ?;",
+                $tipoEvento,
+                $dataInizio
+            );
+        } else {
+            return $this->executeQuery(
+                "SELECT * FROM Classifiche;"
+            );
+        }
     }
 
     public function get_data_inizio_corrente($tipoEvento) {
@@ -176,6 +184,26 @@ class DBAccess {
             $tipoEvento,
             $dataInizio
         );
+    }
+
+    public function insert_classifica($tipoEvento, $dataInizio, $dataFine) {
+        return $this->executeQuery(
+            "INSERT INTO Classifiche (TipoEvento, DataInizio, DataFine) VALUES (?, ?, ?);",
+            $tipoEvento,
+            $dataInizio,
+            $dataFine
+        );
+    }
+
+    public function insert_classifica_eventi($tipoEvento, $dataInizio, $eventiSelezionati) {
+        foreach ($eventiSelezionati as $eventoSelezionato) {
+            $this->executeQuery(
+                "INSERT INTO ClassificheEventi (TipoEvento, DataInizio, Evento) VALUES (?, ?, ?);",
+                $tipoEvento,
+                $dataInizio,
+                $eventoSelezionato
+            );
+        }
     }
 
     public function update_classifica($tipoEvento, $dataInizio, $nuovoTipoEvento, $nuovaDataInizio, $nuovaDataFine) {

@@ -29,8 +29,8 @@
             {listaEventi}<ul>
                 {checkEvento}<li><input type="checkbox" id="evento{idEvento}" name="eventi[]" value="{idEvento}"{eventoChecked}>
                 <label for="evento{idEvento}">{titoloEvento} <time datetime="{dataEvento}">{dataVisualizzataEvento}</time></label></li>
-                {/checkEvento}
-            </ul>{/listaEventi}{nessunEvento}<div>Nessun evento da mostrare</div>{/nessunEvento}
+                {/checkEvento}{nessunEvento}<li>Nessun evento da mostrare</li>{/nessunEvento}
+            </ul>{/listaEventi}
         </fieldset>
         
         {aggiungi}<button type="submit" name="aggiungi" value="true">Aggiungi</button>{/aggiungi}{conferma}<button type="submit" name="conferma" value="true">Conferma</button>{/conferma}
@@ -68,6 +68,7 @@
                         <input type="hidden" name="tipoEvento" value="{valueTipoEvento}">
                         <input type="hidden" name="dataInizio" value="{valueDataInizio}">
                         <input type="hidden" name="dataFine" value="{valueDataFine}">
+                        <input type="hidden" name="azione" value="modifica">
                         <button type="submit" name="modifica" value="true">Modifica</button>
                         <button type="submit" name="elimina" value="true">Elimina</button>
                     </form>

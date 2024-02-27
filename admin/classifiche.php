@@ -38,8 +38,8 @@ if ($connectionOk) {
     if (isset($_POST["modifica"]) || isset($_POST["mostraEventi"])) {
         $adminContent = replace_content_between_markers($adminContent, [
             'associaEventi' => get_content_between_markers($adminContent, 'associaEventi'),
-            'aggiungi' => '',
-            'conferma' => get_content_between_markers($adminContent, 'conferma'),
+            'aggiungi' => $_POST["azione"] == 'modifica' ? '' : get_content_between_markers($adminContent, 'aggiungi'),
+            'conferma' => $_POST["azione"] == 'modifica' ? get_content_between_markers($adminContent, 'conferma') : '',
             'punteggi' => get_content_between_markers($adminContent, 'punteggi'),]);
     } else {
         $adminContent = replace_content_between_markers($adminContent, [
@@ -92,6 +92,7 @@ if ($connectionOk) {
 
     // costruisco la lista di eventi selezionabili e selezionati
     $listaEventi = '';
+    $nessunEvento = '';
     if (isset($_POST["modifica"]) || isset($_POST["conferma"]) || isset($_POST["punteggi"]) || isset($_POST["mostraEventi"])) {
         $eventiSelezionati = $connection->getEventiSelezionati($_POST["tipoEvento"], $_POST["dataInizio"]);
         $eventiSelezionabili = $connection->getEventiSelezionabili(
@@ -117,12 +118,27 @@ if ($connectionOk) {
                 '{eventoChecked}' => ''
             ]);
         }
-        $listaEventi = replace_content_between_markers(get_content_between_markers($adminContent, 'listaEventi'), [
-                'checkEvento' => $listaEventi]);
-
         if ($listaEventi == '') {
             $nessunEvento = get_content_between_markers($adminContent, 'nessunEvento');
         }
+        $listaEventi = replace_content_between_markers(get_content_between_markers($adminContent, 'listaEventi'), [
+                'checkEvento' => $listaEventi]);
+    }
+
+    // aggiunta di una nuova classifica
+    if (isset($_POST["aggiungi"])) {
+        $messaggioForm = get_content_between_markers($adminContent, 'messaggioForm');
+        $connection->insert_classifica($_POST["nuovoTipoEvento"], $_POST["nuovaDataInizio"], $_POST["nuovaDataFine"]);
+        $eventiSelezionati = isset($_POST["eventi"]) ? $_POST["eventi"] : [];
+        $connection->insert_classifica_eventi($_POST["nuovoTipoEvento"], $_POST["nuovaDataInizio"], $eventiSelezionati);
+        //gestione errori sql da migliorare
+        if (count($connection->get_classifiche($_POST["tipoEvento"], $_POST["dataInizio"])) > 0) {
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Classifica aggiunta correttamente"]);
+        } else {
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);
+        }
+        $messaggiForm = replace_content_between_markers(
+            get_content_between_markers($adminContent, 'messaggiForm'), ['messaggioForm' => $messaggiForm]);
     }
 
     // modifica di una classifica
@@ -132,7 +148,7 @@ if ($connectionOk) {
         $eventiSelezionati = $_POST["eventi"];
         $connection->update_classifica_eventi($_POST["nuovoTipoEvento"], $_POST["nuovaDataInizio"], $eventiSelezionati);
         //gestione errori sql da migliorare
-        if (count($connection->get_classifica($_POST["tipoEvento"], $_POST["dataInizio"])) > 0) {
+        if (count($connection->get_classifiche($_POST["tipoEvento"], $_POST["dataInizio"])) > 0) {
             $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Classifica modificata correttamente"]);
         } else {
             $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);
@@ -146,7 +162,7 @@ if ($connectionOk) {
         $messaggioForm = get_content_between_markers($adminContent, 'messaggioForm');
         $connection->delete_classifica($_POST["tipoEvento"], $_POST["dataInizio"]);
         //gestione errori sql da migliorare
-        if (count($connection->get_classifica($_POST["tipoEvento"], $_POST["dataInizio"])) == 0) {
+        if (count($connection->get_classifiche($_POST["tipoEvento"], $_POST["dataInizio"])) == 0) {
             $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Classifica eliminata correttamente"]);
         } else {
             $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);
@@ -169,8 +185,6 @@ if ($connectionOk) {
         ]);
     }
 
-    // da completare logica per creazione classifica
-
     // da completare logica per gestione punteggi
 
     $adminContent = multi_replace(replace_content_between_markers($adminContent, [
@@ -178,9 +192,7 @@ if ($connectionOk) {
             'nessunEvento' => $nessunEvento,
             'rigaClassifica' => $righeClassifiche]), [
         '{selezioneTipoEventoDefault}' => $selezioneTipoEventoDefault,
-        '{legend}' => $legend,
-        '{valueDataInizio}' => $valueDataInizio,
-        '{valueDataFine}' => $valueDataFine
+        '{legend}' => $legend
     ]);
 
     $connection->closeDBConnection();
