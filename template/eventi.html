@@ -1,4 +1,6 @@
-<a href="#lista-eventi" class="navigationHelp">Salta ai risultati prodotti dalla ricerca</a>
+<nav id="filtri-skip">
+    <a href="#risultati-eventi" class="navigationHelp">Salta ai risultati prodotti dalla ricerca</a>
+</  nav>
 <h2 class="limitedWidth">Eventi</h2>
 <p class="limitedWidth">Qui trovi tutti gli eventi in programma</p>
 <form method="get" action="eventi.php" id="form-eventi">
@@ -20,13 +22,14 @@
     </fieldset>
 </form>
 {navRisultatiEventi}
-<nav id="risultati-eventi" class="limitedWidth" aria-label="Visualizza il numero di risultati e l'indicazione del numero di pagina">
+<nav id="risultati-eventi" class="limitedWidth"
+    aria-label="Visualizza il numero di risultati e l'indicazione del numero di pagina">
     {risultatiEventi}
     <p><span>Risultati totali: {risultati}. Pagina {pagina} di {numeroPagine}. </span></p>
     {/risultatiEventi}
 </nav>
 {/navRisultatiEventi}
-<div class="limitedWidth">
+<div id="risultati-eventi" class="limitedWidth">
     <p>Stai visualizzando
         {messaggioFiltri}
         <time datetime="{valueDataEvento}">{dataEvento}</time>
