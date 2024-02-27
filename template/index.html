@@ -5,21 +5,39 @@
         <p>Uniti dalla passione per il <span lang="en">freestyle rap</span>, organizziamo periodicamente eventi di puro scambio di <span lang="en">flow</span> e <span lang="en">vibe</span>: <strong>sfide di <span lang="en">freestyle</span></strong>, progetti
             sociali e culturali, incontri con talenti emergenti e molto altro,
             <a href="{percorso}chi-siamo.php">scopri di più su di noi</a>. Tutti sono invitati a partecipare (gratuitamente) sia come spettatori che come protagonisti sul palco, hai talento o sei interessato? Vieni al prossimo evento.</p>
+
+        <div id="evento-home">
+            {eventoHome}
+            <h3>{intestazione}{prossimoEvento} Prossimo evento {/prossimoEvento} {ultimoEvento} Ultimo evento avvenuto {/ultimoEvento}{/intestazione}</h3>
+            <div>
+                <h4>{titolo}</h4>
+                <img src="{percorso}assets/media/locandine/{locandina}">
+                <dl>
+                    <dt>Data:</dt>
+                    <dd><time datetime="{data}">{data}</time></dd>
+                    <dt>Ora:</dt>
+                    <dd><time datetime="{ora}">{ora}</time></dd>
+                    <dt>Luogo:</dt>
+                    <dd>{luogo}</dd>
+                </dl>
+                <a href="evento.php?id={id}">Più informazioni</a>
+            </div> {/eventoHome}
+            <a href="{percorso}eventi.php">Guarda tutti gli eventi</a>
+        </div>
     </div>
     <div class="videoPlayer" aria-hidden="true">
-        <video aria-label="Video di presentazione" controls muted autoplay loop poster="assets/media/poster.jpg" width="1080" height="1920">
+        <video aria-label="Video di presentazione del collettivo" controls muted autoplay loop poster="assets/media/poster.jpg" width="1080" height="1920">
             <source src="assets/media/video_fungo.mp4" type="video/mp4">
             <source src="assets/media/video_fungo.webm" type="video/webm">
             <p>Il tuo browser non supporta questo video</p>
         </video>
         <div class="controls" aria-label="Controlli e info video">
             <!-- <p aria-label="Video descrizione" id="video-descrizione" class="navigationHelp">
-                Brevi sequenze in cui la sera illuminata dalla luce dei lampioni di una piazza, una folla di giovani è radunata vicino all'iconica struttura circolare con una tettoia, che ricorda un Fungo, mentre al centro alcune persone stanno facendo
-                <span
-                    lang="en">freestyle</span> o ballando <span lang="en">break dance</span>,
+                Brevi sequenze in cui, di sera, una folla di giovani è radunata in una piazza illuminata dai lampioni, vicino all'iconica struttura circolare con una tettoia, che ricorda un Fungo, mentre in mezzo alla folla, alcune persone stanno facendo
+                <span lang="en">freestyle</span>, sono competitive ma amichevoli, altre ballano <span lang="en">break dance</span>.
             </p> -->
             <p aria-label="Audio descrizione" id="audio-descrizione">
-                Video senza audio
+                Questo video non ha audio
             </p>
             <button title="Play/Pausa" id="btn-video" tabindex="-1">  
                 <span class="navigationHelp">Pausa/<span lang="en">Play</span></span>
@@ -55,5 +73,6 @@
 
 </section>
 
+<section id="beats-home">
 
-<!-- carosello eventi HTML -->
+</section>

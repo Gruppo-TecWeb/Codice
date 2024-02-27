@@ -23,6 +23,12 @@
     --elevationBelow: -1;
 }
 
+@media screen and (min-width: 2560px) {
+     :root {
+        --widthMax: 1800px;
+    }
+}
+
 @font-face {
     font-family: Horizontale;
     src: url('../assets/fonts/Horizontale.ttf');
@@ -410,6 +416,12 @@ footer #footer-credits {
 #index #hero h3 {
     padding: 1em;
     background: var(--secondaryColor);
+    font-size: 1.5em;
+}
+
+#index #hero #titolo {
+    display: flex;
+    flex-direction: column;
 }
 
 #index #hero #titolo p {
@@ -418,6 +430,88 @@ footer #footer-credits {
     background: var(--secondaryColor);
     border-bottom: 2px solid var(--accentColor);
     line-height: 1.5em;
+}
+
+#evento-home {
+    position: relative;
+    height: 100%;
+    padding-left: 2%;
+}
+
+#evento-home::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 2%;
+    box-sizing: border-box;
+    background: repeating-linear-gradient( 45deg, var(--accentColor), var(--accentColor) 2px, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0) 10px);
+}
+
+#index #hero #evento-home h3 {
+    padding: 0.5em 1em;
+    font-size: 1.5em;
+    background-color: unset;
+    z-index: var(--elevationHigh);
+}
+
+#evento-home>div {
+    position: absolute;
+    width: 55%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-height: 85%;
+    border: 1px solid;
+    border-radius: 4px;
+    overflow: hidden;
+    z-index: var(--elevationMiddle);
+}
+
+#evento-home>div>a {
+    display: block;
+    width: 100%;
+    padding: 1em;
+    box-sizing: border-box;
+    text-align: end;
+}
+
+#index #hero #evento-home h4 {
+    background-color: var(--secondaryColor);
+    padding: 0.5em 1em;
+    box-sizing: border-box;
+    border: 1px solid;
+    font-size: 1.25em;
+    text-align: center;
+}
+
+#evento-home img {
+    display: inline-block;
+    width: 50%;
+    aspect-ratio: 1;
+    float: left;
+}
+
+#evento-home dl {
+    display: inline-grid;
+    grid-template-columns: auto 1fr;
+    width: 50%;
+    gap: 0.5em 1em;
+    padding: 1em;
+    box-sizing: border-box;
+    color: var(--txtColor);
+    font-size: 1.25em;
+}
+
+#evento-home dl dt {
+    font-weight: bold;
+}
+
+#evento-home>a {
+    position: absolute;
+    bottom: 3em;
+    right: 3em;
 }
 
 #index #hero .videoPlayer {
@@ -467,10 +561,8 @@ footer #footer-credits {
 }
 
 #index #eventi-home h3 {
-    float: left;
     padding: 0.5em 1em;
     box-sizing: border-box;
-    writing-mode: tb-rl;
     font-size: 1.5em;
     font-family: 'Horizontale';
     color: var(--txtColorOnAccent);

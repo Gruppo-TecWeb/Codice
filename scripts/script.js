@@ -33,6 +33,7 @@ function init_index() {
     controls.classList.add('js');
     btnPlay.classList.add('js');
 
+    document.querySelector('header>a').removeAttribute('href');
 
     btnPlay.addEventListener('click', function() {
         playPauseMedia(video, btnPlay);
