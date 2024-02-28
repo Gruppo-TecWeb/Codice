@@ -108,6 +108,20 @@ if ($connectionOk) {
     }
 
     $connection->closeDBConnection();
+    $adminContent = multi_replace(replace_content_between_markers($adminContent, [
+        'messaggiProfilo' => $messaggiProfilo,
+        'formModificaEmail' => replace_content_between_markers($formModificaEmail, ['messaggiForm' => $messaggiForm]),
+        'formModificaPassword' => replace_content_between_markers($formModificaPassword, ['messaggiForm' => $messaggiForm]),
+    ]), [
+        '{username}' => $username,
+        '{email}' => $email,
+        '{formEmail}' => $formEmail
+    ]);
+    $content = multi_replace(replace_content_between_markers($content, [
+        'adminMenu' => $adminMenu,
+    ]), [
+        '{adminContent}' => $adminContent,
+    ]);
 } else {
     header("location: ../errore500.php");
 }
@@ -116,34 +130,17 @@ if (isset($_SESSION["login"])) {
     $logout = get_content_between_markers($paginaHTML, 'logout');
 }
 
-echo multi_replace(replace_content_between_markers(
-    multi_replace(
-        replace_content_between_markers($paginaHTML, [
-            'breadcrumbs' => $breadcrumbs,
-            'menu' => $menu,
-            'logout' => $logout
-        ]),
-        [
-            '{title}' => $title,
-            '{description}' => $description,
-            '{keywords}' => $keywords,
-            '{pageId}' => $pageId,
-            '{content}' => $content,
-            '{onload}' => $onload,
-            '{percorso}' => $percorso,
-            '{adminContent}' => replace_content_between_markers($adminContent, ['messaggiProfilo' => $messaggiProfilo]),
-            '{username}' => $username,
-            '{email}' => $email,
-            '{messaggiForm}' => $errori,
-            '{formEmail}' => $formEmail
-        ]
-    ),
-    [
-        'adminMenu' => $adminMenu,
-        'formModificaEmail' => replace_content_between_markers($formModificaEmail, ['messaggiForm' => $messaggiForm]),
-        'formModificaPassword' => replace_content_between_markers($formModificaPassword, ['messaggiForm' => $messaggiForm])
-    ]
-), [
-    '{percorsoAdmin}' => $percorsoAdmin,
-    '{formEmail}' => $formEmail
+echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'breadcrumbs' => $breadcrumbs,
+    'menu' => $menu,
+    'logout' => $logout
+]), [
+    '{title}' => $title,
+    '{description}' => $description,
+    '{keywords}' => $keywords,
+    '{pageId}' => $pageId,
+    '{content}' => $content,
+    '{onload}' => $onload,
+    '{percorso}' => $percorso,
+    '{percorsoAdmin}' => $percorsoAdmin
 ]);
