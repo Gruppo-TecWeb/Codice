@@ -60,13 +60,17 @@ if ($connectionOk) {
         }
         if ($errore) {
             $messaggiForm = replace_content_between_markers(
-                get_content_between_markers($content, 'messaggiForm'), ['messaggioForm' => $messaggiForm]);
+                get_content_between_markers($content, 'messaggiForm'),
+                ['messaggioForm' => $messaggiForm]
+            );
         }
     }
-
     $connection->closeDBConnection();
-}
-else {
+    
+    $content = multi_replace(replace_content_between_markers($content, ['messaggiForm' => $messaggiForm]), [
+        '{valoreUsername}' => $username
+    ]);
+} else {
     header("location: ../errore500.php");
 }
 
@@ -83,9 +87,8 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
-    '{content}' => replace_content_between_markers($content, ['messaggiForm' => $messaggiForm]),
+    '{content}' => $content,
     '{onload}' => $onload,
     '{percorso}' => $percorso,
     '{percorsoAdmin}' => $percorsoAdmin,
-    '{valoreUsername}' => $username
 ]);
