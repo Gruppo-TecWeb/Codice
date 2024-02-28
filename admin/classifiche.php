@@ -58,7 +58,10 @@ if ($connectionOk) {
     $valueTipoEvento = '';
     foreach ($tipiEvento as $tipoEvento) {
         $selezioneTipoEvento = '';
-        if (isset($_POST["tipoEvento"]) && !isset($_POST["elimina"])) {
+        if (isset($_POST["nuovoTipoEvento"]) && !isset($_POST["elimina"])) {
+            $selezioneTipoEvento = $_POST["nuovoTipoEvento"] == $tipoEvento['Titolo'] ? ' selected' : '';
+            $valueTipoEvento = $_POST["nuovoTipoEvento"];
+        } elseif (isset($_POST["tipoEvento"]) && !isset($_POST["elimina"])) {
             $selezioneTipoEvento = $_POST["tipoEvento"] == $tipoEvento['Titolo'] ? ' selected' : '';
             $valueTipoEvento = $_POST["tipoEvento"];
         }
