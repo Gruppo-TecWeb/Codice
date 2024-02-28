@@ -10,8 +10,8 @@
     </fieldset>
     <fieldset class="limitedWidth">
         <label for="titolo">Filtra per tipo</label>
-        <select id="titolo" name="titolo">
-            <option value="" selected>...</option>
+        <select id="titolo" name="titolo" autocomplete="organization-title">
+            <option value="" selected>Tutti gli eventi</option>
             {listaTitoli}<option value="{titoloEvento}" {selezioneEvento}>{titoloEvento}</option>
             {/listaTitoli}
         </select>
@@ -22,7 +22,7 @@
     </fieldset>
 </form>
 {navRisultatiEventi}
-<nav id="risultati-eventi" class="limitedWidth"
+<nav id="nav-risultati" class="limitedWidth"
     aria-label="Visualizza il numero di risultati e l'indicazione del numero di pagina">
     {risultatiEventi}
     <p><span>Risultati totali: {risultati}. Pagina {pagina} di {numeroPagine}. </span></p>
