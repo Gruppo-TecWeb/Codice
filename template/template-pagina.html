@@ -11,8 +11,7 @@
     <meta name="theme-color" content="#EF534A">
 
     <link rel="stylesheet" type="text/css" href="{percorso}styles/style.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="{percorso}styles/mobile.css" media="handheld, screen and (max-width:600px),
-            only screen and (max-device-width:600px)">
+    <link rel="stylesheet" type="text/css" href="{percorso}styles/mobile.css" media="screen and (max-width:600px)">
     <link rel="stylesheet" type="text/css" href="{percorso}styles/print.css" media="print">
 
     <link rel="shortcut icon" type="images/svg" href="{percorso}assets/icons/fungo.svg">
@@ -49,7 +48,9 @@
             </p>
             {/breadcrumbs}
         </nav>
-        <button id="btn-menu" onclick="toggleMenu()" aria-hidden="true" tabindex="-1"><span class="navigationHelp">Menù</span></button>
+        <button title="Apri/chiudi menù" id="btn-menu" onclick="toggleMenu()" aria-hidden="true" tabindex="-1">
+            <span class="navigationHelp">Menù</span>
+        </button>
         <!--TabIndex tolto per non focussare il btn con screen reader, che è inutile dato che il menu è sempre visibile ad esso -->
     </div>
     <main id="content">
@@ -57,11 +58,14 @@
     </main>
     <footer>
         <div id="footer-content" class="limitedWidth">
-            <a href="#content" id="btn-scroll-up" class="button"><span class="navigationHelp">Torna su</span></a>
+            <a href="#content" id="btn-scroll-up" class="iconButton">
+                <span class="navigationHelp">Torna su</span>
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M112 244l144-144 144 144M256 120v292"/></svg>
+            </a>
             <h2 class="navigationHelp">Informazioni su questo sito</h2>
             <section id="footer-info">
                 <h3 class="logo">Fungo</h3>
-                <p>Questo sito è stato pensato e sviluppato per umani, con grande cura e attenzione a tutte le categorie utenti finali. Questo è il modo in cui lavoriamo.</p>
+                <p>Questo sito è stato pensato e sviluppato per umani, con grande cura e attenzione a tutte le categorie di utenti finali. Questo è il modo in cui lavoriamo.</p>
                 <p>Prodotto da <a href="https://github.com/Gruppo-TecWeb">TecWeb</a>: Antonio Benetazzo, Alessando Bressan, Sebastiano Lewental, Riccardo Zaupa.</p>
             </section>
             <section>
@@ -81,7 +85,7 @@
             </section>
             <section id="footer-credits">
                 <h3>Contenuti</h3>
-                <p>Tutti i contenuti e media utilizzati in questo sito sono di nostra proprietà o provenienti da fonti <span lang="en">open source</span>.</p>
+                <p>Tutti i contenuti e media utilizzati in questo sito sono di nostra proprietà o provenienti da fonti <span lang="en">open source</span> o <span lang="en">free to use</span>.</p>
             </section>
         </div>
     </footer>

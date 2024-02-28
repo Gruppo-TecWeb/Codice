@@ -20,6 +20,8 @@ const pages_array = [
     'admin/rappers'         => ['href' => '{percorsoAdmin}rappers.php',         'anchor' => 'Gestione Rappers',        'lang' => 'en', 'menuOrder' => 0, 'adminMenuOrder' => 5, 'parentId' => 'admin/index'],
     'admin/amministratori'  => ['href' => '{percorsoAdmin}amministratori.php',  'anchor' => 'Gestione Amministratori', 'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 6, 'parentId' => 'admin/index'],
     'admin/logout'          => ['href' => '{percorsoAdmin}logout.php',          'anchor' => 'Logout',                  'lang' => 'en', 'menuOrder' => 0, 'adminMenuOrder' => 7, 'parentId' => 'index'],
+    'errore404'             => ['href' => '{percorso}errore404.php',            'anchor' => 'Errore 404',              'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 0, 'parentId' => ''],
+    'errore403'             => ['href' => '{percorso}errore403.php',            'anchor' => 'Errore 403',              'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 0, 'parentId' => ''],
     'errore500'             => ['href' => '{percorso}errore500.php',            'anchor' => 'Errore 500',              'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 0, 'parentId' => '']
 ];
 

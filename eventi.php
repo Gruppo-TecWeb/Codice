@@ -148,7 +148,7 @@ if ($connectionOk) {
         '{valueDataEvento}' => $data,
         '{dataEvento}' => date_format(date_create($data), 'd/m/Y')
     ]) : '';
-    $messaggioFiltri .= $titolo != '' ? ' con titolo: ' . $titolo : '';
+    $messaggioFiltri .= $titolo != '' ? ' di tipo: ' . $titolo : '';
 
     $content = multi_replace(
         replace_content_between_markers($content, [

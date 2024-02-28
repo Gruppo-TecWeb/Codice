@@ -3,22 +3,30 @@
  */
 
 :root {
-    --bgColor: #000;
-    --txtColor: #FFF2EA;
-    --unfocusedTxtColor: #949494;
-    --accentColor: #EF534A;
-    --buttonHover: #453B3B;
-    --txtColorOnAccent: #000;
-    --secondaryColor: #262626;
-    --linkColor: #00b4ff;
-    --linkVisitedColor: #ffd7bb;
-    --linkHoverBgColor: #453B3B;
-    --successColor: #ACC3A6;
-    --errorColor: #a00;
+    --colorBackground: #000;
+    --colorText: #FFF2EA;
+    --colorUnfocusedText: #949494;
+    --colorAccent: #EF534A;
+    --colorTextOnAccent: #000;
+    --colorSelectionBackground: #ffd7bb;
+    --colorSelectionText: #000;
+    --colorButtonHover: #453B3B;
+    --colorSecondary: #262626;
+    --colorLink: #00b4ff;
+    --colorLinkVisited: #ffd7bb;
+    --colorLinkHoverBackground: #453B3B;
     --widthMax: 1024px;
-    --elevationHigh: 1000;
+    --elevationAbove: 100;
+    --elevationHigh: 10;
     --elevationMiddle: 1;
     --elevationLow: 0;
+    --elevationBelow: -1;
+}
+
+@media screen and (min-width: 2560px) {
+     :root {
+        --widthMax: 1800px;
+    }
 }
 
 @font-face {
@@ -26,15 +34,25 @@
     src: url('../assets/fonts/Horizontale.ttf');
 }
 
+@font-face {
+    font-family: Open Sans;
+    src: url('../assets/fonts/OpenSans-Medium.ttf');
+}
+
 
 /*
  * COMUNE
  */
 
+::selection {
+    background-color: var(--colorSelectionBackground);
+    color: var(--colorSelectionText);
+}
+
 * {
     margin: 0;
     padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Open Sans;
 }
 
 html {
@@ -47,35 +65,35 @@ body {
     box-sizing: border-box;
     min-height: 100vh;
     padding-top: 4em;
-    color: var(--txtColor);
-    background-color: var(--bgColor);
+    color: var(--colorText);
+    background-color: var(--colorBackground);
 }
 
 body main {
     padding-bottom: 4em;
 }
 
+#content h2 {
+    margin-block: 0.75em;
+}
+
 a:link {
-    color: var(--linkColor);
+    color: var(--colorLink);
 }
 
 a:hover {
     text-decoration: underline;
-    text-decoration-color: var(--accentColor);
+    text-decoration-color: var(--colorAccent);
 }
 
 a:visited {
-    color: var(--linkVisitedColor);
+    color: var(--colorLinkVisited);
 }
 
 .navigationHelp {
     position: absolute;
     text-indent: -999em;
-}
-
-.navigationHelp:focus {
-    text-indent: unset;
-    /* DEBUG */
+    background-color: var(--colorSecondary);
 }
 
 .screenReaderOnly {
@@ -102,20 +120,16 @@ main {
 }
 
 .logo {
-    text-shadow: 0 0 8px var(--txtColor);
+    text-shadow: 0 0 8px var(--colorText);
     font-family: Horizontale;
     font-size: 2.5rem;
-    color: var(--txtColor);
+    color: var(--colorText);
 }
 
 .title {
-    text-shadow: 0 0 8px var(--txtColor);
+    text-shadow: 0 0 8px var(--colorText);
     font-family: Horizontale;
-    color: var(--txtColor);
-}
-
-#menu-skip ul {
-    list-style: none;
+    color: var(--colorText);
 }
 
 
@@ -133,6 +147,8 @@ main {
  * FORM
  */
 
+form {}
+
 fieldset {
     border: none;
     margin: 0.3em 0;
@@ -145,20 +161,48 @@ fieldset {
 
 button,
 .button {
+    cursor: pointer;
     padding: 0.5em 0.8em;
     border-radius: 3px;
     font-weight: bold;
-    border: 1px solid var(--accentColor);
-    color: var(--txtColorOnAccent);
-    background-color: var(--accentColor);
-    transition: 0.3s;
+    border: 1px solid var(--colorAccent);
+    color: var(--colorTextOnAccent);
+    background-color: var(--colorAccent);
+    /* transition: 0.3s; */
 }
 
 button:hover,
 .button:hover {
-    background-color: var(--secondaryColor);
-    color: var(--accentColor);
+    background-color: var(--colorSecondary);
+    color: var(--colorAccent);
 }
+
+.iconButton {
+    height: 44px;
+    padding: 0;
+    aspect-ratio: 1;
+    cursor: pointer;
+    border-radius: 3px;
+    border: 1px solid var(--colorAccent);
+    background-color: var(--colorAccent);
+    /* transition: 0.3s; */
+}
+
+.iconButton svg {
+    fill: var(--colorTextOnAccent);
+    color: var(--colorTextOnAccent);
+}
+
+.iconButton:hover {
+    background-color: var(--colorSecondary);
+}
+
+.iconButton:hover svg {
+    fill: var(--colorAccent);
+    color: var(--colorAccent);
+}
+
+.toggleIconButton {}
 
 
 /*
@@ -169,40 +213,51 @@ input,
 select,
 textarea {
     padding: 0.5em 0.8em;
-    border-radius: 2px;
-    caret-color: var(--accentColor);
-    border: 1px solid var(--accentColor);
-    color: var(--txtColor);
-    background-color: var(--secondaryColor);
-    transition: 0.3s;
+    border-radius: 3px;
+    caret-color: var(--colorAccent);
+    border: 1px solid var(--colorAccent);
+    color: var(--colorText);
+    background-color: var(--colorSecondary);
+    box-sizing: border-box;
+    /* transition: 0.3s; */
 }
 
 input::placeholder {
-    color: var(--unfocusedTxtColor);
+    color: var(--colorUnfocusedText);
 }
 
 input:hover,
 select:hover,
 textarea:hover {
-    box-shadow: 0 0 14px var(--accentColor) inset;
+    /* box-shadow: 0 0 14px var(--colorAccent) inset; */
+    background-color: var(--colorLinkHoverBackground);
 }
 
 input:focus,
 select:focus,
 textarea:focus {
-    box-shadow: 0 0 8px var(--accentColor) inset;
+    box-shadow: 0 0 8px var(--colorAccent) inset;
     outline: none;
 }
 
 input[type=submit] {
+    cursor: pointer;
     font-weight: bold;
-    color: var(--txtColorOnAccent);
-    background-color: var(--accentColor);
+    color: var(--colorTextOnAccent);
+    background-color: var(--colorAccent);
 }
 
 input[type=submit]:hover {
-    background-color: var(--secondaryColor);
-    color: var(--accentColor);
+    background-color: var(--colorSecondary);
+    color: var(--colorAccent);
+}
+
+input[type=button] {
+    cursor: pointer;
+}
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
 }
 
 
@@ -218,8 +273,8 @@ header {
     left: 0;
     width: 100%;
     height: 2em;
-    z-index: var(--elevationHigh);
-    background-color: var(--accentColor);
+    z-index: var(--elevationAbove);
+    background-color: var(--colorAccent);
 }
 
 header>* {
@@ -227,8 +282,12 @@ header>* {
 }
 
 header>a {
-    margin-inline: 5vw;
+    margin-inline: 5vw 1vw;
     text-decoration: none;
+}
+
+#menu-skip ul {
+    list-style: none;
 }
 
 
@@ -258,19 +317,18 @@ header>a {
 .menuItem {
     padding: 0.6em 1em;
     border-radius: 3px;
-    border: 1px solid var(--accentColor);
-    background-color: var(--secondaryColor);
-    transition: background-color 0.2s;
+    border: 1px solid var(--colorAccent);
+    background-color: var(--colorSecondary);
 }
 
 .menuItem:hover {
-    background-color: var(--linkHoverBgColor);
+    background-color: var(--colorLinkHoverBackground);
 }
 
 #menu #currentLink {
     font-weight: bold;
-    color: var(--linkVisitedColor);
-    background-color: var(--linkHoverBgColor);
+    color: var(--colorLinkVisited);
+    background-color: var(--colorLinkHoverBackground);
 }
 
 
@@ -294,8 +352,8 @@ header>a {
 footer {
     position: relative;
     margin-top: auto;
-    background-color: var(--secondaryColor);
-    border-top: 6px solid var(--accentColor);
+    background-color: var(--colorSecondary);
+    border-top: 6px solid var(--colorAccent);
     padding-top: 2em;
     padding-bottom: 4em;
 }
@@ -338,14 +396,11 @@ footer #footer-credits {
     height: 44px;
     padding: 0;
     aspect-ratio: 1;
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-image: url("../assets/icons/arrow-up.svg");
 }
 
 
 /*
-* HOME
+* PAGINA HOME
 */
 
 #index #breadcrumbs-container {
@@ -372,7 +427,7 @@ footer #footer-credits {
     width: fit-content;
     max-width: 40%;
     object-fit: cover;
-    border-left: 2px solid var(--accentColor);
+    border-left: 2px solid var(--colorAccent);
 }
 
 #titoloHome #titolo {
@@ -385,7 +440,7 @@ footer #footer-credits {
 }
 
 #index #eventi-home-principali {
-    border-top: 2px solid var(--accentColor);
+    border-top: 2px solid var(--colorAccent);
 }
 
 
@@ -423,8 +478,6 @@ footer #footer-credits {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
     gap: 1.25em;
-    padding: 1.25em;
-    max-width: 75em;
     margin: auto;
 }
 
@@ -452,6 +505,7 @@ footer #footer-credits {
     /* Mantiene l'aspetto dell'immagine e la fa coprire completamente il contenitore */
 }
 
+
 /* Paginazione eventi */
 
 #paginazione-eventi ul {
@@ -459,12 +513,12 @@ footer #footer-credits {
     padding: 0;
     display: flex;
     justify-content: center;
-    margin-bottom: 1.25em;
 }
 
 #paginazione-eventi ul li {
     margin: 0 0.3125em;
 }
+
 
 /*
  * PAGINA EVENTO
@@ -515,51 +569,50 @@ footer #footer-credits {
     color: #000;
 }
 
+
 /* 
- * PAGINA BATTLE 
+ * PAGINA MODALITA' 
  */
 
-
-/* 
-MODALITà 
-*/
+#modalita main {
+    padding-bottom: unset;
+}
 
 #intro_battle {
     margin: 1em;
-    
-}
-#intro_battle li{
-    list-style: none;
 }
 
+#intro_battle li {
+    list-style: none;
+}
 
 #container_battle {
     display: flex;
     /*versione con iframe 
     flex-direction: row;*/
     flex-direction: column;
-
     justify-content: center;
-    background-color: var(--accentColor);
+    background-color: var(--colorAccent);
     padding: 1em;
     margin: 0em;
-
 }
 
-#container_battle h2{
+#container_battle h2 {
     width: fit-content;
     text-align: center;
     border-radius: 10px 10px 0px 0px;
     border-style: solid;
     border-color: transparent;
     height: fit-content;
-    background-color: var(--secondaryColor);
+    background-color: var(--colorSecondary);
 }
+
+
 /*
 #container_iframe {
     margin: 0em;
     text-align: center;
-    color: var(--secondaryColor);
+    color: var(--colorSecondary);
     font-size: larger;
     width: 50%;
     margin: 1em;
@@ -608,30 +661,26 @@ MODALITà
 }
 */
 
-
-.descBattle{
+.descBattle {
     display: flex;
     flex-direction: row;
     align-items: center;
     margin: 0em;
     border-style: solid;
     border-width: 0.2em 0em 0em 0em;
-    border-color: var(--accentColor);
-    background-color: var(--secondaryColor);
-    color: var(--txtColor);
+    border-color: var(--colorAccent);
+    background-color: var(--colorSecondary);
+    color: var(--colorText);
 }
 
 
 /*qua c'è anche il margin del footer da correggere*/
 
-
-
 .descBattle:hover {
-    background-color: var(--buttonHover);
+    background-color: var(--colorLinkHoverBackground);
 }
 
 .descBattle dt {
-    
     text-align: center;
     padding: 0.5em;
     margin: 0em;
@@ -642,9 +691,11 @@ MODALITà
 .descBattle dd {
     border-style: solid;
     border-width: 0em 0em 0em 0.2em;
-    border-color: var(--accentColor);
+    border-color: var(--colorAccent);
     padding: 0.5em;
 }
+
+
 /*
 .descBattle button {
     cursor: pointer;
@@ -665,26 +716,6 @@ MODALITà
 }
 */
 
-/*
- * PAGINA ERRORE 500
- */
-
-#errore500 main {
-    padding-bottom: 0;
-}
-
-div.error500 {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    justify-content: space-between;
-}
-
-div.error500 img {
-    max-width: 40em;
-    margin: 0 auto;
-}
-
 
 /* 
  * PAGINA BEATS
@@ -696,23 +727,27 @@ div.error500 img {
 
 #lista_beats .beat {
     padding: 1em;
-    background-color: var(--secondaryColor);
+    background-color: var(--colorSecondary);
     /*cursor: pointer;*/
     border-style: solid;
-    border-color: var(--accentColor);
+    border-color: var(--colorAccent);
     border-width: 0.1em 0em 0em 0em;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-#lista_beats .beat dt, #lista_beats .beat dd{
+
+#lista_beats .beat dt,
+#lista_beats .beat dd {
     display: inline;
 }
+
 #lista_beats .beat:hover {
     padding: 1em;
-    background-color: var(--linkHoverBgColor);
+    background-color: var(--colorLinkHoverBackground);
 }
-.titoloContainer{
+
+.titoloContainer {
     display: inline-flex;
     flex-direction: row-reverse;
     justify-content: flex-end;
@@ -722,12 +757,10 @@ div.error500 img {
     max-width: 12em;
     border-style: solid;
     border-width: 0em 0.1em 0em 0em;
-    border-color: var(--accentColor);
-
+    border-color: var(--colorAccent);
 }
 
-
-#lista_beats .beat:hover button[data-isPlaying="false"]{
+#lista_beats .beat:hover button[data-isPlaying="false"] {
     background-image: url("../assets/icons/Play.png");
     background-repeat: no-repeat;
     background-position: center;
@@ -744,38 +777,40 @@ div.error500 img {
     background-size: 70%;
     opacity: 1;
 }
-#lista_beats button{
+
+#lista_beats button {
     background: transparent;
     border-style: none;
     cursor: pointer;
-    color: var(--txtColor);
+    color: var(--colorText);
     opacity: 0.6;
     margin-right: 1em;
     min-width: 1em;
     background-size: 70%;
-    
 }
 
-
-#lista_beats .audioBeats[data-java="true"]{
+#lista_beats .audioBeats[data-java="true"] {
     display: none;
 }
-#lista_beats .descBeats{
+
+#lista_beats .descBeats {
     margin-left: 1em;
     margin-right: 1em;
 }
-#lista_beats .durata{
+
+#lista_beats .durata {
     padding: 0.4em;
     border-style: solid;
     border-width: 0em 0em 0em .1em;
-    border-color: var(--accentColor);
+    border-color: var(--colorAccent);
 }
+
 #audio_container {
     display: flex;
     flex-direction: row;
     position: sticky;
     bottom: 0;
-    background-color: var(--accentColor);
+    background-color: var(--colorAccent);
     padding: 1em;
     margin: 0em;
 }
@@ -805,6 +840,7 @@ table#tabella-classifica {
 }
 
 .div-classifica p {
+    margin: 1em;
     min-width: 48%;
 }
 
@@ -814,8 +850,8 @@ table#tabella-classifica caption {
 }
 
 table#tabella-classifica thead {
-    background-color: var(--accentColor);
-    color: var(--txtColorOnAccent);
+    background-color: var(--colorAccent);
+    color: var(--colorTextOnAccent);
 }
 
 table#tabella-classifica th,
@@ -828,7 +864,7 @@ table#tabella-classifica th {
 }
 
 table#tabella-classifica tbody tr:nth-child(odd) {
-    background-color: var(--secondaryColor);
+    background-color: var(--colorSecondary);
 }
 
 table#tabella-classifica .classifica-punti {
@@ -865,10 +901,10 @@ div#admin-window {
     display: flex;
     flex-direction: row;
     border-radius: 3px;
-    background-color: var(--secondaryColor);
-    border-top: 1px solid var(--accentColor);
-    border-right: 1px solid var(--accentColor);
-    border-bottom: 1px solid var(--accentColor);
+    background-color: var(--colorSecondary);
+    border-top: 1px solid var(--colorAccent);
+    border-right: 1px solid var(--colorAccent);
+    border-bottom: 1px solid var(--colorAccent);
     transition: background-color 0.2s;
 }
 
@@ -884,8 +920,8 @@ div#admin-window {
 #admin-menu ul li a {
     padding: 0.6em 1em;
     border-radius: 3px;
-    background-color: var(--secondaryColor);
-    border: 1px solid var(--accentColor);
+    background-color: var(--colorSecondary);
+    border: 1px solid var(--colorAccent);
     transition: background-color 0.2s;
     border-collapse: collapse;
 }
@@ -897,7 +933,43 @@ div#admin-window {
 #admin-menu ul li #currentLink {
     padding: 0.6em 1em;
     border: none;
-    color: var(--linkVisitedColor);
-    border-left: 1px solid var(--accentColor);
+    color: var(--colorLinkVisited);
+    border-left: 1px solid var(--colorAccent);
     border-radius: 3px;
+}
+
+
+/*
+ * PAGINE ERROR DOCUMENT 
+ */
+
+#errore500 main,
+#errore403 main,
+#errore404 main {
+    padding-bottom: 0;
+}
+
+#errore500 main h3,
+#errore403 main h3,
+#errore404 main h3 {
+    margin-block: 0.5em;
+}
+
+.errorDocument .errorImage {
+    width: 75%;
+    aspect-ratio: 600/380;
+    margin: auto;
+    object-fit: cover;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+
+#errore500 .errorImage {
+    background-image: url("../assets/media/errore500.jpg");
+}
+
+#errore403 .errorImage,
+#errore404 .errorImage {
+    background-image: url("../assets/media/errore400.png");
 }

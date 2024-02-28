@@ -21,7 +21,7 @@ $menu = get_menu($pageId, $percorso);
 $breadcrumbs = get_breadcrumbs($pageId, $percorso);
 
 $content = '';
-$onload = '';
+$onload = 'init_evento()';
 $logout = '';
 
 $connection = DBAccess::getInstance();
