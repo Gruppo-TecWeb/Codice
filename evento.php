@@ -13,8 +13,8 @@ $paginaHTML = file_get_contents("template/template-pagina.html");
 
 $title = 'Evento &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
-$description = '';
-$keywords = '';
+$description = 'Pagina di presentazione di un evento organizzato dal collettivo rap Restraining Stirpe Crew.';
+$keywords = 'restraining stirpe, freestyle, freestyle rap, rap, battle, live, dj set, micelio, fungo';
 $percorso = '';
 $percorsoAdmin = 'admin/';
 $menu = get_menu($pageId, $percorso);

@@ -11,8 +11,8 @@ $content = file_get_contents("template/index.html");
 
 $title = 'Fungo';
 $pageId = basename(__FILE__, '.php');
-$description = '';
-$keywords = '';
+$description = 'Pagina ufficiale del collettivo rap Restraining Stirpe Crew.';
+$keywords = 'restraining stirpe, freestyle, freestyle rap, rap, battle, live, dj set, micelio, fungo';
 $percorso = '';
 $percorsoAdmin = 'admin/';
 $menu = get_menu($pageId, $percorso);

@@ -11,10 +11,10 @@ $content = file_get_contents("template/modalita.html");
 
 $title = 'Modalità &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
-$description = '';
+$description = 'Pagina di presentazione delle modalità di battaglia e delle regole dei live organizzati dal collettivo rap Restraining Stirpe Crew.';
 $percorso = '';
 $percorsoAdmin = 'admin/';
-$keywords = '';
+$keywords = 'restraining stirpe, freestyle, freestyle rap, rap, battle, live, dj set, micelio, fungo';
 $menu = get_menu($pageId, $percorso);
 $breadcrumbs = get_breadcrumbs($pageId, $percorso);
 $onload = 'setLinks()';
