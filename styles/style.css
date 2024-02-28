@@ -636,7 +636,7 @@ div.error500 img {
 .titoloContainer{
     display: inline-flex;
     flex-direction: row-reverse;
-    justify-content: flex-end;
+    justify-content:flex-start;
     align-items: center;
     padding-right: 1em;
     min-width: 12em;
@@ -646,7 +646,16 @@ div.error500 img {
     border-color: var(--accentColor);
 
 }
-
+#lista_beats button{
+    background: transparent;
+    border-style: none;
+    cursor: pointer;
+    color: var(--txtColor);
+    opacity: 0.6;
+    margin-right: 1em;
+    min-width: 1em;
+    background-size: 70%;
+}
 
 #lista_beats .beat:hover button[data-isPlaying="false"]{
     background-image: url("../assets/icons/Play.png");
@@ -665,17 +674,7 @@ div.error500 img {
     background-size: 70%;
     opacity: 1;
 }
-#lista_beats button{
-    background: transparent;
-    border-style: none;
-    cursor: pointer;
-    color: var(--txtColor);
-    opacity: 0.6;
-    margin-right: 1em;
-    min-width: 1em;
-    background-size: 70%;
-    
-}
+
 
 
 #lista_beats .audioBeats[data-java="true"]{
@@ -687,9 +686,7 @@ div.error500 img {
 }
 #lista_beats .durata{
     padding: 0.4em;
-    border-style: solid;
-    border-width: 0em 0em 0em .1em;
-    border-color: var(--accentColor);
+
 }
 #audio_container {
     display: flex;
