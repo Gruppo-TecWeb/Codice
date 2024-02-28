@@ -33,25 +33,23 @@ if (isset($_SESSION["login"])) {
     $logout = get_content_between_markers($paginaHTML, 'logout');
 }
 
-echo multi_replace(replace_content_between_markers(
-    multi_replace(
-        replace_content_between_markers($paginaHTML, [
-            'breadcrumbs' => $breadcrumbs,
-            'menu' => $menu,
-            'logout' => $logout
-        ]),
-        [
-            '{title}' => $title,
-            '{description}' => $description,
-            '{keywords}' => $keywords,
-            '{pageId}' => $pageId,
-            '{content}' => $content,
-            '{onload}' => $onload,
-            '{percorso}' => $percorso,
-            '{adminContent}' => $adminContent
-        ]
-    ),
-    [
-        'adminMenu' => $adminMenu
-    ]
-), ['{percorsoAdmin}' => $percorsoAdmin]);
+$content = multi_replace(replace_content_between_markers($content, [
+    'adminMenu' => $adminMenu
+]), [
+    '{adminContent}' => $adminContent,
+]);
+
+echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'breadcrumbs' => $breadcrumbs,
+    'menu' => $menu,
+    'logout' => $logout
+]), [
+    '{title}' => $title,
+    '{description}' => $description,
+    '{keywords}' => $keywords,
+    '{pageId}' => $pageId,
+    '{content}' => $content,
+    '{onload}' => $onload,
+    '{percorso}' => $percorso,
+    '{percorsoAdmin}' => $percorsoAdmin
+]);
