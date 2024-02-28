@@ -21,79 +21,7 @@ function toggleMenu() {
 }
 
 /*
-BATTLE
-
-function pauseIframe() {
-    console.log("pause");
-    iframe.contentWindow.postMessage( '{"event":"command", "func":"pauseVideo", "args":""}', '*');
-    pressedButton.setAttribute("data-isPlaying", "false");
-    pressedButton.title="Riproduci " + newTitle;
-}
-
-function playIframe() {
-    console.log("play");
-    iframe.contentWindow.postMessage('{"event":"command","func":"' + 'playVideo' + '","args":""}', '*');
-    pressedButton.setAttribute("data-isPlaying", "true");
-    pressedButton.title="Interrompi " + newTitle;
-}
-
-function newIframe(){
-    //settaggio iframe
-    link=thisBattle.getElementsByTagName("a")[0].href;
-    actualTitle.innerHTML=newTitle;
-    iframe.src=link;
-    iframe.title=newTitle;
-    
-
-    //settaggio bottone della canzone precedentemente in riproduzione
-    for(i=0;i<descBattles.length;i++){
-        buttonPP=descBattles[i].getElementsByTagName("button")[0];
-        if(buttonPP.title.substr(0,10)=="Interrompi"){
-            //console.log(buttonPP.title + "==Interrompi " + newTitle);
-            buttonPP.setAttribute("data-isPlaying", "false");
-            buttonPP.title="Riproduci " + newTitle;
-        }
-    }
-
-    //settaggio bottone nuova canzone
-    pressedButton.setAttribute("data-isPlaying", "true");
-    pressedButton.title="Interrompi " + newTitle;   
-}
- 
-function setIframe(battle){
-    //variabili varie
-    descBattles=document.getElementsByClassName("descBattle");
-    thisBattle=descBattles[battle];
-    pressedButton=thisBattle.getElementsByTagName("button")[0];
-    iframe=document.getElementById("iframe_battle");
-    actualTitle=document.getElementsByTagName("h3")[0];
-    newTitle=thisBattle.getElementsByTagName("a")[0].title;
-
-    
-    if(pressedButton.title.substr(0,10)=="Interrompi"){
-        pauseIframe();
-    }else{
-        if(actualTitle.innerHTML==newTitle){
-            playIframe();
-        }else{
-            newIframe();
-        }
-    }
-}
-//onload
-function setLinks(){
-    descBattles=document.getElementsByClassName("descBattle")
-    for(i=0;i<descBattles.length;i++){
-        titles=descBattles[i].getElementsByTagName("strong")[0].innerHTML;
-
-        descBattles[i].getElementsByTagName("dt")[0].innerHTML=titles
-        descBattles[i].getElementsByTagName("dt")[0].setAttribute("data-java",true);
-    }
-}
-*/
-
-/*
-BASI
+BEATS
 */
 
 
@@ -101,7 +29,12 @@ BASI
 function setAudioDuration(){
     span=document.getElementsByClassName("durata");
     audios=document.getElementsByClassName("audioBeats");
+    
+    
     for(let i=0;i<span.length;i++){
+        playerJump=document.getElementsByClassName("beat")[i].getElementsByTagName("a")[0].getElementsByTagName("span")[0];
+        playerJump.setAttribute("aria-hidden","true");
+        
         audios[i].setAttribute("tabindex","-1");
         audios[i].setAttribute("data-java","true");
         durata=Math.floor(audios[i].duration/60) + ":" + Math.floor(audios[i].duration%60);
@@ -135,11 +68,15 @@ function playerAudio(nomeBase){
     newTitle = nomeBase.slice(0,-4).replaceAll("-"," ");
     beats = document.getElementsByClassName("beat")
     for(let i=0;i<beats.length;i++){
+        console.log(playerJump);
         if(beats[i].getElementsByTagName("button")[0].getAttribute("data-title-beat")==nomeBase.slice(0,-4)){
             pressedButton=beats[i].getElementsByTagName("button")[0];
             audioJump=beats[i].getElementsByTagName("a")[0];
             audioJump.setAttribute("tabindex","0");
-            console.log(audioJump);
+
+            playerJump=beats[i].getElementsByTagName("a")[0].getElementsByTagName("span")[0];
+            playerJump.setAttribute("aria-hidden","false");
+        console.log(i + playerJump);
         }
     }
     
@@ -150,6 +87,7 @@ function playerAudio(nomeBase){
             audio.pause();
             pressedButton.setAttribute("data-isPlaying","false")
             pressedButton.title="Riproduci " + newTitle;
+
            
 
         }else{
@@ -173,9 +111,11 @@ function newBeat(nomeBase){
     for(let i=0;i<beats.length;i++){
         buttonPP=beats[i].getElementsByTagName("button")[0];
         audioJump=beats[i].getElementsByTagName("a")[0];
+        playerJump.setAttribute("aria-hidden","false");
         
         if(buttonPP.title.substr(0,10)=="Interrompi"){
             audioJump.setAttribute("tabindex","-1");
+            
             buttonPP.setAttribute("data-isPlaying","false")
             buttonPP.title="Riproduci " + buttonPP.getAttribute("data-title-beat");
         } 
@@ -195,6 +135,7 @@ function autoPlay(nomeBase){
     document.getElementById("autoNext").onclick = function() {
         autoNext = !autoNext;
         console.log(autoNext);
+        document.getElementById("autoNext").setAttribute("aria-pressed", autoNext);
     }
     audio.onended = function() {
         if(autoNext){
