@@ -22,7 +22,7 @@ function toggleMenu() {
 
 /*
 BATTLE
-*/
+
 function pauseIframe() {
     console.log("pause");
     iframe.contentWindow.postMessage( '{"event":"command", "func":"pauseVideo", "args":""}', '*');
@@ -90,7 +90,7 @@ function setLinks(){
         descBattles[i].getElementsByTagName("dt")[0].setAttribute("data-java",true);
     }
 }
-
+*/
 
 /*
 BASI
@@ -102,6 +102,7 @@ function setAudioDuration(){
     span=document.getElementsByClassName("durata");
     audios=document.getElementsByClassName("audioBeats");
     for(let i=0;i<span.length;i++){
+        audios[i].setAttribute("tabindex","-1");
         audios[i].setAttribute("data-java","true");
         durata=Math.floor(audios[i].duration/60) + ":" + Math.floor(audios[i].duration%60);
         minuti=durata.slice(0,durata.indexOf(":"));
@@ -124,7 +125,7 @@ function setAudioDuration(){
 
 
 var autoNext=false;
-function playerAudio(nomeBase) {
+function playerAudio(nomeBase){
     
     //variabili varie
     percorso="assets/media/basi/";
@@ -136,22 +137,27 @@ function playerAudio(nomeBase) {
     for(let i=0;i<beats.length;i++){
         if(beats[i].getElementsByTagName("button")[0].getAttribute("data-title-beat")==nomeBase.slice(0,-4)){
             pressedButton=beats[i].getElementsByTagName("button")[0];
-            console.log(pressedButton.getAttribute("data-title-beat"));
-            
+            audioJump=beats[i].getElementsByTagName("a")[0];
+            audioJump.setAttribute("tabindex","0");
+            console.log(audioJump);
         }
     }
-   
+    
+
     if(h3.innerHTML==newTitle){
         if(pressedButton.title.slice(0,10)=="Interrompi"){
             //console.log("pause");
             audio.pause();
             pressedButton.setAttribute("data-isPlaying","false")
             pressedButton.title="Riproduci " + newTitle;
+           
 
         }else{
             audio.play();
             pressedButton.setAttribute("data-isPlaying","true")
             pressedButton.title="Interrompi " + newTitle;
+            
+            
         }    
     }else{
         newBeat(nomeBase);
@@ -166,7 +172,10 @@ function newBeat(nomeBase){
     //cambia gli statement dell'audio che era in riproduzione precedentemente
     for(let i=0;i<beats.length;i++){
         buttonPP=beats[i].getElementsByTagName("button")[0];
+        audioJump=beats[i].getElementsByTagName("a")[0];
+        
         if(buttonPP.title.substr(0,10)=="Interrompi"){
+            audioJump.setAttribute("tabindex","-1");
             buttonPP.setAttribute("data-isPlaying","false")
             buttonPP.title="Riproduci " + buttonPP.getAttribute("data-title-beat");
         } 
