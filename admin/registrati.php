@@ -25,6 +25,7 @@ $username = '';
 $email = '';
 $messaggioForm = '';
 $messaggiForm = '';
+$logout = '';
 
 $connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
@@ -45,9 +46,8 @@ if ($connectionOk) {
         if ($username == "") {
             $errore = true;
             $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Inserire Username"]);
-        }
-        else {
-            $utente = $connection -> get_utente_by_username($username);
+        } else {
+            $utente = $connection->get_utente_by_username($username);
             if (is_null($utente)) {
                 $utente = $connection->get_utente_by_email($email);
             }
@@ -57,16 +57,16 @@ if ($connectionOk) {
                     '{messaggio}' => "Utente giá registrato, vai alla pagina di ",
                     '{pageHref}' => "login.php",
                     '{lang}' => " lang=\"en\"",
-                    '{anchor}' => "login"]);
+                    '{anchor}' => "login"
+                ]);
             }
         }
         if ($password == "") {
             $errore = true;
             $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Inserire Password"]);
-        }
-        elseif ($password != $confermaPassword) {
-                $errore = true;
-                $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Le password non coincidono"]);
+        } elseif ($password != $confermaPassword) {
+            $errore = true;
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Le password non coincidono"]);
         }
         if ($email == "") {
             $errore = true;
@@ -79,22 +79,28 @@ if ($connectionOk) {
                 $_SESSION["login"] = true;
                 header("location: index.php");
                 $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Registrazione avvenuta correttamente"]);
-            }
-            else {
+            } else {
                 $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "La registrazione non é avvenuta"]);
             }
-        }
-        else {
+        } else {
             $messaggiForm = replace_content_between_markers(
-                get_content_between_markers($content, 'messaggiForm'), [
+                get_content_between_markers($content, 'messaggiForm'),
+                [
                     'messaggioForm' => $messaggiForm,
-                    'messaggioFormConLink' => '']);
+                    'messaggioFormConLink' => ''
+                ]
+            );
         }
     }
 
     $connection->closeDBConnection();
-}
-else {
+    $content = multi_replace(replace_content_between_markers($content, [
+        'messaggiForm' => $messaggiForm
+    ]), [
+        '{valoreUsername}' => $username,
+        '{valoreEmail}' => $email
+    ]);
+} else {
     header("location: ../errore500.php");
 }
 
@@ -104,16 +110,15 @@ if (isset($_SESSION["login"])) {
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
     'breadcrumbs' => $breadcrumbs,
-    'menu' => $menu
+    'menu' => $menu,
+    'logout' => $logout
 ]), [
     '{title}' => $title,
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
-    '{content}' => replace_content_between_markers($content, ['messaggiForm' => $messaggiForm]),
+    '{content}' => $content,
     '{onload}' => $onload,
     '{percorso}' => $percorso,
-    '{percorsoAdmin}' => $percorsoAdmin,
-    '{valoreUsername}' => $username,
-    '{valoreEmail}' => $email
+    '{percorsoAdmin}' => $percorsoAdmin
 ]);
