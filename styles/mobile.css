@@ -18,7 +18,8 @@ body {
 /* 
 body.js[data-menu-open=true] {
     overflow-y: hidden;
-} */
+}
+*/
 
 .limitedWidth {
     width: unset;
@@ -403,9 +404,6 @@ input[type="submit"] {
 #container_iframe iframe {
     width: 96vw;
     height: 45vw;
-    /*
-    
-    */
 }
 
 #container_iframe {
@@ -418,6 +416,20 @@ input[type="submit"] {
 
 #lista_battle {
     width: 96vw;
+}
+
+
+/* 
+ * PAGINA BEATS
+*/
+
+#lista_beats .beat button[data-isPlaying="false"] {
+    background-image: url("../assets/icons/Play.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 70%;
+    color: transparent;
+    opacity: 1;
 }
 
 

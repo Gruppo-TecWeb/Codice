@@ -1,0 +1,44 @@
+<h2 class="limitedWidth">Classifiche</h2>
+<div class="limitedWidth">
+    <form method="get" action="classifiche.php">
+        <fieldset>
+            <legend>Puoi visualizzare le classifiche passate dal nostro archivio:</legend>
+            <label for="classifica">Classifica: </label>
+            <select id="classifica" name="classifica"  onchange="this.form.submit()">
+                {listaClassificheDefault}<option value="Scegli la classifica" selected>Scegli la classifica</option>
+                {/listaClassificheDefault}{listaClassifiche}<option value="{tipoEvento}{.}{dataInizio}"{selezioneClassifica}>{opzioneClassifica}</option>
+                {/listaClassifiche}
+            </select>
+        </fieldset>
+        <fieldset>
+            <button type="submit" name="form_submit" class="hidden-by-js">Visualizza</button>
+            <button type="submit" name="reset" onclick="window.location.href='classifiche.php';">Torna indietro</button>
+        </fieldset>
+    </form>
+</div>
+{tabellaClassifica}<div class="limitedWidth div-classifica" id="{tipoEvento}">
+    <p>{desTipoEvento}</p>
+    <span id="sumTabella" class="navigationHelp">Tabella che riassume la classifica del {tipoEvento} con l'indicazione
+        di <span lang="en">ranking</span>,
+        nome d'arte del <span lang="en">freestyler</span>, punteggio ottenuto.</span>
+    <table id="tabella-classifica" aria-describedby="sumTabella">
+        <caption>Classifica {tipoEvento}</caption>
+        <thead>
+            <tr>
+                <th scope="col" lang="en">Ranking</th>
+                <th scope="col" lang="en">Freestyler</th>
+                <th scope="col">Punti</th>
+            </tr>
+        </thead>
+        <tbody>
+            {rigaClassifica}<tr>
+                <th data-title="ranking" scope="row"><span class="classifica ranking">{ranking}</span></th>
+                <td data-title="Freestyler">{freestyler}</td>
+                <td data-title="Punti">{punti}</td>
+            </tr>
+            {/rigaClassifica}
+        </tbody>
+    </table>
+</div>
+{/tabellaClassifica}
+{nessunaClassifica}<p class="limitedWidth">Non sono presenti classifiche</p>{/nessunaClassifica}

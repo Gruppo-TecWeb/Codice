@@ -18,7 +18,7 @@ CREATE TABLE TipiEvento (
 CREATE TABLE Classifiche (
     TipoEvento VARCHAR(100),
     DataInizio DATE NOT NULL,
-    DataFine DATE,
+    DataFine DATE NOT NULL,
     FOREIGN KEY (TipoEvento) REFERENCES TipiEvento(Titolo),
     PRIMARY KEY (TipoEvento, DataInizio));
 
@@ -36,8 +36,8 @@ CREATE TABLE ClassificheEventi (
     DataInizio DATE NOT NULL,
     Evento INTEGER NOT NULL,
     PRIMARY KEY (TipoEvento, DataInizio, Evento),
-    FOREIGN KEY (TipoEvento, DataInizio) REFERENCES Classifiche(TipoEvento, DataInizio),
-    FOREIGN KEY (Evento) REFERENCES Eventi(Id));
+    FOREIGN KEY (TipoEvento, DataInizio) REFERENCES Classifiche(TipoEvento, DataInizio) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (Evento) REFERENCES Eventi(Id) ON DELETE CASCADE ON UPDATE CASCADE);
 
 CREATE TABLE Punteggi (
     Partecipante VARCHAR(100) NOT NULL,

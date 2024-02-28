@@ -27,19 +27,27 @@
                 <li><a class="navigationHelp" href="#menu">Vai al menù principale</a></li>
             </ul>
         </nav>
-        <a class="logo" href="{percorso}index.php">
+        <a href="{percorso}index.php">
             <h1 class="logo">Fungo</h1>
         </a>
         <nav id="menu" class="mobileCard" aria-labelledby="menu-title" data-menu-open="true">
             <h3 id="menu-title">Menù</h3>
             <ul>
-                {menu}
+                {menu} {liCurrent}
+                <li><span aria-current="page" id="currentLink" class="menuItem" {lang}>{anchor}</span></li>
+                {/liCurrent} {liNotCurrent}
+                <li><a href="{pageHref}" class="menuItem" {lang}>{anchor}</a></li>
+                {/liNotCurrent} {/menu}
             </ul>
         </nav>
     </header>
     <div id="breadcrumbs-container" class="limitedWidth mobileCard" data-menu-open="true">
         <nav id="breadcrumbs" aria-label="Percorso">
             {breadcrumbs}
+            <p>
+                <span id="ti-trovi-in">Ti trovi in: </span>{parentBreadcrumb}<a href="{pageHref}" {lang}>{parent}</a> <span aria-hidden="true">&rsaquo;&rsaquo; </span>{/parentBreadcrumb}<span {lang}>{anchor}</span>
+            </p>
+            {/breadcrumbs}
         </nav>
         <button id="btn-menu" onclick="toggleMenu()" aria-hidden="true" tabindex="-1"><span class="navigationHelp">Menù</span></button>
         <!--TabIndex tolto per non focussare il btn con screen reader, che è inutile dato che il menu è sempre visibile ad esso -->
@@ -66,14 +74,15 @@
             <section>
                 <h3>Amministrazione</h3>
                 <ul>
-                    <li><a href="{percorsoAdmin}amministrazione.php">Area di amministrazione</a></li> {logout}
+                    <li><a href="{percorsoAdmin}index.php">Area riservata</a></li>
+                    {logout}
+                    <li lang="en"><a href="{percorsoAdmin}logout.php">Logout</a></li>{/logout}
                 </ul>
             </section>
             <section id="footer-credits">
                 <h3>Contenuti</h3>
                 <p>Tutti i contenuti e media utilizzati in questo sito sono di nostra proprietà o provenienti da fonti <span lang="en">open source</span>.</p>
             </section>
-
         </div>
     </footer>
 </body>

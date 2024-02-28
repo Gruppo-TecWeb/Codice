@@ -9,20 +9,20 @@ use DB\DBAccess;
 
 session_start();
 
-$eventoHTML = file_get_contents("template/template-pagina.html");
-$logout = isset($_SESSION["login"]) ? file_get_contents("template/admin/logout-template.html") : '';
+$paginaHTML = file_get_contents("template/template-pagina.html");
 
-$title = '';
+$title = 'Evento &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = '';
 $keywords = '';
 $percorso = '';
 $percorsoAdmin = 'admin/';
-$menu = get_menu($pageId);
-$breadcrumbs = '';
+$menu = get_menu($pageId, $percorso);
+$breadcrumbs = get_breadcrumbs($pageId, $percorso);
 
 $content = '';
 $onload = '';
+$logout = '';
 
 $connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
@@ -37,38 +37,55 @@ if ($connectionOk) {
         [$titolo, $descrizione, $data, $ora, $luogo, $locandina, $tipoEvento, $dataInizioClassifica] = array_values($evento);
 
         $content = file_get_contents("template/evento.html");
-        $content = multi_replace($content, [
+        $stagioneEvento = '';
+        $descrizioneEvento = '';
+        if ($tipoEvento  != null && $dataInizioClassifica != null) {
+            $stagioneEventoTemplate = get_content_between_markers($content, 'stagioneEvento');
+            $stagioneEvento = multi_replace($stagioneEventoTemplate, [
+                '{tipoEvento}' => $tipoEvento,
+                '{dataInizioClassifica}' => $dataInizioClassifica
+            ]);
+        }
+        if ($descrizione != null) {
+            $descrizioneEventoTemplate = get_content_between_markers($content, 'descrizioneEvento');
+            $descrizioneEvento = multi_replace($descrizioneEventoTemplate, [
+                '{descrizione}' => $descrizione
+            ]);
+        }
+        $content = multi_replace(replace_content_between_markers($content, [
+            'stagioneEvento' => $stagioneEvento,
+            'descrizioneEvento' => $descrizioneEvento
+        ]), [
             '{titolo}' => $titolo,
-            '{descrizione}' => $descrizione,
             '{data}' => $data,
             '{ora}' => $ora,
             '{luogo}' => $luogo,
             '{locandina}' => $locandina,
-            '{tipoEvento}' => $tipoEvento,
-            '{dataInizioClassifica}' => $dataInizioClassifica
         ]);
-        $breadcrumbs = get_breadcrumbs($pageId);
-        $title = $titolo . ' ' . $data;
         $breadcrumbs = multi_replace($breadcrumbs, [
             '{id}' => $eventoId,
-            '{evento}' => $title
+            '{evento}' => 'Evento',
         ]);
-        $title = $title . ' &minus; Fungo';
     }
 } else {
     header("location: errore500.php");
 }
 
-echo multi_replace($eventoHTML, [
+if (isset($_SESSION["login"])) {
+    $logout = get_content_between_markers($paginaHTML, 'logout');
+}
+
+echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'breadcrumbs' => $breadcrumbs,
+    'menu' => $menu,
+    'logout' => $logout
+]), [
     '{title}' => $title,
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
-    '{menu}' => $menu,
-    '{breadcrumbs}' => $breadcrumbs,
     '{content}' => $content,
     '{onload}' => $onload,
-    '{logout}' => $logout,
     '{percorso}' => $percorso,
     '{percorsoAdmin}' => $percorsoAdmin
 ]);
