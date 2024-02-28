@@ -21,7 +21,6 @@ $percorsoAdmin = 'admin/';
 $menu = get_menu($pageId, $percorso);
 $breadcrumbs = get_breadcrumbs($pageId, $percorso);
 $onload = 'hideSubmitButtons()';
-$logout = '';
 
 $connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
@@ -38,7 +37,7 @@ if ($connectionOk) {
         $dataInizioEvento = date_create($classifica[1]);
         $sceltaEffettuata = true;
     } else {
-        $titoloEvento = $connection->get_tipo_evento(null)['Titolo'];
+        $titoloEvento = $connection->get_tipo_evento()['Titolo'];
         $dataInizioEvento = date_create($connection->get_data_inizio_corrente($titoloEvento));
     }
 
@@ -51,7 +50,6 @@ if ($connectionOk) {
         $dataVisualizzata = '';
         $selected = '';
 
-        // <time datetime="2024-04-04">04 Aprile 2024</time>
         if ($dataInizio == $dataFine) {
             $dataVisualizzata = date_format($dataInizio, 'd/m/y');
         } elseif (date_format($dataInizio, 'Y') != date_format($dataFine, 'Y')) {
@@ -95,12 +93,19 @@ if ($connectionOk) {
             ]);
         }
         $content = replace_content_between_markers($content, [
+            'listaClassificheDefault' => '',
             'listaClassifiche' => $classifiche,
             'tabellaClassifica' => $tabella,
-            'rigaClassifica' => $righe
+            'rigaClassifica' => $righe,
+            'nessunaClassifica' => ''
         ]);
     } else {
-        $content .= '<p>Non sono presenti classifiche.</p>';
+        $content = replace_content_between_markers($content, [
+            'listaClassificheDefault' => get_content_between_markers($content, 'listaClassificheDefault'),
+            'listaClassifiche' => '',
+            'tabellaClassifica' => '',
+            'nessunaClassifica' => get_content_between_markers($content, 'nessunaClassifica')
+        ]);
     }
 
     $connection->closeDBConnection();

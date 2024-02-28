@@ -5,19 +5,18 @@
             <legend>Puoi visualizzare le classifiche passate dal nostro archivio:</legend>
             <label for="classifica">Classifica: </label>
             <select id="classifica" name="classifica"  onchange="this.form.submit()">
-                {listaClassifiche}
-                <option value="{tipoEvento}{.}{dataInizio}" {selezioneClassifica}>{opzioneClassifica}</option>
+                {listaClassificheDefault}<option value="Scegli la classifica" selected>Scegli la classifica</option>
+                {/listaClassificheDefault}{listaClassifiche}<option value="{tipoEvento}{.}{dataInizio}"{selezioneClassifica}>{opzioneClassifica}</option>
                 {/listaClassifiche}
             </select>
         </fieldset>
         <fieldset>
-            <input type="submit" name="form_submit" class="hidden-by-js" value="Visualizza">
-            <input type="submit" name="reset" value="Torna indietro" onclick="window.location.href='classifiche.php';">
+            <button type="submit" name="form_submit" class="hidden-by-js">Visualizza</button>
+            <button type="submit" name="reset" onclick="window.location.href='classifiche.php';">Torna indietro</button>
         </fieldset>
     </form>
 </div>
-{tabellaClassifica}
-<div class="limitedWidth div-classifica" id="{tipoEvento}">
+{tabellaClassifica}<div class="limitedWidth div-classifica" id="{tipoEvento}">
     <p>{desTipoEvento}</p>
     <span id="sumTabella" class="navigationHelp">Tabella che riassume la classifica del {tipoEvento} con l'indicazione
         di <span lang="en">ranking</span>,
@@ -32,9 +31,8 @@
             </tr>
         </thead>
         <tbody>
-            {rigaClassifica}
-            <tr>
-                <th scope="row"><span class="classifica ranking">{ranking}</span></th>
+            {rigaClassifica}<tr>
+                <th data-title="ranking" scope="row"><span class="classifica ranking">{ranking}</span></th>
                 <td data-title="Freestyler">{freestyler}</td>
                 <td data-title="Punti">{punti}</td>
             </tr>
@@ -43,3 +41,4 @@
     </table>
 </div>
 {/tabellaClassifica}
+{nessunaClassifica}<p class="limitedWidth">Non sono presenti classifiche</p>{/nessunaClassifica}
