@@ -13,10 +13,8 @@ $title = 'Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = 'Pagina ufficiale del collettivo rap Restraining Stirpe Crew.';
 $keywords = 'restraining stirpe, freestyle, freestyle rap, rap, battle, live, dj set, micelio, fungo';
-$percorso = '';
-$percorsoAdmin = 'admin/';
-$menu = get_menu($pageId, $percorso);
-$breadcrumbs = get_breadcrumbs($pageId, $percorso);
+$menu = get_menu($pageId);
+$breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 $logout = '';
 
@@ -34,7 +32,5 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{content}' => $content,
-    '{onload}' => $onload,
-    '{percorso}' => $percorso,
-    '{percorsoAdmin}' => $percorsoAdmin
+    '{onload}' => $onload
 ]);
