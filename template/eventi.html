@@ -4,22 +4,22 @@
 <h2 class="limitedWidth">Eventi</h2>
 <p class="limitedWidth">Qui trovi tutti gli eventi in programma</p>
 <form method="get" action="eventi.php" id="form-eventi">
-    <fieldset class="limitedWidth">
+    <div class="limitedWidth">
         <label for="data">Filtra a partire da una data</label>
         <input type="date" name="data" id="data" value="{data}">
-    </fieldset>
-    <fieldset class="limitedWidth">
+    </div>
+    <div class="limitedWidth">
         <label for="titolo">Filtra per tipo</label>
         <select id="titolo" name="titolo" autocomplete="organization-title">
             <option value="" selected>Tutti gli eventi</option>
             {listaTitoli}<option value="{titoloEvento}" {selezioneEvento}>{titoloEvento}</option>
             {/listaTitoli}
         </select>
-    </fieldset>
-    <fieldset class="limitedWidth">
+    </div>
+    <div class="limitedWidth">
         <input type="submit" id="submitFiltri" value="Filtra">
         <input type="button" id="reset" value="Reset" onclick="window.location.href='eventi.php'">
-    </fieldset>
+    </div>
 </form>
 {navRisultatiEventi}
 <nav id="nav-risultati" class="limitedWidth"
