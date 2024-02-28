@@ -21,6 +21,7 @@ $percorsoAdmin = 'admin/';
 $menu = get_menu($pageId, $percorso);
 $breadcrumbs = get_breadcrumbs($pageId, $percorso);
 $onload = 'hideSubmitButtons()';
+$logout = '';
 
 $connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
