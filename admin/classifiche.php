@@ -15,8 +15,8 @@ $adminContent = file_get_contents("../template/admin/classifiche.html");
 
 $title = 'Tipi Evento &minus; Fungo';
 $pageId = 'admin/' . basename(__FILE__, '.php');
-$description = '';
-$keywords = '';
+$description = 'Pagina di amministrazione delle classifiche dei tipi di evento organizzati dal collettivo rap Restraining Stirpe Crew.';
+$keywords = 'classifiche, tipi evento, restraining stirpe, freestyle, freestyle rap, rap, battle, live, dj set, micelio, fungo';
 $percorso = '../';
 $percorsoAdmin = '';
 $menu = get_menu($pageId, $percorso);
