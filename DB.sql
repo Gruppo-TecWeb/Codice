@@ -44,8 +44,8 @@ CREATE TABLE Punteggi (
     Evento INTEGER NOT NULL,
     Punteggio INTEGER NOT NULL,
     PRIMARY KEY (Partecipante, Evento),
-    FOREIGN KEY (Evento) REFERENCES Eventi(Id),
-    FOREIGN KEY (Partecipante) REFERENCES Utenti(Username));
+    FOREIGN KEY (Evento) REFERENCES Eventi(Id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (Partecipante) REFERENCES Utenti(Username) ON DELETE RESTRICT ON UPDATE CASCADE);
     
 INSERT INTO Utenti (Username, Password, Email, Admin) VALUES ('admin', '$2y$10$6HccIqtLp.aSP1X4H/X3GeNJaXsTLVrNCPYIaMURXPUfxSL7qjphi', 'admin@fungo.it', 'S');
 INSERT INTO Utenti (Username, Password, Email) VALUES ('user', '$2y$10$Z0Aa3dQjyumq4IUcqxlIK.Han8U1eeETu7utaA9WhT.iKcggzR49G', 'user@fungo.it');

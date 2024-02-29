@@ -3,26 +3,27 @@
 namespace Utilities;
 
 const pages_array = [
-    'index'                 => ['href' => 'index.php',           'anchor' => 'Home',           'lang' => 'en', 'menuOrder' => 1, 'admin' => 0, 'parentId' => ''],
-    'eventi'                => ['href' => 'eventi.php',          'anchor' => 'Eventi',         'lang' => '',   'menuOrder' => 2, 'admin' => 0, 'parentId' => 'index'],
-    'evento'                => ['href' => 'evento.php?id={id}',  'anchor' => '{evento}',       'lang' => '',   'menuOrder' => 0, 'admin' => 0, 'parentId' => 'eventi'],
-    'classifiche'           => ['href' => 'classifiche.php',     'anchor' => 'Classifiche',    'lang' => '',   'menuOrder' => 3, 'admin' => 0, 'parentId' => 'index'],
-    'modalita'              => ['href' => 'modalita.php',        'anchor' => 'Modalità',       'lang' => '',   'menuOrder' => 4, 'admin' => 0, 'parentId' => 'index'],
-    'beats'                 => ['href' => 'beats.php',           'anchor' => 'Beats',          'lang' => 'en', 'menuOrder' => 5, 'admin' => 0, 'parentId' => 'index'],
-    'chi-siamo'             => ['href' => 'chi-siamo.php',       'anchor' => 'Chi siamo',      'lang' => '',   'menuOrder' => 6, 'admin' => 0, 'parentId' => 'index'],
-    'registrati'            => ['href' => 'registrati.php',      'anchor' => 'Registrati',     'lang' => '',   'menuOrder' => 0, 'admin' => 0, 'parentId' => 'index'],
-    'login'                 => ['href' => 'login.php',           'anchor' => 'Login',          'lang' => 'en', 'menuOrder' => 0, 'admin' => 0, 'parentId' => 'index'],
-    'admin/index'           => ['href' => 'index.php',           'anchor' => 'Area riservata', 'lang' => '',   'menuOrder' => 0, 'admin' => 1, 'parentId' => 'index'],
-    'admin/profilo'         => ['href' => 'profilo.php',         'anchor' => 'Profilo',        'lang' => '',   'menuOrder' => 1, 'admin' => 1, 'parentId' => 'admin/index'],
-    'admin/eventi'          => ['href' => 'eventi.php',          'anchor' => 'Eventi',         'lang' => '',   'menuOrder' => 2, 'admin' => 1, 'parentId' => 'admin/index'],
-    'admin/classifiche'     => ['href' => 'classifiche.php',     'anchor' => 'Classifiche',    'lang' => '',   'menuOrder' => 3, 'admin' => 1, 'parentId' => 'admin/index'],
-    'admin/tipi-evento'     => ['href' => 'tipi-evento.php',     'anchor' => 'Tipi Evento',    'lang' => '',   'menuOrder' => 4, 'admin' => 1, 'parentId' => 'admin/index'],
-    'admin/rappers'         => ['href' => 'rappers.php',         'anchor' => 'Rappers',        'lang' => 'en', 'menuOrder' => 5, 'admin' => 1, 'parentId' => 'admin/index'],
-    'admin/amministratori'  => ['href' => 'amministratori.php',  'anchor' => 'Amministratori', 'lang' => '',   'menuOrder' => 6, 'admin' => 1, 'parentId' => 'admin/index'],
-    'logout'                => ['href' => 'logout.php',          'anchor' => 'Logout',         'lang' => 'en', 'menuOrder' => 0, 'admin' => 0, 'parentId' => ''],
-    'errore404'             => ['href' => 'errore404.php',       'anchor' => 'Errore 404',     'lang' => '',   'menuOrder' => 0, 'admin' => 0, 'parentId' => ''],
-    'errore403'             => ['href' => 'errore403.php',       'anchor' => 'Errore 403',     'lang' => '',   'menuOrder' => 0, 'admin' => 0, 'parentId' => ''],
-    'errore500'             => ['href' => 'errore500.php',       'anchor' => 'Errore 500',     'lang' => '',   'menuOrder' => 0, 'admin' => 0, 'parentId' => '']
+    'index'                  => ['href' => 'index.php',            'anchor' => 'Home',                                      'lang' => 'en', 'menuOrder' => 1, 'admin' => 0, 'parentId' => ''],
+    'eventi'                 => ['href' => 'eventi.php',           'anchor' => 'Eventi',                                    'lang' => '',   'menuOrder' => 2, 'admin' => 0, 'parentId' => 'index'],
+    'evento'                 => ['href' => 'evento.php?id={id}',   'anchor' => '{evento}',                                  'lang' => '',   'menuOrder' => 0, 'admin' => 0, 'parentId' => 'eventi'],
+    'classifiche'            => ['href' => 'classifiche.php',      'anchor' => 'Classifiche',                               'lang' => '',   'menuOrder' => 3, 'admin' => 0, 'parentId' => 'index'],
+    'modalita'               => ['href' => 'modalita.php',         'anchor' => 'Modalità',                                  'lang' => '',   'menuOrder' => 4, 'admin' => 0, 'parentId' => 'index'],
+    'beats'                  => ['href' => 'beats.php',            'anchor' => 'Beats',                                     'lang' => 'en', 'menuOrder' => 5, 'admin' => 0, 'parentId' => 'index'],
+    'chi-siamo'              => ['href' => 'chi-siamo.php',        'anchor' => 'Chi siamo',                                 'lang' => '',   'menuOrder' => 6, 'admin' => 0, 'parentId' => 'index'],
+    'registrati'             => ['href' => 'registrati.php',       'anchor' => 'Registrati',                                'lang' => '',   'menuOrder' => 0, 'admin' => 0, 'parentId' => 'index'],
+    'login'                  => ['href' => 'login.php',            'anchor' => 'Login',                                     'lang' => 'en', 'menuOrder' => 0, 'admin' => 0, 'parentId' => 'index'],
+    'admin/index'            => ['href' => 'index.php',            'anchor' => 'Area riservata',                            'lang' => '',   'menuOrder' => 0, 'admin' => 1, 'parentId' => 'index'],
+    'admin/profilo'          => ['href' => 'profilo.php',          'anchor' => 'Profilo',                                   'lang' => '',   'menuOrder' => 1, 'admin' => 1, 'parentId' => 'admin/index'],
+    'admin/eventi'           => ['href' => 'eventi.php',           'anchor' => 'Eventi',                                    'lang' => '',   'menuOrder' => 2, 'admin' => 1, 'parentId' => 'admin/index'],
+    'admin/classifiche'      => ['href' => 'classifiche.php',      'anchor' => 'Classifiche',                               'lang' => '',   'menuOrder' => 3, 'admin' => 1, 'parentId' => 'admin/index'],
+    'admin/tipi-evento'      => ['href' => 'tipi-evento.php',      'anchor' => 'Tipi Evento',                               'lang' => '',   'menuOrder' => 4, 'admin' => 1, 'parentId' => 'admin/index'],
+    'admin/rappers'          => ['href' => 'rappers.php',          'anchor' => 'Rappers',                                   'lang' => 'en', 'menuOrder' => 5, 'admin' => 1, 'parentId' => 'admin/index'],
+    'admin/gestione-rappers' => ['href' => 'gestione-rappers.php', 'anchor' => 'Gestione <span lang=\'en\'>Rappers</span>', 'lang' => '',   'menuOrder' => 0, 'admin' => 1, 'parentId' => 'admin/rappers'],
+    'admin/amministratori'   => ['href' => 'amministratori.php',   'anchor' => 'Amministratori',                            'lang' => '',   'menuOrder' => 6, 'admin' => 1, 'parentId' => 'admin/index'],
+    'logout'                 => ['href' => 'logout.php',           'anchor' => 'Logout',                                    'lang' => 'en', 'menuOrder' => 0, 'admin' => 0, 'parentId' => ''],
+    'errore404'              => ['href' => 'errore404.php',        'anchor' => 'Errore 404',                                'lang' => '',   'menuOrder' => 0, 'admin' => 0, 'parentId' => ''],
+    'errore403'              => ['href' => 'errore403.php',        'anchor' => 'Errore 403',                                'lang' => '',   'menuOrder' => 0, 'admin' => 0, 'parentId' => ''],
+    'errore500'              => ['href' => 'errore500.php',        'anchor' => 'Errore 500',                                'lang' => '',   'menuOrder' => 0, 'admin' => 0, 'parentId' => '']
 ];
 
 function multi_replace($source, $replacements) {
@@ -94,7 +95,7 @@ function get_breadcrumbs($pageId) {
         $parentBreadcrumbTemplate = get_content_between_markers($paginaHTML, 'parentBreadcrumb');
         $lang_attribute = $parent['lang'] ? ' lang="' . $parent['lang'] . '"' : '';
         $parentBreadcrumb = multi_replace($parentBreadcrumbTemplate, [
-            '{pageHref}' => $parent['href'],
+            '{pageHref}' => $page['admin'] != $parent['admin'] ? '../' . $parent['href'] : $parent['href'],
             '{lang}' => $lang_attribute,
             '{parent}' => $parent['anchor']
         ]) . $parentBreadcrumb;

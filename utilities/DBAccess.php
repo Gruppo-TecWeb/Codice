@@ -264,12 +264,38 @@ class DBAccess {
         )) ? $ris[0] : null;
     }
 
+    public function get_utenti() {
+        return $this->executeQuery(
+            "SELECT * FROM Utenti;"
+        );
+    }
+
+    public function get_utenti_base() {
+        return $this->executeQuery(
+            "SELECT * FROM Utenti WHERE Admin = 'N';"
+        );
+    }
+
+    public function get_utenti_admin() {
+        return $this->executeQuery(
+            "SELECT * FROM Utenti WHERE Admin = 'S';"
+        );
+    }
+
     public function register($username, $password, $email) {
         return $this->executeQuery(
             "INSERT INTO Utenti (Username, Password, Email) VALUES (?, ?,?);",
             $username,
             password_hash($password, PASSWORD_BCRYPT),
             $email
+        );
+    }
+
+    public function change_username($oldUsername, $newUsername) {
+        return $this->executeQuery(
+            "UPDATE Utenti SET Username = ? WHERE Username = ?;",
+            $newUsername,
+            $oldUsername
         );
     }
 
@@ -285,6 +311,22 @@ class DBAccess {
         return $this->executeQuery(
             "UPDATE Utenti SET Password = ? WHERE Username = ?;",
             password_hash($newPassword, PASSWORD_BCRYPT),
+            $username
+        );
+    }
+
+    public function update_user($oldUsername, $newUsername, $newEmail) {
+        return $this->executeQuery(
+            "UPDATE Utenti SET Username = ?, Email = ? WHERE Username = ?;",
+            $newUsername,
+            $newEmail,
+            $oldUsername
+        );
+    }
+
+    public function delete_user($username) {
+        return $this->executeQuery(
+            "DELETE FROM Utenti WHERE Username = ?;",
             $username
         );
     }
