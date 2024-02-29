@@ -1,80 +1,80 @@
-<div id="classifiche">
-    <h3>Gestione Classifiche</h3>
+<div id="classifiche" class="limitedWidth">
+            <h3>Gestione Classifiche</h3>
 
-    <!-- Form per aggiungere una nuova Classifica -->
-    <form method="post" action="classifiche.php">
-        <fieldset>
-            <legend>{legend}</legend>
-            <label for="tipoEvento">Tipo Evento:</label>
-            <select id="tipoEvento" name="nuovoTipoEvento" required>
-                <option value=""{selezioneTipoEventoDefault} disabled>Scegli il tipo evento</option>
-                {listaTipoEvento}<option value="{tipoEvento}"{selezioneTipoEvento}>{tipoEvento}</option>
-                {/listaTipoEvento}
-            </select>
-            <label for="dataInizio">Data Inizio:</label>
-            <input type="date" id="dataInizio" name="nuovaDataInizio"{valueNuovaDataInizio} required>
-            <label for="dataFine">Data Fine:</label>
-            <input type="date" id="dataFine" name="nuovaDataFine"{valueNuovaDataFine} required>
-            <input type="hidden" name="tipoEvento" value="{valueTipoEvento}">
-            <input type="hidden" name="dataInizio" value="{valueDataInizio}">
-            <input type="hidden" name="azione" value="{valueAzione}">
+            <!-- Form per aggiungere o modificare una Classifica -->
+            <form method="post" action="classifiche.php">
+                <fieldset>
+                    <legend>{legend}</legend>
+                    <label for="tipoEvento">Tipo Evento:</label>
+                    <select id="tipoEvento" name="nuovoTipoEvento" required>
+                        <option value=""{selezioneTipoEventoDefault} disabled>Scegli il tipo evento</option>
+                        {listaTipoEvento}<option value="{tipoEvento}"{selezioneTipoEvento}>{tipoEvento}</option>
+                        {/listaTipoEvento}
+                    </select>
+                    <label for="dataInizio">Data Inizio:</label>
+                    <input type="date" id="dataInizio" name="nuovaDataInizio"{valueNuovaDataInizio} required>
+                    <label for="dataFine">Data Fine:</label>
+                    <input type="date" id="dataFine" name="nuovaDataFine"{valueNuovaDataFine} required>
+                    <input type="hidden" name="tipoEvento" value="{valueTipoEvento}">
+                    <input type="hidden" name="dataInizio" value="{valueDataInizio}">
+                    <input type="hidden" name="azione" value="{valueAzione}">
 
-            <!-- Pulsante per visualizzare gli eventi disponibili -->
-            <button type="submit" name="mostraEventi" value="true" onclick="visualizzaEventi()">Visualizza Eventi Abbinabili</button>
-        </fieldset>
-        
-        {associaEventi}<!-- Elenco degli Eventi già associati o associabili alla Classifica -->
-        <fieldset>
-            <legend>Associa Eventi</legend>
-            {listaEventi}<ul>
-                {checkEvento}<li><input type="checkbox" id="evento{idEvento}" name="eventi[]" value="{idEvento}"{eventoChecked}>
-                <label for="evento{idEvento}">{titoloEvento} <time datetime="{dataEvento}">{dataVisualizzataEvento}</time></label></li>
-                {/checkEvento}{nessunEvento}<li>Nessun evento da mostrare</li>{/nessunEvento}
-            </ul>{/listaEventi}
-        </fieldset>
-        
-        {aggiungi}<button type="submit" name="aggiungi" value="true">Aggiungi</button>{/aggiungi}{conferma}<button type="submit" name="conferma" value="true">Conferma</button>{/conferma}
-        {punteggi}<button type="submit" name="punteggi" value="true">Gestisci punteggi</button>{/punteggi}
-        {/associaEventi}
-    </form>
+                    <!-- Pulsante per visualizzare gli eventi disponibili -->
+                    <button type="submit" name="mostraEventi" value="true" onclick="visualizzaEventi()">Visualizza Eventi Abbinabili</button>
+                </fieldset>
+                
+                {associaEventi}<!-- Elenco degli Eventi già associati o associabili alla Classifica -->
+                <fieldset>
+                    <legend>Associa Eventi</legend>
+                    {listaEventi}<ul>
+                        {checkEvento}<li><input type="checkbox" id="evento{idEvento}" name="eventi[]" value="{idEvento}"{eventoChecked}>
+                        <label for="evento{idEvento}">{titoloEvento} <time datetime="{dataEvento}">{dataVisualizzataEvento}</time></label></li>
+                        {/checkEvento}{nessunEvento}<li>Nessun evento da mostrare</li>{/nessunEvento}
+                    </ul>{/listaEventi}
+                </fieldset>
+                
+                {aggiungi}<button type="submit" name="aggiungi" value="true">Aggiungi</button>{/aggiungi}{conferma}<button type="submit" name="conferma" value="true">Conferma</button>{/conferma}
+                {punteggi}<button type="submit" name="punteggi" value="true">Gestisci punteggi</button>{/punteggi}
+                {/associaEventi}
+            </form>
 
-    {messaggiForm}<ul>
-        {messaggioForm}<li>{messaggio}</li>{/messaggioForm}
-    </ul>
-    {/messaggiForm}
+            {messaggiForm}<ul>
+                {messaggioForm}<li>{messaggio}</li>{/messaggioForm}
+            </ul>
+            {/messaggiForm}
 
-    <!-- Tabella che elenca le classifiche esistenti con possibilità di modificarle o eliminarle. -->
-    <span id="sumTabella" class="navigationHelp">Tabella che elenca le classifiche esistenti con l'indicazione del tipo evento, 
-        la data d'inizio e la data di fine. Per ciascuna riga sono presenti anche dei bottoni 
-        che permettono di visualizzare il dettaglio di quella classifica o di eliminarla.</span>
-    <table id="tabella-classifica" aria-describedby="sumTabella">
-        <caption>Classifiche presenti</caption>
-        <thead>
-            <tr>
-                <th scope="col">Tipo Evento</th>
-                <th scope="col">Data Inizio</th>
-                <th scope="col">Data Fine</th>
-                <th scope="col">Azioni</th>
-            </tr>
-        </thead>
-        <tbody>
-            {rigaClassifica}
-            <tr>
-                <td data-title="Tipo Evento">{tipoEvento}</td>
-                <td data-title="Data Inizio">{dataInizio}</td>
-                <td data-title="Data Fine">{dataFine}</td>
-                <td data-title="Azioni">
-                    <form method="post" action="classifiche.php">
-                        <input type="hidden" name="tipoEvento" value="{valueTipoEvento}">
-                        <input type="hidden" name="dataInizio" value="{valueDataInizio}">
-                        <input type="hidden" name="dataFine" value="{valueDataFine}">
-                        <input type="hidden" name="azione" value="modifica">
-                        <button type="submit" name="modifica" value="true">Modifica</button>
-                        <button type="submit" name="elimina" value="true">Elimina</button>
-                    </form>
-                </td>
-            </tr>
-            {/rigaClassifica}
-        </tbody>
-    </table>
-</div>
+            <!-- Tabella che elenca le classifiche esistenti con possibilità di modificarle o eliminarle. -->
+            <span id="sumTabella" class="navigationHelp">Tabella che elenca le classifiche esistenti con l'indicazione del tipo evento, 
+                la data d'inizio e la data di fine. Per ciascuna riga sono presenti anche dei bottoni 
+                che permettono di visualizzare il dettaglio di quella classifica o di eliminarla.</span>
+            <table id="tabella-classifica" aria-describedby="sumTabella">
+                <caption>Classifiche presenti</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Tipo Evento</th>
+                        <th scope="col">Data Inizio</th>
+                        <th scope="col">Data Fine</th>
+                        <th scope="col">Azioni</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {rigaClassifica}
+                    <tr>
+                        <td data-title="Tipo Evento">{tipoEvento}</td>
+                        <td data-title="Data Inizio">{dataInizio}</td>
+                        <td data-title="Data Fine">{dataFine}</td>
+                        <td data-title="Azioni">
+                            <form method="post" action="classifiche.php">
+                                <input type="hidden" name="tipoEvento" value="{valueTipoEvento}">
+                                <input type="hidden" name="dataInizio" value="{valueDataInizio}">
+                                <input type="hidden" name="dataFine" value="{valueDataFine}">
+                                <input type="hidden" name="azione" value="modifica">
+                                <button type="submit" name="modifica" value="true">Modifica</button>
+                                <button type="submit" name="elimina" value="true">Elimina</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {/rigaClassifica}
+                </tbody>
+            </table>
+        </div>

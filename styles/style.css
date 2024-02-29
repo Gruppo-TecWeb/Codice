@@ -801,35 +801,35 @@ justify #evento-info dt {
     text-align: right;
 }
 
-table#tabella-classifica {
+table {
     min-width: 48%;
     border-collapse: collapse;
 }
 
-table#tabella-classifica caption {
+table caption {
     font-size: 1.5em;
     margin-bottom: 0.5em;
 }
 
-table#tabella-classifica thead {
+table thead {
     background-color: var(--colorAccent);
     color: var(--colorTextOnAccent);
 }
 
-table#tabella-classifica th,
-table#tabella-classifica td {
+table th,
+table td {
     padding: 0.3em 0.5em;
 }
 
-table#tabella-classifica th {
+table th {
     text-align: left;
 }
 
-table#tabella-classifica tbody tr:nth-child(odd) {
+table tbody tr:nth-child(odd) {
     background-color: var(--colorSecondary);
 }
 
-table#tabella-classifica .classifica-punti {
+table .classifica-punti {
     text-align: right;
 }
 
