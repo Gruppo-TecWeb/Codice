@@ -93,10 +93,6 @@ main {
     flex: 1;
 }
 
-.no-script {
-    display: none;
-}
-
 .logo {
     text-shadow: 0 0 8px var(--txtColor);
     font-family: Horizontale;
