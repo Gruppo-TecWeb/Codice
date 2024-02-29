@@ -19,7 +19,7 @@ $menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 
 $content = '';
-$onload = '';
+$onload = 'init_evento()';
 $logout = '';
 
 $connection = DBAccess::getInstance();

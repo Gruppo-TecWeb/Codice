@@ -20,6 +20,8 @@ const pages_array = [
     'admin/rappers'         => ['href' => 'rappers.php',         'anchor' => 'Rappers',        'lang' => 'en', 'menuOrder' => 5, 'admin' => 1, 'parentId' => 'admin/index'],
     'admin/amministratori'  => ['href' => 'amministratori.php',  'anchor' => 'Amministratori', 'lang' => '',   'menuOrder' => 6, 'admin' => 1, 'parentId' => 'admin/index'],
     'logout'                => ['href' => 'logout.php',          'anchor' => 'Logout',         'lang' => 'en', 'menuOrder' => 0, 'admin' => 0, 'parentId' => ''],
+    'errore404'             => ['href' => 'errore404.php',       'anchor' => 'Errore 404',     'lang' => '',   'menuOrder' => 0, 'admin' => 0, 'parentId' => ''],
+    'errore403'             => ['href' => 'errore403.php',       'anchor' => 'Errore 403',     'lang' => '',   'menuOrder' => 0, 'admin' => 0, 'parentId' => ''],
     'errore500'             => ['href' => 'errore500.php',       'anchor' => 'Errore 500',     'lang' => '',   'menuOrder' => 0, 'admin' => 0, 'parentId' => '']
 ];
 
