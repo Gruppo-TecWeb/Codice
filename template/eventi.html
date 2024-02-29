@@ -21,6 +21,9 @@
         <input type="button" id="reset" value="Reset" onclick="window.location.href='eventi.php'">
     </div>
 </form>
+<p class="limitedWidth">Stai visualizzando {messaggioFiltri}
+    <time datetime="{valueDataEvento}">{dataEvento}</time> {/messaggioFiltri}
+</p>
 {navRisultatiEventi}
 <nav id="nav-risultati" class="limitedWidth"
     aria-label="Visualizza il numero di risultati e l'indicazione del numero di pagina">
@@ -30,9 +33,6 @@
 </nav>
 {/navRisultatiEventi}
 <div id="risultati-eventi" class="limitedWidth">
-    <p class="limitedWidth">Stai visualizzando {messaggioFiltri}
-      <time datetime="{valueDataEvento}">{dataEvento}</time> {/messaggioFiltri}
-    </p>
     {listaEventi}
     <ul id="lista-eventi">
         {eventoElement}
