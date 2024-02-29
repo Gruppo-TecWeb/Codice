@@ -67,7 +67,8 @@ if ($connectionOk) {
             '{numeroPagina}' => $pagina - 1,
             '{data}' => $data_encoded,
             '{titolo}' => $titolo_encoded,
-            '{messaggio}' => 'Precedente'
+            '{messaggio}' => 'Precedente',
+            '{classe}' => ''
         ]) : '';
         for ($i = 1; $i <= $numero_pagine; $i++) {
             if ($i == $pagina) {
@@ -77,7 +78,8 @@ if ($connectionOk) {
                     '{numeroPagina}' => $i,
                     '{data}' => $data_encoded,
                     '{titolo}' => $titolo_encoded,
-                    '{messaggio}' => $i
+                    '{messaggio}' => $i,
+                    '{classe}' => 'number'
                 ]);
             } else if ($i == $pagina - 3 || $i == $pagina + 3) {
                 $pages .= multi_replace(get_content_between_markers($paginationTemplate, 'ellipsis'), [
@@ -90,7 +92,8 @@ if ($connectionOk) {
             '{numeroPagina}' => $pagina + 1,
             '{data}' => $data,
             '{titolo}' => $titolo,
-            '{messaggio}' => 'Successiva'
+            '{messaggio}' => 'Successiva',
+            '{classe}' => ''
         ]) : '';
         $pagination = replace_content_between_markers($paginationTemplate, [
             'pages' => $pages,
