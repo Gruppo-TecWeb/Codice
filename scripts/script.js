@@ -40,10 +40,9 @@ function init_evento() {
         linkIndietro.setAttribute('href', document.referrer);
 }
 
-
 /*
  * PAGINA BEATS
- */
+*/
 
 function setAudioDuration() {
     span = document.getElementsByClassName("durata");
