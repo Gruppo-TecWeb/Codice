@@ -617,7 +617,6 @@ div.error500 img {
 }
 
 #lista_beats .beat {
-    padding: 1em 0em;
     background-color: var(--secondaryColor);
     border-style: solid;
     border-color: var(--accentColor);
@@ -640,14 +639,15 @@ div.error500 img {
     max-width: 100%;
     min-width: 100%;
     text-align: center;
+
 }
 #lista_beats .titoloContainer{
     display: inline-flex;
     flex-direction: row-reverse;
     justify-content:space-between;
     align-items: center;
-    min-width: 20vw;
-    max-width: 20vw;
+    min-width: 25%;
+    max-width: 25%;
     border-style:dashed;
 
     border-width: 0em 0em 0.1em 0em;
@@ -695,12 +695,12 @@ div.error500 img {
     display: none;
 }
 #lista_beats .descBeats{
-    margin-top: 1em;
+    padding: 1em;
     align-self: baseline;
 }
 #lista_beats .durata{
-    padding: 0.4em;
-
+    align-self: center;
+    padding-right:1em ;
 }
 #audio_container {
     display: flex;
