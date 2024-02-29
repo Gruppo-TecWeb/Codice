@@ -1,16 +1,10 @@
-<p class="limitedWidth"><a href="javascript:history.back()">Torna alla pagina precedente</a></p>
+<p class="limitedWidth"><a id="indietro" href="eventi.php">Torna agli eventi</a></p>
 <h2 class="limitedWidth">{titolo}</h2>
 <div id="evento-box" class="limitedWidth">
     <img src="assets/media/locandine/{locandina}" alt="">
     <dl id="evento-info">
         <dt>Data:</dt>
         <dd><time datetime="{data}">{data}</time></dd>
-        {stagioneEvento}
-        <dt>Tipo evento:</dt>
-        <dd>{tipoEvento}</dd>
-        <dt>Data inizio stagione:</dt>
-        <dd><time datetime="{dataInizioClassifica}">{dataInizioClassifica}</time></dd>
-        {/stagioneEvento}
         <dt>Ora:</dt>
         <dd><time datetime="{ora}">{ora}</time></dd>
         <dt>Luogo:</dt>
@@ -18,6 +12,11 @@
         {descrizioneEvento}
         <dt>Descrizione:</dt>
         <dd>{descrizione}</dd>
-        {/descrizioneEvento}
+        {/descrizioneEvento} {stagioneEvento}
+        <dt>Tipo evento:</dt>
+        <dd>{tipoEvento}</dd>
+        <dt>Data inizio stagione:</dt>
+        <dd><time datetime="{dataInizioClassifica}">{dataInizioClassifica}</time></dd>
+        {/stagioneEvento}
     </dl>
 </div>
