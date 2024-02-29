@@ -535,8 +535,6 @@ MODALITà
 
 #container_battle {
     display: flex;
-    /*versione con iframe 
-    flex-direction: row;*/
     flex-direction: column;
 
     justify-content: center;
@@ -555,59 +553,6 @@ MODALITà
     height: fit-content;
     background-color: var(--secondaryColor);
 }
-/*
-#container_iframe {
-    margin: 0em;
-    text-align: center;
-    color: var(--secondaryColor);
-    font-size: larger;
-    width: 50%;
-    margin: 1em;
-}
-
-#container_iframe iframe {
-    width: 48vw;
-    height: 27vw;
-    border-radius: 20px;
-    border-style: none;
-}
-
-#lista_battle {
-   
-    width: 50%;
-}
-
-.descBattle dt:first-child[data-java="true"]{
-    padding: 1em;
-}
-
-#lista_battle button {
-    cursor: pointer;
-    height: 2em;
-    border-style: none;
-    color: transparent;
-    background-color: transparent;
-    background-image: url("../assets/icons/Play.png");
-    background-repeat: no-repeat;
-    background-size: 30%;
-    background-position: center;
-}
-
-
-#lista_battle button[data-isPlaying="false"]{
-    background-image: url("../assets/icons/Play.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 30%;
-}
-#lista_battle button[data-isPlaying="true"]{
-    background-image: url("../assets/icons/Pause.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 30%;
-}
-*/
-
 
 .descBattle{
     display: flex;
@@ -645,25 +590,6 @@ MODALITà
     border-color: var(--accentColor);
     padding: 0.5em;
 }
-/*
-.descBattle button {
-    cursor: pointer;
-    height: 2em;
-    border-style: none;
-    justify-content: space-between;
-    color: transparent;
-    background-color: transparent;
-    background-image: url("../assets/icons/Play.png");
-    background-repeat: no-repeat;
-    background-size: 40%;
-    background-position: center;
-}
-
-
-.descBattle:hover button {
-    opacity: 1;
-}
-*/
 
 /*
  * PAGINA ERRORE 500
@@ -693,7 +619,6 @@ div.error500 img {
 #lista_beats .beat {
     padding: 1em;
     background-color: var(--secondaryColor);
-    /*cursor: pointer;*/
     border-style: solid;
     border-color: var(--accentColor);
     border-width: 0.1em 0em 0em 0em;
