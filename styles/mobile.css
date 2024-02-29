@@ -439,12 +439,13 @@ input[type="submit"] {
     border-style: dashed;
     border-width: 0em 0em 0.1em 0em;
     border-color: var(--accentColor);
-    padding-bottom: 1em;
+    padding: 1em;
     align-self: center;
 }
 
 #lista_beats .durata{
     align-self: center;
+    
 }
 #lista_beats .beat button[data-isPlaying="false"]{
     background-image: url("../assets/icons/Play.png");
