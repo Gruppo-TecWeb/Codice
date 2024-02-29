@@ -443,10 +443,6 @@ input[type="submit"] {
     align-self: center;
 }
 
-#lista_beats .durata{
-    align-self: center;
-    
-}
 #lista_beats .beat button[data-isPlaying="false"]{
     background-image: url("../assets/icons/Play.png");
     background-repeat: no-repeat;
@@ -455,6 +451,12 @@ input[type="submit"] {
     color: transparent;
     opacity: 1;
 }
+
+#lista_beats .durata{
+    align-self: center;
+    
+}
+
 
 #lista_beats .descBeats{
     text-align: center;
