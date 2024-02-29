@@ -145,7 +145,7 @@ header .logo {
     transition: transform 0.4s, opacity 0.2s;
 }
 
-#menu h3 {
+#menu h2 {
     position: static;
     width: 100%;
     padding: 0 1em;
@@ -323,22 +323,36 @@ footer .logo {
 
 #form-eventi {
     display: flex;
-    flex-direction: row;
-    padding: 0;
+    flex-direction: column;
     height: unset;
+    border: unset;
 }
 
-#form-eventi label {
-    position: absolute;
-    text-indent: -999em;
+#form-eventi>div {
+    display: block;
+    margin: 0.25em 0;
+    width: 100%;
+}
+
+#form-eventi>div * {
+    display: inline-block;
+    width: 49%;
+}
+
+.gridLine {
+    padding: 1em calc((100% - var(--widthMenu)) / 2);
 }
 
 #form-eventi select {
     margin-left: 0;
 }
 
-.form-container {
-    margin-bottom: 20px;
+#form-eventi label {
+    margin-right: 0;
+}
+
+#form-eventi select {
+    margin-left: 0;
 }
 
 label {
@@ -367,7 +381,13 @@ label {
 
 #paginazione-eventi ul {
     margin-top: 2em;
+    flex-wrap: wrap;
 }
+
+
+/*
+ * PAGINA EVENTO
+ */
 
 #evento main>a {
     padding: 0.5em;
@@ -389,12 +409,13 @@ label {
 
 #evento-box img {
     width: 100%;
-    margin-top: 2em;
 }
 
 #evento-info {
     width: 100%;
     gap: 0 1em;
+    box-sizing: border-box;
+    padding: 2.5em 0;
 }
 
 
@@ -433,25 +454,28 @@ label {
 /* 
  * PAGINA BEATS
 */
-#lista_beats .beat{
+
+#lista_beats .beat {
     display: flex;
     flex-direction: column;
     padding: 0.1em 0em;
 }
-#lista_beats .firstRow{
+
+#lista_beats .firstRow {
     display: flex;
     flex-direction: row;
     justify-content: center;
     max-width: 100%;
     min-width: 100%;
 }
-#lista_beats .titoloContainer{
+
+#lista_beats .titoloContainer {
     max-width: 60vw;
     min-width: 60vw;
     border-style: none;
     padding: 0em;
-    
 }
+
 #lista_beats .titleBeat {
     border-style: dashed;
     border-width: 0em 0em 0.1em 0em;
@@ -460,7 +484,7 @@ label {
     align-self: center;
 }
 
-#lista_beats .beat button[data-isPlaying="false"]{
+#lista_beats .beat button[data-isPlaying="false"] {
     background-image: url("../assets/icons/Play.png");
     background-repeat: no-repeat;
     background-position: center;
@@ -469,17 +493,16 @@ label {
     opacity: 1;
 }
 
-#lista_beats .durata{
+#lista_beats .durata {
     align-self: center;
-    
 }
 
-
-#lista_beats .descBeats{
+#lista_beats .descBeats {
     text-align: center;
     padding: 1em;
     margin: 0em;
 }
+
 
 /* 
  * PAGINA CLASSIFICHE 

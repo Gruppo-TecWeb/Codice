@@ -74,6 +74,7 @@ body main {
 }
 
 #content h2 {
+    font-size: 2em;
     margin-block: 0.75em;
 }
 
@@ -198,7 +199,9 @@ button,
 }
 
 button:hover,
-.button:hover {
+.button:hover,
+button:focus,
+.button:focus {
     background-color: var(--colorSecondary);
     color: var(--colorAccent);
 }
@@ -219,11 +222,13 @@ button:hover,
     color: var(--colorTextOnAccent);
 }
 
-.iconButton:hover {
+.iconButton:hover,
+.iconButton:focus {
     background-color: var(--colorSecondary);
 }
 
-.iconButton:hover svg {
+.iconButton:hover svg,
+.iconButton:focus svg {
     fill: var(--colorAccent);
     color: var(--colorAccent);
 }
@@ -273,13 +278,19 @@ input[type=submit] {
     background-color: var(--colorAccent);
 }
 
-input[type=submit]:hover {
+input[type=submit]:hover,
+input[type=submit]:focus {
     background-color: var(--colorSecondary);
     color: var(--colorAccent);
 }
 
 input[type=button] {
     cursor: pointer;
+}
+
+input[type=button]:focus {
+    box-shadow: 0 0 14px var(--colorAccent) inset;
+    background-color: var(--colorLinkHoverBackground);
 }
 
 ::-webkit-calendar-picker-indicator {
@@ -326,7 +337,7 @@ header>a {
     text-align: center;
 }
 
-#menu h3 {
+#menu h2 {
     position: absolute;
     text-indent: -999em;
 }
@@ -347,7 +358,8 @@ header>a {
     background-color: var(--colorSecondary);
 }
 
-.menuItem:hover {
+.menuItem:hover,
+.menuItem:focus {
     background-color: var(--colorLinkHoverBackground);
 }
 
@@ -484,8 +496,8 @@ footer #footer-credits {
 #form-eventi {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    padding: 0 3em;
+    justify-content: space-between;
+    margin-top: 2em;
 }
 
 #form-eventi label {
@@ -539,6 +551,7 @@ footer #footer-credits {
     box-sizing: border-box;
     justify-content: space-between;
     color: var(--colorText);
+    text-decoration: none;
 }
 
 #lista-eventi li img {
@@ -563,6 +576,12 @@ footer #footer-credits {
 #lista-eventi li p {
     background-color: var(--colorSecondary);
     padding: 1em;
+}
+
+#filtri-applicati {
+    background-color: var(--colorAccent);
+    color: var(--colorTextOnAccent);
+    font-weight: bold;
 }
 
 
@@ -638,6 +657,7 @@ p.eventiMessaggio {
 }
 
 #evento-info {
+    position: relative;
     width: 46%;
     max-height: 60vh;
     display: grid;
@@ -645,6 +665,28 @@ p.eventiMessaggio {
     gap: 1em 2em;
     align-content: center;
     align-self: stretch;
+}
+
+#evento-info::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1.5em;
+    width: 100%;
+    box-sizing: border-box;
+    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
+}
+
+#evento-info::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 1.5em;
+    width: 100%;
+    box-sizing: border-box;
+    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
 }
 
 #evento-info dt {
@@ -658,6 +700,14 @@ p.eventiMessaggio {
 
 #modalita main {
     padding-bottom: unset;
+}
+
+#intro_battle {
+    margin-bottom: 2em;
+}
+
+#intro_battle h3 {
+    margin-block: 0.5em;
 }
 
 #intro_battle p {
@@ -724,7 +774,7 @@ p.eventiMessaggio {
  * PAGINA BEATS
  */
 
- #beats_container {
+#beats_container {
     margin: 0em;
 }
 
@@ -738,6 +788,7 @@ p.eventiMessaggio {
     flex-direction: column;
     align-items: center;
 }
+
 #lista_beats .beat:hover {
     background-color: var(--colorLinkHoverBackground);
 }
@@ -751,24 +802,24 @@ p.eventiMessaggio {
     text-align: center;
 }
 
-#lista_beats .titoloContainer{
+#lista_beats .titoloContainer {
     display: inline-flex;
     flex-direction: row-reverse;
-    justify-content:space-between;
+    justify-content: space-between;
     align-items: center;
     min-width: 25%;
     max-width: 25%;
-    border-style:dashed;
+    border-style: dashed;
     border-width: 0em 0em 0.1em 0em;
     border-color: var(--colorAccent);
     padding: 1em;
 }
 
-#lista_beats .titleBeat{
+#lista_beats .titleBeat {
     width: 100%;
 }
 
-#lista_beats button{
+#lista_beats button {
     background: transparent;
     border-style: none;
     cursor: pointer;
@@ -779,7 +830,7 @@ p.eventiMessaggio {
     background-size: 70%;
 }
 
-#lista_beats .beat:hover button[data-isPlaying="false"]{
+#lista_beats .beat:hover button[data-isPlaying="false"] {
     background-image: url("../assets/icons/Play.png");
     background-repeat: no-repeat;
     background-position: center;
@@ -797,16 +848,16 @@ p.eventiMessaggio {
     opacity: 1;
 }
 
-#lista_beats .audioBeats[data-java="true"]{
+#lista_beats .audioBeats[data-java="true"] {
     display: none;
 }
 
-#lista_beats .durata{
+#lista_beats .durata {
     align-self: center;
-    margin:1em ;
+    margin: 1em;
 }
 
-#lista_beats .descBeats{
+#lista_beats .descBeats {
     padding: 1em;
     align-self: baseline;
 }
