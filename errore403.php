@@ -7,11 +7,11 @@ require_once("utilities/utilities.php");
 session_start();
 
 $paginaHTML = file_get_contents("template/template-pagina.html");
-$content = file_get_contents("template/errore500.html");
+$content = file_get_contents("template/errore403.html");
 
-$title = 'Errore 500 &minus; Fungo';
+$title = 'Errore 403 &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
-$description = 'Pagina di errore 500.';
+$description = 'Pagina di errore 403.';
 $keywords = '';
 $percorso = '';
 $percorsoAdmin = 'admin/';
@@ -20,7 +20,7 @@ $breadcrumbs = get_breadcrumbs($pageId, $percorso);
 $onload = '';
 $logout = '';
 
-http_response_code(500);
+http_response_code(403);
 
 if (isset($_SESSION["login"])) {
     $logout = get_content_between_markers($paginaHTML, 'logout');

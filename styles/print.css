@@ -1,0 +1,50 @@
+@font-face {
+    font-family: Horizontale;
+    src: url('../assets/fonts/Horizontale.ttf') format('truetype');
+}
+
+@page {
+    margin: 10mm;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.navigationHelp {
+    display: none;
+}
+
+button,
+.button,
+.iconButton,
+.toggleIconButton,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+    display: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-top: 0.5em;
+    margin-bottom: 0.25em;
+}
+
+#menu {
+    display: none;
+}
+
+.title {
+    font-family: Horizontale;
+}
+
+footer {
+    margin-top: 5em;
+}
