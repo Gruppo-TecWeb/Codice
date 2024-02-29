@@ -91,9 +91,31 @@ a:visited {
 }
 
 .navigationHelp {
-    position: absolute;
-    text-indent: -999em;
-    background-color: var(--colorSecondary);
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}
+
+.navigationHelp:focus {
+	color: var(--colorText);
+	background-color: var(--colorBackground);
+	z-index: var(--elevationAbove);
+	width: auto;
+	height: auto;
+	clip: auto;
+	padding: 0.5em;
+}
+.navigationHelp:focus:visited {
+	color: var(--colorText);
+}
+.navigationHelp:hover {
+	background-color: var(--colorBackground);
 }
 
 .screenReaderOnly {
