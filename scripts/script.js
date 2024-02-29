@@ -1,3 +1,7 @@
+/*
+ * TEMPLATE DI PAGINA
+ */
+
 var menu = null;
 var bcContainer = null;
 var menuOpened = false;
@@ -25,89 +29,21 @@ function toggleMenu() {
     document.body.setAttribute("data-menu-open", menuOpened);
 }
 
+
+/*
+ * PAGINA EVENTO
+ */
+
 function init_evento() {
     linkIndietro = document.getElementById("indietro");
     if (document.referrer.includes("eventi.php"))
         linkIndietro.setAttribute('href', document.referrer);
 }
 
-/*
-BATTLE
-
-function pauseIframe() {
-    console.log("pause");
-    iframe.contentWindow.postMessage( '{"event":"command", "func":"pauseVideo", "args":""}', '*');
-    pressedButton.setAttribute("data-isPlaying", "false");
-    pressedButton.title="Riproduci " + newTitle;
-}
-
-function playIframe() {
-    console.log("play");
-    iframe.contentWindow.postMessage('{"event":"command","func":"' + 'playVideo' + '","args":""}', '*');
-    pressedButton.setAttribute("data-isPlaying", "true");
-    pressedButton.title="Interrompi " + newTitle;
-}
-
-function newIframe(){
-    //settaggio iframe
-    link=thisBattle.getElementsByTagName("a")[0].href;
-    actualTitle.innerHTML=newTitle;
-    iframe.src=link;
-    iframe.title=newTitle;
-    
-
-    //settaggio bottone della canzone precedentemente in riproduzione
-    for(i=0;i<descBattles.length;i++){
-        buttonPP=descBattles[i].getElementsByTagName("button")[0];
-        if(buttonPP.title.substr(0,10)=="Interrompi"){
-            //console.log(buttonPP.title + "==Interrompi " + newTitle);
-            buttonPP.setAttribute("data-isPlaying", "false");
-            buttonPP.title="Riproduci " + newTitle;
-        }
-    }
-
-    //settaggio bottone nuova canzone
-    pressedButton.setAttribute("data-isPlaying", "true");
-    pressedButton.title="Interrompi " + newTitle;   
-}
- 
-function setIframe(battle){
-    //variabili varie
-    descBattles=document.getElementsByClassName("descBattle");
-    thisBattle=descBattles[battle];
-    pressedButton=thisBattle.getElementsByTagName("button")[0];
-    iframe=document.getElementById("iframe_battle");
-    actualTitle=document.getElementsByTagName("h3")[0];
-    newTitle=thisBattle.getElementsByTagName("a")[0].title;
-
-    
-    if(pressedButton.title.substr(0,10)=="Interrompi"){
-        pauseIframe();
-    }else{
-        if(actualTitle.innerHTML==newTitle){
-            playIframe();
-        }else{
-            newIframe();
-        }
-    }
-}
-//onload
-function setLinks(){
-    descBattles=document.getElementsByClassName("descBattle")
-    for(i=0;i<descBattles.length;i++){
-        titles=descBattles[i].getElementsByTagName("strong")[0].innerHTML;
-
-        descBattles[i].getElementsByTagName("dt")[0].innerHTML=titles
-        descBattles[i].getElementsByTagName("dt")[0].setAttribute("data-java",true);
-    }
-}
-*/
 
 /*
-BASI
-*/
-
-
+ * PAGINA BEATS
+ */
 
 function setAudioDuration() {
     span = document.getElementsByClassName("durata");
@@ -245,15 +181,13 @@ function nextAudio(nomeBase) {
 }
 
 
-
-
 /*
-CLASSIFICHE
-*/
+ * PAGINA CLASSIFICHE
+ */
 
 function hideSubmitButtons() {
     var submitButtons = document.getElementsByClassName("hidden-by-js");
     for (let i = 0; i < submitButtons.length; i++) {
-        submitButtons[i].classList.add("no-script");
+        submitButtons[i].classList.add("screenReaderOnly");
     }
 }

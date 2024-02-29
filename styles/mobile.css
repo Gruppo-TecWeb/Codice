@@ -9,6 +9,7 @@
     --bordarRadiusCard: 5px;
     --colorCardBackground: var(--colorSecondary);
     --colorCardBorder: var(--colorAccent);
+    --minHeightButton: 44px;
 }
 
 body {
@@ -27,6 +28,21 @@ body {
 }
 
 .mobileCard {
+    border-radius: var(--bordarRadiusCard);
+    background-color: var(--colorCardBackground);
+    border: solid 2px var(--colorCardBorder);
+}
+
+.subMenu {
+    position: absolute;
+    bottom: 5em;
+    box-sizing: border-box;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: var(--elevationHigh);
+    background: var(--colorSecondary);
+    border: 2px solid var(--colorAccent);
+    width: var(--widthMenu);
     border-radius: var(--bordarRadiusCard);
     background-color: var(--colorCardBackground);
     border: solid 2px var(--colorCardBorder);
@@ -58,6 +74,12 @@ form {
  * BUTTON
  */
 
+button,
+.button {
+    min-height: var(--minHeightButton);
+    padding: 0.5em 1.5em;
+}
+
 
 /*
  * INPUT
@@ -67,7 +89,8 @@ input,
 select,
 textarea {
     width: 100%;
-    min-height: 44px;
+    min-height: var(--minHeightButton);
+    padding: 0.5em 1.5em;
     border-radius: 3px;
 }
 
@@ -99,7 +122,7 @@ header .logo {
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
-    bottom: calc(var(--marginBottomMenu) + 44px);
+    bottom: calc(var(--marginBottomMenu) + var(--minHeightButton));
     box-sizing: border-box;
     width: var(--widthMenu);
     padding-bottom: 1em;
@@ -185,9 +208,6 @@ header .logo {
     transition: 0.5s;
 }
 
-
-/* #breadcrumbs-container.js[data-menu-open=true] { */
-
 #breadcrumbs-container[data-menu-open=true] {
     min-width: var(--widthMenu);
     border-top-right-radius: 0;
@@ -211,8 +231,9 @@ header .logo {
 
 #btn-menu {
     display: block;
-    height: 44px;
-    aspect-ratio: 1;
+    height: var(--minHeightButton);
+    aspect-ratio: 1/1;
+    padding: 0;
     border-radius: 0;
     border: unset;
     background-size: 100%;
@@ -240,7 +261,7 @@ footer {
     width: 100%;
     box-sizing: border-box;
     padding: unset;
-    padding-bottom: calc(var(--marginBottomMenu) + 44px + 2em);
+    padding-bottom: calc(var(--marginBottomMenu) + var(--minHeightButton) + 2em);
 }
 
 footer #footer-content {
@@ -388,17 +409,13 @@ label {
     margin: auto;
 }
 
-
-/* 
- * PAGINA BATTLE
- */
-
 #container_battle {
     display: flex;
     flex-direction: column;
 }
 
-#container_iframe iframe {
+
+/* #container_iframe iframe {
     width: 96vw;
     height: 45vw;
 }
@@ -413,7 +430,7 @@ label {
 
 #lista_battle {
     width: 96vw;
-}
+} */
 
 
 /* 
@@ -434,49 +451,20 @@ label {
  * PAGINA CLASSIFICHE 
  */
 
-#form-classifiche label {
-    margin-bottom: 0;
-    margin-right: 10px;
-}
-
-table#tabella-classifica {
-    min-width: inherit;
-    margin: auto;
+.div-classifica {
+    flex-direction: column-reverse;
 }
 
 .div-classifica p {
     min-width: inherit;
+    margin: 0;
+    margin-block: 1em;
+    text-align: justify;
 }
 
-table#tabella-classifica caption {
-    font-size: 1.5em;
-    margin-bottom: 0.5em;
-}
-
-table#tabella-classifica thead {
-    background-color: var(--colorAccent);
-    color: var(--colorText);
-}
-
-table#tabella-classifica th,
-table#tabella-classifica td {
-    padding: 0.3em 0.5em;
-}
-
-table#tabella-classifica th {
-    text-align: left;
-}
-
-table#tabella-classifica .classifica-punti {
-    text-align: right;
-}
-
-div.div-classifica p {
-    text-align: left;
-}
-
-div.div-classifica {
-    display: initial;
+table#tabella-classifica {
+    width: 100%;
+    margin: auto;
 }
 
 div#Micelio,
@@ -489,8 +477,11 @@ div#Fungo {
  * PAGINE ERROR DOCUMENT
  */
 
-.errorDocument {}
-
 .errorDocument .errorImage {
     width: 100%;
 }
+
+
+/* 
+ * PAGINA CHI SIAMO
+ */
