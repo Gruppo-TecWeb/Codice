@@ -31,35 +31,36 @@ function setAudioDuration(){
     audios=document.getElementsByClassName("audioBeats");
  
     for(let i=0;i<audios.length;i++){
-        durate=document.getElementsByClassName("durata")[i].getElementsByTagName("time")[0];
+        
+        durate=document.getElementsByClassName("durata")[i];
         readDurata=document.getElementsByClassName("readDurata")[i];
-
+        
         playerJump=document.getElementsByClassName("beat")[i].getElementsByTagName("a")[0].getElementsByTagName("span")[0];
-        console.log(playerJump);
         playerJump.setAttribute("aria-hidden","true");
         
         audios[i].setAttribute("tabindex","-1");
         audios[i].setAttribute("data-java","true");
+
         durata=Math.floor(audios[i].duration/60) + ":" + Math.floor(audios[i].duration%60);
         minuti=durata.slice(0,durata.indexOf(":"));
         secondi=durata.slice(durata.indexOf(":")+1);
         if(minuti==1){
             if(secondi.length==1){
-                durate.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
+                //durate.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
                 durate.innerHTML =minuti + ":" + "0" + secondi;
                 readDurata.innerHTML=minuti+" minuto e "+secondi+" secondi";
             }else{
-                durate.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
+                //durate.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
                 durate.innerHTML =minuti + ":" + secondi;
                 readDurata.innerHTML=minuti+" minuto e "+secondi+" secondi";
             }
         }else{
             if(secondi.length==1){
-                durate.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
+                //durate.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
                 durate.innerHTML =minuti + ":" + "0" + secondi;
                 readDurata.innerHTML=minuti+" minuti e "+secondi+" secondi";
             }else{
-                durate.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
+                //durate.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
                 durate.innerHTML =minuti + ":" + secondi;
                 readDurata.innerHTML=minuti+" minuti e "+secondi+" secondi";
                 //durata[i].innerHTML = "<time aria-hidden='true' datatime=PT" + minuti + "M" + secondi + "S>" + minuti + ":" + secondi + "</time>"+ "<span class='navigationHelp'>"+minuti+" minuti e "+secondi+" secondi"+"</span>"; 
