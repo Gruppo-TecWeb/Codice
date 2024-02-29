@@ -76,7 +76,7 @@ function get_admin_menu($pageId) {
         }
     }
     $adminMenu .= multi_replace($liNotCurrent, [
-        '{pageHref}' => pages_array['index']['href'],
+        '{pageHref}' => '../' . pages_array['index']['href'],
         '{lang}' => pages_array['index']['lang'] ? ' lang="' . pages_array['index']['lang'] . '"' : '',
         '{anchor}' => 'Area Utente'
     ]);
