@@ -598,6 +598,7 @@ justify #evento-info dt {
     justify-content: center;
     background-color: var(--colorAccent);
     padding: 1em;
+    padding-bottom: 4em;
     margin: 0em;
 }
 
