@@ -16,7 +16,7 @@ const pages_array = [
     'admin/profilo'         => ['href' => '{percorsoAdmin}profilo.php',         'anchor' => 'Profilo',                 'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 1, 'parentId' => 'admin/index'],
     'admin/eventi'          => ['href' => '{percorsoAdmin}eventi.php',          'anchor' => 'Gestione Eventi',         'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 2, 'parentId' => 'admin/index'],
     'admin/classifiche'     => ['href' => '{percorsoAdmin}classifiche.php',     'anchor' => 'Gestione Classifiche',    'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 3, 'parentId' => 'admin/index'],
-    'admin/tipi-evento'      => ['href' => '{percorsoAdmin}tipi-evento.php',      'anchor' => 'Gestione Tipi Evento',    'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 4, 'parentId' => 'admin/index'],
+    'admin/tipi-evento'     => ['href' => '{percorsoAdmin}tipi-evento.php',      'anchor' => 'Gestione Tipi Evento',    'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 4, 'parentId' => 'admin/index'],
     'admin/rappers'         => ['href' => '{percorsoAdmin}rappers.php',         'anchor' => 'Gestione Rappers',        'lang' => 'en', 'menuOrder' => 0, 'adminMenuOrder' => 5, 'parentId' => 'admin/index'],
     'admin/amministratori'  => ['href' => '{percorsoAdmin}amministratori.php',  'anchor' => 'Gestione Amministratori', 'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 6, 'parentId' => 'admin/index'],
     'admin/logout'          => ['href' => '{percorsoAdmin}logout.php',          'anchor' => 'Logout',                  'lang' => 'en', 'menuOrder' => 0, 'adminMenuOrder' => 7, 'parentId' => 'index'],
