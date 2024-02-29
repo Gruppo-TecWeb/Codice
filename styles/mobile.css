@@ -458,7 +458,7 @@ label {
 #lista_beats .titleBeat {
     border-style: dashed;
     border-width: 0em 0em 0.1em 0em;
-    border-color: var(--accentColor);
+    border-color: var(--colorAccent);
     padding: 1em;
     align-self: center;
 }
