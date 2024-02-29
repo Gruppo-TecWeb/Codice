@@ -70,7 +70,7 @@ if ($connectionOk) {
             $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Inserire E-Mail"]);
         }
         if (!$errore) {
-            $utenteRegistrato = $connection->register($username, $password, $email);
+            $utenteRegistrato = $connection->insert_utente($username, $password, $email);
             if ($utenteRegistrato > 0) {
                 $_SESSION["datiUtente"] = array("Username" => $username, "Email" => $email);
                 $_SESSION["login"] = true;

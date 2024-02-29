@@ -33,46 +33,51 @@ if ($connectionOk) {
     $legend = '';
     $legendAggiungi = 'Aggiungi <span lang="en">Rapper</span>';
     $legendModifica = 'Modifica <span lang="en">Rapper</span>';
-    $nuovoUsername = '';
-    $nuovaEmail = '';
-    $username = '';
-    $email = '';
-    $valueAzione = '';
+    $validNuovoUsername = validate_input($_POST['nuovoUsername']);
+    $validNuovaEmail = validate_input($_POST['nuovaEmail']);
+    $validUsername = validate_input($_POST['username']);
+    $validEmail = validate_input($_POST['email']);
+    if ((isset($_POST['nuovoUsername']) && $validNuovoUsername == "") ||
+        (isset($_POST['nuovaEmail']) && $validNuovaEmail == "") ||
+        (isset($_POST['username']) && $validUsername == "") ||
+        (isset($_POST['email']) && $validEmail == "")) {
+        header("location: rappers.php?errore=invalid");
+    }
     $errore = '0';
     
-    if (isset($_GET['elimina'])) {
-        if ($_SESSION["datiUtente"]['Username'] == $_GET['username']) {
+    if (isset($_POST['elimina'])) {
+        if ($_SESSION["datiUtente"]['Username'] == $_POST['username']) {
             header("location: rappers.php?eliminato=0");
         } else {
-            $connection->delete_user($_GET["username"]);
-            $eliminato = $connection->get_utente_by_email($_GET['email']) ? 0 : 1;
+            $connection->delete_user($validUsername);
+            $eliminato = $connection->get_utente_by_email($validEmail) ? 0 : 1;
             header("location: rappers.php?eliminato=$eliminato");
         }
-    } elseif (isset($_GET['modifica'])) {
+    } elseif (isset($_POST['modifica'])) {
         $legend = $legendModifica;
-        $nuovoUsername = $_GET['username'];
-        $nuovaEmail = $_GET['email'];
-        $username = $_GET['username'];
-        $email = $_GET['email'];
+        $nuovoUsername = $validUsername;
+        $nuovaEmail = $validEmail;
+        $username = $validUsername;
+        $email = $validEmail;
         $valueAzione = 'modifica';
-    } elseif (isset($_GET['aggiungi'])) {
+    } elseif (isset($_POST['aggiungi'])) {
         $legend = $legendAggiungi;
         $valueAzione = 'aggiungi';
     } elseif (isset($_POST['conferma'])) {
-        $nuovoUsername = $_POST['nuovoUsername'];
-        $nuovaEmail = $_POST['nuovaEmail'];
-        $username = $_POST['errore'] ? $_POST['username'] : $_POST['nuovoUsername'];
-        $email = $_POST['errore'] ? $_POST['email'] : $_POST['nuovaEmail'];
+        $nuovoUsername = $validNuovoUsername;
+        $nuovaEmail = $validNuovaEmail;
+        $username = $_POST['errore'] ? $validUsername : $validNuovoUsername;
+        $email = $_POST['errore'] ? $validEmail : $validNuovaEmail;
         if ($_POST['azione'] == 'aggiungi') {
             $errore = '0';
             $legend = $legendAggiungi;
             $valueAzione = 'aggiungi';
-            $erroreUsername = $connection->get_utente_by_username($_POST['nuovoUsername']) ? '1' : '0';
-            $erroreEmail = $connection->get_utente_by_email($_POST['nuovaEmail']) ? '1' : '0';
+            $erroreUsername = $connection->get_utente_by_username($validNuovoUsername) ? '1' : '0';
+            $erroreEmail = $connection->get_utente_by_email($validNuovaEmail) ? '1' : '0';
             $errore = $erroreUsername == '0' && $erroreEmail == '0' ? '0' : '1';
             if ($errore == '0') {
-                $connection->register($_POST['nuovoUsername'], '', $_POST['nuovaEmail']);
-                $errore = $connection->get_utente_by_username($_POST['nuovoUsername']) ? '0' : '1';
+                $connection->insert_utente($validNuovoUsername, '', $validNuovaEmail);
+                $errore = $connection->get_utente_by_username($validNuovoUsername) ? '0' : '1';
             } else {
                 if ($erroreUsername == '1') {
                     $messaggiForm .= multi_replace($messaggioForm, [
@@ -94,20 +99,20 @@ if ($connectionOk) {
             $erroreEmail = '0';
             $legend = $legendModifica;
             $valueAzione = 'modifica';
-            if ($_POST['username'] != $_POST['nuovoUsername']) {
-                $erroreUsername = $connection->get_utente_by_username($_POST['nuovoUsername']) ? '1' : '0';
+            if ($validUsername != $validNuovoUsername) {
+                $erroreUsername = $connection->get_utente_by_username($validNuovoUsername) ? '1' : '0';
             }
-            if ($_POST['email'] != $_POST['nuovaEmail']) {
-                $erroreEmail = $connection->get_utente_by_email($_POST['nuovaEmail']) ? '1' : '0';
+            if ($validEmail != $validNuovaEmail) {
+                $erroreEmail = $connection->get_utente_by_email($validNuovaEmail) ? '1' : '0';
             }
             $errore = $erroreUsername == '0' && $erroreEmail == '0' ? '0' : '1';
             if ($errore == '0') {
-                $connection->update_user($_POST['username'], $_POST['nuovoUsername'], $_POST['nuovaEmail']);
-                $user = $connection->get_utente_by_email($_POST['nuovaEmail']);
+                $connection->update_user($validUsername, $validNuovoUsername, $validNuovaEmail);
+                $user = $connection->get_utente_by_email($validNuovaEmail);
                 if (count($user) == 0) {
                     $errore = '1';
                 }
-                $user = $connection->get_utente_by_username($_POST['nuovoUsername']);
+                $user = $connection->get_utente_by_username($validNuovoUsername);
                 if (count($user) == 0) {
                     $errore = '1';
                 }

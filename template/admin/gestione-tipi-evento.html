@@ -1,0 +1,24 @@
+<div id="tipi-evento" class="limitedWidth">
+    <h3>Gestione Tipi Evento</h3>
+
+    <!-- Form per aggiungere o modificare tipi evento -->
+
+    {messaggiForm}<ul>
+        {messaggioForm}<li>{messaggio}</li>{/messaggioForm}
+    </ul>
+    {/messaggiForm}
+    
+    <form method="post" action="gestione-tipi-evento.php">
+        <fieldset>
+            <legend>{legend}</legend>
+            <label for="titolo">Titolo:</label>
+            <input type="text" id="titolo" name="nuovoTitolo" value="{nuovoTitolo}" placeholder="Titolo" required>
+            <label for="descrizione">Descrizione</label>
+            <input type="text" id="descrizione" name="nuovaDescrizione" value="{nuovaDescrizione}" placeholder="Descrizione">
+            <input type="hidden" name="titolo" value="{titolo}">
+            <input type="hidden" name="azione" value="{valueAzione}">
+            <input type="hidden" name="errore" value="{valueErrore}">
+        
+        <button type="submit" name="conferma" value="true">Conferma</button>
+    </form>
+</div>

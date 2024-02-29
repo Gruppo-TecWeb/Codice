@@ -32,9 +32,13 @@ $connectionOk = $connection->openDBConnection();
 if ($connectionOk) {
     $messaggioForm = get_content_between_markers($content, 'messaggioForm');
 
+    if (isset($_GET['errore'])) {
+        $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);
+    }
+
     if (isset($_GET['eliminato'])) {
         if ($_GET['eliminato'] == 0) {
-            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore nell'eliminazione del rapper"]);
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore nell'eliminazione del Rapper"]);
         } else {
             $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Rapper eliminato correttamente"]);
         }

@@ -134,8 +134,8 @@ class DBAccess {
         );
     }
 
-    public function get_tipo_evento($evento = null) {
-        $query = $evento ?
+    public function get_tipo_evento($titolo = null) {
+        $query = $titolo ?
             "SELECT * FROM TipiEvento WHERE Titolo = ?;" :
             "SELECT TipiEvento.Titolo, 
              TipiEvento.Descrizione
@@ -144,8 +144,32 @@ class DBAccess {
              JOIN Eventi ON ClassificheEventi.Evento = Eventi.id
              ORDER BY Eventi.Data DESC
              LIMIT 1;";
-        $res = $evento ? $this->executeQuery($query, $evento) : $this->executeQuery($query);
+        $res = $titolo ? $this->executeQuery($query, $titolo) : $this->executeQuery($query);
         return $res ? $res[0] : null;
+    }
+
+    public function insert_tipo_evento($titolo, $descrizione) {
+        return $this->executeQuery(
+            "INSERT INTO TipiEvento (Titolo, Descrizione) VALUES (?, ?);",
+            $titolo,
+            $descrizione
+        );
+    }
+
+    public function update_tipo_evento($oldTitolo, $newTitolo, $newDescrizione) {
+        return $this->executeQuery(
+            "UPDATE TipiEvento SET Titolo = ?, Descrizione = ? WHERE Titolo = ?;",
+            $newTitolo,
+            $newDescrizione,
+            $oldTitolo
+        );
+    }
+
+    public function delete_tipo_evento($titolo) {
+        return $this->executeQuery(
+            "DELETE FROM TipiEvento WHERE Titolo = ?;",
+            $titolo
+        );
     }
 
     public function get_classifiche($tipoEvento = null, $dataInizio = null) {
@@ -282,12 +306,13 @@ class DBAccess {
         );
     }
 
-    public function register($username, $password, $email) {
+    public function insert_utente($username, $password, $email, $admin = 'N') {
         return $this->executeQuery(
-            "INSERT INTO Utenti (Username, Password, Email) VALUES (?, ?,?);",
+            "INSERT INTO Utenti (Username, Password, Email, Admin) VALUES (?, ?, ?, ?);",
             $username,
             password_hash($password, PASSWORD_BCRYPT),
-            $email
+            $email,
+            $admin
         );
     }
 
