@@ -16,10 +16,8 @@ $title = 'Eventi &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = 'Pagina che presenta gli eventi organizzati dal collettivo rap Restraining Stirpe Crew.';
 $keywords = 'micelio, fungo, meal the mic, hip hop night, freestyle, freestyle rap, rap, battle, live, dj set';
-$percorso = '';
-$percorsoAdmin = 'admin/';
-$menu = get_menu($pageId, $percorso);
-$breadcrumbs = get_breadcrumbs($pageId, $percorso);
+$menu = get_menu($pageId);
+$breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 $logout = '';
 
@@ -180,7 +178,5 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{content}' => $content,
-    '{onload}' => $onload,
-    '{percorso}' => $percorso,
-    '{percorsoAdmin}' => $percorsoAdmin
+    '{onload}' => $onload
 ]);
