@@ -21,20 +21,17 @@
         <input type="button" id="reset" value="Reset" onclick="window.location.href='eventi.php'">
     </fieldset>
 </form>
+<p class="limitedWidth">Stai visualizzando {messaggioFiltri}
+    <time datetime="{valueDataEvento}">{dataEvento}</time> {/messaggioFiltri}
+</p>
 {navRisultatiEventi}
-<nav id="risultati-eventi" class="limitedWidth"
-    aria-label="Visualizza il numero di risultati e l'indicazione del numero di pagina">
+<nav id="risultati-eventi" class="limitedWidth" aria-label="Visualizza il numero di risultati e l'indicazione del numero di pagina">
     {risultatiEventi}
     <p><span>Risultati totali: {risultati}. Pagina {pagina} di {numeroPagine}. </span></p>
     {/risultatiEventi}
 </nav>
 {/navRisultatiEventi}
 <div id="risultati-eventi" class="limitedWidth">
-    <p>Stai visualizzando
-        {messaggioFiltri}
-        <time datetime="{valueDataEvento}">{dataEvento}</time>
-        {/messaggioFiltri}
-    </p>
     {listaEventi}
     <ul id="lista-eventi">
         {eventoElement}
@@ -49,8 +46,7 @@
     </ul>
     {messaggioListaEventi}
     <p>{messaggio}, sfoglia i nostri <a href="eventi.php?data={dataEventiPassati}">eventi passati</a></p>
-    {/messaggioListaEventi}
-    {/listaEventi}
+    {/messaggioListaEventi} {/listaEventi}
 </div>
 {pagination}
 <nav id="paginazione-eventi" class="limitedWidth" role="navigation" aria-label="Scorri tra le pagine degli eventi">
@@ -58,19 +54,13 @@
     <p><span>Risultati totali: {risultati}. Pagina {pagina} di {numeroPagine}. </span></p>
     {/risultatiEventi}
     <ul>
-        {pages}
-        {currentPage}
-        <li class="elemento-paginazione-eventi"><a href="#" aria-label="Pagina {numeroPagina}"
-                aria-current="true">{numeroPagina}</a></li>
-        {/currentPage}
-        {notCurrentPage}
-        <li class="elemento-paginazione-eventi"><a href="eventi.php?pagina={numeroPagina}&data={data}&titolo={titolo}"
-                aria-label='Vai alla pagina {numeroPagina}'>{messaggio}</a></li>
-        {/notCurrentPage}
-        {ellipsis}
+        {pages} {currentPage}
+        <li class="elemento-paginazione-eventi"><a href="#" aria-label="Pagina {numeroPagina}" aria-current="true">{numeroPagina}</a></li>
+        {/currentPage} {notCurrentPage}
+        <li class="elemento-paginazione-eventi"><a href="eventi.php?pagina={numeroPagina}&data={data}&titolo={titolo}" aria-label='Vai alla pagina {numeroPagina}'>{messaggio}</a></li>
+        {/notCurrentPage} {ellipsis}
         <li><a class="ellipsis">&#8230;</a></li>
-        {/ellipsis}
-        {/pages}
+        {/ellipsis} {/pages}
     </ul>
 </nav>
 {/pagination}
