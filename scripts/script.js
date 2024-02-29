@@ -27,12 +27,15 @@ BEATS
 
 
 function setAudioDuration(){
-    span=document.getElementsByClassName("durata");
+    
     audios=document.getElementsByClassName("audioBeats");
-    
-    
-    for(let i=0;i<span.length;i++){
+ 
+    for(let i=0;i<audios.length;i++){
+        durate=document.getElementsByClassName("durata")[i].getElementsByTagName("time")[0];
+        readDurata=document.getElementsByClassName("readDurata")[i];
+
         playerJump=document.getElementsByClassName("beat")[i].getElementsByTagName("a")[0].getElementsByTagName("span")[0];
+        console.log(playerJump);
         playerJump.setAttribute("aria-hidden","true");
         
         audios[i].setAttribute("tabindex","-1");
@@ -42,15 +45,24 @@ function setAudioDuration(){
         secondi=durata.slice(durata.indexOf(":")+1);
         if(minuti==1){
             if(secondi.length==1){
-                span[i].innerHTML ="<time aria-hidden='true' datatime=PT" + minuti + "M" + secondi + "S>" + minuti + ":" + "0" + secondi + "</time>"+ "<span class='navigationHelp'>"+minuti+"minuto e "+secondi+"secondi"+"</span>"; 
+                durate.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
+                durate.innerHTML =minuti + ":" + "0" + secondi;
+                readDurata.innerHTML=minuti+" minuto e "+secondi+" secondi";
             }else{
-                span[i].innerHTML = "<time aria-hidden='true' datatime=PT" + minuti + "M" + secondi + "S>" + minuti + ":" + secondi + "</time>"+ "<span class='navigationHelp'>"+minuti+" minuto e "+secondi+" secondi"+"</span>"; 
+                durate.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
+                durate.innerHTML =minuti + ":" + secondi;
+                readDurata.innerHTML=minuti+" minuto e "+secondi+" secondi";
             }
         }else{
             if(secondi.length==1){
-                span[i].innerHTML ="<time aria-hidden='true' datatime=PT" + minuti + "M" + secondi + "S>" + minuti + ":" + "0" + secondi + "</time>"+ "<span class='navigationHelp'>"+minuti+"minuti e "+secondi+"secondi"+"</span>"; 
+                durate.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
+                durate.innerHTML =minuti + ":" + "0" + secondi;
+                readDurata.innerHTML=minuti+" minuti e "+secondi+" secondi";
             }else{
-                span[i].innerHTML = "<time aria-hidden='true' datatime=PT" + minuti + "M" + secondi + "S>" + minuti + ":" + secondi + "</time>"+ "<span class='navigationHelp'>"+minuti+" minuti e "+secondi+" secondi"+"</span>"; 
+                durate.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
+                durate.innerHTML =minuti + ":" + secondi;
+                readDurata.innerHTML=minuti+" minuti e "+secondi+" secondi";
+                //durata[i].innerHTML = "<time aria-hidden='true' datatime=PT" + minuti + "M" + secondi + "S>" + minuti + ":" + secondi + "</time>"+ "<span class='navigationHelp'>"+minuti+" minuti e "+secondi+" secondi"+"</span>"; 
             }
         }
     }
@@ -68,7 +80,6 @@ function playerAudio(nomeBase){
     newTitle = nomeBase.slice(0,-4).replaceAll("-"," ");
     beats = document.getElementsByClassName("beat")
     for(let i=0;i<beats.length;i++){
-        console.log(playerJump);
         if(beats[i].getElementsByTagName("button")[0].getAttribute("data-title-beat")==nomeBase.slice(0,-4)){
             pressedButton=beats[i].getElementsByTagName("button")[0];
             audioJump=beats[i].getElementsByTagName("a")[0];
@@ -76,7 +87,6 @@ function playerAudio(nomeBase){
 
             playerJump=beats[i].getElementsByTagName("a")[0].getElementsByTagName("span")[0];
             playerJump.setAttribute("aria-hidden","false");
-        console.log(i + playerJump);
         }
     }
     

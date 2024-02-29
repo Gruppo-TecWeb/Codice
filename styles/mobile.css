@@ -416,6 +416,11 @@ input[type="submit"] {
 /* 
  * PAGINA BEATS
 */
+#lista_beats .beat{
+    display: flex;
+    flex-direction: column;
+    padding: 0em;
+}
 #lista_beats .beat button[data-isPlaying="false"]{
     background-image: url("../assets/icons/Play.png");
     background-repeat: no-repeat;
@@ -424,7 +429,29 @@ input[type="submit"] {
     color: transparent;
     opacity: 1;
 }
-    
+#lista_beats .titoloContainer{
+    padding: 1em;
+    max-width: 100%;
+    min-width: 100%;
+
+}
+#lista_beats .titoloContainer{
+    padding: 1em;
+    max-width: 100%;
+    min-width: 100%;
+
+}
+#lista_beats .titleBeat{
+    border-width: 0em 0em 0.1em 0em;
+    border-style: solid;
+    border-color: var(--accentColor);
+
+}
+#lista_beats .descBeats{
+    text-align: center;
+    padding: 1em;
+    margin: 0em;
+}
 
 /* 
  * PAGINA CLASSIFICHE 
