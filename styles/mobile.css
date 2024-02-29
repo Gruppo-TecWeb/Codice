@@ -428,6 +428,21 @@ input[type="submit"] {
     max-width: 100%;
     min-width: 100%;
 }
+#lista_beats .titoloContainer{
+    max-width: 60vw;
+    min-width: 60vw;
+    border-style: none;
+    padding: 0em;
+    
+}
+#lista_beats .titleBeat {
+    border-style: dashed;
+    border-width: 0em 0em 0.1em 0em;
+    border-color: var(--accentColor);
+    padding-bottom: 1em;
+    align-self: center;
+}
+
 #lista_beats .durata{
     align-self: center;
 }
