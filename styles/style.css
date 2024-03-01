@@ -791,6 +791,14 @@ p.eventiMessaggio {
     border-bottom: 2px solid var(--colorAccent);
 }
 
+audio::-webkit-media-controls-panel {
+    background-color: var(--colorAccent);
+}
+
+audio::-webkit-media-controls-play-button {
+    border-radius: 3px;
+}
+
 #lista_beats .beat {
     display: flex;
     justify-content: space-between;
@@ -880,23 +888,28 @@ p.eventiMessaggio {
 }
 
 #audio_container {
-    display: flex;
-    flex-direction: row;
     position: sticky;
     bottom: 0;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    padding: 0.5em 1em;
     background-color: var(--colorAccent);
-    padding: 1em;
-    margin: 0em;
 }
 
 #audio_container h3 {
-    align-self: center;
-    width: 30vw;
+    font-weight: bold;
+    font-size: 1.25em;
+    color: var(--colorTextOnAccent);
+    grid-column: 1 / -1;
 }
 
 #audio_container #audio {
-    width: 70vw;
+    width: 100%;
 }
+
+#autoNext {}
 
 
 /* 
