@@ -664,15 +664,22 @@ label {
  * PAGINA CLASSIFICHE 
  */
 
-.adminPage {
-    /* --widthMenu: 100%;
+
+/* .adminPage {
+    --widthMenu: 100%;
     --minWidthMenu: 100%;
     --marginBottomMenu: 0em;
-    --bordarRadiusCard: 0px; */
+    --bordarRadiusCard: 0px;
+} */
+
+.adminPage table th,
+.adminPage table td {
+    padding: 0.1em;
 }
 
-.adminPage {
-    padding-top: 4em;
+.adminPage table th,
+.adminPage table td {
+    padding: 0.1em;
 }
 
 .adminPage header {
