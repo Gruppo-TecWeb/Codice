@@ -60,7 +60,7 @@ if ($connectionOk) {
     $locandina = '';
     $valueAzione = '';
     $evento = [];
-    $percorsoLocandine = '../assets/media/locandine/';
+    $percorsoLocandine = './../assets/media/locandine/';
     if (((isset($_POST['nuovoTitolo']) && $_POST['nuovoTitolo'] != "") && $validNuovoTitolo == "") ||
         ((isset($_POST['nuovaData']) && $_POST['nuovaData'] != "") && $validNuovaData == "") ||
         ((isset($_POST['nuovaOra']) && $_POST['nuovaOra'] != "") && $validNuovaOra == "") ||
@@ -129,16 +129,30 @@ if ($connectionOk) {
             if ($errore == '0') {
                 if ($validNuovaLocandina != "" && getimagesize($_FILES["nuovaLocandina"]["tmp_name"]) !== false) {
                     $targetImage = $percorsoLocandine . $validNuovaLocandina;
-                    if (file_exists($targetImage))
-                        $messaggiForm .= str_replace('{messaggio}', 'Esiste già un file con questo nome', $messaggioForm);
-                    elseif ($_FILES["nuovaLocandina"]["size"] > 500000)
-                        $messaggiForm .= str_replace('{messaggio}', 'Il file è troppo grande', $messaggioForm);
-                    elseif (move_uploaded_file($_FILES["nuovaLocandina"]["tmp_name"], $percorsoLocandine . $validNuovaLocandina))
-                        $messaggiForm .= str_replace('{messaggio}', 'Il file è stato caricato', $messaggioForm);
-                    else
-                        $messaggiForm .= str_replace('{messaggio}', 'Errore nel caricamento del file', $messaggioForm);
+                    if (file_exists($targetImage)) {
+                            $messaggiForm .= multi_replace($messaggioForm, [
+                                '{messaggio}' => "Esiste già un file con questo nome in questo percorso"
+                            ]);
+                            $errore = '1';
+                    } elseif ($_FILES["nuovaLocandina"]["size"] > 500000) {
+                        $messaggiForm .= multi_replace($messaggioForm, [
+                            '{messaggio}' => "Il file è troppo grande"
+                        ]);
+                        $errore = '1';
+                    } elseif (move_uploaded_file($_FILES["nuovaLocandina"]["tmp_name"], $percorsoLocandine . $validNuovaLocandina)) {
+                        $messaggiForm .= multi_replace($messaggioForm, [
+                            '{messaggio}' => "Il file è stato caricato correttamente"
+                        ]);
+                    } else {
+                        $messaggiForm .= multi_replace($messaggioForm, [
+                            '{messaggio}' => "Errore nel caricamento del file"
+                        ]);
+                        $errore = '1';
+                    }
                 }
-                header("location: eventi.php?aggiunto=1");
+                if ($errore == '0') {
+                    header("location: eventi.php?aggiunto=1");
+                }
             }
         } elseif ($_POST['azione'] == 'modifica') {
             $errore = '0';
@@ -149,18 +163,32 @@ if ($connectionOk) {
             if ($errore == '0') {
                 if ($validNuovaLocandina != "" && getimagesize($_FILES["nuovaLocandina"]["tmp_name"]) !== false) {
                     $targetImage = $percorsoLocandine . $validNuovaLocandina;
-                    if (file_exists($targetImage))
-                        {$messaggiForm .= str_replace('{messaggio}', 'Esiste già un file con questo nome', $messaggioForm);}
-                    elseif ($_FILES["nuovaLocandina"]["size"] > 500000)
-                        {$messaggiForm .= str_replace('{messaggio}', 'Il file è troppo grande', $messaggioForm);}
-                    elseif (move_uploaded_file($_FILES["nuovaLocandina"]["tmp_name"], $percorsoLocandine . $validNuovaLocandina))
-                        {$messaggiForm .= str_replace('{messaggio}', 'Il file è stato caricato', $messaggioForm);echo $percorsoLocandine . $validNuovaLocandina;}
-                    else {
+                    if (file_exists($targetImage)) {
+                            $messaggiForm .= multi_replace($messaggioForm, [
+                                '{messaggio}' => "Esiste già un file con questo nome in questo percorso"
+                            ]);
+                            $errore = '1';
+                    } elseif ($_FILES["nuovaLocandina"]["size"] > 500000) {
+                        $messaggiForm .= multi_replace($messaggioForm, [
+                            '{messaggio}' => "Il file è troppo grande"
+                        ]);
+                        $errore = '1';
+                    } elseif (move_uploaded_file($_FILES["nuovaLocandina"]["tmp_name"], $percorsoLocandine . $validNuovaLocandina))  {
+                        $messaggiForm .= multi_replace($messaggioForm, [
+                            '{messaggio}' => "Il file è stato caricato correttamente"
+                        ]);
+                    } else {
                         $connection->update_evento(
                             $validIdEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, $validLocandina = "" ? null : $validNuovaLocandina);
-                        $messaggiForm .= str_replace('{messaggio}', 'Errore nel caricamento del file', $messaggioForm);echo $percorsoLocandine . $validNuovaLocandina;}
+                            $messaggiForm .= multi_replace($messaggioForm, [
+                                '{messaggio}' => "Errore nel caricamento del file"
+                            ]);
+                            $errore = '1';
+                    }
                 }
-                header("location: eventi.php?modificato=1");
+                if ($errore == '0') {
+                    header("location: eventi.php?modificato=1");
+                }
             }
         }
     } else {
