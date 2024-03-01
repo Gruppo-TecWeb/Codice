@@ -15,7 +15,7 @@ $description = 'Pagina di presentazione delle modalità di battaglia e delle reg
 $keywords = 'restraining stirpe, freestyle, freestyle rap, rap, battle, live, dj set, micelio, fungo';
 $menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
-$onload = 'setLinks()';
+$onload = '';
 $logout = '';
 
 if (isset($_SESSION["login"])) {

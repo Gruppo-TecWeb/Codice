@@ -19,11 +19,11 @@
         </fieldset>
     </form>
 </div>
-{tabellaClassifica}<div class="limitedWidth div-classifica" id="{tipoEvento}">
+{tabellaClassifica}
+<div class="limitedWidth div-classifica" id="{tipoEvento}">
     <p>{desTipoEvento}</p>
     <span id="sumTabella" class="navigationHelp">Tabella che riassume la classifica del {tipoEvento} con l'indicazione
-        di <span lang="en">ranking</span>,
-        nome d'arte del <span lang="en">freestyler</span>, punteggio ottenuto.</span>
+        di <span lang="en">ranking</span>, nome d'arte del <span lang="en">freestyler</span>, punteggio ottenuto.</span>
     <table id="tabella-classifica" aria-describedby="sumTabella">
         <caption>Classifica {tipoEvento}</caption>
         <thead>
@@ -34,7 +34,8 @@
             </tr>
         </thead>
         <tbody>
-            {rigaClassifica}<tr>
+            {rigaClassifica}
+            <tr>
                 <th data-title="ranking" scope="row"><span class="classifica ranking">{ranking}</span></th>
                 <td data-title="Freestyler">{freestyler}</td>
                 <td data-title="Punti">{punti}</td>
@@ -43,5 +44,5 @@
         </tbody>
     </table>
 </div>
-{/tabellaClassifica}
-{nessunaClassifica}<p class="limitedWidth">Non sono presenti classifiche</p>{/nessunaClassifica}
+{/tabellaClassifica} {nessunaClassifica}
+<p class="limitedWidth">Non sono presenti classifiche</p>{/nessunaClassifica}
