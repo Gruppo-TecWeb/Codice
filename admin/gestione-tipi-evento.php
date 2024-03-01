@@ -33,9 +33,9 @@ if ($connectionOk) {
     $legend = '';
     $legendAggiungi = 'Aggiungi Tipo Evento';
     $legendModifica = 'Modifica Tipo Evento';
-    $validNuovoTitolo = validate_input($_POST['nuovoTitolo']);
-    $validNuovaDescrizione = validate_input($_POST['nuovaDescrizione']);
-    $validTitolo = validate_input($_POST['titolo']);
+    $validNuovoTitolo = isset($_POST['nuovoTitolo']) ? validate_input($_POST['nuovoTitolo']) : "";
+    $validNuovaDescrizione = isset($_POST['nuovaDescrizione']) ? validate_input($_POST['nuovaDescrizione']) : "";
+    $validTitolo = isset($_POST['titolo']) ? validate_input($_POST['titolo']) : "";
     $nuovoTitolo = '';
     $nuovaDescrizione = '';
     $titolo = '';

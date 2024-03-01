@@ -33,10 +33,10 @@ if ($connectionOk) {
     $legend = '';
     $legendAggiungi = 'Aggiungi <span lang="en">Rapper</span>';
     $legendModifica = 'Modifica <span lang="en">Rapper</span>';
-    $validNuovoUsername = validate_input($_POST['nuovoUsername']);
-    $validNuovaEmail = validate_input($_POST['nuovaEmail']);
-    $validUsername = validate_input($_POST['username']);
-    $validEmail = validate_input($_POST['email']);
+    $validNuovoUsername = isset($_POST['nuovoUsername']) ? validate_input($_POST['nuovoUsername']) : "";
+    $validNuovaEmail = isset($_POST['nuovaEmail']) ? validate_input($_POST['nuovaEmail']) : "";
+    $validUsername = isset($_POST['username']) ? validate_input($_POST['username']) : "";
+    $validEmail = isset($_POST['email']) ? validate_input($_POST['email']) : "";
     $nuovoUsername = '';
     $nuovaEmail = '';
     $username = '';

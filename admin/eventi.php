@@ -28,7 +28,46 @@ $connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
 
 if ($connectionOk) {
-    // fare quello che c'è da fare...
+    $messaggiForm = '';
+    $messaggioForm = get_content_between_markers($content, 'messaggioForm');
+    $righeTabella = '';
+
+    if (isset($_GET['errore'])) {
+        $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);
+    }
+
+    if (isset($_GET['eliminato'])) {
+        if ($_GET['eliminato'] == 0) {
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore nell'eliminazione dell'Evento"]);
+        } else {
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Evento eliminato correttamente"]);
+        }
+    } elseif (isset($_GET['aggiunto'])) {
+        $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Evento aggiunto correttamente"]);
+    } elseif (isset($_GET['modificato'])) {
+        $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Evento modificato correttamente"]);
+    }
+
+    $eventi = $connection->getEventi();
+    $rigaTabella = get_content_between_markers($content, 'rigaTabella');
+
+    foreach ($eventi as $evento) {
+        $righeTabella .= multi_replace($rigaTabella, [
+            '{titolo}' => $evento['Titolo'],
+            '{dataVisualizzata}' => date_format(date_create($evento['Data']), 'd/m/y'),
+            '{oraVisualizzata}' => date_format(date_create($evento['Ora']), 'G:i'),
+            '{luogo}' => $evento['Luogo'],
+            '{idEvento}' => $evento['Id'],
+            '{data}' => $evento['Data'],
+            '{ora}' => $evento['Ora'],
+        ]);
+    }
+
+    $content = replace_content_between_markers($content, [
+        'rigaTabella' => $righeTabella,
+        'messaggiForm' => $messaggiForm
+    ]);
+
     $connection->closeDBConnection();
 } else {
     header("location: ../errore500.php");

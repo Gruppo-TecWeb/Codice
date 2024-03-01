@@ -887,6 +887,10 @@ div#admin-window {
     border-radius: 3px;
 }
 
+#eventi img {
+    width: 15em;
+}
+
 
 /*
  * PAGINE ERROR DOCUMENT 

@@ -1,24 +1,24 @@
 <div id="tipi-evento" class="limitedWidth">
-    <h3>Gestione Tipi Evento</h3>
+            <h3>Gestione Tipi Evento</h3>
 
-    <!-- Form per aggiungere o modificare tipi evento -->
+            <!-- Form per aggiungere o modificare tipi evento -->
 
-    {messaggiForm}<ul>
-        {messaggioForm}<li>{messaggio}</li>{/messaggioForm}
-    </ul>
-    {/messaggiForm}
-    
-    <form method="post" action="gestione-tipi-evento.php">
-        <fieldset>
-            <legend>{legend}</legend>
-            <label for="titolo">Titolo:</label>
-            <input type="text" id="titolo" name="nuovoTitolo" value="{nuovoTitolo}" placeholder="Titolo" required>
-            <label for="descrizione">Descrizione</label>
-            <textarea id="descrizione" name="nuovaDescrizione" placeholder="Descrizione" rows="8" cols="50">{nuovaDescrizione}</textarea>
-            <input type="hidden" name="titolo" value="{titolo}">
-            <input type="hidden" name="azione" value="{valueAzione}">
-            <input type="hidden" name="errore" value="{valueErrore}">
-        
-        <button type="submit" name="conferma" value="true">Conferma</button>
-    </form>
-</div>
+            {messaggiForm}<ul>
+                {messaggioForm}<li>{messaggio}</li>{/messaggioForm}
+            </ul>
+            {/messaggiForm}
+            
+            <form method="post" action="gestione-tipi-evento.php">
+                <fieldset>
+                    <legend>{legend}</legend>
+                    <label for="titolo">Titolo:</label>
+                    <input type="text" id="titolo" name="nuovoTitolo" value="{nuovoTitolo}" placeholder="Titolo" required>
+                    <label for="descrizione">Descrizione</label>
+                    <textarea id="descrizione" name="nuovaDescrizione" placeholder="Descrizione" rows="8" cols="50">{nuovaDescrizione}</textarea>
+                    <input type="hidden" name="titolo" value="{titolo}">
+                    <input type="hidden" name="azione" value="{valueAzione}">
+                
+                    <button type="submit" name="conferma" value="true">Conferma</button>
+                </fieldset>
+            </form>
+        </div>
