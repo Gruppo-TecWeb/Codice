@@ -6,9 +6,9 @@ use Exception;
 
 class DBAccess {
     private const DB_HOST = "localhost";
-    private const DB_NAME = "slewenta";
-    private const DB_USER = "slewenta";
-    private const DB_PASS = "Jee5Ier0dei3Eel4";
+    private const DB_NAME = "fungo";
+    private const DB_USER = "root";
+    private const DB_PASS = "";
 
     private $connection;
     private static $instance = null;
