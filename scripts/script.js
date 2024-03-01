@@ -1,3 +1,7 @@
+/*
+ * TEMPLATE DI PAGINA
+ */
+
 var menu = null;
 var bcContainer = null;
 var menuOpened = false;
@@ -11,6 +15,11 @@ window.addEventListener("load", (event) => { // Quando questo script si avvia, a
     menu.classList.add("js");
     bcContainer.classList.add("js");
     document.body.classList.add("js");
+
+    document.addEventListener("click", (event) => {
+        if (menu.getAttribute("data-menu-open") === "true" && !menu.contains(event.target) && !bcContainer.contains(event.target))
+            toggleMenu();
+    });
 });
 
 function toggleMenu() {
@@ -23,8 +32,6 @@ function toggleMenu() {
 function init_index() {
     const logo = document.querySelector('header a h1');
     const hero = document.querySelector('#hero h2');
-    const video = document.querySelector("video");
-    const controls = document.querySelector(".controls");
 
     logo.classList.add('js');
 
@@ -42,162 +49,190 @@ function init_index() {
 }
 
 /*
-BATTLE
-*/
-function setIframe(battle) {
-    {
-        /*title=new Array(
-            'Minuto',
-            '4/4',
-            'Cypher',
-            '3/4',
-            'KickBack',
-            'Royal rumble',
-            'Argomento',
-            'Acappella',
-            'Oggetti',
+ * PAGINA EVENTO
+ */
 
-        );*/
+function init_evento() {
+    linkIndietro = document.getElementById("indietro");
+    if (document.referrer.includes("eventi.php"))
+        linkIndietro.setAttribute('href', document.referrer);
+}
 
-        /*    
-    link=new Array(
-        'https://www.youtube.com/embed/RszfbKxb460?si=S66nOyYSoWWfIMRV&amp;start=98&amp;end=210&amp;autoplay=1',
-        'https://www.youtube.com/embed/2ttgML437Ho?si=UpESmYDGIApC8Ykd&amp;start=370&amp;end=510&amp;autoplay=1',
-        'https://www.youtube.com/embed/n2qPwcpdeeQ?si=TkMwig5ASAn-QDDp&amp;start=117&amp;end=364&amp;autoplay=1',
-        'https://www.youtube.com/embed/n2qPwcpdeeQ?si=TkMwig5ASAn-QDDp&amp;start=779&amp;end=1014&amp;autoplay=1',
-        'https://www.youtube.com/embed/n2qPwcpdeeQ?si=78l2svzMAuQgGem-&amp;start=1604&amp;end=3610&amp;autoplay=1',
-        'https://www.youtube.com/embed/Czp97FOKaDM?si=1T1fmAYfknrT4rnP&amp;autoplay=1',
-        'https://www.youtube.com/embed/95SZIlMiFfQ?si=tTn5cuhA1s2pQeTS&amp;start=4&amp;end=&amp;autoplay=1',
-        'https://www.youtube.com/embed/OvVk892HzmE?si=zJjNgjiI8RlPKi7Y&amp;start=762&amp;autoplay=1',
-        'https://www.youtube.com/embed/S8Ze0GCgo4k?si=-nNRKZxPbIgU_2uI&amp;autoplay=1',
-    );
-    
-    descrizione=new Array(
-        "I rapper fanno un minuto di <span lang=\"en\">freestyle</span> a testa, semplice</form> semplice.",
-        "La modalità più classica tra tutte, a turno i rapper fanno 4/4 a testa!",
-        "Un cypher è un cerchio di rapper che a turno rappano per una quantità di tempo che i rapper stessi scelgono; modalità spesso utilizzata come sorta di riscaldamento pre-<span lang=\"en\">battle</span>",
-        "Un rapper canta per 3/4 e l'altro dovrà chiudere la rima occupando il 4/4 per poi continuare per 3/4 a cui l'avversario dovrà rispondere, e così via!",
-        "Un rapper fa una domanda all'altro, l'altro dovrà rispondere e fare poi una domanda a sua volta, ovviamente tutto a tempo di musica!",
-        'Qua i rapper cantano a rotazione, quello che meno è piaciuto tra i partecipanti viene eliminato, e gli altri continuano ad affrontarsi.',
-        'Viene dato un argomento su cui i rapper dovranno cantare. Esiste la variante in cui i rapper cantano come se facessero parte di due fazioni opposte tra loro(es grassi <abbr title="versus">vs</abbr> magri): <a title="Variante fazioni" href="https://www.youtube.com/watch?v=OQd6xAAm9nU" target="_blank">Esempio fazioni</a>',
-        'I rapper si sfidano senza alcun supporto musicale, concentrandosi solo sulle loro abilità vocali e liriche',
-        'Prima dell\'inizio di ogni turno ai rapper verranno forniti degli oggetti che non conoscono a priori e dovranno rappare su quelli. Gli oggetti possono essere forniti dal pubblico o nascosti dentro un contenitore.',
-    );
-*/
+/*
+ * PAGINA BEATS
+ */
+
+function init_beats() {
+    descrizioni = document.getElementsByClassName("descBeats");
+    for (let i = 0; i < descrizioni.length; i++) {
+        descrizioni[i].setAttribute("data-show", "false");
     }
-    descBattle = document.getElementsByClassName("descBattle")[battle];
+    btnDescrizioni = document.getElementsByClassName("btnDesc");
+    for (let i = 0; i < btnDescrizioni.length; i++) {
+        btnDescrizioni[i].setAttribute("data-show", "false");
+        btnDescrizioni[i].addEventListener("click", (event) => {
+            showDescription(i);
+        });
+    }
+}
 
-    //creazione variabili per battle cliccata
-    titleModalità = descBattle.getElementsByTagName("a")[0].title;
-    link = descBattle.getElementsByTagName("a")[0].href;
-    /*settaggio descrizione SE NECESSARIA
-    desc=descBattle.getElementsByTagName("dd")[0].innerHTML;
-    */
-
-    //settaggio iframe
-    document.getElementsByTagName("h3")[0].innerHTML = titleModalità;
-    iframe = document.getElementsByTagName("iframe")[0];
-    iframe.src = link;
-    iframe.title = titleModalità;
-    /*settaggio descrizione SE NECESSARIA
-    document.getElementById("descBattle").innerHTML=desc;
-    */
+function showDescription(index) {
+    descrizione = document.getElementsByClassName("descBeats")[index];
+    btnDescrizione = document.getElementsByClassName("btnDesc")[index];
+    show = descrizione.getAttribute("data-show");
+    descrizione.setAttribute("data-show", show === "true" ? "false" : "true");
+    btnDescrizione.setAttribute("data-show", show === "true" ? "false" : "true");
+    btnDescrizione.getElementsByTagName("span")[0].innerHTML = show === "true" ? "Audio descrizione" : "Nascondi";
 }
 
 
-/*
-BASI
-*/
+function onJavaScript() {
+    beats = document.getElementsByClassName("beat");
+
+    for (let i = 0; i < beats.length; i++) {
+        durata = document.getElementsByClassName("durata")[i];
+        readDurata = document.getElementsByClassName("readDurata")[i];
+
+        playerJump = beats[i].getElementsByTagName("a")[0].getElementsByTagName("span")[0];
+        playerJump.setAttribute("aria-hidden", "true");
+
+        audios = document.getElementsByClassName("audioBeats")[i];
+        audios.setAttribute("tabindex", "-1");
+        audios.setAttribute("data-java", "true");
+
+        minuti = Math.floor(audios.duration / 60);
+        secondi = Math.floor(audios.duration % 60);
+
+        if (minuti == 1) {
+            if (secondi < 10) {
+                //durata.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
+                durata.innerHTML = minuti + ":" + "0" + secondi;
+                readDurata.innerHTML = minuti + " minuto e " + secondi + " secondi";
+            } else {
+                //durata.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
+                durata.innerHTML = minuti + ":" + secondi;
+                readDurata.innerHTML = minuti + " minuto e " + secondi + " secondi";
+            }
+        } else {
+            if (secondi < 10) {
+                //durata.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
+                durata.innerHTML = minuti + ":" + "0" + secondi;
+                readDurata.innerHTML = minuti + " minuti e " + secondi + " secondi";
+            } else {
+                //durata.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
+                durata.innerHTML = minuti + ":" + secondi;
+                readDurata.innerHTML = minuti + " minuti e " + secondi + " secondi";
+            }
+        }
+    }
+}
+
+
 var autoNext = false;
 
 function playerAudio(nomeBase) {
+
+    //variabili varie
     percorso = "assets/media/basi/";
-
-    //settaggio title
-    title = document.getElementsByTagName("h3")[0]
-    title.innerHTML = nomeBase.slice(0, -4);
-
-    //settaggio audio
     audio = document.getElementById("audio");
-    audio.setAttribute("autoplay", "true");
-    audio.src = percorso + nomeBase;
+    audioContainer = document.getElementById("audio_container");
+    h3 = audioContainer.getElementsByTagName("h3")[0];
+    newTitle = nomeBase.slice(0, -4).replaceAll("-", " ");
+    beats = document.getElementsByClassName("beat")
+    for (let i = 0; i < beats.length; i++) {
+        if (beats[i].getElementsByTagName("button")[0].getAttribute("data-title-beat") == nomeBase.slice(0, -4)) {
+            pressedButton = beats[i].getElementsByTagName("button")[0];
+            audioJump = beats[i].getElementsByTagName("a")[0];
+            audioJump.setAttribute("tabindex", "0");
 
-    {
-        /*
-        audio.onplaying = function(){
-            //document.getElementsByClassName("base")[playingBeat].getElementsByTagName("button")=i+1;
-            for (let i = 0; i < basi.length; i++) {
-                bottone=document.getElementsByClassName("base")[i].getElementsByTagName("button")
-                console.log(bottone[0].title.slice(10) + "==" + nomeBase.slice(0,-4));
-                if(bottone[0].title.slice(10)==nomeBase.slice(0,-4)){
-
-                    playingBeat=i;
-                    bottone[0].innerHTML='<img src="..\\assets\\icons\\playArancionePieno.png"></img>';
-                    console.log(bottone[0].innerHTML);
-                    
-                    // bottone=basi[i].getElementsByTagName("button");                      
-                    basi[i].onmouseover = function() {
-                        //bottone[0].innerHTML='<img src="..\\assets\\icons\\playArancionePieno.png"></img>';
-                    }
-                    //bottone=basi[i].getElementsByTagName("button");
-                    basi[i].onmouseout = function() {
-                        //bottone[0].innerHTML=i+1;    
-                    }
-                }
-            }
-
-        }*/
-    };
-
-    //bottone riproduzione automatica
-    document.getElementById("autoNext").onclick = function() {
-        autoNext = !autoNext;
-        autoPlay(nomeBase);
+            playerJump = beats[i].getElementsByTagName("a")[0].getElementsByTagName("span")[0];
+            playerJump.setAttribute("aria-hidden", "false");
+        }
     }
-    autoPlay(nomeBase);
 
-}
 
-function autoPlay(nomeBase) {
-    if (autoNext) {
-        audio.onended = function() {
-            nextAudio(nomeBase);
+    if (h3.innerHTML == newTitle) {
+        if (pressedButton.title.slice(0, 10) == "Interrompi") {
+            //console.log("pause");
+            audio.pause();
+            pressedButton.setAttribute("data-isPlaying", "false")
+            pressedButton.title = "Riproduci " + newTitle;
+        } else {
+            audio.play();
+            pressedButton.setAttribute("data-isPlaying", "true")
+            pressedButton.title = "Interrompi " + newTitle;
         }
     } else {
-        audio.onended = function() {
+        newBeat(nomeBase);
+    }
+
+    //bottone riproduzione automatica
+    autoPlay(nomeBase);
+}
+
+function newBeat(nomeBase) {
+    //cambia gli statement dell'audio che era in riproduzione precedentemente
+    for (let i = 0; i < beats.length; i++) {
+        buttonPP = beats[i].getElementsByTagName("button")[0];
+        audioJump = beats[i].getElementsByTagName("a")[0];
+        playerJump.setAttribute("aria-hidden", "false");
+
+        if (buttonPP.title.substr(0, 10) == "Interrompi") {
+            audioJump.setAttribute("tabindex", "-1");
+
+            buttonPP.setAttribute("data-isPlaying", "false")
+            buttonPP.title = "Riproduci " + buttonPP.getAttribute("data-title-beat");
+        }
+    }
+    //settaggio title bottone e player audio
+    pressedButton.setAttribute("data-isPlaying", "true")
+    h3.innerHTML = newTitle;
+    pressedButton.title = "Interrompi " + newTitle;
+
+    //settaggio audio
+    audio.setAttribute("autoplay", "true");
+    audio.src = percorso + nomeBase;
+}
+
+
+function autoPlay(nomeBase) {
+    document.getElementById("autoNext").onclick = function() {
+        autoNext = !autoNext;
+        console.log(autoNext);
+        document.getElementById("autoNext").setAttribute("aria-pressed", autoNext);
+    }
+    audio.onended = function() {
+        if (autoNext) {
+
+            audio.setAttribute("autoplay", "true");
+            nextAudio(nomeBase);
+        } else {
+
             audio.setAttribute("autoplay", "false");
+
         }
     }
 }
 
 function nextAudio(nomeBase) {
-    let basi = document.getElementsByClassName("beat");
+    newTitle = nomeBase.slice(0, -4).replaceAll("-", " ");
+    beats = document.getElementsByClassName("beat")
+    for (let i = 0; i < beats.length; i++) {
+        if (beats[i].getElementsByTagName("button")[0].getAttribute("data-title-beat") == nomeBase.slice(0, -4)) {
+            pressedButton = beats[i].getElementsByTagName("button")[0];
+        }
+    }
 
-    for (let i = 0; i < basi.length; i++) {
-
-        let bottone = basi[i].getElementsByTagName("button");
-
-        if (bottone[0].getAttribute("title").slice(10) == nomeBase.slice(0, -4)) {
-            let next = basi[i + 1];
-            let nextButton = next.getElementsByTagName("button");
+    for (let i = 0; i < beats.length; i++) {
+        bottone = beats[i].getElementsByTagName("button")[0]
+        if (bottone.getAttribute("data-title-beat") == nomeBase.slice(0, -4)) {
+            let next = beats[i + 1];
             if (next) {
-                title = (nextButton[0].getAttribute("title").slice(10) + ".mp3");
-                playerAudio(title);
+                let nextButton = next.getElementsByTagName("button");
+                newTitle = nextButton[0].getAttribute("data-title-beat") + ".mp3";
+                playerAudio(newTitle);
             }
             break;
         }
-    }
-}
-
-
-
-/*
-CLASSIFICHE
-*/
-function hideSubmitButtons() {
-
-    var submitButtons = document.getElementsByClassName("hidden-by-js");
-    for (let i = 0; i < submitButtons.length; i++) {
-        submitButtons[i].classList.add("no-script");
     }
 }

@@ -10,7 +10,7 @@ use DB\DBAccess;
 session_start();
 
 $paginaHTML = file_get_contents("../template/template-pagina.html");
-$content = file_get_contents("../template/admin/registrati-template.html");
+$content = file_get_contents("../template/admin/registrati.html");
 
 $title = 'Registrati &minus; Fungo';
 $pageId = 'admin/' . basename(__FILE__, '.php');
@@ -21,10 +21,10 @@ $percorsoAdmin = '';
 $menu = get_menu($pageId, $percorso);
 $breadcrumbs = get_breadcrumbs($pageId, $percorso);
 $onload = '';
-$erroriVAL = '';
-$errori = '';
 $username = '';
 $email = '';
+$messaggioForm = '';
+$messaggiForm = '';
 $logout = '';
 
 $connection = DBAccess::getInstance();
@@ -34,6 +34,9 @@ if ($connectionOk) {
     if (isset($_SESSION["login"])) {
         header("location: index.php");
     }
+
+    $messaggioForm = get_content_between_markers($content, 'messaggioForm');
+    $messaggioFormConLink = get_content_between_markers($content, 'messaggioFormConLink');
     if (isset($_POST["submit"])) {
         $errore = false;
         $username = validate_input($_POST["username"]);
@@ -42,7 +45,7 @@ if ($connectionOk) {
         $email = validate_input($_POST["email"]);
         if ($username == "") {
             $errore = true;
-            $erroriVAL .= "<li>Inserire Username.</li>";
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Inserire Username"]);
         } else {
             $utente = $connection->get_utente_by_username($username);
             if (is_null($utente)) {
@@ -50,19 +53,24 @@ if ($connectionOk) {
             }
             if (!is_null($utente)) {
                 $errore = true;
-                $erroriVAL .= "<li>Utente giá registrato. Vai alla pagina di <a href=\"admin/login.php\" lang=\"en\">login</a>.</li>";
+                $messaggiForm .= multi_replace($messaggioFormConLink, [
+                    '{messaggio}' => "Utente giá registrato, vai alla pagina di ",
+                    '{pageHref}' => "login.php",
+                    '{lang}' => " lang=\"en\"",
+                    '{anchor}' => "login"
+                ]);
             }
         }
         if ($password == "") {
             $errore = true;
-            $erroriVAL .= "<li>Inserire Password.</li>";
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Inserire Password"]);
         } elseif ($password != $confermaPassword) {
             $errore = true;
-            $erroriVAL .= "<li>Le password non coincidono.</li>";
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Le password non coincidono"]);
         }
         if ($email == "") {
             $errore = true;
-            $erroriVAL .= "<li>Inserire E-Mail.</li>";
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Inserire E-Mail"]);
         }
         if (!$errore) {
             $utenteRegistrato = $connection->register($username, $password, $email);
@@ -70,14 +78,28 @@ if ($connectionOk) {
                 $_SESSION["datiUtente"] = array("Username" => $username, "Email" => $email);
                 $_SESSION["login"] = true;
                 header("location: index.php");
-                $messaggiPerForm .= "<li>Registrazione avvenuta correttamente.</li>";
+                $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Registrazione avvenuta correttamente"]);
             } else {
-                $messaggiPerForm .= "<li>La registrazione non é avvenuta.</li>";
+                $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "La registrazione non é avvenuta"]);
             }
         } else {
-            $errori = '<ul>' . $erroriVAL . '</ul>';
+            $messaggiForm = replace_content_between_markers(
+                get_content_between_markers($content, 'messaggiForm'),
+                [
+                    'messaggioForm' => $messaggiForm,
+                    'messaggioFormConLink' => ''
+                ]
+            );
         }
     }
+
+    $connection->closeDBConnection();
+    $content = multi_replace(replace_content_between_markers($content, [
+        'messaggiForm' => $messaggiForm
+    ]), [
+        '{valoreUsername}' => $username,
+        '{valoreEmail}' => $email
+    ]);
 } else {
     header("location: ../errore500.php");
 }
@@ -86,28 +108,17 @@ if (isset($_SESSION["login"])) {
     $logout = get_content_between_markers($paginaHTML, 'logout');
 }
 
-echo multi_replace(replace_content_between_markers(
-    multi_replace(
-        replace_content_between_markers($paginaHTML, [
-            'breadcrumbs' => $breadcrumbs,
-            'menu' => $menu,
-            'logout' => $logout
-        ]),
-        [
-            '{title}' => $title,
-            '{description}' => $description,
-            '{keywords}' => $keywords,
-            '{pageId}' => $pageId,
-            '{content}' => $content,
-            '{onload}' => $onload,
-            '{percorso}' => $percorso,
-            '{adminContent}' => $adminContent,
-            '{messaggiForm}' => $errori,
-            '{valoreUsername}' => $username,
-            '{valoreEmail}' => $email
-        ]
-    ),
-    [
-        'adminMenu' => $adminMenu
-    ]
-), ['{percorsoAdmin}' => $percorsoAdmin]);
+echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'breadcrumbs' => $breadcrumbs,
+    'menu' => $menu,
+    'logout' => $logout
+]), [
+    '{title}' => $title,
+    '{description}' => $description,
+    '{keywords}' => $keywords,
+    '{pageId}' => $pageId,
+    '{content}' => $content,
+    '{onload}' => $onload,
+    '{percorso}' => $percorso,
+    '{percorsoAdmin}' => $percorsoAdmin
+]);

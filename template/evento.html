@@ -1,13 +1,22 @@
-<p class="limitedWidth"><a href="eventi.php">Torna alla lista degli eventi</a></p>
+<a id="indietro" class="limitedWidth subMenu" href="eventi.php">Torna agli eventi</a>
 <h2 class="limitedWidth">{titolo}</h2>
 <div id="evento-box" class="limitedWidth">
-    <img src="assets/media/locandine/{locandina}">
-    <div id="evento-info">
-        <p>Data: <time datetime="{data}"><span>{data}</span></time></p>
-        <p>Tipo evento: {tipoEvento}</p>
-        <p>Data inizio: {dataInizioClassifica}</p>
-        <p>Ora: <time datetime="{ora}">{ora}</time></p>
-        <p>Luogo: {luogo}</p>
-        <p>Descrizione: {descrizione} </p>
-    </div>
+    <img src="assets/media/locandine/{locandina}" alt="">
+    <dl id="evento-info">
+        <dt>Data:</dt>
+        <dd><time datetime="{data}">{data}</time></dd>
+        <dt>Ora:</dt>
+        <dd><time datetime="{ora}">{ora}</time></dd>
+        <dt>Luogo:</dt>
+        <dd>{luogo}</dd>
+        {descrizioneEvento}
+        <dt>Descrizione:</dt>
+        <dd>{descrizione}</dd>
+        {/descrizioneEvento} {stagioneEvento}
+        <dt>Tipo evento:</dt>
+        <dd>{tipoEvento}</dd>
+        <dt>Data inizio stagione:</dt>
+        <dd><time datetime="{dataInizioClassifica}">{dataInizioClassifica}</time></dd>
+        {/stagioneEvento}
+    </dl>
 </div>

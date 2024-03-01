@@ -16,10 +16,12 @@ const pages_array = [
     'admin/profilo'         => ['href' => '{percorsoAdmin}profilo.php',         'anchor' => 'Profilo',                 'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 1, 'parentId' => 'admin/index'],
     'admin/eventi'          => ['href' => '{percorsoAdmin}eventi.php',          'anchor' => 'Gestione Eventi',         'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 2, 'parentId' => 'admin/index'],
     'admin/classifiche'     => ['href' => '{percorsoAdmin}classifiche.php',     'anchor' => 'Gestione Classifiche',    'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 3, 'parentId' => 'admin/index'],
-    'admin/tipievento'      => ['href' => '{percorsoAdmin}tipievento.php',      'anchor' => 'Gestione Tipi Evento',    'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 4, 'parentId' => 'admin/index'],
+    'admin/tipi-evento'      => ['href' => '{percorsoAdmin}tipi-evento.php',      'anchor' => 'Gestione Tipi Evento',    'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 4, 'parentId' => 'admin/index'],
     'admin/rappers'         => ['href' => '{percorsoAdmin}rappers.php',         'anchor' => 'Gestione Rappers',        'lang' => 'en', 'menuOrder' => 0, 'adminMenuOrder' => 5, 'parentId' => 'admin/index'],
     'admin/amministratori'  => ['href' => '{percorsoAdmin}amministratori.php',  'anchor' => 'Gestione Amministratori', 'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 6, 'parentId' => 'admin/index'],
     'admin/logout'          => ['href' => '{percorsoAdmin}logout.php',          'anchor' => 'Logout',                  'lang' => 'en', 'menuOrder' => 0, 'adminMenuOrder' => 7, 'parentId' => 'index'],
+    'errore404'             => ['href' => '{percorso}errore404.php',            'anchor' => 'Errore 404',              'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 0, 'parentId' => ''],
+    'errore403'             => ['href' => '{percorso}errore403.php',            'anchor' => 'Errore 403',              'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 0, 'parentId' => ''],
     'errore500'             => ['href' => '{percorso}errore500.php',            'anchor' => 'Errore 500',              'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 0, 'parentId' => '']
 ];
 
@@ -53,7 +55,7 @@ function get_menu($pageId, $percorso) {
     return $menu;
 }
 function get_admin_menu($pageId) {
-    $paginaHTML = file_get_contents("../template/admin/template-admin.html");
+    $paginaHTML = file_get_contents("../template/admin/template-pagina-admin.html");
     $adminMenu = '';
     $liCurrent = get_content_between_markers($paginaHTML, 'liCurrent');
     $liNotCurrent = get_content_between_markers($paginaHTML, 'liNotCurrent');

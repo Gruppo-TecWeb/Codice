@@ -13,15 +13,15 @@ $paginaHTML = file_get_contents("template/template-pagina.html");
 
 $title = 'Evento &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
-$description = '';
-$keywords = '';
+$description = 'Pagina di presentazione di un evento organizzato dal collettivo rap Restraining Stirpe Crew.';
+$keywords = 'restraining stirpe, freestyle, freestyle rap, rap, battle, live, dj set, micelio, fungo';
 $percorso = '';
 $percorsoAdmin = 'admin/';
 $menu = get_menu($pageId, $percorso);
 $breadcrumbs = get_breadcrumbs($pageId, $percorso);
 
 $content = '';
-$onload = '';
+$onload = 'init_evento()';
 $logout = '';
 
 $connection = DBAccess::getInstance();
@@ -37,17 +37,31 @@ if ($connectionOk) {
         [$titolo, $descrizione, $data, $ora, $luogo, $locandina, $tipoEvento, $dataInizioClassifica] = array_values($evento);
 
         $content = file_get_contents("template/evento.html");
-        $content = multi_replace($content, [
+        $stagioneEvento = '';
+        $descrizioneEvento = '';
+        if ($tipoEvento  != null && $dataInizioClassifica != null) {
+            $stagioneEventoTemplate = get_content_between_markers($content, 'stagioneEvento');
+            $stagioneEvento = multi_replace($stagioneEventoTemplate, [
+                '{tipoEvento}' => $tipoEvento,
+                '{dataInizioClassifica}' => $dataInizioClassifica
+            ]);
+        }
+        if ($descrizione != null) {
+            $descrizioneEventoTemplate = get_content_between_markers($content, 'descrizioneEvento');
+            $descrizioneEvento = multi_replace($descrizioneEventoTemplate, [
+                '{descrizione}' => $descrizione
+            ]);
+        }
+        $content = multi_replace(replace_content_between_markers($content, [
+            'stagioneEvento' => $stagioneEvento,
+            'descrizioneEvento' => $descrizioneEvento
+        ]), [
             '{titolo}' => $titolo,
-            '{descrizione}' => $descrizione,
             '{data}' => $data,
             '{ora}' => $ora,
             '{luogo}' => $luogo,
             '{locandina}' => $locandina,
-            '{tipoEvento}' => $tipoEvento,
-            '{dataInizioClassifica}' => $dataInizioClassifica
         ]);
-        $title = $titolo . ' ' . $data;
         $breadcrumbs = multi_replace($breadcrumbs, [
             '{id}' => $eventoId,
             '{evento}' => 'Evento',
