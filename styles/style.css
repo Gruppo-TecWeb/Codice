@@ -441,47 +441,235 @@ footer #footer-credits {
 
 
 /*
-* PAGINA HOME
-*/
+ * PAGINA HOME
+ */
 
 #index #breadcrumbs-container {
     position: absolute;
-    left: 0;
-    top: 4em;
-    right: 0;
+    text-indent: -999em;
 }
 
 #index {
     padding-top: unset;
 }
 
-#titoloHome {
+#index header>a {
+    cursor: default;
+    pointer-events: none;
+}
+
+#index header a h1.logo {
+    transition: opacity 0.1s;
+}
+
+#index header a h1.logo.js {
+    overflow: hidden;
+    text-indent: 120%;
+    white-space: nowrap;
+    opacity: 0.1;
+}
+
+#index header a h1.logo.js.scrolled {
+    overflow: unset;
+    text-indent: unset;
+    opacity: 1;
+}
+
+#index #hero {
     height: 100vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-direction: row-reverse;
+    flex-direction: row;
+    border-bottom: 2px solid var(--colorAccent);
 }
 
-#titoloHome video {
+#index #hero #titolo {
+    width: 100%;
+    height: 100%;
+    container-type: size;
+    resize: horizontal;
+}
+
+#index #hero h2 {
+    margin-block: unset;
+    margin-top: 2rem;
+    padding: 0.1em;
+    width: 100%;
+    box-sizing: border-box;
+    cursor: default;
+    text-shadow: unset;
+    font-family: "Horizontale";
+    font-size: 16cqw;
+    background-color: var(--colorAccent);
+}
+
+#index #hero h3 {
+    padding: 1em;
+    background: var(--colorSecondary);
+    font-size: 1.5em;
+}
+
+#index #hero #titolo {
+    display: flex;
+    flex-direction: column;
+}
+
+#index #hero #titolo p {
+    padding: 1em;
+    padding-top: 0;
+    background: var(--colorSecondary);
+    border-bottom: 2px solid var(--colorAccent);
+    line-height: 1.5em;
+}
+
+#evento-home {
+    position: relative;
+    height: 100%;
+    padding-left: 2%;
+    overflow: hidden;
+}
+
+#evento-home::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 2%;
+    box-sizing: border-box;
+    background: repeating-linear-gradient( 45deg, var(--colorAccent), var(--colorAccent) 2px, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0) 10px);
+}
+
+#index #hero #evento-home h3 {
+    padding: 0.5em 1em;
+    font-size: 1.5em;
+    background-color: unset;
+    z-index: var(--elevationHigh);
+}
+
+#evento-home>div {
+    width: 55%;
+    max-height: 85%;
+    border: 1px solid;
+    border-radius: 4px;
+    padding-bottom: 1em;
+    overflow: hidden;
+    z-index: var(--elevationMiddle);
+}
+
+#evento-home>div>a {
+    display: inline;
+    width: 100%;
+    padding: 1em;
+    box-sizing: border-box;
+    text-align: end;
+}
+
+#index #hero #evento-home h4 {
+    background-color: var(--colorSecondary);
+    padding: 0.2em 1em;
+    box-sizing: border-box;
+    border: 1px solid;
+    font-size: 1.25em;
+    text-align: center;
+}
+
+#evento-home dl {
+    display: inline-grid;
+    grid-template-columns: auto 1fr;
+    width: 50%;
+    gap: 0 1em;
+    padding: 0.2em 0.5em;
+    box-sizing: border-box;
+    color: var(--colorText);
+    font-size: 1.25em;
+}
+
+#evento-home dl dt {
+    font-weight: bold;
+}
+
+#evento-home>a {
+    position: absolute;
+    bottom: 3em;
+    right: 3em;
+}
+
+#hero-image {
     height: 100vh;
-    width: fit-content;
-    max-width: 40%;
-    object-fit: cover;
+    width: 42em;
+    max-width: 40vw;
     border-left: 2px solid var(--colorAccent);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url('../assets/media/poster.jpg');
 }
 
-#titoloHome #titolo {
-    padding: 1.5em 2em;
+#eventi-home h3 {
+    width: 100%;
+    padding: 1em 3em;
+    font-size: 1.25em;
+    box-sizing: border-box;
+    font-family: Horizontale;
+    color: var(--colorTextOnAccent);
+    background-color: var(--colorAccent);
 }
 
-#index #titoloHome h1 {
-    font-family: "Hokia";
-    font-size: 2em;
+#eventi-home dl {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
 }
 
-#index #eventi-home-principali {
-    border-top: 2px solid var(--colorAccent);
+#eventi-home dl .eventoPrincipaleHome:nth-child(even) {
+    flex-direction: row-reverse
+}
+
+#eventi-home .eventoPrincipaleHome {
+    display: flex;
+    box-sizing: border-box;
+}
+
+#eventi-home dl dt {
+    font-weight: bold;
+    font-size: 1.25em;
+    writing-mode: vertical-lr;
+    color: var(--colorTextOnAccent);
+    background-color: var(--colorAccent);
+    padding: 2em 1em;
+    border: 2px solid var(--colorSecondary);
+}
+
+.ddImg {
+    border: 2px solid var(--colorAccent);
+}
+
+.ddImg img {
+    height: 45vh;
+    width: 40vw;
+    padding: 1.5em;
+    box-sizing: border-box;
+    object-fit: cover;
+    border-bottom: 1px solid var(--colorAccent);
+}
+
+.ddImg p {
+    padding-left: 1em;
+    box-sizing: border-box;
+}
+
+.ddDesc {
+    padding: 1em 3em;
+    box-sizing: border-box;
+    background-color: var(--colorSecondary);
+    border: 1px solid var(--colorAccent);
+    line-height: 2em;
+}
+
+#index section.normal {
+    margin-block: 2em;
 }
 
 

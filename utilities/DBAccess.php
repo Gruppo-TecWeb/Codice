@@ -57,7 +57,7 @@ class DBAccess {
         }
     }
 
-    public function getListaEventi($data = '', $titolo = '') {
+    public function getListaEventi($data = '', $titolo = '', $ascendente = true) {
         $query = "SELECT e.Id,
         e.Titolo,
         e.Descrizione,
@@ -67,11 +67,12 @@ class DBAccess {
         e.Locandina
         FROM Eventi as e";
         $conditions = [];
-        $conditions[] = $data != '' ? "e.Data >= '$data'" : "e.Data >= '" . date('Y-m-d') . "'";
+        // $conditions[] = $data != '' ? "e.Data >= '$data'" : "e.Data >= '" . date('Y-m-d') . "'";
+        $conditions[] = "e.Data " . ($ascendente ? ">=" : "<=" ) . " '" . ($data != '' ? $data : date('Y-m-d')) . "'";
         if ($titolo != '') {
             $conditions[] = "e.Titolo = '$titolo'";
         }
-        $query .= " WHERE " . implode(' AND ', $conditions) . " ORDER BY Data ASC";
+        $query .= " WHERE " . implode(' AND ', $conditions) . " ORDER BY Data " . ($ascendente ? "ASC" : "DESC");
         return $this->executeQuery($query);
     }
 
