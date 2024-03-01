@@ -327,13 +327,13 @@ footer .logo {
 #index #hero #titolo p {
     padding: calc((100% - var(--menuWidth)) / 2);
     border-bottom: unset;
-    border-top: 2px solid var(--accentColor);
-    border-bottom: 2px solid var(--accentColor);
+    border-top: 2px solid var(--colorAccent);
+    border-bottom: 2px solid var(--colorAccent);
 }
 
 #evento-home {
     padding: 0;
-    background: repeating-linear-gradient( 45deg, var(--accentColor), var(--accentColor) 2px, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0) 10px);
+    background: repeating-linear-gradient( 45deg, var(--colorAccent), var(--colorAccent) 2px, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0) 10px);
 }
 
 #evento-home::before {
@@ -344,7 +344,7 @@ footer .logo {
     padding: 0.5em 1em;
     font-size: 1.5em;
     box-sizing: border-box;
-    background-color: var(--secondaryColor);
+    background-color: var(--colorSecondary);
 }
 
 #evento-home>div {
@@ -354,7 +354,7 @@ footer .logo {
     margin: 1em;
     border: 1px solid;
     border-radius: 4px;
-    background-color: var(--secondaryColor);
+    background-color: var(--colorBackground);
 }
 
 #evento-home>a {
@@ -364,7 +364,7 @@ footer .logo {
     width: 100%;
     box-sizing: border-box;
     text-align: end;
-    background-color: var(--secondaryColor);
+    background-color: var(--colorSecondary);
 }
 
 #evento-home dl {
@@ -384,6 +384,45 @@ footer .logo {
     width: 100%;
     z-index: var(--elevationMiddle);
     border-left: unset;
+}
+
+#eventi-home h3 {
+    padding: 0.5em calc((100% - var(--widthMenu)) / 2);
+}
+
+#eventi-home dl .eventoPrincipaleHome:nth-child(even) {
+    flex-direction: column;
+}
+
+#eventi-home .eventoPrincipaleHome {
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+}
+
+#eventi-home dl dt {
+    writing-mode: unset;
+    padding: 0.5em calc((100% - var(--widthMenu)) / 2);
+}
+
+.ddImg {
+    border: 2px solid var(--colorAccent);
+}
+
+.ddImg img {
+    width: 100%;
+    padding: 0.5em calc((100% - var(--widthMenu)) / 2);
+    object-fit: contain;
+}
+
+.ddImg p {
+    box-sizing: border-box;
+    padding: 0.5em calc((100% - var(--widthMenu)) / 2);
+}
+
+.ddDesc {
+    line-height: unset;
+    padding: 0.5em calc((100% - var(--widthMenu)) / 2);
 }
 
 

@@ -55,8 +55,7 @@ if ($connectionOk) {
             '{titolo}' => $titolo,
             '{data}' => $data,
             '{ora}' => $ora,
-            '{luogo}' => $luogo,
-            '{locandina}' => $locandina
+            '{luogo}' => $luogo
         ]);
     }
     $connection->closeDBConnection();

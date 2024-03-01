@@ -6,14 +6,11 @@
             sociali e culturali, incontri con talenti emergenti e molto altro,
             <a href="{percorso}chi-siamo.php">scopri di più su di noi</a>. Tutti sono invitati a partecipare (gratuitamente) sia come spettatori che come protagonisti sul palco, hai talento o sei interessato? Vieni al prossimo evento.</p>
 
-        {eventoHome}
-        <h3 id="intestazione-evento">{intestazione}{prossimoEvento} Prossimo evento {/prossimoEvento} {ultimoEvento} Ultimo evento avvenuto {/ultimoEvento}{/intestazione}</h3>
         <div id="evento-home">
+            {eventoHome}
+            <h3>{intestazione}{prossimoEvento} Prossimo evento {/prossimoEvento} {ultimoEvento} Ultimo evento avvenuto {/ultimoEvento}{/intestazione}</h3>
             <div>
                 <h4>{titolo}</h4>
-                <img src="{percorso}assets/media/locandine/{locandina}">
-            </div>
-            <div>
                 <dl>
                     <dt>Data:</dt>
                     <dd><time datetime="{data}">{data}</time></dd>
@@ -22,9 +19,9 @@
                     <dt>Luogo:</dt>
                     <dd>{luogo}</dd>
                 </dl>
-                <a id="evento-link" href="evento.php?id={id}">Più informazioni</a>
-            </div>
-            <a id="eventi-link" href="{percorso}eventi.php">Guarda tutti gli eventi</a> {/eventoHome}
+                <a href="evento.php?id={id}">Più informazioni</a>
+            </div> {/eventoHome}
+            <a href="{percorso}eventi.php">Guarda tutti gli eventi</a>
         </div>
 
     </div>

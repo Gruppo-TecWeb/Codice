@@ -525,17 +525,14 @@ footer #footer-credits {
 
 #evento-home {
     position: relative;
-    display: flex;
     height: 100%;
-    flex-direction: row;
-    box-sizing: border-box;
     padding-left: 2%;
+    overflow: hidden;
 }
 
 #evento-home::before {
     content: '';
     position: absolute;
-    display: flex;
     top: 0;
     left: 0;
     height: 100%;
@@ -544,34 +541,55 @@ footer #footer-credits {
     background: repeating-linear-gradient( 45deg, var(--colorAccent), var(--colorAccent) 2px, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0) 10px);
 }
 
-#index #hero h3#intestazione-evento {
+#index #hero #evento-home h3 {
     padding: 0.5em 1em;
     font-size: 1.5em;
     background-color: unset;
     z-index: var(--elevationHigh);
 }
 
-#index #hero #evento-home h4 {
-    padding: 0.5em 1em;
+#evento-home>div {
+    width: 55%;
+    max-height: 85%;
+    border: 1px solid;
+    border-radius: 4px;
+    padding-bottom: 1em;
+    overflow: hidden;
+    z-index: var(--elevationMiddle);
+}
+
+#evento-home>div>a {
+    display: inline;
+    width: 100%;
+    padding: 1em;
     box-sizing: border-box;
+    text-align: end;
+}
+
+#index #hero #evento-home h4 {
+    background-color: var(--colorSecondary);
+    padding: 0.2em 1em;
+    box-sizing: border-box;
+    border: 1px solid;
     font-size: 1.25em;
+    text-align: center;
 }
 
 #evento-home img {
-    width: 20%;
-    padding: 1.5em;
-    box-sizing: border-box;
-    object-fit: contain;
+    display: inline-block;
+    width: 50%;
+    aspect-ratio: 1;
+    float: left;
 }
 
 #evento-home dl {
     display: inline-grid;
     grid-template-columns: auto 1fr;
-    height: min-content;
-    gap: 0.5em 1em;
-    padding: 1em;
+    width: 50%;
+    gap: 0 1em;
+    padding: 0.2em 0.5em;
     box-sizing: border-box;
-    color: var(--txtColor);
+    color: var(--colorText);
     font-size: 1.25em;
 }
 
@@ -579,12 +597,10 @@ footer #footer-credits {
     font-weight: bold;
 }
 
-#evento-link {
-    text-align: right;
-}
-
-#eventi-link {
-    text-align: right;
+#evento-home>a {
+    position: absolute;
+    bottom: 3em;
+    right: 3em;
 }
 
 #hero-image {
@@ -626,7 +642,6 @@ footer #footer-credits {
 #eventi-home dl dt {
     font-weight: bold;
     font-size: 1.25em;
-    grid-column: 1;
     writing-mode: vertical-lr;
     color: var(--colorTextOnAccent);
     background-color: var(--colorAccent);
