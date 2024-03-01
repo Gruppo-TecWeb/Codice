@@ -135,7 +135,7 @@ header .logo {
 
 #menu.js[data-menu-open="false"] {
     transform: translate(-50%, 200%);
-    opacity: 0.1;
+    opacity: 0.8;
     transition: transform 0.3s, opacity 0.3s;
 }
 
@@ -168,9 +168,9 @@ header .logo {
     display: block;
     padding: unset;
     border: unset;
-    background-color: unset;
     font-size: 1.5em;
     font-weight: bold;
+    background-color: var(--colorSecondary);
 }
 
 #menu.js .menuItem {
@@ -229,6 +229,7 @@ header .logo {
 #breadcrumbs p #ti-trovi-in {
     position: absolute;
     text-indent: -999em;
+    background-color: var(--colorSecondary);
 }
 
 #btn-menu {
@@ -666,7 +667,7 @@ label {
  * PAGINA CLASSIFICHE 
  */
 
-.div-classifica {
+div.div-classifica {
     flex-direction: column-reverse;
 }
 
@@ -701,3 +702,13 @@ div#Fungo {
 /* 
  * PAGINA CHI SIAMO
  */
+
+#chi-siamo-container .eventi-container {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+}
+
+#chi-siamo-container #info-eventi {
+    padding: unset;
+}

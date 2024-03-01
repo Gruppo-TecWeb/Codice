@@ -7,7 +7,7 @@
         <fieldset>
             <legend>Puoi visualizzare le classifiche passate dal nostro archivio:</legend>
             <label for="classifica">Classifica: </label>
-            <select id="classifica" name="classifica">
+            <select id="classifica" name="classifica" autocomplete="off">
                 {listaClassificheDefault}<option value="Scegli la classifica" selected>Scegli la classifica</option>
                 {/listaClassificheDefault}{listaClassifiche}<option value="{tipoEvento}{.}{dataInizio}"{selezioneClassifica}>{opzioneClassifica}</option>
                 {/listaClassifiche}

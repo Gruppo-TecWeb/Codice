@@ -29,13 +29,17 @@ function toggleMenu() {
     document.body.setAttribute("data-menu-open", menuOpened);
 }
 
+/*
+ * PAGINA BEATS
+ */
+
 function init_index() {
     const logo = document.querySelector('header a h1');
     const hero = document.querySelector('#hero h2');
 
     logo.classList.add('js');
 
-    document.querySelector('header>a').removeAttribute('href');
+    document.querySelector('header>a').setAttribute('href', '#content');
 
     window.addEventListener('scroll', function() {
         var position = hero.getBoundingClientRect();

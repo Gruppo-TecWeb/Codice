@@ -24,7 +24,7 @@
 }
 
 @media screen and (min-width: 2560px) {
-    :root {
+     :root {
         --widthMax: 1800px;
     }
 }
@@ -337,6 +337,8 @@ header>a {
 }
 
 #menu h2 {
+    background-color: var(--colorSecondary);
+    color: var(--colorText);
     position: absolute;
     text-indent: -999em;
 }
@@ -447,6 +449,11 @@ footer #footer-credits {
 #index #breadcrumbs-container {
     position: absolute;
     text-indent: -999em;
+    background-color: var(--colorSecondary);
+}
+
+#index #breadcrumbs-container span {
+    background-color: var(--colorSecondary);
 }
 
 #index {
@@ -466,7 +473,7 @@ footer #footer-credits {
     overflow: hidden;
     text-indent: 120%;
     white-space: nowrap;
-    opacity: 0.1;
+    /* opacity: 0.1; */
 }
 
 #index header a h1.logo.js.scrolled {
@@ -797,6 +804,7 @@ footer #footer-credits {
     width: 2em;
     height: 2em;
     text-align: center;
+    color: var(--colorLinkVisited);
     border-radius: 3px;
     border: 1px solid var(--colorAccent);
     background-color: var(--colorLinkHoverBackground);
@@ -1066,6 +1074,7 @@ audio::-webkit-media-controls-play-button {
     border-top: 2px dashed var(--colorAccent);
     padding: 1em;
     align-self: baseline;
+    background-color: var(--colorSecondary);
 }
 
 #lista_beats .descBeats[data-show="false"] {
@@ -1120,6 +1129,8 @@ audio::-webkit-media-controls-play-button {
     margin: 1em;
     min-width: 48%;
     text-align: right;
+    height: fit-content;
+    background: radial-gradient(#000000, 82%, #00000000);
 }
 
 table#tabella-classifica {
@@ -1171,6 +1182,7 @@ div.div-classifica {
     justify-content: space-between;
 }
 
+
 /*
 * CHI SIAMO
 */
@@ -1184,8 +1196,6 @@ div.div-classifica {
 
 #chi-siamo-container section,
 div#introduzione {
-    display: flex;
-    flex-direction: column;
     padding: 1.25em;
     background-color: var(--colorSecondary);
     border-radius: 0.5em;
@@ -1209,7 +1219,7 @@ div#introduzione {
     padding: 1em;
 }
 
-#chi-siamo-container #info-eventi{
+#chi-siamo-container #info-eventi {
     padding: 1em;
 }
 
@@ -1222,8 +1232,9 @@ div#introduzione {
     background-repeat: no-repeat;
     background-position: center;
     width: 100%;
-    height: 50%; 
+    height: 50%;
 }
+
 
 /* 
  * AREA DI AMMINISTRAZIONE 
