@@ -19,16 +19,6 @@ $keywords = 'profilo, amministrazione, admin, restraining stirpe, freestyle, fre
 $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
-$errori = '';
-$username = '';
-$email = '';
-$formEmail = '';
-$formModificaEmail = '';
-$formModificaPassword = '';
-$messaggioProfilo = '';
-$messaggioForm = '';
-$messaggiProfilo = '';
-$messaggiForm = '';
 
 if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
@@ -38,6 +28,12 @@ $connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
 
 if ($connectionOk) {
+    $errori = '';
+    $formEmail = '';
+    $formModificaEmail = '';
+    $formModificaPassword = '';
+    $messaggiProfilo = '';
+    $messaggiForm = '';
     $utente = $_SESSION["datiUtente"];
     $username = $utente["Username"];
     $email = $utente["Email"];

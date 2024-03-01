@@ -19,8 +19,6 @@ $keywords = '';
 $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
-$messaggiForm = '';
-$righeTabella = '';
 
 if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
@@ -30,7 +28,9 @@ $connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
 
 if ($connectionOk) {
+    $messaggiForm = '';
     $messaggioForm = get_content_between_markers($content, 'messaggioForm');
+    $righeTabella = '';
 
     if (isset($_GET['errore'])) {
         $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);

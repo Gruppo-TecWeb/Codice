@@ -1,0 +1,44 @@
+<div id="classifiche" class="limitedWidth">
+    <h3>Gestione Classifiche</h3>
+
+    <!-- Form per aggiungere o modificare classifiche -->
+
+    {messaggiForm}<ul>
+        {messaggioForm}<li>{messaggio}</li>{/messaggioForm}
+    </ul>
+    {/messaggiForm}
+    
+    <form method="post" action="gestione-classifiche.php">
+        <fieldset>
+            <legend>{legend}</legend>
+            <label for="tipoEvento">Tipo Evento:</label>
+            <select id="tipoEvento" name="nuovoTipoEvento" required>
+                <option value=""{selezioneDefault} disabled>Scegli il tipo evento</option>
+                {listaTipoEvento}<option value="{tipoEvento}"{selezioneTipoEvento}>{tipoEvento}</option>
+                {/listaTipoEvento}
+            </select>
+            <label for="dataInizio">Data Inizio:</label>
+            <input type="date" id="dataInizio" name="nuovaDataInizio" value="{nuovaDataInizio}" required>
+            <label for="dataFine">Data Fine:</label>
+            <input type="date" id="dataFine" name="nuovaDataFine" value="{nuovaDataFine}" required>
+            <input type="hidden" name="tipoEvento" value="{tipoEvento}">
+            <input type="hidden" name="dataInizio" value="{dataInizio}">
+            <input type="hidden" name="azione" value="{valueAzione}">
+
+        <!-- Pulsante per visualizzare gli eventi disponibili -->
+        <button type="submit" name="mostraEventi" value="true">Visualizza Eventi Abbinabili</button>
+    </fieldset>
+    
+    <!-- Elenco degli Eventi già associati o associabili alla Classifica -->
+    <fieldset>
+        <legend>Associa Eventi</legend>
+        <ul>
+            {listaEventi}<li><input type="checkbox" id="evento{idEvento}" name="eventi[]" value="{idEvento}"{eventoChecked}>
+            <label for="evento{idEvento}">{titoloEvento} <time datetime="{dataEvento}">{dataVisualizzataEvento}</time></label></li>
+            {/listaEventi}{nessunEvento}<li>Nessun evento da mostrare</li>{/nessunEvento}
+        </ul>
+    </fieldset>
+    
+    <button type="submit" name="conferma" value="true">Conferma</button>
+    </form>
+</div>

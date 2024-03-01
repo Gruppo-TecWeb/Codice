@@ -19,7 +19,6 @@ $keywords = '';
 $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
-$messaggiForm = '';
 
 if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
@@ -29,6 +28,7 @@ $connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
 
 if ($connectionOk) {
+    $messaggiForm = '';
     $messaggioForm = get_content_between_markers($content, 'messaggioForm');
     $legend = '';
     $legendAggiungi = 'Aggiungi <span lang="en">Rapper</span>';
@@ -37,10 +37,15 @@ if ($connectionOk) {
     $validNuovaEmail = validate_input($_POST['nuovaEmail']);
     $validUsername = validate_input($_POST['username']);
     $validEmail = validate_input($_POST['email']);
-    if ((isset($_POST['nuovoUsername']) && $validNuovoUsername == "") ||
-        (isset($_POST['nuovaEmail']) && $validNuovaEmail == "") ||
-        (isset($_POST['username']) && $validUsername == "") ||
-        (isset($_POST['email']) && $validEmail == "")) {
+    $nuovoUsername = '';
+    $nuovaEmail = '';
+    $username = '';
+    $email = '';
+    $valueAzione = '';
+    if (((isset($_POST['nuovoUsername']) && $_POST['nuovoUsername'] != "") && $validNuovoUsername == "") ||
+        ((isset($_POST['nuovaEmail']) && $_POST['nuovaEmail'] != "") && $validNuovaEmail == "") ||
+        ((isset($_POST['username']) && $_POST['username'] != "") && $validUsername == "") ||
+        ((isset($_POST['email']) && $_POST['email'] != "") && $validEmail == "")) {
         header("location: rappers.php?errore=invalid");
     }
     $errore = '0';
@@ -66,8 +71,8 @@ if ($connectionOk) {
     } elseif (isset($_POST['conferma'])) {
         $nuovoUsername = $validNuovoUsername;
         $nuovaEmail = $validNuovaEmail;
-        $username = $_POST['errore'] ? $validUsername : $validNuovoUsername;
-        $email = $_POST['errore'] ? $validEmail : $validNuovaEmail;
+        $username = $validUsername;
+        $email = $validEmail;
         if ($_POST['azione'] == 'aggiungi') {
             $errore = '0';
             $legend = $legendAggiungi;
@@ -81,12 +86,12 @@ if ($connectionOk) {
             } else {
                 if ($erroreUsername == '1') {
                     $messaggiForm .= multi_replace($messaggioForm, [
-                        '{messaggio}' => "Username già in uso"
+                        '{messaggio}' => "Nome d'arte già utilizzato"
                     ]);
                 }
                 if ($erroreEmail == '1') {
                     $messaggiForm .= multi_replace($messaggioForm, [
-                        '{messaggio}' => "Email già registrata"
+                        '{messaggio}' => "<span lang=\"en\">E-Mail</span> già registrata"
                     ]);
                 }
             }
@@ -119,12 +124,12 @@ if ($connectionOk) {
             } else {
                 if ($erroreUsername == '1') {
                     $messaggiForm .= multi_replace($messaggioForm, [
-                        '{messaggio}' => "Username già in uso"
+                        '{messaggio}' => "Nome d'arte già utilizzato"
                     ]);
                 }
                 if ($erroreEmail == '1') {
                     $messaggiForm .= multi_replace($messaggioForm, [
-                        '{messaggio}' => "Email già registrata"
+                        '{messaggio}' => "<span lang=\"en\">E-Mail</span> già registrata"
                     ]);
                 }
             }
@@ -144,8 +149,7 @@ if ($connectionOk) {
         '{nuovaEmail}' => $nuovaEmail,
         '{username}' => $username,
         '{email}' => $email,
-        '{valueAzione}' => $valueAzione,
-        '{valueErrore}' => $errore
+        '{valueAzione}' => $valueAzione
     ]);
     $content = replace_content_between_markers($content, [
         'messaggiForm' => $messaggiForm

@@ -60,14 +60,14 @@ if ($connectionOk) {
         }
         if ($password == "") {
             $errore = true;
-            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Inserire Password"]);
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Inserire <span lang=\"en\">Password</span>"]);
         } elseif ($password != $confermaPassword) {
             $errore = true;
-            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Le password non coincidono"]);
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Le <span lang=\"en\">Password</span> non coincidono"]);
         }
         if ($email == "") {
             $errore = true;
-            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Inserire E-Mail"]);
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Inserire <span lang=\"en\">E-Mail</span>"]);
         }
         if (!$errore) {
             $utenteRegistrato = $connection->insert_utente($username, $password, $email);

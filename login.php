@@ -38,11 +38,11 @@ if ($connectionOk) {
         $password = validate_input($_POST["password"]);
         if ($username == "") {
             $errore = true;
-            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Inserire Username"]);
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Inserire <span lang=\"en\">Username</span>"]);
         }
         if ($password == "") {
             $errore = true;
-            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Inserire Password"]);
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Inserire <span lang=\"en\">Password</span>"]);
         }
         if (!$errore) {
             $utente = $connection->login($username, $password);
@@ -52,7 +52,8 @@ if ($connectionOk) {
                 header("location: admin/index.php");
             } else {
                 $errore = true;
-                $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Username e/o password errati"]);
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{messaggio}' => "<span lang=\"en\">Username</span> e/o <span lang=\"en\">Password</span> errati"]);
             }
         }
         if ($errore) {

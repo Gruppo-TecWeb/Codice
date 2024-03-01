@@ -19,7 +19,6 @@ $keywords = '';
 $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
-$messaggiForm = '';
 
 if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
@@ -29,6 +28,7 @@ $connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
 
 if ($connectionOk) {
+    $messaggiForm = '';
     $messaggioForm = get_content_between_markers($content, 'messaggioForm');
     $legend = '';
     $legendAggiungi = 'Aggiungi Tipo Evento';
@@ -36,9 +36,14 @@ if ($connectionOk) {
     $validNuovoTitolo = validate_input($_POST['nuovoTitolo']);
     $validNuovaDescrizione = validate_input($_POST['nuovaDescrizione']);
     $validTitolo = validate_input($_POST['titolo']);
-    if ((isset($_POST['nuovoTitolo']) && $validNuovoTitolo == "") ||
-        (isset($_POST['nuovaDescrizione']) && $validNuovaDescrizione == "") ||
-        (isset($_POST['titolo']) && $validTitolo == "")) {
+    $nuovoTitolo = '';
+    $nuovaDescrizione = '';
+    $titolo = '';
+    $descrizione = '';
+    $valueAzione = '';
+    if (((isset($_POST['nuovoTitolo']) && $_POST['nuovoTitolo'] != "") && $validNuovoTitolo == "") ||
+        ((isset($_POST['nuovaDescrizione']) && $_POST['nuovaDescrizione'] != "") && $validNuovaDescrizione == "") ||
+        ((isset($_POST['titolo']) && $_POST['titolo'] != "") && $validTitolo == "")) {
         header("location: tipi-evento.php?errore=invalid");
     }
     $errore = '0';
@@ -60,8 +65,8 @@ if ($connectionOk) {
     } elseif (isset($_POST['conferma'])) {
         $nuovoTitolo = $validNuovoTitolo;
         $nuovaDescrizione = $validNuovaDescrizione;
-        $titolo = $_POST['errore'] ? $validTitolo : $validNuovoTitolo;
-        $descrizione = $_POST['errore'] ? $connection->get_tipo_evento($validTitolo)[0]['Descrizione'] : $validNuovaDescrizione;
+        $titolo = $validTitolo;
+        $descrizione = $connection->get_tipo_evento($validTitolo)[0]['Descrizione'];
         if ($_POST['azione'] == 'aggiungi') {
             $errore = '0';
             $legend = $legendAggiungi;
@@ -112,8 +117,7 @@ if ($connectionOk) {
         '{nuovaDescrizione}' => $nuovaDescrizione,
         '{titolo}' => $titolo,
         '{descrizione}' => $descrizione,
-        '{valueAzione}' => $valueAzione,
-        '{valueErrore}' => $errore
+        '{valueAzione}' => $valueAzione
     ]);
     $content = replace_content_between_markers($content, [
         'messaggiForm' => $messaggiForm
