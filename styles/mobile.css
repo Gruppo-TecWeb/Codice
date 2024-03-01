@@ -361,26 +361,11 @@ footer .logo {
     padding-left: 1em;
 }
 
-#index #hero .videoPlayer {
-    width: 100%;
-    border-left: unset;
-}
-
-#index #hero .videoPlayer video {
+#hero-image {
     max-width: unset;
     width: 100%;
     z-index: var(--elevationMiddle);
-}
-
-#index #hero .videoPlayer #btn-video {
-    left: calc((100% - var(--menuWidth)) / 2);
-    border: transparent;
-    background: transparent;
-    fill: var(--accentColor);
-}
-
-#index #hero .videoPlayer #btn-video.playing #play {
-    fill: var(--accentColor);
+    border-left: unset;
 }
 
 
