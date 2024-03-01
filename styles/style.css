@@ -827,7 +827,7 @@ p.eventiMessaggio {
     width: 3em;
     opacity: 0.6;
     border-style: none;
-    background-size: 70%;
+    background-size: 100%;
     color: var(--txtColor);
     background: transparent;
 }
