@@ -157,7 +157,6 @@ function playerAudio(nomeBase) {
 
     if (h3.innerHTML == newTitle) {
         if (pressedButton.title.slice(0, 10) == "Interrompi") {
-            //console.log("pause");
             audio.pause();
             pressedButton.setAttribute("data-isPlaying", "false")
             pressedButton.title = "Riproduci " + newTitle;
@@ -202,12 +201,12 @@ function newBeat(nomeBase) {
 function autoPlay(nomeBase) {
     document.getElementById("autoNext").onclick = function() {
         autoNext = !autoNext;
-        console.log(autoNext);
-        document.getElementById("autoNext").setAttribute("aria-pressed", autoNext);
+        autoRip=document.getElementById("autoNext");
+        autoRip.setAttribute("aria-pressed", autoNext);
     }
     audio.onended = function() {
         if (autoNext) {
-
+            //autoplay.setAttribute("", "true");
             audio.setAttribute("autoplay", "true");
             nextAudio(nomeBase);
         } else {
