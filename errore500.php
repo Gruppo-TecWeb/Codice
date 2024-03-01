@@ -12,11 +12,9 @@ $content = file_get_contents("template/errore500.html");
 $title = 'Errore 500 &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = 'Pagina di errore 500.';
-$keywords = '';
-$percorso = '';
-$percorsoAdmin = 'admin/';
-$menu = get_menu($pageId, $percorso);
-$breadcrumbs = get_breadcrumbs($pageId, $percorso);
+$keywords = 'error 500';
+$menu = get_menu($pageId);
+$breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 $logout = '';
 
@@ -36,7 +34,5 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{content}' => $content,
-    '{onload}' => $onload,
-    '{percorso}' => $percorso,
-    '{percorsoAdmin}' => $percorsoAdmin
+    '{onload}' => $onload
 ]);

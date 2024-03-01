@@ -65,10 +65,8 @@ body {
  * FORM
  */
 
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+fieldset>* {
+    margin: 0.5em 0;
 }
 
 
@@ -667,7 +665,37 @@ label {
  * PAGINA CLASSIFICHE 
  */
 
-div.div-classifica {
+
+/* .adminPage {
+    --widthMenu: 100%;
+    --minWidthMenu: 100%;
+    --marginBottomMenu: 0em;
+    --bordarRadiusCard: 0px;
+} */
+
+.adminPage table th,
+.adminPage table td {
+    padding: 0.1em;
+}
+
+.adminPage table th,
+.adminPage table td {
+    padding: 0.1em;
+}
+
+.adminPage header {
+    height: 3em;
+}
+
+
+/* .adminPage #breadcrumbs-container {
+    --widthMenu: 100%;
+    --minWidthMenu: 100%;
+    --marginBottomMenu: 0em;
+    --bordarRadiusCard: 0px;
+} */
+
+div .div-classifica {
     flex-direction: column-reverse;
 }
 

@@ -10,12 +10,12 @@
     <meta name="author" content="Antonio Benetazzo, Alessandro Bressan, Sebastiano Lewental, Riccardo Zaupa">
     <meta name="theme-color" content="#EF534A">
 
-    <link rel="stylesheet" type="text/css" href="{percorso}styles/style.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="{percorso}styles/mobile.css" media="screen and (max-width:600px)">
-    <link rel="stylesheet" type="text/css" href="{percorso}styles/print.css" media="print">
+    <link rel="stylesheet" type="text/css" href="styles/style.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="styles/mobile.css" media="screen and (max-width:600px)">
+    <link rel="stylesheet" type="text/css" href="styles/print.css" media="print">
 
-    <link rel="shortcut icon" type="images/svg" href="{percorso}assets/icons/fungo.svg">
-    <script src="{percorso}scripts/script.js"></script>
+    <link rel="shortcut icon" type="images/svg" href="assets/icons/fungo.svg">
+    <script src="scripts/script.js"></script>
 </head>
 
 <body id="{pageId}" onload="{onload}" data-menu-open="true">
@@ -26,7 +26,7 @@
                 <li><a class="navigationHelp" href="#menu">Vai al menù principale</a></li>
             </ul>
         </nav>
-        <a href="{percorso}index.php">
+        <a href="index.php">
             <h1 class="logo">Fungo</h1>
         </a>
         <nav id="menu" class="mobileCard" aria-labelledby="menu-title" data-menu-open="true">
@@ -57,8 +57,8 @@
     </main>
     <footer>
         <div id="footer-content" class="limitedWidth">
-            <a href="#content" id="btn-scroll-up" class="iconButton">
-                <span class="navigationHelp">Torna su</span>
+            <a href="#content" id="btn-scroll-up" class="iconButton" title="Torna sù">
+                <span class="navigationHelp">Torna sù</span>
                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M112 244l144-144 144 144M256 120v292"/></svg>
             </a>
             <h2 class="navigationHelp">Informazioni su questo sito</h2>
@@ -70,16 +70,16 @@
             <section>
                 <h3>Su di noi</h3>
                 <ul>
-                    <li><a href="{percorso}chi-siamo.php">Chi siamo</a></li>
+                    <li><a href="chi-siamo.php">Chi siamo</a></li>
                     <li><a href="https://www.instagram.com/fungo.micelio/">Pagina Instagram</a></li>
                 </ul>
             </section>
             <section>
                 <h3>Amministrazione</h3>
                 <ul>
-                    <li><a href="{percorsoAdmin}index.php">Area riservata</a></li>
+                    <li><a href="admin/index.php">Area riservata</a></li>
                     {logout}
-                    <li lang="en"><a href="{percorsoAdmin}logout.php">Logout</a></li>{/logout}
+                    <li lang="en"><a href="logout.php">Logout</a></li>{/logout}
                 </ul>
             </section>
             <section id="footer-credits">
