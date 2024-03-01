@@ -18,7 +18,7 @@ $description = 'Classifiche attuali sulla base dei punteggi ottenuti durante le 
 $keywords = 'classifiche, fungo, micelio, freestyle, rap, freestyle rap, battle';
 $menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
-$onload = 'hideSubmitButtons()';
+$onload = '';
 $logout = '';
 
 $connection = DBAccess::getInstance();

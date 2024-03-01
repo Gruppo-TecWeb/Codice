@@ -29,6 +29,24 @@ function toggleMenu() {
     document.body.setAttribute("data-menu-open", menuOpened);
 }
 
+function init_index() {
+    const logo = document.querySelector('header a h1');
+    const hero = document.querySelector('#hero h2');
+
+    logo.classList.add('js');
+
+    document.querySelector('header>a').removeAttribute('href');
+
+    window.addEventListener('scroll', function() {
+        var position = hero.getBoundingClientRect();
+
+        if (position.bottom < 0) {
+            logo.classList.add('scrolled');
+        } else {
+            logo.classList.remove('scrolled');
+        }
+    });
+}
 
 /*
  * PAGINA EVENTO
@@ -216,17 +234,5 @@ function nextAudio(nomeBase) {
             }
             break;
         }
-    }
-}
-
-
-/*
- * PAGINA CLASSIFICHE
- */
-
-function hideSubmitButtons() {
-    var submitButtons = document.getElementsByClassName("hidden-by-js");
-    for (let i = 0; i < submitButtons.length; i++) {
-        submitButtons[i].classList.add("screenReaderOnly");
     }
 }
