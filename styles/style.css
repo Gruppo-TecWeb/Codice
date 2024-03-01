@@ -337,6 +337,8 @@ header>a {
 }
 
 #menu h2 {
+    background-color: var(--colorSecondary);
+    color: var(--colorText);
     position: absolute;
     text-indent: -999em;
 }
@@ -447,6 +449,12 @@ footer #footer-credits {
 #index #breadcrumbs-container {
     position: absolute;
     text-indent: -999em;
+    background-color: var(--colorSecondary);
+    margin-block: unset;
+}
+
+#index #breadcrumbs-container span {
+    background-color: var(--colorSecondary);
 }
 
 #index {
@@ -466,7 +474,7 @@ footer #footer-credits {
     overflow: hidden;
     text-indent: 120%;
     white-space: nowrap;
-    opacity: 0.1;
+    /* opacity: 0.1; */
 }
 
 #index header a h1.logo.js.scrolled {
@@ -487,7 +495,6 @@ footer #footer-credits {
 #index #hero #titolo {
     width: 100%;
     height: 100%;
-    container-type: size;
     resize: horizontal;
 }
 
@@ -500,7 +507,8 @@ footer #footer-credits {
     cursor: default;
     text-shadow: unset;
     font-family: "Horizontale";
-    font-size: 16cqw;
+    /* font-size: 16cqw; */
+    font-size: 11vw;
     background-color: var(--colorAccent);
 }
 
@@ -538,7 +546,7 @@ footer #footer-credits {
     height: 100%;
     width: 2%;
     box-sizing: border-box;
-    background: repeating-linear-gradient( 45deg, var(--colorAccent), var(--colorAccent) 2px, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0) 10px);
+    background: repeating-linear-gradient(45deg, var(--accentColor), var(--accentColor) 2px, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0) 10px);
 }
 
 #index #hero #evento-home h3 {
@@ -598,7 +606,7 @@ footer #footer-credits {
 
 #hero-image {
     height: 100vh;
-    width: 42em;
+    width: 48em;
     max-width: 40vw;
     border-left: 2px solid var(--colorAccent);
     background-size: cover;
@@ -721,11 +729,12 @@ footer #footer-credits {
     margin: auto;
 }
 
-@media screen and (min-width: var(--widthMax)) {
+
+/* @media screen and (min-width: var(--widthMax)) {
     #lista-eventi {
         grid-template-columns: repeat(auto-fill, minmax(25em, 1fr));
     }
-}
+} */
 
 #lista-eventi li {
     border: 1px solid var(--colorAccent);
@@ -797,6 +806,7 @@ footer #footer-credits {
     width: 2em;
     height: 2em;
     text-align: center;
+    color: var(--colorLinkVisited);
     border-radius: 3px;
     border: 1px solid var(--colorAccent);
     background-color: var(--colorLinkHoverBackground);
@@ -1030,7 +1040,7 @@ audio::-webkit-media-controls-play-button {
 
 #lista_beats .btnDesc {
     padding: 0 1em;
-    text-wrap: nowrap;
+    white-space: nowrap;
 }
 
 #lista_beats .beat:hover .btnPlay[data-isPlaying="false"] {
@@ -1060,12 +1070,17 @@ audio::-webkit-media-controls-play-button {
     margin: 1em;
 }
 
+#lista_beats .descBeats span {
+    background-color: var(--colorSecondary);
+}
+
 #lista_beats .descBeats {
     width: 100%;
     box-sizing: border-box;
     border-top: 2px dashed var(--colorAccent);
     padding: 1em;
     align-self: baseline;
+    background-color: var(--colorSecondary);
 }
 
 #lista_beats .descBeats[data-show="false"] {
@@ -1097,6 +1112,22 @@ audio::-webkit-media-controls-play-button {
     width: 100%;
 }
 
+#autoNext[aria-pressed="false"] {
+    cursor: pointer;
+    padding: 0.5em 0.8em;
+    border-radius: 3px;
+    font-weight: bold;
+    border: 1px solid var(--colorAccent);
+    color: var(--colorTextOnAccent);
+    background-color: var(--colorAccent);
+    /* transition: 0.3s; */
+}
+
+#autoNext[aria-pressed="true"] {
+    background-color: var(--colorSecondary);
+    color: var(--colorAccent);
+}
+
 
 /* 
  * PAGINA CLASSIFICHE 
@@ -1120,6 +1151,8 @@ audio::-webkit-media-controls-play-button {
     margin: 1em;
     min-width: 48%;
     text-align: right;
+    height: fit-content;
+    background: radial-gradient(#000000, 82%, #00000000);
 }
 
 table {
@@ -1164,6 +1197,67 @@ div#Micelio {
 
 div#Fungo {
     background-image: radial-gradient(closest-side at 82%, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), url(../assets/media/fungo_classifica.jpg);
+}
+
+div.div-classifica {
+    background-repeat: no-repeat;
+    background-position-x: right;
+    background-size: contain;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+
+/*
+* CHI SIAMO
+*/
+
+#chi-siamo-container h3 {
+    padding: 0.5em;
+    background: var(--colorSecondary);
+    border-bottom: 2px solid var(--colorAccent);
+    line-height: 1.5em;
+}
+
+#chi-siamo-container section,
+div#introduzione {
+    padding: 1.25em;
+    background-color: var(--colorSecondary);
+    border-radius: 0.5em;
+    box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.1);
+    margin-bottom: 0.9375em;
+}
+
+#chi-siamo-container .text-container {
+    margin-top: 1em;
+}
+
+#chi-siamo-container #eventi img {
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+#chi-siamo-container .eventi-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: 1em;
+}
+
+#chi-siamo-container #info-eventi {
+    padding: 1em;
+}
+
+#chi-siamo-container #comunita-container {
+    margin-top: 1em;
+}
+
+#chi-siamo-container #comunita img {
+    margin-top: 1em;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: 50%;
 }
 
 

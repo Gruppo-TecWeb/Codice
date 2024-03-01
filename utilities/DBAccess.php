@@ -68,7 +68,7 @@ class DBAccess {
         FROM Eventi as e";
         $conditions = [];
         // $conditions[] = $data != '' ? "e.Data >= '$data'" : "e.Data >= '" . date('Y-m-d') . "'";
-        $conditions[] = "e.Data " . ($ascendente ? ">=" : "<=" ) . " '" . ($data != '' ? $data : date('Y-m-d')) . "'";
+        $conditions[] = "e.Data " . ($ascendente ? ">=" : "<=") . " '" . ($data != '' ? $data : date('Y-m-d')) . "'";
         if ($titolo != '') {
             $conditions[] = "e.Titolo = '$titolo'";
         }
