@@ -196,6 +196,17 @@ button,
     /* transition: 0.3s; */
 }
 
+button:disabled {
+    border: 1px solid var(--colorUnfocusedText);
+    background-color: var(--colorUnfocusedText);
+    cursor: not-allowed;
+}
+
+button:disabled:hover {
+    border: 1px solid var(--colorUnfocusedText);
+    background-color: var(--colorUnfocusedText);
+}
+
 button:hover,
 .button:hover,
 button:focus,
@@ -1155,32 +1166,37 @@ audio::-webkit-media-controls-play-button {
     background: radial-gradient(#000000, 82%, #00000000);
 }
 
-table#tabella-classifica {
+table {
+    width: 100%;
     min-width: 48%;
     border-collapse: collapse;
 }
 
-table#tabella-classifica caption {
+table caption {
     font-size: 1.5em;
     margin-bottom: 0.5em;
 }
 
-table#tabella-classifica thead {
+table thead {
     background-color: var(--colorAccent);
     color: var(--colorTextOnAccent);
 }
 
-table#tabella-classifica th,
-table#tabella-classifica td {
+table th,
+table td {
     padding: 0.3em 0.5em;
 }
 
-table#tabella-classifica th {
+table th {
     text-align: left;
 }
 
-table#tabella-classifica tbody tr:nth-child(odd) {
+table tbody tr:nth-child(odd) {
     background-color: var(--colorSecondary);
+}
+
+table tbody tr:hover {
+    background-color: var(--colorLinkHoverBackground);
 }
 
 table#tabella-classifica .classifica-punti {
@@ -1261,6 +1277,33 @@ div#introduzione {
  * AREA DI AMMINISTRAZIONE 
  */
 
+.adminPage {
+    --colorBackground: #191919;
+    padding-top: calc(2 * 0.6em + 2 * 3px + 1em + 1.5em + 1em);
+}
+
+.adminPage header {
+    height: calc(2 * 0.6em + 2 * 3px + 1em + 1.5em);
+    align-items: center;
+    /* background-color: var(--colorSecondary);
+    border: 2px solid var(--colorAccent); */
+}
+
+.adminPage header>a {
+    margin-inline: 1em 0;
+    text-decoration-color: var(--colorTextOnAccent);
+}
+
+.adminPage header h1 {
+    font-size: 1.5rem;
+    color: var(--colorTextOnAccent);
+    text-wrap: nowrap;
+}
+
+.adminPage header>* {
+    transform: unset;
+}
+
 div#admin-window {
     display: flex;
     flex-direction: row;
@@ -1300,6 +1343,10 @@ div#admin-window {
     color: var(--colorLinkVisited);
     border-left: 1px solid var(--colorAccent);
     border-radius: 3px;
+}
+
+#eventi img {
+    width: 15em;
 }
 
 

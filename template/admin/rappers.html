@@ -1,7 +1,43 @@
-<div id="rappers">
-    <h3>Gestione Rappers</h3>
-    <table>
-        <!-- Inserisci qui le righe della tabella con i dettagli degli utenti rappers -->
-    </table>
-    <button>Aggiungi Rapper</button>
-</div>
+<div id="rappers" class="limitedWidth">
+            <h3>Gestione Rappers</h3>
+            <form method="post" action="gestione-rappers.php">
+                <button type="submit" name="aggiungi" value="true">Aggiungi nuovo Rapper</button>
+            </form>
+
+            {messaggiForm}<ul>
+                {messaggioForm}<li>{messaggio}</li>{/messaggioForm}
+            </ul>
+            {/messaggiForm}
+
+            <!-- Tabella che elenca i rappers esistenti con possibilità di modificarli o eliminarli. -->
+            <span id="sumTabella" class="navigationHelp">Tabella che elenca i <span lang="en">rappers</span>
+                esistenti con l'indicazione del nome d'arte del <span lang="en">freestyler</span> e l'indirizzo
+                <span lang="en">E-Mail</span>. Per ciascuna riga sono presenti anche dei bottoni 
+                che permettono di modificare quel <span lang="en">rapper</span> o di eliminarlo.</span>
+            <table id="tabella-rappers" aria-describedby="sumTabella">
+                <caption><span lang="en">Rappers</span> presenti</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Nome d'arte</th>
+                        <th scope="col" lang="en">E-Mail</th>
+                        <th scope="col">Azioni</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {rigaTabella}
+                    <tr>
+                        <td data-title="Nome d'arte">{username}</td>
+                        <td data-title="E-Mail">{email}</td>
+                        <td data-title="Azioni">
+                            <form method="post" action="gestione-rappers.php">
+                                <input type="hidden" name="username" value="{username}">
+                                <input type="hidden" name="email" value="{email}">
+                                <button type="submit" name="modifica" value="true">Modifica</button>
+                                <button type="submit" name="elimina" value="true">Elimina</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {/rigaTabella}
+                </tbody>
+            </table>
+        </div>

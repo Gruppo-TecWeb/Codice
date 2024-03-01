@@ -76,6 +76,12 @@ class DBAccess {
         return $this->executeQuery($query);
     }
 
+    public function getEventi() {
+        return $this->executeQuery(
+            "SELECT * FROM Eventi ORDER BY Data DESC;"
+        );
+    }
+
     public function getEventiSelezionabili($dataInizio, $dataFine) {
         $query = "SELECT *
         FROM Eventi
@@ -118,6 +124,38 @@ class DBAccess {
         return ($ris = $this->executeQuery($query, $id)) ? $ris[0] : null;
     }
 
+    public function insert_evento($titolo, $descrizione, $data, $ora, $luogo, $locandina) {
+        return $this->executeQuery(
+            "INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES (?, ?, ?, ?, ?, ?);",
+            $titolo,
+            $descrizione,
+            $data,
+            $ora,
+            $luogo,
+            $locandina
+        );
+    }
+
+    public function update_evento($id, $titolo, $descrizione, $data, $ora, $luogo, $locandina) {
+        return $this->executeQuery(
+            "UPDATE Eventi SET Titolo = ?, Descrizione = ?, Data = ?, Ora = ?, Luogo = ?, Locandina = ? WHERE Id = ?;",
+            $titolo,
+            $descrizione,
+            $data,
+            $ora,
+            $luogo,
+            $locandina,
+            $id
+        );
+    }
+
+    public function delete_evento($id) {
+        return $this->executeQuery(
+            "DELETE FROM Eventi WHERE Id = ?;",
+            $id
+        );
+    }
+
     public function getTitoliEventi() {
         return $this->executeQuery(
             "SELECT DISTINCT Titolo FROM Eventi;"
@@ -131,12 +169,12 @@ class DBAccess {
 
     public function getTipiEvento() {
         return $this->executeQuery(
-            "SELECT * FROM TipiEvento;"
+            "SELECT * FROM TipiEvento ORDER BY Titolo;"
         );
     }
 
-    public function get_tipo_evento($evento = null) {
-        $query = $evento ?
+    public function get_tipo_evento($titolo = null) {
+        $query = $titolo ?
             "SELECT * FROM TipiEvento WHERE Titolo = ?;" :
             "SELECT TipiEvento.Titolo, 
              TipiEvento.Descrizione
@@ -145,20 +183,44 @@ class DBAccess {
              JOIN Eventi ON ClassificheEventi.Evento = Eventi.id
              ORDER BY Eventi.Data DESC
              LIMIT 1;";
-        $res = $evento ? $this->executeQuery($query, $evento) : $this->executeQuery($query);
+        $res = $titolo ? $this->executeQuery($query, $titolo) : $this->executeQuery($query);
         return $res ? $res[0] : null;
+    }
+
+    public function insert_tipo_evento($titolo, $descrizione) {
+        return $this->executeQuery(
+            "INSERT INTO TipiEvento (Titolo, Descrizione) VALUES (?, ?);",
+            $titolo,
+            $descrizione
+        );
+    }
+
+    public function update_tipo_evento($oldTitolo, $newTitolo, $newDescrizione) {
+        return $this->executeQuery(
+            "UPDATE TipiEvento SET Titolo = ?, Descrizione = ? WHERE Titolo = ?;",
+            $newTitolo,
+            $newDescrizione,
+            $oldTitolo
+        );
+    }
+
+    public function delete_tipo_evento($titolo) {
+        return $this->executeQuery(
+            "DELETE FROM TipiEvento WHERE Titolo = ?;",
+            $titolo
+        );
     }
 
     public function get_classifiche($tipoEvento = null, $dataInizio = null) {
         if ($tipoEvento && $dataInizio) {
             return $this->executeQuery(
-                "SELECT * FROM Classifiche WHERE TipoEvento = ? AND DataInizio = ?;",
+                "SELECT * FROM Classifiche WHERE TipoEvento = ? AND DataInizio = ? ORDER BY DataInizio DESC;",
                 $tipoEvento,
                 $dataInizio
             );
         } else {
             return $this->executeQuery(
-                "SELECT * FROM Classifiche;"
+                "SELECT * FROM Classifiche ORDER BY DataInizio DESC;"
             );
         }
     }
@@ -265,12 +327,39 @@ class DBAccess {
         )) ? $ris[0] : null;
     }
 
-    public function register($username, $password, $email) {
+    public function get_utenti() {
         return $this->executeQuery(
-            "INSERT INTO Utenti (Username, Password, Email) VALUES (?, ?,?);",
+            "SELECT * FROM Utenti ORDER BY Username;"
+        );
+    }
+
+    public function get_utenti_base() {
+        return $this->executeQuery(
+            "SELECT * FROM Utenti WHERE Admin = 'N' ORDER BY Username;"
+        );
+    }
+
+    public function get_utenti_admin() {
+        return $this->executeQuery(
+            "SELECT * FROM Utenti WHERE Admin = 'S' ORDER BY Username;"
+        );
+    }
+
+    public function insert_utente($username, $password, $email, $admin = 'N') {
+        return $this->executeQuery(
+            "INSERT INTO Utenti (Username, Password, Email, Admin) VALUES (?, ?, ?, ?);",
             $username,
             password_hash($password, PASSWORD_BCRYPT),
-            $email
+            $email,
+            $admin
+        );
+    }
+
+    public function change_username($oldUsername, $newUsername) {
+        return $this->executeQuery(
+            "UPDATE Utenti SET Username = ? WHERE Username = ?;",
+            $newUsername,
+            $oldUsername
         );
     }
 
@@ -286,6 +375,22 @@ class DBAccess {
         return $this->executeQuery(
             "UPDATE Utenti SET Password = ? WHERE Username = ?;",
             password_hash($newPassword, PASSWORD_BCRYPT),
+            $username
+        );
+    }
+
+    public function update_user($oldUsername, $newUsername, $newEmail) {
+        return $this->executeQuery(
+            "UPDATE Utenti SET Username = ?, Email = ? WHERE Username = ?;",
+            $newUsername,
+            $newEmail,
+            $oldUsername
+        );
+    }
+
+    public function delete_user($username) {
+        return $this->executeQuery(
+            "DELETE FROM Utenti WHERE Username = ?;",
             $username
         );
     }

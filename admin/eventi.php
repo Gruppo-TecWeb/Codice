@@ -9,56 +9,78 @@ use DB\DBAccess;
 
 session_start();
 
-$paginaHTML = file_get_contents("../template/template-pagina.html");
-$content = file_get_contents("../template/admin/template-pagina-admin.html");
-$adminContent = file_get_contents("../template/admin/eventi.html");
+$paginaHTML = file_get_contents("../template/admin/template-admin.html");
+$content = file_get_contents("../template/admin/eventi.html");
 
-$title = 'Tipi Evento &minus; Fungo';
+$title = 'Admin &minus; Eventi &minus; Fungo';
 $pageId = 'admin/' . basename(__FILE__, '.php');
 $description = '';
 $keywords = '';
-$percorso = '../';
-$percorsoAdmin = '';
-$menu = get_menu($pageId, $percorso);
-$adminMenu = get_admin_menu($pageId);
-$breadcrumbs = get_breadcrumbs($pageId, $percorso);
+$menu = get_admin_menu($pageId);
+$breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
-$logout = '';
 
 if (!isset($_SESSION["login"])) {
-    header("location: login.php");
+    header("location: ../login.php");
 }
 
 $connection = DBAccess::getInstance();
 $connectionOk = $connection->openDBConnection();
 
 if ($connectionOk) {
-    // fare quello che c'è da fare...
-    $connection->closeDBConnection();
-    $content = multi_replace(replace_content_between_markers($content, [
-        'adminMenu' => $adminMenu
-    ]), [
-        '{adminContent}' => $adminContent,
+    $messaggiForm = '';
+    $messaggioForm = get_content_between_markers($content, 'messaggioForm');
+    $righeTabella = '';
+
+    if (isset($_GET['errore'])) {
+        $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);
+    }
+
+    if (isset($_GET['eliminato'])) {
+        if ($_GET['eliminato'] == 0) {
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore nell'eliminazione dell'Evento"]);
+        } else {
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Evento eliminato correttamente"]);
+        }
+    } elseif (isset($_GET['aggiunto'])) {
+        $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Evento aggiunto correttamente"]);
+    } elseif (isset($_GET['modificato'])) {
+        $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Evento modificato correttamente"]);
+    }
+
+    $eventi = $connection->getEventi();
+    $rigaTabella = get_content_between_markers($content, 'rigaTabella');
+
+    foreach ($eventi as $evento) {
+        $righeTabella .= multi_replace($rigaTabella, [
+            '{titolo}' => $evento['Titolo'],
+            '{dataVisualizzata}' => date_format(date_create($evento['Data']), 'd/m/y'),
+            '{oraVisualizzata}' => date_format(date_create($evento['Ora']), 'G:i'),
+            '{luogo}' => $evento['Luogo'],
+            '{idEvento}' => $evento['Id'],
+            '{data}' => $evento['Data'],
+            '{ora}' => $evento['Ora'],
+        ]);
+    }
+
+    $content = replace_content_between_markers($content, [
+        'rigaTabella' => $righeTabella,
+        'messaggiForm' => $messaggiForm
     ]);
+
+    $connection->closeDBConnection();
 } else {
     header("location: ../errore500.php");
 }
 
-if (isset($_SESSION["login"])) {
-    $logout = get_content_between_markers($paginaHTML, 'logout');
-}
-
 echo multi_replace(replace_content_between_markers($paginaHTML, [
     'breadcrumbs' => $breadcrumbs,
-    'menu' => $menu,
-    'logout' => $logout
+    'menu' => $menu
 ]), [
     '{title}' => $title,
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{content}' => $content,
-    '{onload}' => $onload,
-    '{percorso}' => $percorso,
-    '{percorsoAdmin}' => $percorsoAdmin
+    '{onload}' => $onload
 ]);

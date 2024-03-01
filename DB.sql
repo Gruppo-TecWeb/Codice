@@ -89,8 +89,8 @@ INSERT INTO Utenti (Username, Password, Email) VALUES ('DjSeef', '', 'djseef@fun
 INSERT INTO Utenti (Username, Password, Email) VALUES ('Ange', '', 'ange@fungo.it');
 INSERT INTO Utenti (Username, Password, Email) VALUES ('T-Brex', '', 'tbrex@fungo.it');
 
-INSERT INTO TipiEvento (Titolo, Descrizione) VALUES ('Fungo', 'Il Fungo prende il nome dall''iconica struttura presente in piazza zanellato a Padova, dove ha luogo solitamente ogni martedì. Si tratta di una serie di eventi legati al mondo <span lang="en">rap freestyle</span> durante i quali si svolgono delle battle tra i vari partecipanti. Le classifiche sono i risultati di questi incontri.');
-INSERT INTO TipiEvento (Titolo, Descrizione) VALUES ('Micelio', 'Il Micelio è la versione invernale del Fungo e ha luogo solitamente ogni martedì presso il Distretto Est, a Padova. Si tratta di una serie di eventi legati al mondo <span lang="en">rap freestyle</span> durante i quali si svolgono delle battle tra i vari partecipanti. Le classifiche sono i risultati di questi incontri.');
+INSERT INTO TipiEvento (Titolo, Descrizione) VALUES ('Fungo', 'Il Fungo prende il nome dall''iconica struttura presente in piazza zanellato a Padova, dove ha luogo solitamente ogni martedì. Si tratta di una serie di eventi legati al mondo rap freestyle durante i quali si svolgono delle battle tra i vari partecipanti. Le classifiche sono i risultati di questi incontri.');
+INSERT INTO TipiEvento (Titolo, Descrizione) VALUES ('Micelio', 'Il Micelio è la versione invernale del Fungo e ha luogo solitamente ogni martedì presso il Distretto Est, a Padova. Si tratta di una serie di eventi legati al mondo rap freestyle durante i quali si svolgono delle battle tra i vari partecipanti. Le classifiche sono i risultati di questi incontri.');
 
 INSERT INTO Classifiche (TipoEvento, DataInizio, DataFine) VALUES ('Fungo', '2023-09-05', '2023-10-17');
 INSERT INTO Classifiche (TipoEvento, DataInizio, DataFine) VALUES ('Micelio', '2023-11-07', '2024-12-19');
