@@ -24,20 +24,12 @@ function init_index() {
     const logo = document.querySelector('header a h1');
     const hero = document.querySelector('#hero h2');
     const video = document.querySelector("video");
-    const btnPlay = document.querySelector("#btn-video");
     const controls = document.querySelector(".controls");
 
-
     logo.classList.add('js');
-    video.removeAttribute("controls");
-    controls.classList.add('js');
-    btnPlay.classList.add('js');
 
     document.querySelector('header>a').removeAttribute('href');
 
-    btnPlay.addEventListener('click', function() {
-        playPauseMedia(video, btnPlay);
-    });
     window.addEventListener('scroll', function() {
         var position = hero.getBoundingClientRect();
 
@@ -47,16 +39,6 @@ function init_index() {
             logo.classList.remove('scrolled');
         }
     });
-}
-
-function playPauseMedia(media, button) {
-    if (media.paused) {
-        media.play();
-        button.classList.remove("playing");
-    } else {
-        media.pause();
-        button.classList.add("playing");
-    }
 }
 
 /*

@@ -23,10 +23,6 @@ $breadcrumbs = get_breadcrumbs($pageId, $percorso);
 $onload = 'init_index()';
 $logout = '';
 
-// $from = 'href="index.php"';
-// $to = '';
-// str_replace($from, $to, $paginaHTML); da rimuovere il link alla pagina corrente
-
 if (isset($_SESSION["login"])) {
     $logout = get_content_between_markers($paginaHTML, 'logout');
 }
@@ -47,7 +43,7 @@ if ($connectionOk) {
         $listaEventi = $connection->getListaEventi('', '', false); // lista eventi passati
         $headingEvento = get_content_between_markers($eventoHome, 'ultimoEvento');
     }
-    if (count($listaEventi) > 0) {
+    if (count($listaEventi) > 0) { // se ho ottenuto eventi
         $eventoId = $listaEventi[0]['Id'];
         $evento = $connection->getEvento($eventoId);
         [$titolo, $descrizione, $data, $ora, $luogo, $locandina, $tipoEvento, $dataInizioClassifica] = array_values($evento);
