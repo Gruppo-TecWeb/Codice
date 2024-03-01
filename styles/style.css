@@ -1175,10 +1175,10 @@ div.div-classifica {
 * CHI SIAMO
 */
 
-#chi-siamo-container h3 {
-    padding: 0.5em;
-    background: var(--secondaryColor);
-    border-bottom: 2px solid var(--accentColor);
+#chi-siamo-container h3 { 
+    padding: 0.5em; 
+    background: var(--colorSecondary);
+    border-bottom: 2px solid var(--colorAccent);
     line-height: 1.5em; 
 }
 
@@ -1186,7 +1186,7 @@ div.div-classifica {
     display: flex;
     flex-direction: column;
     padding: 1.25em;
-    background-color: var(--secondaryColor);
+    background-color: var(--colorSecondary);
     border-radius: 0.5em;
     box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.1);
     margin-bottom: 0.9375em;
@@ -1197,7 +1197,7 @@ div.div-classifica {
     height: auto;
     margin-bottom: 1.25em;
     margin-left: right;
-    
+
 }
 
 #chi-siamo-container #comunita img {
@@ -1206,7 +1206,7 @@ div.div-classifica {
     background-size: cover;
     width: 100%;
     height: 10%
-    
+
 }
 
 /* 
