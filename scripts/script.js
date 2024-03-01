@@ -42,33 +42,68 @@ function init_evento() {
 
 /*
  * PAGINA BEATS
-*/
+ */
 
-function setAudioDuration() {
-    span = document.getElementsByClassName("durata");
-    audios = document.getElementsByClassName("audioBeats");
+function init_beats() {
+    descrizioni = document.getElementsByClassName("descBeats");
+    for (let i = 0; i < descrizioni.length; i++) {
+        descrizioni[i].setAttribute("data-show", "false");
+    }
+    btnDescrizioni = document.getElementsByClassName("btnDesc");
+    for (let i = 0; i < btnDescrizioni.length; i++) {
+        btnDescrizioni[i].setAttribute("data-show", "false");
+        btnDescrizioni[i].addEventListener("click", (event) => {
+            showDescription(i);
+        });
+    }
+}
+
+function showDescription(index) {
+    descrizione = document.getElementsByClassName("descBeats")[index];
+    btnDescrizione = document.getElementsByClassName("btnDesc")[index];
+    show = descrizione.getAttribute("data-show");
+    descrizione.setAttribute("data-show", show === "true" ? "false" : "true");
+    btnDescrizione.setAttribute("data-show", show === "true" ? "false" : "true");
+    btnDescrizione.getElementsByTagName("span")[0].innerHTML = show === "true" ? "Audio descrizione" : "Nascondi";
+}
 
 
-    for (let i = 0; i < span.length; i++) {
-        playerJump = document.getElementsByClassName("beat")[i].getElementsByTagName("a")[0].getElementsByTagName("span")[0];
+function onJavaScript() {
+    beats = document.getElementsByClassName("beat");
+
+    for (let i = 0; i < beats.length; i++) {
+        durata = document.getElementsByClassName("durata")[i];
+        readDurata = document.getElementsByClassName("readDurata")[i];
+
+        playerJump = beats[i].getElementsByTagName("a")[0].getElementsByTagName("span")[0];
         playerJump.setAttribute("aria-hidden", "true");
 
-        audios[i].setAttribute("tabindex", "-1");
-        audios[i].setAttribute("data-java", "true");
-        durata = Math.floor(audios[i].duration / 60) + ":" + Math.floor(audios[i].duration % 60);
-        minuti = durata.slice(0, durata.indexOf(":"));
-        secondi = durata.slice(durata.indexOf(":") + 1);
+        audios = document.getElementsByClassName("audioBeats")[i];
+        audios.setAttribute("tabindex", "-1");
+        audios.setAttribute("data-java", "true");
+
+        minuti = Math.floor(audios.duration / 60);
+        secondi = Math.floor(audios.duration % 60);
+
         if (minuti == 1) {
-            if (secondi.length == 1) {
-                span[i].innerHTML = "<time aria-hidden='true' datatime=PT" + minuti + "M" + secondi + "S>" + minuti + ":" + "0" + secondi + "</time>" + "<span class='navigationHelp'>" + minuti + "minuto e " + secondi + "secondi" + "</span>";
+            if (secondi < 10) {
+                //durata.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
+                durata.innerHTML = minuti + ":" + "0" + secondi;
+                readDurata.innerHTML = minuti + " minuto e " + secondi + " secondi";
             } else {
-                span[i].innerHTML = "<time aria-hidden='true' datatime=PT" + minuti + "M" + secondi + "S>" + minuti + ":" + secondi + "</time>" + "<span class='navigationHelp'>" + minuti + " minuto e " + secondi + " secondi" + "</span>";
+                //durata.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
+                durata.innerHTML = minuti + ":" + secondi;
+                readDurata.innerHTML = minuti + " minuto e " + secondi + " secondi";
             }
         } else {
-            if (secondi.length == 1) {
-                span[i].innerHTML = "<time aria-hidden='true' datatime=PT" + minuti + "M" + secondi + "S>" + minuti + ":" + "0" + secondi + "</time>" + "<span class='navigationHelp'>" + minuti + "minuti e " + secondi + "secondi" + "</span>";
+            if (secondi < 10) {
+                //durata.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
+                durata.innerHTML = minuti + ":" + "0" + secondi;
+                readDurata.innerHTML = minuti + " minuti e " + secondi + " secondi";
             } else {
-                span[i].innerHTML = "<time aria-hidden='true' datatime=PT" + minuti + "M" + secondi + "S>" + minuti + ":" + secondi + "</time>" + "<span class='navigationHelp'>" + minuti + " minuti e " + secondi + " secondi" + "</span>";
+                //durata.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
+                durata.innerHTML = minuti + ":" + secondi;
+                readDurata.innerHTML = minuti + " minuti e " + secondi + " secondi";
             }
         }
     }
@@ -87,7 +122,6 @@ function playerAudio(nomeBase) {
     newTitle = nomeBase.slice(0, -4).replaceAll("-", " ");
     beats = document.getElementsByClassName("beat")
     for (let i = 0; i < beats.length; i++) {
-        console.log(playerJump);
         if (beats[i].getElementsByTagName("button")[0].getAttribute("data-title-beat") == nomeBase.slice(0, -4)) {
             pressedButton = beats[i].getElementsByTagName("button")[0];
             audioJump = beats[i].getElementsByTagName("a")[0];
@@ -95,7 +129,6 @@ function playerAudio(nomeBase) {
 
             playerJump = beats[i].getElementsByTagName("a")[0].getElementsByTagName("span")[0];
             playerJump.setAttribute("aria-hidden", "false");
-            console.log(i + playerJump);
         }
     }
 
@@ -106,20 +139,13 @@ function playerAudio(nomeBase) {
             audio.pause();
             pressedButton.setAttribute("data-isPlaying", "false")
             pressedButton.title = "Riproduci " + newTitle;
-
-
-
-
         } else {
             audio.play();
             pressedButton.setAttribute("data-isPlaying", "true")
             pressedButton.title = "Interrompi " + newTitle;
-
-
         }
     } else {
         newBeat(nomeBase);
-
     }
 
     //bottone riproduzione automatica
@@ -190,5 +216,17 @@ function nextAudio(nomeBase) {
             }
             break;
         }
+    }
+}
+
+
+/*
+ * PAGINA CLASSIFICHE
+ */
+
+function hideSubmitButtons() {
+    var submitButtons = document.getElementsByClassName("hidden-by-js");
+    for (let i = 0; i < submitButtons.length; i++) {
+        submitButtons[i].classList.add("screenReaderOnly");
     }
 }

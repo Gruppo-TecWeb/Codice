@@ -16,9 +16,11 @@ $title = 'Beats &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = "Basi per freestyle di rap";
 $keywords = 'Basi, Beats, Instrumental, Freestyle, Rap';
+$percorso = '';
+$percorsoAdmin = 'admin/';
 $menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
-$onload = "setAudioDuration(), autoPlay('11 - Goodbye - Big Joe.mp3')";
+$onload = "init_beats(), onJavaScript(), autoPlay('11 - Goodbye - Big Joe.mp3')";
 $logout = '';
 
 if (isset($_SESSION["login"])) {

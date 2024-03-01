@@ -2,13 +2,13 @@
     <a href="#risultati-eventi" class="navigationHelp">Salta ai risultati</a>
 </nav>
 <h2 class="limitedWidth">Eventi</h2>
-<p class="limitedWidth">Qui trovi tutti gli eventi in programma</p>
-<form method="get" action="eventi.php" id="form-eventi">
-    <div class="limitedWidth">
+<p class="limitedWidth">Qui puoi trovare tutti gli eventi in programma o sfogliare gli eventi passati.</p>
+<form method="get" action="eventi.php" id="form-eventi" class="gridLine">
+    <div>
         <label for="data">Filtra a partire da una data</label>
         <input type="date" name="data" id="data" value="{data}">
     </div>
-    <div class="limitedWidth">
+    <div>
         <label for="titolo">Filtra per tipo</label>
         <select id="titolo" name="titolo" autocomplete="organization-title">
             <option value="" selected>Tutti gli eventi</option>
@@ -16,23 +16,22 @@
             {/listaTitoli}
         </select>
     </div>
-    <div class="limitedWidth">
+    <div>
         <input type="submit" id="submitFiltri" value="Filtra">
         <input type="button" id="reset" value="Reset" onclick="window.location.href='eventi.php'">
     </div>
 </form>
-<p class="limitedWidth">Stai visualizzando {messaggioFiltri}
+<p id="filtri-applicati" class="gridLine">Stai visualizzando {messaggioFiltri}
     <time datetime="{valueDataEvento}">{dataEvento}</time> {/messaggioFiltri}
 </p>
 {navRisultatiEventi}
-<nav id="nav-risultati" class="limitedWidth"
-    aria-label="Visualizza il numero di risultati e l'indicazione del numero di pagina">
+<nav id="nav-risultati" class="gridLine" aria-label="Visualizza il numero di risultati e l'indicazione del numero di pagina">
     {risultatiEventi}
     <p><span>Risultati totali: {risultati}. Pagina {pagina} di {numeroPagine}. </span></p>
     {/risultatiEventi}
 </nav>
 {/navRisultatiEventi}
-<div id="risultati-eventi" class="limitedWidth">
+<div id="risultati-eventi">
     {listaEventi}
     <ul id="lista-eventi">
         {eventoElement}
@@ -46,11 +45,11 @@
         {/eventoElement}
     </ul>
     {messaggioListaEventi}
-    <p>{messaggio}, sfoglia i nostri <a href="eventi.php?data={dataEventiPassati}">eventi passati</a></p>
+    <p class="eventiMessaggio limitedWidth">{messaggio}, sfoglia i nostri <a href="eventi.php?data={dataEventiPassati}">eventi passati</a></p>
     {/messaggioListaEventi} {/listaEventi}
 </div>
 {pagination}
-<nav id="paginazione-eventi" class="limitedWidth" aria-label="Scorri tra le pagine degli eventi">
+<nav id="paginazione-eventi" class="gridLine" aria-label="Scorri tra le pagine degli eventi">
     {risultatiEventi}
     <p><span>Risultati totali: {risultati}. Pagina {pagina} di {numeroPagine}. </span></p>
     {/risultatiEventi}
@@ -58,7 +57,7 @@
         {pages} {currentPage}
         <li class="elemento-paginazione-eventi"><a href="#" aria-label="Pagina {numeroPagina}" aria-current="true">{numeroPagina}</a></li>
         {/currentPage} {notCurrentPage}
-        <li class="elemento-paginazione-eventi"><a href="eventi.php?pagina={numeroPagina}&data={data}&titolo={titolo}" aria-label='Vai alla pagina {numeroPagina}'>{messaggio}</a></li>
+        <li class="elemento-paginazione-eventi {classe}"><a href="eventi.php?pagina={numeroPagina}&data={data}&titolo={titolo}" aria-label='Vai alla pagina {numeroPagina}'>{messaggio}</a></li>
         {/notCurrentPage} {ellipsis}
         <li><a class="ellipsis">&#8230;</a></li>
         {/ellipsis} {/pages}
