@@ -24,7 +24,7 @@
 }
 
 @media screen and (min-width: 2560px) {
-     :root {
+    :root {
         --widthMax: 1800px;
     }
 }
@@ -446,7 +446,7 @@ footer #footer-credits {
     height: 100%;
     width: 2%;
     box-sizing: border-box;
-    background: repeating-linear-gradient( 45deg, var(--accentColor), var(--accentColor) 2px, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0) 10px);
+    background: repeating-linear-gradient(45deg, var(--accentColor), var(--accentColor) 2px, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0) 10px);
 }
 
 #index #hero #evento-home h3 {
@@ -945,6 +945,43 @@ div.div-classifica {
     justify-content: space-between;
 }
 
+/*
+* CHI SIAMO
+*/
+
+#chi-siamo-container h3 {
+    padding: 0.5em;
+    background: var(--secondaryColor);
+    border-bottom: 2px solid var(--accentColor);
+    line-height: 1.5em; 
+}
+
+#chi-siamo-container section, div#introduzione {
+    display: flex;
+    flex-direction: column;
+    padding: 1.25em;
+    background-color: var(--secondaryColor);
+    border-radius: 0.5em;
+    box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.1);
+    margin-bottom: 0.9375em;
+}
+
+#chi-siamo-container #eventi img {
+    width: 50%;
+    height: auto;
+    margin-bottom: 1.25em;
+    margin-left: right;
+    
+}
+
+#chi-siamo-container #comunita img {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 10%
+    
+}
 
 /* 
  * AREA DI AMMINISTRAZIONE 
