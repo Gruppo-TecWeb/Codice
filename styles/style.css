@@ -770,10 +770,18 @@ justify #evento-info dt {
 #audio_container h3 {
     align-self: center;
     width: 30vw;
+    text-align: center;
 }
 
 #audio_container #audio {
     width: 70vw;
+}
+#audio_container #autoNext{
+    background-color: white;
+    transition:0.3s;
+}
+#audio_container #autoNext:hover{
+    background-color: black;
 }
 
 

@@ -44,44 +44,42 @@ function init_evento() {
  * PAGINA BEATS
 */
 
-function setAudioDuration(){
+function onJavaScript(){
+    beats=document.getElementsByClassName("beat");
     
-    audios=document.getElementsByClassName("audioBeats");
- 
-    for(let i=0;i<audios.length;i++){
-        
-        durate=document.getElementsByClassName("durata")[i];
+    for(let i=0;i<beats.length;i++){
+        durata=document.getElementsByClassName("durata")[i];
         readDurata=document.getElementsByClassName("readDurata")[i];
         
-        playerJump=document.getElementsByClassName("beat")[i].getElementsByTagName("a")[0].getElementsByTagName("span")[0];
+        playerJump=beats[i].getElementsByTagName("a")[0].getElementsByTagName("span")[0];
         playerJump.setAttribute("aria-hidden","true");
         
-        audios[i].setAttribute("tabindex","-1");
-        audios[i].setAttribute("data-java","true");
+        audios=document.getElementsByClassName("audioBeats")[i];
+        audios.setAttribute("tabindex","-1");
+        audios.setAttribute("data-java","true");
 
-        durata=Math.floor(audios[i].duration/60) + ":" + Math.floor(audios[i].duration%60);
-        minuti=durata.slice(0,durata.indexOf(":"));
-        secondi=durata.slice(durata.indexOf(":")+1);
+        minuti=Math.floor(audios.duration/60);
+        secondi=Math.floor(audios.duration%60);
+
         if(minuti==1){
-            if(secondi.length==1){
-                //durate.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
-                durate.innerHTML =minuti + ":" + "0" + secondi;
+            if(secondi<10){
+                //durata.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
+                durata.innerHTML =minuti + ":" + "0" + secondi;
                 readDurata.innerHTML=minuti+" minuto e "+secondi+" secondi";
             }else{
-                //durate.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
-                durate.innerHTML =minuti + ":" + secondi;
+                //durata.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
+                durata.innerHTML =minuti + ":" + secondi;
                 readDurata.innerHTML=minuti+" minuto e "+secondi+" secondi";
             }
         }else{
-            if(secondi.length==1){
-                //durate.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
-                durate.innerHTML =minuti + ":" + "0" + secondi;
+            if(secondi<10){
+                //durata.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
+                durata.innerHTML =minuti + ":" + "0" + secondi;
                 readDurata.innerHTML=minuti+" minuti e "+secondi+" secondi";
             }else{
-                //durate.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
-                durate.innerHTML =minuti + ":" + secondi;
+                //durata.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
+                durata.innerHTML =minuti + ":" + secondi;
                 readDurata.innerHTML=minuti+" minuti e "+secondi+" secondi";
-                //durata[i].innerHTML = "<time aria-hidden='true' datatime=PT" + minuti + "M" + secondi + "S>" + minuti + ":" + secondi + "</time>"+ "<span class='navigationHelp'>"+minuti+" minuti e "+secondi+" secondi"+"</span>"; 
             }
         }
     }
@@ -199,5 +197,17 @@ function nextAudio(nomeBase) {
             }
             break;  
         }
+    }
+}
+
+
+/*
+ * PAGINA CLASSIFICHE
+ */
+
+function hideSubmitButtons() {
+    var submitButtons = document.getElementsByClassName("hidden-by-js");
+    for (let i = 0; i < submitButtons.length; i++) {
+        submitButtons[i].classList.add("screenReaderOnly");
     }
 }

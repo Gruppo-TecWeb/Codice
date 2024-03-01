@@ -20,7 +20,7 @@ $percorso = '';
 $percorsoAdmin = 'admin/';
 $menu = get_menu($pageId, $percorso);
 $breadcrumbs = get_breadcrumbs($pageId, $percorso);
-$onload = "setAudioDuration(), autoPlay('11 - Goodbye - Big Joe.mp3')";
+$onload = "onJavaScript(), autoPlay('11 - Goodbye - Big Joe.mp3')";
 $logout = '';
 
 if (isset($_SESSION["login"])) {
