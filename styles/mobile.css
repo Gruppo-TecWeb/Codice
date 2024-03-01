@@ -303,7 +303,7 @@ footer .logo {
     transform: translate(-50%, -50%);
     width: unset;
     margin: unset;
-    text-shadow: 0 0 8px var(--txtColor), 0 0 8px black;
+    text-shadow: 0 0 8px var(--txtColor);
     font-size: 3em;
     background-color: unset;
     border: unset;
@@ -319,14 +319,14 @@ footer .logo {
     padding: unset;
     text-align: center;
     font-size: 1.15em;
-    text-shadow: 0 0 8px black, 0 0 14px var(--txtColor);
+    text-shadow: 0 0 8px var(--txtColor);
     background-color: unset;
     border: unset;
     z-index: var(--elevationHigh);
 }
 
 #index #hero #titolo p {
-    padding: calc((100% - var(--menuWidth)) / 2);
+    padding: calc((100% - var(--widthMenu)) / 2);
     border-bottom: unset;
     border-top: 2px solid var(--colorAccent);
     border-bottom: 2px solid var(--colorAccent);
