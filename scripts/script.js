@@ -201,15 +201,3 @@ function nextAudio(nomeBase) {
         }
     }
 }
-
-
-/*
- * PAGINA CLASSIFICHE
- */
-
-function hideSubmitButtons() {
-    var submitButtons = document.getElementsByClassName("hidden-by-js");
-    for (let i = 0; i < submitButtons.length; i++) {
-        submitButtons[i].classList.add("screenReaderOnly");
-    }
-}
