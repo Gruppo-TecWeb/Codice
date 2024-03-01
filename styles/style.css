@@ -702,8 +702,8 @@ justify #evento-info dt {
     flex-direction: row-reverse;
     justify-content:space-between;
     align-items: center;
-    min-width: 25%;
-    max-width: 25%;
+    min-width: 15em;
+    max-width: 15em;
     border-style:dashed;
     border-width: 0em 0em 0.1em 0em;
     border-color: var(--colorAccent);
