@@ -293,7 +293,7 @@ footer .logo {
 
 #index #hero #titolo {
     height: unset;
-    container-type: unset;
+    /* container-type: unset; */
 }
 
 #index #hero h2 {
