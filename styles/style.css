@@ -1150,7 +1150,11 @@ table tbody tr:nth-child(odd) {
     background-color: var(--colorSecondary);
 }
 
-table .classifica-punti {
+table#tabella-classifica tbody tr:hover {
+    background-color: var(--colorLinkHoverBackground);
+}
+
+table#tabella-classifica .classifica-punti {
     text-align: right;
 }
 
@@ -1166,6 +1170,33 @@ div#Fungo {
 /* 
  * AREA DI AMMINISTRAZIONE 
  */
+
+.adminPage {
+    --colorBackground: #191919;
+    padding-top: calc(2 * 0.6em + 2 * 3px + 1em + 1.5em + 1em);
+}
+
+.adminPage header {
+    height: calc(2 * 0.6em + 2 * 3px + 1em + 1.5em);
+    align-items: center;
+    /* background-color: var(--colorSecondary);
+    border: 2px solid var(--colorAccent); */
+}
+
+.adminPage header>a {
+    margin-inline: 1em 0;
+    text-decoration-color: var(--colorTextOnAccent);
+}
+
+.adminPage header h1 {
+    font-size: 1.5rem;
+    color: var(--colorTextOnAccent);
+    text-wrap: nowrap;
+}
+
+.adminPage header>* {
+    transform: unset;
+}
 
 div#admin-window {
     display: flex;

@@ -11,8 +11,7 @@
     <meta name="theme-color" content="#EF534A">
 
     <link rel="stylesheet" type="text/css" href="styles/style.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="styles/mobile.css" media="handheld, screen and (max-width:600px),
-            only screen and (max-device-width:600px)">
+    <link rel="stylesheet" type="text/css" href="styles/mobile.css" media="screen and (max-width:600px)">
     <link rel="stylesheet" type="text/css" href="styles/print.css" media="print">
 
     <link rel="shortcut icon" type="images/svg" href="assets/icons/fungo.svg">
@@ -58,8 +57,8 @@
     </main>
     <footer>
         <div id="footer-content" class="limitedWidth">
-            <a href="#content" id="btn-scroll-up" class="iconButton">
-                <span class="navigationHelp">Torna su</span>
+            <a href="#content" id="btn-scroll-up" class="iconButton" title="Torna sù">
+                <span class="navigationHelp">Torna sù</span>
                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M112 244l144-144 144 144M256 120v292"/></svg>
             </a>
             <h2 class="navigationHelp">Informazioni su questo sito</h2>
@@ -79,7 +78,8 @@
                 <h3>Amministrazione</h3>
                 <ul>
                     <li><a href="admin/index.php">Area riservata</a></li>
-                    {logout}<li lang="en"><a href="logout.php">Logout</a></li>{/logout}
+                    {logout}
+                    <li lang="en"><a href="logout.php">Logout</a></li>{/logout}
                 </ul>
             </section>
             <section id="footer-credits">
