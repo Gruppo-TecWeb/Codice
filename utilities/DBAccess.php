@@ -6,9 +6,9 @@ use Exception;
 
 class DBAccess {
     private const DB_HOST = "localhost";
-    private const DB_NAME = "fungo";
-    private const DB_USER = "root";
-    private const DB_PASS = "";
+    private const DB_NAME = "slewenta";
+    private const DB_USER = "slewenta";
+    private const DB_PASS = "Jee5Ier0dei3Eel4";
 
     private $connection;
     private static $instance = null;
@@ -68,7 +68,7 @@ class DBAccess {
         FROM Eventi as e";
         $conditions = [];
         // $conditions[] = $data != '' ? "e.Data >= '$data'" : "e.Data >= '" . date('Y-m-d') . "'";
-        $conditions[] = "e.Data " . ($ascendente ? ">=" : "<=" ) . " '" . ($data != '' ? $data : date('Y-m-d')) . "'";
+        $conditions[] = "e.Data " . ($ascendente ? ">=" : "<=") . " '" . ($data != '' ? $data : date('Y-m-d')) . "'";
         if ($titolo != '') {
             $conditions[] = "e.Titolo = '$titolo'";
         }
