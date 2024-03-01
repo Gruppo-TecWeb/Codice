@@ -575,13 +575,6 @@ footer #footer-credits {
     text-align: center;
 }
 
-#evento-home img {
-    display: inline-block;
-    width: 50%;
-    aspect-ratio: 1;
-    float: left;
-}
-
 #evento-home dl {
     display: inline-grid;
     grid-template-columns: auto 1fr;
