@@ -1096,6 +1096,20 @@ audio::-webkit-media-controls-play-button {
 #audio_container #audio {
     width: 100%;
 }
+#autoNext[aria-pressed="false"] {
+    cursor: pointer;
+    padding: 0.5em 0.8em;
+    border-radius: 3px;
+    font-weight: bold;
+    border: 1px solid var(--colorAccent);
+    color: var(--colorTextOnAccent);
+    background-color: var(--colorAccent);
+    /* transition: 0.3s; */
+}
+#autoNext[aria-pressed="true"]{
+    background-color: var(--colorSecondary);
+    color: var(--colorAccent);
+}
 
 
 /* 
