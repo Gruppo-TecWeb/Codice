@@ -174,8 +174,6 @@ main {
  * FORM
  */
 
-form {}
-
 fieldset {
     border: none;
     margin: 0.3em 0;
@@ -233,7 +231,8 @@ button:focus,
     color: var(--colorAccent);
 }
 
-.toggleIconButton {}
+
+/* .toggleIconButton {} */
 
 
 /*
@@ -711,43 +710,40 @@ p.eventiMessaggio {
 }
 
 #intro_battle p {
-    text-align: justify;
+    /* text-align: justify; */
+    text-align: left;
 }
 
 #intro_battle li {
+    /* text-align: justify; */
+    text-align: left;
     list-style: none;
+    margin-block: 0.5em;
+}
+
+#modalita main {
+    position: relative;
 }
 
 #container_battle {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     background-color: var(--colorAccent);
-    padding: 1em;
     padding-bottom: 4em;
-    margin: 0em;
 }
 
 #container_battle h2 {
-    width: fit-content;
+    font-family: Horizontale;
+    color: var(--colorTextOnAccent);
     text-align: center;
-    border-radius: 10px 10px 0px 0px;
-    border-style: solid;
-    border-color: transparent;
-    height: fit-content;
-    background-color: var(--colorSecondary);
 }
 
 .descBattle {
+    border: 2px solid var(--colorAccent);
+    border-radius: 3px;
     display: flex;
     flex-direction: row;
-    align-items: center;
-    margin: 0em;
-    border-style: solid;
-    border-width: 0.2em 0em 0em 0em;
-    border-color: var(--colorAccent);
     background-color: var(--colorSecondary);
     color: var(--colorText);
+    align-items: center;
 }
 
 .descBattle:hover {
@@ -755,17 +751,14 @@ p.eventiMessaggio {
 }
 
 .descBattle dt {
-    text-align: center;
-    padding: 0.5em;
-    margin: 0em;
-    max-width: 5em;
-    min-width: 5em;
+    text-align: right;
+    padding: 0 1em;
+    font-size: 1.25em;
+    max-width: max-content;
+    min-width: 25%;
 }
 
 .descBattle dd {
-    border-style: solid;
-    border-width: 0em 0em 0em 0.2em;
-    border-color: var(--colorAccent);
     padding: 0.5em;
 }
 
@@ -774,19 +767,37 @@ p.eventiMessaggio {
  * PAGINA BEATS
  */
 
+#intro_beats {
+    padding-bottom: 2em;
+    box-sizing: border-box;
+    position: relative;
+}
+
 #beats_container {
-    margin: 0em;
+    padding-top: 2em;
+    position: relative;
+    background: var(--colorBackground);
+}
+
+#beats_container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 2em;
+    width: 100%;
+    box-sizing: border-box;
+    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
+    border-bottom: 2px solid var(--colorAccent);
 }
 
 #lista_beats .beat {
-    background-color: var(--colorSecondary);
-    border-style: solid;
-    border-color: var(--colorAccent);
-    border-width: 0.1em 0em 0em 0em;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
     align-items: center;
+    border-bottom: 2px solid var(--colorAccent);
+    background-color: var(--colorSecondary);
 }
 
 #lista_beats .beat:hover {
@@ -797,54 +808,50 @@ p.eventiMessaggio {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    max-width: 100%;
-    min-width: 100%;
-    text-align: center;
+    width: 100%;
 }
 
 #lista_beats .titoloContainer {
     display: inline-flex;
     flex-direction: row-reverse;
-    justify-content: space-between;
     align-items: center;
-    min-width: 25%;
-    max-width: 25%;
-    border-style: dashed;
-    border-width: 0em 0em 0.1em 0em;
-    border-color: var(--colorAccent);
-    padding: 1em;
+    width: 100%;
 }
 
 #lista_beats .titleBeat {
     width: 100%;
 }
 
-#lista_beats button {
-    background: transparent;
-    border-style: none;
-    cursor: pointer;
-    color: var(--txtColor);
-    opacity: 0.6;
+#lista_beats .btnPlay {
     margin: 1em;
-    min-width: 1em;
+    width: 3em;
+    opacity: 0.6;
+    border-style: none;
     background-size: 70%;
+    color: var(--txtColor);
+    background: transparent;
 }
 
-#lista_beats .beat:hover button[data-isPlaying="false"] {
-    background-image: url("../assets/icons/Play.png");
+#lista_beats .btnDesc {
+    padding: 0 1em;
+    text-wrap: nowrap;
+}
+
+#lista_beats .beat:hover .btnPlay[data-isPlaying="false"] {
+    background-image: url("../assets/icons/play.svg");
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 70%;
+    background-size: 100%;
     color: transparent;
     opacity: 1;
 }
 
-#lista_beats button[data-isPlaying="true"] {
-    background-image: url("../assets/icons/Pause.png");
+#lista_beats .btnPlay[data-isPlaying="true"] {
+    background-image: url("../assets/icons/pause.svg");
     color: transparent;
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 70%;
+    background-size: 100%;
     opacity: 1;
 }
 
@@ -858,8 +865,18 @@ p.eventiMessaggio {
 }
 
 #lista_beats .descBeats {
+    width: 100%;
+    box-sizing: border-box;
+    border-top: 2px dashed var(--colorAccent);
     padding: 1em;
     align-self: baseline;
+}
+
+#lista_beats .descBeats[data-show="false"] {
+    position: absolute;
+    text-indent: -999em;
+    border: unset;
+    z-index: var(--elevationBelow);
 }
 
 #audio_container {
@@ -1034,5 +1051,6 @@ div#admin-window {
  */
 
 #chi-siamo p {
-    text-align: justify;
+    /* text-align: justify; */
+    text-align: left;
 }

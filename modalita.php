@@ -17,7 +17,7 @@ $percorsoAdmin = 'admin/';
 $keywords = 'restraining stirpe, freestyle, freestyle rap, rap, battle, live, dj set, micelio, fungo';
 $menu = get_menu($pageId, $percorso);
 $breadcrumbs = get_breadcrumbs($pageId, $percorso);
-$onload = 'setLinks()';
+$onload = '';
 $logout = '';
 
 if (isset($_SESSION["login"])) {

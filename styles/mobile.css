@@ -423,74 +423,58 @@ label {
  * PAGINA MODALITA' 
  */
 
-#intro_battle {
-    margin: auto;
-}
-
-#container_battle {
-    display: flex;
+.descBattle {
     flex-direction: column;
+    align-items: start;
 }
 
-
-/* #container_iframe iframe {
-    width: 96vw;
-    height: 45vw;
+.descBattle:hover {
+    background-color: var(--colorLinkHoverBackground);
 }
 
-#container_iframe {
-    position: sticky;
-    top: 0;
-    background-color: var(--colorAccent);
-    width: 100%;
-    height: 100%;
+.descBattle dt {
+    padding: 0.5em;
 }
 
-#lista_battle {
-    width: 96vw;
-} */
+.descBattle dd {
+    padding: 0.5em;
+}
 
 
 /* 
  * PAGINA BEATS
 */
 
-#lista_beats .beat {
-    display: flex;
-    flex-direction: column;
-    padding: 0.1em 0em;
-}
-
-#lista_beats .firstRow {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    max-width: 100%;
-    min-width: 100%;
-}
-
-#lista_beats .titoloContainer {
-    max-width: 60vw;
-    min-width: 60vw;
-    border-style: none;
-    padding: 0em;
-}
-
-#lista_beats .titleBeat {
-    border-style: dashed;
-    border-width: 0em 0em 0.1em 0em;
-    border-color: var(--accentColor);
-    padding: 1em;
-    align-self: center;
-}
-
-#lista_beats .beat button[data-isPlaying="false"] {
-    background-image: url("../assets/icons/Play.png");
+#lista_beats .beat .btnPlay[data-isPlaying="false"] {
+    background-image: url("../assets/icons/play.svg");
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 70%;
+    background-size: 100%;
     color: transparent;
     opacity: 1;
+}
+
+#lista_beats .beat .btnDesc {
+    min-height: 44px;
+    aspect-ratio: 1 / 1;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+}
+
+#lista_beats .beat .btnDesc span {
+    position: absolute;
+    text-indent: -999em;
+}
+
+#lista_beats .beat .btnDesc[data-show="true"] {
+    background-image: url("../assets/icons/close.svg");
+    background-color: var(--colorAccent);
+}
+
+#lista_beats .beat .btnDesc[data-show="false"] {
+    background-image: url("../assets/icons/information.svg");
+    background-color: var(--colorAccent);
 }
 
 #lista_beats .durata {
@@ -516,7 +500,8 @@ label {
     min-width: inherit;
     margin: 0;
     margin-block: 1em;
-    text-align: justify;
+    /* text-align: justify; */
+    text-align: left;
 }
 
 table#tabella-classifica {

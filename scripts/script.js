@@ -42,7 +42,31 @@ function init_evento() {
 
 /*
  * PAGINA BEATS
-*/
+ */
+
+function init_beats() {
+    descrizioni = document.getElementsByClassName("descBeats");
+    for (let i = 0; i < descrizioni.length; i++) {
+        descrizioni[i].setAttribute("data-show", "false");
+    }
+    btnDescrizioni = document.getElementsByClassName("btnDesc");
+    for (let i = 0; i < btnDescrizioni.length; i++) {
+        btnDescrizioni[i].setAttribute("data-show", "false");
+        btnDescrizioni[i].addEventListener("click", (event) => {
+            showDescription(i);
+        });
+    }
+}
+
+function showDescription(index) {
+    descrizione = document.getElementsByClassName("descBeats")[index];
+    btnDescrizione = document.getElementsByClassName("btnDesc")[index];
+    show = descrizione.getAttribute("data-show");
+    descrizione.setAttribute("data-show", show === "true" ? "false" : "true");
+    btnDescrizione.setAttribute("data-show", show === "true" ? "false" : "true");
+    btnDescrizione.getElementsByTagName("span")[0].innerHTML = show === "true" ? "Audio descrizione" : "Nascondi";
+}
+
 
 function setAudioDuration() {
     span = document.getElementsByClassName("durata");
@@ -99,27 +123,19 @@ function playerAudio(nomeBase) {
         }
     }
 
-
     if (h3.innerHTML == newTitle) {
         if (pressedButton.title.slice(0, 10) == "Interrompi") {
             //console.log("pause");
             audio.pause();
             pressedButton.setAttribute("data-isPlaying", "false")
             pressedButton.title = "Riproduci " + newTitle;
-
-
-
-
         } else {
             audio.play();
             pressedButton.setAttribute("data-isPlaying", "true")
             pressedButton.title = "Interrompi " + newTitle;
-
-
         }
     } else {
         newBeat(nomeBase);
-
     }
 
     //bottone riproduzione automatica
