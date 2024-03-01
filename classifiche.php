@@ -82,7 +82,9 @@ if ($connectionOk) {
         $classificaHTML = get_content_between_markers($content, 'tabellaClassifica');
         $tabella = multi_replace($classificaHTML, [
             '{tipoEvento}' => $titoloEvento,
-            '{desTipoEvento}' => $descrizioneEvento
+            '{desTipoEvento}' => multi_replace($descrizioneEvento, [
+                'battle' => "<span lang='en'>battle</span>",
+            ]),
         ]);
         $righe = '';
         $rigaHTML = get_content_between_markers($content, 'rigaClassifica');
