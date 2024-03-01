@@ -1,6 +1,7 @@
-# ignore ALL .DS_Store  and .log files
-*.log
-*.DS_Store
-
-# ignore ALL files in ANY temp directory
-temp/
+assets/icons/burger_menu_2.svg
+assets/icons/fungo_rebel.svg
+assets/icons/musical-notes.svg
+assets/icons/pause.svg
+assets/icons/play-skip-forward.svg.sketch
+assets/icons/play.svg
+assets/slides/
