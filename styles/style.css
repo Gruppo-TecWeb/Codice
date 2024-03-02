@@ -557,7 +557,7 @@ footer #footer-credits {
     height: 100%;
     width: 2%;
     box-sizing: border-box;
-    background: repeating-linear-gradient(45deg, var(--accentColor), var(--accentColor) 2px, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0) 10px);
+    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0) 10px);
 }
 
 #index #hero #evento-home h3 {

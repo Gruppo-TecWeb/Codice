@@ -695,7 +695,7 @@ label {
     --bordarRadiusCard: 0px;
 } */
 
-div .div-classifica {
+div.div-classifica {
     flex-direction: column-reverse;
 }
 
