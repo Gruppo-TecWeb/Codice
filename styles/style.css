@@ -1156,6 +1156,7 @@ audio::-webkit-media-controls-play-button {
 }
 
 table {
+    width: 100%;
     min-width: 48%;
     border-collapse: collapse;
 }
@@ -1183,7 +1184,7 @@ table tbody tr:nth-child(odd) {
     background-color: var(--colorSecondary);
 }
 
-table#tabella-classifica tbody tr:hover {
+table tbody tr:hover {
     background-color: var(--colorLinkHoverBackground);
 }
 
