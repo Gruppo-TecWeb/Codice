@@ -196,6 +196,17 @@ button,
     /* transition: 0.3s; */
 }
 
+button:disabled {
+    border: 1px solid var(--colorUnfocusedText);
+    background-color: var(--colorUnfocusedText);
+    cursor: not-allowed;
+}
+
+button:disabled:hover {
+    border: 1px solid var(--colorUnfocusedText);
+    background-color: var(--colorUnfocusedText);
+}
+
 button:hover,
 .button:hover,
 button:focus,
@@ -546,7 +557,7 @@ footer #footer-credits {
     height: 100%;
     width: 2%;
     box-sizing: border-box;
-    background: repeating-linear-gradient(45deg, var(--accentColor), var(--accentColor) 2px, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0) 10px);
+    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0) 10px);
 }
 
 #index #hero #evento-home h3 {
@@ -1200,7 +1211,7 @@ div#Fungo {
     background-image: radial-gradient(closest-side at 82%, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), url(../assets/media/fungo_classifica.jpg);
 }
 
-div.div-classifica {
+.div-classifica {
     background-repeat: no-repeat;
     background-position-x: right;
     background-size: contain;
