@@ -21,8 +21,8 @@ $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 $logout = '';
 
-$connection = DBAccess::getInstance();
-$connectionOk = $connection->openDBConnection();
+$connection = DBAccess::get_instance();
+$connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
     $eventi_per_pagina = 12;
@@ -30,10 +30,10 @@ if ($connectionOk) {
     $titolo = isset($_GET['titolo']) ? $_GET['titolo'] : '';
     $data = isset($_GET['data']) ? $_GET['data'] : '';
 
-    $lista_eventi_array = $connection->getListaEventi($data, $titolo);
-    $lista_titoli_array = $connection->getTitoliEventi();
+    $lista_eventi_array = $connection->get_lista_eventi($data, $titolo);
+    $lista_titoli_array = $connection->get_titoli_eventi();
     $oldest_date = $lista_eventi_array == null ? $connection->get_oldest_date() : '';
-    $connection->closeDBConnection();
+    $connection->close_DB_connection();
 
     $numero_pagine = ceil(count($lista_eventi_array) / $eventi_per_pagina);
 

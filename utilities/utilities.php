@@ -24,6 +24,7 @@ const pages_array = [
     'admin/gestione-tipi-evento'    => ['href' => 'gestione-tipi-evento.php',    'anchor' => 'Gestione Tipi Evento',                      'lang' => '',   'menuOrder' => 0, 'admin' => 1, 'parentId' => 'admin/tipi-evento'],
     'admin/gestione-eventi'         => ['href' => 'gestione-eventi.php',         'anchor' => 'Gestione Eventi',                           'lang' => '',   'menuOrder' => 0, 'admin' => 1, 'parentId' => 'admin/eventi'],
     'admin/gestione-classifiche'    => ['href' => 'gestione-classifiche.php',    'anchor' => 'Gestione Classifiche',                      'lang' => '',   'menuOrder' => 0, 'admin' => 1, 'parentId' => 'admin/classifiche'],
+    'admin/gestione-punteggi'       => ['href' => 'gestione-punteggi.php',       'anchor' => 'Gestione Punteggi',                         'lang' => '',   'menuOrder' => 0, 'admin' => 1, 'parentId' => 'admin/classifiche'],
     'logout'                        => ['href' => 'logout.php',                  'anchor' => 'Logout',                                    'lang' => 'en', 'menuOrder' => 0, 'admin' => 0, 'parentId' => ''],
     'errore404'                     => ['href' => 'errore404.php',               'anchor' => 'Errore 404',                                'lang' => '',   'menuOrder' => 0, 'admin' => 0, 'parentId' => ''],
     'errore403'                     => ['href' => 'errore403.php',               'anchor' => 'Errore 403',                                'lang' => '',   'menuOrder' => 0, 'admin' => 0, 'parentId' => ''],

@@ -24,8 +24,8 @@ if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
 }
 
-$connection = DBAccess::getInstance();
-$connectionOk = $connection->openDBConnection();
+$connection = DBAccess::get_instance();
+$connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
     $messaggiForm = '';
@@ -71,7 +71,7 @@ if ($connectionOk) {
         header("location: eventi.php?errore=invalid");
     }
     if($validIdEvento != '') {
-        $evento = $connection->getEvento($validIdEvento);
+        $evento = $connection->get_evento($validIdEvento);
         if ($evento) {
             $validTitolo = $evento['Titolo'];
             $validData = $evento['Data'];
@@ -85,7 +85,7 @@ if ($connectionOk) {
     
     if (isset($_POST['elimina'])) {
         $connection->delete_evento($validIdEvento);
-        $eliminato = $connection->getEvento($validIdEvento) ? 0 : 1;
+        $eliminato = $connection->get_evento($validIdEvento) ? 0 : 1;
         header("location: eventi.php?eliminato=$eliminato");
     } elseif (isset($_POST['modifica'])) {
         $legend = $legendModifica;
@@ -122,10 +122,10 @@ if ($connectionOk) {
             $errore = '0';
             $legend = $legendAggiungi;
             $valueAzione = 'aggiungi';
-            $countEventi = count($connection->getListaEventi());
+            $countEventi = count($connection->get_eventi());
             $connection->insert_evento(
                 $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, $validNuovaLocandina);
-            $errore = count($connection->getListaEventi()) == $countEventi ? '1' : '0';
+            $errore = count($connection->get_eventi()) == $countEventi ? '1' : '0';echo $errore;
             if ($errore == '0') {
                 if ($validNuovaLocandina != "" && getimagesize($_FILES["nuovaLocandina"]["tmp_name"]) !== false) {
                     $targetImage = $percorsoLocandine . $validNuovaLocandina;
@@ -153,6 +153,11 @@ if ($connectionOk) {
                 if ($errore == '0') {
                     header("location: eventi.php?aggiunto=1");
                 }
+            }
+            else {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{messaggio}' => "Errore nell'aggiunta dell'evento"
+                ]);
             }
         } elseif ($_POST['azione'] == 'modifica') {
             $errore = '0';
@@ -217,7 +222,7 @@ if ($connectionOk) {
         'imgLocandina' => $locandina == '' ? '' : get_content_between_markers($content, 'imgLocandina')
     ]);
 
-    $connection->closeDBConnection();
+    $connection->close_DB_connection();
 } else {
     header("location: ../errore500.php");
 }

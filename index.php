@@ -29,21 +29,21 @@ if (isset($_SESSION["login"])) {
 $eventoHome = get_content_between_markers($content, 'eventoHome');
 $contentEvento = '';
 
-$connection = DBAccess::getInstance();
-$connectionOk = $connection->openDBConnection();
+$connection = DBAccess::get_instance();
+$connectionOk = $connection->open_DB_connection();
 if ($connectionOk) {
     $headingEvento = '';
 
-    $listaEventi  = $connection->getListaEventi(); // lista eventi futuri
+    $listaEventi  = $connection->get_lista_eventi(); // lista eventi futuri
     if (count($listaEventi) > 0) { // se ci sono eventi futuri
         $headingEvento = get_content_between_markers($eventoHome, 'prossimoEvento');
     } else { // altrimenti prendo i pasaati
-        $listaEventi = $connection->getListaEventi('', '', false); // lista eventi passati
+        $listaEventi = $connection->get_lista_eventi('', '', false); // lista eventi passati
         $headingEvento = get_content_between_markers($eventoHome, 'ultimoEvento');
     }
     if (count($listaEventi) > 0) { // se ho ottenuto eventi
         $eventoId = $listaEventi[0]['Id'];
-        $evento = $connection->getEvento($eventoId);
+        $evento = $connection->get_evento($eventoId);
         [$titolo, $descrizione, $data, $ora, $luogo, $locandina, $tipoEvento, $dataInizioClassifica] = array_values($evento);
 
         $contentEvento = multi_replace(replace_content_between_markers($eventoHome, [
@@ -56,7 +56,7 @@ if ($connectionOk) {
             '{luogo}' => $luogo
         ]);
     }
-    $connection->closeDBConnection();
+    $connection->close_DB_connection();
 }
 
 $content = replace_content_between_markers($content, [
