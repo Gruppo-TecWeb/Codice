@@ -133,7 +133,7 @@ if ($connectionOk) {
             $eventi_string .= multi_replace($eventoTemplate, [
                 '{idEvento}' => urlencode($evento['Id']),
                 '{valueDataEvento}' => $evento['Data'],
-                '{dataEvento}' => $evento['Data'],
+                '{dataEvento}' => date_format(date_create($evento['Data']), 'd/m/y'),
                 '{locandinaEvento}' => $evento['Locandina'],
                 '{titoloEvento}' => htmlspecialchars($evento['Titolo'])
             ]);

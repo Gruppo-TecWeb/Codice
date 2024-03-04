@@ -53,8 +53,7 @@ if ($connectionOk) {
 
     foreach ($tipiEvento as $tipoEvento) {
         $righeTabella .= multi_replace($rigaTabella, [
-            '{titolo}' => $tipoEvento['Titolo'],
-            '{descrizione}' => $tipoEvento['Descrizione']
+            '{titolo}' => $tipoEvento['Titolo']
         ]);
     }
 
