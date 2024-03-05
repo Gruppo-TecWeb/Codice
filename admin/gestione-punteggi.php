@@ -31,12 +31,14 @@ if ($connectionOk) {
     $messaggiForm = '';
     $messaggioForm = get_content_between_markers($content, 'messaggioForm');
     $righeTabella = '';
+    /*
     $validTipoEvento = isset($_POST['tipoEvento']) ? validate_input($_POST['tipoEvento'])
         : (isset($_GET['tipoEvento']) ? validate_input($_GET['tipoEvento']) : '');
     $validDataInizio = isset($_POST['dataInizio']) ? validate_input($_POST['dataInizio'])
         : (isset($_GET['dataInizio']) ? validate_input($_GET['dataInizio']) : '');
-    $validIdEvento = isset($_POST['idEvento']) ? validate_input($_POST['idEvento']) : '';
-    $eventoSelezionato = isset($_POST['idEvento']);
+        */
+    $validIdEvento = isset($_POST['idEvento']) ? validate_input($_POST['idEvento']) : (isset($_GET['idEvento']) ? validate_input($_GET['idEvento']) : '');
+    $eventoSelezionato = isset($_POST['idEvento']) || isset($_GET['idEvento']);
     $validRappersPoints = [];
     if (isset($_POST['username'])) {
         $count = 0;
@@ -49,8 +51,8 @@ if ($connectionOk) {
             $count++;
         }
     }
-    if (((isset($_POST['tipoEvento']) && $_POST['tipoEvento'] != "") && $validTipoEvento == "") ||
-        ((isset($_POST['dataInizio']) && $_POST['dataInizio'] != "") && $validDataInizio == "") ||
+    if (/*((isset($_POST['tipoEvento']) && $_POST['tipoEvento'] != "") && $validTipoEvento == "") ||
+        ((isset($_POST['dataInizio']) && $_POST['dataInizio'] != "") && $validDataInizio == "") ||*/
         ((isset($_POST['idEvento']) && $_POST['idEvento'] != "") && $validIdEvento == "")) {
         header("location: classifiche.php?errore=invalid");
     }
@@ -58,7 +60,7 @@ if ($connectionOk) {
     // quello che c'è da fare
     if (isset($_POST['conferma'])) {
         if ($eventoSelezionato) {
-            $connection->update_punteggi_evento($validTipoEvento, $validDataInizio, $validIdEvento, $validRappersPoints);
+            $connection->update_punteggi_evento($validIdEvento, $validRappersPoints);
             $messaggiForm .= multi_replace($messaggioForm, [
                 '{messaggio}' => 'Punteggi aggiornati con successo'
             ]);
@@ -68,7 +70,7 @@ if ($connectionOk) {
             ]);
         }
     }
-
+/*
     // creo le option di ciascun evento della classifica selezionata
     if ((isset($_GET['tipoEvento']) && isset($_GET['dataInizio'])) || (isset($_POST['tipoEvento']) && isset($_POST['dataInizio']))) {
         $eventi = $connection->get_eventi_classifica($validTipoEvento, $validDataInizio);
@@ -100,11 +102,11 @@ if ($connectionOk) {
             '{messaggio}' => 'Errore imprevisto, nessun evento disponibile'
         ]);
     }
-
+*/
     // creo l'elenco dei rappers
     $rappers = $connection->get_utenti_base();
     $rigaTabella = get_content_between_markers($content, 'rigaTabella');
-    $punteggio = $eventoSelezionato ? $connection->get_punteggi_evento($validTipoEvento, $validDataInizio, $validIdEvento) : [];
+    $punteggio = $eventoSelezionato ? $connection->get_punteggi_evento($validIdEvento) : [];
     foreach ($rappers as $rapper) {
         $righeTabella .= multi_replace($rigaTabella, [
             '{rapper}' => $rapper['Username'],
@@ -118,9 +120,14 @@ if ($connectionOk) {
         'rigaTabella' => $righeTabella
     ]);
     $content = multi_replace($content, [
+        '{idEvento}' => $validIdEvento
+    ]);
+    /*
+    $content = multi_replace($content, [
         '{tipoEvento}' => $validTipoEvento,
         '{dataInizio}' => $validDataInizio
     ]);
+    */
 
     $connection->close_DB_connection();
 } else {

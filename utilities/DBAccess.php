@@ -260,16 +260,11 @@ class DBAccess {
         );
     }
 
-    public function get_punteggi_evento($tipoEvento, $dataInizio, $evento) {
+    public function get_punteggi_evento($evento) {
         $results = $this->execute_query(
             "SELECT Punteggi.Partecipante AS partecipante, Punteggi.Punteggio AS punteggio
             FROM Punteggi
-            JOIN Eventi ON Punteggi.Evento = Eventi.id
-            JOIN ClassificheEventi ON Eventi.id = ClassificheEventi.Evento
-            JOIN Classifiche ON ClassificheEventi.TipoEvento = Classifiche.TipoEvento AND ClassificheEventi.DataInizio = Classifiche.DataInizio
-            WHERE Classifiche.TipoEvento = ? AND Classifiche.DataInizio = ? AND Eventi.id = ?;",
-            $tipoEvento,
-            $dataInizio,
+            WHERE Punteggi.Evento = ?;",
             $evento
         );
         $punteggi = [];
@@ -279,7 +274,7 @@ class DBAccess {
         return $punteggi;
     }
 
-    public function update_punteggi_evento($tipoEvento, $dataInizio, $evento, $punteggi) {
+    public function update_punteggi_evento($evento, $punteggi) {
         $this->execute_query(
             "DELETE FROM Punteggi WHERE Evento = ?;",
             $evento

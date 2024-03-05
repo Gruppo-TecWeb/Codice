@@ -83,7 +83,9 @@ if ($connectionOk) {
     }
     $errore = '0';
     
-    if (isset($_POST['elimina'])) {
+    if (isset($_POST['punteggi'])) {
+        header("location: gestione-punteggi.php?idEvento=$validIdEvento");
+    } elseif (isset($_POST['elimina'])) {
         $connection->delete_evento($validIdEvento);
         $eliminato = $connection->get_evento($validIdEvento) ? 0 : 1;
         header("location: eventi.php?eliminato=$eliminato");
@@ -105,7 +107,7 @@ if ($connectionOk) {
     } elseif (isset($_POST['aggiungi'])) {
         $legend = $legendAggiungi;
         $valueAzione = 'aggiungi';
-    } elseif (isset($_POST['conferma'])) {
+    } elseif (isset($_POST['conferma']) || isset($_POST['eliminaLocandina'])) {
         $nuovoTitolo = $validNuovoTitolo;
         $nuovaData = $validNuovaData;
         $nuovaOra = $validNuovaOra;
@@ -178,7 +180,7 @@ if ($connectionOk) {
                             '{messaggio}' => "Il file è troppo grande"
                         ]);
                         $errore = '1';
-                    } elseif (move_uploaded_file($_FILES["nuovaLocandina"]["tmp_name"], $percorsoLocandine . $validNuovaLocandina))  {
+                    } elseif (move_uploaded_file($_FILES["nuovaLocandina"]["tmp_name"], $percorsoLocandine . $validIdEvento . '_' . $validNuovaLocandina))  {
                         $messaggiForm .= multi_replace($messaggioForm, [
                             '{messaggio}' => "Il file è stato caricato correttamente"
                         ]);
@@ -195,6 +197,11 @@ if ($connectionOk) {
                     header("location: eventi.php?modificato=1");
                 }
             }
+        }
+        if (isset($_POST['eliminaLocandina'])) {
+            $connection->update_evento(
+                $validIdEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, null);
+            unlink($percorsoLocandine . $validNuovaLocandina);
         }
     } else {
         header("location: eventi.php");

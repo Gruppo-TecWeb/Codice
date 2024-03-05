@@ -41,6 +41,7 @@ if ($connectionOk) {
     $validTipoEvento = isset($_POST['tipoEvento']) ? validate_input($_POST['tipoEvento']) : "";
     $validDataInizio = isset($_POST['dataInizio']) ? validate_input($_POST['dataInizio']) : "";
     $validDataFine = isset($_POST['dataFine']) ? validate_input($_POST['dataFine']) : "";
+    $validIdEvento = isset($_POST['idEvento']) ? validate_input($_POST['idEvento']) : "";
     $validEventiSelezionati = [];
     if (isset($_POST['eventi'])) {
         foreach ($_POST['eventi'] as $evento) {
@@ -65,8 +66,9 @@ if ($connectionOk) {
         ((isset($_POST['nuovaDataFine']) && $_POST['nuovaDataFine'] != "") && $validNuovaDataFine == "") ||
         ((isset($_POST['tipoEvento']) && $_POST['tipoEvento'] != "") && $validTipoEvento == "") ||
         ((isset($_POST['dataInizio']) && $_POST['dataInizio'] != "") && $validDataInizio == "") ||
-        ((isset($_POST['dataFine']) && $_POST['dataFine'] != "") && $validDataFine == "")) {
-        header("location: classifiche.php?errore=invalid");
+        ((isset($_POST['dataFine']) && $_POST['dataFine'] != "") && $validDataFine == "") ||
+        ((isset($_POST['idEvento']) && $_POST['idEvento'] != "") && $validIdEvento == "")) {
+                header("location: classifiche.php?errore=invalid");
     }
     $errore = '0';
     
@@ -87,7 +89,7 @@ if ($connectionOk) {
     }
     
     if (isset($_POST['punteggi'])) {
-        header("location: gestione-punteggi.php?tipoEvento=$validTipoEvento&dataInizio=$validDataInizio");
+        header("location: gestione-punteggi.php?idEvento=$validIdEvento");
     } elseif (isset($_POST['elimina'])) {
         $connection->delete_classifica($validTipoEvento, $validDataInizio);
         $eliminato = $connection->get_classifiche($validTipoEvento, $validDataInizio) ? 0 : 1;

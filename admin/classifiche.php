@@ -28,6 +28,7 @@ $connection = DBAccess::get_instance();
 $connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
+    $eventoSelezionato = isset($_POST['idEvento']);
     $messaggiForm = '';
     $messaggioForm = get_content_between_markers($content, 'messaggioForm');
     $righeTabella = '';
@@ -49,9 +50,31 @@ if ($connectionOk) {
     }
 
     $classifiche = $connection->get_classifiche();
-    $rigaTabella = get_content_between_markers($content, 'rigaTabella');
 
     foreach ($classifiche as $classifica) {
+        $rigaTabella = get_content_between_markers($content, 'rigaTabella');
+        $eventi = $connection->get_eventi_classifica($classifica['TipoEvento'], $classifica['DataInizio']);
+        $options = '';
+        // creo le option di ciascun evento della classifica selezionata
+        if (count($eventi) > 0) {
+            $optionEvento = get_content_between_markers($rigaTabella, 'listaEvento');
+            foreach ($eventi as $evento) {
+                $options .= multi_replace($optionEvento, [
+                    '{idEvento}' => $evento['Id'],
+                    '{titoloEvento}' => $evento['Titolo'],
+                    '{dataEvento}' => $evento['Data'],
+                    '{dataVisualizzataEvento}' => date_format(date_create($evento['Data']), 'd/m/y')
+                ]);
+            }
+            $rigaTabella = replace_content_between_markers($rigaTabella, [
+                'listaEvento' => $options
+            ]);
+        } else {
+            $rigaTabella = replace_content_between_markers($rigaTabella, [
+                'listaEvento' => ''
+            ]);
+        }
+
         $righeTabella .= multi_replace($rigaTabella, [
             '{tipoEvento}' => $classifica['TipoEvento'],
             '{dataInizio}' => date_format(date_create($classifica['DataInizio']), 'd/m/y'),

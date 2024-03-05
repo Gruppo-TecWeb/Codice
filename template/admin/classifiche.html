@@ -30,7 +30,14 @@
                         <input type="hidden" name="dataInizio" value="{valueDataInizio}">
                         <input type="hidden" name="dataFine" value="{valueDataFine}">
                         <button type="submit" name="modifica" value="true">Modifica</button>
-                        <button type="submit" name="punteggi" value="true">Punteggi</button>
+                        <fieldset>
+                            <select id="evento-{idEvento}" name="idEvento">
+                                <option value="" selected disabled>Scegli l'evento</option>
+                                {listaEvento}<option value="{idEvento}">{titoloEvento} {dataVisualizzataEvento}</option>
+                                {/listaEvento}
+                            </select>
+                            <button type="submit" name="punteggi" value="true">Punteggi</button>
+                        </fieldset>
                         <button type="submit" name="elimina" value="true">Elimina</button>
                     </form>
                 </td>
