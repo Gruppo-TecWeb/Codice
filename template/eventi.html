@@ -1,28 +1,66 @@
+<nav id="filtri-skip">
+    <a href="#risultati-eventi" class="navigationHelp">Salta ai risultati</a>
+</nav>
 <h2 class="limitedWidth">Eventi</h2>
-<p class="limitedWidth">Qui trovi tutti gli eventi in programma</p>
-<div class="filtro-primario limitedWidth">
-    <a href="eventi.php?filtro=passati" id="link-passati">&laquo; Passati</a>
-    <a href="eventi.php?filtro=tutti" id="link-tutti">&forall; Tutti</a>
-    <a href="eventi.php" id="link-prossimi">Prossimi &raquo;</a>
-
-    <form method="get" action="eventi.php" id="data-container">
-        <label for="data" id="data-label">Oppure filtra per a partire da una data</label>
-        <input hidden name="filtro" value="data">
-        <input id='data' type="date" name="data" value="{data}" onchange="this.form.submit()">
-    </form>
-</div>
-<div class="form-container limitedWidth">
-    <form method="get" action="eventi.php">
-        <label for="titolo">Filtra per titolo</label>
-        <select name="titolo" onchange="this.form.submit()">
-            <option value="" selected>...</option>
-            {listaTitoli}
+<p class="limitedWidth">Qui puoi trovare tutti gli eventi in programma o sfogliare gli eventi passati.</p>
+<form method="get" action="eventi.php" id="form-eventi" class="gridLine">
+    <div>
+        <label for="data">Filtra a partire da una data</label>
+        <input type="date" name="data" id="data" value="{data}">
+    </div>
+    <div>
+        <label for="titolo">Filtra per tipo</label>
+        <select id="titolo" name="titolo" autocomplete="organization-title">
+            <option value="" selected>Tutti gli eventi</option>
+            {listaTitoli}<option value="{titoloEvento}" {selezioneEvento}>{titoloEvento}</option>
+            {/listaTitoli}
         </select>
-        <input hidden name="filtro" value="{filtro}">
-        <input hidden name="data" value="{data}">
-        <input type="button" value="Reset" onclick="window.location.href='eventi.php';">
-    </form>
-</div>
-<div id="lista-eventi" class="limitedWidth">
+    </div>
+    <div>
+        <input type="submit" id="submitFiltri" value="Filtra">
+        <input type="button" id="reset" value="Reset" onclick="window.location.href='eventi.php'">
+    </div>
+</form>
+<p id="filtri-applicati" class="gridLine">Stai visualizzando {messaggioFiltri}
+    <time datetime="{valueDataEvento}">{dataEvento}</time> {/messaggioFiltri}
+</p>
+{navRisultatiEventi}
+<nav id="nav-risultati" class="gridLine" aria-label="Visualizza il numero di risultati e l'indicazione del numero di pagina">
+    {risultatiEventi}
+    <p><span>Risultati totali: {risultati}. Pagina {pagina} di {numeroPagine}. </span></p>
+    {/risultatiEventi}
+</nav>
+{/navRisultatiEventi}
+<div id="risultati-eventi">
     {listaEventi}
+    <ul id="lista-eventi">
+        {eventoElement}
+        <li>
+            <a href="evento.php?id={idEvento}">
+                <img src="assets/media/locandine/{locandinaEvento}" alt="">
+                <h3>{titoloEvento}</h3>
+                <p><time datetime="{valueDataEvento}">{dataEvento}</time></p>
+            </a>
+        </li>
+        {/eventoElement}
+    </ul>
+    {messaggioListaEventi}
+    <p class="eventiMessaggio limitedWidth">{messaggio}, sfoglia i nostri <a href="eventi.php?data={dataEventiPassati}">eventi passati</a></p>
+    {/messaggioListaEventi} {/listaEventi}
 </div>
+{pagination}
+<nav id="paginazione-eventi" class="gridLine" aria-label="Scorri tra le pagine degli eventi">
+    {risultatiEventi}
+    <p><span>Risultati totali: {risultati}. Pagina {pagina} di {numeroPagine}. </span></p>
+    {/risultatiEventi}
+    <ul>
+        {pages} {currentPage}
+        <li class="elemento-paginazione-eventi"><a href="#" aria-label="Pagina {numeroPagina}" aria-current="true">{numeroPagina}</a></li>
+        {/currentPage} {notCurrentPage}
+        <li class="elemento-paginazione-eventi {classe}"><a href="eventi.php?pagina={numeroPagina}&data={data}&titolo={titolo}" aria-label='Vai alla pagina {numeroPagina}'>{messaggio}</a></li>
+        {/notCurrentPage} {ellipsis}
+        <li><a class="ellipsis">&#8230;</a></li>
+        {/ellipsis} {/pages}
+    </ul>
+</nav>
+{/pagination}

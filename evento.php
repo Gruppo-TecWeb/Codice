@@ -9,56 +9,79 @@ use DB\DBAccess;
 
 session_start();
 
-$eventoHTML = file_get_contents("template/pagina-template.html");
+$paginaHTML = file_get_contents("template/template-pagina.html");
 
-$title = '';
+$title = 'Evento &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
-$description = '';
-$keywords = '';
-$menu = get_menu(isset($_SESSION["login"]), $pageId);
-$breadcrumbs = '';
+$description = 'Pagina di presentazione di un evento organizzato dal collettivo rap Restraining Stirpe Crew.';
+$keywords = 'restraining stirpe, freestyle, freestyle rap, rap, battle, live, dj set, micelio, fungo';
+$menu = get_menu($pageId);
+$breadcrumbs = get_breadcrumbs($pageId);
 
 $content = '';
-$onload = '';
+$onload = 'init_evento()';
+$logout = '';
 
-$connection = new DBAccess();
-$connectionOk = $connection->openDBConnection();
+$connection = DBAccess::get_instance();
+$connectionOk = $connection->open_DB_connection();
 
 $eventoId = $_GET['id'];
 if ($connectionOk) {
-    [$titolo, $descrizione, $data, $ora, $luogo, $locandina, $tipoEvento, $dataInizioClassifica] = $connection->getEvento($eventoId);
-    $connection->closeDBConnection();
-
-    if ($titolo == null) {
+    $evento = $connection->get_evento($eventoId);
+    $connection->close_DB_connection();
+    if ($evento == null) {
         $content .= '<p>Evento non trovato</p>';
     } else {
+        [$titolo, $descrizione, $data, $ora, $luogo, $locandina, $tipoEvento, $dataInizioClassifica] = array_values($evento);
+
         $content = file_get_contents("template/evento.html");
-        $content = multi_replace($content, [
+        $stagioneEvento = '';
+        $descrizioneEvento = '';
+        if ($tipoEvento  != null && $dataInizioClassifica != null) {
+            $stagioneEventoTemplate = get_content_between_markers($content, 'stagioneEvento');
+            $stagioneEvento = multi_replace($stagioneEventoTemplate, [
+                '{tipoEvento}' => $tipoEvento,
+                '{dataInizioClassifica}' => $dataInizioClassifica
+            ]);
+        }
+        if ($descrizione != null) {
+            $descrizioneEventoTemplate = get_content_between_markers($content, 'descrizioneEvento');
+            $descrizioneEvento = multi_replace($descrizioneEventoTemplate, [
+                '{descrizione}' => $descrizione
+            ]);
+        }
+        $content = multi_replace(replace_content_between_markers($content, [
+            'stagioneEvento' => $stagioneEvento,
+            'descrizioneEvento' => $descrizioneEvento
+        ]), [
             '{titolo}' => $titolo,
-            '{descrizione}' => $descrizione,
-            '{data}' => $data,
-            '{ora}' => $ora,
+            '{data}' => date_format(date_create($data), 'd/m/Y'),
+            '{ora}' => date_format(date_create($ora), 'G:i'),
             '{luogo}' => $luogo,
             '{locandina}' => $locandina,
-            '{tipoEvento}' => $tipoEvento,
-            '{dataInizioClassifica}' => $dataInizioClassifica
         ]);
-        $breadcrumbs = get_breadcrumbs($pageId);
-        $breadcrumbs = str_replace('{id}', $eventoId, $breadcrumbs);
-        $breadcrumbs = str_replace('{evento}', $titolo.' '.$data, $breadcrumbs);
-        $title = $title . ' &minus; Fungo';
+        $breadcrumbs = multi_replace($breadcrumbs, [
+            '{id}' => $eventoId,
+            '{evento}' => 'Evento',
+        ]);
     }
 } else {
-    $content = "<p>I sistemi sono momentaneamente fuori servizio, ci scusiamo per il disagio</p>";
+    header("location: errore500.php");
 }
 
-echo multi_replace($eventoHTML, [
+if (isset($_SESSION["login"])) {
+    $logout = get_content_between_markers($paginaHTML, 'logout');
+}
+
+echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'breadcrumbs' => $breadcrumbs,
+    'menu' => $menu,
+    'logout' => $logout
+]), [
     '{title}' => $title,
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
-    '{menu}' => $menu,
-    '{breadcrumbs}' => $breadcrumbs,
     '{content}' => $content,
     '{onload}' => $onload
 ]);

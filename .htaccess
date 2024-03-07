@@ -1,0 +1,3 @@
+ErrorDocument 403 /slewenta/errore403.php
+ErrorDocument 404 /slewenta/errore404.php
+ErrorDocument 500 /slewenta/errore500.php

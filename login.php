@@ -1,74 +1,86 @@
 <?php
 
 namespace Utilities;
+
 require_once("utilities/utilities.php");
 require_once("utilities/DBAccess.php");
+
 use DB\DBAccess;
 
 session_start();
 
-$paginaHTML = file_get_contents("template/pagina-template.html");
-$loginHTML = file_get_contents("template/login-template.html");
+$paginaHTML = file_get_contents("template/template-pagina.html");
+$content = file_get_contents("template/login.html");
 
 $title = 'Login &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = 'Pagina dove poter effettuare l\'accesso all\'area autenticata del sito.';
 $keywords = 'login, freestyle rap, fungo, micelio, battle, eventi, classifiche';
-$menu = get_menu(isset($_SESSION["login"]), $pageId);
+$menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
-$erroriVAL = '';
-$errori = '';
 $username = '';
+$messaggioForm = '';
+$messaggiForm = '';
 
-$connection = new DBAccess();
-$connectionOk = $connection -> openDBConnection();
+$connection = DBAccess::get_instance();
+$connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
     if (isset($_SESSION["login"])) {
-        header("location: profilo.php");
+        header("location: admin/index.php");
     }
+
+    $messaggioForm = get_content_between_markers($content, 'messaggioForm');
     if (isset($_POST["submit"])) {
         $errore = false;
         $username = validate_input($_POST["username"]);
         $password = validate_input($_POST["password"]);
         if ($username == "") {
             $errore = true;
-            $erroriVAL .= "<li>Inserire Username.</li>";
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Inserire <span lang=\"en\">Username</span>"]);
         }
         if ($password == "") {
             $errore = true;
-            $erroriVAL .= "<li>Inserire Password.</li>";
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Inserire <span lang=\"en\">Password</span>"]);
         }
         if (!$errore) {
-            $utente = $connection -> login($username, $password);
+            $utente = $connection->login($username, $password);
             if (!(is_null($utente))) {
                 $_SESSION["datiUtente"] = $utente;
                 $_SESSION["login"] = true;
-                header("location: profilo.php");
+                header("location: admin/index.php");
             } else {
                 $errore = true;
-                $erroriVAL .= "<li>Username e/o password errati.</li>";
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{messaggio}' => "<span lang=\"en\">Username</span> e/o <span lang=\"en\">Password</span> errati"]);
             }
         }
         if ($errore) {
-            $errori = '<ul>' . $erroriVAL . '</ul>';
+            $messaggiForm = replace_content_between_markers(
+                get_content_between_markers($content, 'messaggiForm'),
+                ['messaggioForm' => $messaggiForm]
+            );
         }
     }
-}
-else {
-    $content .= '<p>I sistemi sono momentaneamente fuori servizio, ci scusiamo per il disagio.</p>';
+    $connection->close_DB_connection();
+    
+    $content = multi_replace(replace_content_between_markers($content, ['messaggiForm' => $messaggiForm]), [
+        '{valoreUsername}' => $username
+    ]);
+} else {
+    header("location: errore500.php");
 }
 
-$loginHTML = str_replace("{messaggiForm}", $errori, $loginHTML);
-$loginHTML = str_replace("{valoreUsername}", $username, $loginHTML);
-echo multi_replace($paginaHTML,[
+echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'breadcrumbs' => $breadcrumbs,
+    'menu' => $menu,
+    'logout' => ''
+]), [
     '{title}' => $title,
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
-    '{menu}' => $menu,
-    '{breadcrumbs}' => $breadcrumbs,
-    '{content}' => $loginHTML,
+    '{content}' => $content,
     '{onload}' => $onload
 ]);

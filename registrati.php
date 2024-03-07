@@ -1,34 +1,39 @@
 <?php
 
 namespace Utilities;
+
 require_once("utilities/utilities.php");
 require_once("utilities/DBAccess.php");
+
 use DB\DBAccess;
 
 session_start();
 
-$paginaHTML = file_get_contents("template/pagina-template.html");
-$registratiHTML = file_get_contents("template/registrati-template.html");
+$paginaHTML = file_get_contents("template/template-pagina.html");
+$content = file_get_contents("template/registrati.html");
 
 $title = 'Registrati &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = 'Pagina dove poter effettuare l\'accesso all\'area autenticata del sito.';
 $keywords = 'registrati, freestyle rap, fungo, micelio, battle, eventi, classifiche';
-$menu = get_menu(isset($_SESSION["login"]), $pageId);
+$menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
-$erroriVAL = '';
-$errori = '';
 $username = '';
 $email = '';
+$messaggioForm = '';
+$messaggiForm = '';
 
-$connection = new DBAccess();
-$connectionOk = $connection -> openDBConnection();
+$connection = DBAccess::get_instance();
+$connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
     if (isset($_SESSION["login"])) {
-        header("location: profilo.php");
+        header("location: admin/index.php");
     }
+
+    $messaggioForm = get_content_between_markers($content, 'messaggioForm');
+    $messaggioFormConLink = get_content_between_markers($content, 'messaggioFormConLink');
     if (isset($_POST["submit"])) {
         $errore = false;
         $username = validate_input($_POST["username"]);
@@ -37,62 +42,74 @@ if ($connectionOk) {
         $email = validate_input($_POST["email"]);
         if ($username == "") {
             $errore = true;
-            $erroriVAL .= "<li>Inserire Username.</li>";
-        }
-        else {
-            $utente = $connection -> get_utente_by_username($username);
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Inserire Username"]);
+        } else {
+            $utente = $connection->get_utente_by_username($username);
             if (is_null($utente)) {
-                $utente = $connection -> get_utente_by_email($email);
+                $utente = $connection->get_utente_by_email($email);
             }
-            if (!(is_null($utente))) {
+            if (!is_null($utente)) {
                 $errore = true;
-                $erroriVAL .= "<li>Utente giá registrato. Vai alla pagina di <a href=\"login.php\" lang=\"en\">login</a>.</li>";
+                $messaggiForm .= multi_replace($messaggioFormConLink, [
+                    '{messaggio}' => "Utente giá registrato, vai alla pagina di ",
+                    '{pageHref}' => "login.php",
+                    '{lang}' => " lang=\"en\"",
+                    '{anchor}' => "login"
+                ]);
             }
         }
         if ($password == "") {
             $errore = true;
-            $erroriVAL .= "<li>Inserire Password.</li>";
-        }
-        elseif ($password != $confermaPassword) {
-                $errore = true;
-                $erroriVAL .= "<li>Le password non coincidono.</li>";
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Inserire <span lang=\"en\">Password</span>"]);
+        } elseif ($password != $confermaPassword) {
+            $errore = true;
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Le <span lang=\"en\">Password</span> non coincidono"]);
         }
         if ($email == "") {
             $errore = true;
-            $erroriVAL .= "<li>Inserire E-Mail.</li>";
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Inserire <span lang=\"en\">E-Mail</span>"]);
         }
         if (!$errore) {
-            $utenteRegistrato = $connection -> register($username, $password, $email);
+            $utenteRegistrato = $connection->insert_utente($username, $password, $email);
             if ($utenteRegistrato > 0) {
                 $_SESSION["datiUtente"] = array("Username" => $username, "Email" => $email);
                 $_SESSION["login"] = true;
-                header("location: profilo.php");
-                $messaggiPerForm .= "<li>Registrazione avvenuta correttamente.</li>";
+                header("location: admin/index.php");
+                $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Registrazione avvenuta correttamente"]);
+            } else {
+                $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "La registrazione non é avvenuta"]);
             }
-            else {
-                $messaggiPerForm .= "<li>La registrazione non é avvenuta.</li>";
-            }
-        }
-        else {
-            $errori = '<ul>' . $erroriVAL . '</ul>';
+        } else {
+            $messaggiForm = replace_content_between_markers(
+                get_content_between_markers($content, 'messaggiForm'),
+                [
+                    'messaggioForm' => $messaggiForm,
+                    'messaggioFormConLink' => ''
+                ]
+            );
         }
     }
-}
-else {
-    $content .= '<p>I sistemi sono momentaneamente fuori servizio, ci scusiamo per il disagio.</p>';
+
+    $connection->close_DB_connection();
+    $content = multi_replace(replace_content_between_markers($content, [
+        'messaggiForm' => $messaggiForm
+    ]), [
+        '{valoreUsername}' => $username,
+        '{valoreEmail}' => $email
+    ]);
+} else {
+    header("location: errore500.php");
 }
 
-$registratiHTML = str_replace("{messaggiForm}", $errori, $registratiHTML);
-$registratiHTML = str_replace("{valoreUsername}", $username, $registratiHTML);
-$registratiHTML = str_replace("{valoreEmail}", $email, $registratiHTML);
-echo multi_replace($paginaHTML,[
+echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'breadcrumbs' => $breadcrumbs,
+    'menu' => $menu,
+    'logout' => ''
+]), [
     '{title}' => $title,
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
-    '{menu}' => $menu,
-    '{breadcrumbs}' => $breadcrumbs,
-    '{content}' => $registratiHTML,
+    '{content}' => $content,
     '{onload}' => $onload
-
 ]);

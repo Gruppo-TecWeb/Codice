@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
+    <meta name="keywords" content="{description}">
+    <meta name="description" content="{keywords}">
+    <meta name="author" content="Antonio Benetazzo, Alessandro Bressan, Sebastiano Lewental, Riccardo Zaupa">
+    <meta name="theme-color" content="#EF534A">
+
+    <link rel="stylesheet" type="text/css" href="styles/style.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="styles/mobile.css" media="screen and (max-width:600px)">
+    <link rel="stylesheet" type="text/css" href="styles/print.css" media="print">
+
+    <link rel="shortcut icon" type="images/svg" href="assets/icons/fungo.svg">
+    <script src="scripts/script.js"></script>
+</head>
+
+<body id="{pageId}" onload="{onload}" data-menu-open="true">
+    <header>
+        <nav id="menu-skip" aria-label="Aiuti alla navigazione">
+            <ul>
+                <li><a class="navigationHelp" href="#content">Vai al contenuto</a></li>
+                <li><a class="navigationHelp" href="#menu">Vai al menù principale</a></li>
+            </ul>
+        </nav>
+        <a href="index.php">
+            <h1 class="logo">Fungo</h1>
+        </a>
+        <nav id="menu" class="mobileCard" aria-labelledby="menu-title" data-menu-open="true">
+            <h2 id="menu-title">Menù</h2>
+            <ul>
+                {menu}{liCurrent}<li><span aria-current="page" id="currentLink" class="menuItem"{lang}>{anchor}</span></li>
+                {/liCurrent}{liNotCurrent}<li><a href="{pageHref}" class="menuItem"{lang}>{anchor}</a></li>
+                {/liNotCurrent}{/menu}
+            </ul>
+        </nav>
+    </header>
+    <div id="breadcrumbs-container" class="limitedWidth mobileCard" data-menu-open="true">
+        <nav id="breadcrumbs" aria-label="Percorso">
+            {breadcrumbs}
+            <p>
+                <span id="ti-trovi-in">Ti trovi in: </span>{parentBreadcrumb}<a href="{pageHref}" {lang}>{parent}</a> <span aria-hidden="true">&rsaquo;&rsaquo; </span>{/parentBreadcrumb}<span {lang}>{anchor}</span>
+            </p>
+            {/breadcrumbs}
+        </nav>
+        <button title="Apri/chiudi menù" id="btn-menu" onclick="toggleMenu()" aria-hidden="true" tabindex="-1">
+            <span class="navigationHelp">Menù</span>
+        </button>
+    </div>
+    <main id="content">
+        {content}
+    </main>
+    <footer>
+        <div id="footer-content" class="limitedWidth">
+            <a href="#content" id="btn-scroll-up" class="iconButton" title="Torna sù">
+                <span class="navigationHelp">Torna sù</span>
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M112 244l144-144 144 144M256 120v292"/></svg>
+            </a>
+            <h2 class="navigationHelp">Informazioni su questo sito</h2>
+            <section id="footer-info">
+                <h3 class="logo">Fungo</h3>
+                <p>Questo sito è stato pensato e sviluppato per umani, con grande cura e attenzione a tutte le categorie di utenti finali. Questo è il modo in cui lavoriamo.</p>
+                <p>Prodotto da <a href="https://github.com/Gruppo-TecWeb">TecWeb</a>: Antonio Benetazzo, Alessando Bressan, Sebastiano Lewental, Riccardo Zaupa.</p>
+            </section>
+            <section>
+                <h3>Su di noi</h3>
+                <ul>
+                    <li><a href="chi-siamo.php">Chi siamo</a></li>
+                    <li><a href="https://www.instagram.com/fungo.micelio/">Pagina Instagram</a></li>
+                </ul>
+            </section>
+            <section>
+                <h3>Amministrazione</h3>
+                <ul>
+                    <li><a href="admin/index.php">Area riservata</a></li>
+                    {logout}
+                    <li lang="en"><a href="logout.php">Logout</a></li>{/logout}
+                </ul>
+            </section>
+            <section id="footer-credits">
+                <h3>Contenuti</h3>
+                <p>Tutti i contenuti e media utilizzati in questo sito sono di nostra proprietà o provenienti da fonti <span lang="en">open source</span> o <span lang="en">free to use</span>.</p>
+            </section>
+        </div>
+    </footer>
+</body>
+
+</html>

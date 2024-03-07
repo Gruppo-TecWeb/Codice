@@ -1,0 +1,48 @@
+<div id="classifiche" class="limitedWidth">
+    <h3>Gestione Classifiche</h3>
+    <form method="post" action="gestione-classifiche.php">
+        <button type="submit" name="aggiungi" value="true">Aggiungi nuova Classifica</button>
+    </form>
+
+    <!-- Tabella che elenca le classifiche con possibilità di modificarle o eliminarle. -->
+    <span id="sumTabella" class="navigationHelp">Tabella che elenca le classifiche esistenti con l'indicazione del tipo evento, 
+                la data d'inizio e la data di fine. Per ciascuna riga sono presenti anche dei bottoni 
+                che permettono di modificare quella classifica o di eliminarla.</span>
+    <table id="tabella-classifiche" aria-describedby="sumTabella">
+        <caption>Classifiche presenti</caption>
+        <thead>
+            <tr>
+                <th scope="col">Tipo Evento</th>
+                <th scope="col">Data Inizio</th>
+                <th scope="col">Data Fine</th>
+                <th scope="col">Azioni</th>
+            </tr>
+        </thead>
+        <tbody>
+            {rigaTabella}
+            <tr>
+                <td data-title="Tipo Evento">{tipoEvento}</td>
+                <td data-title="Data Inizio">{dataInizio}</td>
+                <td data-title="Data Fine">{dataFine}</td>
+                <td data-title="Azioni">
+                    <form method="post" action="gestione-classifiche.php">
+                        <input type="hidden" name="tipoEvento" value="{valueTipoEvento}">
+                        <input type="hidden" name="dataInizio" value="{valueDataInizio}">
+                        <input type="hidden" name="dataFine" value="{valueDataFine}">
+                        <button type="submit" name="modifica" value="true">Modifica</button>
+                        <fieldset>
+                            <select id="evento-{idEvento}" name="idEvento">
+                                <option value="" selected disabled>Scegli l'evento</option>
+                                {listaEvento}<option value="{idEvento}">{titoloEvento} {dataVisualizzataEvento}</option>
+                                {/listaEvento}
+                            </select>
+                            <button type="submit" name="punteggi" value="true">Punteggi</button>
+                        </fieldset>
+                        <button type="submit" name="elimina" value="true">Elimina</button>
+                    </form>
+                </td>
+            </tr>
+            {/rigaTabella}
+        </tbody>
+    </table>
+</div>
