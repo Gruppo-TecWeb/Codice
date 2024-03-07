@@ -24,8 +24,8 @@ if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
 }
 
-$connection = DBAccess::getInstance();
-$connectionOk = $connection->openDBConnection();
+$connection = DBAccess::get_instance();
+$connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
     $messaggiForm = '';
@@ -155,7 +155,7 @@ if ($connectionOk) {
         'messaggiForm' => $messaggiForm
     ]);
 
-    $connection->closeDBConnection();
+    $connection->close_DB_connection();
 } else {
     header("location: ../errore500.php");
 }

@@ -29,16 +29,23 @@
                     <button type="submit" name="mostraEventi" value="true">Visualizza Eventi Abbinabili</button>
                 </fieldset>
             
-            <!-- Elenco degli Eventi già associati o associabili alla Classifica -->
-            <fieldset>
-                <legend>Associa Eventi</legend>
-                <ul>
-                    {listaEventi}<li><input type="checkbox" id="evento{idEvento}" name="eventi[]" value="{idEvento}"{eventoChecked}>
-                    <label for="evento{idEvento}">{titoloEvento} <time datetime="{dataEvento}">{dataVisualizzataEvento}</time></label></li>
-                    {/listaEventi}{nessunEvento}<li>Nessun evento da mostrare</li>{/nessunEvento}
-                </ul>
-            </fieldset>
-            
-            <button type="submit" name="conferma" value="true">Conferma</button>
+                <!-- Elenco degli Eventi già associati o associabili alla Classifica -->
+                <fieldset>
+                    <legend>Associa Eventi</legend>
+                    <ul>
+                        {listaEventiChecked}<li>
+                            <input type="checkbox" id="evento{idEvento}" name="eventi[]" value="{idEvento}" checked>
+                            <label for="evento{idEvento}">{titoloEvento} <time datetime="{dataEvento}">{dataVisualizzataEvento}</time></label>
+                        </li>
+                        {/listaEventiChecked}
+                        {listaEventiUnchecked}<li>
+                            <input type="checkbox" id="evento{idEvento}" name="eventi[]" value="{idEvento}">
+                            <label for="evento{idEvento}">{titoloEvento} <time datetime="{dataEvento}">{dataVisualizzataEvento}</time></label>
+                        </li>
+                        {/listaEventiUnchecked}{nessunEvento}<li>Nessun evento da mostrare</li>{/nessunEvento}
+                    </ul>
+                </fieldset>
+                
+                <button type="submit" name="conferma" value="true">Conferma</button>
             </form>
         </div>

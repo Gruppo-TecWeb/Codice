@@ -32,11 +32,9 @@
         <nav id="menu" class="mobileCard" aria-labelledby="menu-title" data-menu-open="true">
             <h2 id="menu-title">Menù</h2>
             <ul>
-                {menu} {liCurrent}
-                <li><span aria-current="page" id="currentLink" class="menuItem" {lang}>{anchor}</span></li>
-                {/liCurrent} {liNotCurrent}
-                <li><a href="{pageHref}" class="menuItem" {lang}>{anchor}</a></li>
-                {/liNotCurrent} {/menu}
+                {menu}{liCurrent}<li><span aria-current="page" id="currentLink" class="menuItem"{lang}>{anchor}</span></li>
+                {/liCurrent}{liNotCurrent}<li><a href="{pageHref}" class="menuItem"{lang}>{anchor}</a></li>
+                {/liNotCurrent}{/menu}
             </ul>
         </nav>
     </header>

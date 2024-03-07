@@ -1,8 +1,7 @@
 <div id="eventi" class="limitedWidth">
     <h3>Gestione Eventi</h3>
     <form method="post" action="gestione-eventi.php">
-        <button disabled type="submit" name="aggiungi" value="true">Aggiungi nuovo Evento</button>
-        <p>Funzione disponibile prossimamente</p>
+        <button type="submit" name="aggiungi" value="true">Aggiungi nuovo Evento</button>
     </form>
 
     {messaggiForm}
@@ -38,11 +37,14 @@
                 <td data-title="Azioni">
                     <form method="post" action="gestione-eventi.php">
                         <input type="hidden" name="idEvento" value="{idEvento}">
+                        <!--
                         <input type="hidden" name="titolo" value="{titolo}">
                         <input type="hidden" name="data" value="{data}">
                         <input type="hidden" name="ora" value="{ora}">
                         <input type="hidden" name="luogo" value="{luogo}">
+                        -->
                         <button type="submit" name="modifica" value="true">Modifica</button>
+                        <button type="submit" name="punteggi" value="true">Punteggi</button>
                         <button type="submit" name="elimina" value="true">Elimina</button>
                     </form>
                 </td>

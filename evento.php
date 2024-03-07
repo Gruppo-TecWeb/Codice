@@ -22,13 +22,13 @@ $content = '';
 $onload = 'init_evento()';
 $logout = '';
 
-$connection = DBAccess::getInstance();
-$connectionOk = $connection->openDBConnection();
+$connection = DBAccess::get_instance();
+$connectionOk = $connection->open_DB_connection();
 
 $eventoId = $_GET['id'];
 if ($connectionOk) {
-    $evento = $connection->getEvento($eventoId);
-    $connection->closeDBConnection();
+    $evento = $connection->get_evento($eventoId);
+    $connection->close_DB_connection();
     if ($evento == null) {
         $content .= '<p>Evento non trovato</p>';
     } else {
@@ -55,8 +55,8 @@ if ($connectionOk) {
             'descrizioneEvento' => $descrizioneEvento
         ]), [
             '{titolo}' => $titolo,
-            '{data}' => $data,
-            '{ora}' => $ora,
+            '{data}' => date_format(date_create($data), 'd/m/Y'),
+            '{ora}' => date_format(date_create($ora), 'G:i'),
             '{luogo}' => $luogo,
             '{locandina}' => $locandina,
         ]);

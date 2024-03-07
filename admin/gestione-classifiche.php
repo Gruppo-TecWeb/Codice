@@ -24,8 +24,8 @@ if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
 }
 
-$connection = DBAccess::getInstance();
-$connectionOk = $connection->openDBConnection();
+$connection = DBAccess::get_instance();
+$connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
     $messaggiForm = '';
@@ -41,10 +41,14 @@ if ($connectionOk) {
     $validTipoEvento = isset($_POST['tipoEvento']) ? validate_input($_POST['tipoEvento']) : "";
     $validDataInizio = isset($_POST['dataInizio']) ? validate_input($_POST['dataInizio']) : "";
     $validDataFine = isset($_POST['dataFine']) ? validate_input($_POST['dataFine']) : "";
+    $validIdEvento = isset($_POST['idEvento']) ? validate_input($_POST['idEvento']) : "";
     $validEventiSelezionati = [];
     if (isset($_POST['eventi'])) {
         foreach ($_POST['eventi'] as $evento) {
             $validEventiSelezionati[] = validate_input($evento);
+            if ($validEventiSelezionati[count($validEventiSelezionati) - 1] == "" && $evento != "") {
+                header("location: classifiche.php?errore=invalid");
+            }
         }
     }
     $nuovoTipoEvento = '';
@@ -54,20 +58,22 @@ if ($connectionOk) {
     $dataInizio = '';
     $dataFine = '';
     $valueAzione = '';
-    $listaEventi = '';
+    $listaEventiChecked = '';
+    $listaEventiUnchecked = '';
     $nessunEvento = '';
     if (((isset($_POST['nuovoTipoEvento']) && $_POST['nuovoTipoEvento'] != "") && $validNuovoTipoEvento == "") ||
         ((isset($_POST['nuovaDataInizio']) && $_POST['nuovaDataInizio'] != "") && $validNuovaDataInizio == "") ||
         ((isset($_POST['nuovaDataFine']) && $_POST['nuovaDataFine'] != "") && $validNuovaDataFine == "") ||
         ((isset($_POST['tipoEvento']) && $_POST['tipoEvento'] != "") && $validTipoEvento == "") ||
         ((isset($_POST['dataInizio']) && $_POST['dataInizio'] != "") && $validDataInizio == "") ||
-        ((isset($_POST['dataFine']) && $_POST['dataFine'] != "") && $validDataFine == "")) {
-        header("location: classifiche.php?errore=invalid");
+        ((isset($_POST['dataFine']) && $_POST['dataFine'] != "") && $validDataFine == "") ||
+        ((isset($_POST['idEvento']) && $_POST['idEvento'] != "") && $validIdEvento == "")) {
+                header("location: classifiche.php?errore=invalid");
     }
     $errore = '0';
     
     // costruisco la lista di option per la selezione del tipo evento
-    $tipiEvento = $connection->getTipiEvento();
+    $tipiEvento = $connection->get_tipi_evento();
     $optionTipoEvento = get_content_between_markers($content, 'listaTipoEvento');
     foreach ($tipiEvento as $tipoE) {
         $selected = '';
@@ -82,7 +88,9 @@ if ($connectionOk) {
         ]);
     }
     
-    if (isset($_POST['elimina'])) {
+    if (isset($_POST['punteggi'])) {
+        header("location: gestione-punteggi.php?idEvento=$validIdEvento");
+    } elseif (isset($_POST['elimina'])) {
         $connection->delete_classifica($validTipoEvento, $validDataInizio);
         $eliminato = $connection->get_classifiche($validTipoEvento, $validDataInizio) ? 0 : 1;
         header("location: classifiche.php?eliminato=$eliminato");
@@ -161,32 +169,31 @@ if ($connectionOk) {
     
     // costruisco la lista di option per la selezione degli eventi
     if (!isset($_POST["aggiungi"])) {
-        $eventiSelezionati = $connection->getEventiSelezionati($validTipoEvento, $validDataInizio);
-        $eventiSelezionabili = $connection->getEventiSelezionabili(
+        $eventiSelezionati = $connection->get_eventi_selezionati($validTipoEvento, $validDataInizio);
+        $eventiSelezionabili = $connection->get_eventi_selezionabili(
             $validNuovaDataInizio != "" ? $validNuovaDataInizio : $validDataInizio,
             $validNuovaDataFine != "" ? $validNuovaDataFine : $validDataFine
         );
-        $checkEvento = get_content_between_markers($content, 'listaEventi');
+        $checkEventoChecked = get_content_between_markers($content, 'listaEventiChecked');
+        $checkEventoUnchecked = get_content_between_markers($content, 'listaEventiUnchecked');
 
         foreach ($eventiSelezionati as $eventoSelezionato) {
-            $listaEventi .= multi_replace($checkEvento, [
+            $listaEventiChecked .= multi_replace($checkEventoChecked, [
                 '{idEvento}' => $eventoSelezionato['Id'],
                 '{titoloEvento}' => $eventoSelezionato['Titolo'],
                 '{dataEvento}' => date_format(date_create($eventoSelezionato['Data']), 'Y-m-d'),
-                '{dataVisualizzataEvento}' => date_format(date_create($eventoSelezionato['Data']), 'd/m/y'),
-                '{eventoChecked}' => ' checked'
+                '{dataVisualizzataEvento}' => date_format(date_create($eventoSelezionato['Data']), 'd/m/y')
             ]);
         }
         foreach ($eventiSelezionabili as $eventoSelezionabile) {
-            $listaEventi .= multi_replace($checkEvento, [
+            $listaEventiUnchecked .= multi_replace($checkEventoUnchecked, [
                 '{idEvento}' => $eventoSelezionabile['Id'],
                 '{titoloEvento}' => $eventoSelezionabile['Titolo'],
                 '{dataEvento}' => date_format(date_create($eventoSelezionabile['Data']), 'Y-m-d'),
-                '{dataVisualizzataEvento}' => date_format(date_create($eventoSelezionabile['Data']), 'd/m/y'),
-                '{eventoChecked}' => ''
+                '{dataVisualizzataEvento}' => date_format(date_create($eventoSelezionabile['Data']), 'd/m/y')
             ]);
         }
-        if ($listaEventi == '') {
+        if ($listaEventiChecked === '' && $listaEventiUnchecked === '') {
             $nessunEvento = get_content_between_markers($content, 'nessunEvento');
         }
     }
@@ -205,11 +212,12 @@ if ($connectionOk) {
     $content = replace_content_between_markers($content, [
         'listaTipoEvento' => $listaTipoEvento,
         'messaggiForm' => $messaggiForm,
-        'listaEventi' => $listaEventi,
+        'listaEventiChecked' => $listaEventiChecked,
+        'listaEventiUnchecked' => $listaEventiUnchecked,
         'nessunEvento' => $nessunEvento
     ]);
 
-    $connection->closeDBConnection();
+    $connection->close_DB_connection();
 } else {
     header("location: ../errore500.php");
 }

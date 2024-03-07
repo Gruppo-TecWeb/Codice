@@ -11,7 +11,7 @@
 
             <!-- Tabella che elenca i tipi evento esistenti con possibilità di modificarli o eliminarli. -->
             <span id="sumTabella" class="navigationHelp">Tabella che elenca i Tipi Evento
-                esistenti con l'indicazione del titolo del Tipo Evento e l'eventuale descrizione.
+                esistenti con l'indicazione del titolo del Tipo Evento.
                 Per ciascuna riga sono presenti anche dei bottoni 
                 che permettono di modificare quel Tipo Evento o di eliminarlo.</span>
             <table id="tabella-tipi-evento" aria-describedby="sumTabella">
@@ -19,7 +19,6 @@
                 <thead>
                     <tr>
                         <th scope="col">Titolo</th>
-                        <th scope="col">Descrizione</th>
                         <th scope="col">Azioni</th>
                     </tr>
                 </thead>
@@ -27,7 +26,6 @@
                     {rigaTabella}
                     <tr>
                         <td data-title="Titolo">{titolo}</td>
-                        <td data-title="Descrizione">{descrizione}</td>
                         <td data-title="Azioni">
                             <form method="post" action="gestione-tipi-evento.php">
                                 <input type="hidden" name="titolo" value="{titolo}">

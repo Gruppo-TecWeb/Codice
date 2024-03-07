@@ -24,8 +24,8 @@ if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
 }
 
-$connection = DBAccess::getInstance();
-$connectionOk = $connection->openDBConnection();
+$connection = DBAccess::get_instance();
+$connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
     $errori = '';
@@ -98,7 +98,7 @@ if ($connectionOk) {
         }
     }
 
-    $connection->closeDBConnection();
+    $connection->close_DB_connection();
     $content = multi_replace(replace_content_between_markers($content, [
         'messaggiProfilo' => $messaggiProfilo,
         'formModificaEmail' => replace_content_between_markers($formModificaEmail, ['messaggiForm' => $messaggiForm]),

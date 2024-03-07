@@ -21,8 +21,8 @@ $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 $logout = '';
 
-$connection = DBAccess::getInstance();
-$connectionOk = $connection->openDBConnection();
+$connection = DBAccess::get_instance();
+$connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
     $classifiche = '';
@@ -109,7 +109,7 @@ if ($connectionOk) {
         ]);
     }
 
-    $connection->closeDBConnection();
+    $connection->close_DB_connection();
 } else {
     header("location: errore500.php");
 }
