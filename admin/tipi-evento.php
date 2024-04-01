@@ -30,7 +30,7 @@ $connectionOk = $connection->open_DB_connection();
 if ($connectionOk) {
     $messaggiForm = '';
     $messaggioForm = get_content_between_markers($content, 'messaggioForm');
-    $righeTabella = '';
+    $lista = '';
 
     if (isset($_GET['errore'])) {
         $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);
@@ -49,16 +49,16 @@ if ($connectionOk) {
     }
 
     $tipiEvento = $connection->get_tipi_evento();
-    $rigaTabella = get_content_between_markers($content, 'rigaTabella');
+    $elementoLista = get_content_between_markers($content, 'elementoLista');
 
     foreach ($tipiEvento as $tipoEvento) {
-        $righeTabella .= multi_replace($rigaTabella, [
+        $lista .= multi_replace($elementoLista, [
             '{titolo}' => $tipoEvento['Titolo']
         ]);
     }
 
     $content = replace_content_between_markers($content, [
-        'rigaTabella' => $righeTabella,
+        'elementoLista' => $lista,
         'messaggiForm' => $messaggiForm
     ]);
 
