@@ -36,6 +36,7 @@
                         {listaEventiChecked}<li>
                             <input type="checkbox" id="evento{idEvento}" name="eventi[]" value="{idEvento}" checked>
                             <label for="evento{idEvento}">{titoloEvento} <time datetime="{dataEvento}">{dataVisualizzataEvento}</time></label>
+                            <button type="submit" name="punteggi" value="{idEvento}">Modifica Punteggi</button>
                         </li>
                         {/listaEventiChecked}
                         {listaEventiUnchecked}<li>
@@ -48,4 +49,31 @@
                 
                 <button type="submit" name="conferma" value="true">Conferma</button>
             </form>
-        </div>
+
+            <!-- classifica attuale -->
+            {tabellaClassifica}
+            <div class="div-classifica">
+                <span id="sumTabella" class="navigationHelp">Tabella che riassume la classifica attuale con l'indicazione
+                    di <span lang="en">ranking</span>, nome d'arte del <span lang="en">freestyler</span>, punteggio ottenuto.</span>
+                <table id="tabella-classifica" aria-describedby="sumTabella">
+                    <caption>Classifica attuale</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col" lang="en">Ranking</th>
+                            <th scope="col" lang="en">Freestyler</th>
+                            <th scope="col">Punti</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {rigaClassifica}
+                        <tr>
+                            <th data-title="ranking" scope="row"><span class="classifica ranking">{ranking}</span></th>
+                            <td data-title="Freestyler">{freestyler}</td>
+                            <td data-title="Punti">{punti}</td>
+                        </tr>
+                        {/rigaClassifica}
+                    </tbody>
+                </table>
+            </div>
+            {/tabellaClassifica} {nessunaClassifica}
+            <p class="limitedWidth">Non è presente nessuna classifica</p>{/nessunaClassifica}

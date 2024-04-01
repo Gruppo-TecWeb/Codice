@@ -42,6 +42,9 @@ if ($connectionOk) {
     $validDataInizio = isset($_POST['dataInizio']) ? validate_input($_POST['dataInizio']) : "";
     $validDataFine = isset($_POST['dataFine']) ? validate_input($_POST['dataFine']) : "";
     $validIdEvento = isset($_POST['idEvento']) ? validate_input($_POST['idEvento']) : "";
+    if ($validIdEvento == "") {
+        $validIdEvento = isset($_POST['punteggi']) ? validate_input($_POST['punteggi']) : "";
+    }
     $validEventiSelezionati = [];
     if (isset($_POST['eventi'])) {
         foreach ($_POST['eventi'] as $evento) {
@@ -196,6 +199,31 @@ if ($connectionOk) {
         if ($listaEventiChecked === '' && $listaEventiUnchecked === '') {
             $nessunEvento = get_content_between_markers($content, 'nessunEvento');
         }
+    }
+
+    // creo la classifica attuale
+    $classifica = $connection->get_classifica($validTipoEvento, $validDataInizio);
+    if ($classifica != null) {
+        $classificaHTML = get_content_between_markers($content, 'tabellaClassifica');
+        $righe = '';
+        $rigaHTML = get_content_between_markers($content, 'rigaClassifica');
+        foreach ($classifica as $riga) {
+            $righe .= multi_replace($rigaHTML, [
+                '{ranking}' => $riga['ranking'],
+                '{freestyler}' => $riga['partecipante'],
+                '{punti}' => $riga['punti']
+            ]);
+        }
+        $content = replace_content_between_markers($content, [
+            'tabellaClassifica' => $classificaHTML,
+            'rigaClassifica' => $righe,
+            'nessunaClassifica' => ''
+        ]);
+    } else {
+        $content = replace_content_between_markers($content, [
+            'tabellaClassifica' => '',
+            'nessunaClassifica' => get_content_between_markers($content, 'nessunaClassifica')
+        ]);
     }
 
     $content = multi_replace($content, [
