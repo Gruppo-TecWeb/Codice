@@ -136,20 +136,32 @@ class DBAccess {
     }
 
     public function insert_evento($titolo, $descrizione, $data, $ora, $luogo, $locandina) {
-        return $this->execute_query(
-            "INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES (?, ?, ?, ?, ?, ?);",
+        $id = -1;
+        $result = $this->execute_query(
+            "INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo) VALUES (?, NULLIF(?, ''), ?, ?, ?);",
             $titolo,
             $descrizione,
             $data,
             $ora,
-            $luogo,
-            $locandina
+            $luogo
         );
+
+        if ($result && $locandina != '') {
+            $id = $this->connection->insert_id;
+            $locandina = $id . '_' . $locandina;
+            $this->execute_query(
+                "UPDATE Eventi SET Locandina = NULLIF(?, '') WHERE Id = ?;",
+                $locandina,
+                $id
+            );
+        }
+    
+        return $id;
     }
 
     public function update_evento($id, $titolo, $descrizione, $data, $ora, $luogo, $locandina) {
         return $this->execute_query(
-            "UPDATE Eventi SET Titolo = ?, Descrizione = ?, Data = ?, Ora = ?, Luogo = ?, Locandina = ? WHERE Id = ?;",
+            "UPDATE Eventi SET Titolo = ?, Descrizione = NULLIF(?, ''), Data = ?, Ora = ?, Luogo = ?, Locandina = NULLIF(?, '') WHERE Id = ?;",
             $titolo,
             $descrizione,
             $data,

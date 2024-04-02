@@ -88,6 +88,9 @@ if ($connectionOk) {
     } elseif (isset($_POST['elimina'])) {
         $connection->delete_evento($validIdEvento);
         $eliminato = $connection->get_evento($validIdEvento) ? 0 : 1;
+        if ($eliminato) {
+            unlink($percorsoLocandine . $validLocandina);
+        }
         header("location: eventi.php?eliminato=$eliminato");
     } elseif (isset($_POST['modifica'])) {
         $legend = $legendModifica;
@@ -113,7 +116,7 @@ if ($connectionOk) {
         $nuovaOra = $validNuovaOra;
         $nuovoLuogo = $validNuovoLuogo;
         $nuovaDescrizione = $validNuovaDescrizione;
-        $nuovaLocandina = $validNuovaLocandina;
+        $nuovaLocandina = $validIdEvento . '_' . $validNuovaLocandina;
         $titolo = $validTitolo;
         $data = $validData;
         $ora = $validOra;
@@ -125,30 +128,18 @@ if ($connectionOk) {
             $legend = $legendAggiungi;
             $valueAzione = 'aggiungi';
             $countEventi = count($connection->get_eventi());
-            $connection->insert_evento(
+            $validNuovoIdEvento = $connection->insert_evento(
                 $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, $validNuovaLocandina);
-            $errore = count($connection->get_eventi()) == $countEventi ? '1' : '0';echo $errore;
+            $errore = count($connection->get_eventi()) == $countEventi ? '1' : '0';
             if ($errore == '0') {
                 if ($validNuovaLocandina != "" && getimagesize($_FILES["nuovaLocandina"]["tmp_name"]) !== false) {
-                    $targetImage = $percorsoLocandine . $validNuovaLocandina;
-                    if (file_exists($targetImage)) {
+                    $errori = carica_file($_FILES["nuovaLocandina"], $percorsoLocandine, $validNuovoIdEvento . '_' . $validNuovaLocandina);
+                    if (count($errori) > 0) {
+                        foreach ($errori as $errore) {
                             $messaggiForm .= multi_replace($messaggioForm, [
-                                '{messaggio}' => "Esiste già un file con questo nome in questo percorso"
+                                '{messaggio}' => $errore
                             ]);
-                            $errore = '1';
-                    } elseif ($_FILES["nuovaLocandina"]["size"] > 500000) {
-                        $messaggiForm .= multi_replace($messaggioForm, [
-                            '{messaggio}' => "Il file è troppo grande"
-                        ]);
-                        $errore = '1';
-                    } elseif (move_uploaded_file($_FILES["nuovaLocandina"]["tmp_name"], $percorsoLocandine . $validNuovaLocandina)) {
-                        $messaggiForm .= multi_replace($messaggioForm, [
-                            '{messaggio}' => "Il file è stato caricato correttamente"
-                        ]);
-                    } else {
-                        $messaggiForm .= multi_replace($messaggioForm, [
-                            '{messaggio}' => "Errore nel caricamento del file"
-                        ]);
+                        }
                         $errore = '1';
                     }
                 }
@@ -164,33 +155,21 @@ if ($connectionOk) {
         } elseif ($_POST['azione'] == 'modifica') {
             $errore = '0';
             $legend = $legendModifica;
-            $valueAzione = 'modifica';
+            $valueAzione = 'modifica';echo var_dump($validNuovaLocandina);
             $connection->update_evento(
-                $validIdEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, $validNuovaLocandina);
+                $validIdEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, $validIdEvento . '_' . $validNuovaLocandina);
             if ($errore == '0') {
                 if ($validNuovaLocandina != "" && getimagesize($_FILES["nuovaLocandina"]["tmp_name"]) !== false) {
-                    $targetImage = $percorsoLocandine . $validNuovaLocandina;
-                    if (file_exists($targetImage)) {
+                    $errori = carica_file($_FILES["nuovaLocandina"], $percorsoLocandine, $validIdEvento . '_' . $validNuovaLocandina);
+                    if (count($errori) > 0) {
+                        foreach ($errori as $errore) {
                             $messaggiForm .= multi_replace($messaggioForm, [
-                                '{messaggio}' => "Esiste già un file con questo nome in questo percorso"
+                                '{messaggio}' => $errore
                             ]);
-                            $errore = '1';
-                    } elseif ($_FILES["nuovaLocandina"]["size"] > 500000) {
-                        $messaggiForm .= multi_replace($messaggioForm, [
-                            '{messaggio}' => "Il file è troppo grande"
-                        ]);
+                        }
                         $errore = '1';
-                    } elseif (move_uploaded_file($_FILES["nuovaLocandina"]["tmp_name"], $percorsoLocandine . $validIdEvento . '_' . $validNuovaLocandina))  {
-                        $messaggiForm .= multi_replace($messaggioForm, [
-                            '{messaggio}' => "Il file è stato caricato correttamente"
-                        ]);
                     } else {
-                        $connection->update_evento(
-                            $validIdEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, $validLocandina = "" ? null : $validNuovaLocandina);
-                            $messaggiForm .= multi_replace($messaggioForm, [
-                                '{messaggio}' => "Errore nel caricamento del file"
-                            ]);
-                            $errore = '1';
+                        unlink($percorsoLocandine . $validLocandina);
                     }
                 }
                 if ($errore == '0') {
@@ -200,8 +179,8 @@ if ($connectionOk) {
         }
         if (isset($_POST['eliminaLocandina'])) {
             $connection->update_evento(
-                $validIdEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, null);
-            unlink($percorsoLocandine . $validNuovaLocandina);
+                $validIdEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, '');
+            unlink($percorsoLocandine . $validLocandina);
         }
     } else {
         header("location: eventi.php");
@@ -226,7 +205,8 @@ if ($connectionOk) {
     ]);
     $content = replace_content_between_markers($content, [
         'messaggiForm' => $messaggiForm,
-        'imgLocandina' => $locandina == '' ? '' : get_content_between_markers($content, 'imgLocandina')
+        'imgLocandina' => $locandina == '' ? '' : get_content_between_markers($content, 'imgLocandina'),
+        'eliminaLocandina' => isset($_POST['aggiungi']) || $validLocandina == '' ? '' : get_content_between_markers($content, 'eliminaLocandina')
     ]);
 
     $connection->close_DB_connection();

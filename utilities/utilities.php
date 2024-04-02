@@ -149,3 +149,16 @@ function replace_content_between_markers($content, $replacements) {
     }
     return $content;
 }
+
+function carica_file($file, $percorso, $nome) {
+    $errori = [];
+    $nomeCompleto = $percorso . $nome;
+    if (file_exists($nomeCompleto)) {
+        array_push($errori, "Esiste già un file con questo nome in questo percorso");
+    } elseif ($file["size"] > 500000) {
+        array_push($errori, "Il file è troppo grande");
+    } elseif (!move_uploaded_file($file["tmp_name"], $nomeCompleto)) {
+        array_push($errori, "Errore nel caricamento del file");
+    }
+    return $errori;
+}
