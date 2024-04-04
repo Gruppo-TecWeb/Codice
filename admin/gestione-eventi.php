@@ -129,10 +129,10 @@ if ($connectionOk) {
             $valueAzione = 'aggiungi';
             $countEventi = count($connection->get_eventi());
             $validNuovoIdEvento = $connection->insert_evento(
-                $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, $validNuovaLocandina);
+                $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, '');
             $errore = count($connection->get_eventi()) == $countEventi ? '1' : '0';
             if ($errore == '0') {
-                if ($validNuovaLocandina != "" && getimagesize($_FILES["nuovaLocandina"]["tmp_name"]) !== false) {
+                if (!isset($_POST['eliminaLocandina']) && $validNuovaLocandina != "" && getimagesize($_FILES["nuovaLocandina"]["tmp_name"]) !== false) {
                     $errori = carica_file($_FILES["nuovaLocandina"], $percorsoLocandine, $validNuovoIdEvento . '_' . $validNuovaLocandina);
                     if (count($errori) > 0) {
                         foreach ($errori as $errore) {
@@ -141,6 +141,9 @@ if ($connectionOk) {
                             ]);
                         }
                         $errore = '1';
+                    } else {
+                        $connection->update_evento(
+                            $validNuovoIdEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, $validNuovoIdEvento . '_' . $validNuovaLocandina);
                     }
                 }
                 if ($errore == '0') {
@@ -159,7 +162,7 @@ if ($connectionOk) {
             $connection->update_evento(
                 $validIdEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, $validNuovaLocandina == '' ? $validLocandina : $validIdEvento . '_' . $validNuovaLocandina);
             if ($errore == '0') {
-                if ($validNuovaLocandina != "" && getimagesize($_FILES["nuovaLocandina"]["tmp_name"]) !== false) {
+                if (!isset($_POST['eliminaLocandina']) && $validNuovaLocandina != "" && getimagesize($_FILES["nuovaLocandina"]["tmp_name"]) !== false) {
                     $errori = carica_file($_FILES["nuovaLocandina"], $percorsoLocandine, $validIdEvento . '_' . $validNuovaLocandina);
                     if (count($errori) > 0) {
                         foreach ($errori as $errore) {

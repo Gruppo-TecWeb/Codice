@@ -146,14 +146,8 @@ class DBAccess {
             $luogo
         );
 
-        if ($result && $locandina != '') {
+        if ($result) {
             $id = $this->connection->insert_id;
-            $locandina = $id . '_' . $locandina;
-            $this->execute_query(
-                "UPDATE Eventi SET Locandina = NULLIF(?, '') WHERE Id = ?;",
-                $locandina,
-                $id
-            );
         }
     
         return $id;
