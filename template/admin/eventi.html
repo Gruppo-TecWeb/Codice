@@ -11,45 +11,18 @@
     </ul>
     {/messaggiForm}
 
-    <!-- Tabella che elenca gli eventi esistenti con possibilità di modificarli o eliminarli. -->
-    <span id="sumTabella" class="navigationHelp">Tabella che elenca gli eventi
-                esistenti con l'indicazione del titolo, della data e ora e del luogo.
-                Per ciascuna riga sono presenti anche dei bottoni 
-                che permettono di modificare quell'evento o di eliminarlo.</span>
-    <table id="tabella-eventi" aria-describedby="sumTabella">
-        <caption>Eventi presenti</caption>
-        <thead>
-            <tr>
-                <th scope="col">Titolo</th>
-                <th scope="col">Data</th>
-                <th scope="col">Ora</th>
-                <th scope="col">Luogo</th>
-                <th scope="col">Azioni</th>
-            </tr>
-        </thead>
-        <tbody>
-            {rigaTabella}
-            <tr>
-                <td data-title="Titolo">{titolo}</td>
-                <td data-title="Data">{dataVisualizzata}</td>
-                <td data-title="Ora">{oraVisualizzata}</td>
-                <td data-title="Luogo">{luogo}</td>
-                <td data-title="Azioni">
-                    <form method="post" action="gestione-eventi.php">
-                        <input type="hidden" name="idEvento" value="{idEvento}">
-                        <!--
-                        <input type="hidden" name="titolo" value="{titolo}">
-                        <input type="hidden" name="data" value="{data}">
-                        <input type="hidden" name="ora" value="{ora}">
-                        <input type="hidden" name="luogo" value="{luogo}">
-                        -->
-                        <button type="submit" name="modifica" value="true">Modifica</button>
-                        <button type="submit" name="punteggi" value="true">Punteggi</button>
-                        <button type="submit" name="elimina" value="true">Elimina</button>
-                    </form>
-                </td>
-            </tr>
-            {/rigaTabella}
-        </tbody>
-    </table>
+    <!-- Lista degli eventi esistenti in ordine cronologico con possibilità di modificarli o eliminarli. -->
+    <ol id="lista-eventi-gestione">
+        {elementoLista}
+        <li>
+            <span>{titolo} {dataVisualizzata}</span>
+            <form method="post" action="gestione-eventi.php">
+                <input type="hidden" name="idEvento" value="{idEvento}">
+                <button type="submit" name="modifica" value="true">Modifica</button>
+                <button type="submit" name="punteggi" value="true">Punteggi</button>
+                <button type="submit" name="elimina" value="true">Elimina</button>
+            </form>
+        </li>
+        {/elementoLista}
+    </ol>
 </div>
