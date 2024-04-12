@@ -19,7 +19,7 @@ CREATE TABLE Classifiche (
     TipoEvento VARCHAR(100),
     DataInizio DATE NOT NULL,
     DataFine DATE NOT NULL,
-    FOREIGN KEY (TipoEvento) REFERENCES TipiEvento(Titolo),
+    FOREIGN KEY (TipoEvento) REFERENCES TipiEvento(Titolo) ON DELETE RESTRICT ON UPDATE CASCADE,
     PRIMARY KEY (TipoEvento, DataInizio));
 
 CREATE TABLE Eventi (

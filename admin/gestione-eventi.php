@@ -178,7 +178,9 @@ if ($connectionOk) {
                     }
                 }
                 if ($errore == '0') {
-                    header("location: eventi.php?modificato=1");
+                    $messaggiForm .= multi_replace($messaggioForm, [
+                        '{messaggio}' => 'Modifica effettuata con successo'
+                    ]);
                 }
             }
         }

@@ -51,7 +51,6 @@ if ($connectionOk) {
         header("location: classifiche.php?errore=invalid");
     }
 
-    // quello che c'è da fare
     if (isset($_POST['conferma'])) {
         if ($eventoSelezionato) {
             $connection->update_punteggi_evento($validIdEvento, $validRappersPoints);

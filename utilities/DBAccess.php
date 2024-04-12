@@ -201,7 +201,7 @@ class DBAccess {
              ORDER BY Eventi.Data DESC
              LIMIT 1;";
         $res = $titolo ? $this->execute_query($query, $titolo) : $this->execute_query($query);
-        return $res ? $res[0] : null;
+        return $res ? $res[0] : [];
     }
 
     public function insert_tipo_evento($titolo, $descrizione) {
@@ -365,14 +365,14 @@ class DBAccess {
         return ($ris = $this->execute_query(
             "SELECT Username, Email, Admin FROM Utenti WHERE Username = ?;",
             $username
-        )) ? $ris[0] : null;
+        )) ? $ris[0] : [];
     }
 
     public function get_utente_by_email($email) {
         return ($ris = $this->execute_query(
             "SELECT Username, Email, Admin FROM Utenti WHERE Email = ?;",
             $email
-        )) ? $ris[0] : null;
+        )) ? $ris[0] : [];
     }
 
     public function get_utenti() {

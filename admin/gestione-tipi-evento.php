@@ -102,7 +102,10 @@ if ($connectionOk) {
                 ]);
             }
             if ($errore == '0') {
-                header("location: tipi-evento.php?modificato=1");
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{messaggio}' => 'Modifica effettuata con successo'
+                ]);
+                $titolo = $validNuovoTitolo;
             } else {
                 $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);
             }

@@ -161,7 +161,11 @@ if ($connectionOk) {
                 ]);
             }
             if ($errore == '0') {
-                header("location: classifiche.php?modificato=1");
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{messaggio}' => 'Modifica effettuata con successo'
+                ]);
+                $dataInizio = $validNuovaDataInizio;
+                $validDataInizio = $validNuovaDataInizio;
             } else {
                 $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);
             }
