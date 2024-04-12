@@ -297,6 +297,13 @@ class DBAccess {
         }
     }
 
+    public function delete_punteggi_evento($evento) {
+        return $this->execute_query(
+            "DELETE FROM Punteggi WHERE Evento = ?;",
+            $evento
+        );
+    }
+
     public function insert_classifica($tipoEvento, $dataInizio, $dataFine) {
         return $this->execute_query(
             "INSERT INTO Classifiche (TipoEvento, DataInizio, DataFine) VALUES (?, ?, ?);",
