@@ -58,6 +58,9 @@ if ($connectionOk) {
     }
     $connection->close_DB_connection();
 }
+else {
+    header("location: errore500.php");
+}
 
 $content = replace_content_between_markers($content, [
     'eventoHome' => $contentEvento
