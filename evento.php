@@ -28,6 +28,7 @@ $connectionOk = $connection->open_DB_connection();
 $eventoId = $_GET['id'];
 if ($connectionOk) {
     $evento = $connection->get_evento($eventoId);
+    $numDiEventi = count($connection->get_lista_eventi($connection->get_oldest_date()));
     $connection->close_DB_connection();
     if ($evento == null) {
         $content .= '<p>Evento non trovato</p>';
@@ -50,9 +51,28 @@ if ($connectionOk) {
                 '{descrizione}' => $descrizione
             ]);
         }
+
+        // Creazione link evento prec e succ
+        $eventoPrec = '';
+        $eventoSucc = '';
+        if($eventoId > 1) {
+            $eventoPrecTemplate = get_content_between_markers($content, 'eventoPrec');
+            $eventoPrec = multi_replace($eventoPrecTemplate, [
+                '{idEventoPrec}' => $eventoId - 1
+            ]);
+        }
+        if($eventoId < $numDiEventi) {
+            $eventoSuccTemplate = get_content_between_markers($content, 'eventoSucc');
+            $eventoSucc = multi_replace($eventoSuccTemplate, [
+                '{idEventoSucc}' => $eventoId + 1
+            ]);
+        }
+
         $content = multi_replace(replace_content_between_markers($content, [
             'stagioneEvento' => $stagioneEvento,
-            'descrizioneEvento' => $descrizioneEvento
+            'descrizioneEvento' => $descrizioneEvento,
+            'eventoPrec' => $eventoPrec,
+            'eventoSucc' => $eventoSucc
         ]), [
             '{titolo}' => $titolo,
             '{data}' => date_format(date_create($data), 'd/m/Y'),
