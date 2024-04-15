@@ -43,7 +43,7 @@ if ($connectionOk) {
             $stagioneEventoTemplate = get_content_between_markers($content, 'stagioneEvento');
             $stagioneEvento = multi_replace($stagioneEventoTemplate, [
                 '{tipoEvento}' => $tipoEvento,
-                '{dataInizioClassifica}' => $dataInizioClassifica
+                '{dataInizioClassifica}' => date_format(date_create($dataInizioClassifica), 'd/m/Y')
             ]);
         }
         if ($descrizione != null) {
@@ -57,8 +57,8 @@ if ($connectionOk) {
             'descrizioneEvento' => $descrizioneEvento
         ]), [
             '{titolo}' => $titolo,
-            '{data}' => $data,
-            '{ora}' => $ora,
+            '{data}' => date_format(date_create($data), 'd/m/Y'),
+            '{ora}' => date_format(date_create($ora), 'H:i'),
             '{luogo}' => $luogo,
             '{locandina}' => $locandina,
         ]);
