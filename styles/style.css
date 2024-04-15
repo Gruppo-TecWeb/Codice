@@ -901,6 +901,29 @@ p.eventiMessaggio {
     font-weight: bold;
 }
 
+.scroll-arrows {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.scroll-left,
+.scroll-right {
+    font-size: 2em;
+    cursor: pointer;
+}
+
+.scroll-left {
+    margin-right: 10em;
+}
+
+.scroll-right {
+    margin-left: 10em;
+}
 
 /* 
  * PAGINA MODALITA' 
