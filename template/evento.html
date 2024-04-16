@@ -21,9 +21,14 @@
     </dl>
 </div>
 <div class="scroll-arrows" class="limitedWidth">
+    <div>
     {eventoPrec}
     <a id="evento-prec" href="evento.php?id={idEventoPrec}" aria-label="Vai all'evento precedente"><span class="scroll-left" aria-hidden="true">&lt;</span></a>
-    {/eventoPrec} {eventoSucc}
+    {/eventoPrec}
+    </div>
+    <div>
+    {eventoSucc}
     <a id="evento-succ" href="evento.php?id={idEventoSucc}" aria-label="Vai all'evento successivo"><span class="scroll-right" aria-hidden="true">&gt;</span></a>
     {/eventoSucc}
+    </div>
 </div>
