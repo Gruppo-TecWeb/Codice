@@ -48,6 +48,10 @@ if ($connectionOk) {
     }
     $errore = '0';
     
+    if (isset($_POST['indietro'])) {
+        header("location: tipi-evento.php");
+    }
+    
     if (isset($_POST['elimina'])) {
         $connection->delete_tipo_evento($validTitolo);
         $eliminato = $connection->get_tipo_evento($validTitolo) ? 0 : 1;

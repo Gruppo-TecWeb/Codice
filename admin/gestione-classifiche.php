@@ -75,6 +75,10 @@ if ($connectionOk) {
     }
     $errore = '0';
     
+    if (isset($_POST['indietro'])) {
+        header("location: classifiche.php");
+    }
+    
     // costruisco la lista di option per la selezione del tipo evento
     $tipiEvento = $connection->get_tipi_evento();
     $optionTipoEvento = get_content_between_markers($content, 'listaTipoEvento');
