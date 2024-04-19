@@ -56,13 +56,23 @@ if ($connectionOk) {
         ($count_punteggi != count($validRappersPoints))) {
         header("location: classifiche.php?errore=invalid");
     }
-    
+
     if (isset($_POST['indietro'])) {
         header("location: eventi.php");
     }
-
-    // quello che c'è da fare
-    if (isset($_POST['conferma'])) {
+  
+    if (isset($_POST['elimina'])) {
+        if ($eventoSelezionato) {
+            $connection->delete_punteggi_evento($validIdEvento);
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{messaggio}' => 'Punteggi eliminati con successo'
+            ]);
+        } else {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{messaggio}' => 'Errore imprevisto, nessun evento selezionato'
+            ]);
+        }
+    } elseif (isset($_POST['conferma'])) {
         if ($eventoSelezionato) {
             $connection->update_punteggi_evento($validIdEvento, $validRappersPoints);
             $messaggiForm .= multi_replace($messaggioForm, [

@@ -98,13 +98,13 @@ INSERT INTO Classifiche (TipoEvento, DataInizio, DataFine) VALUES ('Micelio', '2
 
 INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Meal the mic', 'Rapcolta alimentare', '2023-04-29', '18:00:00', 'Circolo culturale Carichi Sospesi (Padova)', '1_meal_the_mic.jpg');
 INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Hip hop night', 'Freestyel battle', '2023-07-13', '18:00:00', 'Parco Morandi (Padova)', '2_hip_hop_night.jpg');
-INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Fungo', NULL, '2023-09-05', '21:00:00', 'Piazza Zanellato (Padova)', '3_fungo.jpg');
-INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Fungo', NULL, '2023-09-12', '21:00:00', 'Piazza Zanellato (Padova)', '4_fungo.jpg');
-INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Fungo', NULL, '2023-09-19', '21:00:00', 'Piazza Zanellato (Padova)', '5_fungo.jpg');
-INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Fungo', NULL, '2023-09-26', '21:00:00', 'Piazza Zanellato (Padova)', '6_fungo.jpg');
-INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Fungo', NULL, '2023-10-03', '21:00:00', 'Piazza Zanellato (Padova)', '7_fungo.jpg');
-INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Fungo', NULL, '2023-10-10', '21:00:00', 'Piazza Zanellato (Padova)', '8_fungo.jpg');
-INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Fungo', NULL, '2023-10-17', '21:00:00', 'Piazza Zanellato (Padova)', '9_fungo.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Fungo', 'Battle', '2023-09-05', '21:00:00', 'Piazza Zanellato (Padova)', '3_fungo.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Fungo', 'Battle', '2023-09-12', '21:00:00', 'Piazza Zanellato (Padova)', '4_fungo.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Fungo', 'Battle', '2023-09-19', '21:00:00', 'Piazza Zanellato (Padova)', '5_fungo.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Fungo', 'Battle', '2023-09-26', '21:00:00', 'Piazza Zanellato (Padova)', '6_fungo.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Fungo', 'Battle', '2023-10-03', '21:00:00', 'Piazza Zanellato (Padova)', '7_fungo.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Fungo', 'Battle', '2023-10-10', '21:00:00', 'Piazza Zanellato (Padova)', '8_fungo.jpg');
+INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Fungo', 'Battle', '2023-10-17', '21:00:00', 'Piazza Zanellato (Padova)', '9_fungo.jpg');
 INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Micelio', NULL, '2023-11-07', '21:00:00', 'Distretto Est (Padova)', '10_micelio.jpg');
 INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Micelio', NULL, '2023-11-14', '21:00:00', 'Distretto Est (Padova)', '11_micelio.jpg');
 INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Meal the mic vol.2', 'Rapcolta alimentare', '2023-11-18', '18:00:00', 'Distretto Est (Padova)', '12_meal_the_mic_vol2.jpg');
