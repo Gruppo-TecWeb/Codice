@@ -83,6 +83,10 @@ if ($connectionOk) {
     }
     $errore = '0';
     
+    if (isset($_POST['indietro'])) {
+        header("location: eventi.php");
+    }
+    
     if (isset($_POST['punteggi'])) {
         header("location: gestione-punteggi.php?idEvento=$validIdEvento");
     } elseif (isset($_POST['elimina'])) {

@@ -36,22 +36,43 @@ if ($connectionOk) {
     $validTitolo = $eventoSelezionato ? $connection->get_evento($validIdEvento)['Titolo'] : '';
     $validData = $eventoSelezionato ? date_format(date_create($connection->get_evento($validIdEvento)['Data']), 'd/m/y') : '';
     $validRappersPoints = [];
+    $count_punteggi = 0;
     if (isset($_POST['username'])) {
         $count = 0;
         foreach ($_POST['username'] as $rapper) {
             $rapperUsername = validate_input($rapper);
-            $rapperPoints = validate_input($_POST['punti'][$count]);
-            if ($rapperUsername != "" && $rapperPoints != "") {
+            $validPoints = validate_input($_POST['punti'][$count]);
+            $rapperPoints = $_POST['punti'][$count];
+            if ($_POST['punti'][$count] != "") {
+                $count_punteggi++;
+            }
+            if ($rapperUsername != "" && $rapperPoints  != "") {
                 $validRappersPoints[$rapperUsername] = $rapperPoints;
             }
             $count++;
         }
     }
-    if (((isset($_POST['idEvento']) && $_POST['idEvento'] != "") && $validIdEvento == "")) {
+    if (((isset($_POST['idEvento']) && $_POST['idEvento'] != "") && $validIdEvento == "") ||
+        ($count_punteggi != count($validRappersPoints))) {
         header("location: classifiche.php?errore=invalid");
     }
 
-    if (isset($_POST['conferma'])) {
+    if (isset($_POST['indietro'])) {
+        header("location: eventi.php");
+    }
+  
+    if (isset($_POST['elimina'])) {
+        if ($eventoSelezionato) {
+            $connection->delete_punteggi_evento($validIdEvento);
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{messaggio}' => 'Punteggi eliminati con successo'
+            ]);
+        } else {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{messaggio}' => 'Errore imprevisto, nessun evento selezionato'
+            ]);
+        }
+    } elseif (isset($_POST['conferma'])) {
         if ($eventoSelezionato) {
             $connection->update_punteggi_evento($validIdEvento, $validRappersPoints);
             $messaggiForm .= multi_replace($messaggioForm, [
