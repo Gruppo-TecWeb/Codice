@@ -149,7 +149,7 @@ class DBAccess {
         if ($result) {
             $id = $this->connection->insert_id;
         }
-    
+
         return $id;
     }
 
@@ -263,6 +263,19 @@ class DBAccess {
             ORDER BY Punti DESC) r;",
             $tipoEvento,
             $dataInizio
+        );
+    }
+
+    public function get_classifica_evento($evento) {
+        return $this->execute_query(
+            "SELECT @n := @n + 1 AS ranking, partecipante, punti
+            FROM (SELECT @n := 0) m, (
+            SELECT Punteggi.Partecipante AS partecipante, SUM(Punteggi.Punteggio) AS punti
+            FROM Punteggi
+            WHERE Punteggi.Evento = ?
+            GROUP BY Punteggi.Partecipante
+            ORDER BY Punti DESC) r;",
+            $evento
         );
     }
 
