@@ -138,7 +138,10 @@ if ($connectionOk) {
                 }
             }
             if ($errore == '0') {
-                header("location: rappers.php?modificato=1");
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{messaggio}' => 'Modifica effettuata con successo'
+                ]);
+                $username = $validNuovoUsername;
             } else {
                 $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);
             }
