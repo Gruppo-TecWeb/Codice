@@ -7,6 +7,7 @@ require_once("utilities/DBAccess.php");
 
 use DB\DBAccess;
 
+setlocale(LC_TIME, 'it_IT', 'it', 'IT', 'italian');
 session_start();
 
 $paginaHTML = file_get_contents("template/template-pagina.html");
@@ -135,7 +136,7 @@ if ($connectionOk) {
             $eventi_string .= multi_replace($eventoTemplate, [
                 '{idEvento}' => urlencode($evento['Id']),
                 '{valueDataEvento}' => $evento['Data'],
-                '{dataEvento}' => date_format(date_create($evento['Data']), 'd/m/Y'),
+                '{dataEvento}' => strftime("%d %B %Y", strtotime($evento['Data'])),
                 '{locandinaEvento}' => $evento['Locandina'],
                 '{titoloEvento}' => htmlspecialchars($evento['Titolo'])
             ]);
@@ -149,7 +150,7 @@ if ($connectionOk) {
     $messaggioFiltri = $data == '' ? 'i prossimi eventi' : '';
     $messaggioFiltri .= $data != '' ? 'eventi a partire dalla data: ' . multi_replace(get_content_between_markers($content, 'messaggioFiltri'), [
         '{valueDataEvento}' => $data,
-        '{dataEvento}' => date_format(date_create($data), 'd/m/Y')
+        '{dataEvento}' => strftime("%d %B %Y", strtotime($data))
     ]) : '';
     $messaggioFiltri .= $titolo != '' ? ' di tipo: ' . $titolo : '';
 
