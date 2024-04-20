@@ -33,7 +33,7 @@ if ($connectionOk) {
     if ($evento == null) {
         $content .= '<p>Evento non trovato</p>';
     } else {
-        [$titolo, $descrizione, $data, $ora, $luogo, $locandina, $tipoEvento, $dataInizioClassifica] = array_values($evento);
+        [$titolo, $descrizione, $data, $ora, $luogo, $locandina, $tipoEvento] = array_values($evento);
 
         $content = file_get_contents("template/evento.html");
 
@@ -48,11 +48,10 @@ if ($connectionOk) {
 
         // Creazione della stagione dell'evento
         $stagioneEvento = '';
-        if ($tipoEvento  != null && $dataInizioClassifica != null) {
+        if ($tipoEvento  != null) {
             $stagioneEventoTemplate = get_content_between_markers($content, 'stagioneEvento');
             $stagioneEvento = multi_replace($stagioneEventoTemplate, [
-                '{tipoEvento}' => $tipoEvento,
-                '{dataInizioClassifica}' => $dataInizioClassifica
+                '{tipoEvento}' => $tipoEvento
             ]);
         }
 

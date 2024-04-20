@@ -84,7 +84,6 @@ class DBAccess {
     }
 
     public function get_evento($id) {
-        // TODO: modificare il modo di ottenere il TipoEvento
         $query = "SELECT e.Titolo,
         e.Descrizione,
         e.Data,
