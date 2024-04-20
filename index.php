@@ -44,7 +44,7 @@ if ($connectionOk) {
     if (count($listaEventi) > 0) { // se ho ottenuto eventi
         $eventoId = $listaEventi[0]['Id'];
         $evento = $connection->get_evento($eventoId);
-        [$titolo, $descrizione, $data, $ora, $luogo, $locandina, $tipoEvento, $dataInizioClassifica] = array_values($evento);
+        [$titolo, $descrizione, $data, $ora, $luogo, $locandina, $tipoEvento] = array_values($evento);
 
         $contentEvento = multi_replace(replace_content_between_markers($eventoHome, [
             'intestazione' => $headingEvento

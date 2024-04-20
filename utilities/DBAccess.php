@@ -91,10 +91,8 @@ class DBAccess {
         e.Ora,
         e.Luogo,
         e.Locandina,
-        ce.Tipoevento,
-        ce.Datainizio
+        e.Tipoevento
         FROM Eventi AS e
-        LEFT JOIN ClassificheEventi AS ce ON e.Id = ce.Evento
         WHERE e.Id = ?";
         return ($ris = $this->execute_query($query, $id)) ? $ris[0] : null;
     }
