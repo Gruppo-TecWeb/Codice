@@ -11,6 +11,8 @@
             <form method="post" action="gestione-classifiche.php">
                 <fieldset>
                     <legend>{legend}</legend>
+                    <label for="titoloClassifica">Titolo Classifica:</label>
+                    <input type="text" id="titoloClassifica" name="nuovoTitoloClassifica" value="{nuovoTitoloClassifica}" required>
                     <label for="tipoEvento">Tipo Evento:</label>
                     <select id="tipoEvento" name="nuovoTipoEvento" required>
                         <option value=""{selezioneDefault} disabled>Scegli il tipo evento</option>

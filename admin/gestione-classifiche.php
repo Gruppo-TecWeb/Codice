@@ -35,6 +35,7 @@ if ($connectionOk) {
     $legendModifica = 'Modifica Classifica';
     $listaTipoEvento = '';
     $selezioneDefault = '';
+    $validNuovoTitoloClassifica = isset($_POST['nuovoTitoloClassifica']) ? validate_input($_POST['nuovoTitoloClassifica']) : "";
     $validNuovoTipoEvento = isset($_POST['nuovoTipoEvento']) ? validate_input($_POST['nuovoTipoEvento']) : "";
     $validNuovaDataInizio = isset($_POST['nuovaDataInizio']) ? validate_input($_POST['nuovaDataInizio']) : "";
     $validNuovaDataFine = isset($_POST['nuovaDataFine']) ? validate_input($_POST['nuovaDataFine']) : "";
@@ -54,9 +55,11 @@ if ($connectionOk) {
             }
         }
     }
+    $nuovoTitoloClassifica = '';
     $nuovoTipoEvento = '';
     $nuovaDataInizio = '';
     $nuovaDataFine = '';
+    $titoloClassifica = '';
     $tipoEvento = '';
     $dataInizio = '';
     $dataFine = '';
@@ -64,7 +67,8 @@ if ($connectionOk) {
     $listaEventiChecked = '';
     $listaEventiUnchecked = '';
     $nessunEvento = '';
-    if (((isset($_POST['nuovoTipoEvento']) && $_POST['nuovoTipoEvento'] != "") && $validNuovoTipoEvento == "") ||
+    if (((isset($_POST['nuovoTitoloClassifica']) && $_POST['nuovoTitoloClassifica'] != "") && $validNuovoTitoloClassifica == "") ||
+        ((isset($_POST['nuovoTipoEvento']) && $_POST['nuovoTipoEvento'] != "") && $validNuovoTipoEvento == "") ||
         ((isset($_POST['nuovaDataInizio']) && $_POST['nuovaDataInizio'] != "") && $validNuovaDataInizio == "") ||
         ((isset($_POST['nuovaDataFine']) && $_POST['nuovaDataFine'] != "") && $validNuovaDataFine == "") ||
         ((isset($_POST['tipoEvento']) && $_POST['tipoEvento'] != "") && $validTipoEvento == "") ||
@@ -103,6 +107,7 @@ if ($connectionOk) {
         header("location: classifiche.php?eliminato=$eliminato");
     } elseif (isset($_POST['modifica'])) {
         $legend = $legendModifica;
+        $nuovoTitoloClassifica = $connection->get_punteggi_classifica($validTipoEvento, $validDataInizio)[0]['Titolo'];
         $nuovoTipoEvento = $validTipoEvento;
         $nuovaDataInizio = $validDataInizio;
         $nuovaDataFine = $validDataFine;
@@ -116,6 +121,7 @@ if ($connectionOk) {
         $nessunEvento = get_content_between_markers($content, 'nessunEvento');
         $valueAzione = 'aggiungi';
     } elseif(isset($_POST['mostraEventi'])) {
+        $nuovoTitoloClassifica = $validNuovoTitoloClassifica;
         $nuovoTipoEvento = $validNuovoTipoEvento;
         $nuovaDataInizio = $validNuovaDataInizio;
         $nuovaDataFine = $validNuovaDataFine;
@@ -124,6 +130,7 @@ if ($connectionOk) {
         $dataFine = $validDataFine;
         $valueAzione = validate_input($_POST['azione']);
     } elseif (isset($_POST['conferma'])) {
+        $nuovoTitoloClassifica = $validNuovoTitoloClassifica;
         $nuovoTipoEvento = $validNuovoTipoEvento;
         $nuovaDataInizio = $validNuovaDataInizio;
         $nuovaDataFine = $validNuovaDataFine;
@@ -136,7 +143,7 @@ if ($connectionOk) {
             $valueAzione = 'aggiungi';
             $errore = $connection->get_classifiche($validNuovoTipoEvento, $validNuovaDataInizio) ? '1' : '0';
             if ($errore == '0') {
-                $connection->insert_classifica($validNuovoTipoEvento, $validNuovaDataInizio, $validNuovaDataFine);
+                $connection->insert_classifica($validNuovoTitoloClassifica, $validNuovoTipoEvento, $validNuovaDataInizio, $validNuovaDataFine);
                 $connection->insert_classifica_eventi($validNuovoTipoEvento, $validNuovaDataInizio, $validEventiSelezionati);
                 $errore = $connection->get_classifiche($validNuovoTipoEvento, $validNuovaDataInizio) ? '0' : '1';
             } else {
@@ -210,7 +217,7 @@ if ($connectionOk) {
     }
 
     // creo la classifica attuale
-    $classifica = $connection->get_classifica($validTipoEvento, $validDataInizio);
+    $classifica = $connection->get_punteggi_classifica($validTipoEvento, $validDataInizio);
     if ($classifica != null) {
         $classificaHTML = get_content_between_markers($content, 'tabellaClassifica');
         $righe = '';

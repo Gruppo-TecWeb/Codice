@@ -9,12 +9,12 @@
             <label for="classifica">Classifica: </label>
             <select id="classifica" name="classifica" autocomplete="off">
                 {listaClassificheDefault}<option value="Scegli la classifica" selected>Scegli la classifica</option>
-                {/listaClassificheDefault}{listaClassifiche}<option value="{tipoEvento}{.}{dataInizio}"{selezioneClassifica}>{opzioneClassifica}</option>
+                {/listaClassificheDefault}{listaClassifiche}<option value="{idClassifica}"{selezioneClassifica}>{opzioneClassifica}</option>
                 {/listaClassifiche}
             </select>
         </fieldset>
         <fieldset>
-            <button type="submit" name="form_submit">Visualizza</button>
+            <button type="submit" name="submit">Visualizza</button>
             <button type="submit" name="reset" lang="en">Reset</button>
         </fieldset>
     </form>
