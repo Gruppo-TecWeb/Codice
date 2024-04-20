@@ -93,9 +93,9 @@ INSERT INTO Utenti (Username, Password, Email) VALUES ('T-Brex', '', 'tbrex@fung
 INSERT INTO TipiEvento (Titolo, Descrizione) VALUES ('Fungo', 'Il Fungo prende il nome dall''iconica struttura presente in piazza zanellato a Padova, dove ha luogo solitamente ogni martedì. Si tratta di una serie di eventi legati al mondo rap freestyle durante i quali si svolgono delle battle tra i vari partecipanti. Le classifiche sono i risultati di questi incontri.');
 INSERT INTO TipiEvento (Titolo, Descrizione) VALUES ('Micelio', 'Il Micelio è la versione invernale del Fungo e ha luogo solitamente ogni martedì presso il Distretto Est, a Padova. Si tratta di una serie di eventi legati al mondo rap freestyle durante i quali si svolgono delle battle tra i vari partecipanti. Le classifiche sono i risultati di questi incontri.');
 
-INSERT INTO Classifiche (TipoEvento, DataInizio, DataFine) VALUES ('Fungo', 'Fungo 2023', '2023-09-05', '2023-10-17');
-INSERT INTO Classifiche (TipoEvento, DataInizio, DataFine) VALUES ('Micelio', 'Micelio 2023', '2023-11-07', '2024-12-19');
-INSERT INTO Classifiche (TipoEvento, DataInizio, DataFine) VALUES ('Micelio', 'Micelio 2024', '2024-01-16', '2024-03-31');
+INSERT INTO Classifiche (TipoEvento, Titolo, DataInizio, DataFine) VALUES ('Fungo', 'Fungo 2023', '2023-09-05', '2023-10-17');
+INSERT INTO Classifiche (TipoEvento, Titolo, DataInizio, DataFine) VALUES ('Micelio', 'Micelio 2023', '2023-11-07', '2024-12-19');
+INSERT INTO Classifiche (TipoEvento, Titolo, DataInizio, DataFine) VALUES ('Micelio', 'Micelio 2024', '2024-01-16', '2024-03-31');
 
 INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Meal the mic', 'Rapcolta alimentare', '2023-04-29', '18:00:00', 'Circolo culturale Carichi Sospesi (Padova)', '1_meal_the_mic.jpg');
 INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo, Locandina) VALUES ('Hip hop night', 'Freestyel battle', '2023-07-13', '18:00:00', 'Parco Morandi (Padova)', '2_hip_hop_night.jpg');

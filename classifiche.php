@@ -76,6 +76,7 @@ if ($connectionOk) {
     // creo le classifiche per la visualizzazione
     $descrizioneEvento = $connection->get_tipo_evento($titoloEvento)['Descrizione'];
     $classifica = $connection->get_classifica($titoloEvento, date_format($dataInizioEvento, 'Y-m-d'));
+    $titoloClassifica = $connection->get_classifiche($titoloEvento, date_format($dataInizioEvento, 'Y-m-d'))[0]['Titolo'];
     if ($classifica != null) {
         $classificaHTML = get_content_between_markers($content, 'tabellaClassifica');
         $tabella = multi_replace($classificaHTML, [
@@ -83,6 +84,7 @@ if ($connectionOk) {
             '{desTipoEvento}' => multi_replace($descrizioneEvento, [
                 'battle' => "<span lang='en'>battle</span>",
             ]),
+            '{titoloClassifica}' => $titoloClassifica
         ]);
         $righe = '';
         $rigaHTML = get_content_between_markers($content, 'rigaClassifica');
