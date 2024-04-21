@@ -28,7 +28,6 @@ $connection = DBAccess::get_instance();
 $connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
-    $eventoSelezionato = isset($_POST['idEvento']);
     $messaggiForm = '';
     $messaggioForm = get_content_between_markers($content, 'messaggioForm');
     $lista = '';
@@ -53,13 +52,8 @@ if ($connectionOk) {
     foreach ($classifiche as $classifica) {
         $elementoLista = get_content_between_markers($content, 'elementoLista');
         $lista .= multi_replace($elementoLista, [
-            '{titolo}' => $classifica['Titolo'],
-            '{tipoEvento}' => $classifica['TipoEvento'],
-            '{dataInizio}' => date_format(date_create($classifica['DataInizio']), 'd/m/y'),
-            '{dataFine}' => date_format(date_create($classifica['DataFine']), 'd/m/y'),
-            '{valueTipoEvento}' => $classifica['TipoEvento'],
-            '{valueDataInizio}' => date_format(date_create($classifica['DataInizio']), 'Y-m-d'),
-            '{valueDataFine}' => date_format(date_create($classifica['DataFine']), 'Y-m-d')
+            '{titoloClassifica}' => $classifica['Titolo'],
+            '{idClassifica}' => $classifica['Id']
         ]);
     }
 

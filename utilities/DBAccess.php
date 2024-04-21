@@ -96,6 +96,21 @@ class DBAccess {
         return ($ris = $this->execute_query($query, $id)) ? $ris[0] : null;
     }
 
+    public function get_eventi_classifica($tipoEvento, $dataInizio, $dataFine) {
+        $query = "SELECT
+            e.Id,
+            e.TipoEvento,
+            e.Titolo,
+            e.Descrizione,
+            e.Data,
+            e.Ora,
+            e.Luogo,
+            e.Locandina
+            FROM Eventi AS e
+            WHERE e.TipoEvento = ? AND e.Data >= ? AND e.Data <= ?;";
+        return ($ris = $this->execute_query($query, $tipoEvento, $dataInizio, $dataFine)) ? $ris : [];
+    }
+
     public function insert_evento($titolo, $descrizione, $data, $ora, $luogo, $locandina) {
         // TODO: aggiungere il TipoEvento alla query
         $id = -1;
@@ -285,7 +300,7 @@ class DBAccess {
 
     public function insert_classifica($titolo, $tipoEvento, $dataInizio, $dataFine) {
         return $this->execute_query(
-            "INSERT INTO Classifiche (Titolo, TipoEvento, DataInizio, DataFine) VALUES (?, ?, ?);",
+            "INSERT INTO Classifiche (Titolo, TipoEvento, DataInizio, DataFine) VALUES (?, ?, ?, ?);",
             $titolo,
             $tipoEvento,
             $dataInizio,

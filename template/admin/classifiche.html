@@ -13,11 +13,9 @@
     <h4>Classifiche presenti</h4>
     <ol id="lista-classifiche">
         {elementoLista}<li>
-            <span>{titolo}</span>
+            <span>{titoloClassifica}</span>
             <form method="post" action="gestione-classifiche.php">
-                <input type="hidden" name="tipoEvento" value="{valueTipoEvento}">
-                <input type="hidden" name="dataInizio" value="{valueDataInizio}">
-                <input type="hidden" name="dataFine" value="{valueDataFine}">
+                <input type="hidden" name="idClassifica" value="{idClassifica}">
                 <button type="submit" name="modifica" value="true">Modifica</button>
                 <button type="submit" name="elimina" value="true">Elimina</button>
             </form>

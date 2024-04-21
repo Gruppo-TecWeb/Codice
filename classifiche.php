@@ -51,7 +51,7 @@ if ($connectionOk) {
         $idClassifica = $resultClassifica['Id'];
         $titoloClassifica = $resultClassifica['Titolo'];
         $tipoEvento = $resultClassifica['TipoEvento'];
-        $selected = $idClassifica == $classifica['Id'] ? 'selected' : '';
+        $selected = $idClassifica == $classifica['Id'] ? ' selected' : '';
         
         $option = get_content_between_markers($content, 'listaClassifiche');
         $classifiche .= multi_replace($option, [
