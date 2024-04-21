@@ -22,6 +22,7 @@ $onload = '';
 
 if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
+    exit;
 }
 
 $connection = DBAccess::get_instance();
@@ -30,6 +31,7 @@ $connectionOk = $connection->open_DB_connection();
 if ($connectionOk) {
     if (isset($_POST['indietro'])) {
         header("location: classifiche.php");
+        exit;
     }
 
     $validNuovoTitolo = isset($_POST['nuovoTitoloClassifica']) ? validate_input($_POST['nuovoTitoloClassifica']) : "";
@@ -47,17 +49,20 @@ if ($connectionOk) {
         (isset($_POST['punteggi']) && $validIdEvento == "") ||
         $validIdCLassifica != "" && $connection->get_classifica($validIdCLassifica) == null) {
                 header("location: classifiche.php?errore=invalid");
+                exit;
     }
     $errore = '0';
 
     if (isset($_POST['punteggi'])) {
         header("location: gestione-punteggi.php?idEvento=$validIdEvento");
+        exit;
     }
 
     if (isset($_POST['elimina'])) {
         $connection->delete_classifica($validIdCLassifica);
         $eliminato = $connection->get_classifica($validIdCLassifica) ? 0 : 1;
         header("location: classifiche.php?eliminato=$eliminato");
+        exit;
     }
 
     $messaggiForm = '';
@@ -126,6 +131,7 @@ if ($connectionOk) {
             }
             if ($errore == '0') {
                 header("location: classifiche.php?aggiunto=1");
+                exit;
             } else {
                 $messaggiForm .= multi_replace($messaggioForm, [
                     '{messaggio}' => "Errore imprevisto"
@@ -159,6 +165,7 @@ if ($connectionOk) {
         }
     } else {
         header("location: classifiche.php");
+        exit;
     }
     
     // costruisco la lista degli eventi
@@ -221,6 +228,7 @@ if ($connectionOk) {
     $connection->close_DB_connection();
 } else {
     header("location: ../errore500.php");
+    exit;
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [

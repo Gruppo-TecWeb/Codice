@@ -31,14 +31,17 @@ if ($connectionOk) {
     if (((isset($_GET['classifica']) && $_GET['classifica'] != "") && $validIdClassifica == "") ||
         ((isset($_GET['classifica']) && $_GET['classifica'] != "") && $classifica == null)) {
         header("location: classifiche.php?errore=invalid");
+        exit;
     }
 
     if (isset($_GET['errore'])) {
         header("location: errore404.php");
+        exit;
     }
 
     if (isset($_GET['reset'])) {
         header("location: classifiche.php");
+        exit;
     }
 
     if (!isset($_GET['classifica'])) {
@@ -102,6 +105,7 @@ if ($connectionOk) {
     $connection->close_DB_connection();
 } else {
     header("location: errore500.php");
+    exit;
 }
 
 if (isset($_SESSION["login"])) {

@@ -22,6 +22,7 @@ $onload = '';
 
 if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
+    exit;
 }
 
 $connection = DBAccess::get_instance();
@@ -30,6 +31,7 @@ $connectionOk = $connection->open_DB_connection();
 if ($connectionOk) {
     if (isset($_POST['indietro'])) {
         header("location: eventi.php");
+        exit;
     }
 
     $validNuovoTipoEvento = isset($_POST['nuovoTipoEvento']) ? validate_input($_POST['nuovoTipoEvento']) : "";
@@ -51,11 +53,13 @@ if ($connectionOk) {
         (isset($_POST['punteggi']) && $validIdEvento == "") ||
         $validIdEvento != "" && $connection->get_evento($validIdEvento) == null) {
         header("location: eventi.php?errore=invalid");
+        exit;
     }
     $errore = '0';
     
     if (isset($_POST['punteggi'])) {
         header("location: gestione-punteggi.php?idEvento=$validIdEvento");
+        exit;
     }
 
     $nuovoTipoEvento = '';
@@ -88,6 +92,7 @@ if ($connectionOk) {
             unlink($percorsoLocandine . $locandina);
         }
         header("location: eventi.php?eliminato=$eliminato");
+        exit;
     }
 
     $messaggiForm = '';
@@ -122,6 +127,7 @@ if ($connectionOk) {
     if (isset($_POST['modifica'])) {
         if (!$validIdEvento || $validIdEvento == "") {
             header("location: eventi.php?errore=invalid");
+            exit;
         }
         $legend = $legendModifica;
         $valueAzione = 'modifica';
@@ -162,6 +168,7 @@ if ($connectionOk) {
                 }
                 if ($errore == '0') {
                     header("location: eventi.php?aggiunto=1");
+                    exit;
                 }
             }
             else {
@@ -209,6 +216,7 @@ if ($connectionOk) {
         }
     } else {
         header("location: eventi.php");
+        exit;
     }
 
     $content = multi_replace($content, [
@@ -236,6 +244,7 @@ if ($connectionOk) {
     $connection->close_DB_connection();
 } else {
     header("location: ../errore500.php");
+    exit;
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [

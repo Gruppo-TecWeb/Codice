@@ -60,6 +60,7 @@ if ($connectionOk) {
 }
 else {
     header("location: errore500.php");
+    exit;
 }
 
 $content = replace_content_between_markers($content, [

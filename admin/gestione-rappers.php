@@ -22,6 +22,7 @@ $onload = '';
 
 if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
+    exit;
 }
 
 $connection = DBAccess::get_instance();
@@ -47,20 +48,24 @@ if ($connectionOk) {
         ((isset($_POST['username']) && $_POST['username'] != "") && $validUsername == "") ||
         ((isset($_POST['email']) && $_POST['email'] != "") && $validEmail == "")) {
         header("location: rappers.php?errore=invalid");
+        exit;
     }
     $errore = '0';
     
     if (isset($_POST['indietro'])) {
         header("location: rappers.php");
+        exit;
     }
     
     if (isset($_POST['elimina'])) {
         if ($_SESSION["datiUtente"]['Username'] == $_POST['username']) {
             header("location: rappers.php?eliminato=0");
+            exit;
         } else {
             $connection->delete_user($validUsername);
             $eliminato = $connection->get_utente_by_email($validEmail) ? 0 : 1;
             header("location: rappers.php?eliminato=$eliminato");
+            exit;
         }
     } elseif (isset($_POST['modifica'])) {
         $legend = $legendModifica;
@@ -101,6 +106,7 @@ if ($connectionOk) {
             }
             if ($errore == '0') {
                 header("location: rappers.php?aggiunto=1");
+                exit;
             }
         } elseif ($_POST['azione'] == 'modifica') {
             $errore = '0';
@@ -148,6 +154,7 @@ if ($connectionOk) {
         }
     } else {
         header("location: rappers.php");
+        exit;
     }
 
     $content = multi_replace($content, [
@@ -165,6 +172,7 @@ if ($connectionOk) {
     $connection->close_DB_connection();
 } else {
     header("location: ../errore500.php");
+    exit;
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [

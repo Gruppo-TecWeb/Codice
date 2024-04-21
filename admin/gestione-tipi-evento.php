@@ -22,6 +22,7 @@ $onload = '';
 
 if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
+    exit;
 }
 
 $connection = DBAccess::get_instance();
@@ -45,17 +46,20 @@ if ($connectionOk) {
         ((isset($_POST['nuovaDescrizione']) && $_POST['nuovaDescrizione'] != "") && $validNuovaDescrizione == "") ||
         ((isset($_POST['titolo']) && $_POST['titolo'] != "") && $validTitolo == "")) {
         header("location: tipi-evento.php?errore=invalid");
+        exit;
     }
     $errore = '0';
     
     if (isset($_POST['indietro'])) {
         header("location: tipi-evento.php");
+        exit;
     }
     
     if (isset($_POST['elimina'])) {
         $connection->delete_tipo_evento($validTitolo);
         $eliminato = $connection->get_tipo_evento($validTitolo) ? 0 : 1;
         header("location: tipi-evento.php?eliminato=$eliminato");
+        exit;
     } elseif (isset($_POST['modifica'])) {
         $legend = $legendModifica;
         $nuovoTitolo = $validTitolo;
@@ -86,6 +90,7 @@ if ($connectionOk) {
             }
             if ($errore == '0') {
                 header("location: tipi-evento.php?aggiunto=1");
+                exit;
             }
         } elseif ($_POST['azione'] == 'modifica') {
             $errore = '0';
@@ -116,6 +121,7 @@ if ($connectionOk) {
         }
     } else {
         header("location: tipi-evento.php");
+        exit;
     }
 
     $content = multi_replace($content, [
@@ -133,6 +139,7 @@ if ($connectionOk) {
     $connection->close_DB_connection();
 } else {
     header("location: ../errore500.php");
+    exit;
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [

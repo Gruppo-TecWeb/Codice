@@ -165,6 +165,7 @@ if ($connectionOk) {
     );
 } else {
     header("location: errore500.php");
+    exit;
 }
 
 if (isset($_SESSION["login"])) {
