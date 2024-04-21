@@ -11,6 +11,13 @@
             <form method="post" action="gestione-eventi.php" enctype="multipart/form-data">
                 <fieldset>
                     <legend>{legend}</legend>
+                    <label for="tipoEvento">Tipo Evento:</label>
+                    <select id="tipoEvento" name="nuovoTipoEvento" required>
+                        <option value=""{selezioneDefault} disabled>Scegli il tipo evento</option>
+                        <option value=""{nessunaSelezione}>Nessun tipo evento</option>
+                        {listaTipoEvento}<option value="{tipoEvento}"{selezioneTipoEvento}>{tipoEvento}</option>
+                        {/listaTipoEvento}
+                    </select>
                     <label for="titolo">Titolo:</label>
                     <input type="text" id="titolo" name="nuovoTitolo" value="{nuovoTitolo}" placeholder="Titolo" required>
                     <label for="data">Data:</label>

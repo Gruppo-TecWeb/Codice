@@ -84,13 +84,13 @@ class DBAccess {
     }
 
     public function get_evento($id) {
-        $query = "SELECT e.Titolo,
+        $query = "SELECT e.TipoEvento,
+        e.Titolo,
         e.Descrizione,
         e.Data,
         e.Ora,
         e.Luogo,
-        e.Locandina,
-        e.Tipoevento
+        e.Locandina
         FROM Eventi AS e
         WHERE e.Id = ?";
         return ($ris = $this->execute_query($query, $id)) ? $ris[0] : null;
@@ -111,11 +111,11 @@ class DBAccess {
         return ($ris = $this->execute_query($query, $tipoEvento, $dataInizio, $dataFine)) ? $ris : [];
     }
 
-    public function insert_evento($titolo, $descrizione, $data, $ora, $luogo, $locandina) {
-        // TODO: aggiungere il TipoEvento alla query
+    public function insert_evento($tipoEvento, $titolo, $descrizione, $data, $ora, $luogo, $locandina) {
         $id = -1;
         $result = $this->execute_query(
-            "INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo) VALUES (?, NULLIF(?, ''), ?, ?, ?);",
+            "INSERT INTO Eventi (TipoEvento, Titolo, Descrizione, Data, Ora, Luogo) VALUES (NULLIF(?, ''), ?, NULLIF(?, ''), ?, ?, ?);",
+            $tipoEvento,
             $titolo,
             $descrizione,
             $data,
@@ -130,10 +130,10 @@ class DBAccess {
         return $id;
     }
 
-    public function update_evento($id, $titolo, $descrizione, $data, $ora, $luogo, $locandina) {
-        // TODO: aggiungere il TipoEvento alla query
+    public function update_evento($id, $tipoEvento, $titolo, $descrizione, $data, $ora, $luogo, $locandina) {
         return $this->execute_query(
-            "UPDATE Eventi SET Titolo = ?, Descrizione = NULLIF(?, ''), Data = ?, Ora = ?, Luogo = ?, Locandina = NULLIF(?, '') WHERE Id = ?;",
+            "UPDATE Eventi SET TipoEvento = NULLIF(?, ''), Titolo = ?, Descrizione = NULLIF(?, ''), Data = ?, Ora = ?, Luogo = ?, Locandina = NULLIF(?, '') WHERE Id = ?;",
+            $tipoEvento,
             $titolo,
             $descrizione,
             $data,

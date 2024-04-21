@@ -46,7 +46,7 @@ if ($connectionOk) {
         ((isset($_POST['idClassifica']) && $_POST['idClassifica'] != "") && $validIdCLassifica == "") ||
         (isset($_POST['punteggi']) && $validIdEvento == "") ||
         $validIdCLassifica != "" && $connection->get_classifica($validIdCLassifica) == null) {
-                //header("location: classifiche.php?errore=invalid");
+                header("location: classifiche.php?errore=invalid");
     }
     $errore = '0';
 
@@ -65,7 +65,6 @@ if ($connectionOk) {
     $listaTipoEvento = '';
 
     $classifica = $validIdCLassifica == "" ? null : $connection->get_classifica($validIdCLassifica);
-
     
     // costruisco la lista di option per la selezione del tipo evento
     $tipiEvento = $connection->get_tipi_evento();
