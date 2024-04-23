@@ -33,7 +33,7 @@ if ($connectionOk) {
     if ($evento == null) {
         $content .= '<p>Evento non trovato</p>';
     } else {
-        [$titolo, $descrizione, $data, $ora, $luogo, $locandina, $tipoEvento] = array_values($evento);
+        [$tipoEvento, $titolo, $descrizione, $data, $ora, $luogo, $locandina] = array_values($evento);
 
         $content = file_get_contents("template/evento.html");
 
