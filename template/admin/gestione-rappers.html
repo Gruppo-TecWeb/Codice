@@ -20,8 +20,9 @@
                     <input type="hidden" name="azione" value="{valueAzione}">
                 
                     <button type="submit" name="conferma" value="true">Conferma</button>
-                    <button type="submit" name="elimina" value="true">Elimina Rapper</button>
-                    <button type="submit" name="indietro" value="true">Torna ai Rappers</button>
+                    {buttonElimina}<button type="submit" name="elimina" value="true">Elimina Rapper</button>
+                    {/buttonElimina}
+                    <button type="button" value="annulla" onClick="history.go(-1);return true;">Annulla</button>
                 </fieldset>
             </form>
         </div>

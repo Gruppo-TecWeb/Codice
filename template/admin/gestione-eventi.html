@@ -30,8 +30,9 @@
                 
                     <button type="submit" name="conferma" value="true">Conferma</button>{eliminaLocandina}
                     <button type="submit" name="eliminaLocandina" value="true">Elimina Locandina</button>{/eliminaLocandina}
-                    <button type="submit" name="elimina" value="true">Elimina Evento</button>
-                    <button type="submit" name="indietro" value="true">Torna agli Eventi</button>
+                    {buttonElimina}<button type="submit" name="elimina" value="true">Elimina Evento</button>
+                    {/buttonElimina}
+                    <button type="button" value="annulla" onClick="history.go(-1);return true;">Annulla</button>
                 </fieldset>
             </form>
         </div>

@@ -30,6 +30,7 @@ $connectionOk = $connection->open_DB_connection();
 if ($connectionOk) {
     $messaggiForm = '';
     $messaggioForm = get_content_between_markers($content, 'messaggioForm');
+    $buttonElimina = get_content_between_markers($content, 'buttonElimina');
     $legend = '';
     $legendAggiungi = 'Aggiungi Evento';
     $legendModifica = 'Modifica Evento';
@@ -83,10 +84,6 @@ if ($connectionOk) {
     }
     $errore = '0';
     
-    if (isset($_POST['indietro'])) {
-        header("location: eventi.php");
-    }
-    
     if (isset($_POST['punteggi'])) {
         header("location: gestione-punteggi.php?idEvento=$validIdEvento");
     } elseif (isset($_POST['elimina'])) {
@@ -112,6 +109,7 @@ if ($connectionOk) {
         $locandina = $validLocandina;
         $valueAzione = 'modifica';
     } elseif (isset($_POST['aggiungi'])) {
+        $buttonElimina = '';
         $legend = $legendAggiungi;
         $valueAzione = 'aggiungi';
     } elseif (isset($_POST['conferma']) || isset($_POST['eliminaLocandina'])) {
@@ -216,6 +214,7 @@ if ($connectionOk) {
     ]);
     $content = replace_content_between_markers($content, [
         'messaggiForm' => $messaggiForm,
+        'buttonElimina' => $buttonElimina,
         'imgLocandina' => $locandina == '' ? '' : get_content_between_markers($content, 'imgLocandina'),
         'eliminaLocandina' => isset($_POST['aggiungi']) || $validLocandina == '' ? '' : get_content_between_markers($content, 'eliminaLocandina')
     ]);

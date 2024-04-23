@@ -48,8 +48,9 @@
                 </fieldset>
                 
                 <button type="submit" name="conferma" value="true">Conferma</button>
-                <button type="submit" name="elimina" value="true">Elimina Classifica</button>
-                <button type="submit" name="indietro" value="true">Torna alle Classifiche</button>
+                {buttonElimina}<button type="submit" name="elimina" value="true">Elimina Classifica</button>
+                {/buttonElimina}
+                <button type="button" value="annulla" onClick="history.go(-1);return true;">Annulla</button>
             </form>
 
             <!-- classifica attuale -->

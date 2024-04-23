@@ -56,10 +56,6 @@ if ($connectionOk) {
         ($count_punteggi != count($validRappersPoints))) {
         header("location: classifiche.php?errore=invalid");
     }
-
-    if (isset($_POST['indietro'])) {
-        header("location: eventi.php");
-    }
   
     if (isset($_POST['elimina'])) {
         if ($eventoSelezionato) {
