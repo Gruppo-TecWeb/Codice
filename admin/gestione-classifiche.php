@@ -30,6 +30,7 @@ $connectionOk = $connection->open_DB_connection();
 if ($connectionOk) {
     $messaggiForm = '';
     $messaggioForm = get_content_between_markers($content, 'messaggioForm');
+    $buttonElimina = get_content_between_markers($content, 'buttonElimina');
     $legend = '';
     $legendAggiungi = 'Aggiungi Classifica';
     $legendModifica = 'Modifica Classifica';
@@ -111,6 +112,7 @@ if ($connectionOk) {
         $dataFine = $validDataFine;
         $valueAzione = 'modifica';
     } elseif (isset($_POST['aggiungi'])) {
+        $buttonElimina = '';
         $legend = $legendAggiungi;
         $selezioneDefault = ' selected';
         $nessunEvento = get_content_between_markers($content, 'nessunEvento');
@@ -248,6 +250,7 @@ if ($connectionOk) {
     $content = replace_content_between_markers($content, [
         'listaTipoEvento' => $listaTipoEvento,
         'messaggiForm' => $messaggiForm,
+        'buttonElimina' => $buttonElimina,
         'listaEventiChecked' => $listaEventiChecked,
         'listaEventiUnchecked' => $listaEventiUnchecked,
         'nessunEvento' => $nessunEvento
