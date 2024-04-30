@@ -132,6 +132,7 @@ if ($connectionOk) {
         $legend = $legendModifica;
         $valueAzione = 'modifica';
     } elseif (isset($_POST['aggiungi'])) {
+        $buttonElimina = '';
         $legend = $legendAggiungi;
         $valueAzione = 'aggiungi';
         $selezioneDefault = ' selected';
@@ -237,6 +238,7 @@ if ($connectionOk) {
     $content = replace_content_between_markers($content, [
         'listaTipoEvento' => $listaTipoEvento,
         'messaggiForm' => $messaggiForm,
+        'buttonElimina' => $buttonElimina,
         'imgLocandina' => $locandina == '' ? '' : get_content_between_markers($content, 'imgLocandina'),
         'eliminaLocandina' => isset($_POST['aggiungi']) || $locandina == '' ? '' : get_content_between_markers($content, 'eliminaLocandina')
     ]);

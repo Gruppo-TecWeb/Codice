@@ -107,6 +107,7 @@ if ($connectionOk) {
         $nuovaDataInizio = $classifica['DataInizio'];
         $nuovaDataFine = $classifica['DataFine'];
     } elseif (isset($_POST['aggiungi'])) {
+        $buttonElimina = '';
         $legend = $legendAggiungi;
         $selezioneDefault = ' selected';
         $nessunEvento = get_content_between_markers($content, 'nessunEvento');

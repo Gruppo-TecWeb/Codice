@@ -31,6 +31,7 @@ $connectionOk = $connection->open_DB_connection();
 if ($connectionOk) {
     $messaggiForm = '';
     $messaggioForm = get_content_between_markers($content, 'messaggioForm');
+    $buttonElimina = get_content_between_markers($content, 'buttonElimina');
     $legend = '';
     $legendAggiungi = 'Aggiungi Tipo Evento';
     $legendModifica = 'Modifica Tipo Evento';
@@ -49,12 +50,12 @@ if ($connectionOk) {
         exit;
     }
     $errore = '0';
-    
+  
     if (isset($_POST['indietro'])) {
         header("location: tipi-evento.php");
         exit;
     }
-    
+  
     if (isset($_POST['elimina'])) {
         $connection->delete_tipo_evento($validTitolo);
         $eliminato = $connection->get_tipo_evento($validTitolo) ? 0 : 1;
@@ -68,6 +69,7 @@ if ($connectionOk) {
         $descrizione = $nuovaDescrizione;
         $valueAzione = 'modifica';
     } elseif (isset($_POST['aggiungi'])) {
+        $buttonElimina = '';
         $legend = $legendAggiungi;
         $valueAzione = 'aggiungi';
     } elseif (isset($_POST['conferma'])) {
@@ -133,7 +135,8 @@ if ($connectionOk) {
         '{valueAzione}' => $valueAzione
     ]);
     $content = replace_content_between_markers($content, [
-        'messaggiForm' => $messaggiForm
+        'messaggiForm' => $messaggiForm,
+        'buttonElimina' => $buttonElimina
     ]);
 
     $connection->close_DB_connection();

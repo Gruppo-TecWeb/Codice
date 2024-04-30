@@ -31,6 +31,7 @@ $connectionOk = $connection->open_DB_connection();
 if ($connectionOk) {
     $messaggiForm = '';
     $messaggioForm = get_content_between_markers($content, 'messaggioForm');
+    $buttonElimina = get_content_between_markers($content, 'buttonElimina');
     $legend = '';
     $legendAggiungi = 'Aggiungi <span lang="en">Rapper</span>';
     $legendModifica = 'Modifica <span lang="en">Rapper</span>';
@@ -51,12 +52,12 @@ if ($connectionOk) {
         exit;
     }
     $errore = '0';
-    
+  
     if (isset($_POST['indietro'])) {
         header("location: rappers.php");
         exit;
     }
-    
+  
     if (isset($_POST['elimina'])) {
         if ($_SESSION["datiUtente"]['Username'] == $_POST['username']) {
             header("location: rappers.php?eliminato=0");
@@ -75,6 +76,7 @@ if ($connectionOk) {
         $email = $validEmail;
         $valueAzione = 'modifica';
     } elseif (isset($_POST['aggiungi'])) {
+        $buttonElimina = '';
         $legend = $legendAggiungi;
         $valueAzione = 'aggiungi';
     } elseif (isset($_POST['conferma'])) {
@@ -166,7 +168,8 @@ if ($connectionOk) {
         '{valueAzione}' => $valueAzione
     ]);
     $content = replace_content_between_markers($content, [
-        'messaggiForm' => $messaggiForm
+        'messaggiForm' => $messaggiForm,
+        'buttonElimina' => $buttonElimina
     ]);
 
     $connection->close_DB_connection();
