@@ -15,8 +15,8 @@ $description = 'Pagina di errore 404.';
 $keywords = '';
 $percorso = '';
 $percorsoAdmin = 'admin/';
-$menu = get_menu($pageId, $percorso);
-$breadcrumbs = get_breadcrumbs($pageId, $percorso);
+$menu = get_menu($pageId);
+$breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 $logout = '';
 

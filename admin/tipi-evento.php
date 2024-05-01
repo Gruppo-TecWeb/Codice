@@ -22,6 +22,7 @@ $onload = '';
 
 if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
+    exit;
 }
 
 $connection = DBAccess::get_instance();
@@ -65,6 +66,7 @@ if ($connectionOk) {
     $connection->close_DB_connection();
 } else {
     header("location: ../errore500.php");
+    exit;
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [

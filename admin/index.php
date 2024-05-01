@@ -22,6 +22,7 @@ $onload = '';
 
 if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
+    exit;
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [

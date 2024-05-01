@@ -11,6 +11,8 @@
             <form method="post" action="gestione-classifiche.php">
                 <fieldset>
                     <legend>{legend}</legend>
+                    <label for="titoloClassifica">Titolo Classifica:</label>
+                    <input type="text" id="titoloClassifica" name="nuovoTitoloClassifica" value="{nuovoTitoloClassifica}" required>
                     <label for="tipoEvento">Tipo Evento:</label>
                     <select id="tipoEvento" name="nuovoTipoEvento" required>
                         <option value=""{selezioneDefault} disabled>Scegli il tipo evento</option>
@@ -21,37 +23,27 @@
                     <input type="date" id="dataInizio" name="nuovaDataInizio" value="{nuovaDataInizio}" required>
                     <label for="dataFine">Data Fine:</label>
                     <input type="date" id="dataFine" name="nuovaDataFine" value="{nuovaDataFine}" required>
-                    <input type="hidden" name="tipoEvento" value="{tipoEvento}">
-                    <input type="hidden" name="dataInizio" value="{dataInizio}">
+                    <input type="hidden" name="idClassifica" value="{idClassifica}">
                     <input type="hidden" name="azione" value="{valueAzione}">
-
-                    <!-- Pulsante per visualizzare gli eventi disponibili -->
-                    <button type="submit" name="mostraEventi" value="true">Visualizza Eventi Abbinabili</button>
-                </fieldset>
-            
-                <!-- Elenco degli Eventi già associati o associabili alla Classifica -->
-                <fieldset>
-                    <legend>Associa Eventi</legend>
-                    <ul>
-                        {listaEventiChecked}<li>
-                            <input type="checkbox" id="evento{idEvento}" name="eventi[]" value="{idEvento}" checked>
-                            <label for="evento{idEvento}">{titoloEvento} <time datetime="{dataEvento}">{dataVisualizzataEvento}</time></label>
-                            <button type="submit" name="punteggi" value="{idEvento}">Modifica Punteggi</button>
-                        </li>
-                        {/listaEventiChecked}
-                        {listaEventiUnchecked}<li>
-                            <input type="checkbox" id="evento{idEvento}" name="eventi[]" value="{idEvento}">
-                            <label for="evento{idEvento}">{titoloEvento} <time datetime="{dataEvento}">{dataVisualizzataEvento}</time></label>
-                        </li>
-                        {/listaEventiUnchecked}{nessunEvento}<li>Nessun evento da mostrare</li>{/nessunEvento}
-                    </ul>
-                </fieldset>
-                
+                </fieldset>                
                 <button type="submit" name="conferma" value="true">Conferma</button>
-                {buttonElimina}<button type="submit" name="elimina" value="true">Elimina Classifica</button>
-                {/buttonElimina}
-                <button type="button" value="annulla" onClick="history.go(-1);return true;">Annulla</button>
-            </form>
+                <button type="submit" name="elimina" value="true">Elimina Classifica</button>
+                <button type="submit" name="indietro" value="true">Torna alle Classifiche</button>
+            </form>{listaEventi}
+            
+            <!-- Elenco degli Eventi appartenenti alla Classifica -->
+            <h4>Eventi appartenenti alla Classifica</h4>
+            <ol id="lista-eventi-gestione-classifiche">
+                {elementoLista}
+                <li>
+                    <span>{titoloEvento} {dataVisualizzataEvento}</span>
+                    <form method="post" action="gestione-eventi.php">
+                        <input type="hidden" name="idEvento" value="{idEvento}">
+                        <button type="submit" name="punteggi" value="true">Punteggi</button>
+                    </form>
+                </li>
+                {/elementoLista}
+            </ol>{/listaEventi}
 
             <!-- classifica attuale -->
             {tabellaClassifica}
@@ -78,5 +70,4 @@
                     </tbody>
                 </table>
             </div>
-            {/tabellaClassifica} {nessunaClassifica}
-            <p class="limitedWidth">Non è presente nessuna classifica</p>{/nessunaClassifica}
+            {/tabellaClassifica}

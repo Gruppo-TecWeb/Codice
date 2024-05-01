@@ -22,6 +22,7 @@ $onload = '';
 
 if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
+    exit;
 }
 
 $connection = DBAccess::get_instance();
@@ -55,6 +56,12 @@ if ($connectionOk) {
     if (((isset($_POST['idEvento']) && $_POST['idEvento'] != "") && $validIdEvento == "") ||
         ($count_punteggi != count($validRappersPoints))) {
         header("location: classifiche.php?errore=invalid");
+        exit;
+    }
+
+    if (isset($_POST['indietro'])) {
+        header("location: eventi.php");
+        exit;
     }
   
     if (isset($_POST['elimina'])) {
@@ -104,6 +111,7 @@ if ($connectionOk) {
     $connection->close_DB_connection();
 } else {
     header("location: ../errore500.php");
+    exit;
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
