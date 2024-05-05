@@ -30,6 +30,16 @@ function toggleMenu() {
 }
 
 /*
+ * PAGINA EVENTO
+ */
+
+function init_evento() {
+    linkIndietro = document.getElementById("indietro");
+    if (document.referrer.includes("eventi.php"))
+        linkIndietro.setAttribute('href', document.referrer);
+}
+
+/*
  * PAGINA BEATS
  */
 
@@ -51,20 +61,6 @@ function init_index() {
         }
     });
 }
-
-/*
- * PAGINA EVENTO
- */
-
-function init_evento() {
-    linkIndietro = document.getElementById("indietro");
-    if (document.referrer.includes("eventi.php"))
-        linkIndietro.setAttribute('href', document.referrer);
-}
-
-/*
- * PAGINA BEATS
- */
 
 function init_beats() {
     descrizioni = document.getElementsByClassName("descBeats");
@@ -239,3 +235,25 @@ function nextAudio(nomeBase) {
         }
     }
 }
+
+/*
+ * PAGINE ADMIN
+ */
+/*
+function confermaEliminazione() {
+    if (!confirm("Sei sicuro di voler eliminare questo elemento?")) {
+        event.preventDefault();
+    }
+}*/
+document.addEventListener('DOMContentLoaded', function() {
+    var form = document.querySelector('form');
+    var deleteButton = document.querySelector('button[name="elimina"]');
+  
+    deleteButton.addEventListener('click', function(event) {
+      var confirmDelete = confirm('Sei sicuro di voler eliminare questo elemento?');
+      if (!confirmDelete) {
+        // Se l'utente fa clic su Annulla, interrompiamo l'invio del form
+        event.preventDefault();
+      }
+    });
+});
