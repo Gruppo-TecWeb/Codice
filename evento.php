@@ -31,7 +31,7 @@ if ($connectionOk) {
     $classifica = $connection->get_classifica_evento($eventoId);
     $connection->close_DB_connection();
     if ($evento == null) {
-        $content .= '<p>Evento non trovato</p>';
+        header("location: errore404.php");
     } else {
         [$tipoEvento, $titolo, $descrizione, $data, $ora, $luogo, $locandina] = array_values($evento);
 
