@@ -136,7 +136,7 @@ if ($connectionOk) {
             $eventi_string .= multi_replace($eventoTemplate, [
                 '{idEvento}' => urlencode($evento['Id']),
                 '{valueDataEvento}' => $evento['Data'],
-                '{dataEvento}' => strftime("%d %B %Y", strtotime($evento['Data'])),
+                '{dataEvento}' => format_date($evento['Data']),
                 '{locandinaEvento}' => $evento['Locandina'],
                 '{titoloEvento}' => htmlspecialchars($evento['Titolo'])
             ]);
@@ -150,7 +150,8 @@ if ($connectionOk) {
     $messaggioFiltri = $data == '' ? 'i prossimi eventi' : '';
     $messaggioFiltri .= $data != '' ? 'eventi a partire dalla data: ' . multi_replace(get_content_between_markers($content, 'messaggioFiltri'), [
         '{valueDataEvento}' => $data,
-        '{dataEvento}' => strftime("%d %B %Y", strtotime($data))
+        '{dataEvento}' => format_date($data)
+    
     ]) : '';
     $messaggioFiltri .= $titolo != '' ? ' di tipo: ' . $titolo : '';
 

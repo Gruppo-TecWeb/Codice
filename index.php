@@ -54,7 +54,7 @@ if ($connectionOk) {
         ]), [
             '{id}' => $eventoId,
             '{titolo}' => $titolo,
-            '{data}' => strftime("%d %B %Y", strtotime($evento['Data'])),
+            '{data}' => format_date($data),
             '{ora}' => date_format(date_create($ora), 'H:i'),
             '{luogo}' => $luogo
         ]);
