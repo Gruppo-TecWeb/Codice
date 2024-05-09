@@ -328,7 +328,7 @@ class DBAccess {
 
     public function login($username, $password) {
         $c = $this->execute_query(
-            "SELECT Username, Email, Password, Admin FROM Utenti WHERE Username = ? ;",
+            "SELECT Username, Email, Password, TipoUtente FROM Utenti WHERE Username = ? ;",
             $username
         );
         $res = $c ? $c[0] : null;
@@ -337,39 +337,39 @@ class DBAccess {
 
     public function get_utente_by_username($username) {
         return ($ris = $this->execute_query(
-            "SELECT Username, Email, Admin FROM Utenti WHERE Username = ?;",
+            "SELECT Username, Email, TipoUtente FROM Utenti WHERE Username = ?;",
             $username
         )) ? $ris[0] : [];
     }
 
     public function get_utente_by_email($email) {
         return ($ris = $this->execute_query(
-            "SELECT Username, Email, Admin FROM Utenti WHERE Email = ?;",
+            "SELECT Username, Email, TipoUtente FROM Utenti WHERE Email = ?;",
             $email
         )) ? $ris[0] : [];
     }
 
     public function get_utenti() {
         return $this->execute_query(
-            "SELECT * FROM Utenti ORDER BY Username;"
+            "SELECT Username, Email, TipoUtente FROM Utenti ORDER BY Username;"
         );
     }
 
     public function get_utenti_base() {
         return $this->execute_query(
-            "SELECT * FROM Utenti WHERE Admin = 'N' ORDER BY Username;"
+            "SELECT Username, Email, TipoUtente FROM Utenti WHERE TipoUtente = 'U' ORDER BY Username;"
         );
     }
 
     public function get_utenti_admin() {
         return $this->execute_query(
-            "SELECT * FROM Utenti WHERE Admin = 'S' ORDER BY Username;"
+            "SELECT Username, Email, TipoUtente FROM Utenti WHERE TipoUtente = 'A' ORDER BY Username;"
         );
     }
 
-    public function insert_utente($username, $password, $email, $admin = 'N') {
+    public function insert_utente($username, $password, $email, $admin = 'U') {
         return $this->execute_query(
-            "INSERT INTO Utenti (Username, Password, Email, Admin) VALUES (?, ?, ?, ?);",
+            "INSERT INTO Utenti (Username, Password, Email, TipoUtente) VALUES (?, ?, ?, ?);",
             $username,
             password_hash($password, PASSWORD_BCRYPT),
             $email,
