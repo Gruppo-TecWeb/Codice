@@ -29,11 +29,6 @@ $connection = DBAccess::get_instance();
 $connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
-    if (isset($_POST['indietro'])) {
-        header("location: classifiche.php");
-        exit;
-    }
-
     $validNuovoTitolo = isset($_POST['nuovoTitoloClassifica']) ? validate_input($_POST['nuovoTitoloClassifica']) : "";
     $validNuovoTipoEvento = isset($_POST['nuovoTipoEvento']) ? validate_input($_POST['nuovoTipoEvento']) : "";
     $validNuovaDataInizio = isset($_POST['nuovaDataInizio']) ? validate_input($_POST['nuovaDataInizio']) : "";
