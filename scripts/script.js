@@ -239,21 +239,16 @@ function nextAudio(nomeBase) {
 /*
  * PAGINE ADMIN
  */
-/*
-function confermaEliminazione() {
-    if (!confirm("Sei sicuro di voler eliminare questo elemento?")) {
-        event.preventDefault();
-    }
-}*/
+
+// per ogni button con name=elimina, aggiungo un event listener che chiede conferma prima di eliminare l'elemento; se viene premuto annulla, interrompo l'invio del form
 document.addEventListener('DOMContentLoaded', function() {
-    var form = document.querySelector('form');
-    var deleteButton = document.querySelector('button[name="elimina"]');
-  
-    deleteButton.addEventListener('click', function(event) {
-      var confirmDelete = confirm('Sei sicuro di voler eliminare questo elemento?');
-      if (!confirmDelete) {
-        // Se l'utente fa clic su Annulla, interrompiamo l'invio del form
-        event.preventDefault();
-      }
-    });
+    var deleteButtons = document.querySelectorAll('button[name="elimina"]');
+    for (let i = 0; i < deleteButtons.length; i++) {
+        deleteButtons[i].addEventListener('click', function(event) {
+            var confirmDelete = confirm('Sei sicuro di voler eliminare questo elemento?');
+            if (!confirmDelete) {
+                event.preventDefault();
+            }
+        });
+    }
 });
