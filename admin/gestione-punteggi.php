@@ -58,11 +58,6 @@ if ($connectionOk) {
         header("location: classifiche.php?errore=invalid");
         exit;
     }
-
-    if (isset($_POST['indietro'])) {
-        header("location: eventi.php");
-        exit;
-    }
   
     if (isset($_POST['elimina'])) {
         if ($eventoSelezionato) {

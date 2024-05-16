@@ -53,11 +53,6 @@ if ($connectionOk) {
     }
     $errore = '0';
   
-    if (isset($_POST['indietro'])) {
-        header("location: amministratori.php");
-        exit;
-    }
-  
     if (isset($_POST['elimina'])) {
         if ($_SESSION["datiUtente"]['Username'] == $_POST['username']) {
             header("location: amministratori.php?eliminato=0");

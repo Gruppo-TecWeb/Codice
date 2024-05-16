@@ -1,5 +1,5 @@
 /*
- * TEMPLATE DI PAGINA
+ * TUTTE LE PAGINE
  */
 
 var menu = null;
@@ -27,6 +27,12 @@ function toggleMenu() {
     menu.setAttribute("data-menu-open", menuOpened);
     bcContainer.setAttribute("data-menu-open", menuOpened);
     document.body.setAttribute("data-menu-open", menuOpened);
+}
+
+// funzione che permette di tornare alla pagina precedente
+function tornaIndietro() {
+    window.history.back();
+    return true;
 }
 
 /*

@@ -1,74 +1,75 @@
 <div id="classifiche" class="limitedWidth">
-            <h3>Gestione Classifiche</h3>
+    <h3>Gestione Classifiche</h3>
 
-            <!-- Form per aggiungere o modificare classifiche -->
+    <!-- Form per aggiungere o modificare classifiche -->
 
-            {messaggiForm}<ul>
-                {messaggioForm}<li>{messaggio}</li>{/messaggioForm}
-            </ul>
-            {/messaggiForm}
-            
-            <form method="post" action="gestione-classifiche.php">
-                <fieldset>
-                    <legend>{legend}</legend>
-                    <label for="titoloClassifica">Titolo Classifica:</label>
-                    <input type="text" id="titoloClassifica" name="nuovoTitoloClassifica" value="{nuovoTitoloClassifica}" required>
-                    <label for="tipoEvento">Tipo Evento:</label>
-                    <select id="tipoEvento" name="nuovoTipoEvento" required>
+    {messaggiForm}
+    <ul>
+        {messaggioForm}
+        <li>{messaggio}</li>{/messaggioForm}
+    </ul>
+    {/messaggiForm}
+
+    <form method="post" action="gestione-classifiche.php">
+        <fieldset>
+            <legend>{legend}</legend>
+            <label for="titoloClassifica">Titolo Classifica:</label>
+            <input type="text" id="titoloClassifica" name="nuovoTitoloClassifica" value="{nuovoTitoloClassifica}" required>
+            <label for="tipoEvento">Tipo Evento:</label>
+            <select id="tipoEvento" name="nuovoTipoEvento" required>
                         <option value=""{selezioneDefault} disabled>Scegli il tipo evento</option>
                         {listaTipoEvento}<option value="{tipoEvento}"{selezioneTipoEvento}>{tipoEvento}</option>
                         {/listaTipoEvento}
                     </select>
-                    <label for="dataInizio">Data Inizio:</label>
-                    <input type="date" id="dataInizio" name="nuovaDataInizio" value="{nuovaDataInizio}" required>
-                    <label for="dataFine">Data Fine:</label>
-                    <input type="date" id="dataFine" name="nuovaDataFine" value="{nuovaDataFine}" required>
-                    <input type="hidden" name="idClassifica" value="{idClassifica}">
-                    <input type="hidden" name="azione" value="{valueAzione}">
-                </fieldset>                
-                <button type="submit" name="conferma" value="true">Conferma</button>
-                {buttonElimina}<button type="submit" name="elimina" value="true">Elimina Classifica</button>
-                {/buttonElimina}
-                <button type="submit" name="indietro" value="true">Torna alle Classifiche</button>
-            </form>{listaEventi}
-            
-            <!-- Elenco degli Eventi appartenenti alla Classifica -->
-            <h4>Eventi appartenenti alla Classifica</h4>
-            <ol id="lista-eventi-gestione-classifiche">
-                {elementoLista}
-                <li>
-                    <span>{titoloEvento} {dataVisualizzataEvento}</span>
-                    <form method="post" action="gestione-eventi.php">
-                        <input type="hidden" name="idEvento" value="{idEvento}">
-                        <button type="submit" name="punteggi" value="true">Punteggi</button>
-                    </form>
-                </li>
-                {/elementoLista}
-            </ol>{/listaEventi}
+            <label for="dataInizio">Data Inizio:</label>
+            <input type="date" id="dataInizio" name="nuovaDataInizio" value="{nuovaDataInizio}" required>
+            <label for="dataFine">Data Fine:</label>
+            <input type="date" id="dataFine" name="nuovaDataFine" value="{nuovaDataFine}" required>
+            <input type="hidden" name="idClassifica" value="{idClassifica}">
+            <input type="hidden" name="azione" value="{valueAzione}">
+        </fieldset>
+        <button type="submit" name="conferma" value="true">Conferma</button> {buttonElimina}
+        <button type="submit" name="elimina" value="true">Elimina Classifica</button> {/buttonElimina}
+        <button type="button" value="annulla" onClick="tornaIndietro()">Annulla</button>
+    </form>{listaEventi}
 
-            <!-- classifica attuale -->
-            {tabellaClassifica}
-            <div class="div-classifica">
-                <span id="sumTabella" class="navigationHelp">Tabella che riassume la classifica attuale con l'indicazione
+    <!-- Elenco degli Eventi appartenenti alla Classifica -->
+    <h4>Eventi appartenenti alla Classifica</h4>
+    <ol id="lista-eventi-gestione-classifiche">
+        {elementoLista}
+        <li>
+            <span>{titoloEvento} {dataVisualizzataEvento}</span>
+            <form method="post" action="gestione-eventi.php">
+                <input type="hidden" name="idEvento" value="{idEvento}">
+                <button type="submit" name="punteggi" value="true">Punteggi</button>
+            </form>
+        </li>
+        {/elementoLista}
+    </ol>{/listaEventi}
+
+    <!-- classifica attuale -->
+    {tabellaClassifica}
+    <div class="div-classifica">
+        <span id="sumTabella" class="navigationHelp">Tabella che riassume la classifica attuale con l'indicazione
                     di <span lang="en">ranking</span>, nome d'arte del <span lang="en">freestyler</span>, punteggio ottenuto.</span>
-                <table id="tabella-classifica" aria-describedby="sumTabella">
-                    <caption>Classifica attuale</caption>
-                    <thead>
-                        <tr>
-                            <th scope="col" lang="en">Ranking</th>
-                            <th scope="col" lang="en">Freestyler</th>
-                            <th scope="col">Punti</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {rigaClassifica}
-                        <tr>
-                            <th data-title="ranking" scope="row"><span class="classifica ranking">{ranking}</span></th>
-                            <td data-title="Freestyler">{freestyler}</td>
-                            <td data-title="Punti">{punti}</td>
-                        </tr>
-                        {/rigaClassifica}
-                    </tbody>
-                </table>
-            </div>
-            {/tabellaClassifica}
+        <table id="tabella-classifica" aria-describedby="sumTabella">
+            <caption>Classifica attuale</caption>
+            <thead>
+                <tr>
+                    <th scope="col" lang="en">Ranking</th>
+                    <th scope="col" lang="en">Freestyler</th>
+                    <th scope="col">Punti</th>
+                </tr>
+            </thead>
+            <tbody>
+                {rigaClassifica}
+                <tr>
+                    <th data-title="ranking" scope="row"><span class="classifica ranking">{ranking}</span></th>
+                    <td data-title="Freestyler">{freestyler}</td>
+                    <td data-title="Punti">{punti}</td>
+                </tr>
+                {/rigaClassifica}
+            </tbody>
+        </table>
+    </div>
+    {/tabellaClassifica}

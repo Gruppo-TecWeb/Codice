@@ -29,11 +29,6 @@ $connection = DBAccess::get_instance();
 $connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
-    if (isset($_POST['indietro'])) {
-        header("location: eventi.php");
-        exit;
-    }
-
     $validNuovoTipoEvento = isset($_POST['nuovoTipoEvento']) ? validate_input($_POST['nuovoTipoEvento']) : "";
     $validNuovoTitolo = isset($_POST['nuovoTitolo']) ? validate_input($_POST['nuovoTitolo']) : "";
     $validNuovaData = isset($_POST['nuovaData']) ? validate_input($_POST['nuovaData']) : "";
