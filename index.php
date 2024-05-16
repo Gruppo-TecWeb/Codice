@@ -37,7 +37,7 @@ if ($connectionOk) {
     $listaEventi  = $connection->get_lista_eventi(); // lista eventi futuri
     if (count($listaEventi) > 0) { // se ci sono eventi futuri
         $headingEvento = get_content_between_markers($eventoHome, 'prossimoEvento');
-    } else { // altrimenti prendo i pasaati
+    } else { // altrimenti prendo i passati
         $listaEventi = $connection->get_lista_eventi('', '', false); // lista eventi passati
         $headingEvento = get_content_between_markers($eventoHome, 'ultimoEvento');
     }
