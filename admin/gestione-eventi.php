@@ -183,7 +183,7 @@ if ($connectionOk) {
             $legend = $legendModifica;
             $valueAzione = 'modifica';
             $connection->update_evento(
-                $validIdEvento, $validNuovoTipoEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, $validIdEvento . '_' . $validNuovaLocandina);
+                $validIdEvento, $validNuovoTipoEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, $locandina);
             if ($errore == '0') {
                 if (!isset($_POST['eliminaLocandina']) && $validNuovaLocandina != "" && getimagesize($_FILES["nuovaLocandina"]["tmp_name"]) !== false) {
                     $errori = carica_file($_FILES["nuovaLocandina"], $percorsoLocandine, $validIdEvento . '_' . $validNuovaLocandina);
@@ -194,13 +194,13 @@ if ($connectionOk) {
                             ]);
                         }
                         $errore = '1';
-                        $connection->update_evento(
-                            $validIdEvento, $validNuovoTipoEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, $locandina);
                     } else {
                         if ($locandina != '') {
                             unlink($percorsoLocandine . $locandina);
                         }
                         $locandina = $validIdEvento . '_' . $validNuovaLocandina;
+                        $connection->update_evento(
+                            $validIdEvento, $validNuovoTipoEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, $locandina);
                     }
                 }
                 if ($errore == '0') {
