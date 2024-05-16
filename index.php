@@ -51,8 +51,8 @@ if ($connectionOk) {
         ]), [
             '{id}' => $eventoId,
             '{titolo}' => $titolo,
-            '{data}' => date_format(date_create($data), 'd/m/y'),
-            '{ora}' => date_format(date_create($ora), 'G:i'),
+            '{data}' => date_format_ita($data),
+            '{ora}' => date_format(date_create($ora), 'H:i'),
             '{luogo}' => $luogo
         ]);
     }
