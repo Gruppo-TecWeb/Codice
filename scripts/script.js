@@ -30,6 +30,16 @@ function toggleMenu() {
 }
 
 /*
+ * PAGINA EVENTO
+ */
+
+function init_evento() {
+    linkIndietro = document.getElementById("indietro");
+    if (document.referrer.includes("eventi.php"))
+        linkIndietro.setAttribute('href', document.referrer);
+}
+
+/*
  * PAGINA BEATS
  */
 
@@ -51,20 +61,6 @@ function init_index() {
         }
     });
 }
-
-/*
- * PAGINA EVENTO
- */
-
-function init_evento() {
-    linkIndietro = document.getElementById("indietro");
-    if (document.referrer.includes("eventi.php"))
-        linkIndietro.setAttribute('href', document.referrer);
-}
-
-/*
- * PAGINA BEATS
- */
 
 function init_beats() {
     descrizioni = document.getElementsByClassName("descBeats");
@@ -239,3 +235,20 @@ function nextAudio(nomeBase) {
         }
     }
 }
+
+/*
+ * PAGINE ADMIN
+ */
+
+// per ogni button con name=elimina, aggiungo un event listener che chiede conferma prima di eliminare l'elemento; se viene premuto annulla, interrompo l'invio del form
+document.addEventListener('DOMContentLoaded', function() {
+    var deleteButtons = document.querySelectorAll('button[name="elimina"]');
+    for (let i = 0; i < deleteButtons.length; i++) {
+        deleteButtons[i].addEventListener('click', function(event) {
+            var confirmDelete = confirm('Sei sicuro di voler eliminare questo elemento?');
+            if (!confirmDelete) {
+                event.preventDefault();
+            }
+        });
+    }
+});
