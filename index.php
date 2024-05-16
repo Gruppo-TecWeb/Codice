@@ -37,22 +37,22 @@ if ($connectionOk) {
     $listaEventi  = $connection->get_lista_eventi(); // lista eventi futuri
     if (count($listaEventi) > 0) { // se ci sono eventi futuri
         $headingEvento = get_content_between_markers($eventoHome, 'prossimoEvento');
-    } else { // altrimenti prendo i pasaati
+    } else { // altrimenti prendo i passati
         $listaEventi = $connection->get_lista_eventi('', '', false); // lista eventi passati
         $headingEvento = get_content_between_markers($eventoHome, 'ultimoEvento');
     }
     if (count($listaEventi) > 0) { // se ho ottenuto eventi
         $eventoId = $listaEventi[0]['Id'];
         $evento = $connection->get_evento($eventoId);
-        [$titolo, $descrizione, $data, $ora, $luogo, $locandina, $tipoEvento] = array_values($evento);
+        [$tipoEvento, $titolo, $descrizione, $data, $ora, $luogo, $locandina] = array_values($evento);
 
         $contentEvento = multi_replace(replace_content_between_markers($eventoHome, [
             'intestazione' => $headingEvento
         ]), [
             '{id}' => $eventoId,
             '{titolo}' => $titolo,
-            '{data}' => date_format(date_create($data), 'd/m/y'),
-            '{ora}' => date_format(date_create($ora), 'G:i'),
+            '{data}' => date_format_ita($data),
+            '{ora}' => date_format(date_create($ora), 'H:i'),
             '{luogo}' => $luogo
         ]);
     }

@@ -62,6 +62,7 @@ if ($connectionOk) {
 
     $messaggiForm = '';
     $messaggioForm = get_content_between_markers($content, 'messaggioForm');
+    $buttonElimina = get_content_between_markers($content, 'buttonElimina');
     $listaTipoEvento = '';
 
     $classifica = $validIdCLassifica == "" ? null : $connection->get_classifica($validIdCLassifica);
@@ -217,6 +218,7 @@ if ($connectionOk) {
     $content = replace_content_between_markers($content, [
         'listaTipoEvento' => $listaTipoEvento,
         'messaggiForm' => $messaggiForm,
+        'buttonElimina' => $buttonElimina,
         'listaEventi' => $eventiHTML,
         'nessunEvento' => $nessunEvento
     ]);
