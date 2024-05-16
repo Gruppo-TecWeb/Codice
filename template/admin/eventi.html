@@ -1,7 +1,28 @@
-<div id="eventi">
+<div id="eventi" class="limitedWidth">
     <h3>Gestione Eventi</h3>
-    <table>
-        <!-- Inserisci qui le righe della tabella con i dettagli degli eventi -->
-    </table>
-    <button>Aggiungi Evento</button>
+    <form method="post" action="gestione-eventi.php">
+        <button type="submit" name="aggiungi" value="true">Aggiungi nuovo Evento</button>
+    </form>
+
+    {messaggiForm}
+    <ul>
+        {messaggioForm}
+        <li>{messaggio}</li>{/messaggioForm}
+    </ul>
+    {/messaggiForm}
+
+    <!-- Lista degli eventi esistenti in ordine cronologico con possibilità di modificarli o eliminarli. -->
+    <ol id="lista-eventi-gestione">
+        {elementoLista}
+        <li>
+            <span>{titolo} {dataVisualizzata}</span>
+            <form method="post" action="gestione-eventi.php">
+                <input type="hidden" name="idEvento" value="{idEvento}">
+                <button type="submit" name="modifica" value="true">Modifica</button>
+                <button type="submit" name="punteggi" value="true">Punteggi</button>
+                <button type="submit" name="elimina" value="true">Elimina</button>
+            </form>
+        </li>
+        {/elementoLista}
+    </ol>
 </div>

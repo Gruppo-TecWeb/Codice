@@ -1,0 +1,43 @@
+<div id="punteggi" class="limitedWidth">
+    <h3>Gestione Punteggi</h3>
+
+    <!-- Form per aggiungere o modificare punteggi ad un evento -->
+
+    {messaggiForm}<ul>
+        {messaggioForm}<li>{messaggio}</li>{/messaggioForm}
+    </ul>
+    {/messaggiForm}
+    
+    <form method="post" action="gestione-punteggi.php">
+    
+        <!-- Elenco dei rappers con i relativi punteggi -->
+        <fieldset>
+            <legend>Punteggi</legend>
+            <span id="sumTabella" class="navigationHelp">Tabella che elenca tutti i <span lang="en">rappers</span> 
+            presenti nel <span lang="en">database</span> con l'indicazione del nome d'arte e una cella dove poter 
+            vedere ed eventualmente modificare il punteggio del relativo artista per l'evento selezionato.</span>
+            <table id="tabella-classifiche" aria-describedby="sumTabella">
+                <caption>Modifica i punteggi di ciascun <span lang="en">rapper</span></caption>
+                <thead>
+                    <tr>
+                        <th scope="col" lang="en">Rapper</th>
+                        <th scope="col">Punteggio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {rigaTabella}<tr>
+                        <td data-title="Rapper"><input type="hidden" id="{idRapper}" name="username[]" value="{rapper}">{rapper}</td>
+                        <td data-title="Punteggio"><input type="number" id="punti-{idRapper}" name="punti[]" min="0" max="99"{valuePunti}></td>
+                    </tr>
+                    {/rigaTabella}
+                </tbody>
+            </table>
+        </fieldset>
+        
+        <input type="hidden" name="idEvento" value="{idEvento}">
+      
+        <button type="submit" name="conferma" value="true">Conferma</button>
+        <button type="submit" name="elimina" value="true">Elimina Punteggi Evento</button>
+        <button type="button" value="annulla" onClick="history.go(-1);return true;">Annulla</button>
+    </form>
+</div>

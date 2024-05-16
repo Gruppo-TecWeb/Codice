@@ -14,7 +14,7 @@ $title = 'Battle &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = "Basi per freestyle di rap";
 $keywords = 'Basi, Beats, Instrumental, Freestyle, Rap';
-$menu = get_menu(isset($_SESSION["login"]), $pageId);
+$menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = 'observePlayerPinned()';
 

@@ -16,15 +16,13 @@ $title = 'Eventi &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = 'Pagina che presenta gli eventi organizzati dal collettivo rap Restraining Stirpe Crew.';
 $keywords = 'micelio, fungo, meal the mic, hip hop night, freestyle, freestyle rap, rap, battle, live, dj set';
-$percorso = '';
-$percorsoAdmin = 'admin/';
-$menu = get_menu($pageId, $percorso);
-$breadcrumbs = get_breadcrumbs($pageId, $percorso);
+$menu = get_menu($pageId);
+$breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 $logout = '';
 
-$connection = DBAccess::getInstance();
-$connectionOk = $connection->openDBConnection();
+$connection = DBAccess::get_instance();
+$connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
     $eventi_per_pagina = 12;
@@ -32,10 +30,10 @@ if ($connectionOk) {
     $titolo = isset($_GET['titolo']) ? $_GET['titolo'] : '';
     $data = isset($_GET['data']) ? $_GET['data'] : '';
 
-    $lista_eventi_array = $connection->getListaEventi($data, $titolo);
-    $lista_titoli_array = $connection->getTitoliEventi();
+    $lista_eventi_array = $connection->get_lista_eventi($data, $titolo);
+    $lista_titoli_array = $connection->get_titoli_eventi();
     $oldest_date = $lista_eventi_array == null ? $connection->get_oldest_date() : '';
-    $connection->closeDBConnection();
+    $connection->close_DB_connection();
 
     $numero_pagine = ceil(count($lista_eventi_array) / $eventi_per_pagina);
 
@@ -168,6 +166,7 @@ if ($connectionOk) {
     );
 } else {
     header("location: errore500.php");
+    exit;
 }
 
 if (isset($_SESSION["login"])) {
@@ -184,7 +183,5 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{content}' => $content,
-    '{onload}' => $onload,
-    '{percorso}' => $percorso,
-    '{percorsoAdmin}' => $percorsoAdmin
+    '{onload}' => $onload
 ]);

@@ -2,37 +2,35 @@
 
 namespace Utilities;
 
-require_once("../utilities/utilities.php");
-require_once("../utilities/DBAccess.php");
+require_once("utilities/utilities.php");
+require_once("utilities/DBAccess.php");
 
 use DB\DBAccess;
 
 session_start();
 
-$paginaHTML = file_get_contents("../template/template-pagina.html");
-$content = file_get_contents("../template/admin/registrati.html");
+$paginaHTML = file_get_contents("template/template-pagina.html");
+$content = file_get_contents("template/registrati.html");
 
 $title = 'Registrati &minus; Fungo';
-$pageId = 'admin/' . basename(__FILE__, '.php');
+$pageId = basename(__FILE__, '.php');
 $description = 'Pagina dove poter effettuare l\'accesso all\'area autenticata del sito.';
 $keywords = 'registrati, freestyle rap, fungo, micelio, battle, eventi, classifiche';
-$percorso = '../';
-$percorsoAdmin = '';
-$menu = get_menu($pageId, $percorso);
-$breadcrumbs = get_breadcrumbs($pageId, $percorso);
+$menu = get_menu($pageId);
+$breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 $username = '';
 $email = '';
 $messaggioForm = '';
 $messaggiForm = '';
-$logout = '';
 
-$connection = DBAccess::getInstance();
-$connectionOk = $connection->openDBConnection();
+$connection = DBAccess::get_instance();
+$connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
     if (isset($_SESSION["login"])) {
-        header("location: index.php");
+        header("location: admin/index.php");
+        exit;
     }
 
     $messaggioForm = get_content_between_markers($content, 'messaggioForm');
@@ -63,22 +61,23 @@ if ($connectionOk) {
         }
         if ($password == "") {
             $errore = true;
-            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Inserire Password"]);
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Inserire <span lang=\"en\">Password</span>"]);
         } elseif ($password != $confermaPassword) {
             $errore = true;
-            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Le password non coincidono"]);
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Le <span lang=\"en\">Password</span> non coincidono"]);
         }
         if ($email == "") {
             $errore = true;
-            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Inserire E-Mail"]);
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Inserire <span lang=\"en\">E-Mail</span>"]);
         }
         if (!$errore) {
-            $utenteRegistrato = $connection->register($username, $password, $email);
+            $utenteRegistrato = $connection->insert_utente($username, $password, $email);
             if ($utenteRegistrato > 0) {
                 $_SESSION["datiUtente"] = array("Username" => $username, "Email" => $email);
                 $_SESSION["login"] = true;
-                header("location: index.php");
                 $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Registrazione avvenuta correttamente"]);
+                header("location: admin/index.php");
+                exit;
             } else {
                 $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "La registrazione non é avvenuta"]);
             }
@@ -93,7 +92,7 @@ if ($connectionOk) {
         }
     }
 
-    $connection->closeDBConnection();
+    $connection->close_DB_connection();
     $content = multi_replace(replace_content_between_markers($content, [
         'messaggiForm' => $messaggiForm
     ]), [
@@ -101,24 +100,19 @@ if ($connectionOk) {
         '{valoreEmail}' => $email
     ]);
 } else {
-    header("location: ../errore500.php");
-}
-
-if (isset($_SESSION["login"])) {
-    $logout = get_content_between_markers($paginaHTML, 'logout');
+    header("location: errore500.php");
+    exit;
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu,
-    'logout' => $logout
+    'logout' => ''
 ]), [
     '{title}' => $title,
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{content}' => $content,
-    '{onload}' => $onload,
-    '{percorso}' => $percorso,
-    '{percorsoAdmin}' => $percorsoAdmin
+    '{onload}' => $onload
 ]);

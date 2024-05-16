@@ -16,10 +16,8 @@ $title = 'Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = 'Pagina ufficiale del collettivo rap Restraining Stirpe Crew.';
 $keywords = 'restraining stirpe, freestyle, freestyle rap, rap, battle, live, dj set, micelio, fungo';
-$percorso = '';
-$percorsoAdmin = 'admin/';
-$menu = get_menu($pageId, $percorso);
-$breadcrumbs = get_breadcrumbs($pageId, $percorso);
+$menu = get_menu($pageId);
+$breadcrumbs = get_breadcrumbs($pageId);
 $onload = 'init_index()';
 $logout = '';
 
@@ -31,22 +29,22 @@ if (isset($_SESSION["login"])) {
 $eventoHome = get_content_between_markers($content, 'eventoHome');
 $contentEvento = '';
 
-$connection = DBAccess::getInstance();
-$connectionOk = $connection->openDBConnection();
+$connection = DBAccess::get_instance();
+$connectionOk = $connection->open_DB_connection();
 if ($connectionOk) {
     $headingEvento = '';
 
-    $listaEventi  = $connection->getListaEventi(); // lista eventi futuri
+    $listaEventi  = $connection->get_lista_eventi(); // lista eventi futuri
     if (count($listaEventi) > 0) { // se ci sono eventi futuri
         $headingEvento = get_content_between_markers($eventoHome, 'prossimoEvento');
     } else { // altrimenti prendo i pasaati
-        $listaEventi = $connection->getListaEventi('', '', false); // lista eventi passati
+        $listaEventi = $connection->get_lista_eventi('', '', false); // lista eventi passati
         $headingEvento = get_content_between_markers($eventoHome, 'ultimoEvento');
     }
     if (count($listaEventi) > 0) { // se ho ottenuto eventi
         $eventoId = $listaEventi[0]['Id'];
-        $evento = $connection->getEvento($eventoId);
-        [$titolo, $descrizione, $data, $ora, $luogo, $locandina, $tipoEvento, $dataInizioClassifica] = array_values($evento);
+        $evento = $connection->get_evento($eventoId);
+        [$titolo, $descrizione, $data, $ora, $luogo, $locandina, $tipoEvento] = array_values($evento);
 
         $contentEvento = multi_replace(replace_content_between_markers($eventoHome, [
             'intestazione' => $headingEvento
@@ -58,7 +56,11 @@ if ($connectionOk) {
             '{luogo}' => $luogo
         ]);
     }
-    $connection->closeDBConnection();
+    $connection->close_DB_connection();
+}
+else {
+    header("location: errore500.php");
+    exit;
 }
 
 $content = replace_content_between_markers($content, [
@@ -75,7 +77,5 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{content}' => $content,
-    '{onload}' => $onload,
-    '{percorso}' => $percorso,
-    '{percorsoAdmin}' => $percorsoAdmin
+    '{onload}' => $onload
 ]);

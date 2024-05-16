@@ -1,7 +1,25 @@
-<div id="tipi_evento">
-    <h3>Tipi Evento</h3>
-    <table>
-        <!-- Inserisci qui le righe della tabella con i dettagli dei tipi evento -->
-    </table>
-    <button>Aggiungi Tipo Evento</button>
-</div>
+<div id="tipi_evento" class="limitedWidth">
+            <h3>Gestione Tipi Evento</h3>
+            <form method="post" action="gestione-tipi-evento.php">
+                <button type="submit" name="aggiungi" value="true">Aggiungi nuovo Tipo Evento</button>
+            </form>
+
+            {messaggiForm}<ul>
+                {messaggioForm}<li>{messaggio}</li>{/messaggioForm}
+            </ul>
+            {/messaggiForm}
+
+            <!-- Lista dei tipi evento esistenti in ordine alfabetico con possibilità di modificarli o eliminarli. -->
+            <h4>Tipi Evento presenti</h4>
+            <ol id="lista-tipi-evento">
+                {elementoLista}<li>
+                    <span>{titolo}</span>
+                    <form method="post" action="gestione-tipi-evento.php">
+                        <input type="hidden" name="titolo" value="{titolo}">
+                        <button type="submit" name="modifica" value="true">Modifica</button>
+                        <button type="submit" name="elimina" value="true">Elimina</button>
+                    </form>
+                </li>
+                {/elementoLista}
+            </ol>
+        </div>

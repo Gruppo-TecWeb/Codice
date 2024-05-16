@@ -65,10 +65,8 @@ body {
  * FORM
  */
 
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+fieldset>* {
+    margin: 0.5em 0;
 }
 
 
@@ -135,7 +133,7 @@ header .logo {
 
 #menu.js[data-menu-open="false"] {
     transform: translate(-50%, 200%);
-    opacity: 0.1;
+    opacity: 0.8;
     transition: transform 0.3s, opacity 0.3s;
 }
 
@@ -168,9 +166,9 @@ header .logo {
     display: block;
     padding: unset;
     border: unset;
-    background-color: unset;
     font-size: 1.5em;
     font-weight: bold;
+    background-color: var(--colorSecondary);
 }
 
 #menu.js .menuItem {
@@ -229,6 +227,7 @@ header .logo {
 #breadcrumbs p #ti-trovi-in {
     position: absolute;
     text-indent: -999em;
+    background-color: var(--colorSecondary);
 }
 
 #btn-menu {
@@ -292,7 +291,7 @@ footer .logo {
 
 #index #hero #titolo {
     height: unset;
-    container-type: unset;
+    /* container-type: unset; */
 }
 
 #index #hero h2 {
@@ -302,7 +301,7 @@ footer .logo {
     transform: translate(-50%, -50%);
     width: unset;
     margin: unset;
-    text-shadow: 0 0 8px var(--txtColor), 0 0 8px black;
+    text-shadow: 0 0 8px var(--txtColor);
     font-size: 3em;
     background-color: unset;
     border: unset;
@@ -318,14 +317,14 @@ footer .logo {
     padding: unset;
     text-align: center;
     font-size: 1.15em;
-    text-shadow: 0 0 8px black, 0 0 14px var(--txtColor);
+    text-shadow: 0 0 8px var(--txtColor);
     background-color: unset;
     border: unset;
     z-index: var(--elevationHigh);
 }
 
 #index #hero #titolo p {
-    padding: calc((100% - var(--menuWidth)) / 2);
+    padding: calc((100% - var(--widthMenu)) / 2);
     border-bottom: unset;
     border-top: 2px solid var(--colorAccent);
     border-bottom: 2px solid var(--colorAccent);
@@ -666,6 +665,36 @@ label {
  * PAGINA CLASSIFICHE 
  */
 
+
+/* .adminPage {
+    --widthMenu: 100%;
+    --minWidthMenu: 100%;
+    --marginBottomMenu: 0em;
+    --bordarRadiusCard: 0px;
+} */
+
+.adminPage table th,
+.adminPage table td {
+    padding: 0.1em;
+}
+
+.adminPage table th,
+.adminPage table td {
+    padding: 0.1em;
+}
+
+.adminPage header {
+    height: 3em;
+}
+
+
+/* .adminPage #breadcrumbs-container {
+    --widthMenu: 100%;
+    --minWidthMenu: 100%;
+    --marginBottomMenu: 0em;
+    --bordarRadiusCard: 0px;
+} */
+
 .div-classifica {
     flex-direction: column-reverse;
 }
@@ -701,3 +730,13 @@ div#Fungo {
 /* 
  * PAGINA CHI SIAMO
  */
+
+#chi-siamo-container .eventi-container {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+}
+
+#chi-siamo-container #info-eventi {
+    padding: unset;
+}

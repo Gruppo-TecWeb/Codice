@@ -2,42 +2,50 @@
 
 namespace Utilities;
 
-const pages_array = [
-    'index'                 => ['href' => '{percorso}index.php',                'anchor' => 'Home',                    'lang' => 'en', 'menuOrder' => 1, 'adminMenuOrder' => 0, 'parentId' => ''],
-    'eventi'                => ['href' => '{percorso}eventi.php',               'anchor' => 'Eventi',                  'lang' => '',   'menuOrder' => 2, 'adminMenuOrder' => 0, 'parentId' => 'index'],
-    'evento'                => ['href' => '{percorso}evento.php?id={id}',       'anchor' => '{evento}',                'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 0, 'parentId' => 'eventi'],
-    'classifiche'           => ['href' => '{percorso}classifiche.php',          'anchor' => 'Classifiche',             'lang' => '',   'menuOrder' => 3, 'adminMenuOrder' => 0, 'parentId' => 'index'],
-    'modalita'              => ['href' => '{percorso}modalita.php',             'anchor' => 'Modalità',                'lang' => '',   'menuOrder' => 4, 'adminMenuOrder' => 0, 'parentId' => 'index'],
-    'beats'                 => ['href' => '{percorso}beats.php',                'anchor' => 'Beats',                   'lang' => 'en', 'menuOrder' => 5, 'adminMenuOrder' => 0, 'parentId' => 'index'],
-    'chi-siamo'             => ['href' => '{percorso}chi-siamo.php',            'anchor' => 'Chi siamo',               'lang' => '',   'menuOrder' => 6, 'adminMenuOrder' => 0, 'parentId' => 'index'],
-    'admin/registrati'      => ['href' => '{percorsoAdmin}registrati.php',      'anchor' => 'Registrati',              'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 0, 'parentId' => 'index'],
-    'admin/login'           => ['href' => '{percorsoAdmin}login.php',           'anchor' => 'Login',                   'lang' => 'en', 'menuOrder' => 0, 'adminMenuOrder' => 0, 'parentId' => 'index'],
-    'admin/index'           => ['href' => '{percorsoAdmin}index.php',           'anchor' => 'Area riservata',          'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 0, 'parentId' => 'index'],
-    'admin/profilo'         => ['href' => '{percorsoAdmin}profilo.php',         'anchor' => 'Profilo',                 'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 1, 'parentId' => 'admin/index'],
-    'admin/eventi'          => ['href' => '{percorsoAdmin}eventi.php',          'anchor' => 'Gestione Eventi',         'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 2, 'parentId' => 'admin/index'],
-    'admin/classifiche'     => ['href' => '{percorsoAdmin}classifiche.php',     'anchor' => 'Gestione Classifiche',    'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 3, 'parentId' => 'admin/index'],
-    'admin/tipi-evento'      => ['href' => '{percorsoAdmin}tipi-evento.php',      'anchor' => 'Gestione Tipi Evento',    'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 4, 'parentId' => 'admin/index'],
-    'admin/rappers'         => ['href' => '{percorsoAdmin}rappers.php',         'anchor' => 'Gestione Rappers',        'lang' => 'en', 'menuOrder' => 0, 'adminMenuOrder' => 5, 'parentId' => 'admin/index'],
-    'admin/amministratori'  => ['href' => '{percorsoAdmin}amministratori.php',  'anchor' => 'Gestione Amministratori', 'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 6, 'parentId' => 'admin/index'],
-    'admin/logout'          => ['href' => '{percorsoAdmin}logout.php',          'anchor' => 'Logout',                  'lang' => 'en', 'menuOrder' => 0, 'adminMenuOrder' => 7, 'parentId' => 'index'],
-    'errore404'             => ['href' => '{percorso}errore404.php',            'anchor' => 'Errore 404',              'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 0, 'parentId' => ''],
-    'errore403'             => ['href' => '{percorso}errore403.php',            'anchor' => 'Errore 403',              'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 0, 'parentId' => ''],
-    'errore500'             => ['href' => '{percorso}errore500.php',            'anchor' => 'Errore 500',              'lang' => '',   'menuOrder' => 0, 'adminMenuOrder' => 0, 'parentId' => '']
+const MB = 1048576;
+const MAX_FILE_SIZE = 10*MB;
+const PAGES_ARRAY = [
+    'index'                         => ['href' => 'index.php',                   'anchor' => 'Home',                                      'lang' => 'en', 'menuOrder' => 1, 'admin' => 0, 'parentId' => ''],
+    'eventi'                        => ['href' => 'eventi.php',                  'anchor' => 'Eventi',                                    'lang' => '',   'menuOrder' => 2, 'admin' => 0, 'parentId' => 'index'],
+    'evento'                        => ['href' => 'evento.php?id={id}',          'anchor' => '{evento}',                                  'lang' => '',   'menuOrder' => 0, 'admin' => 0, 'parentId' => 'eventi'],
+    'classifiche'                   => ['href' => 'classifiche.php',             'anchor' => 'Classifiche',                               'lang' => '',   'menuOrder' => 3, 'admin' => 0, 'parentId' => 'index'],
+    'modalita'                      => ['href' => 'modalita.php',                'anchor' => 'Modalità',                                  'lang' => '',   'menuOrder' => 4, 'admin' => 0, 'parentId' => 'index'],
+    'beats'                         => ['href' => 'beats.php',                   'anchor' => 'Beats',                                     'lang' => 'en', 'menuOrder' => 5, 'admin' => 0, 'parentId' => 'index'],
+    'chi-siamo'                     => ['href' => 'chi-siamo.php',               'anchor' => 'Chi siamo',                                 'lang' => '',   'menuOrder' => 6, 'admin' => 0, 'parentId' => 'index'],
+    'registrati'                    => ['href' => 'registrati.php',              'anchor' => 'Registrati',                                'lang' => '',   'menuOrder' => 0, 'admin' => 0, 'parentId' => 'index'],
+    'login'                         => ['href' => 'login.php',                   'anchor' => 'Login',                                     'lang' => 'en', 'menuOrder' => 0, 'admin' => 0, 'parentId' => 'index'],
+    'admin/index'                   => ['href' => 'index.php',                   'anchor' => 'Area riservata',                            'lang' => '',   'menuOrder' => 0, 'admin' => 1, 'parentId' => 'index'],
+    'admin/profilo'                 => ['href' => 'profilo.php',                 'anchor' => 'Profilo',                                   'lang' => '',   'menuOrder' => 1, 'admin' => 1, 'parentId' => 'admin/index'],
+    'admin/eventi'                  => ['href' => 'eventi.php',                  'anchor' => 'Eventi',                                    'lang' => '',   'menuOrder' => 2, 'admin' => 1, 'parentId' => 'admin/index'],
+    'admin/classifiche'             => ['href' => 'classifiche.php',             'anchor' => 'Classifiche',                               'lang' => '',   'menuOrder' => 3, 'admin' => 1, 'parentId' => 'admin/index'],
+    'admin/tipi-evento'             => ['href' => 'tipi-evento.php',             'anchor' => 'Tipi Evento',                               'lang' => '',   'menuOrder' => 4, 'admin' => 1, 'parentId' => 'admin/index'],
+    'admin/rappers'                 => ['href' => 'rappers.php',                 'anchor' => 'Rappers',                                   'lang' => 'en', 'menuOrder' => 5, 'admin' => 1, 'parentId' => 'admin/index'],
+    'admin/amministratori'          => ['href' => 'amministratori.php',          'anchor' => 'Amministratori',                            'lang' => '',   'menuOrder' => 6, 'admin' => 1, 'parentId' => 'admin/index'],
+    'admin/gestione-amministratori' => ['href' => 'gestione-amministratori.php', 'anchor' => 'Gestione Amministratori',                   'lang' => '',   'menuOrder' => 0, 'admin' => 1, 'parentId' => 'admin/amministratori'],
+    'admin/gestione-rappers'        => ['href' => 'gestione-rappers.php',        'anchor' => 'Gestione <span lang=\'en\'>Rappers</span>', 'lang' => '',   'menuOrder' => 0, 'admin' => 1, 'parentId' => 'admin/rappers'],
+    'admin/gestione-tipi-evento'    => ['href' => 'gestione-tipi-evento.php',    'anchor' => 'Gestione Tipi Evento',                      'lang' => '',   'menuOrder' => 0, 'admin' => 1, 'parentId' => 'admin/tipi-evento'],
+    'admin/gestione-eventi'         => ['href' => 'gestione-eventi.php',         'anchor' => 'Gestione Eventi',                           'lang' => '',   'menuOrder' => 0, 'admin' => 1, 'parentId' => 'admin/eventi'],
+    'admin/gestione-punteggi'       => ['href' => 'gestione-punteggi.php',       'anchor' => 'Gestione Punteggi {evento}',                'lang' => '',   'menuOrder' => 0, 'admin' => 1, 'parentId' => 'admin/eventi'],
+    'admin/gestione-classifiche'    => ['href' => 'gestione-classifiche.php',    'anchor' => 'Gestione Classifiche',                      'lang' => '',   'menuOrder' => 0, 'admin' => 1, 'parentId' => 'admin/classifiche'],
+    'logout'                        => ['href' => 'logout.php',                  'anchor' => 'Logout',                                    'lang' => 'en', 'menuOrder' => 0, 'admin' => 0, 'parentId' => ''],
+    'errore404'                     => ['href' => 'errore404.php',               'anchor' => 'Errore 404',                                'lang' => '',   'menuOrder' => 0, 'admin' => 0, 'parentId' => ''],
+    'errore403'                     => ['href' => 'errore403.php',               'anchor' => 'Errore 403',                                'lang' => '',   'menuOrder' => 0, 'admin' => 0, 'parentId' => ''],
+    'errore500'                     => ['href' => 'errore500.php',               'anchor' => 'Errore 500',                                'lang' => '',   'menuOrder' => 0, 'admin' => 0, 'parentId' => '']
 ];
 
 function multi_replace($source, $replacements) {
     return str_replace(array_keys($replacements), $replacements, $source);
 }
 
-function get_menu($pageId, $percorso) {
-    $paginaHTML = file_get_contents($percorso . "template/template-pagina.html");
+function get_menu($pageId) {
+    $paginaHTML = file_get_contents("template/template-pagina.html");
     $menu = '';
     $liCurrent = get_content_between_markers($paginaHTML, 'liCurrent');
     $liNotCurrent = get_content_between_markers($paginaHTML, 'liNotCurrent');
-    foreach (pages_array as $page) {
-        if ($page['menuOrder'] > 0) {
+    foreach (PAGES_ARRAY as $page) {
+        if ($page['menuOrder'] > 0 && $page['admin'] == 0) {
             $lang_attribute = $page['lang'] ? ' lang="' . $page['lang'] . '"' : '';
-            $isCurrent = $page == pages_array[$pageId];
+            $isCurrent = $page == PAGES_ARRAY[$pageId];
             if ($isCurrent) {
                 $menu .= multi_replace($liCurrent, [
                     '{lang}' => $lang_attribute,
@@ -55,14 +63,14 @@ function get_menu($pageId, $percorso) {
     return $menu;
 }
 function get_admin_menu($pageId) {
-    $paginaHTML = file_get_contents("../template/admin/template-pagina-admin.html");
+    $paginaHTML = file_get_contents("../template/admin/template-admin.html");
     $adminMenu = '';
     $liCurrent = get_content_between_markers($paginaHTML, 'liCurrent');
     $liNotCurrent = get_content_between_markers($paginaHTML, 'liNotCurrent');
-    foreach (pages_array as $page) {
-        if ($page['adminMenuOrder'] > 0) {
+    foreach (PAGES_ARRAY as $page) {
+        if ($page['menuOrder'] > 0 && $page['admin'] == 1) {
             $lang_attribute = $page['lang'] ? ' lang="' . $page['lang'] . '"' : '';
-            $isCurrent = $page == pages_array[$pageId];
+            $isCurrent = $page == PAGES_ARRAY[$pageId];
             if ($isCurrent) {
                 $adminMenu .= multi_replace($liCurrent, [
                     '{lang}' => $lang_attribute,
@@ -77,24 +85,29 @@ function get_admin_menu($pageId) {
             }
         }
     }
+    $adminMenu .= multi_replace($liNotCurrent, [
+        '{pageHref}' => '../' . PAGES_ARRAY['index']['href'],
+        '{lang}' => PAGES_ARRAY['index']['lang'] ? ' lang="' . PAGES_ARRAY['index']['lang'] . '"' : '',
+        '{anchor}' => 'Area Utente'
+    ]);
     return $adminMenu;
 }
-function get_breadcrumbs($pageId, $percorso) {
-    $paginaHTML = file_get_contents($percorso . "template/template-pagina.html");
+function get_breadcrumbs($pageId) {
+    $page = PAGES_ARRAY[$pageId];
+    $paginaHTML = (($page['admin'] == 0) ? file_get_contents("template/template-pagina.html") : file_get_contents("../template/admin/template-admin.html"));
     $breadcrumbs = get_content_between_markers($paginaHTML, 'breadcrumbs');
-    $page = pages_array[$pageId];
     $parentBreadcrumb = '';
-    $parent = $page['parentId'] != '' ? pages_array[$page['parentId']] : '';
+    $parent = $page['parentId'] != '' ? PAGES_ARRAY[$page['parentId']] : '';
     while ($parent != '') {
         $parentBreadcrumbTemplate = get_content_between_markers($paginaHTML, 'parentBreadcrumb');
         $lang_attribute = $parent['lang'] ? ' lang="' . $parent['lang'] . '"' : '';
         $parentBreadcrumb = multi_replace($parentBreadcrumbTemplate, [
-            '{pageHref}' => $parent['href'],
+            '{pageHref}' => $page['admin'] != $parent['admin'] ? '../' . $parent['href'] : $parent['href'],
             '{lang}' => $lang_attribute,
             '{parent}' => $parent['anchor']
         ]) . $parentBreadcrumb;
 
-        $parent = $parent['parentId'] != '' ? pages_array[$parent['parentId']] : '';
+        $parent = $parent['parentId'] != '' ? PAGES_ARRAY[$parent['parentId']] : '';
     }
     $lang_attribute = $page['lang'] ? ' lang="' . $page['lang'] . '"' : '';
     $breadcrumbs = replace_content_between_markers(
@@ -137,6 +150,19 @@ function replace_content_between_markers($content, $replacements) {
         }
     }
     return $content;
+}
+
+function carica_file($file, $percorso, $nome) {
+    $errori = [];
+    $nomeCompleto = $percorso . $nome;
+    if (file_exists($nomeCompleto)) {
+        array_push($errori, "Esiste già un file con questo nome in questo percorso");
+    } elseif ($file["size"] > MAX_FILE_SIZE) {
+        array_push($errori, "Il file è troppo grande");
+    } elseif (!move_uploaded_file($file["tmp_name"], $nomeCompleto)) {
+        array_push($errori, "Errore nel caricamento del file");
+    }
+    return $errori;
 }
 
 function date_format_ita($data) {
