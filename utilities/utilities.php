@@ -139,7 +139,7 @@ function replace_content_between_markers($content, $replacements) {
     return $content;
 }
 
-function format_date($data) {
+function date_format_ita($data) {
     $mesi = [
         1 => 'Gennaio',
         2 => 'Febbraio',

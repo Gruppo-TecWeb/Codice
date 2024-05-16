@@ -7,7 +7,6 @@ require_once("utilities/DBAccess.php");
 
 use DB\DBAccess;
 
-setlocale(LC_TIME, 'it_IT', 'it', 'IT', 'italian');
 session_start();
 
 $paginaHTML = file_get_contents("template/template-pagina.html");
@@ -44,7 +43,7 @@ if ($connectionOk) {
             $stagioneEventoTemplate = get_content_between_markers($content, 'stagioneEvento');
             $stagioneEvento = multi_replace($stagioneEventoTemplate, [
                 '{tipoEvento}' => $tipoEvento,
-                '{dataInizioClassifica}' => format_date($dataInizioClassifica)
+                '{dataInizioClassifica}' => date_format_ita($dataInizioClassifica)
             ]);
         }
         if ($descrizione != null) {
@@ -58,7 +57,7 @@ if ($connectionOk) {
             'descrizioneEvento' => $descrizioneEvento
         ]), [
             '{titolo}' => $titolo,
-            '{data}' => format_date($data),
+            '{data}' => date_format_ita($data),
             '{ora}' => date_format(date_create($ora), 'H:i'),
             '{luogo}' => $luogo,
             '{locandina}' => $locandina,

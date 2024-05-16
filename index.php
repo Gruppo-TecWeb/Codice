@@ -7,7 +7,6 @@ require_once("utilities/DBAccess.php");
 
 use DB\DBAccess;
 
-setlocale(LC_TIME, 'it_IT', 'it', 'IT', 'italian');
 session_start();
 
 $paginaHTML = file_get_contents("template/template-pagina.html");
@@ -54,7 +53,7 @@ if ($connectionOk) {
         ]), [
             '{id}' => $eventoId,
             '{titolo}' => $titolo,
-            '{data}' => format_date($data),
+            '{data}' => date_format_ita($data),
             '{ora}' => date_format(date_create($ora), 'H:i'),
             '{luogo}' => $luogo
         ]);
