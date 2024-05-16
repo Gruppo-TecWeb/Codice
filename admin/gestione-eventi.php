@@ -97,6 +97,7 @@ if ($connectionOk) {
 
     $messaggiForm = '';
     $messaggioForm = get_content_between_markers($content, 'messaggioForm');
+    $buttonElimina = get_content_between_markers($content, 'buttonElimina');
     $listaTipoEvento = '';
     $legend = '';
     $legendAggiungi = 'Aggiungi Evento';
