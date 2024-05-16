@@ -44,15 +44,15 @@ if ($connectionOk) {
     if (count($listaEventi) > 0) { // se ho ottenuto eventi
         $eventoId = $listaEventi[0]['Id'];
         $evento = $connection->get_evento($eventoId);
-        [$titolo, $descrizione, $data, $ora, $luogo, $locandina, $tipoEvento, $dataInizioClassifica] = array_values($evento);
+        [$titolo, $descrizione, $data, $ora, $luogo, $locandina, $tipoEvento] = array_values($evento);
 
         $contentEvento = multi_replace(replace_content_between_markers($eventoHome, [
             'intestazione' => $headingEvento
         ]), [
             '{id}' => $eventoId,
             '{titolo}' => $titolo,
-            '{data}' => date_format(date_create($data), 'd/m/y'),
-            '{ora}' => date_format(date_create($ora), 'G:i'),
+            '{data}' => date_format_ita($data),
+            '{ora}' => date_format(date_create($ora), 'H:i'),
             '{luogo}' => $luogo
         ]);
     }
@@ -60,6 +60,7 @@ if ($connectionOk) {
 }
 else {
     header("location: errore500.php");
+    exit;
 }
 
 $content = replace_content_between_markers($content, [

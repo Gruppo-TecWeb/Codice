@@ -133,7 +133,7 @@ if ($connectionOk) {
             $eventi_string .= multi_replace($eventoTemplate, [
                 '{idEvento}' => urlencode($evento['Id']),
                 '{valueDataEvento}' => $evento['Data'],
-                '{dataEvento}' => date_format(date_create($evento['Data']), 'd/m/y'),
+                '{dataEvento}' => date_format_ita($evento['Data']),
                 '{locandinaEvento}' => $evento['Locandina'],
                 '{titoloEvento}' => htmlspecialchars($evento['Titolo'])
             ]);
@@ -147,7 +147,8 @@ if ($connectionOk) {
     $messaggioFiltri = $data == '' ? 'i prossimi eventi' : '';
     $messaggioFiltri .= $data != '' ? 'eventi a partire dalla data: ' . multi_replace(get_content_between_markers($content, 'messaggioFiltri'), [
         '{valueDataEvento}' => $data,
-        '{dataEvento}' => date_format(date_create($data), 'd/m/Y')
+        '{dataEvento}' => date_format_ita($data)
+    
     ]) : '';
     $messaggioFiltri .= $titolo != '' ? ' di tipo: ' . $titolo : '';
 
@@ -165,6 +166,7 @@ if ($connectionOk) {
     );
 } else {
     header("location: errore500.php");
+    exit;
 }
 
 if (isset($_SESSION["login"])) {

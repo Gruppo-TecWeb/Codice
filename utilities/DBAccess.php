@@ -58,6 +58,7 @@ class DBAccess {
     }
 
     public function get_lista_eventi($data = '', $titolo = '', $ascendente = true) {
+        // TODO: aggiungere il TipoEvento al risultato
         $query = "SELECT e.Id,
         e.Titolo,
         e.Descrizione,
@@ -82,63 +83,39 @@ class DBAccess {
         );
     }
 
-    public function get_eventi_selezionabili($dataInizio, $dataFine) {
-        $query = "SELECT *
-        FROM Eventi
-        WHERE Eventi.Data >= ? AND Eventi.Data <= ? AND Eventi.Id NOT IN (
-            SELECT Eventi.Id
-            FROM Eventi
-            JOIN ClassificheEventi ON Eventi.Id = ClassificheEventi.Evento
-        )
-        ORDER BY Eventi.Data ASC";
-        return $this->execute_query($query, $dataInizio, $dataFine);
-    }
-
-    public function get_eventi_selezionati($tipoEvento, $dataInizio) {
-        $query = "SELECT Eventi.Id,
-        Eventi.Titolo,
-        Eventi.Descrizione,
-        Eventi.Data,
-        Eventi.Ora,
-        Eventi.Luogo,
-        Eventi.Locandina
-        FROM Eventi
-        JOIN ClassificheEventi ON Eventi.Id = ClassificheEventi.Evento
-        WHERE ClassificheEventi.TipoEvento = ? AND ClassificheEventi.DataInizio = ?
-        ORDER BY Eventi.Data ASC";
-        return $this->execute_query($query, $tipoEvento, $dataInizio);
-    }
-
     public function get_evento($id) {
-        $query = "SELECT e.Titolo,
+        $query = "SELECT e.TipoEvento,
+        e.Titolo,
         e.Descrizione,
         e.Data,
         e.Ora,
         e.Luogo,
-        e.Locandina,
-        ce.Tipoevento,
-        ce.Datainizio
+        e.Locandina
         FROM Eventi AS e
-        LEFT JOIN ClassificheEventi AS ce ON e.Id = ce.Evento
         WHERE e.Id = ?";
         return ($ris = $this->execute_query($query, $id)) ? $ris[0] : null;
     }
 
-    public function get_eventi_classifica($tipoEvento, $dataInizio) {
-        return $this->execute_query(
-            "SELECT Eventi.Id, Eventi.Titolo, Eventi.Data, Eventi.Ora, Eventi.Luogo
-            FROM Eventi
-            JOIN ClassificheEventi ON Eventi.Id = ClassificheEventi.Evento
-            WHERE ClassificheEventi.TipoEvento = ? AND ClassificheEventi.DataInizio = ?;",
-            $tipoEvento,
-            $dataInizio
-        );
+    public function get_eventi_classifica($tipoEvento, $dataInizio, $dataFine) {
+        $query = "SELECT
+            e.Id,
+            e.TipoEvento,
+            e.Titolo,
+            e.Descrizione,
+            e.Data,
+            e.Ora,
+            e.Luogo,
+            e.Locandina
+            FROM Eventi AS e
+            WHERE e.TipoEvento = ? AND e.Data >= ? AND e.Data <= ?;";
+        return ($ris = $this->execute_query($query, $tipoEvento, $dataInizio, $dataFine)) ? $ris : [];
     }
 
-    public function insert_evento($titolo, $descrizione, $data, $ora, $luogo, $locandina) {
+    public function insert_evento($tipoEvento, $titolo, $descrizione, $data, $ora, $luogo, $locandina) {
         $id = -1;
         $result = $this->execute_query(
-            "INSERT INTO Eventi (Titolo, Descrizione, Data, Ora, Luogo) VALUES (?, NULLIF(?, ''), ?, ?, ?);",
+            "INSERT INTO Eventi (TipoEvento, Titolo, Descrizione, Data, Ora, Luogo) VALUES (NULLIF(?, ''), ?, NULLIF(?, ''), ?, ?, ?);",
+            $tipoEvento,
             $titolo,
             $descrizione,
             $data,
@@ -153,9 +130,10 @@ class DBAccess {
         return $id;
     }
 
-    public function update_evento($id, $titolo, $descrizione, $data, $ora, $luogo, $locandina) {
+    public function update_evento($id, $tipoEvento, $titolo, $descrizione, $data, $ora, $luogo, $locandina) {
         return $this->execute_query(
-            "UPDATE Eventi SET Titolo = ?, Descrizione = NULLIF(?, ''), Data = ?, Ora = ?, Luogo = ?, Locandina = NULLIF(?, '') WHERE Id = ?;",
+            "UPDATE Eventi SET TipoEvento = NULLIF(?, ''), Titolo = ?, Descrizione = NULLIF(?, ''), Data = ?, Ora = ?, Luogo = ?, Locandina = NULLIF(?, '') WHERE Id = ?;",
+            $tipoEvento,
             $titolo,
             $descrizione,
             $data,
@@ -190,17 +168,9 @@ class DBAccess {
         );
     }
 
-    public function get_tipo_evento($titolo = null) {
-        $query = $titolo ?
-            "SELECT * FROM TipiEvento WHERE Titolo = ?;" :
-            "SELECT TipiEvento.Titolo, 
-             TipiEvento.Descrizione
-             FROM TipiEvento
-             JOIN ClassificheEventi ON TipiEvento.Titolo = ClassificheEventi.TipoEvento
-             JOIN Eventi ON ClassificheEventi.Evento = Eventi.id
-             ORDER BY Eventi.Data DESC
-             LIMIT 1;";
-        $res = $titolo ? $this->execute_query($query, $titolo) : $this->execute_query($query);
+    public function get_tipo_evento($titolo) {
+        $query = "SELECT * FROM TipiEvento WHERE Titolo = ?;";
+        $res = $this->execute_query($query, $titolo);
         return $res ? $res[0] : [];
     }
 
@@ -228,12 +198,11 @@ class DBAccess {
         );
     }
 
-    public function get_classifiche($tipoEvento = null, $dataInizio = null) {
-        if ($tipoEvento && $dataInizio) {
+    public function get_classifiche($titolo = null) {
+        if ($titolo) {
             return $this->execute_query(
-                "SELECT * FROM Classifiche WHERE TipoEvento = ? AND DataInizio = ? ORDER BY DataInizio DESC;",
-                $tipoEvento,
-                $dataInizio
+                "SELECT * FROM Classifiche WHERE Titolo = ?;",
+                $titolo
             );
         } else {
             return $this->execute_query(
@@ -242,27 +211,39 @@ class DBAccess {
         }
     }
 
-    public function get_data_inizio_corrente($tipoEvento) {
+    public function get_classifica($id) {
         return ($ris = $this->execute_query(
-            "SELECT DataInizio FROM Classifiche WHERE TipoEvento =? AND DataInizio <= CURDATE() ORDER BY DataInizio DESC LIMIT 1;",
-            $tipoEvento
-        )) ? $ris[0]['DataInizio'] : null;
+            "SELECT * FROM Classifiche WHERE Id = ?;",
+            $id
+        )) ? $ris[0] : null;
     }
 
-    public function get_classifica($tipoEvento, $dataInizio) {
+    public function get_classifica_corrente() {
+        // restituisce la classifica corrente, ovvero quella con la data di inizio più recente
+        $query = "SELECT * FROM Classifiche WHERE DataInizio <= CURDATE() AND DataFine >= CURDATE() ORDER BY DataInizio DESC LIMIT 1;";
+        $ris = $this->execute_query($query);
+        if ($ris) {
+            return $ris[0];
+        } else {
+            $query = "SELECT * FROM Classifiche WHERE DataInizio >= CURDATE() ORDER BY DataInizio ASC LIMIT 1;";
+            $ris = $this->execute_query($query);
+            return $ris ? $ris[0] : null;
+        }
+    }
+
+    public function get_punteggi_classifica($tipoEvento, $dataInizio, $dataFine) {
         return $this->execute_query(
             "SELECT @n := @n + 1 AS ranking, partecipante, punti
             FROM (SELECT @n := 0) m, (
             SELECT Punteggi.Partecipante AS partecipante, SUM(Punteggi.Punteggio) AS punti
             FROM Punteggi
             JOIN Eventi ON Punteggi.Evento = Eventi.id
-            JOIN ClassificheEventi ON Eventi.id = ClassificheEventi.Evento
-            JOIN Classifiche ON ClassificheEventi.TipoEvento = Classifiche.TipoEvento AND ClassificheEventi.DataInizio = Classifiche.DataInizio
-            WHERE Classifiche.TipoEvento = ? AND Classifiche.DataInizio = ?
+            WHERE Eventi.TipoEvento = ? AND Eventi.Data >= ? AND Eventi.Data <= ?
             GROUP BY Punteggi.Partecipante
             ORDER BY Punti DESC) r;",
             $tipoEvento,
-            $dataInizio
+            $dataInizio,
+            $dataFine
         );
     }
 
@@ -273,8 +254,8 @@ class DBAccess {
             SELECT Punteggi.Partecipante AS partecipante, SUM(Punteggi.Punteggio) AS punti
             FROM Punteggi
             WHERE Punteggi.Evento = ?
-            GROUP BY Punteggi.Partecipante
-            ORDER BY Punti DESC) r;",
+            GROUP BY Punteggi.Partecipante 
+            ORDER BY Punti DESC) r;", // TODO: credo sia inutile il group by, (evento,partecipante) sono chiave primaria, togliere?
             $evento
         );
     }
@@ -317,64 +298,37 @@ class DBAccess {
         );
     }
 
-    public function insert_classifica($tipoEvento, $dataInizio, $dataFine) {
+    public function insert_classifica($titolo, $tipoEvento, $dataInizio, $dataFine) {
         return $this->execute_query(
-            "INSERT INTO Classifiche (TipoEvento, DataInizio, DataFine) VALUES (?, ?, ?);",
+            "INSERT INTO Classifiche (Titolo, TipoEvento, DataInizio, DataFine) VALUES (?, ?, ?, ?);",
+            $titolo,
             $tipoEvento,
             $dataInizio,
             $dataFine
         );
     }
 
-    public function insert_classifica_eventi($tipoEvento, $dataInizio, $eventiSelezionati) {
-        foreach ($eventiSelezionati as $eventoSelezionato) {
-            $this->execute_query(
-                "INSERT INTO ClassificheEventi (TipoEvento, DataInizio, Evento) VALUES (?, ?, ?);",
-                $tipoEvento,
-                $dataInizio,
-                $eventoSelezionato
-            );
-        }
-    }
-
-    public function update_classifica($tipoEvento, $dataInizio, $nuovoTipoEvento, $nuovaDataInizio, $nuovaDataFine) {
+    public function update_classifica($id, $titolo, $tipoEvento, $dataInizio, $dataFine) {
         $this->execute_query(
-            "UPDATE Classifiche SET TipoEvento = ?, DataInizio = ?, DataFine = ? WHERE TipoEvento = ? AND DataInizio = ?;",
-            $nuovoTipoEvento,
-            $nuovaDataInizio,
-            $nuovaDataFine,
+            "UPDATE Classifiche SET Titolo = ?, TipoEvento = ?, DataInizio = ?, DataFine = ? WHERE Id = ?;",
+            $titolo,
             $tipoEvento,
-            $dataInizio
+            $dataInizio,
+            $dataFine,
+            $id
         );
     }
 
-    public function update_classifica_eventi($tipoEvento, $dataInizio, $eventiSelezionati) {
-        $this->execute_query(
-            "DELETE FROM ClassificheEventi WHERE TipoEvento = ? AND DataInizio = ?;",
-            $tipoEvento,
-            $dataInizio
-        );
-        foreach ($eventiSelezionati as $eventoSelezionato) {
-            $this->execute_query(
-                "INSERT INTO ClassificheEventi (TipoEvento, DataInizio, Evento) VALUES (?, ?, ?);",
-                $tipoEvento,
-                $dataInizio,
-                $eventoSelezionato
-            );
-        }
-    }
-
-    public function delete_classifica($tipoEvento, $dataInizio) {
+    public function delete_classifica($id) {
         return $this->execute_query(
-            "DELETE FROM Classifiche WHERE TipoEvento = ? AND DataInizio = ?;",
-            $tipoEvento,
-            $dataInizio
+            "DELETE FROM Classifiche WHERE Id = ?;",
+            $id
         );
     }
 
     public function login($username, $password) {
         $c = $this->execute_query(
-            "SELECT Username, Email, Password, Admin FROM Utenti WHERE Username = ? ;",
+            "SELECT Username, Email, Password, TipoUtente FROM Utenti WHERE Username = ? ;",
             $username
         );
         $res = $c ? $c[0] : null;
@@ -383,39 +337,39 @@ class DBAccess {
 
     public function get_utente_by_username($username) {
         return ($ris = $this->execute_query(
-            "SELECT Username, Email, Admin FROM Utenti WHERE Username = ?;",
+            "SELECT Username, Email, TipoUtente FROM Utenti WHERE Username = ?;",
             $username
         )) ? $ris[0] : [];
     }
 
     public function get_utente_by_email($email) {
         return ($ris = $this->execute_query(
-            "SELECT Username, Email, Admin FROM Utenti WHERE Email = ?;",
+            "SELECT Username, Email, TipoUtente FROM Utenti WHERE Email = ?;",
             $email
         )) ? $ris[0] : [];
     }
 
     public function get_utenti() {
         return $this->execute_query(
-            "SELECT * FROM Utenti ORDER BY Username;"
+            "SELECT Username, Email, TipoUtente FROM Utenti ORDER BY Username;"
         );
     }
 
     public function get_utenti_base() {
         return $this->execute_query(
-            "SELECT * FROM Utenti WHERE Admin = 'N' ORDER BY Username;"
+            "SELECT Username, Email, TipoUtente FROM Utenti WHERE TipoUtente = 'U' ORDER BY Username;"
         );
     }
 
     public function get_utenti_admin() {
         return $this->execute_query(
-            "SELECT * FROM Utenti WHERE Admin = 'S' ORDER BY Username;"
+            "SELECT Username, Email, TipoUtente FROM Utenti WHERE TipoUtente = 'A' ORDER BY Username;"
         );
     }
 
-    public function insert_utente($username, $password, $email, $admin = 'N') {
+    public function insert_utente($username, $password, $email, $admin = 'U') {
         return $this->execute_query(
-            "INSERT INTO Utenti (Username, Password, Email, Admin) VALUES (?, ?, ?, ?);",
+            "INSERT INTO Utenti (Username, Password, Email, TipoUtente) VALUES (?, ?, ?, ?);",
             $username,
             password_hash($password, PASSWORD_BCRYPT),
             $email,

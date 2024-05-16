@@ -22,16 +22,16 @@ $onload = '';
 
 if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
+    exit;
 }
 
 $connection = DBAccess::get_instance();
 $connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
-    $eventoSelezionato = isset($_POST['idEvento']);
     $messaggiForm = '';
     $messaggioForm = get_content_between_markers($content, 'messaggioForm');
-    $righeTabella = '';
+    $lista = '';
 
     if (isset($_GET['errore'])) {
         $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);
@@ -50,49 +50,23 @@ if ($connectionOk) {
     }
 
     $classifiche = $connection->get_classifiche();
-
     foreach ($classifiche as $classifica) {
-        $rigaTabella = get_content_between_markers($content, 'rigaTabella');
-        $eventi = $connection->get_eventi_classifica($classifica['TipoEvento'], $classifica['DataInizio']);
-        $options = '';
-        // creo le option di ciascun evento della classifica selezionata
-        if (count($eventi) > 0) {
-            $optionEvento = get_content_between_markers($rigaTabella, 'listaEvento');
-            foreach ($eventi as $evento) {
-                $options .= multi_replace($optionEvento, [
-                    '{idEvento}' => $evento['Id'],
-                    '{titoloEvento}' => $evento['Titolo'],
-                    '{dataEvento}' => $evento['Data'],
-                    '{dataVisualizzataEvento}' => date_format(date_create($evento['Data']), 'd/m/y')
-                ]);
-            }
-            $rigaTabella = replace_content_between_markers($rigaTabella, [
-                'listaEvento' => $options
-            ]);
-        } else {
-            $rigaTabella = replace_content_between_markers($rigaTabella, [
-                'listaEvento' => ''
-            ]);
-        }
-
-        $righeTabella .= multi_replace($rigaTabella, [
-            '{tipoEvento}' => $classifica['TipoEvento'],
-            '{dataInizio}' => date_format(date_create($classifica['DataInizio']), 'd/m/y'),
-            '{dataFine}' => date_format(date_create($classifica['DataFine']), 'd/m/y'),
-            '{valueTipoEvento}' => $classifica['TipoEvento'],
-            '{valueDataInizio}' => date_format(date_create($classifica['DataInizio']), 'Y-m-d'),
-            '{valueDataFine}' => date_format(date_create($classifica['DataFine']), 'Y-m-d')
+        $elementoLista = get_content_between_markers($content, 'elementoLista');
+        $lista .= multi_replace($elementoLista, [
+            '{titoloClassifica}' => $classifica['Titolo'],
+            '{idClassifica}' => $classifica['Id']
         ]);
     }
 
     $content = replace_content_between_markers($content, [
-        'rigaTabella' => $righeTabella,
+        'elementoLista' => $lista,
         'messaggiForm' => $messaggiForm
     ]);
 
     $connection->close_DB_connection();
 } else {
     header("location: ../errore500.php");
+    exit;
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
