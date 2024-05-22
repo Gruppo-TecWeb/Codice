@@ -103,34 +103,68 @@ function newIframe() {
     pressedButton.title = "Interrompi " + newTitle;
 }
 
-function setIframe(battle) {
-    descBattles = document.getElementsByClassName("descBattle");
-    thisBattle = descBattles[battle];
-    pressedButton = thisBattle.getElementsByTagName("button")[0];
-    actualTitle = document.getElementsByTagName("h3")[1];
-    newTitle = thisBattle.getElementsByTagName("a")[0].title;
+var player;
 
-    if (pressedButton.title.substr(0, 10) == "Interrompi") {
-        player.pauseVideo();
-    } else {
-        if (actualTitle.innerHTML == newTitle) {
-            player.playVideo();
-        } else {
-            newIframe();
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('iframe_battle', {
+            events: {
+                'onStateChange': onPlayerStateChange
+            }
+        });
+    }
+
+    function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PAUSED) {
+            pressedButton.setAttribute("data-isPlaying", "false");
+            pressedButton.title = "Riproduci " + newTitle;
+        }
+        if (event.data == YT.PlayerState.PLAYING) {
+            pressedButton.setAttribute("data-isPlaying", "true");
+            pressedButton.title = "Interrompi " + newTitle;
         }
     }
-}
 
-function initIframe() {
-    descBattles = document.getElementsByClassName("descBattle");
-    actualTitle = document.getElementsByTagName("h3")[1];
-    actualTitle.innerHTML = "Esempio Minuto"; // Titolo iniziale
+    function setIframe(battle) {
+        var descBattles = document.getElementsByClassName("descBattle");
+        var thisBattle = descBattles[battle];
+        pressedButton = thisBattle.getElementsByTagName("button")[0];
+        var actualTitle = document.getElementsByTagName("h3")[1];
+        var newTitle = thisBattle.getElementsByTagName("a")[0].title;
 
-   
-    thisBattle = descBattles[0];
-    newTitle = thisBattle.getElementsByTagName("a")[0].title;
-    pressedButton = thisBattle.getElementsByTagName("button")[0];
-}
+        var start = pressedButton.getAttribute("data-start");
+        var end = pressedButton.getAttribute("data-end");
+        
+        var videoId = thisBattle.getElementsByTagName("a")[0].href.split('embed/')[1].split('?')[0];
+        
+        player.loadVideoById({
+            videoId: videoId,
+            startSeconds: start,
+            endSeconds: end
+        });
+
+        actualTitle.innerHTML = newTitle;
+        
+        for (var i = 0; i < descBattles.length; i++) {
+            var buttonPP = descBattles[i].getElementsByTagName("button")[0];
+            if (buttonPP != pressedButton) {
+                buttonPP.setAttribute("data-isPlaying", "false");
+                buttonPP.title = "Riproduci " + newTitle;
+            }
+        }
+
+        pressedButton.setAttribute("data-isPlaying", "true");
+        pressedButton.title = "Interrompi " + newTitle;
+    }
+
+    function initIframe() {
+        var descBattles = document.getElementsByClassName("descBattle");
+        var actualTitle = document.getElementsByTagName("h3")[1];
+        actualTitle.innerHTML = "Esempio Minuto"; // Titolo iniziale
+
+        var thisBattle = descBattles[0];
+        newTitle = thisBattle.getElementsByTagName("a")[0].title;
+        pressedButton = thisBattle.getElementsByTagName("button")[0];
+    }
 
 
 
@@ -138,19 +172,20 @@ function initIframe() {
  * PAGINA BEATS
  */
 
-document.getElementById("audio").addEventListener("play", function() {
-    pressedButton.setAttribute("data-isPlaying", "true")
-    pressedButton.title = "Interrompi " + newTitle;
-});
 
-document.getElementById("audio").addEventListener("pause", function() {
-    pressedButton.setAttribute("data-isPlaying", "false")
-    pressedButton.title = "Riproduci " + newTitle;
-});
 
 
 function init_beats() {
     pressedButton = document.getElementsByClassName("beat")[0].getElementsByTagName("button")[0];
+    document.getElementById("audio").addEventListener("play", function() {
+        pressedButton.setAttribute("data-isPlaying", "true")
+        pressedButton.title = "Interrompi " + newTitle;
+    });
+    
+    document.getElementById("audio").addEventListener("pause", function() {
+        pressedButton.setAttribute("data-isPlaying", "false")
+        pressedButton.title = "Riproduci " + newTitle;
+    });
     descrizioni = document.getElementsByClassName("descBeats");
     for (let i = 0; i < descrizioni.length; i++) {
         descrizioni[i].setAttribute("data-show", "false");
@@ -219,7 +254,15 @@ function onJavaScript() {
 var autoNext = false;
 
 function playerAudio(nomeBase) {
-
+    document.getElementById("audio").addEventListener("play", function() {
+        pressedButton.setAttribute("data-isPlaying", "true")
+        pressedButton.title = "Interrompi " + newTitle;
+    });
+    
+    document.getElementById("audio").addEventListener("pause", function() {
+        pressedButton.setAttribute("data-isPlaying", "false")
+        pressedButton.title = "Riproduci " + newTitle;
+    });
     //variabili varie
     percorso = "assets/media/basi/";
     audio = document.getElementById("audio");
@@ -227,6 +270,7 @@ function playerAudio(nomeBase) {
     h3 = audioContainer.getElementsByTagName("h3")[0];
     newTitle = nomeBase.slice(0, -4).replaceAll("-", " ");
     beats = document.getElementsByClassName("beat")
+    
     for (let i = 0; i < beats.length; i++) {
         if (beats[i].getElementsByTagName("button")[0].getAttribute("data-title-beat") == nomeBase.slice(0, -4)) {
             pressedButton = beats[i].getElementsByTagName("button")[0];
