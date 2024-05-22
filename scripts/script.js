@@ -103,27 +103,6 @@ function newIframe() {
     pressedButton.title = "Interrompi " + newTitle;
 }
 
-var player;
-
-    function onYouTubeIframeAPIReady() {
-        player = new YT.Player('iframe_battle', {
-            events: {
-                'onStateChange': onPlayerStateChange
-            }
-        });
-    }
-
-    function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.PAUSED) {
-            pressedButton.setAttribute("data-isPlaying", "false");
-            pressedButton.title = "Riproduci " + newTitle;
-        }
-        if (event.data == YT.PlayerState.PLAYING) {
-            pressedButton.setAttribute("data-isPlaying", "true");
-            pressedButton.title = "Interrompi " + newTitle;
-        }
-    }
-
     function setIframe(battle) {
         var descBattles = document.getElementsByClassName("descBattle");
         var thisBattle = descBattles[battle];
