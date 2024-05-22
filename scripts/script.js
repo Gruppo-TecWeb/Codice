@@ -29,9 +29,6 @@ function toggleMenu() {
     document.body.setAttribute("data-menu-open", menuOpened);
 }
 
-/*
- * PAGINA BEATS
- */
 
 function init_index() {
     const logo = document.querySelector('header a h1');
@@ -63,7 +60,7 @@ function init_evento() {
 }
 
 /*
-MODALITA'
+PAGINA MODALITA'
 */
 
 var player;
@@ -110,7 +107,6 @@ function setIframe(battle) {
     descBattles = document.getElementsByClassName("descBattle");
     thisBattle = descBattles[battle];
     pressedButton = thisBattle.getElementsByTagName("button")[0];
-    iframe = document.getElementById("iframe_battle");
     actualTitle = document.getElementsByTagName("h3")[1];
     newTitle = thisBattle.getElementsByTagName("a")[0].title;
 
@@ -125,7 +121,7 @@ function setIframe(battle) {
     }
 }
 
-window.onload = function() {
+function initIframe() {
     descBattles = document.getElementsByClassName("descBattle");
     actualTitle = document.getElementsByTagName("h3")[1];
     actualTitle.innerHTML = "Esempio Minuto"; // Titolo iniziale
@@ -142,7 +138,19 @@ window.onload = function() {
  * PAGINA BEATS
  */
 
+document.getElementById("audio").addEventListener("play", function() {
+    pressedButton.setAttribute("data-isPlaying", "true")
+    pressedButton.title = "Interrompi " + newTitle;
+});
+
+document.getElementById("audio").addEventListener("pause", function() {
+    pressedButton.setAttribute("data-isPlaying", "false")
+    pressedButton.title = "Riproduci " + newTitle;
+});
+
+
 function init_beats() {
+    pressedButton = document.getElementsByClassName("beat")[0].getElementsByTagName("button")[0];
     descrizioni = document.getElementsByClassName("descBeats");
     for (let i = 0; i < descrizioni.length; i++) {
         descrizioni[i].setAttribute("data-show", "false");
@@ -234,12 +242,10 @@ function playerAudio(nomeBase) {
     if (h3.innerHTML == newTitle) {
         if (pressedButton.title.slice(0, 10) == "Interrompi") {
             audio.pause();
-            pressedButton.setAttribute("data-isPlaying", "false")
-            pressedButton.title = "Riproduci " + newTitle;
+            
         } else {
             audio.play();
-            pressedButton.setAttribute("data-isPlaying", "true")
-            pressedButton.title = "Interrompi " + newTitle;
+           
         }
     } else {
         newBeat(nomeBase);
