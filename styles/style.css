@@ -1186,7 +1186,10 @@ audio::-webkit-media-controls-play-button {
 #audio_container #audio {
     width: 100%;
 }
-
+#autoNext.beat:hover[aria-pressed="false"] {
+    background-color: var(--colorSecondary);
+    color: var(--colorAccent);
+}
 #autoNext[aria-pressed="false"] {
     cursor: pointer;
     padding: 0.5em 0.8em;
