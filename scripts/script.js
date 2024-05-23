@@ -64,86 +64,90 @@ PAGINA MODALITA'
 */
 
 var player;
+        var descBattles;
+        var pressedButton;
+        var actualTitle;
+        var newTitle;
+        var thisBattle;
 
-function onYouTubeIframeAPIReady() {
-    player = new YT.Player('iframe_battle', {
-        videoId: 'RszfbKxb460', // ID del video di default
-        events: {
-            'onStateChange': onPlayerStateChange
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('iframe_battle', {
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
         }
-    });
-}
 
-function onPlayerStateChange(event) {
-    if (event.data == YT.PlayerState.PAUSED) {
-        pressedButton.setAttribute("data-isPlaying", "false");
-        pressedButton.title = "Riproduci " + newTitle;
-    }
-    if (event.data == YT.PlayerState.PLAYING) {
-        pressedButton.setAttribute("data-isPlaying", "true");
-        pressedButton.title = "Interrompi " + newTitle;
-    }
-}
-
-function newIframe() {
-    var link = thisBattle.getElementsByTagName("a")[0].href;
-    actualTitle.innerHTML = newTitle;
-    var videoId = link.split('embed/')[1].split('?')[0];
-    player.loadVideoById(videoId);
-
-    for (var i = 0; i < descBattles.length; i++) {
-        var buttonPP = descBattles[i].getElementsByTagName("button")[0];
-        if (buttonPP.title.substr(0, 10) == "Interrompi") {
-            buttonPP.setAttribute("data-isPlaying", "false");
-            buttonPP.title = "Riproduci " + newTitle;
-        }
-    }
-
-    pressedButton.setAttribute("data-isPlaying", "true");
-    pressedButton.title = "Interrompi " + newTitle;
-}
-
-    function setIframe(battle) {
-        var descBattles = document.getElementsByClassName("descBattle");
-        var thisBattle = descBattles[battle];
-        pressedButton = thisBattle.getElementsByTagName("button")[0];
-        var actualTitle = document.getElementsByTagName("h3")[1];
-        var newTitle = thisBattle.getElementsByTagName("a")[0].title;
-
-        var start = pressedButton.getAttribute("data-start");
-        var end = pressedButton.getAttribute("data-end");
-        
-        var videoId = thisBattle.getElementsByTagName("a")[0].href.split('embed/')[1].split('?')[0];
-        
-        player.loadVideoById({
-            videoId: videoId,
-            startSeconds: start,
-            endSeconds: end
-        });
-
-        actualTitle.innerHTML = newTitle;
-        
-        for (var i = 0; i < descBattles.length; i++) {
-            var buttonPP = descBattles[i].getElementsByTagName("button")[0];
-            if (buttonPP != pressedButton) {
-                buttonPP.setAttribute("data-isPlaying", "false");
-                buttonPP.title = "Riproduci " + newTitle;
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PAUSED) {
+                pressedButton.setAttribute("data-isPlaying", "false");
+                pressedButton.title = "Riproduci " + newTitle;
+            }
+            if (event.data == YT.PlayerState.PLAYING) {
+                pressedButton.setAttribute("data-isPlaying", "true");
+                pressedButton.title = "Interrompi " + newTitle;
             }
         }
 
-        pressedButton.setAttribute("data-isPlaying", "true");
-        pressedButton.title = "Interrompi " + newTitle;
-    }
+        function newIframe() {
+            var link = thisBattle.getElementsByTagName("a")[0].href;
+            actualTitle.innerHTML = newTitle;
+            
+            var videoId = link.split('embed/')[1].split('?')[0];
+            var start = pressedButton.getAttribute("data-start");
+            var end = pressedButton.getAttribute("data-end");
 
-    function initIframe() {
-        var descBattles = document.getElementsByClassName("descBattle");
-        var actualTitle = document.getElementsByTagName("h3")[1];
-        actualTitle.innerHTML = "Esempio Minuto"; // Titolo iniziale
+            player.loadVideoById({
+                videoId: videoId,
+                startSeconds: start,
+                endSeconds: end
+            });
 
-        var thisBattle = descBattles[0];
-        newTitle = thisBattle.getElementsByTagName("a")[0].title;
-        pressedButton = thisBattle.getElementsByTagName("button")[0];
-    }
+            for (var i = 0; i < descBattles.length; i++) {
+                var buttonPP = descBattles[i].getElementsByTagName("button")[0];
+                if (buttonPP.title.substr(0, 10) == "Interrompi") {
+                    buttonPP.setAttribute("data-isPlaying", "false");
+                    buttonPP.title = "Riproduci " + newTitle;
+                }
+            }
+
+            pressedButton.setAttribute("data-isPlaying", "true");
+            pressedButton.title = "Interrompi " + newTitle;
+        }
+
+        function setIframe(battle) {
+            thisBattle = descBattles[battle];
+            pressedButton = thisBattle.getElementsByTagName("button")[0];
+            newTitle = thisBattle.getElementsByTagName("a")[0].title;
+
+            if (pressedButton.title.substr(0, 10) == "Interrompi") {
+                player.pauseVideo();
+                pressedButton.setAttribute("data-isPlaying", "false");
+                pressedButton.title = "Riproduci " + newTitle;
+            } else {
+                if (actualTitle.innerHTML == newTitle) {
+                    player.playVideo();
+                    pressedButton.setAttribute("data-isPlaying", "true");
+                    pressedButton.title = "Interrompi " + newTitle;
+                } else {
+                    newIframe();
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initIframe();
+        });
+
+        function initIframe() {
+            descBattles = document.getElementsByClassName("descBattle");
+            actualTitle = document.getElementsByTagName("h3")[1];
+            actualTitle.innerHTML = "Esempio Minuto"; // Titolo iniziale
+
+            thisBattle = descBattles[0];
+            newTitle = thisBattle.getElementsByTagName("a")[0].title;
+            pressedButton = thisBattle.getElementsByTagName("button")[0];
+        }
 
 
 

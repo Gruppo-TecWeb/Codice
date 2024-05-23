@@ -951,7 +951,7 @@ p.eventiMessaggio {
         background-color: transparent;
         background-image: url("../assets/icons/play.svg");
         background-repeat: no-repeat;
-        background-size: 30%;
+        background-size: 40%;
         background-position: center;
     }
     
@@ -959,14 +959,15 @@ p.eventiMessaggio {
         background-image: url("../assets/icons/play.svg");
         background-repeat: no-repeat;
         background-position: center;
-        background-size: 30%;
+        background-size: 40%;
     }
     #lista_battle button[data-isPlaying="true"]{
         background-image: url("../assets/icons/pause.svg");
         background-repeat: no-repeat;
         background-position: center;
-        background-size: 30%;
+        background-size: 40%;
     }
+    
     
     
     
