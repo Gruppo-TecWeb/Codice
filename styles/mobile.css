@@ -332,7 +332,7 @@ footer .logo {
 
 #evento-home {
     padding: 0;
-    background: repeating-linear-gradient( 45deg, var(--colorAccent), var(--colorAccent) 2px, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0) 10px);
+    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0) 10px);
 }
 
 #evento-home::before {
@@ -520,10 +520,14 @@ label {
 
 #evento-box img {
     width: 100%;
+    position: relative;
+    top: unset;
 }
 
 #evento-info {
     width: 100%;
+    position: relative;
+    top: unset;
     gap: 0 1em;
     box-sizing: border-box;
     padding: 2.5em 0;
