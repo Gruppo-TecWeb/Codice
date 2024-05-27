@@ -12,7 +12,7 @@ session_start();
 $paginaHTML = file_get_contents("../template/admin/template-admin.html");
 $content = file_get_contents("../template/admin/gestione-classifiche.html");
 
-$title = 'Gestione Classifiche &minus; Fungo';
+$title = 'Gestione Classifiche &minus; Admin &minus; Fungo';
 $pageId = 'admin/' . basename(__FILE__, '.php');
 $description = '';
 $keywords = '';

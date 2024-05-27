@@ -12,7 +12,7 @@ session_start();
 $paginaHTML = file_get_contents("../template/admin/template-admin.html");
 $content = file_get_contents("../template/admin/rappers.html");
 
-$title = 'Admin &minus; Rappers &minus; Fungo';
+$title = 'Rappers &minus; Admin &minus; Fungo';
 $pageId = 'admin/' . basename(__FILE__, '.php');
 $description = '';
 $keywords = '';
