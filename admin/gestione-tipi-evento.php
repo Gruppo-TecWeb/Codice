@@ -14,8 +14,8 @@ $content = file_get_contents("../template/admin/gestione-tipi-evento.html");
 
 $title = 'Gestione Tipi Evento &minus; Fungo';
 $pageId = 'admin/' . basename(__FILE__, '.php');
-$description = '';
-$keywords = '';
+$description = 'pagina di amministrazione per la creazione e modifica dei tipi evento';
+$keywords = 'Fungo, amministrazione, tipi evento';
 $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';

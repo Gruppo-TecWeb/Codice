@@ -14,8 +14,8 @@ $content = file_get_contents("../template/admin/eventi.html");
 
 $title = 'Admin &minus; Eventi &minus; Fungo';
 $pageId = 'admin/' . basename(__FILE__, '.php');
-$description = '';
-$keywords = '';
+$description = 'pagina di amministrazione per la gestione degli eventi';
+$keywords = 'Fungo, amministrazione, eventi';
 $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';

@@ -14,8 +14,8 @@ $content = file_get_contents("../template/admin/amministratori.html");
 
 $title = 'Admin &minus; Amministratori &minus; Fungo';
 $pageId = 'admin/' . basename(__FILE__, '.php');
-$description = '';
-$keywords = '';
+$description = 'pagina di amministrazione per la gestione degli amministratori';
+$keywords = 'Fungo, amministrazione, amministratori';
 $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
