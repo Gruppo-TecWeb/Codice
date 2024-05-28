@@ -481,14 +481,14 @@ footer #footer-credits {
     transition: opacity 0.1s;
 }
 
-#index header a h1.logo.js {
+#index header a h1.logo {
     overflow: hidden;
     text-indent: 120%;
     white-space: nowrap;
     /* opacity: 0.1; */
 }
 
-#index header a h1.logo.js.scrolled {
+#index header a h1.logo.scrolled {
     overflow: unset;
     text-indent: unset;
     opacity: 1;
