@@ -14,8 +14,8 @@ $content = file_get_contents("../template/admin/rappers.html");
 
 $title = 'Admin &minus; Rappers &minus; Fungo';
 $pageId = 'admin/' . basename(__FILE__, '.php');
-$description = '';
-$keywords = '';
+$description = 'pagina di amministrazione per la gestione dei rappers';
+$keywords = 'amministrazione, rappers';
 $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';

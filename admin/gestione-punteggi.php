@@ -14,8 +14,8 @@ $content = file_get_contents("../template/admin/gestione-punteggi.html");
 
 $title = 'Gestione Punteggi &minus; Fungo';
 $pageId = 'admin/' . basename(__FILE__, '.php');
-$description = '';
-$keywords = '';
+$description = 'pagina di amministrazione per la gestione dei punteggi delle classifiche';
+$keywords = 'Fungo, amministrazione, punteggi';
 $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';

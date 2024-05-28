@@ -14,8 +14,8 @@ $content = file_get_contents("../template/admin/gestione-classifiche.html");
 
 $title = 'Gestione Classifiche &minus; Fungo';
 $pageId = 'admin/' . basename(__FILE__, '.php');
-$description = '';
-$keywords = '';
+$description = 'pagina di amministrazione per la creazione e modifica delle classifiche';
+$keywords = 'Fungo, amministrazione, classifiche';
 $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
