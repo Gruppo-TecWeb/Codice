@@ -10,13 +10,12 @@ window.addEventListener("load", (event) => { // Quando questo script si avvia, a
     menu = document.getElementById("menu");
     bcContainer = document.getElementById("breadcrumbs-container");
     menuOpened = menu.getAttribute("data-menu-open") === "true" ? true : false;
-    toggleMenu();
 
     menu.classList.add("js");
     bcContainer.classList.add("js");
     document.body.classList.add("js");
 
-    document.addEventListener("click", (event) => {
+    document.addEventListener("click", (event) => { // Quando clicco fuori dal menù, lo nascondo
         if (menu.getAttribute("data-menu-open") === "true" && !menu.contains(event.target) && !bcContainer.contains(event.target))
             toggleMenu();
     });
@@ -203,7 +202,7 @@ function newBeat(nomeBase) {
 function autoPlay(nomeBase) {
     document.getElementById("autoNext").onclick = function() {
         autoNext = !autoNext;
-        autoRip=document.getElementById("autoNext");
+        autoRip = document.getElementById("autoNext");
         autoRip.setAttribute("aria-pressed", autoNext);
     }
     audio.onended = function() {
