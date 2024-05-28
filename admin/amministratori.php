@@ -12,7 +12,7 @@ session_start();
 $paginaHTML = file_get_contents("../template/admin/template-admin.html");
 $content = file_get_contents("../template/admin/amministratori.html");
 
-$title = 'Admin &minus; Amministratori &minus; Fungo';
+$title = 'Amministratori &minus; Admin &minus; Fungo';
 $pageId = 'admin/' . basename(__FILE__, '.php');
 $description = 'pagina di amministrazione per la gestione degli amministratori';
 $keywords = 'Fungo, amministrazione, amministratori';

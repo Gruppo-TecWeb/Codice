@@ -12,7 +12,7 @@ session_start();
 $paginaHTML = file_get_contents("../template/admin/template-admin.html");
 $content = file_get_contents("../template/admin/tipi-evento.html");
 
-$title = 'Tipi Evento &minus; Fungo';
+$title = 'Tipi Evento &minus; Admin &minus; Fungo';
 $pageId = 'admin/' . basename(__FILE__, '.php');
 $description = 'pagina di amministrazione per la gestione dei tipi evento';
 $keywords = 'Fungo, amministrazione, tipi evento';

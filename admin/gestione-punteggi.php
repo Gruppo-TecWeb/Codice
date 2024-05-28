@@ -12,7 +12,7 @@ session_start();
 $paginaHTML = file_get_contents("../template/admin/template-admin.html");
 $content = file_get_contents("../template/admin/gestione-punteggi.html");
 
-$title = 'Gestione Punteggi &minus; Fungo';
+$title = 'Gestione Punteggi &minus; Admin &minus; Fungo';
 $pageId = 'admin/' . basename(__FILE__, '.php');
 $description = 'pagina di amministrazione per la gestione dei punteggi delle classifiche';
 $keywords = 'Fungo, amministrazione, punteggi';
