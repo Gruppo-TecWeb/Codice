@@ -135,14 +135,11 @@ var player;
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            initIframe();
-        });
+        
 
         function initIframe() {
             descBattles = document.getElementsByClassName("descBattle");
             actualTitle = document.getElementsByTagName("h3")[1];
-            actualTitle.innerHTML = "Esempio Minuto"; // Titolo iniziale
 
             thisBattle = descBattles[0];
             newTitle = thisBattle.getElementsByTagName("a")[0].title;
@@ -193,43 +190,40 @@ function showDescription(index) {
 
 
 function onJavaScript() {
-    beats = document.getElementsByClassName("beat");
+    const beats = document.getElementsByClassName("beat");
 
     for (let i = 0; i < beats.length; i++) {
-        durata = document.getElementsByClassName("durata")[i];
-        readDurata = document.getElementsByClassName("readDurata")[i];
+        const durata = document.getElementsByClassName("durata")[i];
+        const readDurata = document.getElementsByClassName("readDurata")[i];
 
         playerJump = beats[i].getElementsByTagName("a")[0].getElementsByTagName("span")[0];
         playerJump.setAttribute("aria-hidden", "true");
 
-        audios = document.getElementsByClassName("audioBeats")[i];
-        audios.setAttribute("tabindex", "-1");
-        audios.setAttribute("data-java", "true");
+        audiosTitle = document.getElementsByClassName("btnPlay")[i].getAttribute("data-title-beat");
+        const audio = new Audio("assets/media/basi/" + audiosTitle + ".mp3");
+        
+        audio.addEventListener('loadedmetadata', () => {
+            const minuti = Math.floor(audio.duration / 60);
+            const secondi = Math.floor(audio.duration % 60);
 
-        minuti = Math.floor(audios.duration / 60);
-        secondi = Math.floor(audios.duration % 60);
-
-        if (minuti == 1) {
-            if (secondi < 10) {
-                //durata.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
-                durata.innerHTML = minuti + ":" + "0" + secondi;
-                readDurata.innerHTML = minuti + " minuto e " + secondi + " secondi";
+            if (minuti == 1) {
+                if (secondi < 10) {
+                    durata.innerHTML = minuti + ":" + "0" + secondi;
+                    readDurata.innerHTML = minuti + " minuto e " + secondi + " secondi";
+                } else {
+                    durata.innerHTML = minuti + ":" + secondi;
+                    readDurata.innerHTML = minuti + " minuto e " + secondi + " secondi";
+                }
             } else {
-                //durata.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
-                durata.innerHTML = minuti + ":" + secondi;
-                readDurata.innerHTML = minuti + " minuto e " + secondi + " secondi";
+                if (secondi < 10) {
+                    durata.innerHTML = minuti + ":" + "0" + secondi;
+                    readDurata.innerHTML = minuti + " minuti e " + secondi + " secondi";
+                } else {
+                    durata.innerHTML = minuti + ":" + secondi;
+                    readDurata.innerHTML = minuti + " minuti e " + secondi + " secondi";
+                }
             }
-        } else {
-            if (secondi < 10) {
-                //durata.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
-                durata.innerHTML = minuti + ":" + "0" + secondi;
-                readDurata.innerHTML = minuti + " minuti e " + secondi + " secondi";
-            } else {
-                //durata.setAttribute("datatime","PT" + minuti + "M" + secondi + "S");
-                durata.innerHTML = minuti + ":" + secondi;
-                readDurata.innerHTML = minuti + " minuti e " + secondi + " secondi";
-            }
-        }
+        });
     }
 }
 
