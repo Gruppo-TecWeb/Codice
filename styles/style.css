@@ -917,6 +917,16 @@ p.eventiMessaggio {
         padding: 0em;
         align-items: center;
         margin: 0em;
+        
+    }
+    #container_battle h2{
+        background-color: var(--colorSecondary);
+        color: var(--colorAccent);
+
+        border-radius: 20px 20px 20px 20px;
+        width: max-content;
+        padding: 0.5em;
+        
     }
     
     #container_iframe {
@@ -925,19 +935,39 @@ p.eventiMessaggio {
         color: var(--colorSecondary);
         font-size: larger;
         width: 50%;
-        margin: 1em;
+
+        margin: 1em auto; /* Centra il contenitore */
+        position: sticky;
+        bottom: 0;
+        top: 3em;
+        display: flex;
+        flex-direction: column; /* Imposta la direzione dei figli su verticale */
+        align-items: center; /* Centra orizzontalmente */
     }
-    
+        
+    #container_iframe h3 {
+        background-color: var(--colorBackground);
+        color: var(--colorAccent);
+
+        border-radius: 20px 20px 0px 0px;
+
+        width: max-content;
+        padding: 0.5em;
+       
+    }
     #container_iframe iframe {
         width: 48vw;
         height: 27vw;
         border-radius: 20px;
         border-style: none;
+        
+        
     }
     
     #lista_battle {
         display: flex;
         flex-direction: column;
+        align-items: center; /* Centra orizzontalmente */
         width: 50%;
     }
     /*.descBattle dt:first-child[data-java="true"]{
@@ -945,13 +975,13 @@ p.eventiMessaggio {
     }*/
     #lista_battle button {
         cursor: pointer;
-        height: 2em;
+        height: 3em;
         border-style: none;
         color: transparent;
         background-color: transparent;
         background-image: url("../assets/icons/play.svg");
         background-repeat: no-repeat;
-        background-size: 40%;
+        background-size: 50%;
         background-position: center;
     }
     
@@ -959,13 +989,11 @@ p.eventiMessaggio {
         background-image: url("../assets/icons/play.svg");
         background-repeat: no-repeat;
         background-position: center;
-        background-size: 40%;
     }
     #lista_battle button[data-isPlaying="true"]{
         background-image: url("../assets/icons/pause.svg");
         background-repeat: no-repeat;
         background-position: center;
-        background-size: 40%;
     }
     
     
@@ -979,16 +1007,19 @@ p.eventiMessaggio {
         margin: 0em;
         border-style: solid;
         border-width: 0.2em 0em 0em 0em;
+        border-radius: 20px;
         border-color: var(--colorAccent);
         background-color: var(--colorSecondary);
         color: var(--colorText);
+        width: 100%;
+        
     }
     
     
     /*qua c'è anche il margin del footer da correggere*/
-    
     .descBattle:first-child {
         border-top: 0em;
+        
     }
     
     .descBattle:last-child {
@@ -999,25 +1030,28 @@ p.eventiMessaggio {
         background-color: var(--colorButtonHover);
     }
     
-    .descBattle dt {
-        border-style: solid;
-        border-width: 0em 0.2em 0em 0em;
-        border-color: var(--colorAccent);
-    }
+
     
     .descBattle dt a {
         display: block;
         text-align: center;
         padding: 0.5em;
         margin: 0em;
-        width: 5em;
+        width: 6em;
     }
     
     .descBattle dd {
         padding: 0.5em;
-        text-align: center;
     }
-    
+    .descBattle > dd:first-of-type {
+        width: 100%;
+        padding: 0.5em;
+        text-align: center;
+        border-style: solid;
+        border-width: 0em 0.2em 0em 0.2em;
+        border-color: var(--colorAccent);
+        min-height: 2.4em;
+    }
     .descBattle button {
         cursor: pointer;
         height: 2em;
