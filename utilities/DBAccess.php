@@ -199,16 +199,18 @@ class DBAccess {
     }
 
     public function get_classifiche($titolo = null) {
+        $ris = [];
         if ($titolo) {
-            return $this->execute_query(
+            $ris = $this->execute_query(
                 "SELECT * FROM Classifiche WHERE Titolo = ?;",
                 $titolo
             );
         } else {
-            return $this->execute_query(
+            $ris = $this->execute_query(
                 "SELECT * FROM Classifiche ORDER BY DataInizio DESC;"
             );
         }
+        return $ris ? $ris : [];
     }
 
     public function get_classifica($id) {
@@ -219,25 +221,18 @@ class DBAccess {
     }
 
     public function get_classifica_corrente() {
-        // restituisce la classifica corrente, ovvero quella con la data di inizio più recente
         $query = "SELECT * FROM Classifiche WHERE DataInizio <= CURDATE() AND DataFine >= CURDATE() ORDER BY DataInizio DESC LIMIT 1;";
         $ris = $this->execute_query($query);
-        if ($ris) {
-            return $ris[0];
-        } else {
-            $query = "SELECT * FROM Classifiche WHERE DataInizio >= CURDATE() ORDER BY DataInizio ASC LIMIT 1;";
-            $ris = $this->execute_query($query);
-            return $ris ? $ris[0] : null;
-        }
+        return $ris ? $ris[0] : null;
     }
 
     public function get_punteggi_classifica($tipoEvento, $dataInizio, $dataFine) {
-        return $this->execute_query(
+        $ris = $this->execute_query(
             "SELECT @n := @n + 1 AS ranking, partecipante, punti
             FROM (SELECT @n := 0) m, (
             SELECT Punteggi.Partecipante AS partecipante, SUM(Punteggi.Punteggio) AS punti
             FROM Punteggi
-            JOIN Eventi ON Punteggi.Evento = Eventi.id
+            JOIN Eventi ON Punteggi.Evento = Eventi.Id
             WHERE Eventi.TipoEvento = ? AND Eventi.Data >= ? AND Eventi.Data <= ?
             GROUP BY Punteggi.Partecipante
             ORDER BY Punti DESC) r;",
@@ -245,6 +240,7 @@ class DBAccess {
             $dataInizio,
             $dataFine
         );
+        return $ris ? $ris : null;
     }
 
     public function get_classifica_evento($evento) {

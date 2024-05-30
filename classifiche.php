@@ -44,12 +44,26 @@ if ($connectionOk) {
         exit;
     }
 
+    $resultClassifiche = $connection->get_classifiche();
     if (!isset($_GET['classifica'])) {
         $classifica = $connection->get_classifica_corrente();
+        if ($classifica == null || $connection->get_punteggi_classifica($classifica['TipoEvento'], $classifica['DataInizio'], $classifica['DataFine']) == null) {
+            // ordino le classifiche per data di fine in modo decrescente
+            usort($resultClassifiche, function ($a, $b) {
+                return strtotime($b['DataFine']) - strtotime($a['DataFine']);
+            });
+            // per ogni classifica passata controllo se ci sono punteggi
+            foreach ($resultClassifiche as $resultClassifica) {
+                $punteggiClassifica = $connection->get_punteggi_classifica($resultClassifica['TipoEvento'], $resultClassifica['DataInizio'], $resultClassifica['DataFine']);
+                if ($punteggiClassifica != null) {
+                    $classifica = $resultClassifica;
+                    break;
+                }
+            }
+        }
     }
 
     // creo la lista delle classifiche per la scelta dall'archivio
-    $resultClassifiche = $connection->get_classifiche();
     foreach ($resultClassifiche as $resultClassifica) {
         $idClassifica = $resultClassifica['Id'];
         $titoloClassifica = $resultClassifica['Titolo'];
@@ -59,46 +73,57 @@ if ($connectionOk) {
         $option = get_content_between_markers($content, 'listaClassifiche');
         $classifiche .= multi_replace($option, [
             '{idClassifica}' => $idClassifica,
-            '{tipoEvento}' => $tipoEvento,
             '{selezioneClassifica}' => $selected,
             '{opzioneClassifica}' => $titoloClassifica
         ]);
     }
 
     // creo le classifiche per la visualizzazione
-    $tipoEvento = $classifica['TipoEvento'];
-    $descrizioneEvento = $connection->get_tipo_evento($tipoEvento)['Descrizione'];
-    $punteggiClassifica = $connection->get_punteggi_classifica($tipoEvento, $classifica['DataInizio'], $classifica['DataFine']);
-    $titoloClassifica = $classifica['Titolo'];
-    if ($punteggiClassifica != null) {
-        $classificaHTML = get_content_between_markers($content, 'tabellaClassifica');
-        $tabella = multi_replace($classificaHTML, [
-            '{tipoEvento}' => $tipoEvento,
-            '{desTipoEvento}' => $descrizioneEvento,
-            '{titoloClassifica}' => $titoloClassifica
-        ]);
-        $righe = '';
-        $rigaHTML = get_content_between_markers($content, 'rigaClassifica');
-        foreach ($punteggiClassifica as $riga) {
-            $righe .= multi_replace($rigaHTML, [
-                '{ranking}' => $riga['ranking'],
-                '{freestyler}' => $riga['partecipante'],
-                '{punti}' => $riga['punti']
+    if ($classifica != null) {
+        $tipoEvento = $classifica['TipoEvento'];
+        $descrizioneEvento = $connection->get_tipo_evento($tipoEvento)['Descrizione'];
+        $punteggiClassifica = $connection->get_punteggi_classifica($tipoEvento, $classifica['DataInizio'], $classifica['DataFine']);
+        $titoloClassifica = $classifica['Titolo'];
+        if ($punteggiClassifica != null) {
+            $classificaHTML = get_content_between_markers($content, 'tabellaClassifica');
+            $tabella = multi_replace($classificaHTML, [
+                '{tipoEvento}' => $tipoEvento,
+                '{desTipoEvento}' => $descrizioneEvento,
+                '{titoloClassifica}' => $titoloClassifica
+            ]);
+            $righe = '';
+            $rigaHTML = get_content_between_markers($content, 'rigaClassifica');
+            foreach ($punteggiClassifica as $riga) {
+                $righe .= multi_replace($rigaHTML, [
+                    '{ranking}' => $riga['ranking'],
+                    '{freestyler}' => $riga['partecipante'],
+                    '{punti}' => $riga['punti']
+                ]);
+            }
+            $content = replace_content_between_markers($content, [
+                'listaClassificheDefault' => '',
+                'listaClassifiche' => $classifiche,
+                'tabellaClassifica' => $tabella,
+                'rigaClassifica' => $righe,
+                'nessunaClassifica' => '',
+                'nessunPunteggio' => ''
+            ]);
+        } else {
+            $content = replace_content_between_markers($content, [
+                'listaClassificheDefault' => '',
+                'listaClassifiche' => $classifiche,
+                'tabellaClassifica' => '',
+                'nessunaClassifica' => '',
+                'nessunPunteggio' => get_content_between_markers($content, 'nessunPunteggio')
             ]);
         }
-        $content = replace_content_between_markers($content, [
-            'listaClassificheDefault' => '',
-            'listaClassifiche' => $classifiche,
-            'tabellaClassifica' => $tabella,
-            'rigaClassifica' => $righe,
-            'nessunaClassifica' => ''
-        ]);
     } else {
         $content = replace_content_between_markers($content, [
             'listaClassificheDefault' => get_content_between_markers($content, 'listaClassificheDefault'),
             'listaClassifiche' => '',
             'tabellaClassifica' => '',
-            'nessunaClassifica' => get_content_between_markers($content, 'nessunaClassifica')
+            'nessunaClassifica' => get_content_between_markers($content, 'nessunaClassifica'),
+            'nessunPunteggio' => ''
         ]);
     }
 

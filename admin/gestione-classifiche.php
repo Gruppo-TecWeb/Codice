@@ -154,8 +154,7 @@ if ($connectionOk) {
                 $messaggiForm .= multi_replace($messaggioForm, [
                     '{messaggio}' => 'Modifica effettuata con successo'
                 ]);
-                $dataInizio = $validNuovaDataInizio;
-                $validDataInizio = $validNuovaDataInizio;
+                $classifica = $connection->get_classifica($validIdCLassifica);
             } else {
                 $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);
             }
@@ -165,9 +164,14 @@ if ($connectionOk) {
         exit;
     }
     
-    // costruisco la lista degli eventi
+    // costruisco la lista degli eventi ordinati per data
     $eventi = $classifica ? $connection->get_eventi_classifica($classifica['TipoEvento'], $classifica['DataInizio'], $classifica['DataFine']) : null;
     if ($eventi != null) {
+        // ordino gli eventi per data
+        usort($eventi, function ($a, $b) {
+            return strtotime($a['Data']) - strtotime($b['Data']);
+        });
+
         $eventiHTML = get_content_between_markers($content, 'listaEventi');
         $elementoLista = get_content_between_markers($eventiHTML, 'elementoLista');
         $listaEventi = '';
