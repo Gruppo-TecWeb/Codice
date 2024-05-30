@@ -88,7 +88,7 @@ function get_admin_menu($pageId) {
     $adminMenu .= multi_replace($liNotCurrent, [
         '{pageHref}' => '../' . PAGES_ARRAY['index']['href'],
         '{lang}' => PAGES_ARRAY['index']['lang'] ? ' lang="' . PAGES_ARRAY['index']['lang'] . '"' : '',
-        '{anchor}' => 'Area Utente'
+        '{anchor}' => 'Torna al sito'
     ]);
     return $adminMenu;
 }
