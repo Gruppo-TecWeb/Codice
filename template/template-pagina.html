@@ -18,7 +18,7 @@
     <script src="scripts/script.js"></script>
 </head>
 
-<body id="{pageId}" onload="{onload}" data-menu-open="true">
+<body id="{pageId}" onload="{onload}" data-menu-open="false">
     <header>
         <nav id="menu-skip" aria-label="Aiuti alla navigazione">
             <ul>
@@ -29,18 +29,16 @@
         <a href="index.php">
             <h1 class="logo">Fungo</h1>
         </a>
-        <nav id="menu" class="mobileCard" aria-labelledby="menu-title" data-menu-open="true">
+        <nav id="menu" class="mobileCard" aria-labelledby="menu-title" data-menu-open="false">
             <h2 id="menu-title">Menù</h2>
             <ul>
-                {menu} {liCurrent}
-                <li><span aria-current="page" id="currentLink" class="menuItem" {lang}>{anchor}</span></li>
-                {/liCurrent} {liNotCurrent}
-                <li><a href="{pageHref}" class="menuItem" {lang}>{anchor}</a></li>
-                {/liNotCurrent} {/menu}
+                {menu}{liCurrent}<li><span aria-current="page" id="currentLink" class="menuItem" {lang}>{anchor}</span></li>
+                {/liCurrent}{liNotCurrent}<li><a href="{pageHref}" class="menuItem" {lang}>{anchor}</a></li>
+                {/liNotCurrent}{/menu}
             </ul>
         </nav>
     </header>
-    <div id="breadcrumbs-container" class="limitedWidth mobileCard" data-menu-open="true">
+    <div id="breadcrumbs-container" class="limitedWidth mobileCard" data-menu-open="false">
         <nav id="breadcrumbs" aria-label="Percorso">
             {breadcrumbs}
             <p>

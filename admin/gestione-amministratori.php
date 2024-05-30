@@ -12,24 +12,26 @@ session_start();
 $paginaHTML = file_get_contents("../template/admin/template-admin.html");
 $content = file_get_contents("../template/admin/gestione-amministratori.html");
 
-$title = 'Gestione Amministratori &minus; Fungo';
+$title = 'Gestione Amministratori &minus; Admin &minus; Fungo';
 $pageId = 'admin/' . basename(__FILE__, '.php');
-$description = '';
-$keywords = '';
+$description = 'pagina di amministrazione per la creazione e modifica degli amministratori';
+$keywords = 'Fungo, amministrazione, amministratori';
 $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 
 if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
+    exit;
 }
 
-$connection = DBAccess::getInstance();
-$connectionOk = $connection->openDBConnection();
+$connection = DBAccess::get_instance();
+$connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
     $messaggiForm = '';
     $messaggioForm = get_content_between_markers($content, 'messaggioForm');
+    $buttonElimina = get_content_between_markers($content, 'buttonElimina');
     $legend = '';
     $legendAggiungi = 'Aggiungi Amministratore';
     $legendModifica = 'Modifica Amministratore';
@@ -47,16 +49,19 @@ if ($connectionOk) {
         ((isset($_POST['username']) && $_POST['username'] != "") && $validUsername == "") ||
         ((isset($_POST['email']) && $_POST['email'] != "") && $validEmail == "")) {
         header("location: amministratori.php?errore=invalid");
+        exit;
     }
     $errore = '0';
-    
+  
     if (isset($_POST['elimina'])) {
         if ($_SESSION["datiUtente"]['Username'] == $_POST['username']) {
             header("location: amministratori.php?eliminato=0");
+            exit;
         } else {
             $connection->delete_user($validUsername);
             $eliminato = $connection->get_utente_by_email($validEmail) ? 0 : 1;
             header("location: amministratori.php?eliminato=$eliminato");
+            exit;
         }
     } elseif (isset($_POST['modifica'])) {
         $legend = $legendModifica;
@@ -66,6 +71,7 @@ if ($connectionOk) {
         $email = $validEmail;
         $valueAzione = 'modifica';
     } elseif (isset($_POST['aggiungi'])) {
+        $buttonElimina = '';
         $legend = $legendAggiungi;
         $valueAzione = 'aggiungi';
     } elseif (isset($_POST['conferma'])) {
@@ -97,6 +103,7 @@ if ($connectionOk) {
             }
             if ($errore == '0') {
                 header("location: amministratori.php?aggiunto=1");
+                exit;
             }
         } elseif ($_POST['azione'] == 'modifica') {
             $errore = '0';
@@ -134,13 +141,17 @@ if ($connectionOk) {
                 }
             }
             if ($errore == '0') {
-                header("location: amministratori.php?modificato=1");
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{messaggio}' => 'Modifica effettuata con successo'
+                ]);
+                $username = $validNuovoUsername;
             } else {
                 $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);
             }
         }
     } else {
         header("location: amministratori.php");
+        exit;
     }
 
     $content = multi_replace($content, [
@@ -152,12 +163,14 @@ if ($connectionOk) {
         '{valueAzione}' => $valueAzione
     ]);
     $content = replace_content_between_markers($content, [
-        'messaggiForm' => $messaggiForm
+        'messaggiForm' => $messaggiForm,
+        'buttonElimina' => $buttonElimina
     ]);
 
-    $connection->closeDBConnection();
+    $connection->close_DB_connection();
 } else {
     header("location: ../errore500.php");
+    exit;
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [

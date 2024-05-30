@@ -1,5 +1,5 @@
 /*
- * TEMPLATE DI PAGINA
+ * TUTTE LE PAGINE
  */
 
 var menu = null;
@@ -10,13 +10,12 @@ window.addEventListener("load", (event) => { // Quando questo script si avvia, a
     menu = document.getElementById("menu");
     bcContainer = document.getElementById("breadcrumbs-container");
     menuOpened = menu.getAttribute("data-menu-open") === "true" ? true : false;
-    toggleMenu();
 
     menu.classList.add("js");
     bcContainer.classList.add("js");
     document.body.classList.add("js");
 
-    document.addEventListener("click", (event) => {
+    document.addEventListener("click", (event) => { // Quando clicco fuori dal menù, lo nascondo
         if (menu.getAttribute("data-menu-open") === "true" && !menu.contains(event.target) && !bcContainer.contains(event.target))
             toggleMenu();
     });
@@ -27,6 +26,22 @@ function toggleMenu() {
     menu.setAttribute("data-menu-open", menuOpened);
     bcContainer.setAttribute("data-menu-open", menuOpened);
     document.body.setAttribute("data-menu-open", menuOpened);
+}
+
+// funzione che permette di tornare alla pagina precedente
+function tornaIndietro() {
+    window.history.back();
+    return true;
+}
+
+/*
+ * PAGINA EVENTO
+ */
+
+function init_evento() {
+    linkIndietro = document.getElementById("indietro");
+    if (document.referrer.includes("eventi.php"))
+        linkIndietro.setAttribute('href', document.referrer);
 }
 
 /*
@@ -52,15 +67,6 @@ function init_index() {
     });
 }
 
-/*
- * PAGINA EVENTO
- */
-
-function init_evento() {
-    linkIndietro = document.getElementById("indietro");
-    if (document.referrer.includes("eventi.php"))
-        linkIndietro.setAttribute('href', document.referrer);
-}
 
 /*
  * PAGINA MODALITA'
@@ -339,3 +345,20 @@ function nextAudio(nomeBase) {
         }
     }
 }
+
+/*
+ * PAGINE ADMIN
+ */
+
+// per ogni button con name=elimina, aggiungo un event listener che chiede conferma prima di eliminare l'elemento; se viene premuto annulla, interrompo l'invio del form
+document.addEventListener('DOMContentLoaded', function() {
+    var deleteButtons = document.querySelectorAll('button[name="elimina"]');
+    for (let i = 0; i < deleteButtons.length; i++) {
+        deleteButtons[i].addEventListener('click', function(event) {
+            var confirmDelete = confirm('Sei sicuro di voler eliminare questo elemento?');
+            if (!confirmDelete) {
+                event.preventDefault();
+            }
+        });
+    }
+});

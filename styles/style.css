@@ -12,7 +12,7 @@
     --colorSelectionText: #000;
     --colorButtonHover: #453B3B;
     --colorSecondary: #262626;
-    --colorLink: #00b4ff;
+    --colorLink: #FFFFFF;
     --colorLinkVisited: #ffd7bb;
     --colorLinkHoverBackground: #453B3B;
     --widthMax: 1024px;
@@ -24,7 +24,7 @@
 }
 
 @media screen and (min-width: 2560px) {
-     :root {
+    :root {
         --widthMax: 1800px;
     }
 }
@@ -481,14 +481,14 @@ footer #footer-credits {
     transition: opacity 0.1s;
 }
 
-#index header a h1.logo.js {
+#index header a h1.logo {
     overflow: hidden;
     text-indent: 120%;
     white-space: nowrap;
     /* opacity: 0.1; */
 }
 
-#index header a h1.logo.js.scrolled {
+#index header a h1.logo.scrolled {
     overflow: unset;
     text-indent: unset;
     opacity: 1;
@@ -861,13 +861,21 @@ p.eventiMessaggio {
 }
 
 #evento-box img {
+    height: fit-content;
     width: 46%;
+    position: sticky;
+    top: 4em;
+    object-fit: contain;
+    border: 1px solid var(--colorAccent);
+    /* padding: 1em; */
 }
 
 #evento-info {
-    position: relative;
+    height: fit-content;
     width: 46%;
-    max-height: 60vh;
+    position: sticky;
+    top: 4em;
+    padding-block: 2.5em;
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 1em 2em;
@@ -875,30 +883,32 @@ p.eventiMessaggio {
     align-self: stretch;
 }
 
-#evento-info::before {
+#evento-info::before,
+#evento-info::after {
     content: '';
     position: absolute;
-    top: 0;
     left: 0;
     height: 1.5em;
     width: 100%;
     box-sizing: border-box;
+}
+
+#evento-info::before {
+    top: 0;
     background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
 }
 
 #evento-info::after {
-    content: '';
-    position: absolute;
     bottom: 0;
-    left: 0;
-    height: 1.5em;
-    width: 100%;
-    box-sizing: border-box;
     background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
 }
 
 #evento-info dt {
     font-weight: bold;
+}
+
+#evento-info dd {
+    white-space: pre-wrap;
 }
 
 

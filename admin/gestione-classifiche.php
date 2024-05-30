@@ -12,206 +12,221 @@ session_start();
 $paginaHTML = file_get_contents("../template/admin/template-admin.html");
 $content = file_get_contents("../template/admin/gestione-classifiche.html");
 
-$title = 'Gestione Classifiche &minus; Fungo';
+$title = 'Gestione Classifiche &minus; Admin &minus; Fungo';
 $pageId = 'admin/' . basename(__FILE__, '.php');
-$description = '';
-$keywords = '';
+$description = 'pagina di amministrazione per la creazione e modifica delle classifiche';
+$keywords = 'Fungo, amministrazione, classifiche';
 $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 
 if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
+    exit;
 }
 
-$connection = DBAccess::getInstance();
-$connectionOk = $connection->openDBConnection();
+$connection = DBAccess::get_instance();
+$connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
-    $messaggiForm = '';
-    $messaggioForm = get_content_between_markers($content, 'messaggioForm');
-    $legend = '';
-    $legendAggiungi = 'Aggiungi Classifica';
-    $legendModifica = 'Modifica Classifica';
-    $listaTipoEvento = '';
-    $selezioneDefault = '';
+    $validNuovoTitolo = isset($_POST['nuovoTitoloClassifica']) ? validate_input($_POST['nuovoTitoloClassifica']) : "";
     $validNuovoTipoEvento = isset($_POST['nuovoTipoEvento']) ? validate_input($_POST['nuovoTipoEvento']) : "";
     $validNuovaDataInizio = isset($_POST['nuovaDataInizio']) ? validate_input($_POST['nuovaDataInizio']) : "";
     $validNuovaDataFine = isset($_POST['nuovaDataFine']) ? validate_input($_POST['nuovaDataFine']) : "";
-    $validTipoEvento = isset($_POST['tipoEvento']) ? validate_input($_POST['tipoEvento']) : "";
-    $validDataInizio = isset($_POST['dataInizio']) ? validate_input($_POST['dataInizio']) : "";
-    $validDataFine = isset($_POST['dataFine']) ? validate_input($_POST['dataFine']) : "";
-    $validEventiSelezionati = [];
-    if (isset($_POST['eventi'])) {
-        foreach ($_POST['eventi'] as $evento) {
-            $validEventiSelezionati[] = validate_input($evento);
-        }
-    }
-    $nuovoTipoEvento = '';
-    $nuovaDataInizio = '';
-    $nuovaDataFine = '';
-    $tipoEvento = '';
-    $dataInizio = '';
-    $dataFine = '';
-    $valueAzione = '';
-    $listaEventi = '';
-    $nessunEvento = '';
-    if (((isset($_POST['nuovoTipoEvento']) && $_POST['nuovoTipoEvento'] != "") && $validNuovoTipoEvento == "") ||
+    $validIdEvento = isset($_POST['idEvento']) ? validate_input($_POST['idEvento']) : "";
+    $validIdCLassifica = isset($_POST['idClassifica']) ? validate_input($_POST['idClassifica']) : "";
+    if (((isset($_POST['nuovoTitoloClassifica']) && $_POST['nuovoTitoloClassifica'] != "") && $validNuovoTitolo == "") ||
+        ((isset($_POST['nuovoTipoEvento']) && $_POST['nuovoTipoEvento'] != "") && $validNuovoTipoEvento == "") ||
         ((isset($_POST['nuovaDataInizio']) && $_POST['nuovaDataInizio'] != "") && $validNuovaDataInizio == "") ||
         ((isset($_POST['nuovaDataFine']) && $_POST['nuovaDataFine'] != "") && $validNuovaDataFine == "") ||
-        ((isset($_POST['tipoEvento']) && $_POST['tipoEvento'] != "") && $validTipoEvento == "") ||
-        ((isset($_POST['dataInizio']) && $_POST['dataInizio'] != "") && $validDataInizio == "") ||
-        ((isset($_POST['dataFine']) && $_POST['dataFine'] != "") && $validDataFine == "")) {
-        header("location: classifiche.php?errore=invalid");
+        ((isset($_POST['idEvento']) && $_POST['idEvento'] != "") && $validIdEvento == "") ||
+        ((isset($_POST['idClassifica']) && $_POST['idClassifica'] != "") && $validIdCLassifica == "") ||
+        (isset($_POST['punteggi']) && $validIdEvento == "") ||
+        $validIdCLassifica != "" && $connection->get_classifica($validIdCLassifica) == null) {
+                header("location: classifiche.php?errore=invalid");
+                exit;
     }
     $errore = '0';
+
+    if (isset($_POST['punteggi'])) {
+        header("location: gestione-punteggi.php?idEvento=$validIdEvento");
+        exit;
+    }
+
+    if (isset($_POST['elimina'])) {
+        $connection->delete_classifica($validIdCLassifica);
+        $eliminato = $connection->get_classifica($validIdCLassifica) ? 0 : 1;
+        header("location: classifiche.php?eliminato=$eliminato");
+        exit;
+    }
+
+    $messaggiForm = '';
+    $messaggioForm = get_content_between_markers($content, 'messaggioForm');
+    $buttonElimina = get_content_between_markers($content, 'buttonElimina');
+    $listaTipoEvento = '';
+
+    $classifica = $validIdCLassifica == "" ? null : $connection->get_classifica($validIdCLassifica);
     
     // costruisco la lista di option per la selezione del tipo evento
-    $tipiEvento = $connection->getTipiEvento();
+    $tipiEvento = $connection->get_tipi_evento();
     $optionTipoEvento = get_content_between_markers($content, 'listaTipoEvento');
-    foreach ($tipiEvento as $tipoE) {
+    foreach ($tipiEvento as $tipoEvento) {
         $selected = '';
         if ($validNuovoTipoEvento != "") {
-            $selected = $validNuovoTipoEvento == $tipoE['Titolo'] ? ' selected' : '';
-        } elseif ($validTipoEvento != "") {
-            $selected = $validTipoEvento == $tipoE['Titolo'] ? ' selected' : '';
+            $selected = $validNuovoTipoEvento == $tipoEvento['Titolo'] ? ' selected' : '';
+        } elseif ($classifica && $classifica['TipoEvento'] == $tipoEvento['Titolo']) {
+            $selected = ' selected';
         }
         $listaTipoEvento .= multi_replace($optionTipoEvento, [
-            '{tipoEvento}' => $tipoE['Titolo'],
-            '{selezioneTipoEvento}' => $selected 
+            '{tipoEvento}' => $tipoEvento['Titolo'],
+            '{selezioneTipoEvento}' => $selected
         ]);
     }
     
-    if (isset($_POST['elimina'])) {
-        $connection->delete_classifica($validTipoEvento, $validDataInizio);
-        $eliminato = $connection->get_classifiche($validTipoEvento, $validDataInizio) ? 0 : 1;
-        header("location: classifiche.php?eliminato=$eliminato");
-    } elseif (isset($_POST['modifica'])) {
+    $valueAzione = '';
+    $eventiHTML = '';
+    $legend = '';
+    $legendAggiungi = 'Aggiungi Classifica';
+    $legendModifica = 'Modifica Classifica';
+    $selezioneDefault = '';
+    $nessunEvento = '';
+    $nuovoTitoloClassifica = '';
+    $nuovoTipoEvento = '';
+    $nuovaDataInizio = '';
+    $nuovaDataFine = '';
+    
+    if (isset($_POST['modifica'])) {
         $legend = $legendModifica;
-        $nuovoTipoEvento = $validTipoEvento;
-        $nuovaDataInizio = $validDataInizio;
-        $nuovaDataFine = $validDataFine;
-        $tipoEvento = $validTipoEvento;
-        $dataInizio = $validDataInizio;
-        $dataFine = $validDataFine;
         $valueAzione = 'modifica';
+        $nuovoTitoloClassifica = $classifica['Titolo'];
+        $nuovoTipoEvento = $classifica['TipoEvento'];
+        $nuovaDataInizio = $classifica['DataInizio'];
+        $nuovaDataFine = $classifica['DataFine'];
     } elseif (isset($_POST['aggiungi'])) {
+        $buttonElimina = '';
         $legend = $legendAggiungi;
         $selezioneDefault = ' selected';
         $nessunEvento = get_content_between_markers($content, 'nessunEvento');
         $valueAzione = 'aggiungi';
-    } elseif(isset($_POST['mostraEventi'])) {
-        $nuovoTipoEvento = $validNuovoTipoEvento;
-        $nuovaDataInizio = $validNuovaDataInizio;
-        $nuovaDataFine = $validNuovaDataFine;
-        $tipoEvento = $validTipoEvento;
-        $dataInizio = $validDataInizio;
-        $dataFine = $validDataFine;
-        $valueAzione = validate_input($_POST['azione']);
     } elseif (isset($_POST['conferma'])) {
+        $nuovoTitoloClassifica = $validNuovoTitolo;
         $nuovoTipoEvento = $validNuovoTipoEvento;
         $nuovaDataInizio = $validNuovaDataInizio;
         $nuovaDataFine = $validNuovaDataFine;
-        $tipoEvento = $validTipoEvento;
-        $dataInizio = $validDataInizio;
-        $dataFine = $validDataFine;
         if ($_POST['azione'] == 'aggiungi') {
             $errore = '0';
             $legend = $legendAggiungi;
             $valueAzione = 'aggiungi';
-            $errore = $connection->get_classifiche($validNuovoTipoEvento, $validNuovaDataInizio) ? '1' : '0';
+            $errore = $connection->get_classifiche($validNuovoTitolo) ? '1' : '0';
             if ($errore == '0') {
-                $connection->insert_classifica($validNuovoTipoEvento, $validNuovaDataInizio, $validNuovaDataFine);
-                $connection->insert_classifica_eventi($validNuovoTipoEvento, $validNuovaDataInizio, $validEventiSelezionati);
-                $errore = $connection->get_classifiche($validNuovoTipoEvento, $validNuovaDataInizio) ? '0' : '1';
+                $connection->insert_classifica($validNuovoTitolo, $validNuovoTipoEvento, $validNuovaDataInizio, $validNuovaDataFine);
+                $errore = $connection->get_classifiche($validNuovoTitolo) ? '0' : '1';
             } else {
                 $messaggiForm .= multi_replace($messaggioForm, [
-                    '{messaggio}' => "Classifica già esistente con questo Tipo Evento e con questa data di inizio"
+                    '{messaggio}' => "Esiste già una Classifica con questo Titolo"
                 ]);
             }
             if ($errore == '0') {
                 header("location: classifiche.php?aggiunto=1");
+                exit;
+            } else {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{messaggio}' => "Errore imprevisto"
+                ]);
             }
         } elseif ($_POST['azione'] == 'modifica') {
             $errore = '0';
             $legend = $legendModifica;
             $valueAzione = 'modifica';
-            if ($validTipoEvento != $validNuovoTipoEvento || $validDataInizio != $validNuovaDataInizio) {
-                $errore = $connection->get_classifiche($validNuovoTipoEvento, $validNuovaDataInizio) ? '1' : '0';
+            if ($validNuovoTitolo != $classifica['Titolo']) {
+                $errore = $connection->get_classifiche($validNuovoTitolo) ? '1' : '0';
             }
             if ($errore == '0') {
                 $connection->update_classifica(
-                    $validTipoEvento, $validDataInizio, $validNuovoTipoEvento, $validNuovaDataInizio, $validNuovaDataFine);
-                $connection->update_classifica_eventi($validNuovoTipoEvento, $validNuovaDataInizio, $validEventiSelezionati);
-                $errore = $connection->get_classifiche($validNuovoTipoEvento, $validNuovaDataInizio) ? '0' : '1';
+                    $validIdCLassifica, $validNuovoTitolo, $validNuovoTipoEvento, $validNuovaDataInizio, $validNuovaDataFine);
+                $errore = $connection->get_classifiche($validNuovoTitolo) ? '0' : '1';
             } else {
                 $messaggiForm .= multi_replace($messaggioForm, [
-                    '{messaggio}' => "Classifica già esistente con questo Tipo Evento e con questa data di inizio"
+                    '{messaggio}' => "Esiste già una Classifica con questo Titolo"
                 ]);
             }
             if ($errore == '0') {
-                header("location: classifiche.php?modificato=1");
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{messaggio}' => 'Modifica effettuata con successo'
+                ]);
+                $dataInizio = $validNuovaDataInizio;
+                $validDataInizio = $validNuovaDataInizio;
             } else {
                 $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);
             }
         }
     } else {
         header("location: classifiche.php");
+        exit;
     }
     
-    // costruisco la lista di option per la selezione degli eventi
-    if (!isset($_POST["aggiungi"])) {
-        $eventiSelezionati = $connection->getEventiSelezionati($validTipoEvento, $validDataInizio);
-        $eventiSelezionabili = $connection->getEventiSelezionabili(
-            $validNuovaDataInizio != "" ? $validNuovaDataInizio : $validDataInizio,
-            $validNuovaDataFine != "" ? $validNuovaDataFine : $validDataFine
-        );
-        $checkEvento = get_content_between_markers($content, 'listaEventi');
+    // costruisco la lista degli eventi
+    $eventi = $classifica ? $connection->get_eventi_classifica($classifica['TipoEvento'], $classifica['DataInizio'], $classifica['DataFine']) : null;
+    if ($eventi != null) {
+        $eventiHTML = get_content_between_markers($content, 'listaEventi');
+        $elementoLista = get_content_between_markers($eventiHTML, 'elementoLista');
+        $listaEventi = '';
 
-        foreach ($eventiSelezionati as $eventoSelezionato) {
-            $listaEventi .= multi_replace($checkEvento, [
-                '{idEvento}' => $eventoSelezionato['Id'],
-                '{titoloEvento}' => $eventoSelezionato['Titolo'],
-                '{dataEvento}' => date_format(date_create($eventoSelezionato['Data']), 'Y-m-d'),
-                '{dataVisualizzataEvento}' => date_format(date_create($eventoSelezionato['Data']), 'd/m/y'),
-                '{eventoChecked}' => ' checked'
+        foreach ($eventi as $evento) {
+            $listaEventi .= multi_replace($elementoLista, [
+                '{idEvento}' => $evento['Id'],
+                '{titoloEvento}' => $evento['Titolo'],
+                '{dataVisualizzataEvento}' => date_format(date_create($evento['Data']), 'd/m/y')
             ]);
         }
-        foreach ($eventiSelezionabili as $eventoSelezionabile) {
-            $listaEventi .= multi_replace($checkEvento, [
-                '{idEvento}' => $eventoSelezionabile['Id'],
-                '{titoloEvento}' => $eventoSelezionabile['Titolo'],
-                '{dataEvento}' => date_format(date_create($eventoSelezionabile['Data']), 'Y-m-d'),
-                '{dataVisualizzataEvento}' => date_format(date_create($eventoSelezionabile['Data']), 'd/m/y'),
-                '{eventoChecked}' => ''
+        $eventiHTML = replace_content_between_markers($eventiHTML, ['elementoLista' => $listaEventi]);
+    }
+
+    // creo la classifica attuale
+    $punteggiClassifica = $classifica ? $connection->get_punteggi_classifica($classifica['TipoEvento'], $classifica['DataInizio'], $classifica['DataFine']) : null;
+    if ($punteggiClassifica != null) {
+        $classificaHTML = get_content_between_markers($content, 'tabellaClassifica');
+        $righe = '';
+        $rigaHTML = get_content_between_markers($content, 'rigaClassifica');
+        foreach ($punteggiClassifica as $riga) {
+            $righe .= multi_replace($rigaHTML, [
+                '{ranking}' => $riga['ranking'],
+                '{freestyler}' => $riga['partecipante'],
+                '{punti}' => $riga['punti']
             ]);
         }
-        if ($listaEventi == '') {
-            $nessunEvento = get_content_between_markers($content, 'nessunEvento');
-        }
+        $content = replace_content_between_markers($content, [
+            'tabellaClassifica' => $classificaHTML,
+            'rigaClassifica' => $righe
+        ]);
+    } else {
+        $content = replace_content_between_markers($content, [
+            'tabellaClassifica' => ''
+        ]);
     }
 
     $content = multi_replace($content, [
         '{legend}' => $legend,
         '{selezioneDefault}' => $selezioneDefault,
+        '{idClassifica}' => $validIdCLassifica,
+        '{nuovoTitoloClassifica}' => $nuovoTitoloClassifica,
         '{nuovoTipoEvento}' => $nuovoTipoEvento,
         '{nuovaDataInizio}' => $nuovaDataInizio,
         '{nuovaDataFine}' => $nuovaDataFine,
-        '{tipoEvento}' => $tipoEvento,
-        '{dataInizio}' => $dataInizio,
-        '{dataFine}' => $dataFine,
         '{valueAzione}' => $valueAzione
     ]);
     $content = replace_content_between_markers($content, [
         'listaTipoEvento' => $listaTipoEvento,
         'messaggiForm' => $messaggiForm,
-        'listaEventi' => $listaEventi,
+        'buttonElimina' => $buttonElimina,
+        'listaEventi' => $eventiHTML,
         'nessunEvento' => $nessunEvento
     ]);
 
-    $connection->closeDBConnection();
+    $connection->close_DB_connection();
 } else {
     header("location: ../errore500.php");
+    exit;
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
