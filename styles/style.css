@@ -905,7 +905,20 @@ p.eventiMessaggio {
 /* 
  * PAGINA MODALITA' 
  */
-
+ #intro_battle {
+    margin-bottom: 2em;
+}
+ #intro_battle::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    height: 2em;
+    width: 100%;
+    box-sizing: border-box;
+    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
+    border-bottom: 2px solid var(--colorAccent);
+    
+}
 #modalita main {
     padding-bottom: unset;
 }
@@ -919,6 +932,7 @@ p.eventiMessaggio {
         margin: 0em;
         
     }
+    
     #container_battle h2{
         background-color: var(--colorSecondary);
         color: var(--colorAccent);
