@@ -759,6 +759,7 @@ footer #footer-credits {
     justify-content: space-between;
     color: var(--colorText);
     text-decoration: none;
+    height: 100%;
 }
 
 #lista-eventi li img {
@@ -777,6 +778,7 @@ footer #footer-credits {
 
 #lista-eventi li h3 {
     text-decoration: underline;
+    height: 100%;
 }
 
 #lista-eventi li h3,
