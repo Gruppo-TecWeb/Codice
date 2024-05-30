@@ -29,6 +29,9 @@ function toggleMenu() {
     document.body.setAttribute("data-menu-open", menuOpened);
 }
 
+/*
+ * PAGINA INDEX
+ */
 
 function init_index() {
     const logo = document.querySelector('header a h1');
@@ -60,91 +63,91 @@ function init_evento() {
 }
 
 /*
-PAGINA MODALITA'
-*/
+ * PAGINA MODALITA'
+ */
 
 var player;
-        var descBattles;
-        var pressedButton;
-        var actualTitle;
-        var newTitle;
-        var thisBattle;
+var descBattles;
+var pressedButton;
+var actualTitle;
+var newTitle;
+var thisBattle;
 
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('iframe_battle', {
-                events: {
-                    'onStateChange': onPlayerStateChange
-                }
-            });
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('iframe_battle', {
+        events: {
+            'onStateChange': onPlayerStateChange
         }
+    });
+}
 
-        function onPlayerStateChange(event) {
-            if (event.data == YT.PlayerState.PAUSED) {
-                pressedButton.setAttribute("data-isPlaying", "false");
-                pressedButton.title = "Riproduci " + newTitle;
-            }
-            if (event.data == YT.PlayerState.PLAYING) {
-                pressedButton.setAttribute("data-isPlaying", "true");
-                pressedButton.title = "Interrompi " + newTitle;
-            }
+function onPlayerStateChange(event) {
+    if (event.data == YT.PlayerState.PAUSED) {
+        pressedButton.setAttribute("data-isPlaying", "false");
+        pressedButton.title = "Riproduci " + newTitle;
+    }
+    if (event.data == YT.PlayerState.PLAYING) {
+        pressedButton.setAttribute("data-isPlaying", "true");
+        pressedButton.title = "Interrompi " + newTitle;
+    }
+}
+
+function newIframe() {
+    var link = thisBattle.getElementsByTagName("a")[0].href;
+    actualTitle.innerHTML = newTitle;
+
+    var videoId = link.split('embed/')[1].split('?')[0];
+    var start = pressedButton.getAttribute("data-start");
+    var end = pressedButton.getAttribute("data-end");
+
+    player.loadVideoById({
+        videoId: videoId,
+        startSeconds: start,
+        endSeconds: end
+    });
+
+    for (var i = 0; i < descBattles.length; i++) {
+        var buttonPP = descBattles[i].getElementsByTagName("button")[0];
+        if (buttonPP.title.substr(0, 10) == "Interrompi") {
+            buttonPP.setAttribute("data-isPlaying", "false");
+            buttonPP.title = "Riproduci " + newTitle;
         }
+    }
 
-        function newIframe() {
-            var link = thisBattle.getElementsByTagName("a")[0].href;
-            actualTitle.innerHTML = newTitle;
-            
-            var videoId = link.split('embed/')[1].split('?')[0];
-            var start = pressedButton.getAttribute("data-start");
-            var end = pressedButton.getAttribute("data-end");
+    pressedButton.setAttribute("data-isPlaying", "true");
+    pressedButton.title = "Interrompi " + newTitle;
+}
 
-            player.loadVideoById({
-                videoId: videoId,
-                startSeconds: start,
-                endSeconds: end
-            });
+function setIframe(battle) {
+    thisBattle = descBattles[battle];
+    pressedButton = thisBattle.getElementsByTagName("button")[0];
+    newTitle = thisBattle.getElementsByTagName("a")[0].title;
 
-            for (var i = 0; i < descBattles.length; i++) {
-                var buttonPP = descBattles[i].getElementsByTagName("button")[0];
-                if (buttonPP.title.substr(0, 10) == "Interrompi") {
-                    buttonPP.setAttribute("data-isPlaying", "false");
-                    buttonPP.title = "Riproduci " + newTitle;
-                }
-            }
-
+    if (pressedButton.title.substr(0, 10) == "Interrompi") {
+        player.pauseVideo();
+        pressedButton.setAttribute("data-isPlaying", "false");
+        pressedButton.title = "Riproduci " + newTitle;
+    } else {
+        if (actualTitle.innerHTML == newTitle) {
+            player.playVideo();
             pressedButton.setAttribute("data-isPlaying", "true");
             pressedButton.title = "Interrompi " + newTitle;
+        } else {
+            newIframe();
         }
+    }
+}
 
-        function setIframe(battle) {
-            thisBattle = descBattles[battle];
-            pressedButton = thisBattle.getElementsByTagName("button")[0];
-            newTitle = thisBattle.getElementsByTagName("a")[0].title;
 
-            if (pressedButton.title.substr(0, 10) == "Interrompi") {
-                player.pauseVideo();
-                pressedButton.setAttribute("data-isPlaying", "false");
-                pressedButton.title = "Riproduci " + newTitle;
-            } else {
-                if (actualTitle.innerHTML == newTitle) {
-                    player.playVideo();
-                    pressedButton.setAttribute("data-isPlaying", "true");
-                    pressedButton.title = "Interrompi " + newTitle;
-                } else {
-                    newIframe();
-                }
-            }
-        }
 
-        
+function initIframe() {
+    descBattles = document.getElementsByClassName("descBattle");
+    actualTitle = document.getElementsByTagName("h3")[1];
 
-        function initIframe() {
-            descBattles = document.getElementsByClassName("descBattle");
-            actualTitle = document.getElementsByTagName("h3")[1];
-
-            thisBattle = descBattles[0];
-            newTitle = thisBattle.getElementsByTagName("a")[0].title;
-            pressedButton = thisBattle.getElementsByTagName("button")[0];
-        }
+    thisBattle = descBattles[0];
+    newTitle = thisBattle.getElementsByTagName("a")[0].title;
+    pressedButton = thisBattle.getElementsByTagName("button")[0];
+}
 
 
 
@@ -152,24 +155,18 @@ var player;
  * PAGINA BEATS
  */
 
-
-
-
 function init_beats() {
     pressedButton = document.getElementsByClassName("beat")[0].getElementsByTagName("button")[0];
     document.getElementById("audio").addEventListener("play", function() {
         pressedButton.setAttribute("data-isPlaying", "true")
         pressedButton.title = "Interrompi " + newTitle;
     });
-    
+
     document.getElementById("audio").addEventListener("pause", function() {
         pressedButton.setAttribute("data-isPlaying", "false")
         pressedButton.title = "Riproduci " + newTitle;
     });
-    descrizioni = document.getElementsByClassName("descBeats");
-    for (let i = 0; i < descrizioni.length; i++) {
-        descrizioni[i].setAttribute("data-show", "false");
-    }
+
     btnDescrizioni = document.getElementsByClassName("btnDesc");
     for (let i = 0; i < btnDescrizioni.length; i++) {
         btnDescrizioni[i].setAttribute("data-show", "false");
@@ -201,7 +198,7 @@ function onJavaScript() {
 
         audiosTitle = document.getElementsByClassName("btnPlay")[i].getAttribute("data-title-beat");
         const audio = new Audio("assets/media/basi/" + audiosTitle + ".mp3");
-        
+
         audio.addEventListener('loadedmetadata', () => {
             const minuti = Math.floor(audio.duration / 60);
             const secondi = Math.floor(audio.duration % 60);
@@ -235,7 +232,7 @@ function playerAudio(nomeBase) {
         pressedButton.setAttribute("data-isPlaying", "true")
         pressedButton.title = "Interrompi " + newTitle;
     });
-    
+
     document.getElementById("audio").addEventListener("pause", function() {
         pressedButton.setAttribute("data-isPlaying", "false")
         pressedButton.title = "Riproduci " + newTitle;
@@ -247,7 +244,7 @@ function playerAudio(nomeBase) {
     h3 = audioContainer.getElementsByTagName("h3")[0];
     newTitle = nomeBase.slice(0, -4).replaceAll("-", " ");
     beats = document.getElementsByClassName("beat")
-    
+
     for (let i = 0; i < beats.length; i++) {
         if (beats[i].getElementsByTagName("button")[0].getAttribute("data-title-beat") == nomeBase.slice(0, -4)) {
             pressedButton = beats[i].getElementsByTagName("button")[0];
@@ -263,10 +260,10 @@ function playerAudio(nomeBase) {
     if (h3.innerHTML == newTitle) {
         if (pressedButton.title.slice(0, 10) == "Interrompi") {
             audio.pause();
-            
+
         } else {
             audio.play();
-           
+
         }
     } else {
         newBeat(nomeBase);
@@ -304,7 +301,7 @@ function newBeat(nomeBase) {
 function autoPlay(nomeBase) {
     document.getElementById("autoNext").onclick = function() {
         autoNext = !autoNext;
-        autoRip=document.getElementById("autoNext");
+        autoRip = document.getElementById("autoNext");
         autoRip.setAttribute("aria-pressed", autoNext);
     }
     audio.onended = function() {
