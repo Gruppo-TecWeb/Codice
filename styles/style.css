@@ -915,71 +915,184 @@ p.eventiMessaggio {
 /* 
  * PAGINA MODALITA' 
  */
-
+ #intro_battle {
+    margin-bottom: 2em;
+}
+ #intro_battle::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    height: 2em;
+    width: 100%;
+    box-sizing: border-box;
+    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
+    border-bottom: 2px solid var(--colorAccent);
+    
+}
 #modalita main {
     padding-bottom: unset;
 }
+    #container_battle {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        background-color: var(--colorAccent);
+        padding: 0em;
+        align-items: center;
+        margin: 0em;
+        
+    }
+    
+    #container_battle h2{
+        background-color: var(--colorSecondary);
+        color: var(--colorAccent);
 
-#intro_battle {
-    margin-bottom: 2em;
-}
+        border-radius: 20px 20px 20px 20px;
+        width: max-content;
+        padding: 0.5em;
+        
+    }
+    
+    #container_iframe {
+        margin: 0em;
+        text-align: center;
+        color: var(--colorSecondary);
+        font-size: larger;
+        width: 50%;
 
-#intro_battle h3 {
-    margin-block: 0.5em;
-}
+        margin: 1em auto; /* Centra il contenitore */
+        position: sticky;
+        bottom: 0;
+        top: 3em;
+        display: flex;
+        flex-direction: column; /* Imposta la direzione dei figli su verticale */
+        align-items: center; /* Centra orizzontalmente */
+    }
+        
+    #container_iframe h3 {
+        background-color: var(--colorBackground);
+        color: var(--colorAccent);
 
-#intro_battle p {
-    /* text-align: justify; */
-    text-align: left;
-}
+        border-radius: 20px 20px 0px 0px;
 
-#intro_battle li {
-    /* text-align: justify; */
-    text-align: left;
-    list-style: none;
-    margin-block: 0.5em;
-}
+        width: max-content;
+        padding: 0.5em;
+       
+    }
+    #container_iframe iframe {
+        width: 48vw;
+        height: 27vw;
+        border-radius: 20px;
+        border-style: none;
+        
+        
+    }
+    
+    #lista_battle {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centra orizzontalmente */
+        width: 50%;
+    }
+    /*.descBattle dt:first-child[data-java="true"]{
+        padding: 1em;
+    }*/
+    #lista_battle button {
+        cursor: pointer;
+        height: 3em;
+        border-style: none;
+        color: transparent;
+        background-color: transparent;
+        background-image: url("../assets/icons/play.svg");
+        background-repeat: no-repeat;
+        background-size: 50%;
+        background-position: center;
+    }
+    
+    #lista_battle button[data-isPlaying="false"]{
+        background-image: url("../assets/icons/play.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    #lista_battle button[data-isPlaying="true"]{
+        background-image: url("../assets/icons/pause.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    
+    
+    
+    
+    .descBattle{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0em;
+        border-style: solid;
+        border-width: 0.2em 0em 0em 0em;
+        border-radius: 20px;
+        border-color: var(--colorAccent);
+        background-color: var(--colorSecondary);
+        color: var(--colorText);
+        width: 100%;
+        
+    }
+    
+    
+    /*qua c'è anche il margin del footer da correggere*/
+    .descBattle:first-child {
+        border-top: 0em;
+        
+    }
+    
+    .descBattle:last-child {
+        border-bottom: 0em;
+    }
+    
+    .descBattle:hover {
+        background-color: var(--colorButtonHover);
+    }
+    
 
-#modalita main {
-    position: relative;
-}
-
-#container_battle {
-    background-color: var(--colorAccent);
-    padding-bottom: 4em;
-}
-
-#container_battle h2 {
-    font-family: Horizontale;
-    color: var(--colorTextOnAccent);
-    text-align: center;
-}
-
-.descBattle {
-    border: 2px solid var(--colorAccent);
-    border-radius: 3px;
-    display: flex;
-    flex-direction: row;
-    background-color: var(--colorSecondary);
-    color: var(--colorText);
-    align-items: center;
-}
-
-.descBattle:hover {
-    background-color: var(--colorLinkHoverBackground);
-}
-
-.descBattle dt {
-    text-align: right;
-    padding: 0 1em;
-    font-size: 1.25em;
-    max-width: max-content;
-    min-width: 25%;
-}
-
-.descBattle dd {
-    padding: 0.5em;
-}
+    
+    .descBattle dt a {
+        display: block;
+        text-align: center;
+        padding: 0.5em;
+        margin: 0em;
+        width: 6em;
+    }
+    
+    .descBattle dd {
+        padding: 0.5em;
+    }
+    .descBattle > dd:first-of-type {
+        width: 100%;
+        padding: 0.5em;
+        text-align: center;
+        border-style: solid;
+        border-width: 0em 0.2em 0em 0.2em;
+        border-color: var(--colorAccent);
+        min-height: 2.4em;
+    }
+    .descBattle button {
+        cursor: pointer;
+        height: 2em;
+        border-style: none;
+        justify-content: space-between;
+        color: transparent;
+        background-color: transparent;
+        background-image: url("../assets/icons/play.svg");
+        background-repeat: no-repeat;
+        background-size: 40%;
+        background-position: center;
+    }
+    
+    
+    .descBattle:hover button {
+        opacity: 1;
+    }
 
 
 /* 
@@ -1132,7 +1245,10 @@ audio::-webkit-media-controls-play-button {
 #audio_container #audio {
     width: 100%;
 }
-
+#autoNext.beat:hover[aria-pressed="false"] {
+    background-color: var(--colorSecondary);
+    color: var(--colorAccent);
+}
 #autoNext[aria-pressed="false"] {
     cursor: pointer;
     padding: 0.5em 0.8em;
