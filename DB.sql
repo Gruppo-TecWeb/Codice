@@ -8,6 +8,7 @@ CREATE TABLE Utenti (
     Username VARCHAR(100) PRIMARY KEY,
     Password VARCHAR(60) NOT NULL,
     Email VARCHAR(100) NOT NULL UNIQUE,
+    ImmagineProfilo TINYTEXT,
     TipoUtente CHAR(1) NOT NULL DEFAULT 'U',
     Attivo BOOLEAN NOT NULL DEFAULT TRUE);
 
@@ -42,7 +43,7 @@ CREATE TABLE Punteggi (
     FOREIGN KEY (Evento) REFERENCES Eventi(Id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (Partecipante) REFERENCES Utenti(Username) ON DELETE RESTRICT ON UPDATE CASCADE);
 
-INsERT INTO Utenti (Username, Password, Email, TipoUtente) VALUES ('root', '$2y$10$x0SPRF3nMtr.a.gcpzJwqeS4YToXKGXLAGEHIzi7d//SkEpayFf8i', 'root@mail.it', 'R');
+INSERT INTO Utenti (Username, Password, Email, TipoUtente) VALUES ('root', '$2y$10$x0SPRF3nMtr.a.gcpzJwqeS4YToXKGXLAGEHIzi7d//SkEpayFf8i', 'root@mail.it', 'R');
 INSERT INTO Utenti (Username, Password, Email, TipoUtente) VALUES ('admin', '$2y$10$6HccIqtLp.aSP1X4H/X3GeNJaXsTLVrNCPYIaMURXPUfxSL7qjphi', 'admin@fungo.it', 'A');
 INSERT INTO Utenti (Username, Password, Email) VALUES ('user', '$2y$10$Z0Aa3dQjyumq4IUcqxlIK.Han8U1eeETu7utaA9WhT.iKcggzR49G', 'user@fungo.it');
 

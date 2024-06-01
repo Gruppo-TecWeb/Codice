@@ -68,12 +68,12 @@ if ($connectionOk) {
         }
         if ($email == "") {
             $errore = true;
-            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Inserire <span lang=\"en\">E-Mail</span>"]);
+            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Inserire <span lang=\"en\">e-mail</span>"]);
         }
         if (!$errore) {
             $utenteRegistrato = $connection->insert_utente($username, $password, $email);
             if ($utenteRegistrato > 0) {
-                $_SESSION["datiUtente"] = array("Username" => $username, "Email" => $email);
+                $_SESSION["username"] = $username;
                 $_SESSION["login"] = true;
                 $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Registrazione avvenuta correttamente"]);
                 header("location: admin/index.php");
