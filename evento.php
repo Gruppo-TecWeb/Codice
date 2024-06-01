@@ -29,6 +29,7 @@ $eventoId = $_GET['id'];
 if ($connectionOk) {
     $evento = $connection->get_evento($eventoId);
     $classifica = $connection->get_classifica_evento($eventoId);
+    $dataEventi = $connection->get_oldest_date();
     $connection->close_DB_connection();
     if ($evento == null) {
         header("location: errore404.php");
@@ -52,7 +53,8 @@ if ($connectionOk) {
         if ($tipoEvento  != null) {
             $stagioneEventoTemplate = get_content_between_markers($content, 'stagioneEvento');
             $stagioneEvento = multi_replace($stagioneEventoTemplate, [
-                '{tipoEvento}' => $tipoEvento
+                '{tipoEvento}' => $tipoEvento,
+                '{dataEventi}' => $dataEventi
             ]);
         }
 
