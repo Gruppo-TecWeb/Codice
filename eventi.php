@@ -28,7 +28,19 @@ if ($connectionOk) {
     $eventi_per_pagina = 12;
     $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
     $tipoEvento = isset($_GET['tipoEvento']) ? $_GET['tipoEvento'] : '';
+    $tipoEvento = validate_input($tipoEvento);
     $data = isset($_GET['data']) ? $_GET['data'] : '';
+    $data = validate_input($data);
+
+    // controllo sui dati in GET
+    if (isset($_GET['tipoEvento']) &&  $_GET['tipoEvento'] != "" && !in_array($tipoEvento, array_column($connection->get_tipi_evento(), 'Titolo'))) {
+        header("location: errore404.php");
+        exit;
+    }
+    if ($data != '' && !preg_match('/^\d{4}-\d{2}-\d{2}$/', $data)) {
+        header("location: errore404.php");
+        exit;
+    }
 
     $lista_eventi_array = $connection->get_lista_eventi($data, $tipoEvento);
     $lista_tipi_evento_array = $connection->get_tipi_evento();
@@ -59,12 +71,10 @@ if ($connectionOk) {
     if ($numero_pagine > 1) {
         $currentPageTemplate = get_content_between_markers($paginationTemplate, 'currentPage');
         $notCurrentPageTemplate = get_content_between_markers($paginationTemplate, 'notCurrentPage');
-        $data_encoded = htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
-        $titolo_encoded = htmlspecialchars($titolo, ENT_QUOTES, 'UTF-8');
         $pages = $pagina > 1 ? multi_replace($notCurrentPageTemplate, [
             '{numeroPagina}' => $pagina - 1,
-            '{data}' => $data_encoded,
-            '{titolo}' => $titolo_encoded,
+            '{data}' => $data,
+            '{tipoEvento}' => $tipoEvento,
             '{messaggio}' => 'Precedente',
             '{classe}' => ''
         ]) : '';
@@ -74,22 +84,22 @@ if ($connectionOk) {
             } else if ($i == 1 || $i == $numero_pagine || ($i >= $pagina - 2 && $i <= $pagina + 2)) {
                 $pages .= multi_replace($notCurrentPageTemplate, [
                     '{numeroPagina}' => $i,
-                    '{data}' => $data_encoded,
-                    '{titolo}' => $titolo_encoded,
+                    '{data}' => $data,
+                    '{tipoEvento}' => $tipoEvento,
                     '{messaggio}' => $i,
                     '{classe}' => 'number'
                 ]);
             } else if ($i == $pagina - 3 || $i == $pagina + 3) {
                 $pages .= multi_replace(get_content_between_markers($paginationTemplate, 'ellipsis'), [
-                    '{data}' => $data_encoded,
-                    '{titolo}' => $titolo_encoded
+                    '{data}' => $data,
+                    '{tipoEvento}' => $tipoEvento
                 ]);
             }
         }
         $pages .= $pagina < $numero_pagine ? multi_replace($notCurrentPageTemplate, [
             '{numeroPagina}' => $pagina + 1,
             '{data}' => $data,
-            '{titolo}' => $titolo,
+            '{tipoEvento}' => $tipoEvento,
             '{messaggio}' => 'Successiva',
             '{classe}' => ''
         ]) : '';
@@ -102,10 +112,10 @@ if ($connectionOk) {
     // Costruzione delle liste di tipo evento
     $lista_tipi_evento_string = '';
     $option = get_content_between_markers($content, 'listaTipiEvento');
-    foreach ($lista_tipi_evento_array as $tipoEvento) {
-        $selected = ($tipoEvento['Titolo'] == $titolo) ? ' selected' : '';
+    foreach ($lista_tipi_evento_array as $tipo_evento) {
+        $selected = ($tipo_evento['Titolo'] == $tipoEvento) ? ' selected' : '';
         $lista_tipi_evento_string .= multi_replace($option, [
-            '{tipoEvento}' => $tipoEvento['Titolo'],
+            '{tipoEvento}' => $tipo_evento['Titolo'],
             '{selezioneEvento}' => $selected
         ]);
     }
@@ -116,7 +126,7 @@ if ($connectionOk) {
     $lista_eventi_string = '';
     if ($lista_eventi_array == null) {
         $messaggioListaEventiTemplate = get_content_between_markers($content, 'messaggioListaEventi');
-        if ($titolo != '' || $data != '') {
+        if ($tipoEvento != '' || $data != '') {
             $messaggio = 'Nessun evento corrisponde ai criteri di ricerca';
         } else {
             $messaggio = 'Non ci sono eventi in programma';
@@ -150,7 +160,7 @@ if ($connectionOk) {
         '{dataEvento}' => date_format_ita($data)
     
     ]) : '';
-    $messaggioFiltri .= $titolo != '' ? ' di tipo: ' . $titolo : '';
+    $messaggioFiltri .= $tipoEvento != '' ? ' di tipo: ' . $tipoEvento : '';
 
     $content = multi_replace(
         replace_content_between_markers($content, [

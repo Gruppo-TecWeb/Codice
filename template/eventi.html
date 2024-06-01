@@ -57,7 +57,7 @@
         {pages} {currentPage}
         <li class="elemento-paginazione-eventi"><a href="#" aria-label="Pagina {numeroPagina}" aria-current="true">{numeroPagina}</a></li>
         {/currentPage} {notCurrentPage}
-        <li class="elemento-paginazione-eventi {classe}"><a href="eventi.php?pagina={numeroPagina}&data={data}&titolo={titolo}" aria-label='Vai alla pagina {numeroPagina}'>{messaggio}</a></li>
+        <li class="elemento-paginazione-eventi {classe}"><a href="eventi.php?pagina={numeroPagina}&data={data}&tipoEvento={tipoEvento}" aria-label='Vai alla pagina {numeroPagina}'>{messaggio}</a></li>
         {/notCurrentPage} {ellipsis}
         <li><a class="ellipsis">&#8230;</a></li>
         {/ellipsis} {/pages}
