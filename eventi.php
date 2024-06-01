@@ -29,11 +29,11 @@ if ($connectionOk) {
     $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
     $tipoEvento = isset($_GET['tipoEvento']) ? $_GET['tipoEvento'] : '';
     $tipoEvento = validate_input($tipoEvento);
-    $data = isset($_GET['data']) ? $_GET['data'] : '';
+    $data = isset($_GET['data']) ? $_GET['data'] : date('Y-m-d');
     $data = validate_input($data);
 
     // controllo sui dati in GET
-    if (isset($_GET['tipoEvento']) &&  $_GET['tipoEvento'] != "" && !in_array($tipoEvento, array_column($connection->get_tipi_evento(), 'Titolo'))) {
+    if (isset($_GET['tipoEvento']) &&  $_GET['tipoEvento'] != "" &&  $_GET['tipoEvento'] != "Altri eventi" && !in_array($tipoEvento, array_column($connection->get_tipi_evento(), 'Titolo'))) {
         header("location: errore404.php");
         exit;
     }
@@ -43,6 +43,7 @@ if ($connectionOk) {
     }
 
     $lista_eventi_array = $connection->get_lista_eventi($data, $tipoEvento);
+    $eventi_senza_tipo = $connection->get_lista_eventi("", "Altri eventi");
     $lista_tipi_evento_array = $connection->get_tipi_evento();
     $oldest_date = $lista_eventi_array == null ? $connection->get_oldest_date() : '';
     $connection->close_DB_connection();
@@ -119,6 +120,13 @@ if ($connectionOk) {
             '{selezioneEvento}' => $selected
         ]);
     }
+    if ($eventi_senza_tipo != null) {
+        $selected = ($tipoEvento == 'Altri eventi') ? ' selected' : '';
+        $lista_tipi_evento_string .= multi_replace($option, [
+            '{tipoEvento}' => 'Altri eventi',
+            '{selezioneEvento}' => $selected
+        ]);
+    }
 
     // Costruzione della lista di eventi
     $offset = ($pagina - 1) * $eventi_per_pagina;
@@ -154,8 +162,8 @@ if ($connectionOk) {
         ]);
     }
 
-    $messaggioFiltri = $data == '' ? 'i prossimi eventi' : '';
-    $messaggioFiltri .= $data != '' ? 'eventi a partire dalla data: ' . multi_replace(get_content_between_markers($content, 'messaggioFiltri'), [
+    $messaggioFiltri = $data == date('Y-m-d') ? 'i prossimi eventi' : '';
+    $messaggioFiltri .= $data != date('Y-m-d') ? 'eventi a partire dalla data: ' . multi_replace(get_content_between_markers($content, 'messaggioFiltri'), [
         '{valueDataEvento}' => $data,
         '{dataEvento}' => date_format_ita($data)
     

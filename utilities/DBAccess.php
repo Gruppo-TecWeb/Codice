@@ -68,10 +68,11 @@ class DBAccess {
         e.Locandina
         FROM Eventi as e";
         $conditions = [];
-        // $conditions[] = $data != '' ? "e.Data >= '$data'" : "e.Data >= '" . date('Y-m-d') . "'";
-        $conditions[] = "e.Data " . ($ascendente ? ">=" : "<=") . " '" . ($data != '' ? $data : date('Y-m-d')) . "'";
-        if ($tipoEvento != '') {
-            $conditions[] = "e.TipoEvento = '$tipoEvento'";
+        if ($data != "") {
+            $conditions[] = "e.Data " . ($ascendente ? ">=" : "<=") . " '" . $data . "'";
+        }
+        if ($tipoEvento != "") {
+            $conditions[] = $tipoEvento == "Altri eventi" ? "e.TipoEvento IS NULL" : "e.TipoEvento = '$tipoEvento'";
         }
         $query .= " WHERE " . implode(' AND ', $conditions) . " ORDER BY Data " . ($ascendente ? "ASC" : "DESC");
         return $this->execute_query($query);
