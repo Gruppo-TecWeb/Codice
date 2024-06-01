@@ -9,11 +9,11 @@
         <input type="date" name="data" id="data" value="{data}">
     </div>
     <div>
-        <label for="titolo">Filtra per tipo</label>
-        <select id="titolo" name="titolo" autocomplete="organization-title">
+        <label for="tipoEvento">Filtra per tipo</label>
+        <select id="tipoEvento" name="tipoEvento">
             <option value="" selected>Tutti gli eventi</option>
-            {listaTitoli}<option value="{titoloEvento}" {selezioneEvento}>{titoloEvento}</option>
-            {/listaTitoli}
+            {listaTipiEvento}<option value="{tipoEvento}"{selezioneEvento}>{tipoEvento}</option>
+            {/listaTipiEvento}
         </select>
     </div>
     <div>

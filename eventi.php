@@ -27,11 +27,11 @@ $connectionOk = $connection->open_DB_connection();
 if ($connectionOk) {
     $eventi_per_pagina = 12;
     $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
-    $titolo = isset($_GET['titolo']) ? $_GET['titolo'] : '';
+    $tipoEvento = isset($_GET['tipoEvento']) ? $_GET['tipoEvento'] : '';
     $data = isset($_GET['data']) ? $_GET['data'] : '';
 
-    $lista_eventi_array = $connection->get_lista_eventi($data, $titolo);
-    $lista_titoli_array = $connection->get_titoli_eventi();
+    $lista_eventi_array = $connection->get_lista_eventi($data, $tipoEvento);
+    $lista_tipi_evento_array = $connection->get_tipi_evento();
     $oldest_date = $lista_eventi_array == null ? $connection->get_oldest_date() : '';
     $connection->close_DB_connection();
 
@@ -99,13 +99,13 @@ if ($connectionOk) {
         ]);
     }
 
-    // Costruzione delle liste di titoli
-    $lista_titoli_string = '';
-    $option = get_content_between_markers($content, 'listaTitoli');
-    foreach ($lista_titoli_array as $evento) {
-        $selected = ($evento['Titolo'] == $titolo) ? ' selected' : '';
-        $lista_titoli_string .= multi_replace($option, [
-            '{titoloEvento}' => $evento['Titolo'],
+    // Costruzione delle liste di tipo evento
+    $lista_tipi_evento_string = '';
+    $option = get_content_between_markers($content, 'listaTipiEvento');
+    foreach ($lista_tipi_evento_array as $tipoEvento) {
+        $selected = ($tipoEvento['Titolo'] == $titolo) ? ' selected' : '';
+        $lista_tipi_evento_string .= multi_replace($option, [
+            '{tipoEvento}' => $tipoEvento['Titolo'],
             '{selezioneEvento}' => $selected
         ]);
     }
@@ -131,11 +131,11 @@ if ($connectionOk) {
         $eventi_string = '';
         foreach ($lista_eventi_array as $evento) {
             $eventi_string .= multi_replace($eventoTemplate, [
-                '{idEvento}' => urlencode($evento['Id']),
+                '{idEvento}' => $evento['Id'],
                 '{valueDataEvento}' => $evento['Data'],
                 '{dataEvento}' => date_format_ita($evento['Data']),
                 '{locandinaEvento}' => $evento['Locandina'],
-                '{titoloEvento}' => htmlspecialchars($evento['Titolo'])
+                '{titoloEvento}' => $evento['Titolo']
             ]);
         }
         $lista_eventi_string = replace_content_between_markers($lista_eventi_string, [
@@ -154,7 +154,7 @@ if ($connectionOk) {
 
     $content = multi_replace(
         replace_content_between_markers($content, [
-            'listaTitoli' => $lista_titoli_string,
+            'listaTipiEvento' => $lista_tipi_evento_string,
             'listaEventi' => $lista_eventi_string,
             'pagination' => $pagination,
             'navRisultatiEventi' => $navRisultatiEventi,

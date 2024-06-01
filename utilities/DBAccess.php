@@ -57,9 +57,9 @@ class DBAccess {
         }
     }
 
-    public function get_lista_eventi($data = '', $titolo = '', $ascendente = true) {
-        // TODO: aggiungere il TipoEvento al risultato
+    public function get_lista_eventi($data = '', $tipoEvento = '', $ascendente = true) {
         $query = "SELECT e.Id,
+        e.TipoEvento,
         e.Titolo,
         e.Descrizione,
         e.Data,
@@ -70,8 +70,8 @@ class DBAccess {
         $conditions = [];
         // $conditions[] = $data != '' ? "e.Data >= '$data'" : "e.Data >= '" . date('Y-m-d') . "'";
         $conditions[] = "e.Data " . ($ascendente ? ">=" : "<=") . " '" . ($data != '' ? $data : date('Y-m-d')) . "'";
-        if ($titolo != '') {
-            $conditions[] = "e.Titolo = '$titolo'";
+        if ($tipoEvento != '') {
+            $conditions[] = "e.TipoEvento = '$tipoEvento'";
         }
         $query .= " WHERE " . implode(' AND ', $conditions) . " ORDER BY Data " . ($ascendente ? "ASC" : "DESC");
         return $this->execute_query($query);
@@ -150,12 +150,7 @@ class DBAccess {
             $id
         );
     }
-
-    public function get_titoli_eventi() {
-        return $this->execute_query(
-            "SELECT DISTINCT Titolo FROM Eventi;"
-        );
-    }
+    
     public function get_oldest_date() {
         return ($ris = $this->execute_query(
             "SELECT Data FROM Eventi ORDER BY Data ASC LIMIT 1;"
