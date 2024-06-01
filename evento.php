@@ -87,7 +87,7 @@ if ($connectionOk) {
         ]);
         $breadcrumbs = multi_replace($breadcrumbs, [
             '{id}' => $eventoId,
-            '{evento}' => 'Evento',
+            '{evento}' => $titolo
         ]);
     }
 } else {
