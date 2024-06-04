@@ -1,7 +1,25 @@
-<a id="indietro" class="limitedWidth subMenu" href="eventi.php">Torna agli eventi</a>
-<h2 class="limitedWidth">{titolo}</h2>
-<div id="evento-box" class="limitedWidth">
-    <img src="assets/media/locandine/{locandina}" alt="">
+<div id="title-container">
+    <a id="indietro" class="subMenu" href="eventi.php">Torna agli eventi</a>
+    <h2 id="titolo" class="">{titolo}</h2>
+</div>
+<div id="evento-box" class="">
+    <div id="img-container">
+        <img src="assets/media/locandine/{locandina}" alt="">
+        <div aria-hidden="true" style="
+            display: none;
+            aspect-ratio: 1 / 1;
+            font-size: 2.25em;
+            overflow: hidden;
+            /* transform: rotate(336deg) scale(1.5); */
+            word-wrap: break-word;
+            font-family: 'HORIZONTALE';
+            color: #ef534a36;
+            pointer-events: none;
+            text-align: center;
+            ">
+            Micelio_Micelio_Micelio_Micelio_Micelio_Micelio_Micelio_Micelio_Micelio_Micelio_Micelio_Micelio_Micelio_Micelio_Micelio_Micelio_Micelio_Micelio_Micelio_Micelio_Micelio_Micelio_Micelio_Micelio_
+        </div>
+    </div>
     <dl id="evento-info">
         <dt>Data:</dt>
         <dd><time datetime="{data}">{data}</time></dd>
@@ -27,7 +45,7 @@
 </div>
 {classificaEvento}
 <div id="classifica-evento-box" class="limitedWidth">
-<p>I risultati per tale evento sono stati </p>
+    <p>I risultati per tale evento sono stati </p>
     <span id="sumTabella" class="navigationHelp">Tabella che riassume la classifica dell'evento con l'indicazione
         di <span lang="en">ranking</span>, nome d'arte del <span lang="en">freestyler</span>, punteggio ottenuto.</span>
     <table id="tabella-classifica" aria-describedby="sumTabella">
