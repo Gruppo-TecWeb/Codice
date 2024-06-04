@@ -71,7 +71,7 @@ if ($connectionOk) {
         $nuovoTitolo = $validNuovoTitolo;
         $nuovaDescrizione = $validNuovaDescrizione;
         $titolo = $validTitolo;
-        $descrizione = $connection->get_tipo_evento($validTitolo)['Descrizione'];echo var_dump($connection->get_tipo_evento($validTitolo));
+        $descrizione = $connection->get_tipo_evento($validTitolo)['Descrizione'];
         if ($_POST['azione'] == 'aggiungi') {
             $errore = '0';
             $legend = $legendAggiungi;
