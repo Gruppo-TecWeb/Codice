@@ -798,9 +798,13 @@ footer #footer-credits {
     flex-direction: column;
     box-sizing: border-box;
     justify-content: space-between;
-    color: var(--colorText);
+    color: var(--colorLink);
     text-decoration: none;
     height: 100%;
+}
+
+#lista-eventi li a:visited {
+    color: var(--colorLinkVisited);
 }
 
 #lista-eventi li img {
