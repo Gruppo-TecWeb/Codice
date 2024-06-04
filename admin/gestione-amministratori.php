@@ -14,7 +14,7 @@ $content = file_get_contents("../template/admin/gestione-amministratori.html");
 
 $title = 'Gestione Amministratori &minus; Admin &minus; Fungo';
 $pageId = 'admin/' . basename(__FILE__, '.php');
-$description = 'pagina di amministrazione per la creazione e modifica degli amministratori';
+$description = 'Pagina di amministrazione per la creazione e modifica degli amministratori';
 $keywords = 'Fungo, amministrazione, amministratori';
 $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
@@ -54,7 +54,7 @@ if ($connectionOk) {
     $errore = '0';
   
     if (isset($_POST['elimina'])) {
-        if ($_SESSION["datiUtente"]['Username'] == $_POST['username']) {
+        if ($_SESSION['username'] == $_POST['username']) {
             header("location: amministratori.php?eliminato=0");
             exit;
         } else {
@@ -87,7 +87,7 @@ if ($connectionOk) {
             $erroreEmail = $connection->get_utente_by_email($validNuovaEmail) ? '1' : '0';
             $errore = $erroreUsername == '0' && $erroreEmail == '0' ? '0' : '1';
             if ($errore == '0') {
-                $connection->insert_utente($validNuovoUsername, '', $validNuovaEmail, 'S');
+                $connection->insert_utente($validNuovoUsername, '', $validNuovaEmail, 'A');
                 $errore = $connection->get_utente_by_username($validNuovoUsername) ? '0' : '1';
             } else {
                 if ($erroreUsername == '1') {
