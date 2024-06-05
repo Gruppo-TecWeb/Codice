@@ -127,15 +127,18 @@ if ($connectionOk) {
         ]);
     } else {
         $lista_eventi_string .= get_content_between_markers($content, 'listaEventi');
-        $eventoTemplate = get_content_between_markers($content, 'eventoElement');
+        $eventoImmagineTemplate = get_content_between_markers($content, 'eventoImmagine');
+        $eventoSenzaImmagineTemplate = get_content_between_markers($content, 'eventoNoImmagine');
         $eventi_string = '';
         foreach ($lista_eventi_array as $evento) {
-            $eventi_string .= multi_replace($eventoTemplate, [
+            $rotazioneRandom = ((rand(0, 60) + 320) % 360);
+            $eventi_string .= multi_replace($evento['Locandina'] != NULL ? $eventoImmagineTemplate : $eventoSenzaImmagineTemplate, [
                 '{idEvento}' => urlencode($evento['Id']),
                 '{valueDataEvento}' => $evento['Data'],
                 '{dataEvento}' => date_format_ita($evento['Data']),
                 '{locandinaEvento}' => $evento['Locandina'],
-                '{titoloEvento}' => htmlspecialchars($evento['Titolo'])
+                '{titoloEvento}' => htmlspecialchars($evento['Titolo']),
+                '{rotazioneRandom}' => $rotazioneRandom
             ]);
         }
         $lista_eventi_string = replace_content_between_markers($lista_eventi_string, [
