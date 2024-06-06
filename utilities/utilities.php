@@ -21,6 +21,7 @@ const PAGES_ARRAY = [
     'admin/tipi-evento'             => ['href' => 'tipi-evento.php',             'anchor' => 'Tipi Evento',                               'lang' => '',   'menuOrder' => 4, 'admin' => 1, 'parentId' => 'admin/index'],
     'admin/rappers'                 => ['href' => 'rappers.php',                 'anchor' => 'Rappers',                                   'lang' => 'en', 'menuOrder' => 5, 'admin' => 1, 'parentId' => 'admin/index'],
     'admin/amministratori'          => ['href' => 'amministratori.php',          'anchor' => 'Amministratori',                            'lang' => '',   'menuOrder' => 6, 'admin' => 1, 'parentId' => 'admin/index'],
+    'admin/gestione-profilo'        => ['href' => 'gestione-profilo.php',        'anchor' => 'Gestione Profilo',                          'lang' => '',   'menuOrder' => 0, 'admin' => 1, 'parentId' => 'admin/profilo'],
     'admin/gestione-amministratori' => ['href' => 'gestione-amministratori.php', 'anchor' => 'Gestione Amministratori',                   'lang' => '',   'menuOrder' => 0, 'admin' => 1, 'parentId' => 'admin/amministratori'],
     'admin/gestione-rappers'        => ['href' => 'gestione-rappers.php',        'anchor' => 'Gestione <span lang=\'en\'>Rappers</span>', 'lang' => '',   'menuOrder' => 0, 'admin' => 1, 'parentId' => 'admin/rappers'],
     'admin/gestione-tipi-evento'    => ['href' => 'gestione-tipi-evento.php',    'anchor' => 'Gestione Tipi Evento',                      'lang' => '',   'menuOrder' => 0, 'admin' => 1, 'parentId' => 'admin/tipi-evento'],

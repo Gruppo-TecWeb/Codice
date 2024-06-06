@@ -97,7 +97,7 @@ class DBAccess {
         return ($ris = $this->execute_query($query, $id)) ? $ris[0] : null;
     }
 
-    public function get_eventi_classifica($tipoEvento, $dataInizio, $dataFine) {
+    public function get_eventi_classifica($idClassifica) {
         $query = "SELECT
             e.Id,
             e.TipoEvento,
@@ -108,8 +108,10 @@ class DBAccess {
             e.Luogo,
             e.Locandina
             FROM Eventi AS e
-            WHERE e.TipoEvento = ? AND e.Data >= ? AND e.Data <= ?;";
-        return ($ris = $this->execute_query($query, $tipoEvento, $dataInizio, $dataFine)) ? $ris : [];
+            JOIN Classifiche AS c ON e.TipoEvento = c.TipoEvento AND e.Data >= c.DataInizio AND e.Data <= c.DataFine
+            WHERE c.ID = ?
+            ORDER BY e.Data ASC;";
+        return ($ris = $this->execute_query($query, $idClassifica)) ? $ris : [];
     }
 
     public function insert_evento($tipoEvento, $titolo, $descrizione, $data, $ora, $luogo, $locandina) {
@@ -320,7 +322,7 @@ class DBAccess {
 
     public function login($username, $password) {
         $c = $this->execute_query(
-            "SELECT Username, Email, Password, TipoUtente FROM Utenti WHERE Username = ? ;",
+            "SELECT * FROM Utenti WHERE Username = ? ;",
             $username
         );
         $res = $c ? $c[0] : null;
@@ -329,33 +331,33 @@ class DBAccess {
 
     public function get_utente_by_username($username) {
         return ($ris = $this->execute_query(
-            "SELECT Username, Email, TipoUtente FROM Utenti WHERE Username = ?;",
+            "SELECT Username, Email, ImmagineProfilo, TipoUtente, Attivo FROM Utenti WHERE Username = ?;",
             $username
         )) ? $ris[0] : [];
     }
 
     public function get_utente_by_email($email) {
         return ($ris = $this->execute_query(
-            "SELECT Username, Email, TipoUtente FROM Utenti WHERE Email = ?;",
+            "SELECT Username, Email, ImmagineProfilo, TipoUtente, Attivo FROM Utenti WHERE Email = ?;",
             $email
         )) ? $ris[0] : [];
     }
 
     public function get_utenti() {
         return $this->execute_query(
-            "SELECT Username, Email, TipoUtente FROM Utenti ORDER BY Username;"
+            "SELECT Username, Email, ImmagineProfilo, TipoUtente, Attivo FROM Utenti ORDER BY Username;"
         );
     }
 
     public function get_utenti_base() {
         return $this->execute_query(
-            "SELECT Username, Email, TipoUtente FROM Utenti WHERE TipoUtente = 'U' ORDER BY Username;"
+            "SELECT Username, Email, ImmagineProfilo, TipoUtente, Attivo FROM Utenti WHERE TipoUtente = 'U' ORDER BY Username;"
         );
     }
 
     public function get_utenti_admin() {
         return $this->execute_query(
-            "SELECT Username, Email, TipoUtente FROM Utenti WHERE TipoUtente = 'A' ORDER BY Username;"
+            "SELECT Username, Email, ImmagineProfilo, TipoUtente, Attivo FROM Utenti WHERE TipoUtente = 'A' ORDER BY Username;"
         );
     }
 
@@ -389,6 +391,14 @@ class DBAccess {
         return $this->execute_query(
             "UPDATE Utenti SET Password = ? WHERE Username = ?;",
             password_hash($newPassword, PASSWORD_BCRYPT),
+            $username
+        );
+    }
+
+    public function change_profile_pic($username, $newProfilePic) {
+        return $this->execute_query(
+            "UPDATE Utenti SET ImmagineProfilo = NULLIF(?, '') WHERE Username = ?;",
+            $newProfilePic,
             $username
         );
     }
