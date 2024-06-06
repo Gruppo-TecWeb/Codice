@@ -74,7 +74,7 @@ class DBAccess {
         if ($tipoEvento != "") {
             $conditions[] = $tipoEvento == "Altri eventi" ? "e.TipoEvento IS NULL" : "e.TipoEvento = '$tipoEvento'";
         }
-        $query .= " WHERE " . implode(' AND ', $conditions) . " ORDER BY Data " . ($ascendente ? "ASC" : "DESC");
+        $query .= count($conditions) == 0 ? "" : " WHERE " . implode(' AND ', $conditions) . " ORDER BY Data " . ($ascendente ? "ASC" : "DESC");
         return $this->execute_query($query);
     }
 
