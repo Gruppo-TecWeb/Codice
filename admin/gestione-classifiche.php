@@ -165,7 +165,7 @@ if ($connectionOk) {
     }
     
     // costruisco la lista degli eventi ordinati per data
-    $eventi = $classifica ? $connection->get_eventi_classifica($classifica['TipoEvento'], $classifica['DataInizio'], $classifica['DataFine']) : null;
+    $eventi = $classifica ? $connection->get_eventi_classifica($classifica['Id']) : null;
     if ($eventi != null) {
         // ordino gli eventi per data
         usort($eventi, function ($a, $b) {

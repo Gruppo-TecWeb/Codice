@@ -12,14 +12,17 @@
         {descrizioneEvento}
         <dt>Descrizione:</dt>
         <dd>{descrizione}</dd>
-        {/descrizioneEvento} {stagioneEvento}
+        {/descrizioneEvento}{stagioneEvento}{sezioneTipoEvento}
         <dt>Tipo evento:</dt>
-        <dd><a id="tipoEvento" href="eventi.php?data={dataEventi}&tipoEvento={tipoEvento}">{tipoEvento}</a></dd>
-        <!-- TODO: da rivedere
-        <dt>Data inizio stagione:</dt>
+        <dd>{tipoEvento}</dd>
+        {/sezioneTipoEvento}{classifica}
+        <dt>Data inizio:</dt>
         <dd><time datetime="{dataInizioClassifica}">{dataInizioClassifica}</time></dd>
-        -->
-        {/stagioneEvento}
+        <dt>Data fine:</dt>
+        <dd><time datetime="{dataFineClassifica}">{dataFineClassifica}</time></dd>
+        <dt>Classifica generale:</dt>
+        <dd><a id="link-classifica" href="classifiche.php?classifica={idClassifica}">{titoloClassifica}</a></dd>
+        {/classifica}{/stagioneEvento}
     </dl>
 </div>
 {classificaEvento}

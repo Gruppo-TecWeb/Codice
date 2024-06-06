@@ -9,11 +9,11 @@
         <input type="date" name="data" id="data" value="{data}">
     </div>
     <div>
-        <label for="titolo">Filtra per tipo</label>
-        <select id="titolo" name="titolo" autocomplete="organization-title">
+        <label for="tipoEvento">Filtra per tipo</label>
+        <select id="tipoEvento" name="tipoEvento">
             <option value="" selected>Tutti gli eventi</option>
-            {listaTitoli}<option value="{titoloEvento}" {selezioneEvento}>{titoloEvento}</option>
-            {/listaTitoli}
+            {listaTipiEvento}<option value="{tipoEvento}"{selezioneEvento}>{tipoEvento}</option>
+            {/listaTipiEvento}
         </select>
     </div>
     <div>
@@ -57,7 +57,7 @@
         {pages} {currentPage}
         <li class="elemento-paginazione-eventi"><a href="#" aria-label="Pagina {numeroPagina}" aria-current="true">{numeroPagina}</a></li>
         {/currentPage} {notCurrentPage}
-        <li class="elemento-paginazione-eventi {classe}"><a href="eventi.php?pagina={numeroPagina}&data={data}&titolo={titolo}" aria-label='Vai alla pagina {numeroPagina}'>{messaggio}</a></li>
+        <li class="elemento-paginazione-eventi {classe}"><a href="eventi.php?pagina={numeroPagina}&data={data}&tipoEvento={tipoEvento}" aria-label='Vai alla pagina {numeroPagina}'>{messaggio}</a></li>
         {/notCurrentPage} {ellipsis}
         <li><a class="ellipsis">&#8230;</a></li>
         {/ellipsis} {/pages}

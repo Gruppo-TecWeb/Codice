@@ -28,8 +28,8 @@ $connectionOk = $connection->open_DB_connection();
 $eventoId = $_GET['id'];
 if ($connectionOk) {
     $evento = $connection->get_evento($eventoId);
-    $classifica = $connection->get_classifica_evento($eventoId);
-    $dataEventi = $connection->get_oldest_date();
+    $classificaEvento = $connection->get_classifica_evento($eventoId);
+    $classifiche = $connection->get_classifiche();
     $connection->close_DB_connection();
     if ($evento == null) {
         header("location: errore404.php");
@@ -50,28 +50,43 @@ if ($connectionOk) {
 
         // Creazione della stagione dell'evento
         $stagioneEvento = '';
-        if ($tipoEvento  != null) {
-            $stagioneEventoTemplate = get_content_between_markers($content, 'stagioneEvento');
-            $stagioneEvento = multi_replace($stagioneEventoTemplate, [
-                '{tipoEvento}' => $tipoEvento,
-                '{dataEventi}' => $dataEventi
+        $classificaGenerale = null;
+        foreach ($classifiche as $classifica) {
+            if ($classifica['TipoEvento'] == $tipoEvento && $classifica['DataInizio'] <= $data && $classifica['DataFine'] >= $data) {
+                $classificaGenerale = $classifica;
+                break;
+            }
+        }
+        if ($tipoEvento != null) {
+            $tipoEventoTemplate = get_content_between_markers($content, 'sezioneTipoEvento');
+            $stagioneEvento .= multi_replace($tipoEventoTemplate, [
+                '{tipoEvento}' => $tipoEvento
+            ]);
+        }
+        if ($classificaGenerale != null) {
+            $classificaEventoTemplate = get_content_between_markers($content, 'classifica');
+            $stagioneEvento .= multi_replace($classificaEventoTemplate, [
+                '{dataInizioClassifica}' => date_format(date_create($classificaGenerale['DataInizio']), 'd/m/Y'),
+                '{dataFineClassifica}' => date_format(date_create($classificaGenerale['DataFine']), 'd/m/Y'),
+                '{idClassifica}' => $classificaGenerale['Id'],
+                '{titoloClassifica}' => $classificaGenerale['Titolo']
             ]);
         }
 
         // Creazione della classifica dell'evento
-        $classificaEvento = '';
-        if ($classifica != null) {
+        $classificaEventoHTML = '';
+        if ($classificaEvento != null) {
             $classificaTemplate = get_content_between_markers($content, 'classificaEvento');
             $rigaTabellaTemplate = get_content_between_markers($content, 'rigaClassifica');
             $righeTabella = '';
-            foreach ($classifica as $riga) {
+            foreach ($classificaEvento as $riga) {
                 $righeTabella .= multi_replace($rigaTabellaTemplate, [
                     '{ranking}' => $riga['ranking'],
                     '{freestyler}' => $riga['partecipante'],
                     '{punti}' => $riga['punti']
                 ]);
             }
-            $classificaEvento = replace_content_between_markers($classificaTemplate, [
+            $classificaEventoHTML = replace_content_between_markers($classificaTemplate, [
                 'rigaClassifica' => $righeTabella
             ]);
         }
@@ -79,7 +94,7 @@ if ($connectionOk) {
         $content = multi_replace(replace_content_between_markers($content, [
             'stagioneEvento' => $stagioneEvento,
             'descrizioneEvento' => $descrizioneEvento,
-            'classificaEvento' => $classificaEvento
+            'classificaEvento' => $classificaEventoHTML
         ]), [
             '{titolo}' => $titolo,
             '{data}' => date_format(date_create($data), 'd/m/Y'),
@@ -89,7 +104,7 @@ if ($connectionOk) {
         ]);
         $breadcrumbs = multi_replace($breadcrumbs, [
             '{id}' => $eventoId,
-            '{evento}' => 'Evento',
+            '{evento}' => $titolo
         ]);
     }
 } else {

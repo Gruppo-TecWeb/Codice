@@ -179,30 +179,28 @@ if ($connectionOk) {
             $valueAzione = 'modifica';
             $connection->update_evento(
                 $validIdEvento, $validNuovoTipoEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, $locandina);
-            if ($errore == '0') {
-                if (!isset($_POST['eliminaLocandina']) && $validNuovaLocandina != "" && getimagesize($_FILES["nuovaLocandina"]["tmp_name"]) !== false) {
-                    $errori = carica_file($_FILES["nuovaLocandina"], $percorsoLocandine, $validIdEvento . '_' . $validNuovaLocandina);
-                    if (count($errori) > 0) {
-                        foreach ($errori as $errore) {
-                            $messaggiForm .= multi_replace($messaggioForm, [
-                                '{messaggio}' => $errore
-                            ]);
-                        }
-                        $errore = '1';
-                    } else {
-                        if ($locandina != '') {
-                            unlink($percorsoLocandine . $locandina);
-                        }
-                        $locandina = $validIdEvento . '_' . $validNuovaLocandina;
-                        $connection->update_evento(
-                            $validIdEvento, $validNuovoTipoEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, $locandina);
+            if (!isset($_POST['eliminaLocandina']) && $validNuovaLocandina != "" && getimagesize($_FILES["nuovaLocandina"]["tmp_name"]) !== false) {
+                $errori = carica_file($_FILES["nuovaLocandina"], $percorsoLocandine, $validIdEvento . '_' . $validNuovaLocandina);
+                if (count($errori) > 0) {
+                    foreach ($errori as $errore) {
+                        $messaggiForm .= multi_replace($messaggioForm, [
+                            '{messaggio}' => $errore
+                        ]);
                     }
+                    $errore = '1';
+                } else {
+                    if ($locandina != '') {
+                        unlink($percorsoLocandine . $locandina);
+                    }
+                    $locandina = $validIdEvento . '_' . $validNuovaLocandina;
+                    $connection->update_evento(
+                        $validIdEvento, $validNuovoTipoEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, $locandina);
                 }
-                if ($errore == '0') {
-                    $messaggiForm .= multi_replace($messaggioForm, [
-                        '{messaggio}' => 'Modifica effettuata con successo'
-                    ]);
-                }
+            }
+            if ($errore == '0') {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{messaggio}' => 'Modifica effettuata con successo'
+                ]);
             }
         }
         if (isset($_POST['eliminaLocandina'])) {
