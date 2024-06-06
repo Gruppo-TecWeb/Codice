@@ -833,22 +833,26 @@ footer #footer-credits {
     padding: 1em;
 }
 
+#lista-eventi .eventoNoImmagine h3 {
+    height: unset;
+}
+
 #lista-eventi .eventoNoImmagine .cornice {
-    overflow: hidden;
-    padding: 1.5em;
-    border-bottom: 1px solid var(--colorAccent);
     width: 100%;
-    box-sizing: border-box;
     aspect-ratio: 1 / 1;
+    padding: 1.5em;
+    overflow: hidden;
+    box-sizing: border-box;
+    border-bottom: 1px solid var(--colorAccent);
 }
 
 #lista-eventi .eventoNoImmagine .cornice .scritte {
-    font-size: 1.25em;
-    /* transform: rotate(336deg) scale(1.5); */
+    transform: rotate(336deg) scale(1.5);
     word-wrap: break-word;
+    font-size: 1.25em;
     font-family: 'HORIZONTALE';
-    color: var(--colorAccent);
     text-align: center;
+    color: var(--colorAccent);
 }
 
 #filtri-applicati {
@@ -1593,7 +1597,7 @@ div#admin-window {
     border-radius: 3px;
 }
 
-#eventi img {
+.adminPage #eventi img {
     width: 15em;
 }
 

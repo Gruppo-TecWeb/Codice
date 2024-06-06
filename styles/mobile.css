@@ -514,6 +514,14 @@ label {
     padding: 0.5em;
 }
 
+#lista-eventi .eventoNoImmagine .cornice {
+    padding: 1em;
+}
+
+#lista-eventi .eventoNoImmagine .cornice .scritte {
+    font-size: 0.6em;
+}
+
 #paginazione-eventi ul {
     margin-top: 2em;
     flex-wrap: wrap;
