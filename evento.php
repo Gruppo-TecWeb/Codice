@@ -11,7 +11,7 @@ session_start();
 
 $paginaHTML = file_get_contents("template/template-pagina.html");
 
-$title = 'Evento &minus; Fungo';
+$title = 'Evento {titoloEvento} &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = 'Pagina di presentazione di un evento organizzato dal collettivo rap Restraining Stirpe Crew.';
 $keywords = 'restraining stirpe, freestyle, freestyle rap, rap, battle, live, dj set, micelio, fungo';
@@ -36,6 +36,8 @@ if ($connectionOk) {
         exit;
     } else {
         [$tipoEvento, $titolo, $descrizione, $data, $ora, $luogo, $locandina] = array_values($evento);
+        
+        $title = str_replace('{titoloEvento}', strip_tags($titolo), $title);
 
         $content = file_get_contents("template/evento.html");
 
