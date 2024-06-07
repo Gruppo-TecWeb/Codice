@@ -950,7 +950,7 @@ p.eventiMessaggio {
         font-size: larger;
         width: 50%;
 
-        margin: 1em auto; /* Centra il contenitore */
+        margin: 1em 0em 1em 1em;
         position: sticky;
         bottom: 0;
         top: 3em;
@@ -977,12 +977,16 @@ p.eventiMessaggio {
         
         
     }
+    #container_lista_battle{
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centra orizzontalmente */
+    }
     
     #lista_battle {
         display: flex;
         flex-direction: column;
         align-items: center; /* Centra orizzontalmente */
-        width: 50%;
     }
     /*.descBattle dt:first-child[data-java="true"]{
         padding: 1em;
