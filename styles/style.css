@@ -1088,7 +1088,9 @@ p.eventiMessaggio {
 /* 
  * PAGINA BEATS
  */
-
+#beats #content{
+    padding-bottom: 0em;
+}
 #intro_beats {
     padding-bottom: 2em;
     box-sizing: border-box;
@@ -1235,14 +1237,21 @@ audio::-webkit-media-controls-play-button {
 #audio_container #audio {
     width: 100%;
 }
-#autoNext.beat:hover[aria-pressed="false"] {
+
+#autoNext{
+    border: 1px solid var(--colorAccent);
+    border-radius: 10px;
+    border-style: solid;
+    height: max-content;
+
+}
+#autoNext:hover[aria-pressed="false"] {
     background-color: var(--colorSecondary);
     color: var(--colorAccent);
 }
 #autoNext[aria-pressed="false"] {
     cursor: pointer;
-    padding: 0.5em 0.8em;
-    border-radius: 3px;
+    
     font-weight: bold;
     border: 1px solid var(--colorAccent);
     color: var(--colorTextOnAccent);
