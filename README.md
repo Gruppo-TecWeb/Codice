@@ -1,3 +1,11 @@
+<p>
+<a href="http://jigsaw.w3.org/css-validator/check/referer">
+    <img style="border:0;width:88px;height:31px"
+        src="http://jigsaw.w3.org/css-validator/images/vcss-blue"
+        alt="CSS Valido!" />
+    </a>
+</p>
+     
 # Fungo
 
 Progetto di Tecnologie Web dell'Università degli studi di Padova per l'anno accademico 2023/2024. 
@@ -28,3 +36,4 @@ Progetto di Tecnologie Web dell'Università degli studi di Padova per l'anno acc
 - [Controllore di contrasti TPGI](https://www.tpgi.com/contrastchecker/)
 - [WCAG tester dipartimaento di matematica](https://web.math.unipd.it/accessibility/test.html)
 - [PageSpeed Insights](https://pagespeed.web.dev) 
+- [CSS Validator](http://jigsaw.w3.org/css-validator/)
