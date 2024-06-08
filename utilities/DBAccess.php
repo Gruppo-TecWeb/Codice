@@ -331,33 +331,33 @@ class DBAccess {
 
     public function get_utente_by_username($username) {
         return ($ris = $this->execute_query(
-            "SELECT Username, Email, ImmagineProfilo, TipoUtente, Attivo FROM Utenti WHERE Username = ?;",
+            "SELECT Id, Username, Email, ImmagineProfilo, TipoUtente, Attivo FROM Utenti WHERE Username = ?;",
             $username
         )) ? $ris[0] : [];
     }
 
     public function get_utente_by_email($email) {
         return ($ris = $this->execute_query(
-            "SELECT Username, Email, ImmagineProfilo, TipoUtente, Attivo FROM Utenti WHERE Email = ?;",
+            "SELECT Id, Username, Email, ImmagineProfilo, TipoUtente, Attivo FROM Utenti WHERE Email = ?;",
             $email
         )) ? $ris[0] : [];
     }
 
     public function get_utenti() {
         return $this->execute_query(
-            "SELECT Username, Email, ImmagineProfilo, TipoUtente, Attivo FROM Utenti ORDER BY Username;"
+            "SELECT Id, Username, Email, ImmagineProfilo, TipoUtente, Attivo FROM Utenti ORDER BY Username;"
         );
     }
 
     public function get_utenti_base() {
         return $this->execute_query(
-            "SELECT Username, Email, ImmagineProfilo, TipoUtente, Attivo FROM Utenti WHERE TipoUtente = 'U' ORDER BY Username;"
+            "SELECT Id, Username, Email, ImmagineProfilo, TipoUtente, Attivo FROM Utenti WHERE TipoUtente = 'U' ORDER BY Username;"
         );
     }
 
     public function get_utenti_admin() {
         return $this->execute_query(
-            "SELECT Username, Email, ImmagineProfilo, TipoUtente, Attivo FROM Utenti WHERE TipoUtente = 'A' ORDER BY Username;"
+            "SELECT Id, Username, Email, ImmagineProfilo, TipoUtente, Attivo FROM Utenti WHERE TipoUtente = 'A' ORDER BY Username;"
         );
     }
 

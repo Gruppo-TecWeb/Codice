@@ -54,6 +54,7 @@ if ($connectionOk) {
 
     foreach ($rappers as $rapper) {
         $righeTabella .= multi_replace($rigaTabella, [
+            '{idUtente}' => $rapper['Id'],
             '{username}' => $rapper['Username'],
             '{email}' => $rapper['Email']
         ]);
