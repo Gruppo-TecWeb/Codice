@@ -113,18 +113,29 @@ if ($connectionOk) {
     // Costruzione delle liste di tipo evento
     $lista_tipi_evento_string = '';
     $option = get_content_between_markers($content, 'listaTipiEvento');
+    $anyoneSelected = false;
     foreach ($lista_tipi_evento_array as $tipo_evento) {
-        $selected = ($tipo_evento['Titolo'] == $tipoEvento) ? ' selected' : '';
+        if ($tipo_evento['Titolo'] == $tipoEvento) {
+            $selected = ' selected';
+            $anyoneSelected = true;
+        } else {
+            $selected = '';
+        }
         $lista_tipi_evento_string .= multi_replace($option, [
             '{tipoEvento}' => $tipo_evento['Titolo'],
-            '{selezioneEvento}' => $selected
+            '{selezioneTipoEvento}' => $selected
         ]);
     }
     if ($eventi_senza_tipo != null) {
-        $selected = ($tipoEvento == 'Altri eventi') ? ' selected' : '';
+        if ($tipoEvento == 'Altri eventi') {
+            $selected = ' selected';
+            $anyoneSelected = true;
+        } else {
+            $selected = '';
+        }
         $lista_tipi_evento_string .= multi_replace($option, [
             '{tipoEvento}' => 'Altri eventi',
-            '{selezioneEvento}' => $selected
+            '{selezioneTipoEvento}' => $selected
         ]);
     }
 
@@ -179,6 +190,7 @@ if ($connectionOk) {
             'messaggioFiltri' => $messaggioFiltri
         ]),
         [
+            '{selezioneTipoEventoDefault}' => $anyoneSelected ? '' : ' selected',
             '{data}' => $data,
         ]
     );
