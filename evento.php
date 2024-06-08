@@ -68,8 +68,10 @@ if ($connectionOk) {
         if ($classificaGenerale != null) {
             $classificaEventoTemplate = get_content_between_markers($content, 'classifica');
             $stagioneEvento .= multi_replace($classificaEventoTemplate, [
-                '{dataInizioClassifica}' => date_format(date_create($classificaGenerale['DataInizio']), 'd/m/Y'),
-                '{dataFineClassifica}' => date_format(date_create($classificaGenerale['DataFine']), 'd/m/Y'),
+                '{dataInizioClassifica}' => date_format(date_create($classificaGenerale['DataInizio']), 'Y-m-d'),
+                '{dataInizioClassificaVisualizzata}' => date_format_ita($classificaGenerale['DataInizio']),
+                '{dataFineClassifica}' => date_format(date_create($classificaGenerale['DataFine']), 'Y-m-d'),
+                '{dataFineClassificaVisualizzata}' => date_format_ita($classificaGenerale['DataFine']),
                 '{idClassifica}' => $classificaGenerale['Id'],
                 '{titoloClassifica}' => $classificaGenerale['Titolo']
             ]);
@@ -99,7 +101,8 @@ if ($connectionOk) {
             'classificaEvento' => $classificaEventoHTML
         ]), [
             '{titolo}' => $titolo,
-            '{data}' => date_format(date_create($data), 'd/m/Y'),
+            '{data}' => date_format(date_create($data), 'Y-m-d'),
+            '{dataVisualizzata}' => date_format_ita($data),
             '{ora}' => date_format(date_create($ora), 'G:i'),
             '{luogo}' => $luogo,
             '{locandina}' => $locandina,

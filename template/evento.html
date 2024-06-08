@@ -4,7 +4,7 @@
     <img src="assets/media/locandine/{locandina}" alt="">
     <dl id="evento-info">
         <dt>Data:</dt>
-        <dd><time datetime="{data}">{data}</time></dd>
+        <dd><time datetime="{data}">{dataVisualizzata}</time></dd>
         <dt>Ora:</dt>
         <dd><time datetime="{ora}">{ora}</time></dd>
         <dt>Luogo:</dt>
@@ -17,9 +17,9 @@
         <dd><a id="link-eventi" href="eventi.php?tipoEvento={tipoEvento}">{tipoEvento}</a></dd>
         {/sezioneTipoEvento}{classifica}
         <dt>Data inizio:</dt>
-        <dd><time datetime="{dataInizioClassifica}">{dataInizioClassifica}</time></dd>
+        <dd><time datetime="{dataInizioClassifica}">{dataInizioClassificaVisualizzata}</time></dd>
         <dt>Data fine:</dt>
-        <dd><time datetime="{dataFineClassifica}">{dataFineClassifica}</time></dd>
+        <dd><time datetime="{dataFineClassifica}">{dataFineClassificaVisualizzata}</time></dd>
         <dt>Classifica generale:</dt>
         <dd><a id="link-classifica" href="classifiche.php?classifica={idClassifica}">{titoloClassifica}</a></dd>
         {/classifica}{/stagioneEvento}
