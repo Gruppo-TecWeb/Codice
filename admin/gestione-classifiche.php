@@ -35,6 +35,10 @@ if ($connectionOk) {
     $validNuovaDataFine = isset($_POST['nuovaDataFine']) ? validate_input($_POST['nuovaDataFine']) : "";
     $validIdEvento = isset($_POST['idEvento']) ? validate_input($_POST['idEvento']) : "";
     $validIdCLassifica = isset($_POST['idClassifica']) ? validate_input($_POST['idClassifica']) : "";
+
+    $modifica_name = 'modifica_' . $validIdCLassifica;
+    $elimina_name = 'elimina_' . $validIdCLassifica;
+
     if (((isset($_POST['nuovoTitoloClassifica']) && $_POST['nuovoTitoloClassifica'] != "") && $validNuovoTitolo == "") ||
         ((isset($_POST['nuovoTipoEvento']) && $_POST['nuovoTipoEvento'] != "") && $validNuovoTipoEvento == "") ||
         ((isset($_POST['nuovaDataInizio']) && $_POST['nuovaDataInizio'] != "") && $validNuovaDataInizio == "") ||
@@ -53,7 +57,7 @@ if ($connectionOk) {
         exit;
     }
 
-    if (isset($_POST['elimina'])) {
+    if (isset($_POST[$elimina_name])) {
         $connection->delete_classifica($validIdCLassifica);
         $eliminato = $connection->get_classifica($validIdCLassifica) ? 0 : 1;
         header("location: classifiche.php?eliminato=$eliminato");
@@ -95,7 +99,7 @@ if ($connectionOk) {
     $nuovaDataInizio = '';
     $nuovaDataFine = '';
     
-    if (isset($_POST['modifica'])) {
+    if (isset($_POST[$modifica_name])) {
         $legend = $legendModifica;
         $valueAzione = 'modifica';
         $nuovoTitoloClassifica = $classifica['Titolo'];

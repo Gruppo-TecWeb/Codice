@@ -16,8 +16,8 @@
             <span>{titoloClassifica}</span>
             <form method="post" action="gestione-classifiche.php">
                 <input type="hidden" name="idClassifica" value="{idClassifica}">
-                <button type="submit" name="modifica" value="true">Modifica</button>
-                <button type="submit" name="elimina" value="true">Elimina</button>
+                <button type="submit" name="modifica_{idClassifica}" value="true">Modifica</button>
+                <button type="submit" name="elimina_{idClassifica}" value="true">Elimina</button>
             </form>
         </li>
         {/elementoLista}
