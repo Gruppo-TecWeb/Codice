@@ -85,7 +85,7 @@ if ($connectionOk) {
         }
     }
 
-    if (isset($_POST[$elimina_name])) {
+    if (isset($_POST['elimina']) || isset($_POST[$elimina_name])) {
         $connection->delete_evento($validIdEvento);
         $eliminato = $connection->get_evento($validIdEvento) ? 0 : 1;
         if ($eliminato) {
