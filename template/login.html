@@ -1,5 +1,5 @@
 <div class="limitedWidth">
-            <h2>Inserisci i dati per il <span lang="en">login</span>.</h2>
+            <h2>Accedi all'area riservata.</h2>
             <form method="post" action="login.php">
                 <div id="messaggiForm">
                     {messaggiForm}<ul>
@@ -8,6 +8,7 @@
                     {/messaggiForm}
                 </div>
                 <fieldset>
+                    <legend>Inserisci i dati per il <span lang="en">login</span>.</legend>
                     <div id="usernameField">
                         <label for="username" lang="en">Username: </label>
                         <input type="text" id="username" name="username" placeholder="Username" value="{valoreUsername}" required>
@@ -16,10 +17,10 @@
                         <label for="password" lang="en">Password: </label>
                         <input type="password" id="password" name="password" placeholder="Password">
                     </div>
-                </fieldset>
-                <fieldset class="bottoni">
-                    <input type="submit" id="submit" name="submit" value="Login">
-                    <input type="reset" id="reset" name="reset" value="Annulla">
+                    <div id="buttonsField">
+                        <input type="submit" id="submit" name="submit" value="Login">
+                        <input type="reset" id="reset" name="reset" value="Annulla">
+                    </div>
                 </fieldset>
             </form>
         </div>
