@@ -46,7 +46,8 @@ if ($connectionOk) {
             $prossimoEventoHTML = multi_replace($prossimoEventoHTML, [
                 '{locandina}' => $prossimiEventi[0]['Locandina'],
                 '{titoloEvento}' => $prossimiEventi[0]['Titolo'],
-                '{data}' => date_format_ita($prossimiEventi[0]['Data']),
+                '{data}' => date_format(date_create($prossimiEventi[0]['Data']), 'Y-m-d'),
+                '{dataVisualizzata}' => date_format_ita($prossimiEventi[0]['Data']),
                 '{ora}' => date_format(date_create($prossimiEventi[0]['Ora']), 'H:i'),
                 '{luogo}' => $prossimiEventi[0]['Luogo'],
                 '{descrizione}' => $prossimiEventi[0]['Descrizione'],
@@ -64,7 +65,8 @@ if ($connectionOk) {
             foreach ($prossimiEventi as $evento) {
                 $listaEventiProgrammati .= multi_replace($eventoProgrammatoHTML, [
                     '{titolo}' => $evento['Titolo'],
-                    '{data}' => date_format_ita($evento['Data']),
+                    '{data}' => date_format(date_create($prossimiEventi[0]['Data']), 'Y-m-d'),
+                    '{dataVisualizzata}' => date_format_ita($evento['Data']),
                     '{idEvento}' => $evento['Id']
                 ]);
             }
@@ -85,7 +87,8 @@ if ($connectionOk) {
                 if ($evento['Data'] < date('Y-m-d') && $connection->get_punteggi_evento($evento['Id']) == null) {
                     $listaPunteggiMancanti .= multi_replace($punteggioMancanteHTML, [
                         '{titolo}' => $evento['Titolo'],
-                        '{data}' => date_format_ita($evento['Data']),
+                        '{data}' => date_format(date_create($prossimiEventi[0]['Data']), 'Y-m-d'),
+                        '{dataVisualizzata}' => date_format_ita($evento['Data']),
                         '{idEvento}' => $evento['Id']
                     ]);
                 }

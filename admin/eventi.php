@@ -55,9 +55,9 @@ if ($connectionOk) {
     foreach ($eventi as $evento) {
         $lista .= multi_replace($elementoLista, [
             '{titolo}' => $evento['Titolo'],
-            '{dataVisualizzata}' => date_format(date_create($evento['Data']), 'd/m/y'),
-            '{idEvento}' => $evento['Id'],
-            '{data}' => $evento['Data']
+            '{data}' => date_format(date_create($evento['Data']), 'Y-m-d'),
+            '{dataVisualizzata}' => date_format_ita($evento['Data']),
+            '{idEvento}' => $evento['Id']
         ]);
     }
 
