@@ -46,18 +46,17 @@ if ($connectionOk) {
 
     if (((isset($_POST['nuovoTitolo']) && $_POST['nuovoTitolo'] != "") && $validNuovoTitolo == "") ||
         ((isset($_POST['nuovaDescrizione']) && $_POST['nuovaDescrizione'] != "") && $validNuovaDescrizione == "") ||
-        ((isset($_POST['titolo']) && $_POST['titolo'] != "") && $validTitolo == "") ||
-        ((isset($_POST['idTipoEvento']) && $_POST['idTipoEvento'] != "") && $validIdTipoEvento == "")) {
+        ((isset($_POST['titolo']) && $_POST['titolo'] != "") && $validTitolo == "")) {
         header("location: tipi-evento.php?errore=invalid");
         exit;
     }
     $errore = '0';
 
-    $validIdTipoEvento = $connection->get_tipo_evento($validTitolo)['Id'];
+    $validIdTipoEvento = $validTitolo == "" ? "0" : $connection->get_tipo_evento($validTitolo)['Id'];
     $modifica_name = 'modifica_' . $validIdTipoEvento;
     $elimina_name = 'elimina_' . $validIdTipoEvento;
   
-    if (isset($_POST[$elimina_name])) {
+    if (isset($_POST['elimina']) || isset($_POST[$elimina_name])) {
         $connection->delete_tipo_evento($validTitolo);
         $eliminato = $connection->get_tipo_evento($validTitolo) ? 0 : 1;
         header("location: tipi-evento.php?eliminato=$eliminato");
