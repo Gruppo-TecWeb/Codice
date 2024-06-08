@@ -54,7 +54,8 @@ if ($connectionOk) {
 
     foreach ($tipiEvento as $tipoEvento) {
         $lista .= multi_replace($elementoLista, [
-            '{titolo}' => $tipoEvento['Titolo']
+            '{titolo}' => $tipoEvento['Titolo'],
+            '{idTipoEvento}' => $tipoEvento['Id']
         ]);
     }
 
