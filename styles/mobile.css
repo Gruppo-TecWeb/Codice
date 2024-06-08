@@ -35,7 +35,7 @@ body {
 
 .subMenu {
     position: fixed;
-    width: var(--widthMenu);
+    width: var(--widthMenu) !important;
     min-height: 44px;
     box-sizing: border-box;
     bottom: calc(var(--marginBottomMenu) + 44px + 2px);
@@ -531,10 +531,6 @@ label {
 /*
  * PAGINA EVENTO
  */
-
-#evento main>a {
-    padding: 0.5em;
-}
 
 #evento #breadcrumbs-container {
     min-width: var(--widthMenu);
