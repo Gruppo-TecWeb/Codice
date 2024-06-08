@@ -131,14 +131,12 @@ if ($connectionOk) {
         $eventoSenzaImmagineTemplate = get_content_between_markers($content, 'eventoNoImmagine');
         $eventi_string = '';
         foreach ($lista_eventi_array as $evento) {
-            $rotazioneRandom = ((rand(0, 60) + 320) % 360);
             $eventi_string .= multi_replace($evento['Locandina'] != NULL ? $eventoImmagineTemplate : $eventoSenzaImmagineTemplate, [
                 '{idEvento}' => urlencode($evento['Id']),
                 '{valueDataEvento}' => $evento['Data'],
                 '{dataEvento}' => date_format_ita($evento['Data']),
                 '{locandinaEvento}' => $evento['Locandina'],
-                '{titoloEvento}' => htmlspecialchars($evento['Titolo']),
-                '{rotazioneRandom}' => $rotazioneRandom
+                '{titoloEvento}' => htmlspecialchars($evento['Titolo'])
             ]);
         }
         $lista_eventi_string = replace_content_between_markers($lista_eventi_string, [
