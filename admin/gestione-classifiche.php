@@ -57,7 +57,7 @@ if ($connectionOk) {
         exit;
     }
 
-    if (isset($_POST[$elimina_name])) {
+    if (isset($_POST['elimina']) || isset($_POST[$elimina_name])) {
         $connection->delete_classifica($validIdCLassifica);
         $eliminato = $connection->get_classifica($validIdCLassifica) ? 0 : 1;
         header("location: classifiche.php?eliminato=$eliminato");
