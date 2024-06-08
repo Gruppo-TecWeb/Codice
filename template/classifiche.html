@@ -1,5 +1,5 @@
 <h2 class="limitedWidth">Classifiche</h2>
-<nav id="filtri-skip">
+<nav id="filtri-skip" aria-label="Salta i filtri e vai ai risultati">
     <a href="#tabella-classifica" class="navigationHelp">Salta ai risultati</a>
 </nav>
 <div class="limitedWidth">
@@ -12,8 +12,6 @@
                 {/listaClassificheDefault}{listaClassifiche}<option value="{idClassifica}"{selezioneClassifica}>{opzioneClassifica}</option>
                 {/listaClassifiche}
             </select>
-        </fieldset>
-        <fieldset>
             <button type="submit">Visualizza</button>
             <button type="submit" name="reset" lang="en">Reset</button>
         </fieldset>
