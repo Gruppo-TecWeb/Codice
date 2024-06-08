@@ -532,6 +532,18 @@ label {
  * PAGINA EVENTO
  */
 
+#evento {
+    padding-top: 1.75em;
+}
+
+#evento #content {
+    grid-template-areas:
+        'titolo'
+        'img'
+        'dl';
+    grid-template-columns: unset;
+}
+
 #evento #breadcrumbs-container {
     min-width: var(--widthMenu);
     border-top-right-radius: 0;
@@ -542,23 +554,34 @@ label {
     padding-bottom: calc(var(--marginBottomMenu) + var(--minHeightButton) + 2em + 44px);
 }
 
-#evento-box {
-    flex-direction: column-reverse;
+#evento #titolo {
+    padding: 0;
 }
 
-#evento-box img {
-    width: 100%;
-    position: relative;
-    top: unset;
+#evento #titolo h2 {
+    padding: 0.5em;
+    padding-top: 1.25em;
 }
 
-#evento-info {
+
+#evento #img-container {
+    height: unset;
     width: 100%;
-    position: relative;
-    top: unset;
-    gap: 0 1em;
-    box-sizing: border-box;
-    padding: 2.5em 0;
+}
+
+#evento #img-container img {
+    width: fit-content;
+    aspect-ratio: 1 / 1;
+    border: unset;
+}
+
+#evento #scritte-container {
+    display: none;
+}
+
+#evento #evento-info {
+    padding: calc((100% - var(--widthMenu)) / 2);
+    ;
 }
 
 
