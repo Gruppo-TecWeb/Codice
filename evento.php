@@ -39,6 +39,21 @@ if ($connectionOk) {
 
         $content = file_get_contents("template/evento.html");
 
+        // Creazione della locandina dell'evento
+        $locandinaEvento = '';
+        $noLocandina = '';
+        if ($locandina != null) {
+            $locandinaEventoTemplate = get_content_between_markers($content, 'locandinaEvento');
+            $locandinaEvento = multi_replace($locandinaEventoTemplate, [
+                '{locandina}' => $locandina
+            ]);
+        } else {
+            $noLocandinaTemplate = get_content_between_markers($content, 'noLocandina');
+            $noLocandina = multi_replace($noLocandinaTemplate, [
+                '{noLocandina}' => $noLocandina
+            ]);
+        }
+
         // Creazione della descrizione dell'evento
         $descrizioneEvento = '';
         if ($descrizione != null) {
@@ -92,6 +107,8 @@ if ($connectionOk) {
         }
 
         $content = multi_replace(replace_content_between_markers($content, [
+            'locandinaEvento' => $locandinaEvento,
+            'noLocandina' => $noLocandina,
             'stagioneEvento' => $stagioneEvento,
             'descrizioneEvento' => $descrizioneEvento,
             'classificaEvento' => $classificaEventoHTML
