@@ -1,65 +1,30 @@
-# Codice
+# Fungo
+
+Progetto di Tecnologie Web dell'Università degli studi di Padova per l'anno accademico 2023/2024. 
 
 ## Regolamenti
 
 [Regole per la consegna del progetto](https://stem.elearning.unipd.it/mod/page/view.php?id=384922) <br>
-[Regole per il concorso Accattivante Accessibile 2024](https://stem.elearning.unipd.it/pluginfile.php/640465/mod_resource/content/2/Concorso24.pdf)
 [Regole accessibilità WCAG](https://www.w3.org/Translations/WCAG21-it/)
+### Specifiche del progetto
+- Il sito web deve essere realizzato con lo standard HTML5. Le pagine devono degradare in modo elegante e devono rispettare la sintassi XML;
+- il layout deve essere realizzato con CSS puri (CSS2 o CSS3);
+- L’uso dei layout Flex e Grid, se sviluppati in maniera corretta ed utilizzati ragionevolmente, vengono valutati molto positivamente;
+- il sito web deve rispettare la completa separazione tra contenuto, presentazione e comportamento;
+- il sito web deve essere accessibile a tutte le categorie di utenti;
+- il sito web deve organizzare i propri contenuti in modo da poter essere facilmente reperiti da qualsiasi utente;
+- il sito web deve contenere pagine che utilizzino script PHP per collezionare e pubblicare dati inseriti dagli utenti (deve essere sviluppata anche la possibilità di modifica e cancellazione dei dati stessi);
+- tra gli input richiesti all'utente deve esserci almeno un campo di testo libero;
+- deve essere presente una forma di controllo dell’input inserito dall’utente, sia lato client che lato server;
+- i dati inseriti dagli utenti devono essere salvati in un database;
+- è preferibile che il database sia in forma normale.
 
-## Altri studenti
-
-### Anni scorsi
- - [Onoranze Stecca](https://github.com/MrBrune01/OnoranzeStecca) [28 + 2]
- - [Pop Tech](https://github.com/gabrielrovesti/Pop-Tech) [30 e lode]
- - [Film - soundstage](https://github.com/ggardin/tecweb) [30 e lode] [Vincitori conconcorso Accessibilità]
-
-### Quest'anno
- - [Clue Catchers](https://github.com/samuele-visentin/unipd-TecWeb) [30 + 2]
- - [Sushi Brombeis](https://github.com/Barutta02/TecWeb) [29,5 + 2]
-
-## Possibile modo di lavorare
-
-### Master
-
-Contiene codice:
-
-- che deriva da un merge con develop (e solo da qui!)
-- validato per html [link validatore html]
-- validato per css [link validatore css]
-- accessibile [definire come]
-- che rispetti i vincoli del progetto [link vincoli progetto]
-- che è stato provato sul server tecweb [aia]
-- che vada bene al gruppo
-
-### Develop
-
-Contiene codice:
-
-- che deriva dalle feature branch
-- che deriva da commit appositi per risolvere conflitti, bug tra features e per arrivare ai vincoli posti nel master
-- che alla fine del lavoro verrà mergiato nel master stando attenti ai vincoli
-
-### Feature branch
-
-Contiene codice:
-
-- che serve per risolvere una determinata issue (quindi il branch sarà associato ad una issue su github)
-- che alla fine del lavoro (quindi risolta la issue) verrà mergiato in develop tramite una pull request (per eventuali conflitti non risolvibili indivualmente meglio contattare il gruppo)
-
-Il branch:
-
-- parte dall'ultima versione di develop
-- diventa obsoleto dopo la corretta riuscita della pull request in develop
-- non deve interagire direttamente con il master
-- si può eliminare quando la sua feature viene inserita nel master
-
-### Hotfix branch
-
-Contiene codice:
-
-- di manuntezione per il master
-
-Il branch:
-
-- parte dal master
-- a fine lavoro verrà mergiato nel master e in develop e verrà eliminato
+### Strumenti utilizzati
+- [HTML NU Checker](https://validator.w3.org/)
+- [Total Validator](https://www.totalvalidator.com/)
+- [Sceren Reader nvda](https://www.nvaccess.org/)
+- [Arc Toolkit](https://www.arctoolkit.org/)
+- [Axe DevTools](https://www.deque.com/axe/devtools/)
+- [Controllore di contrasti TPGI](https://www.tpgi.com/contrastchecker/)
+- [WCAG tester dipartimaento di matematica](https://web.math.unipd.it/accessibility/test.html)
+- [PageSpeed Insights](https://pagespeed.web.dev) 
