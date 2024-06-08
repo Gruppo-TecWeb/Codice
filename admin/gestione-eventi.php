@@ -37,6 +37,11 @@ if ($connectionOk) {
     $validNuovaDescrizione = isset($_POST['nuovaDescrizione']) ? validate_input($_POST['nuovaDescrizione']) : "";
     $validNuovaLocandina = isset($_FILES['nuovaLocandina']) ? basename($_FILES["nuovaLocandina"]["name"]) : "";
     $validIdEvento = isset($_POST['idEvento']) ? validate_input($_POST['idEvento']) : "";
+
+    $modifica_name = 'modifica_' . $validIdEvento;
+    $punteggi_name = 'punteggi_' . $validIdEvento;
+    $elimina_name = 'elimina_' . $validIdEvento;
+
     if (((isset($_POST['nuovoTipoEvento']) && $_POST['nuovoTipoEvento'] != "") && $validNuovoTipoEvento == "") ||
         ((isset($_POST['nuovoTitolo']) && $_POST['nuovoTitolo'] != "") && $validNuovoTitolo == "") ||
         ((isset($_POST['nuovaData']) && $_POST['nuovaData'] != "") && $validNuovaData == "") ||
@@ -45,14 +50,14 @@ if ($connectionOk) {
         ((isset($_POST['nuovaDescrizione']) && $_POST['nuovaDescrizione'] != "") && $validNuovaDescrizione == "") ||
         ((isset($_POST['nuovaLocandina']) && $_POST['nuovaLocandina'] != "") && $validNuovaLocandina == "") ||
         ((isset($_POST['idEvento']) && $_POST['idEvento'] != "") && $validIdEvento == "") ||
-        (isset($_POST['punteggi']) && $validIdEvento == "") ||
+        (isset($_POST[$punteggi_name]) && $validIdEvento == "") ||
         $validIdEvento != "" && $connection->get_evento($validIdEvento) == null) {
         header("location: eventi.php?errore=invalid");
         exit;
     }
     $errore = '0';
     
-    if (isset($_POST['punteggi'])) {
+    if (isset($_POST[$punteggi_name])) {
         header("location: gestione-punteggi.php?idEvento=$validIdEvento");
         exit;
     }
@@ -80,7 +85,7 @@ if ($connectionOk) {
         }
     }
 
-    if (isset($_POST['elimina'])) {
+    if (isset($_POST[$elimina_name])) {
         $connection->delete_evento($validIdEvento);
         $eliminato = $connection->get_evento($validIdEvento) ? 0 : 1;
         if ($eliminato) {
@@ -120,7 +125,7 @@ if ($connectionOk) {
         $nessunaSelezione = ' selected';
     }
 
-    if (isset($_POST['modifica'])) {
+    if (isset($_POST[$modifica_name])) {
         if (!$validIdEvento || $validIdEvento == "") {
             header("location: eventi.php?errore=invalid");
             exit;
