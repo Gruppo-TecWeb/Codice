@@ -2,18 +2,22 @@
     <div id="titolo">
         <h2 class="">{titolo}</h2>
     </div>
+    {locandinaEvento}
+    {conLocandina}
     <div id="img-container">
-        {locandinaEvento}
         <img src="assets/media/locandine/{locandina}" alt="">
-        {/locandinaEvento}
-        {noLocandina}
+    </div>
+    {/conLocandina}
+    {noLocandina}
+    <div id="img-container" class="noLocandina">
         <div id="scritte-container" aria-hidden="true">
             <div id="scritte">
                 {titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}_{titolo}
             </div>
         </div>
-        {/noLocandina}
     </div>
+    {/noLocandina}
+    {/locandinaEvento}
     <dl id="evento-info">
         <dt>Data:</dt>
         <dd><time datetime="{data}">{data}</time></dd>

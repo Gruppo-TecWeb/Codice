@@ -563,10 +563,13 @@ label {
     padding-top: 1.25em;
 }
 
-
 #evento #img-container {
     height: unset;
     width: 100%;
+}
+
+#evento #img-container.noLocandina {
+    display: none;
 }
 
 #evento #img-container img {
@@ -581,7 +584,6 @@ label {
 
 #evento #evento-info {
     padding: calc((100% - var(--widthMenu)) / 2);
-    ;
 }
 
 

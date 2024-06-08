@@ -41,17 +41,13 @@ if ($connectionOk) {
 
         // Creazione della locandina dell'evento
         $locandinaEvento = '';
-        $noLocandina = '';
         if ($locandina != null) {
-            $locandinaEventoTemplate = get_content_between_markers($content, 'locandinaEvento');
-            $locandinaEvento = multi_replace($locandinaEventoTemplate, [
+            $eventoConLocandinaTemplate = get_content_between_markers($content, 'conLocandina');
+            $locandinaEvento = multi_replace($eventoConLocandinaTemplate, [
                 '{locandina}' => $locandina
             ]);
         } else {
-            $noLocandinaTemplate = get_content_between_markers($content, 'noLocandina');
-            $noLocandina = multi_replace($noLocandinaTemplate, [
-                '{noLocandina}' => $noLocandina
-            ]);
+            $locandinaEvento = get_content_between_markers($content, 'noLocandina');
         }
 
         // Creazione della descrizione dell'evento
@@ -108,7 +104,6 @@ if ($connectionOk) {
 
         $content = multi_replace(replace_content_between_markers($content, [
             'locandinaEvento' => $locandinaEvento,
-            'noLocandina' => $noLocandina,
             'stagioneEvento' => $stagioneEvento,
             'descrizioneEvento' => $descrizioneEvento,
             'classificaEvento' => $classificaEventoHTML
