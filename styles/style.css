@@ -242,6 +242,12 @@ button:focus,
     color: var(--colorAccent);
 }
 
+/* nasconde il testo che rende univoci i button modifica/punteggi/elimina dell'area admin */
+span.screen-reader-only {
+    color: var(--colorAccent);
+    text-indent: -999em;
+    font-size: 0.0001em;
+}
 
 /* .toggleIconButton {} */
 
