@@ -12,7 +12,6 @@ const PAGES_ARRAY = [
     'modalita'                      => ['href' => 'modalita.php',                'anchor' => 'Modalità',                                  'lang' => '',   'menuOrder' => 4, 'admin' => 0, 'parentId' => 'index'],
     'beats'                         => ['href' => 'beats.php',                   'anchor' => 'Beats',                                     'lang' => 'en', 'menuOrder' => 5, 'admin' => 0, 'parentId' => 'index'],
     'chi-siamo'                     => ['href' => 'chi-siamo.php',               'anchor' => 'Chi siamo',                                 'lang' => '',   'menuOrder' => 6, 'admin' => 0, 'parentId' => 'index'],
-    'registrati'                    => ['href' => 'registrati.php',              'anchor' => 'Registrati',                                'lang' => '',   'menuOrder' => 0, 'admin' => 0, 'parentId' => 'index'],
     'login'                         => ['href' => 'login.php',                   'anchor' => 'Login',                                     'lang' => 'en', 'menuOrder' => 0, 'admin' => 0, 'parentId' => 'index'],
     'admin/index'                   => ['href' => 'index.php',                   'anchor' => 'Area riservata',                            'lang' => '',   'menuOrder' => 0, 'admin' => 1, 'parentId' => 'index'],
     'admin/profilo'                 => ['href' => 'profilo.php',                 'anchor' => 'Profilo',                                   'lang' => '',   'menuOrder' => 1, 'admin' => 1, 'parentId' => 'admin/index'],
