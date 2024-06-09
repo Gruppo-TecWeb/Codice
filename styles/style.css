@@ -927,6 +927,7 @@ p.eventiMessaggio {
         'img titolo'
         'img dl';
     grid-template-columns: 40% 60%;
+    grid-template-rows: min-content;
     align-items: start;
 }
 
@@ -1006,7 +1007,7 @@ p.eventiMessaggio {
     user-select: none;
     word-wrap: break-word;
     transform: rotate(336deg) scale(1.5);
-    font-size: 2em;
+    font-size: 3vw;
     font-family: 'HORIZONTALE';
     text-align: center;
     opacity: 0.3;
@@ -1039,7 +1040,7 @@ p.eventiMessaggio {
     margin-bottom: 1em;
 }
 
-#evento-info dd #descrizione {
+#evento-info dd#descrizione {
     white-space: pre-wrap;
 }
 
