@@ -54,7 +54,6 @@ if ($connectionOk) {
 
     foreach ($amministratori as $amministratore) {
         $righeTabella .= multi_replace($rigaTabella, [
-            '{idUtente}' => $amministratore['Id'],
             '{username}' => $amministratore['Username'],
             '{email}' => $amministratore['Email']
         ]);

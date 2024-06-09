@@ -44,7 +44,6 @@ if ($connectionOk) {
     $username = '';
     $email = '';
     $valueAzione = '';
-
     if (((isset($_POST['nuovoUsername']) && $_POST['nuovoUsername'] != "") && $validNuovoUsername == "") ||
         ((isset($_POST['nuovaEmail']) && $_POST['nuovaEmail'] != "") && $validNuovaEmail == "") ||
         ((isset($_POST['username']) && $_POST['username'] != "") && $validUsername == "") ||
@@ -53,12 +52,8 @@ if ($connectionOk) {
         exit;
     }
     $errore = '0';
-
-    $validIdUtente = $validUsername == "" ? "0" : $connection->get_utente_by_username($validUsername)['Id'];
-    $modifica_name = 'modifica_' . $validIdUtente;
-    $elimina_name = 'elimina_' . $validIdUtente;
   
-    if (isset($_POST['elimina']) || isset($_POST[$elimina_name])) {
+    if (isset($_POST['elimina'])) {
         if ($_SESSION['username'] == $_POST['username']) {
             header("location: amministratori.php?eliminato=0");
             exit;
@@ -68,7 +63,7 @@ if ($connectionOk) {
             header("location: amministratori.php?eliminato=$eliminato");
             exit;
         }
-    } elseif (isset($_POST[$modifica_name])) {
+    } elseif (isset($_POST['modifica'])) {
         $legend = $legendModifica;
         $nuovoUsername = $validUsername;
         $nuovaEmail = $validEmail;
