@@ -27,7 +27,7 @@
                 <tbody>
                     {rigaTabella}<tr>
                         <td data-title="Rapper"><input type="hidden" id="{idRapper}" name="username[]" value="{rapper}">{rapper}</td>
-                        <td data-title="Punteggio"><input type="number" id="punti-{idRapper}" name="punti[]" min="0" max="99"{valuePunti}></td>
+                        <td data-title="Punteggio"><input type="number" id="punti-{idRapper}" name="punti[]" min="0" max="99"{valuePunti} aria-label="Punteggio di {rapper}"></td>
                     </tr>
                     {/rigaTabella}
                 </tbody>
