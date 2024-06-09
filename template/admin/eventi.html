@@ -18,9 +18,9 @@
             <span>{titolo} - <time datetime="{data}">{dataVisualizzata}</time></span>
             <form method="post" action="gestione-eventi.php">
                 <input type="hidden" name="idEvento" value="{idEvento}">
-                <button type="submit" name="modifica" value="true" aria-label="Modifica l'evento {titolo} del {data}">Modifica</button>
-                <button type="submit" name="punteggi" value="true" aria-label="Gestisci i punteggi dell'evento {titolo} del {data}">Punteggi</button>
-                <button type="submit" name="elimina" value="true" aria-label="Elimina l'evento {titolo} del {data}">Elimina</button>
+                <button type="submit" name="modifica" value="true">Modifica<span class="screen-reader-only"> l'evento {titolo} del {data}</span></button>
+                <button type="submit" name="punteggi" value="true"><span class="screen-reader-only">Gestisci i </span>Punteggi<span class="screen-reader-only"> dell'evento {titolo} del {data}</span></button>
+                <button type="submit" name="elimina" value="true">Elimina<span class="screen-reader-only"> l'evento {titolo} del {data}</span></button>
             </form>
         </li>
         {/elementoLista}
