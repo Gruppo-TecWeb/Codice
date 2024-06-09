@@ -12,7 +12,7 @@
     --colorSelectionText: #000;
     --colorButtonHover: #453B3B;
     --colorSecondary: #262626;
-    --colorLink: #00b4ff;
+    --colorLink: #FFFFFF;
     --colorLinkVisited: #ffd7bb;
     --colorLinkHoverBackground: #453B3B;
     --widthMax: 1024px;
@@ -24,7 +24,7 @@
 }
 
 @media screen and (min-width: 2560px) {
-     :root {
+    :root {
         --widthMax: 1800px;
     }
 }
@@ -481,14 +481,14 @@ footer #footer-credits {
     transition: opacity 0.1s;
 }
 
-#index header a h1.logo.js {
+#index header a h1.logo {
     overflow: hidden;
     text-indent: 120%;
     white-space: nowrap;
     /* opacity: 0.1; */
 }
 
-#index header a h1.logo.js.scrolled {
+#index header a h1.logo.scrolled {
     overflow: unset;
     text-indent: unset;
     opacity: 1;
@@ -507,6 +507,7 @@ footer #footer-credits {
     width: 100%;
     height: 100%;
     resize: horizontal;
+    /* container-type: inline-size; */
 }
 
 #index #hero h2 {
@@ -521,6 +522,18 @@ footer #footer-credits {
     /* font-size: 16cqw; */
     font-size: 11vw;
     background-color: var(--colorAccent);
+}
+
+@media screen and (max-width: 1250px) {
+    #index #hero h2 {
+        font-size: 10vw;
+    }
+}
+
+@media screen and (max-width: 1050px) {
+    #index #hero h2 {
+        font-size: 9vw;
+    }
 }
 
 #index #hero h3 {
@@ -613,6 +626,34 @@ footer #footer-credits {
     position: absolute;
     bottom: 3em;
     right: 3em;
+}
+
+#video-home {
+    position: relative;
+    height: 100vh;
+    border-left: 2px solid var(--colorAccent);
+}
+
+#video-home video {
+    width: fit-content;
+    max-width: 40vw;
+    height: 100%;
+    object-fit: cover;
+}
+
+#video-home video p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#video-home #audio-descrizione {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    pointer-events: none;
+    background: var(--colorSecondary);
 }
 
 #hero-image {
@@ -759,6 +800,7 @@ footer #footer-credits {
     justify-content: space-between;
     color: var(--colorText);
     text-decoration: none;
+    height: 100%;
 }
 
 #lista-eventi li img {
@@ -777,6 +819,7 @@ footer #footer-credits {
 
 #lista-eventi li h3 {
     text-decoration: underline;
+    height: 100%;
 }
 
 #lista-eventi li h3,
@@ -861,13 +904,21 @@ p.eventiMessaggio {
 }
 
 #evento-box img {
+    height: fit-content;
     width: 46%;
+    position: sticky;
+    top: 4em;
+    object-fit: contain;
+    border: 1px solid var(--colorAccent);
+    /* padding: 1em; */
 }
 
 #evento-info {
-    position: relative;
+    height: fit-content;
     width: 46%;
-    max-height: 60vh;
+    position: sticky;
+    top: 4em;
+    padding-block: 2.5em;
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 1em 2em;
@@ -875,25 +926,23 @@ p.eventiMessaggio {
     align-self: stretch;
 }
 
-#evento-info::before {
+#evento-info::before,
+#evento-info::after {
     content: '';
     position: absolute;
-    top: 0;
     left: 0;
     height: 1.5em;
     width: 100%;
     box-sizing: border-box;
+}
+
+#evento-info::before {
+    top: 0;
     background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
 }
 
 #evento-info::after {
-    content: '';
-    position: absolute;
     bottom: 0;
-    left: 0;
-    height: 1.5em;
-    width: 100%;
-    box-sizing: border-box;
     background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
 }
 
@@ -901,14 +950,19 @@ p.eventiMessaggio {
     font-weight: bold;
 }
 
+#evento-info dd {
+    white-space: pre-wrap;
+}
+
 
 /* 
  * PAGINA MODALITA' 
  */
- #intro_battle {
+#intro_battle {
     margin-bottom: 2em;
 }
- #intro_battle::after {
+
+#intro_battle::after {
     content: '';
     position: absolute;
     left: 0;
@@ -917,11 +971,13 @@ p.eventiMessaggio {
     box-sizing: border-box;
     background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
     border-bottom: 2px solid var(--colorAccent);
-    
+
 }
+
 #modalita main {
     padding-bottom: unset;
 }
+
     #container_battle {
         display: flex;
         flex-direction: row;
@@ -988,105 +1044,105 @@ p.eventiMessaggio {
         flex-direction: column;
         align-items: center; /* Centra orizzontalmente */
     }
-    /*.descBattle dt:first-child[data-java="true"]{
-        padding: 1em;
-    }*/
-    #lista_battle button {
-        cursor: pointer;
-        height: 3em;
-        border-style: none;
-        color: transparent;
-        background-color: transparent;
-        background-image: url("../assets/icons/play.svg");
-        background-repeat: no-repeat;
-        background-size: 50%;
-        background-position: center;
-    }
-    
-    #lista_battle button[data-isPlaying="false"]{
-        background-image: url("../assets/icons/play.svg");
-        background-repeat: no-repeat;
-        background-position: center;
-    }
-    #lista_battle button[data-isPlaying="true"]{
-        background-image: url("../assets/icons/pause.svg");
-        background-repeat: no-repeat;
-        background-position: center;
-    }
-    
-    
-    
-    
-    .descBattle{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        margin: 0em;
-        border-style: solid;
-        border-width: 0.2em 0em 0em 0em;
-        border-radius: 20px;
-        border-color: var(--colorAccent);
-        background-color: var(--colorSecondary);
-        color: var(--colorText);
-        width: 100%;
-        
-    }
-    
-    
-    /*qua c'è anche il margin del footer da correggere*/
-    .descBattle:first-child {
-        border-top: 0em;
-        
-    }
-    
-    .descBattle:last-child {
-        border-bottom: 0em;
-    }
-    
-    .descBattle:hover {
-        background-color: var(--colorButtonHover);
-    }
-    
+#lista_battle button {
+    cursor: pointer;
+    height: 3em;
+    border-style: none;
+    color: transparent;
+    background-color: transparent;
+    background-image: url("../assets/icons/play.svg");
+    background-repeat: no-repeat;
+    background-size: 50%;
+    background-position: center;
+}
 
-    
-    .descBattle dt a {
-        display: block;
-        text-align: center;
-        padding: 0.5em;
-        margin: 0em;
-        width: 6em;
-    }
-    
-    .descBattle dd {
-        padding: 0.5em;
-    }
-    .descBattle > dd:first-of-type {
-        width: 100%;
-        padding: 0.5em;
-        text-align: center;
-        border-style: solid;
-        border-width: 0em 0.2em 0em 0.2em;
-        border-color: var(--colorAccent);
-        min-height: 2.4em;
-    }
-    .descBattle button {
-        cursor: pointer;
-        height: 2em;
-        border-style: none;
-        justify-content: space-between;
-        color: transparent;
-        background-color: transparent;
-        background-image: url("../assets/icons/play.svg");
-        background-repeat: no-repeat;
-        background-size: 40%;
-        background-position: center;
-    }
-    
-    
-    .descBattle:hover button {
-        opacity: 1;
-    }
+#lista_battle button[data-isPlaying="false"] {
+    background-image: url("../assets/icons/play.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#lista_battle button[data-isPlaying="true"] {
+    background-image: url("../assets/icons/pause.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+
+
+.descBattle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0em;
+    border-style: solid;
+    border-width: 0.2em 0em 0em 0em;
+    border-radius: 20px;
+    border-color: var(--colorAccent);
+    background-color: var(--colorSecondary);
+    color: var(--colorText);
+    width: 100%;
+
+}
+
+
+/*qua c'è anche il margin del footer da correggere*/
+.descBattle:first-child {
+    border-top: 0em;
+
+}
+
+.descBattle:last-child {
+    border-bottom: 0em;
+}
+
+.descBattle:hover {
+    background-color: var(--colorButtonHover);
+}
+
+
+
+.descBattle dt a {
+    display: block;
+    text-align: center;
+    padding: 0.5em;
+    margin: 0em;
+    width: 6em;
+}
+
+.descBattle dd {
+    padding: 0.5em;
+}
+
+.descBattle>dd:first-of-type {
+    width: 100%;
+    padding: 0.5em;
+    text-align: center;
+    border-style: solid;
+    border-width: 0em 0.2em 0em 0.2em;
+    border-color: var(--colorAccent);
+    min-height: 2.4em;
+}
+
+.descBattle button {
+    cursor: pointer;
+    height: 2em;
+    border-style: none;
+    justify-content: space-between;
+    color: transparent;
+    background-color: transparent;
+    background-image: url("../assets/icons/play.svg");
+    background-repeat: no-repeat;
+    background-size: 40%;
+    background-position: center;
+}
+
+
+.descBattle:hover button {
+    opacity: 1;
+}
 
 
 /* 
@@ -1242,6 +1298,7 @@ audio::-webkit-media-controls-play-button {
     width: 100%;
 }
 
+
 #autoNext{
     border: 1px solid var(--colorAccent);
     border-radius: 10px;
@@ -1253,6 +1310,7 @@ audio::-webkit-media-controls-play-button {
     background-color: var(--colorSecondary);
     color: var(--colorAccent);
 }
+
 #autoNext[aria-pressed="false"] {
     cursor: pointer;
     

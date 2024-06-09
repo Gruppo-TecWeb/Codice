@@ -12,25 +12,26 @@ session_start();
 $paginaHTML = file_get_contents("../template/admin/template-admin.html");
 $content = file_get_contents("../template/admin/tipi-evento.html");
 
-$title = 'Tipi Evento &minus; Fungo';
+$title = 'Tipi Evento &minus; Admin &minus; Fungo';
 $pageId = 'admin/' . basename(__FILE__, '.php');
-$description = '';
-$keywords = '';
+$description = 'pagina di amministrazione per la gestione dei tipi evento';
+$keywords = 'Fungo, amministrazione, tipi evento';
 $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 
 if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
+    exit;
 }
 
-$connection = DBAccess::getInstance();
-$connectionOk = $connection->openDBConnection();
+$connection = DBAccess::get_instance();
+$connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
     $messaggiForm = '';
     $messaggioForm = get_content_between_markers($content, 'messaggioForm');
-    $righeTabella = '';
+    $lista = '';
 
     if (isset($_GET['errore'])) {
         $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);
@@ -48,24 +49,24 @@ if ($connectionOk) {
         $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Tipo Evento modificato correttamente"]);
     }
 
-    $tipiEvento = $connection->getTipiEvento();
-    $rigaTabella = get_content_between_markers($content, 'rigaTabella');
+    $tipiEvento = $connection->get_tipi_evento();
+    $elementoLista = get_content_between_markers($content, 'elementoLista');
 
     foreach ($tipiEvento as $tipoEvento) {
-        $righeTabella .= multi_replace($rigaTabella, [
-            '{titolo}' => $tipoEvento['Titolo'],
-            '{descrizione}' => $tipoEvento['Descrizione']
+        $lista .= multi_replace($elementoLista, [
+            '{titolo}' => $tipoEvento['Titolo']
         ]);
     }
 
     $content = replace_content_between_markers($content, [
-        'rigaTabella' => $righeTabella,
+        'elementoLista' => $lista,
         'messaggiForm' => $messaggiForm
     ]);
 
-    $connection->closeDBConnection();
+    $connection->close_DB_connection();
 } else {
     header("location: ../errore500.php");
+    exit;
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [

@@ -11,6 +11,13 @@
             <form method="post" action="gestione-eventi.php" enctype="multipart/form-data">
                 <fieldset>
                     <legend>{legend}</legend>
+                    <label for="tipoEvento">Tipo Evento:</label>
+                    <select id="tipoEvento" name="nuovoTipoEvento" required>
+                        <option value=""{selezioneDefault} disabled>Scegli il tipo evento</option>
+                        <option value=""{nessunaSelezione}>Nessun tipo evento</option>
+                        {listaTipoEvento}<option value="{tipoEvento}"{selezioneTipoEvento}>{tipoEvento}</option>
+                        {/listaTipoEvento}
+                    </select>
                     <label for="titolo">Titolo:</label>
                     <input type="text" id="titolo" name="nuovoTitolo" value="{nuovoTitolo}" placeholder="Titolo" required>
                     <label for="data">Data:</label>
@@ -18,16 +25,21 @@
                     <label for="ora">Ora:</label>
                     <input type="time" id="ora" name="nuovaOra" value="{nuovaOra}" required>
                     <label for="luogo">Luogo:</label>
-                    <input type="text" id="luogo" name="nuovoLuogo" value="{nuovoLuogo}" required>
+                    <input type="text" id="luogo" name="nuovoLuogo" value="{nuovoLuogo}" placeholder="Luogo" required>
                     <label for="descrizione">Descrizione</label>
                     <textarea id="descrizione" name="nuovaDescrizione" placeholder="Descrizione" rows="8" cols="50">{nuovaDescrizione}</textarea>
                     <label for="locandina">Locandina:</label>
                     <input type="file" id="locandina" name="nuovaLocandina" accept="image/*">
                     {imgLocandina}<img src="{locandina}" alt="Locandina">{/imgLocandina}
+                    <input type="hidden" name="locandina" value="{locandina}">
                     <input type="hidden" name="idEvento" value="{idEvento}">
                     <input type="hidden" name="azione" value="{valueAzione}">
                 
-                    <button type="submit" name="conferma" value="true">Conferma</button>
+                    <button type="submit" name="conferma" value="true">Conferma</button>{eliminaLocandina}
+                    <button type="submit" name="eliminaLocandina" value="true">Elimina Locandina</button>{/eliminaLocandina}
+                    {buttonElimina}<button type="submit" name="elimina" value="true">Elimina Evento</button>
+                    {/buttonElimina}
+                    <button type="button" value="annulla" onClick="tornaIndietro()">Annulla</button>
                 </fieldset>
             </form>
         </div>

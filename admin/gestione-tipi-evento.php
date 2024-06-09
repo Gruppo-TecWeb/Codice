@@ -12,24 +12,26 @@ session_start();
 $paginaHTML = file_get_contents("../template/admin/template-admin.html");
 $content = file_get_contents("../template/admin/gestione-tipi-evento.html");
 
-$title = 'Gestione Tipi Evento &minus; Fungo';
+$title = 'Gestione Tipi Evento &minus; Admin &minus; Fungo';
 $pageId = 'admin/' . basename(__FILE__, '.php');
-$description = '';
-$keywords = '';
+$description = 'pagina di amministrazione per la creazione e modifica dei tipi evento';
+$keywords = 'Fungo, amministrazione, tipi evento';
 $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 
 if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
+    exit;
 }
 
-$connection = DBAccess::getInstance();
-$connectionOk = $connection->openDBConnection();
+$connection = DBAccess::get_instance();
+$connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
     $messaggiForm = '';
     $messaggioForm = get_content_between_markers($content, 'messaggioForm');
+    $buttonElimina = get_content_between_markers($content, 'buttonElimina');
     $legend = '';
     $legendAggiungi = 'Aggiungi Tipo Evento';
     $legendModifica = 'Modifica Tipo Evento';
@@ -45,13 +47,15 @@ if ($connectionOk) {
         ((isset($_POST['nuovaDescrizione']) && $_POST['nuovaDescrizione'] != "") && $validNuovaDescrizione == "") ||
         ((isset($_POST['titolo']) && $_POST['titolo'] != "") && $validTitolo == "")) {
         header("location: tipi-evento.php?errore=invalid");
+        exit;
     }
     $errore = '0';
-    
+  
     if (isset($_POST['elimina'])) {
         $connection->delete_tipo_evento($validTitolo);
         $eliminato = $connection->get_tipo_evento($validTitolo) ? 0 : 1;
         header("location: tipi-evento.php?eliminato=$eliminato");
+        exit;
     } elseif (isset($_POST['modifica'])) {
         $legend = $legendModifica;
         $nuovoTitolo = $validTitolo;
@@ -60,13 +64,14 @@ if ($connectionOk) {
         $descrizione = $nuovaDescrizione;
         $valueAzione = 'modifica';
     } elseif (isset($_POST['aggiungi'])) {
+        $buttonElimina = '';
         $legend = $legendAggiungi;
         $valueAzione = 'aggiungi';
     } elseif (isset($_POST['conferma'])) {
         $nuovoTitolo = $validNuovoTitolo;
         $nuovaDescrizione = $validNuovaDescrizione;
         $titolo = $validTitolo;
-        $descrizione = $connection->get_tipo_evento($validTitolo)[0]['Descrizione'];
+        $descrizione = $connection->get_tipo_evento($validTitolo)['Descrizione'];
         if ($_POST['azione'] == 'aggiungi') {
             $errore = '0';
             $legend = $legendAggiungi;
@@ -82,6 +87,7 @@ if ($connectionOk) {
             }
             if ($errore == '0') {
                 header("location: tipi-evento.php?aggiunto=1");
+                exit;
             }
         } elseif ($_POST['azione'] == 'modifica') {
             $errore = '0';
@@ -102,13 +108,17 @@ if ($connectionOk) {
                 ]);
             }
             if ($errore == '0') {
-                header("location: tipi-evento.php?modificato=1");
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{messaggio}' => 'Modifica effettuata con successo'
+                ]);
+                $titolo = $validNuovoTitolo;
             } else {
                 $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);
             }
         }
     } else {
         header("location: tipi-evento.php");
+        exit;
     }
 
     $content = multi_replace($content, [
@@ -120,12 +130,14 @@ if ($connectionOk) {
         '{valueAzione}' => $valueAzione
     ]);
     $content = replace_content_between_markers($content, [
-        'messaggiForm' => $messaggiForm
+        'messaggiForm' => $messaggiForm,
+        'buttonElimina' => $buttonElimina
     ]);
 
-    $connection->closeDBConnection();
+    $connection->close_DB_connection();
 } else {
     header("location: ../errore500.php");
+    exit;
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [

@@ -4,7 +4,7 @@
     <img src="assets/media/locandine/{locandina}" alt="">
     <dl id="evento-info">
         <dt>Data:</dt>
-        <dd><time datetime="{data}">{data}</time></dd>
+        <dd><time datetime="{data}">{dataVisualizzata}</time></dd>
         <dt>Ora:</dt>
         <dd><time datetime="{ora}">{ora}</time></dd>
         <dt>Luogo:</dt>
@@ -12,11 +12,42 @@
         {descrizioneEvento}
         <dt>Descrizione:</dt>
         <dd>{descrizione}</dd>
-        {/descrizioneEvento} {stagioneEvento}
+        {/descrizioneEvento}{stagioneEvento}{sezioneTipoEvento}
         <dt>Tipo evento:</dt>
-        <dd>{tipoEvento}</dd>
-        <dt>Data inizio stagione:</dt>
-        <dd><time datetime="{dataInizioClassifica}">{dataInizioClassifica}</time></dd>
-        {/stagioneEvento}
+        <dd><a id="link-eventi" href="eventi.php?tipoEvento={tipoEvento}">{tipoEvento}</a></dd>
+        {/sezioneTipoEvento}{classifica}
+        <dt>Data inizio:</dt>
+        <dd><time datetime="{dataInizioClassifica}">{dataInizioClassificaVisualizzata}</time></dd>
+        <dt>Data fine:</dt>
+        <dd><time datetime="{dataFineClassifica}">{dataFineClassificaVisualizzata}</time></dd>
+        <dt>Classifica generale:</dt>
+        <dd><a id="link-classifica" href="classifiche.php?classifica={idClassifica}">{titoloClassifica}</a></dd>
+        {/classifica}{/stagioneEvento}
     </dl>
 </div>
+{classificaEvento}
+<div id="classifica-evento-box" class="limitedWidth">
+<p>I risultati per tale evento sono stati </p>
+    <span id="sumTabella" class="navigationHelp">Tabella che riassume la classifica dell'evento con l'indicazione
+        di <span lang="en">ranking</span>, nome d'arte del <span lang="en">freestyler</span>, punteggio ottenuto.</span>
+    <table id="tabella-classifica" aria-describedby="sumTabella">
+        <caption>Classifica</caption>
+        <thead>
+            <tr>
+                <th scope="col" lang="en">Posizione</th>
+                <th scope="col" lang="en">Freestyler</th>
+                <th scope="col">Punti</th>
+            </tr>
+        </thead>
+        <tbody>
+            {rigaClassifica}
+            <tr>
+                <th data-title="ranking" scope="row"><span class="classifica ranking">{ranking}</span></th>
+                <td data-title="Freestyler">{freestyler}</td>
+                <td data-title="Punti">{punti}</td>
+            </tr>
+            {/rigaClassifica}
+        </tbody>
+    </table>
+</div>
+{/classificaEvento}

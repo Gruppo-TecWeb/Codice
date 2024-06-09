@@ -1,5 +1,5 @@
 /*
- * TEMPLATE DI PAGINA
+ * TUTTE LE PAGINE
  */
 
 var menu = null;
@@ -10,13 +10,12 @@ window.addEventListener("load", (event) => { // Quando questo script si avvia, a
     menu = document.getElementById("menu");
     bcContainer = document.getElementById("breadcrumbs-container");
     menuOpened = menu.getAttribute("data-menu-open") === "true" ? true : false;
-    toggleMenu();
 
     menu.classList.add("js");
     bcContainer.classList.add("js");
     document.body.classList.add("js");
 
-    document.addEventListener("click", (event) => {
+    document.addEventListener("click", (event) => { // Quando clicco fuori dal menù, lo nascondo
         if (menu.getAttribute("data-menu-open") === "true" && !menu.contains(event.target) && !bcContainer.contains(event.target))
             toggleMenu();
     });
@@ -29,6 +28,25 @@ function toggleMenu() {
     document.body.setAttribute("data-menu-open", menuOpened);
 }
 
+// funzione che permette di tornare alla pagina precedente
+function tornaIndietro() {
+    window.history.back();
+    return true;
+}
+
+/*
+ * PAGINA EVENTO
+ */
+
+function init_evento() {
+    linkIndietro = document.getElementById("indietro");
+    if (document.referrer.includes("eventi.php"))
+        linkIndietro.setAttribute('href', document.referrer);
+}
+
+/*
+ * PAGINA INDEX
+ */
 
 function init_index() {
     const logo = document.querySelector('header a h1');
@@ -49,102 +67,93 @@ function init_index() {
     });
 }
 
+
 /*
- * PAGINA EVENTO
+ * PAGINA MODALITA'
  */
 
-function init_evento() {
-    linkIndietro = document.getElementById("indietro");
-    if (document.referrer.includes("eventi.php"))
-        linkIndietro.setAttribute('href', document.referrer);
+var player;
+var descBattles;
+var pressedButton;
+var actualTitle;
+var newTitle;
+var thisBattle;
+
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('iframe_battle', {
+        events: {
+            'onStateChange': onPlayerStateChange
+        }
+    });
 }
 
-/*
-PAGINA MODALITA'
-*/
+function onPlayerStateChange(event) {
+    if (event.data == YT.PlayerState.PAUSED) {
+        pressedButton.setAttribute("data-isPlaying", "false");
+        pressedButton.title = "Riproduci " + newTitle;
+    }
+    if (event.data == YT.PlayerState.PLAYING) {
+        pressedButton.setAttribute("data-isPlaying", "true");
+        pressedButton.title = "Interrompi " + newTitle;
+    }
+}
 
-var player;
-        var descBattles;
-        var pressedButton;
-        var actualTitle;
-        var newTitle;
-        var thisBattle;
+function newIframe() {
+    var link = thisBattle.getElementsByTagName("a")[0].href;
+    actualTitle.innerHTML = newTitle;
 
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('iframe_battle', {
-                events: {
-                    'onStateChange': onPlayerStateChange
-                }
-            });
+    var videoId = link.split('embed/')[1].split('?')[0];
+    var start = pressedButton.getAttribute("data-start");
+    var end = pressedButton.getAttribute("data-end");
+
+    player.loadVideoById({
+        videoId: videoId,
+        startSeconds: start,
+        endSeconds: end
+    });
+
+    for (var i = 0; i < descBattles.length; i++) {
+        var buttonPP = descBattles[i].getElementsByTagName("button")[0];
+        if (buttonPP.title.substr(0, 10) == "Interrompi") {
+            buttonPP.setAttribute("data-isPlaying", "false");
+            buttonPP.title = "Riproduci " + newTitle;
         }
+    }
 
-        function onPlayerStateChange(event) {
-            if (event.data == YT.PlayerState.PAUSED) {
-                pressedButton.setAttribute("data-isPlaying", "false");
-                pressedButton.title = "Riproduci " + newTitle;
-            }
-            if (event.data == YT.PlayerState.PLAYING) {
-                pressedButton.setAttribute("data-isPlaying", "true");
-                pressedButton.title = "Interrompi " + newTitle;
-            }
-        }
+    pressedButton.setAttribute("data-isPlaying", "true");
+    pressedButton.title = "Interrompi " + newTitle;
+}
 
-        function newIframe() {
-            var link = thisBattle.getElementsByTagName("a")[0].href;
-            actualTitle.innerHTML = newTitle;
-            
-            var videoId = link.split('embed/')[1].split('?')[0];
-            var start = pressedButton.getAttribute("data-start");
-            var end = pressedButton.getAttribute("data-end");
+function setIframe(battle) {
+    thisBattle = descBattles[battle];
+    pressedButton = thisBattle.getElementsByTagName("button")[0];
+    newTitle = thisBattle.getElementsByTagName("a")[0].title;
 
-            player.loadVideoById({
-                videoId: videoId,
-                startSeconds: start,
-                endSeconds: end
-            });
-
-            for (var i = 0; i < descBattles.length; i++) {
-                var buttonPP = descBattles[i].getElementsByTagName("button")[0];
-                if (buttonPP.title.substr(0, 10) == "Interrompi") {
-                    buttonPP.setAttribute("data-isPlaying", "false");
-                    buttonPP.title = "Riproduci " + newTitle;
-                }
-            }
-
+    if (pressedButton.title.substr(0, 10) == "Interrompi") {
+        player.pauseVideo();
+        pressedButton.setAttribute("data-isPlaying", "false");
+        pressedButton.title = "Riproduci " + newTitle;
+    } else {
+        if (actualTitle.innerHTML == newTitle) {
+            player.playVideo();
             pressedButton.setAttribute("data-isPlaying", "true");
             pressedButton.title = "Interrompi " + newTitle;
+        } else {
+            newIframe();
         }
+    }
+}
 
-        function setIframe(battle) {
-            thisBattle = descBattles[battle];
-            pressedButton = thisBattle.getElementsByTagName("button")[0];
-            newTitle = thisBattle.getElementsByTagName("a")[0].title;
 
-            if (pressedButton.title.substr(0, 10) == "Interrompi") {
-                player.pauseVideo();
-                pressedButton.setAttribute("data-isPlaying", "false");
-                pressedButton.title = "Riproduci " + newTitle;
-            } else {
-                if (actualTitle.innerHTML == newTitle) {
-                    player.playVideo();
-                    pressedButton.setAttribute("data-isPlaying", "true");
-                    pressedButton.title = "Interrompi " + newTitle;
-                } else {
-                    newIframe();
-                }
-            }
-        }
 
-        
+function initIframe() {
+    descBattles = document.getElementsByClassName("descBattle");
+    actualTitle = document.getElementsByTagName("h3")[1];
 
-        function initIframe() {
-            descBattles = document.getElementsByClassName("descBattle");
-            actualTitle = document.getElementsByTagName("h3")[1];
-
-            thisBattle = descBattles[0];
-            newTitle = thisBattle.getElementsByTagName("a")[0].title;
-            pressedButton = thisBattle.getElementsByTagName("button")[0];
-        }
+    thisBattle = descBattles[0];
+    newTitle = thisBattle.getElementsByTagName("a")[0].title;
+    pressedButton = thisBattle.getElementsByTagName("button")[0];
+}
 
 
 
@@ -152,24 +161,18 @@ var player;
  * PAGINA BEATS
  */
 
-
-
-
 function init_beats() {
     pressedButton = document.getElementsByClassName("beat")[0].getElementsByTagName("button")[0];
     document.getElementById("audio").addEventListener("play", function() {
         pressedButton.setAttribute("data-isPlaying", "true")
         pressedButton.title = "Interrompi " + newTitle;
     });
-    
+
     document.getElementById("audio").addEventListener("pause", function() {
         pressedButton.setAttribute("data-isPlaying", "false")
         pressedButton.title = "Riproduci " + newTitle;
     });
-    descrizioni = document.getElementsByClassName("descBeats");
-    for (let i = 0; i < descrizioni.length; i++) {
-        descrizioni[i].setAttribute("data-show", "false");
-    }
+
     btnDescrizioni = document.getElementsByClassName("btnDesc");
     for (let i = 0; i < btnDescrizioni.length; i++) {
         btnDescrizioni[i].setAttribute("data-show", "false");
@@ -201,7 +204,7 @@ function onJavaScript() {
 
         audiosTitle = document.getElementsByClassName("btnPlay")[i].getAttribute("data-title-beat");
         const audio = new Audio("assets/media/basi/" + audiosTitle + ".mp3");
-        
+
         audio.addEventListener('loadedmetadata', () => {
             const minuti = Math.floor(audio.duration / 60);
             const secondi = Math.floor(audio.duration % 60);
@@ -235,7 +238,7 @@ function playerAudio(nomeBase) {
         pressedButton.setAttribute("data-isPlaying", "true")
         pressedButton.title = "Interrompi " + newTitle;
     });
-    
+
     document.getElementById("audio").addEventListener("pause", function() {
         pressedButton.setAttribute("data-isPlaying", "false")
         pressedButton.title = "Riproduci " + newTitle;
@@ -247,7 +250,7 @@ function playerAudio(nomeBase) {
     h3 = audioContainer.getElementsByTagName("h3")[0];
     newTitle = nomeBase.slice(0, -4).replaceAll("-", " ");
     beats = document.getElementsByClassName("beat")
-    
+
     for (let i = 0; i < beats.length; i++) {
         if (beats[i].getElementsByTagName("button")[0].getAttribute("data-title-beat") == nomeBase.slice(0, -4)) {
             pressedButton = beats[i].getElementsByTagName("button")[0];
@@ -263,10 +266,10 @@ function playerAudio(nomeBase) {
     if (h3.innerHTML == newTitle) {
         if (pressedButton.title.slice(0, 10) == "Interrompi") {
             audio.pause();
-            
+
         } else {
             audio.play();
-           
+
         }
     } else {
         newBeat(nomeBase);
@@ -304,7 +307,7 @@ function newBeat(nomeBase) {
 function autoPlay(nomeBase) {
     document.getElementById("autoNext").onclick = function() {
         autoNext = !autoNext;
-        autoRip=document.getElementById("autoNext");
+        autoRip = document.getElementById("autoNext");
         autoRip.setAttribute("aria-pressed", autoNext);
     }
     audio.onended = function() {
@@ -342,3 +345,20 @@ function nextAudio(nomeBase) {
         }
     }
 }
+
+/*
+ * PAGINE ADMIN
+ */
+
+// per ogni button con name=elimina, aggiungo un event listener che chiede conferma prima di eliminare l'elemento; se viene premuto annulla, interrompo l'invio del form
+document.addEventListener('DOMContentLoaded', function() {
+    var deleteButtons = document.querySelectorAll('button[name="elimina"]');
+    for (let i = 0; i < deleteButtons.length; i++) {
+        deleteButtons[i].addEventListener('click', function(event) {
+            var confirmDelete = confirm('Sei sicuro di voler eliminare questo elemento?');
+            if (!confirmDelete) {
+                event.preventDefault();
+            }
+        });
+    }
+});

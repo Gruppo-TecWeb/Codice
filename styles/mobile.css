@@ -131,7 +131,7 @@ header .logo {
     border-bottom-left-radius: 0;
 }
 
-#menu.js[data-menu-open="false"] {
+#menu[data-menu-open="false"] {
     transform: translate(-50%, 200%);
     opacity: 0.8;
     transition: transform 0.3s, opacity 0.3s;
@@ -149,6 +149,8 @@ header .logo {
     padding: 0 1em;
     margin-bottom: 0.75em;
     box-sizing: border-box;
+    border-top-left-radius: var(--bordarRadiusCard);
+    border-top-right-radius: var(--bordarRadiusCard);
     border-bottom: 2px solid var(--colorAccent);
     text-align: left;
     text-indent: unset;
@@ -157,7 +159,7 @@ header .logo {
     font-weight: normal;
 }
 
-#menu.js ul li {
+#menu ul li {
     display: block;
     margin-inline: 0;
 }
@@ -171,7 +173,7 @@ header .logo {
     background-color: var(--colorSecondary);
 }
 
-#menu.js .menuItem {
+#menu .menuItem {
     margin: 0.1em 0.75em;
     line-height: 2em;
 }
@@ -204,7 +206,7 @@ header .logo {
     z-index: var(--elevationAbove);
 }
 
-#breadcrumbs-container.js {
+#breadcrumbs-container {
     transition: 0.5s;
 }
 
@@ -249,7 +251,7 @@ header .logo {
     transition: 0.1s;
 }
 
-#breadcrumbs-container.js[data-menu-open=true] #btn-menu {
+#breadcrumbs-container[data-menu-open=true] #btn-menu {
     background-image: url("../assets/icons/close.svg");
 }
 
@@ -332,7 +334,7 @@ footer .logo {
 
 #evento-home {
     padding: 0;
-    background: repeating-linear-gradient( 45deg, var(--colorAccent), var(--colorAccent) 2px, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0) 10px);
+    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0) 10px);
 }
 
 #evento-home::before {
@@ -384,6 +386,28 @@ footer .logo {
     z-index: var(--elevationMiddle);
     border-left: unset;
 }
+
+#video-home {
+    width: 100%;
+    border-left: unset;
+}
+
+#video-home video {
+    max-width: unset;
+    width: 100%;
+    z-index: var(--elevationMiddle);
+}
+
+/* #video-home #btn-video {
+    left: calc((100% - var(--menuWidth)) / 2);
+    border: transparent;
+    background: transparent;
+    fill: var(--accentColor);
+}
+
+#video-home #btn-video.playing #play {
+    fill: var(--accentColor);
+} */
 
 #eventi-home h3 {
     padding: 0.5em calc((100% - var(--widthMenu)) / 2);
@@ -520,10 +544,14 @@ label {
 
 #evento-box img {
     width: 100%;
+    position: relative;
+    top: unset;
 }
 
 #evento-info {
     width: 100%;
+    position: relative;
+    top: unset;
     gap: 0 1em;
     box-sizing: border-box;
     padding: 2.5em 0;
@@ -538,28 +566,27 @@ label {
  * PAGINA BATTLE
  */
 
- #container_battle {
+#container_battle {
     display: flex;
     flex-direction: column;
 }
+
 #container_iframe iframe {
     width: 96vw;
     height:45vw;
-
-    
 }
-#container_iframe{
+
+#container_iframe {
     position: sticky;
     top: 0;
     background-color: var(--accentColor);
     width: 100%;
     height: 100%;
     margin: 1em;
-
 }
 
 
-#lista_battle{
+#lista_battle {
     width: 96vw;
 }
 

@@ -9,34 +9,17 @@
             </ul>
             {/messaggiForm}
 
-            <!-- Tabella che elenca i tipi evento esistenti con possibilità di modificarli o eliminarli. -->
-            <span id="sumTabella" class="navigationHelp">Tabella che elenca i Tipi Evento
-                esistenti con l'indicazione del titolo del Tipo Evento e l'eventuale descrizione.
-                Per ciascuna riga sono presenti anche dei bottoni 
-                che permettono di modificare quel Tipo Evento o di eliminarlo.</span>
-            <table id="tabella-tipi-evento" aria-describedby="sumTabella">
-                <caption>Tipi Evento presenti</caption>
-                <thead>
-                    <tr>
-                        <th scope="col">Titolo</th>
-                        <th scope="col">Descrizione</th>
-                        <th scope="col">Azioni</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {rigaTabella}
-                    <tr>
-                        <td data-title="Titolo">{titolo}</td>
-                        <td data-title="Descrizione">{descrizione}</td>
-                        <td data-title="Azioni">
-                            <form method="post" action="gestione-tipi-evento.php">
-                                <input type="hidden" name="titolo" value="{titolo}">
-                                <button type="submit" name="modifica" value="true">Modifica</button>
-                                <button type="submit" name="elimina" value="true">Elimina</button>
-                            </form>
-                        </td>
-                    </tr>
-                    {/rigaTabella}
-                </tbody>
-            </table>
+            <!-- Lista dei tipi evento esistenti in ordine alfabetico con possibilità di modificarli o eliminarli. -->
+            <h4>Tipi Evento presenti</h4>
+            <ol id="lista-tipi-evento">
+                {elementoLista}<li>
+                    <span>{titolo}</span>
+                    <form method="post" action="gestione-tipi-evento.php">
+                        <input type="hidden" name="titolo" value="{titolo}">
+                        <button type="submit" name="modifica" value="true">Modifica</button>
+                        <button type="submit" name="elimina" value="true">Elimina</button>
+                    </form>
+                </li>
+                {/elementoLista}
+            </ol>
         </div>
