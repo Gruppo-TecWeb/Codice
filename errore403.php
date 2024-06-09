@@ -12,11 +12,11 @@ $content = file_get_contents("template/errore403.html");
 $title = 'Errore 403 &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = 'Pagina di errore 403.';
-$keywords = '';
+$keywords = 'Fungo, errore, 403';
 $percorso = '';
 $percorsoAdmin = 'admin/';
-$menu = get_menu($pageId, $percorso);
-$breadcrumbs = get_breadcrumbs($pageId, $percorso);
+$menu = get_menu($pageId);
+$breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 $logout = '';
 

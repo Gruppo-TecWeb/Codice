@@ -21,19 +21,32 @@ $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 $logout = '';
 
-$connection = DBAccess::getInstance();
-$connectionOk = $connection->openDBConnection();
+$connection = DBAccess::get_instance();
+$connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
     $eventi_per_pagina = 12;
     $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 1;
-    $titolo = isset($_GET['titolo']) ? $_GET['titolo'] : '';
-    $data = isset($_GET['data']) ? $_GET['data'] : '';
+    $tipoEvento = isset($_GET['tipoEvento']) ? $_GET['tipoEvento'] : '';
+    $tipoEvento = validate_input($tipoEvento);
+    $data = isset($_GET['data']) ? $_GET['data'] : date('Y-m-d');
+    $data = validate_input($data);
 
-    $lista_eventi_array = $connection->getListaEventi($data, $titolo);
-    $lista_titoli_array = $connection->getTitoliEventi();
+    // controllo sui dati in GET
+    if (isset($_GET['tipoEvento']) &&  $_GET['tipoEvento'] != "" &&  $_GET['tipoEvento'] != "Altri eventi" && !in_array($tipoEvento, array_column($connection->get_tipi_evento(), 'Titolo'))) {
+        header("location: errore404.php");
+        exit;
+    }
+    if ($data != '' && !preg_match('/^\d{4}-\d{2}-\d{2}$/', $data)) {
+        header("location: errore404.php");
+        exit;
+    }
+
+    $lista_eventi_array = $connection->get_lista_eventi($data, $tipoEvento);
+    $eventi_senza_tipo = $connection->get_lista_eventi("", "Altri eventi");
+    $lista_tipi_evento_array = $connection->get_tipi_evento();
     $oldest_date = $lista_eventi_array == null ? $connection->get_oldest_date() : '';
-    $connection->closeDBConnection();
+    $connection->close_DB_connection();
 
     $numero_pagine = ceil(count($lista_eventi_array) / $eventi_per_pagina);
 
@@ -59,12 +72,10 @@ if ($connectionOk) {
     if ($numero_pagine > 1) {
         $currentPageTemplate = get_content_between_markers($paginationTemplate, 'currentPage');
         $notCurrentPageTemplate = get_content_between_markers($paginationTemplate, 'notCurrentPage');
-        $data_encoded = htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
-        $titolo_encoded = htmlspecialchars($titolo, ENT_QUOTES, 'UTF-8');
         $pages = $pagina > 1 ? multi_replace($notCurrentPageTemplate, [
             '{numeroPagina}' => $pagina - 1,
-            '{data}' => $data_encoded,
-            '{titolo}' => $titolo_encoded,
+            '{data}' => $data,
+            '{tipoEvento}' => $tipoEvento,
             '{messaggio}' => 'Precedente',
             '{classe}' => ''
         ]) : '';
@@ -74,22 +85,22 @@ if ($connectionOk) {
             } else if ($i == 1 || $i == $numero_pagine || ($i >= $pagina - 2 && $i <= $pagina + 2)) {
                 $pages .= multi_replace($notCurrentPageTemplate, [
                     '{numeroPagina}' => $i,
-                    '{data}' => $data_encoded,
-                    '{titolo}' => $titolo_encoded,
+                    '{data}' => $data,
+                    '{tipoEvento}' => $tipoEvento,
                     '{messaggio}' => $i,
                     '{classe}' => 'number'
                 ]);
             } else if ($i == $pagina - 3 || $i == $pagina + 3) {
                 $pages .= multi_replace(get_content_between_markers($paginationTemplate, 'ellipsis'), [
-                    '{data}' => $data_encoded,
-                    '{titolo}' => $titolo_encoded
+                    '{data}' => $data,
+                    '{tipoEvento}' => $tipoEvento
                 ]);
             }
         }
         $pages .= $pagina < $numero_pagine ? multi_replace($notCurrentPageTemplate, [
             '{numeroPagina}' => $pagina + 1,
             '{data}' => $data,
-            '{titolo}' => $titolo,
+            '{tipoEvento}' => $tipoEvento,
             '{messaggio}' => 'Successiva',
             '{classe}' => ''
         ]) : '';
@@ -99,14 +110,32 @@ if ($connectionOk) {
         ]);
     }
 
-    // Costruzione delle liste di titoli
-    $lista_titoli_string = '';
-    $option = get_content_between_markers($content, 'listaTitoli');
-    foreach ($lista_titoli_array as $evento) {
-        $selected = ($evento['Titolo'] == $titolo) ? ' selected' : '';
-        $lista_titoli_string .= multi_replace($option, [
-            '{titoloEvento}' => $evento['Titolo'],
-            '{selezioneEvento}' => $selected
+    // Costruzione delle liste di tipo evento
+    $lista_tipi_evento_string = '';
+    $option = get_content_between_markers($content, 'listaTipiEvento');
+    $anyoneSelected = false;
+    foreach ($lista_tipi_evento_array as $tipo_evento) {
+        if ($tipo_evento['Titolo'] == $tipoEvento) {
+            $selected = ' selected';
+            $anyoneSelected = true;
+        } else {
+            $selected = '';
+        }
+        $lista_tipi_evento_string .= multi_replace($option, [
+            '{tipoEvento}' => $tipo_evento['Titolo'],
+            '{selezioneTipoEvento}' => $selected
+        ]);
+    }
+    if ($eventi_senza_tipo != null) {
+        if ($tipoEvento == 'Altri eventi') {
+            $selected = ' selected';
+            $anyoneSelected = true;
+        } else {
+            $selected = '';
+        }
+        $lista_tipi_evento_string .= multi_replace($option, [
+            '{tipoEvento}' => 'Altri eventi',
+            '{selezioneTipoEvento}' => $selected
         ]);
     }
 
@@ -116,7 +145,7 @@ if ($connectionOk) {
     $lista_eventi_string = '';
     if ($lista_eventi_array == null) {
         $messaggioListaEventiTemplate = get_content_between_markers($content, 'messaggioListaEventi');
-        if ($titolo != '' || $data != '') {
+        if ($tipoEvento != '' || $data != '') {
             $messaggio = 'Nessun evento corrisponde ai criteri di ricerca';
         } else {
             $messaggio = 'Non ci sono eventi in programma';
@@ -131,11 +160,11 @@ if ($connectionOk) {
         $eventi_string = '';
         foreach ($lista_eventi_array as $evento) {
             $eventi_string .= multi_replace($eventoTemplate, [
-                '{idEvento}' => urlencode($evento['Id']),
+                '{idEvento}' => $evento['Id'],
                 '{valueDataEvento}' => $evento['Data'],
-                '{dataEvento}' => $evento['Data'],
+                '{dataEvento}' => date_format_ita($evento['Data']),
                 '{locandinaEvento}' => $evento['Locandina'],
-                '{titoloEvento}' => htmlspecialchars($evento['Titolo'])
+                '{titoloEvento}' => $evento['Titolo']
             ]);
         }
         $lista_eventi_string = replace_content_between_markers($lista_eventi_string, [
@@ -144,27 +173,30 @@ if ($connectionOk) {
         ]);
     }
 
-    $messaggioFiltri = $data == '' ? 'i prossimi eventi' : '';
-    $messaggioFiltri .= $data != '' ? 'eventi a partire dalla data: ' . multi_replace(get_content_between_markers($content, 'messaggioFiltri'), [
+    $messaggioFiltri = $data == date('Y-m-d') ? 'i prossimi eventi' : '';
+    $messaggioFiltri .= $data != date('Y-m-d') ? 'eventi a partire dalla data: ' . multi_replace(get_content_between_markers($content, 'messaggioFiltri'), [
         '{valueDataEvento}' => $data,
-        '{dataEvento}' => date_format(date_create($data), 'd/m/Y')
+        '{dataEvento}' => date_format_ita($data)
+    
     ]) : '';
-    $messaggioFiltri .= $titolo != '' ? ' di tipo: ' . $titolo : '';
+    $messaggioFiltri .= $tipoEvento != '' ? ' di tipo: ' . $tipoEvento : '';
 
     $content = multi_replace(
         replace_content_between_markers($content, [
-            'listaTitoli' => $lista_titoli_string,
+            'listaTipiEvento' => $lista_tipi_evento_string,
             'listaEventi' => $lista_eventi_string,
             'pagination' => $pagination,
             'navRisultatiEventi' => $navRisultatiEventi,
             'messaggioFiltri' => $messaggioFiltri
         ]),
         [
+            '{selezioneTipoEventoDefault}' => $anyoneSelected ? '' : ' selected',
             '{data}' => $data,
         ]
     );
 } else {
     header("location: errore500.php");
+    exit;
 }
 
 if (isset($_SESSION["login"])) {

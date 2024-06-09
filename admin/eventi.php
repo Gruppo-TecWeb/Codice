@@ -12,25 +12,26 @@ session_start();
 $paginaHTML = file_get_contents("../template/admin/template-admin.html");
 $content = file_get_contents("../template/admin/eventi.html");
 
-$title = 'Admin &minus; Eventi &minus; Fungo';
+$title = 'Eventi &minus; Admin &minus; Fungo';
 $pageId = 'admin/' . basename(__FILE__, '.php');
-$description = '';
-$keywords = '';
+$description = 'pagina di amministrazione per la gestione degli eventi';
+$keywords = 'Fungo, amministrazione, eventi';
 $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 
 if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
+    exit;
 }
 
-$connection = DBAccess::getInstance();
-$connectionOk = $connection->openDBConnection();
+$connection = DBAccess::get_instance();
+$connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
     $messaggiForm = '';
     $messaggioForm = get_content_between_markers($content, 'messaggioForm');
-    $righeTabella = '';
+    $lista = '';
 
     if (isset($_GET['errore'])) {
         $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);
@@ -48,29 +49,27 @@ if ($connectionOk) {
         $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Evento modificato correttamente"]);
     }
 
-    $eventi = $connection->getEventi();
-    $rigaTabella = get_content_between_markers($content, 'rigaTabella');
+    $eventi = $connection->get_eventi();
+    $elementoLista = get_content_between_markers($content, 'elementoLista');
 
     foreach ($eventi as $evento) {
-        $righeTabella .= multi_replace($rigaTabella, [
+        $lista .= multi_replace($elementoLista, [
             '{titolo}' => $evento['Titolo'],
-            '{dataVisualizzata}' => date_format(date_create($evento['Data']), 'd/m/y'),
-            '{oraVisualizzata}' => date_format(date_create($evento['Ora']), 'G:i'),
-            '{luogo}' => $evento['Luogo'],
-            '{idEvento}' => $evento['Id'],
-            '{data}' => $evento['Data'],
-            '{ora}' => $evento['Ora'],
+            '{data}' => date_format(date_create($evento['Data']), 'Y-m-d'),
+            '{dataVisualizzata}' => date_format_ita($evento['Data']),
+            '{idEvento}' => $evento['Id']
         ]);
     }
 
     $content = replace_content_between_markers($content, [
-        'rigaTabella' => $righeTabella,
+        'elementoLista' => $lista,
         'messaggiForm' => $messaggiForm
     ]);
 
-    $connection->closeDBConnection();
+    $connection->close_DB_connection();
 } else {
     header("location: ../errore500.php");
+    exit;
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
