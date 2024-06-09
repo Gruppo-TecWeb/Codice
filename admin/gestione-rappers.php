@@ -54,7 +54,7 @@ if ($connectionOk) {
     $errore = '0';
   
     if (isset($_POST['elimina'])) {
-        if ($_SESSION["datiUtente"]['Username'] == $_POST['username']) {
+        if ($_SESSION['username'] == $_POST['username']) {
             header("location: rappers.php?eliminato=0");
             exit;
         } else {

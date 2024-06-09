@@ -15,7 +15,7 @@
     <ol id="lista-eventi-gestione">
         {elementoLista}
         <li>
-            <span>{titolo} {dataVisualizzata}</span>
+            <span>{titolo} - <time datetime="{data}">{dataVisualizzata}</time></span>
             <form method="post" action="gestione-eventi.php">
                 <input type="hidden" name="idEvento" value="{idEvento}">
                 <button type="submit" name="modifica" value="true">Modifica</button>

@@ -34,11 +34,11 @@ $connectionOk = $connection->open_DB_connection();
 if ($connectionOk) {
     $headingEvento = '';
 
-    $listaEventi  = $connection->get_lista_eventi(); // lista eventi futuri
+    $listaEventi  = $connection->get_lista_eventi(date('Y-m-d')); // lista eventi futuri
     if (count($listaEventi) > 0) { // se ci sono eventi futuri
         $headingEvento = get_content_between_markers($eventoHome, 'prossimoEvento');
     } else { // altrimenti prendo i passati
-        $listaEventi = $connection->get_lista_eventi('', '', false); // lista eventi passati
+        $listaEventi = $connection->get_lista_eventi(date('Y-m-d'), '', false); // lista eventi passati
         $headingEvento = get_content_between_markers($eventoHome, 'ultimoEvento');
     }
     if (count($listaEventi) > 0) { // se ho ottenuto eventi
@@ -51,7 +51,8 @@ if ($connectionOk) {
         ]), [
             '{id}' => $eventoId,
             '{titolo}' => $titolo,
-            '{data}' => date_format_ita($data),
+            '{data}' => date_format(date_create($data), 'Y-m-d'),
+            '{dataVisualizzata}' => date_format_ita($data),
             '{ora}' => date_format(date_create($ora), 'H:i'),
             '{luogo}' => $luogo
         ]);

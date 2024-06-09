@@ -48,7 +48,7 @@ if ($connectionOk) {
         if (!$errore) {
             $utente = $connection->login($username, $password);
             if (!(is_null($utente))) {
-                $_SESSION["datiUtente"] = $utente;
+                $_SESSION["username"] = $utente['Username'];
                 $_SESSION["login"] = true;
                 header("location: admin/index.php");
                 exit;
