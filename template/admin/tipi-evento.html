@@ -16,8 +16,8 @@
                     <span>{titolo}</span>
                     <form method="post" action="gestione-tipi-evento.php">
                         <input type="hidden" name="titolo" value="{titolo}">
-                        <button type="submit" name="modifica" value="true">Modifica</button>
-                        <button type="submit" name="elimina" value="true">Elimina</button>
+                        <button type="submit" name="modifica" value="true">Modifica<span class="screen-reader-only"> il tipo evento {titolo}</span></button>
+                        <button type="submit" name="elimina" value="true">Elimina<span class="screen-reader-only"> il tipo evento {titolo}</span></button>
                     </form>
                 </li>
                 {/elementoLista}
