@@ -1054,6 +1054,7 @@ p.eventiMessaggio {
     background-repeat: no-repeat;
     background-size: 50%;
     background-position: center;
+    width: 6em;
 }
 
 #lista_battle button[data-isPlaying="false"] {
