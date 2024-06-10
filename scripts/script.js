@@ -362,3 +362,64 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+/*
+ * GESTIONE TIPI EVENTO
+ */
+
+// funzione che controlla se il titolo inserito è già presente nel database
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('tipi-evento-form');
+    const titoloInput = document.getElementById('titolo');
+    const titoloError = document.getElementById('titolo-error');
+    let isValid = true;
+
+    titoloInput.addEventListener('input', function() {
+        validateTitolo();
+    });
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        validateTitolo().then(valid => {
+            if (valid) {
+                form.submit();
+            }
+        });
+    });
+
+    function validateTitolo() {
+        const titolo = titoloInput.value.trim();
+        if (titolo === "") {
+            titoloError.textContent = "Il titolo è obbligatorio.";
+            isValid = false;
+        } else {
+            titoloError.textContent = "";
+            checkTitoloUnico(titolo);
+        }
+    }
+
+    function checkTitoloUnico(titolo) {
+        fetch('../utilities/verifica-titolo.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ titolo: titolo })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.exists) {
+                titoloError.textContent = "Il titolo esiste già nel database.";
+                isValid = false;
+            } else {
+                titoloError.textContent = "";
+                isValid = true;
+            }
+        })
+        .catch(error => {
+            console.error('Errore:', error);
+            titoloError.textContent = "Si è verificato un errore. Riprova.";
+            isValid = false;
+        });
+    }
+});
