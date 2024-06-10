@@ -13,17 +13,18 @@
     <form method="post" action="gestione-classifiche.php">
         <fieldset>
             <legend>{legend}</legend>
-            <label for="titoloClassifica">Titolo Classifica:</label>
+            <p>I campi contrassegnati con (*) sono obbligatori.</p>
+            <label for="titoloClassifica">Titolo Classifica (*):</label>
             <input type="text" id="titoloClassifica" name="nuovoTitoloClassifica" value="{nuovoTitoloClassifica}" required>
-            <label for="tipoEvento">Tipo Evento:</label>
+            <label for="tipoEvento">Tipo Evento (*):</label>
             <select id="tipoEvento" name="nuovoTipoEvento" required>
                         <option value=""{selezioneDefault} disabled>Scegli il tipo evento</option>
                         {listaTipoEvento}<option value="{tipoEvento}"{selezioneTipoEvento}>{tipoEvento}</option>
                         {/listaTipoEvento}
                     </select>
-            <label for="dataInizio">Data Inizio:</label>
+            <label for="dataInizio">Data Inizio (*):</label>
             <input type="date" id="dataInizio" name="nuovaDataInizio" value="{nuovaDataInizio}" required>
-            <label for="dataFine">Data Fine:</label>
+            <label for="dataFine">Data Fine (*):</label>
             <input type="date" id="dataFine" name="nuovaDataFine" value="{nuovaDataFine}" required>
             <input type="hidden" name="idClassifica" value="{idClassifica}">
             <input type="hidden" name="azione" value="{valueAzione}">
