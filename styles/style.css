@@ -984,77 +984,72 @@ p.eventiMessaggio {
     padding-bottom: unset;
 }
 
-#container_battle {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    background-color: var(--colorAccent);
-    padding: 0em;
-    align-items: center;
-    margin: 0em;
+    #container_battle {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        background-color: var(--colorAccent);
+        padding: 0em;
+        align-items: center;
+        margin: 0em;
+        
+    }
+    
+    #container_battle h2{
+        background-color: var(--colorSecondary);
+        color: var(--colorAccent);
 
-}
+        border-radius: 20px 20px 20px 20px;
+        width: max-content;
+        padding: 0.5em;
+        
+    }
+    
+    #container_iframe {
+        margin: 0em;
+        text-align: center;
+        color: var(--colorSecondary);
+        font-size: larger;
+        width: 50%;
 
-#container_battle h2 {
-    background-color: var(--colorSecondary);
-    color: var(--colorAccent);
+        margin: 1em 0em 1em 1em;
+        position: sticky;
+        bottom: 0;
+        top: 3em;
+        display: flex;
+        flex-direction: column; /* Imposta la direzione dei figli su verticale */
+        align-items: center; /* Centra orizzontalmente */
+    }
+        
+    #container_iframe h3 {
+        background-color: var(--colorBackground);
+        color: var(--colorAccent);
 
-    border-radius: 20px 20px 20px 20px;
-    width: max-content;
-    padding: 0.5em;
+        border-radius: 20px 20px 0px 0px;
 
-}
-
-#container_iframe {
-    margin: 0em;
-    text-align: center;
-    color: var(--colorSecondary);
-    font-size: larger;
-    width: 50%;
-
-    margin: 1em auto;
-    /* Centra il contenitore */
-    position: sticky;
-    bottom: 0;
-    top: 3em;
-    display: flex;
-    flex-direction: column;
-    /* Imposta la direzione dei figli su verticale */
-    align-items: center;
-    /* Centra orizzontalmente */
-}
-
-#container_iframe h3 {
-    background-color: var(--colorBackground);
-    color: var(--colorAccent);
-
-    border-radius: 20px 20px 0px 0px;
-
-    width: max-content;
-    padding: 0.5em;
-
-}
-
-#container_iframe iframe {
-    width: 48vw;
-    height: 27vw;
-    border-radius: 20px;
-    border-style: none;
-
-
-}
-
-#lista_battle {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* Centra orizzontalmente */
-    width: 50%;
-}
-
-/*.descBattle dt:first-child[data-java="true"]{
-        padding: 1em;
-    }*/
+        width: max-content;
+        padding: 0.5em;
+       
+    }
+    #container_iframe iframe {
+        width: 48vw;
+        height: 27vw;
+        border-radius: 20px;
+        border-style: none;
+        
+        
+    }
+    #container_lista_battle{
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centra orizzontalmente */
+    }
+    
+    #lista_battle {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centra orizzontalmente */
+    }
 #lista_battle button {
     cursor: pointer;
     height: 3em;
@@ -1065,6 +1060,7 @@ p.eventiMessaggio {
     background-repeat: no-repeat;
     background-size: 50%;
     background-position: center;
+    width: 6em;
 }
 
 #lista_battle button[data-isPlaying="false"] {
@@ -1159,7 +1155,9 @@ p.eventiMessaggio {
 /* 
  * PAGINA BEATS
  */
-
+#beats #content{
+    padding-bottom: 0em;
+}
 #intro_beats {
     padding-bottom: 2em;
     box-sizing: border-box;
@@ -1307,15 +1305,22 @@ audio::-webkit-media-controls-play-button {
     width: 100%;
 }
 
-#autoNext.beat:hover[aria-pressed="false"] {
+
+#autoNext{
+    border: 1px solid var(--colorAccent);
+    border-radius: 10px;
+    border-style: solid;
+    height: max-content;
+
+}
+#autoNext:hover[aria-pressed="false"] {
     background-color: var(--colorSecondary);
     color: var(--colorAccent);
 }
 
 #autoNext[aria-pressed="false"] {
     cursor: pointer;
-    padding: 0.5em 0.8em;
-    border-radius: 3px;
+    
     font-weight: bold;
     border: 1px solid var(--colorAccent);
     color: var(--colorTextOnAccent);
