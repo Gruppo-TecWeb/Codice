@@ -8,14 +8,16 @@
             </ul>
             {/messaggiForm}
             
-            <form method="post" action="gestione-rappers.php">
+            <form method="post" action="gestione-rappers.php" id="form-rapper">
                 <fieldset>
                     <legend>{legend}</legend>
                     <p>I campi contrassegnati con (*) sono obbligatori.</p>
                     <label for="username" lang="en">Username (*):</label>
                     <input type="text" id="username" name="nuovoUsername" value="{nuovoUsername}" placeholder="Username" required>
+                    <div id="username-error" class="error"></div>
                     <label for="email" lang="en">E-Mail (*):</label>
                     <input type="email" id="email" name="nuovaEmail" value="{nuovaEmail}" placeholder="E-Mail" required>
+                    <div id="email-error" class="error"></div>
                     <input type="hidden" name="username" value="{username}">
                     <input type="hidden" name="email" value="{email}">
                     <input type="hidden" name="azione" value="{valueAzione}">

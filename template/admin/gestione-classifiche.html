@@ -10,12 +10,13 @@
     </ul>
     {/messaggiForm}
 
-    <form method="post" action="gestione-classifiche.php">
+    <form method="post" action="gestione-classifiche.php" id="form-classifica">
         <fieldset>
             <legend>{legend}</legend>
             <p>I campi contrassegnati con (*) sono obbligatori.</p>
-            <label for="titoloClassifica">Titolo Classifica (*):</label>
-            <input type="text" id="titoloClassifica" name="nuovoTitoloClassifica" value="{nuovoTitoloClassifica}" placeholder="Titolo" required>
+            <label for="titolo-classifica">Titolo Classifica (*):</label>
+            <input type="text" id="titolo-classifica" name="nuovoTitoloClassifica" value="{nuovoTitoloClassifica}" placeholder="Titolo" required>
+            <div id="titolo-error" class="error"></div>
             <label for="tipoEvento">Tipo Evento (*):</label>
             <select id="tipoEvento" name="nuovoTipoEvento" required>
                         <option value=""{selezioneDefault} disabled>Scegli il tipo evento</option>

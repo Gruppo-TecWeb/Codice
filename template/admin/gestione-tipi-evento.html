@@ -8,12 +8,12 @@
             </ul>
             {/messaggiForm}
             
-            <form method="post" action="gestione-tipi-evento.php" id="tipi-evento-form">
+            <form method="post" action="gestione-tipi-evento.php" id="form-tipo-evento">
                 <fieldset>
                     <legend>{legend}</legend>
                     <p>I campi contrassegnati con (*) sono obbligatori.</p>
-                    <label for="titolo">Titolo (*):</label>
-                    <input type="text" id="titolo" name="nuovoTitolo" value="{nuovoTitolo}" placeholder="Titolo" required>
+                    <label for="titolo-tipo-evento">Titolo (*):</label>
+                    <input type="text" id="titolo-tipo-evento" name="nuovoTitolo" value="{nuovoTitolo}" placeholder="Titolo" required>
                     <div id="titolo-error" class="error"></div>
                     <label for="descrizione">Descrizione</label>
                     <textarea id="descrizione" name="nuovaDescrizione" placeholder="Descrizione" rows="8" cols="50">{nuovaDescrizione}</textarea>

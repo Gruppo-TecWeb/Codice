@@ -363,63 +363,377 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-/*
- * GESTIONE TIPI EVENTO
- */
-
-// funzione che controlla se il titolo inserito è già presente nel database
+// funzione che controlla i dati nei form
 document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('tipi-evento-form');
-    const titoloInput = document.getElementById('titolo');
-    const titoloError = document.getElementById('titolo-error');
-    let isValid = true;
+    const formProfilo = document.getElementById('form-profilo');
+    const formEvento = document.getElementById('form-evento');
+    const formClassifica = document.getElementById('form-classifica');
+    const formTipoEvento = document.getElementById('form-tipo-evento');
+    const formRapper = document.getElementById('form-rapper');
+    const formAmministratore = document.getElementById('form-amministratore');
 
-    titoloInput.addEventListener('input', function() {
-        validateTitolo();
-    });
-
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
-        validateTitolo().then(valid => {
-            if (valid) {
-                form.submit();
-            }
+    // Funzioni di validazione generiche
+    function validateField(inputElement, errorElement, validationFn) {
+        inputElement.addEventListener('input', function() {
+            validationFn();
         });
-    });
-
-    function validateTitolo() {
-        const titolo = titoloInput.value.trim();
-        if (titolo === "") {
-            titoloError.textContent = "Il titolo è obbligatorio.";
-            isValid = false;
-        } else {
-            titoloError.textContent = "";
-            checkTitoloUnico(titolo);
-        }
     }
 
-    function checkTitoloUnico(titolo) {
-        fetch('../utilities/verifica-titolo.php', {
+    function checkUniqueField(tipo, value) {
+        return fetch('../utilities/verifica-dati-form.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ titolo: titolo })
+            body: JSON.stringify({ tipo: tipo, [tipo]: value })
         })
         .then(response => response.json())
-        .then(data => {
-            if (data.exists) {
-                titoloError.textContent = "Il titolo esiste già nel database.";
-                isValid = false;
-            } else {
-                titoloError.textContent = "";
-                isValid = true;
-            }
-        })
         .catch(error => {
             console.error('Errore:', error);
-            titoloError.textContent = "Si è verificato un errore. Riprova.";
-            isValid = false;
+            return { error: 'Si è verificato un errore.' };
+        });
+    }
+
+    // Validazione per il form profilo
+    if (formProfilo) {
+        const emailInput = document.getElementById('email-profilo');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('conferma-password');
+        const emailError = document.getElementById('email-error');
+        const passwordError = document.getElementById('password-error');
+        
+        // Validazione dell'email durante la digitazione
+        emailInput.addEventListener('input', function() {
+            validateField(emailInput, emailError, validateEmail);
+        });
+        
+        // Validazione dell'email quando si perde il focus dal campo email
+        emailInput.addEventListener('blur', validateEmail);
+
+        // Controllo password e conferma password quando si perde il focus dal campo password o conferma
+        passwordInput.addEventListener('blur', function() {
+            if (confirmPasswordInput.value.trim() !== "") {
+                validatePasswords();
+            }
+        });
+        confirmPasswordInput.addEventListener('blur', validatePasswords);
+
+        function validateEmail() {
+            return new Promise((resolve, reject) => {
+                const email = emailInput.value.trim();
+                // Espressione regolare per la validazione dell'email
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (email === "") {
+                    emailError.textContent = "Email obbligatoria.";
+                    resolve(false);
+                } else if (!emailRegex.test(email)) {
+                    emailError.textContent = "Email non valida.";
+                    resolve(false);
+                } else {
+                    checkUniqueField('email-profilo', email)
+                        .then(data => {
+                            if (data.exists) {
+                                emailError.textContent = "Email già registrata.";
+                                resolve(false);
+                            } else {
+                                emailError.textContent = "";
+                                resolve(true);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Errore:', error);
+                            emailError.textContent = "Si è verificato un errore. Riprova.";
+                            resolve(false);
+                        });
+                }
+            });
+        }
+    
+        function validatePasswords() {
+            const password = passwordInput.value.trim();
+            const confirmPassword = confirmPasswordInput.value.trim();
+            if (password !== "" && confirmPassword !== "" && password !== confirmPassword) {
+                passwordError.textContent = "Le password non coincidono.";
+                return false;
+            } else {
+                passwordError.textContent = "";
+                return true;
+            }
+        }
+
+        formProfilo.addEventListener('submit', async function(event) {
+            event.preventDefault(); // Blocca l'invio del modulo inizialmente
+
+            const isEmailValid = await validateEmail();
+            const arePasswordsValid = validatePasswords();
+            
+            if (isEmailValid && arePasswordsValid) {
+                const confermaInput = document.createElement('input');
+                confermaInput.type = 'hidden';
+                confermaInput.name = 'conferma';
+                confermaInput.value = 'true';
+                formProfilo.appendChild(confermaInput);
+
+                formProfilo.submit();
+            }
+        });
+    }
+
+    // Validazione per il form eventi
+    if (formEvento) {
+        const locandinaInput = document.getElementById('locandina');
+        const locandinaError = document.getElementById('locandina-error');
+
+        locandinaInput.addEventListener('change', function(event) {
+            const file = locandinaInput.files[0];
+    
+            // Se non è stato selezionato alcun file, non eseguire la validazione
+            if (!file) {
+                locandinaError.textContent = "";
+                return;
+            }
+    
+            // Verifica se il file è un'immagine
+            if (!file.type.startsWith('image/')) {
+                locandinaError.textContent = "Il file deve essere un'immagine.";
+                locandinaInput.value = ""; // Resetta il valore dell'input per consentire all'utente di selezionare un nuovo file
+                return;
+            }
+    
+            // Verifica se il file supera i 10 MB
+            const maxSize = 10 * 1024 * 1024; // 10 MB in byte
+            if (file.size > maxSize) {
+                locandinaError.textContent = "Il file non può superare i 10 MB.";
+                locandinaInput.value = ""; // Resetta il valore dell'input per consentire all'utente di selezionare un nuovo file
+                return;
+            }
+    
+            // Se tutti i controlli passano, rimuovi eventuali messaggi di errore
+            locandinaError.textContent = "";
+        });
+    
+        formEvento.addEventListener('submit', function(event) {
+            const file = locandinaInput.files[0];
+    
+            // Se non è stato selezionato alcun file, non bloccare l'invio del modulo
+            if (!file) {
+                return;
+            }
+    
+            // Se ci sono errori nella validazione del file, blocca l'invio del modulo
+            if (locandinaError.textContent !== "") {
+                event.preventDefault();
+            }
+        });
+    }
+
+    // Validazione per il form classifiche
+    if (formClassifica) {
+        const titoloClassificaInput = document.getElementById('titolo-classifica');
+        const titoloClassificaError = document.getElementById('titolo-error');
+        
+        // Validazione del titolo durante la digitazione
+        titoloClassificaInput.addEventListener('input', function() {
+            validateField(titoloClassificaInput, titoloClassificaError, validateTitolo);
+        });
+
+        // controlla che il titolo sia stato inserito e sia unico
+        function validateTitolo() {
+            return new Promise((resolve, reject) => {
+                const titolo = titoloClassificaInput.value.trim();
+                if (titolo === "") {
+                    titoloClassificaError.textContent = "Titolo obbligatorio.";
+                    resolve(false);
+                } else {
+                    checkUniqueField('titolo-classifica', titolo)
+                        .then(data => {
+                            if (data.exists) {
+                                titoloClassificaError.textContent = "Esiste già una classifica con questo titolo.";
+                                resolve(false);
+                            } else {
+                                titoloClassificaError.textContent = "";
+                                resolve(true);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Errore:', error);
+                            titoloClassificaError.textContent = "Si è verificato un errore. Riprova.";
+                            resolve(false);
+                        });
+                }
+            });
+        }
+
+        formClassifica.addEventListener('submit', async function(event) {
+            event.preventDefault(); // Blocca l'invio del modulo inizialmente
+
+            const isTitoloValid = await validateTitolo();
+            
+            if (isTitoloValid) {
+                const confermaInput = document.createElement('input');
+                confermaInput.type = 'hidden';
+                confermaInput.name = 'conferma';
+                confermaInput.value = 'true';
+                formClassifica.appendChild(confermaInput);
+
+                formClassifica.submit();
+            }
+        });
+    }
+
+    // Validazione per il form tipi evento
+    if (formTipoEvento) {
+        const titoloTipoEventoInput = document.getElementById('titolo-tipo-evento');
+        const titoloTipoEventoError = document.getElementById('titolo-error');
+
+        // Validazione del titolo durante la digitazione
+        titoloTipoEventoInput.addEventListener('input', function() {
+            validateField(titoloTipoEventoInput, titoloTipoEventoError, validateTitolo);
+        });
+
+        // controlla che il titolo sia stato inserito e sia unico
+        function validateTitolo() {
+            return new Promise((resolve, reject) => {
+                const titolo = titoloTipoEventoInput.value.trim();
+                if (titolo === "") {
+                    titoloTipoEventoError.textContent = "Titolo obbligatorio.";
+                    resolve(false);
+                } else {
+                    checkUniqueField('titolo-tipo-evento', titolo)
+                        .then(data => {
+                            if (data.exists) {
+                                titoloTipoEventoError.textContent = "Esiste già un tipo evento con questo titolo.";
+                                resolve(false);
+                            } else {
+                                titoloTipoEventoError.textContent = "";
+                                resolve(true);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Errore:', error);
+                            titoloTipoEventoError.textContent = "Si è verificato un errore. Riprova.";
+                            resolve(false);
+                        });
+                }
+            });
+        }
+
+        formTipoEvento.addEventListener('submit', async function(event) {
+            event.preventDefault(); // Blocca l'invio del modulo inizialmente
+
+            const isTitoloValid = await validateTitolo();
+            
+            if (isTitoloValid) {
+                const confermaInput = document.createElement('input');
+                confermaInput.type = 'hidden';
+                confermaInput.name = 'conferma';
+                confermaInput.value = 'true';
+                formTipoEvento.appendChild(confermaInput);
+
+                formTipoEvento.submit();
+            }
+        });
+    }
+
+    // Validazione per il form rappers e amministratori
+    if (formRapper || formAmministratore) {
+        const emailInput = document.getElementById('email');
+        const usernameInput = document.getElementById('username');
+        const emailError = document.getElementById('email-error');
+        const usernameError = document.getElementById('username-error');
+
+        const form = formRapper ? formRapper : formAmministratore;
+
+        // Validazione dell'email durante la digitazione
+        emailInput.addEventListener('input', function() {
+            validateField(emailInput, emailError, validateEmail);
+        });
+
+        // Validazione dell'email quando si perde il focus dal campo email
+        emailInput.addEventListener('blur', validateEmail);
+
+        // Validazione dell'username durante la digitazione
+        usernameInput.addEventListener('input', function() {
+            validateField(usernameInput, usernameError, validateUsername);
+        });
+
+        // Validazione dell'username quando si perde il focus dal campo username
+        usernameInput.addEventListener('blur', validateUsername);
+
+        // controlla che l'email sia stata inserita e sia unica
+        function validateEmail() {
+            return new Promise((resolve, reject) => {
+                const email = emailInput.value.trim();
+                // Espressione regolare per la validazione dell'email
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (email === "") {
+                    emailError.textContent = "Email obbligatoria.";
+                    resolve(false);
+                } else if (!emailRegex.test(email)) {
+                    emailError.textContent = "Email non valida.";
+                    resolve(false);
+                } else {
+                    checkUniqueField('email', email)
+                        .then(data => {
+                            if (data.exists) {
+                                emailError.textContent = "Email già registrata.";
+                                resolve(false);
+                            } else {
+                                emailError.textContent = "";
+                                resolve(true);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Errore:', error);
+                            emailError.textContent = "Si è verificato un errore. Riprova.";
+                            resolve(false);
+                        });
+                }
+            });
+        }
+
+        // controlla che l'username sia stato inserito e sia unico
+        function validateUsername() {
+            return new Promise((resolve, reject) => {
+                const username = usernameInput.value.trim();
+                if (username === "") {
+                    usernameError.textContent = "Username obbligatorio.";
+                    resolve(false);
+                } else {
+                    checkUniqueField('username', username)
+                        .then(data => {
+                            if (data.exists) {
+                                usernameError.textContent = "Username già utilizzato.";
+                                resolve(false);
+                            } else {
+                                usernameError.textContent = "";
+                                resolve(true);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Errore:', error);
+                            usernameError.textContent = "Si è verificato un errore. Riprova.";
+                            resolve(false);
+                        });
+                }
+            });
+        }
+        
+        form.addEventListener('submit', async function(event) {
+            event.preventDefault(); // Blocca l'invio del modulo inizialmente
+
+            const isEmailValid = await validateEmail();
+            const isUsernameValid = await validateUsername();
+            
+            if (isEmailValid && isUsernameValid) {
+                const confermaInput = document.createElement('input');
+                confermaInput.type = 'hidden';
+                confermaInput.name = 'conferma';
+                confermaInput.value = 'true';
+                form.appendChild(confermaInput);
+
+                form.submit();
+            }
         });
     }
 });
