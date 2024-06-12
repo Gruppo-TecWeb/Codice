@@ -30,7 +30,7 @@ $connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
     $messaggiForm = '';
-    $righeTabella = '';
+    $elementiLista = '';
     $messaggioForm = get_content_between_markers($content, 'messaggioForm');
 
     if (isset($_GET['errore'])) {
@@ -50,17 +50,17 @@ if ($connectionOk) {
     }
 
     $amministratori = $connection->get_utenti_admin();
-    $rigaTabella = get_content_between_markers($content, 'rigaTabella');
+    $elementoLista = get_content_between_markers($content, 'elementoLista');
 
     foreach ($amministratori as $amministratore) {
-        $righeTabella .= multi_replace($rigaTabella, [
+        $elementiLista .= multi_replace($elementoLista, [
             '{username}' => $amministratore['Username'],
             '{email}' => $amministratore['Email']
         ]);
     }
 
     $content = replace_content_between_markers($content, [
-        'rigaTabella' => $righeTabella,
+        'elementoLista' => $elementiLista,
         'messaggiForm' => $messaggiForm
     ]);
 
