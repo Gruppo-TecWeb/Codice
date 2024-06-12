@@ -1,26 +1,36 @@
 <div id="profilo" class="limitedWidth">
+    <form method="post" action="gestione-profilo.php" enctype="multipart/form-data">
+        <div id="titolo-button">
             <h3>Modifica Profilo</h3>
-
-            {messaggiForm}<ul>
-                {messaggioForm}<li>{messaggio}</li>{/messaggioForm}
+            <div id="titolo-buttons">
+                <button type="submit" name="conferma" value="true">Conferma</button>
+                <button type="button" value="annulla" onClick="tornaIndietro()">Annulla</button>
+            </div>
+        </div>
+        <div id="messaggi">
+            {messaggiForm}
+            <ul id="messaggi-form">
+                {messaggioForm}
+                <li>{messaggio}</li>{/messaggioForm}
             </ul>
             {/messaggiForm}
-
-            <form method="post" action="gestione-profilo.php" enctype="multipart/form-data">
-                <fieldset>
-                    <legend>Utente: {username}</legend>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" value="{email}" required>
-                    <label for="password">Nuova Password:</label>
-                    <input type="password" id="password" name="password" placeholder="password">
-                    <label for="confermaPassword">Conferma Nuova Password:</label>
-                    <input type="password" id="confermaPassword" name="confermaPassword" placeholder="conferma password">
-                    <label for="immagineProfilo">Immagine Profilo:</label>
-                    <input type="file" id="immagineProfilo" name="immagineProfilo" accept="image/*">
-                    <input type="checkbox" id="eliminaImmagineProfilo" name="eliminaImmagineProfilo">
-                    <label for="eliminaImmagineProfilo">Elimina immagine del profilo</label>
-                    <button type="submit" name="conferma" value="true">Salva Modifiche</button>
-                    <button type="button" value="annulla" onClick="tornaIndietro()">Annulla</button>
-                </fieldset>
-            </form>
         </div>
+        <div class="elementi-presenti aggiunta-modifica">
+            <fieldset>
+                <legend>Utente: {username}</legend>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="{email}" required>
+                <label for="password">Nuova Password:</label>
+                <input type="password" id="password" name="password" placeholder="password">
+                <label for="confermaPassword">Conferma Nuova Password:</label>
+                <input type="password" id="confermaPassword" name="confermaPassword" placeholder="conferma password">
+                <label for="immagineProfilo">Immagine Profilo:</label>
+                <input type="file" id="immagineProfilo" name="immagineProfilo" accept="image/*">
+                <label for="eliminaImmagineProfilo">
+                    <input type="checkbox" id="eliminaImmagineProfilo" name="eliminaImmagineProfilo">
+                    Elimina l'immagine del profilo
+                </label>
+            </fieldset>
+        </div>
+    </form>
+</div>

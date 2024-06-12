@@ -1381,6 +1381,10 @@ table tbody tr:nth-child(odd) {
     background-color: var(--colorSecondary);
 }
 
+table tbody tr:nth-child(even) {
+    background-color: var(--colorBackground);
+}
+
 table tbody tr:hover {
     background-color: var(--colorLinkHoverBackground);
 }
@@ -1545,6 +1549,11 @@ div#admin-window {
     font-size: 1em;
 }
 
+.adminPage #titolo-button  div#titolo-buttons {
+    display: flex;
+    gap: 0.5em;
+}
+
 .adminPage ol {
     list-style: none;
     padding: 0;
@@ -1670,6 +1679,35 @@ div#admin-window {
     padding: 0.2em 0.5em;
 }
 
+.adminPage div.aggiunta-modifica label {
+    display: block;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+}
+
+.adminPage div.aggiunta-modifica legend {
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+.adminPage div.aggiunta-modifica input[type="text"],
+.adminPage div.aggiunta-modifica input[type="email"],
+.adminPage div.aggiunta-modifica textarea,
+.adminPage div.aggiunta-modifica select,
+.adminPage div.aggiunta-modifica input[type="date"],
+.adminPage div.aggiunta-modifica input[type="time"],
+.adminPage div.aggiunta-modifica input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.adminPage div.aggiunta-modifica input[type="checkbox"] {
+    margin-right: 10px;
+}
 
 /*
  * PAGINE ERROR DOCUMENT 

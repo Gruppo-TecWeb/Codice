@@ -1,28 +1,31 @@
 <div id="rappers" class="limitedWidth">
+    <form method="post" action="gestione-rappers.php">
+        <div id="titolo-button">
             <h3>Gestione Rappers</h3>
-
-            <!-- Form per aggiungere o modificare rapper -->
-
+            <div id="titolo-buttons">
+                <button type="submit" name="conferma" value="true">Conferma</button>
+                {buttonElimina}<button type="submit" name="elimina" value="true">Elimina</button>
+                {/buttonElimina}
+                <button type="button" value="annulla" onClick="tornaIndietro()">Annulla</button>
+            </div>
+        </div>
+        <div id="messaggi">
             {messaggiForm}<ul>
                 {messaggioForm}<li>{messaggio}</li>{/messaggioForm}
             </ul>
             {/messaggiForm}
-            
-            <form method="post" action="gestione-rappers.php">
-                <fieldset>
-                    <legend>{legend}</legend>
-                    <label for="username" lang="en">Username:</label>
-                    <input type="text" id="username" name="nuovoUsername" value="{nuovoUsername}" placeholder="Username" required>
-                    <label for="email" lang="en">E-Mail:</label>
-                    <input type="email" id="email" name="nuovaEmail" value="{nuovaEmail}" placeholder="E-Mail" required>
-                    <input type="hidden" name="username" value="{username}">
-                    <input type="hidden" name="email" value="{email}">
-                    <input type="hidden" name="azione" value="{valueAzione}">
-                
-                    <button type="submit" name="conferma" value="true">Conferma</button>
-                    {buttonElimina}<button type="submit" name="elimina" value="true">Elimina Rapper</button>
-                    {/buttonElimina}
-                    <button type="button" value="annulla" onClick="tornaIndietro()">Annulla</button>
-                </fieldset>
-            </form>
         </div>
+        <div class="elementi-presenti aggiunta-modifica">
+            <fieldset>
+                <legend>{legend}</legend>
+                <label for="username" lang="en">Username:</label>
+                <input type="text" id="username" name="nuovoUsername" value="{nuovoUsername}" placeholder="Username" required>
+                <label for="email" lang="en">E-Mail:</label>
+                <input type="email" id="email" name="nuovaEmail" value="{nuovaEmail}" placeholder="E-Mail" required>
+                <input type="hidden" name="username" value="{username}">
+                <input type="hidden" name="email" value="{email}">
+                <input type="hidden" name="azione" value="{valueAzione}">
+            </fieldset>
+        </div>
+    </form>
+</div>
