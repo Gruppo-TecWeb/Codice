@@ -242,13 +242,6 @@ button:focus,
     color: var(--colorAccent);
 }
 
-/* nasconde il testo che rende univoci i button modifica/punteggi/elimina dell'area admin */
-span.screen-reader-only {
-    color: var(--colorAccent);
-    text-indent: -999em;
-    font-size: 0.0001em;
-}
-
 /* .toggleIconButton {} */
 
 
@@ -1470,8 +1463,15 @@ div#introduzione {
  * AREA DI AMMINISTRAZIONE 
  */
 
-.adminPage {
-    --colorBackground: #191919;
+/* nasconde il testo che rende univoci i button modifica/punteggi/elimina dell'area admin */
+span.screen-reader-only {
+    color: var(--colorAccent);
+    text-indent: -999em;
+    font-size: 0.0001em;
+}
+
+.adminPage {/*
+    --colorBackground: #191919;*/
     padding-top: calc(2 * 0.6em + 2 * 3px + 1em + 1.5em + 1em);
 }
 
@@ -1534,8 +1534,57 @@ div#admin-window {
     padding: 0.6em 1em;
     border: none;
     color: var(--colorLinkVisited);
-    border-left: 1px solid var(--colorAccent);
-    border-radius: 3px;
+}
+
+.adminPage div#titolo-button-aggiungi {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+}
+
+.adminPage button#aggiungi {
+    padding: 1em;
+    font-size: 1em;
+}
+
+.adminPage ol {
+    list-style: none;
+    padding: 0;
+}
+
+.adminPage ol li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.6em 1em;
+    border-bottom: 1px solid var(--colorAccent);
+}
+
+.adminPage ol li:last-child {
+    border-bottom: none;
+}
+
+.adminPage span.label-element {
+    display: flex;
+    align-items: center;
+}
+
+.adminPage span.label-element span.element-title {
+    font-weight: bold;
+    margin-right: 1em;
+}
+
+.adminPage div.elementi-presenti {
+    padding: 1.25em;
+    background-color: var(--colorSecondary);
+    border-radius: 0.5em;
+    box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.1);
+    margin-bottom: 0.9375em;
+}
+
+.adminPage h3 {
+    font-size: 2em;
+    margin-block: 0.75em;
 }
 
 #eventi img {
