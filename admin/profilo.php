@@ -32,7 +32,8 @@ $connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
     $messaggi = '';
-    $messaggio = get_content_between_markers($content, 'messaggio');
+    $messaggiHTML = get_content_between_markers($content, 'messaggi');
+    $messaggio = get_content_between_markers($messaggiHTML, 'messaggio');
     if (isset($_GET['errore'])) {
         $messaggi .= multi_replace($messaggio, ['{testo}' => "Errore imprevisto"]);
     }
@@ -44,12 +45,14 @@ if ($connectionOk) {
         exit;
     }
 
+    $messaggiHTML = replace_content_between_markers($messaggiHTML, ['messaggio' => $messaggi]);
+
     $content = replace_content_between_markers(multi_replace($content, [
         '{username}' => $utente["Username"],
         '{email}' => $utente["Email"],
         '{immagineProfilo}' => $utente["ImmagineProfilo"] == '' ? $immagineProfiloDefault : $utente["ImmagineProfilo"]
     ]), [
-        'messaggi' => $messaggi
+        'messaggi' => $messaggiHTML
     ]);
 } else {
     header("location: errore500.php");
