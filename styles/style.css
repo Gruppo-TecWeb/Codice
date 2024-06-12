@@ -1470,16 +1470,13 @@ span.screen-reader-only {
     font-size: 0.0001em;
 }
 
-.adminPage {/*
-    --colorBackground: #191919;*/
+.adminPage {
     padding-top: calc(2 * 0.6em + 2 * 3px + 1em + 1.5em + 1em);
 }
 
 .adminPage header {
     height: calc(2 * 0.6em + 2 * 3px + 1em + 1.5em);
     align-items: center;
-    /* background-color: var(--colorSecondary);
-    border: 2px solid var(--colorAccent); */
 }
 
 .adminPage header>a {
@@ -1536,7 +1533,7 @@ div#admin-window {
     color: var(--colorLinkVisited);
 }
 
-.adminPage div#titolo-button-aggiungi {
+.adminPage div#titolo-button {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1585,6 +1582,35 @@ div#admin-window {
 .adminPage h3 {
     font-size: 2em;
     margin-block: 0.75em;
+}
+
+.adminPage div#datiUtente {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+}
+
+.adminPage div#datiUtente img {
+    width: 100%;
+}
+
+.adminPage div#datiUtente dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0 1em;
+    padding: 0.2em 0.5em;
+    box-sizing: border-box;
+    color: var(--colorText);
+    font-size: 1.25em;
+    align-content: center;
+}
+
+.adminPage div#datiUtente dl dt {
+    font-weight: bold;
+}
+
+.adminPage div#datiUtente dl dd, .adminPage div#datiUtente dl dt {
+    padding: 0.2em 0.5em;
 }
 
 #eventi img {
