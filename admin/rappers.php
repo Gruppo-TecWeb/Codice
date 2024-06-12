@@ -30,7 +30,8 @@ $connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
     $messaggiForm = '';
-    $messaggioForm = get_content_between_markers($content, 'messaggioForm');
+    $messaggiFormHTML = get_content_between_markers($content, 'messaggiForm');
+    $messaggioForm = get_content_between_markers($messaggiFormHTML, 'messaggioForm');
     $righeTabella = '';
 
     if (isset($_GET['errore'])) {
@@ -59,9 +60,11 @@ if ($connectionOk) {
         ]);
     }
 
+    $messaggiFormHTML = replace_content_between_markers($messaggiFormHTML, ['messaggioForm' => $messaggiForm]);
+
     $content = replace_content_between_markers($content, [
         'rigaTabella' => $righeTabella,
-        'messaggiForm' => $messaggiForm
+        'messaggiForm' => $messaggiFormHTML
     ]);
 
     $connection->close_DB_connection();
