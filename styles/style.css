@@ -990,13 +990,11 @@ p.eventiMessaggio {
     }
     
     #container_battle h2{
-        background-color: var(--colorSecondary);
+        background-color: var(--colorBackground);
         color: var(--colorAccent);
-
         border-radius: 20px 20px 20px 20px;
         width: max-content;
-        padding: 0.5em;
-        
+        padding: 0.5em;      
     }
     
     #container_iframe {
@@ -1037,6 +1035,7 @@ p.eventiMessaggio {
         display: flex;
         flex-direction: column;
         align-items: center; /* Centra orizzontalmente */
+        margin-bottom: 1.1em;
     }
     
     #lista_battle {
@@ -1082,7 +1081,7 @@ p.eventiMessaggio {
     border-width: 0.2em 0em 0em 0em;
     border-radius: 20px;
     border-color: var(--colorAccent);
-    background-color: var(--colorSecondary);
+    background-color: var(--colorBackground);
     color: var(--colorText);
     width: 100%;
 
