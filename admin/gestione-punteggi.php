@@ -30,7 +30,8 @@ $connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
     $messaggiForm = '';
-    $messaggioForm = get_content_between_markers($content, 'messaggioForm');
+    $messaggiFormHTML = get_content_between_markers($content, 'messaggiForm');
+    $messaggioForm = get_content_between_markers($messaggiFormHTML, 'messaggioForm');
     $righeTabella = '';
     $validIdEvento = isset($_POST['idEvento']) ? validate_input($_POST['idEvento']) : (isset($_GET['idEvento']) ? validate_input($_GET['idEvento']) : '');
     $eventoSelezionato = isset($_POST['idEvento']) || isset($_GET['idEvento']);
@@ -95,8 +96,10 @@ if ($connectionOk) {
         ]);
     }
 
+    $messaggiFormHTML = replace_content_between_markers($messaggiFormHTML, ['messaggioForm' => $messaggiForm]);
+
     $content = replace_content_between_markers($content, [
-        'messaggiForm' => $messaggiForm,
+        'messaggiForm' => $messaggiFormHTML,
         'rigaTabella' => $righeTabella
     ]);
     $content = multi_replace($content, [
