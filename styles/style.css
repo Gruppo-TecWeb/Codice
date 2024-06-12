@@ -1540,7 +1540,7 @@ div#admin-window {
     padding: 1em;
 }
 
-.adminPage button#aggiungi {
+.adminPage #titolo-button button {
     padding: 1em;
     font-size: 1em;
 }
@@ -1584,6 +1584,11 @@ div#admin-window {
     margin-block: 0.75em;
 }
 
+.adminPage h4 {
+    font-size: 1.5em;
+    margin-block: 0.5em;
+}
+
 .adminPage div#datiUtente {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1595,14 +1600,35 @@ div#admin-window {
 }
 
 .adminPage div#datiUtente dl {
+    height: fit-content;
+    width: 100%;
+    position: sticky;
+    top: 4em;
+    padding-block: 2.5em;
     display: grid;
     grid-template-columns: auto 1fr;
-    gap: 0 1em;
-    padding: 0.2em 0.5em;
-    box-sizing: border-box;
-    color: var(--colorText);
-    font-size: 1.25em;
+    gap: 1em 2em;
     align-content: center;
+    align-self: stretch;
+}
+
+.adminPage div#datiUtente dl::before {
+    top: 0;
+    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
+}
+
+.adminPage div#datiUtente dl::before, .adminPage div#datiUtente dl::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    height: 1.5em;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.adminPage div#datiUtente dl::after {
+    bottom: 0;
+    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
 }
 
 .adminPage div#datiUtente dl dt {
@@ -1615,6 +1641,33 @@ div#admin-window {
 
 #eventi img {
     width: 15em;
+}
+
+.adminPage p.dashboard {
+    padding: 1em;
+    margin-bottom: 0.9375em;
+}
+
+.adminPage div.dashboard {
+    padding: 1.25em;
+    background-color: var(--colorSecondary);
+    border-radius: 0.5em;
+    box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.1);
+    margin-bottom: 0.9375em;
+}
+
+.adminPage div.data {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+}
+
+.adminPage span.data-label {
+    font-weight: bold;
+}
+
+.adminPage span.data-value {
+    padding: 0.2em 0.5em;
 }
 
 

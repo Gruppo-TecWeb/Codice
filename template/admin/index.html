@@ -1,11 +1,22 @@
 <div id="adminIndex" class="limitedWidth">
             <h3>Area di amministrazione</h3>
-            <p>In quest'area puoi gestire i contenuti del sito.</p>{dashboardAdmin}
+            <p class="dashboard">In quest'area puoi gestire i contenuti del sito.</p>{dashboardAdmin}
             <div id="dashboard-admin">
-                <div id="prossimo-evento" class="dashboard-admin">
-                    <h4>Prossimo evento</h4>
-                    <div id="evento-box">{prossimoEvento}
-                        <h5>{titoloEvento}</h5>
+                <div id="utenti-attivi" class="dashboard admin">
+                    <h4>Utenti attivi</h4>
+                    <div id="utenti-box" class="data">
+                        <p><span class="data-label">Numero di utenti attivi:</span> <span class="data-value">{numeroUtenti}</span></p>
+                    </div>
+                </div>
+                <div id="prossimo-evento" class="dashboard admin">{prossimoEvento}
+                    <div id="titolo-button">
+                        <h4>Prossimo evento: {titoloEvento}</h4>
+                        <form method="post" action="gestione-eventi.php">
+                            <input type="hidden" name="idEvento" value="{idEvento}">
+                            <button type="submit" name="modifica" value="true">Modifica il prossimo evento</button>
+                        </form>
+                    </div>
+                    <div id="evento-box">
                         <img src="./../assets/media/locandine/{locandina}" alt="">
                         <dl id="evento-info">
                             <dt>Data:</dt>
@@ -19,16 +30,12 @@
                             <dt>Tipo evento:</dt>
                             <dd>{tipoEvento}</dd>
                         </dl>
-                        <form method="post" action="gestione-eventi.php">
-                            <input type="hidden" name="idEvento" value="{idEvento}">
-                            <button type="submit" name="modifica" value="true">Vai alla pagina di modifica</button>
-                        </form>
-                        {/prossimoEvento}{nessunEventoProgrammato}
-                        <p>Non ci sono eventi programmati.</p>
-                        {/nessunEventoProgrammato}
                     </div>
+                    {/prossimoEvento}{nessunEventoProgrammato}
+                    <p class="dashboard">Non ci sono eventi programmati.</p>
+                    {/nessunEventoProgrammato}
                 </div>
-                <div id="eventi-programmati" class="dashboard-admin">
+                <div id="eventi-programmati" class="dashboard admin">
                     <h4>Eventi programmati</h4>
                     <div id="eventi-box">{eventiProgrammati}
                         <ol>{eventoProgrammato}
@@ -36,7 +43,8 @@
                                 <span>{titolo} <time datetime="{data}">{dataVisualizzata}</time></span>
                                 <form method="post" action="gestione-eventi.php">
                                     <input type="hidden" name="idEvento" value="{idEvento}">
-                                    <button type="submit" name="modifica" value="true">Vai alla pagina di modifica</button>
+                                    <button type="submit" name="modifica" value="true">Modifica<span class="screen-reader-only"> l'evento {titolo} del {data}</span></button>
+                                    <button type="submit" name="elimina" value="true">Elimina<span class="screen-reader-only"> l'evento {titolo} del {data}</span></button>
                                 </form>
                             </li>
                             {/eventoProgrammato}
@@ -44,7 +52,7 @@
                         {/eventiProgrammati}
                     </div>
                 </div>
-                <div id="punteggi-mancanti" class="dashboard-admin">
+                <div id="punteggi-mancanti" class="dashboard admin">
                     <h4>Eventi con punteggi mancanti</h4>
                     <div id="punteggi-box">{punteggiMancanti}
                         <ol>{punteggioMancante}
@@ -52,7 +60,7 @@
                                 <span>{titolo} <time datetime="{data}">{dataVisualizzata}</time></span>
                                 <form method="post" action="gestione-eventi.php">
                                     <input type="hidden" name="idEvento" value="{idEvento}">
-                                    <button type="submit" name="punteggi" value="true">Vai alla pagina di inserimento punteggi</button>
+                                    <button type="submit" name="punteggi" value="true">Inserisci i punteggi<span class="screen-reader-only"> per l'evento {titolo} del {data}</span></button>
                                 </form>
                             </li>
                             {/punteggioMancante}
@@ -60,12 +68,6 @@
                         {/punteggiMancanti}{nessunPunteggioMancante}
                         <p>Non ci sono eventi con punteggi mancanti.</p>
                         {/nessunPunteggioMancante}
-                    </div>
-                </div>
-                <div id="utenti-attivi" class="dashboard-admin">
-                    <h4>Utenti attivi</h4>
-                    <div id="utenti-box">
-                        <p>Numero di utenti attivi: {numeroUtenti}</p>
                     </div>
                 </div>
             </div>
