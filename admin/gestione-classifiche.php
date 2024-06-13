@@ -61,7 +61,8 @@ if ($connectionOk) {
     }
 
     $messaggiForm = '';
-    $messaggioForm = get_content_between_markers($content, 'messaggioForm');
+    $messaggiFormHTML = get_content_between_markers($content, 'messaggiForm');
+    $messaggioForm = get_content_between_markers($messaggiFormHTML, 'messaggioForm');
     $buttonElimina = get_content_between_markers($content, 'buttonElimina');
     $listaTipoEvento = '';
 
@@ -180,6 +181,7 @@ if ($connectionOk) {
             $listaEventi .= multi_replace($elementoLista, [
                 '{idEvento}' => $evento['Id'],
                 '{titoloEvento}' => $evento['Titolo'],
+                '{dataEvento}' => date_format(date_create($evento['Data']), 'Y-m-d'),
                 '{dataVisualizzataEvento}' => date_format(date_create($evento['Data']), 'd/m/y')
             ]);
         }
@@ -209,6 +211,8 @@ if ($connectionOk) {
         ]);
     }
 
+    $messaggiFormHTML = $messaggiForm == '' ? '' : replace_content_between_markers($messaggiFormHTML, ['messaggioForm' => $messaggiForm]);
+
     $content = multi_replace($content, [
         '{legend}' => $legend,
         '{selezioneDefault}' => $selezioneDefault,
@@ -221,7 +225,7 @@ if ($connectionOk) {
     ]);
     $content = replace_content_between_markers($content, [
         'listaTipoEvento' => $listaTipoEvento,
-        'messaggiForm' => $messaggiForm,
+        'messaggiForm' => $messaggiFormHTML,
         'buttonElimina' => $buttonElimina,
         'listaEventi' => $eventiHTML,
         'nessunEvento' => $nessunEvento

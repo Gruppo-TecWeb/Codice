@@ -1,43 +1,33 @@
 <div id="rappers" class="limitedWidth">
-            <h3>Gestione Rappers</h3>
-            <form method="post" action="gestione-rappers.php">
-                <button type="submit" name="aggiungi" value="true">Aggiungi nuovo Rapper</button>
-            </form>
+    <div id="titolo-button">
+        <h3>Gestione Rappers</h3>
+        <form method="post" action="gestione-rappers.php">
+            <button id="aggiungi" type="submit" name="aggiungi" value="true">Aggiungi nuovo Rapper</button>
+        </form>
+    </div>
+    {messaggiForm}
+    <div id="messaggi">
+        <ul id="messaggi-form">
+            {messaggioForm}
+            <li>{messaggio}</li>{/messaggioForm}
+        </ul>
+    </div>
+    {/messaggiForm}
 
-            {messaggiForm}<ul>
-                {messaggioForm}<li>{messaggio}</li>{/messaggioForm}
-            </ul>
-            {/messaggiForm}
-
-            <!-- Tabella che elenca i rappers esistenti con possibilità di modificarli o eliminarli. -->
-            <span id="sumTabella" class="navigationHelp">Tabella che elenca i <span lang="en">rappers</span>
-                esistenti con l'indicazione del nome d'arte del <span lang="en">freestyler</span> e l'indirizzo
-                <span lang="en">E-Mail</span>. Per ciascuna riga sono presenti anche dei bottoni 
-                che permettono di modificare quel <span lang="en">rapper</span> o di eliminarlo.</span>
-            <table id="tabella-rappers" aria-describedby="sumTabella">
-                <caption><span lang="en">Rappers</span> presenti</caption>
-                <thead>
-                    <tr>
-                        <th scope="col">Nome d'arte</th>
-                        <th scope="col" lang="en">E-Mail</th>
-                        <th scope="col">Azioni</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {rigaTabella}
-                    <tr>
-                        <td data-title="Nome d'arte">{username}</td>
-                        <td data-title="E-Mail">{email}</td>
-                        <td data-title="Azioni">
-                            <form method="post" action="gestione-rappers.php">
-                                <input type="hidden" name="username" value="{username}">
-                                <input type="hidden" name="email" value="{email}">
-                                <button type="submit" name="modifica" value="true">Modifica<span class="screen-reader-only"> il <span lang="en">rapper</span> {username}</span></button>
-                                <button type="submit" name="elimina" value="true">Elimina<span class="screen-reader-only"> il <span lang="en">rapper</span> {username}</span></button>
-                            </form>
-                        </td>
-                    </tr>
-                    {/rigaTabella}
-                </tbody>
-            </table>
-        </div>
+    <!-- Lista dei rappers esistenti con possibilità di modificarli o eliminarli. -->
+    <div class="elementi-presenti">
+        <ol id="lista-rappers-gestione">
+            {elementoLista}
+            <li>
+                <span class="label-element"><span class="element-title">{username}</span> ({email})</span>
+                <form method="post" action="gestione-rappers.php">
+                    <input type="hidden" name="username" value="{username}">
+                    <input type="hidden" name="email" value="{email}">
+                    <button type="submit" name="modifica" value="true">Modifica<span class="screen-reader-only"> il <span lang="en">rapper</span> {username}</span></button>
+                    <button type="submit" name="elimina" value="true">Elimina<span class="screen-reader-only"> il <span lang="en">rapper</span> {username}</span></button>
+                </form>
+            </li>
+            {/elementoLista}
+        </ol>
+    </div>
+</div>

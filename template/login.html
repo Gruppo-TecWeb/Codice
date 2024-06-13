@@ -1,27 +1,27 @@
-<div class="limitedWidth">
-            <h2>Accedi all'area riservata.</h2>
-            <form method="post" action="login.php">
-                <div id="messaggiForm">
-                    {messaggiForm}<ul>
-                        {messaggioForm}<li>{messaggio}</li>{/messaggioForm}
-                    </ul>
-                    {/messaggiForm}
-                </div>
-                <fieldset>
-                    <legend>Inserisci i dati per il <span lang="en">login</span>.</legend>
-                    <p>I campi contrassegnati con (*) sono obbligatori.</p>
-                    <div id="usernameField">
-                        <label for="username" lang="en">Username (*): </label>
-                        <input type="text" id="username" name="username" placeholder="Username" value="{valoreUsername}" required aria-required="true">
-                    </div>
-                    <div id="passwordField">
-                        <label for="password" lang="en">Password (*): </label>
-                        <input type="password" id="password" name="password" placeholder="Password" required aria-required="true">
-                    </div>
-                    <div id="buttonsField">
-                        <input type="submit" id="submit" name="submit" value="Login">
-                        <input type="reset" id="reset" name="reset" value="Annulla">
-                    </div>
-                </fieldset>
-            </form>
+<div class="limitedWidth adminPage">
+    <form method="post" action="login.php">
+        <h3 id="titolo">Accedi all'area riservata.</h3>
+        {messaggiForm}
+        <div id="messaggi">
+            <ul id="messaggi-form">
+                {messaggioForm}
+                <li>{messaggio}</li>{/messaggioForm}
+            </ul>
         </div>
+        {/messaggiForm}
+        <div id="input" class="elementi-presenti aggiunta-modifica">
+            <fieldset>
+                <legend>Inserisci i dati per il <span lang="en">login</span>.</legend>
+                <p>I campi contrassegnati con (*) sono obbligatori.</p>
+                <label for="username" lang="en">Username (*): </label>
+                <input type="text" id="username" name="username" placeholder="Username" value="{valoreUsername}" required aria-required="true">
+                <label for="password" lang="en">Password (*): </label>
+                <input type="password" id="password" name="password" placeholder="Password" required aria-required="true">
+            </fieldset>
+        </div>
+        <div id="buttons">
+            <button type="submit" id="submit" name="submit" value="Login">Accedi</button>
+            <button type="reset" id="reset" name="reset" value="Annulla">Annulla</button>
+        </div>
+    </form>
+</div>

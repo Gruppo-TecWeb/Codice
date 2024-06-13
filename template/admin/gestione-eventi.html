@@ -1,47 +1,54 @@
 <div id="eventi" class="limitedWidth">
-            <h3>Gestione Eventi</h3>
-
-            <!-- Form per aggiungere o modificare eventi -->
-
-            {messaggiForm}<ul>
-                {messaggioForm}<li>{messaggio}</li>{/messaggioForm}
+    <form method="post" action="gestione-eventi.php" enctype="multipart/form-data" class="aggiunta-modifica">
+        <h3 id="titolo">Gestione Eventi</h3>
+        {messaggiForm}
+        <div id="messaggi">
+            <ul id="messaggi-form">
+                {messaggioForm}
+                <li>{messaggio}</li>{/messaggioForm}
             </ul>
-            {/messaggiForm}
-            
-            <form method="post" action="gestione-eventi.php" enctype="multipart/form-data" id="form-evento">
-                <fieldset>
-                    <legend>{legend}</legend>
-                    <p>I campi contrassegnati con (*) sono obbligatori.</p>
-                    <label for="tipoEvento">Tipo Evento (*):</label>
-                    <select id="tipoEvento" name="nuovoTipoEvento" required>
-                        <option value=""{selezioneDefault} disabled>Scegli il tipo evento</option>
-                        <option value=""{nessunaSelezione}>Nessun tipo evento</option>
-                        {listaTipoEvento}<option value="{tipoEvento}"{selezioneTipoEvento}>{tipoEvento}</option>
-                        {/listaTipoEvento}
-                    </select>
-                    <label for="titolo-evento">Titolo (*):</label>
-                    <input type="text" id="titolo-evento" name="nuovoTitolo" value="{nuovoTitolo}" placeholder="Titolo" required>
-                    <label for="data">Data (*):</label>
-                    <input type="date" id="data" name="nuovaData" value="{nuovaData}" required>
-                    <label for="ora">Ora (*):</label>
-                    <input type="time" id="ora" name="nuovaOra" value="{nuovaOra}" required>
-                    <label for="luogo-evento">Luogo (*):</label>
-                    <input type="text" id="luogo-evento" name="nuovoLuogo" value="{nuovoLuogo}" placeholder="Luogo" required>
-                    <label for="descrizione">Descrizione</label>
-                    <textarea id="descrizione" name="nuovaDescrizione" placeholder="Descrizione" rows="8" cols="50">{nuovaDescrizione}</textarea>
-                    <label for="locandina">Locandina:</label>
-                    <input type="file" id="locandina" name="nuovaLocandina" accept="image/*">
-                    {imgLocandina}<img src="{locandina}" alt="Locandina">{/imgLocandina}
-                    <div id="locandina-error" class="error"></div>
-                    <input type="hidden" name="locandina" value="{locandina}">
-                    <input type="hidden" name="idEvento" value="{idEvento}">
-                    <input type="hidden" name="azione" value="{valueAzione}">
-                
-                    <button type="submit" name="conferma" value="true">Conferma</button>{eliminaLocandina}
-                    <button type="submit" name="eliminaLocandina" value="true">Elimina Locandina</button>{/eliminaLocandina}
-                    {buttonElimina}<button type="submit" name="elimina" value="true">Elimina Evento</button>
-                    {/buttonElimina}
-                    <button type="button" value="annulla" onClick="tornaIndietro()">Annulla</button>
-                </fieldset>
-            </form>
         </div>
+        {/messaggiForm}
+        <div id="input" class="elementi-presenti aggiunta-modifica">
+            <fieldset>
+                <legend>{legend}</legend>
+                <p>I campi contrassegnati con (*) sono obbligatori.</p>
+                <label for="tipoEvento">Tipo Evento (*):</label>
+                <select id="tipoEvento" name="nuovoTipoEvento" required aria-required="true">
+                    <option value=""{selezioneDefault} disabled>Scegli il tipo evento</option>
+                    <option value=""{nessunaSelezione}>Nessun tipo evento</option>
+                    {listaTipoEvento}<option value="{tipoEvento}"{selezioneTipoEvento}>{tipoEvento}</option>
+                    {/listaTipoEvento}
+                </select>
+                <label for="titolo">Titolo (*):</label>
+                <input type="text" id="titolo" name="nuovoTitolo" value="{nuovoTitolo}" placeholder="Titolo" required aria-required="true">
+                <label for="data">Data (*):</label>
+                <input type="date" id="data" name="nuovaData" value="{nuovaData}" required aria-required="true">
+                <label for="ora">Ora (*):</label>
+                <input type="time" id="ora" name="nuovaOra" value="{nuovaOra}" required aria-required="true">
+                <label for="luogo">Luogo (*):</label>
+                <input type="text" id="luogo" name="nuovoLuogo" value="{nuovoLuogo}" placeholder="Luogo" required aria-required="true">
+                <label for="descrizione">Descrizione:</label>
+                <textarea id="descrizione" name="nuovaDescrizione" placeholder="Descrizione" rows="8" cols="50">{nuovaDescrizione}</textarea>
+                <label for="locandina">Locandina:</label>
+                <input type="file" id="locandina" name="nuovaLocandina" accept="image/*">
+                {eliminaLocandina}
+                <label for="eliminaLocandina">
+                    <input type="checkbox" id="eliminaLocandina" name="eliminaLocandina">
+                    Elimina la locandina
+                </label>
+                {/eliminaLocandina}
+                {imgLocandina}<img src="{locandina}" alt="Locandina">{/imgLocandina}
+                <input type="hidden" name="locandina" value="{locandina}">
+                <input type="hidden" name="idEvento" value="{idEvento}">
+                <input type="hidden" name="azione" value="{valueAzione}">
+            </fieldset>
+        </div>
+        <div id="buttons">
+            <button type="submit" name="conferma" value="true">Conferma</button>
+            {buttonElimina}<button type="submit" name="elimina" value="true">Elimina</button>
+            {/buttonElimina}
+            <button type="button" value="annulla" onClick="tornaIndietro()">Annulla</button>
+        </div>
+    </form>
+</div>

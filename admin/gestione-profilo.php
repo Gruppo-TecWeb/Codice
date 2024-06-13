@@ -46,7 +46,8 @@ if ($connectionOk) {
     }
     $errore = '0';
     $messaggiForm = '';
-    $messaggioForm = get_content_between_markers($content, 'messaggioForm');
+    $messaggiFormHTML = get_content_between_markers($content, 'messaggiForm');
+    $messaggioForm = get_content_between_markers($messaggiFormHTML, 'messaggioForm');
 
     $eliminaImmagineProfilo = isset($_POST['eliminaImmagineProfilo']) ? true : false;
     $utente = $connection->get_utente_by_username($validUsername);
@@ -117,11 +118,13 @@ if ($connectionOk) {
         }
     }
 
+    $messaggiFormHTML = $messaggiForm == '' ? '' : replace_content_between_markers($messaggiFormHTML, ['messaggioForm' => $messaggiForm]);
+
     $content = replace_content_between_markers(multi_replace($content, [
         '{username}' => $username,
         '{email}' => $email
     ]), [
-        'messaggiForm' => $messaggiForm
+        'messaggiForm' => $messaggiFormHTML
     ]);
 } else {
     header("location: ../errore500.php");

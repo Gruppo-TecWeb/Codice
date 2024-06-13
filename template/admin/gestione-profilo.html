@@ -1,29 +1,35 @@
 <div id="profilo" class="limitedWidth">
-            <h3>Modifica Profilo</h3>
-
-            {messaggiForm}<ul>
-                {messaggioForm}<li>{messaggio}</li>{/messaggioForm}
+    <form method="post" action="gestione-profilo.php" enctype="multipart/form-data" class="aggiunta-modifica">
+        <h3 id="titolo">Modifica Profilo</h3>
+        {messaggiForm}
+        <div id="messaggi">
+            <ul id="messaggi-form">
+                {messaggioForm}
+                <li>{messaggio}</li>{/messaggioForm}
             </ul>
-            {/messaggiForm}
-
-            <form method="post" action="gestione-profilo.php" enctype="multipart/form-data" id="form-profilo">
-                <fieldset>
-                    <legend>Modifica il profilo utente: {username}</legend>
-                    <p>I campi contrassegnati con (*) sono obbligatori.</p>
-                    <label for="email-profilo">Email (*):</label>
-                    <input type="email" id="email-profilo" name="email" value="{email}" autocomplete="email" required>
-                    <div id="email-error" class="error"></div>
-                    <label for="password">Nuova Password:</label>
-                    <input type="password" id="password" name="password" placeholder="password">
-                    <label for="conferma-password">Conferma Nuova Password:</label>
-                    <input type="password" id="conferma-password" name="confermaPassword" placeholder="conferma password">
-                    <div id="password-error" class="error"></div>
-                    <label for="immagine-profilo">Immagine Profilo:</label>
-                    <input type="file" id="immagine-profilo" name="immagineProfilo" accept="image/*">
-                    <label for="elimina-immagine-profilo">Elimina immagine del profilo</label>
-                    <input type="checkbox" id="elimina-immagine-profilo" name="eliminaImmagineProfilo">
-                    <button type="submit" name="conferma" value="true">Salva Modifiche</button>
-                    <button type="button" value="annulla" onClick="tornaIndietro()">Annulla</button>
-                </fieldset>
-            </form>
         </div>
+        {/messaggiForm}
+        <div id="input" class="elementi-presenti aggiunta-modifica">
+            <fieldset>
+                <legend>Modifica il profilo utente: {username}</legend>
+                <p>I campi contrassegnati con (*) sono obbligatori.</p>
+                <label for="email">Email (*):</label>
+                <input type="email" id="email" name="email" value="{email}" required aria-required="true">
+                <label for="password">Nuova Password:</label>
+                <input type="password" id="password" name="password" placeholder="password">
+                <label for="confermaPassword">Conferma Nuova Password:</label>
+                <input type="password" id="confermaPassword" name="confermaPassword" placeholder="conferma password">
+                <label for="immagineProfilo">Immagine Profilo:</label>
+                <input type="file" id="immagineProfilo" name="immagineProfilo" accept="image/*">
+                <label for="eliminaImmagineProfilo">
+                    <input type="checkbox" id="eliminaImmagineProfilo" name="eliminaImmagineProfilo">
+                    Elimina l'immagine del profilo
+                </label>
+            </fieldset>
+        </div>
+        <div id="buttons">
+            <button type="submit" name="conferma" value="true">Conferma</button>
+            <button type="button" value="annulla" onClick="tornaIndietro()">Annulla</button>
+        </div>
+    </form>
+</div>

@@ -41,7 +41,7 @@ if ($connectionOk) {
         $nessunPunteggioMancanteHTML = get_content_between_markers($dashboardAdminHTML, 'nessunPunteggioMancante');
 
         // dashboard prossimo evento
-        $prossimiEventi = $connection->get_lista_eventi();
+        $prossimiEventi = $connection->get_lista_eventi(date('Y-m-d'));
         if (count($prossimiEventi) > 0) {
             $prossimoEventoHTML = multi_replace($prossimoEventoHTML, [
                 '{locandina}' => $prossimiEventi[0]['Locandina'],

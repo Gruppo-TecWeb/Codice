@@ -30,8 +30,9 @@ $connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
     $messaggiForm = '';
-    $righeTabella = '';
-    $messaggioForm = get_content_between_markers($content, 'messaggioForm');
+    $elementiLista = '';
+    $messaggiFormHTML = get_content_between_markers($content, 'messaggiForm');
+    $messaggioForm = get_content_between_markers($messaggiFormHTML, 'messaggioForm');
 
     if (isset($_GET['errore'])) {
         $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);
@@ -50,18 +51,20 @@ if ($connectionOk) {
     }
 
     $amministratori = $connection->get_utenti_admin();
-    $rigaTabella = get_content_between_markers($content, 'rigaTabella');
+    $elementoLista = get_content_between_markers($content, 'elementoLista');
 
     foreach ($amministratori as $amministratore) {
-        $righeTabella .= multi_replace($rigaTabella, [
+        $elementiLista .= multi_replace($elementoLista, [
             '{username}' => $amministratore['Username'],
             '{email}' => $amministratore['Email']
         ]);
     }
 
+    $messaggiFormHTML = $messaggiForm == '' ? '' : replace_content_between_markers($messaggiFormHTML, ['messaggioForm' => $messaggiForm]);
+
     $content = replace_content_between_markers($content, [
-        'rigaTabella' => $righeTabella,
-        'messaggiForm' => $messaggiForm
+        'elementoLista' => $elementiLista,
+        'messaggiForm' => $messaggiFormHTML
     ]);
 
     $connection->close_DB_connection();

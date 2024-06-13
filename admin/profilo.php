@@ -31,10 +31,11 @@ $connection = DBAccess::get_instance();
 $connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
-    $messaggi = '';
-    $messaggio = get_content_between_markers($content, 'messaggio');
+    $messaggiForm = '';
+    $messaggiFormHTML = get_content_between_markers($content, 'messaggiForm');
+    $messaggioForm = get_content_between_markers($messaggiFormHTML, 'messaggioForm');
     if (isset($_GET['errore'])) {
-        $messaggi .= multi_replace($messaggio, ['{testo}' => "Errore imprevisto"]);
+        $messaggiForm .= multi_replace($messaggioForm, ['{testo}' => "Errore imprevisto"]);
     }
 
     $utente = $connection->get_utente_by_username($_SESSION["username"]);
@@ -44,12 +45,14 @@ if ($connectionOk) {
         exit;
     }
 
+    $messaggiFormHTML = $messaggiForm == '' ? '' : replace_content_between_markers($messaggiFormHTML, ['messaggioForm' => $messaggiForm]);
+
     $content = replace_content_between_markers(multi_replace($content, [
         '{username}' => $utente["Username"],
         '{email}' => $utente["Email"],
         '{immagineProfilo}' => $utente["ImmagineProfilo"] == '' ? $immagineProfiloDefault : $utente["ImmagineProfilo"]
     ]), [
-        'messaggi' => $messaggi
+        'messaggiForm' => $messaggiFormHTML
     ]);
 } else {
     header("location: errore500.php");

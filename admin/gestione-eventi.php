@@ -91,7 +91,8 @@ if ($connectionOk) {
     }
 
     $messaggiForm = '';
-    $messaggioForm = get_content_between_markers($content, 'messaggioForm');
+    $messaggiFormHTML = get_content_between_markers($content, 'messaggiForm');
+    $messaggioForm = get_content_between_markers($messaggiFormHTML, 'messaggioForm');
     $buttonElimina = get_content_between_markers($content, 'buttonElimina');
     $listaTipoEvento = '';
     $legend = '';
@@ -214,6 +215,8 @@ if ($connectionOk) {
         exit;
     }
 
+    $messaggiFormHTML = $messaggiForm == '' ? '' : replace_content_between_markers($messaggiFormHTML, ['messaggioForm' => $messaggiForm]);
+
     $content = multi_replace($content, [
         '{legend}' => $legend,
         '{selezioneDefault}' => $selezioneDefault,
@@ -231,7 +234,7 @@ if ($connectionOk) {
     ]);
     $content = replace_content_between_markers($content, [
         'listaTipoEvento' => $listaTipoEvento,
-        'messaggiForm' => $messaggiForm,
+        'messaggiForm' => $messaggiFormHTML,
         'buttonElimina' => $buttonElimina,
         'imgLocandina' => $locandina == '' ? '' : get_content_between_markers($content, 'imgLocandina'),
         'eliminaLocandina' => isset($_POST['aggiungi']) || $locandina == '' ? '' : get_content_between_markers($content, 'eliminaLocandina')

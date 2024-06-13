@@ -1,7 +1,23 @@
-<a id="indietro" class="limitedWidth subMenu" href="eventi.php">Torna agli eventi</a>
-<h2 class="limitedWidth">{titolo}</h2>
-<div id="evento-box" class="limitedWidth">
-    <img src="assets/media/locandine/{locandina}" alt="">
+    <a id="indietro" class="subMenu" href="eventi.php">Torna agli eventi</a>
+    <div id="titolo">
+        <h2 class="">{titolo}</h2>
+    </div>
+    {locandinaEvento}
+    {conLocandina}
+    <div id="img-container">
+        <img src="assets/media/locandine/{locandina}" alt="">
+    </div>
+    {/conLocandina}
+    {noLocandina}
+    <div id="img-container" class="noLocandina">
+        <div id="scritte-container" aria-hidden="true">
+            <div id="scritte">
+                {titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}_{titoloStile}
+            </div>
+        </div>
+    </div>
+    {/noLocandina}
+    {/locandinaEvento}
     <dl id="evento-info">
         <dt>Data:</dt>
         <dd><time datetime="{data}">{dataVisualizzata}</time></dd>
@@ -11,7 +27,7 @@
         <dd>{luogo}</dd>
         {descrizioneEvento}
         <dt>Descrizione:</dt>
-        <dd>{descrizione}</dd>
+        <dd id="descrizione">{descrizione}</dd>
         {/descrizioneEvento}{stagioneEvento}{sezioneTipoEvento}
         <dt>Tipo evento:</dt>
         <dd><a id="link-eventi" href="eventi.php?tipoEvento={tipoEvento}">{tipoEvento}</a></dd>
@@ -23,31 +39,30 @@
         <dt>Classifica generale:</dt>
         <dd><a id="link-classifica" href="classifiche.php?classifica={idClassifica}">{titoloClassifica}</a></dd>
         {/classifica}{/stagioneEvento}
+        {classificaEvento}
+        <dt>Risultati:</dt>
+        <dd>
+            <span id="sumTabella" class="navigationHelp">Tabella che riassume la classifica dell'evento con l'indicazione
+                di <span lang="en">ranking</span>, nome d'arte del <span lang="en">freestyler</span>, punteggio ottenuto.</span>
+            <table id="tabella-classifica" aria-describedby="sumTabella">
+                <caption>Classifica</caption>
+                <thead>
+                    <tr>
+                        <th scope="col" lang="en">Posizione</th>
+                        <th scope="col" lang="en">Freestyler</th>
+                        <th scope="col">Punti</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {rigaClassifica}
+                    <tr>
+                        <th data-title="ranking" scope="row"><span class="classifica ranking">{ranking}</span></th>
+                        <td data-title="Freestyler">{freestyler}</td>
+                        <td data-title="Punti">{punti}</td>
+                    </tr>
+                    {/rigaClassifica}
+                </tbody>
+            </table>
+        </dd>
+        {/classificaEvento}
     </dl>
-</div>
-{classificaEvento}
-<div id="classifica-evento-box" class="limitedWidth">
-<p>I risultati per tale evento sono stati </p>
-    <span id="sumTabella" class="navigationHelp">Tabella che riassume la classifica dell'evento con l'indicazione
-        di <span lang="en">ranking</span>, nome d'arte del <span lang="en">freestyler</span>, punteggio ottenuto.</span>
-    <table id="tabella-classifica" aria-describedby="sumTabella">
-        <caption>Classifica</caption>
-        <thead>
-            <tr>
-                <th scope="col" lang="en">Posizione</th>
-                <th scope="col" lang="en">Freestyler</th>
-                <th scope="col">Punti</th>
-            </tr>
-        </thead>
-        <tbody>
-            {rigaClassifica}
-            <tr>
-                <th data-title="ranking" scope="row"><span class="classifica ranking">{ranking}</span></th>
-                <td data-title="Freestyler">{freestyler}</td>
-                <td data-title="Punti">{punti}</td>
-            </tr>
-            {/rigaClassifica}
-        </tbody>
-    </table>
-</div>
-{/classificaEvento}

@@ -1,5 +1,5 @@
 /*
-* COMUNE
+ * COMUNE
  */
 
 :root {
@@ -35,7 +35,7 @@ body {
 
 .subMenu {
     position: fixed;
-    width: var(--widthMenu);
+    width: var(--widthMenu) !important;
     min-height: 44px;
     box-sizing: border-box;
     bottom: calc(var(--marginBottomMenu) + 44px + 2px);
@@ -514,6 +514,14 @@ label {
     padding: 0.5em;
 }
 
+#lista-eventi .eventoNoImmagine .cornice {
+    padding: 1em;
+}
+
+#lista-eventi .eventoNoImmagine .cornice .scritte {
+    font-size: 3vw;
+}
+
 #paginazione-eventi ul {
     margin-top: 2em;
     flex-wrap: wrap;
@@ -524,8 +532,16 @@ label {
  * PAGINA EVENTO
  */
 
-#evento main>a {
-    padding: 0.5em;
+#evento {
+    padding-top: 1.75em;
+}
+
+#evento #content {
+    grid-template-areas:
+        'titolo'
+        'img'
+        'dl';
+    grid-template-columns: unset;
 }
 
 #evento #breadcrumbs-container {
@@ -538,23 +554,37 @@ label {
     padding-bottom: calc(var(--marginBottomMenu) + var(--minHeightButton) + 2em + 44px);
 }
 
-#evento-box {
-    flex-direction: column-reverse;
+#evento #titolo {
+    padding: 0;
 }
 
-#evento-box img {
-    width: 100%;
-    position: relative;
-    top: unset;
+#evento #titolo h2 {
+    padding: 0.5em;
+    padding-top: 1.25em;
 }
 
-#evento-info {
+#evento #img-container {
+    height: unset;
     width: 100%;
-    position: relative;
-    top: unset;
-    gap: 0 1em;
-    box-sizing: border-box;
-    padding: 2.5em 0;
+}
+
+#evento #img-container.noLocandina {
+    display: none;
+}
+
+#evento #img-container img {
+    width: fit-content;
+    aspect-ratio: 1 / 1;
+    border: unset;
+}
+
+#evento #scritte-container {
+    display: none;
+}
+
+#evento #evento-info {
+    min-height: unset;
+    padding: calc((100% - var(--widthMenu)) / 2);
 }
 
 
@@ -573,11 +603,7 @@ label {
 
 #container_iframe iframe {
     width: 96vw;
-    height: 45vw;
-    /*
-    
-    */
-
+    height:45vw;
 }
 
 #container_iframe {
@@ -586,8 +612,7 @@ label {
     background-color: var(--accentColor);
     width: 100%;
     height: 100%;
-
-
+    margin: 1em;
 }
 
 
@@ -706,16 +731,8 @@ label {
 
 
 /* 
- * PAGINA CLASSIFICHE 
+ * AREA DI AMMINISTRAZIONE 
  */
-
-
-/* .adminPage {
-    --widthMenu: 100%;
-    --minWidthMenu: 100%;
-    --marginBottomMenu: 0em;
-    --bordarRadiusCard: 0px;
-} */
 
 .adminPage table th,
 .adminPage table td {
@@ -731,13 +748,88 @@ label {
     height: 3em;
 }
 
+.adminPage div#titolo-button {
+    flex-direction: column;
+}
 
-/* .adminPage #breadcrumbs-container {
-    --widthMenu: 100%;
-    --minWidthMenu: 100%;
-    --marginBottomMenu: 0em;
-    --bordarRadiusCard: 0px;
-} */
+.adminPage ol {
+    padding: 0.5em;
+}
+
+.adminPage ol li {
+    padding: 0.5em;
+    flex-direction: column;
+}
+
+.adminPage ol li span {
+    padding: 0.5em;
+}
+
+.adminPage div#datiUtente {
+    flex-direction: column-reverse;
+}
+
+.adminPage div#datiUtente img {
+    width: 100%;
+    position: relative;
+    top: unset;
+}
+
+.adminPage div#datiUtente dl {
+    width: 100%;
+    position: relative;
+    top: unset;
+    gap: 0 1em;
+    box-sizing: border-box;
+    padding: 2.5em 0;
+}
+
+.adminPage input[type="checkbox"] {
+    width: 1em;
+    height: 1em;
+}
+
+.adminPage label:has(input[type="checkbox"]) {
+    display: flex;
+    align-items: center;
+}
+
+.adminPage ol li span.label-element {
+    justify-content: center;
+}
+
+.adminPage ol li form {
+    display: flex;
+    justify-content: center;
+}
+
+.adminPage ol li form button {
+    margin: 0.2em;
+}
+
+.adminPage #evento-box-admin {
+    flex-direction: column-reverse;
+}
+
+.adminPage #evento-box-admin img {
+    width: 100%;
+    position: relative;
+    top: unset;
+}
+
+.adminPage #evento-info-admin {
+    width: 100%;
+    position: relative;
+    top: unset;
+    gap: 0 1em;
+    box-sizing: border-box;
+    padding: 2.5em 0;
+}
+
+
+/* 
+ * PAGINA CLASSIFICHE 
+ */
 
 .div-classifica {
     flex-direction: column-reverse;
