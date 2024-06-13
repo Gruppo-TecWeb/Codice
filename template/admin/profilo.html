@@ -5,14 +5,14 @@
             <button id="aggiungi" type="submit" name="aggiungi" value="true">Modifica Profilo</button>
         </form>
     </div>
+    {messaggiForm}
     <div id="messaggi">
-        {messaggi}
-        <ul>
-            {messaggio}
-            <li>{testo}</li>{/messaggio}
+        <ul id="messaggi-form">
+            {messaggioForm}
+            <li>{testo}</li>{/messaggioForm}
         </ul>
-        {/messaggi}
     </div>
+    {/messaggiForm}
     
     <!-- Dati dell'utente loggato. -->
     <div id="datiUtente" class="elementi-presenti">

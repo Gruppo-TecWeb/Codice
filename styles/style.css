@@ -1709,6 +1709,21 @@ div#admin-window {
     margin-right: 10px;
 }
 
+.adminPage div#messaggi {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+    background-color: var(--colorSecondary);
+    padding: 1.25em;
+    border-radius: 0.5em;
+    box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.1);
+    margin-bottom: 0.9375em;
+}
+
+.adminPage ul#messaggi-form {
+    list-style: none;
+}
+
 /*
  * PAGINE ERROR DOCUMENT 
  */

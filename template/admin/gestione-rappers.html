@@ -9,12 +9,14 @@
                 <button type="button" value="annulla" onClick="tornaIndietro()">Annulla</button>
             </div>
         </div>
+        {messaggiForm}
         <div id="messaggi">
-            {messaggiForm}<ul>
-                {messaggioForm}<li>{messaggio}</li>{/messaggioForm}
+            <ul id="messaggi-form">
+                {messaggioForm}
+                <li>{messaggio}</li>{/messaggioForm}
             </ul>
-            {/messaggiForm}
         </div>
+        {/messaggiForm}
         <div class="elementi-presenti aggiunta-modifica">
             <fieldset>
                 <legend>{legend}</legend>

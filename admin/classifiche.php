@@ -59,7 +59,7 @@ if ($connectionOk) {
         ]);
     }
 
-    $messaggiFormHTML = replace_content_between_markers($messaggiFormHTML, ['messaggioForm' => $messaggiForm]);
+    $messaggiFormHTML = $messaggiForm == '' ? '' : replace_content_between_markers($messaggiFormHTML, ['messaggioForm' => $messaggiForm]);
 
     $content = replace_content_between_markers($content, [
         'elementoLista' => $lista,
