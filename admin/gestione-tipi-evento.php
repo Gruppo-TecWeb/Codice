@@ -83,6 +83,7 @@ if ($connectionOk) {
                 $errore = $connection->get_tipo_evento($validNuovoTitolo) ? '0' : '1';
             } else {
                 $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
                     '{messaggio}' => "Tipo Evento già esistente con questo titolo"
                 ]);
             }
@@ -105,16 +106,21 @@ if ($connectionOk) {
                 }
             } else {
                 $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
                     '{messaggio}' => "Tipo Evento già esistente con questo titolo"
                 ]);
             }
             if ($errore == '0') {
                 $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'successMessage',
                     '{messaggio}' => 'Modifica effettuata con successo'
                 ]);
                 $titolo = $validNuovoTitolo;
             } else {
-                $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);
+                $messaggiForm .= $messaggiForm == '' ? multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => "Errore imprevisto"
+                ]) : '';
             }
         }
     } else {

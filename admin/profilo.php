@@ -34,8 +34,12 @@ if ($connectionOk) {
     $messaggiForm = '';
     $messaggiFormHTML = get_content_between_markers($content, 'messaggiForm');
     $messaggioForm = get_content_between_markers($messaggiFormHTML, 'messaggioForm');
+    
     if (isset($_GET['errore'])) {
-        $messaggiForm .= multi_replace($messaggioForm, ['{testo}' => "Errore imprevisto"]);
+        $messaggiForm .= multi_replace($messaggioForm, [
+            '{tipoMessaggio}' => 'inputError',
+            '{messaggio}' => "Errore imprevisto"
+        ]);
     }
 
     $utente = $connection->get_utente_by_username($_SESSION["username"]);

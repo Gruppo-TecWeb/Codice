@@ -35,19 +35,33 @@ if ($connectionOk) {
     $lista = '';
 
     if (isset($_GET['errore'])) {
-        $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);
+        $messaggiForm .= multi_replace($messaggioForm, [
+            '{tipoMessaggio}' => 'inputError',
+            '{messaggio}' => "Errore imprevisto"]);
     }
 
     if (isset($_GET['eliminato'])) {
         if ($_GET['eliminato'] == 0) {
-            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore nell'eliminazione dell'Evento"]);
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore nell'eliminazione dell'Evento"
+            ]);
         } else {
-            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Evento eliminato correttamente"]);
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'successMessage',
+                '{messaggio}' => "Evento eliminato correttamente"
+            ]);
         }
     } elseif (isset($_GET['aggiunto'])) {
-        $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Evento aggiunto correttamente"]);
+        $messaggiForm .= multi_replace($messaggioForm, [
+            '{tipoMessaggio}' => 'successMessage',
+            '{messaggio}' => "Evento aggiunto correttamente"
+        ]);
     } elseif (isset($_GET['modificato'])) {
-        $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Evento modificato correttamente"]);
+        $messaggiForm .= multi_replace($messaggioForm, [
+            '{tipoMessaggio}' => 'successMessage',
+            '{messaggio}' => "Evento modificato correttamente"
+        ]);
     }
 
     $eventi = $connection->get_eventi();

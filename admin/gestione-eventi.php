@@ -154,6 +154,7 @@ if ($connectionOk) {
                     if (count($errori) > 0) {
                         foreach ($errori as $errore) {
                             $messaggiForm .= multi_replace($messaggioForm, [
+                                '{tipoMessaggio}' => 'inputError',
                                 '{messaggio}' => $errore
                             ]);
                         }
@@ -171,6 +172,7 @@ if ($connectionOk) {
             }
             else {
                 $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
                     '{messaggio}' => "Errore nell'aggiunta dell'evento"
                 ]);
             }
@@ -185,6 +187,7 @@ if ($connectionOk) {
                 if (count($errori) > 0) {
                     foreach ($errori as $errore) {
                         $messaggiForm .= multi_replace($messaggioForm, [
+                            '{tipoMessaggio}' => 'inputError',
                             '{messaggio}' => $errore
                         ]);
                     }
@@ -200,6 +203,7 @@ if ($connectionOk) {
             }
             if ($errore == '0') {
                 $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'successMessage',
                     '{messaggio}' => 'Modifica effettuata con successo'
                 ]);
             }

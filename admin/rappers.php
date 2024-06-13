@@ -35,19 +35,34 @@ if ($connectionOk) {
     $elementiLista = '';
 
     if (isset($_GET['errore'])) {
-        $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);
+        $messaggiForm .= multi_replace($messaggioForm, [
+            '{tipoMessaggio}' => 'inputError',
+            '{messaggio}' => "Errore imprevisto"
+        ]);
     }
 
     if (isset($_GET['eliminato'])) {
         if ($_GET['eliminato'] == 0) {
-            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore nell'eliminazione del Rapper"]);
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore nell'eliminazione del Rapper"
+            ]);
         } else {
-            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Rapper eliminato correttamente"]);
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'successMessage',
+                '{messaggio}' => "Rapper eliminato correttamente"
+            ]);
         }
     } elseif (isset($_GET['aggiunto'])) {
-        $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Rapper aggiunto correttamente"]);
+        $messaggiForm .= multi_replace($messaggioForm, [
+            '{tipoMessaggio}' => 'successMessage',
+            '{messaggio}' => "Rapper aggiunto correttamente"
+        ]);
     } elseif (isset($_GET['modificato'])) {
-        $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Rapper modificato correttamente"]);
+        $messaggiForm .= multi_replace($messaggioForm, [
+            '{tipoMessaggio}' => 'successMessage',
+            '{messaggio}' => "Rapper modificato correttamente"
+        ]);
     }
 
     $rappers = $connection->get_utenti_base();

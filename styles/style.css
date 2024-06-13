@@ -164,6 +164,29 @@ main {
  * ERROR
  */
 
+ div#input input.inputError {
+    background-color: #ffaf004d;
+    margin-bottom: 0.5em;
+ }
+
+ div.inputError::before, div#messaggi li.inputError::before {
+    content: "⚠";
+    color: yellow;
+    margin-right: 10px;
+    margin-bottom: 1em;
+}
+
+div#messaggi li.successMessage::before {
+    content: "✓";
+    color: green;
+    margin-right: 10px;
+    margin-bottom: 1em;
+}
+
+div.inputError {
+    margin-bottom: 1em;
+}
+
 
 /* 
  * SUCESS

@@ -1,11 +1,11 @@
 <div id="eventi" class="limitedWidth">
-    <form method="post" action="gestione-eventi.php" enctype="multipart/form-data" class="aggiunta-modifica">
+    <form method="post" action="gestione-eventi.php" enctype="multipart/form-data" class="aggiunta-modifica" id="form-evento">
         <h3 id="titolo">Gestione Eventi</h3>
         {messaggiForm}
         <div id="messaggi">
             <ul id="messaggi-form">
                 {messaggioForm}
-                <li>{messaggio}</li>{/messaggioForm}
+                <li class="{tipoMessaggio}">{messaggio}</li>{/messaggioForm}
             </ul>
         </div>
         {/messaggiForm}
@@ -32,6 +32,7 @@
                 <textarea id="descrizione" name="nuovaDescrizione" placeholder="Descrizione" rows="8" cols="50">{nuovaDescrizione}</textarea>
                 <label for="locandina">Locandina:</label>
                 <input type="file" id="locandina" name="nuovaLocandina" accept="image/*">
+                <div id="locandina-error" class="error"></div>
                 {eliminaLocandina}
                 <label for="eliminaLocandina">
                     <input type="checkbox" id="eliminaLocandina" name="eliminaLocandina">

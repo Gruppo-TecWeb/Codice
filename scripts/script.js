@@ -365,6 +365,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // funzione che controlla i dati nei form
 document.addEventListener('DOMContentLoaded', function() {
+    const formLogin = document.getElementById('form-login');
     const formProfilo = document.getElementById('form-profilo');
     const formEvento = document.getElementById('form-evento');
     const formClassifica = document.getElementById('form-classifica');
@@ -394,11 +395,67 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Validazione per il form di login
+    if (formLogin) {
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const usernameError = document.getElementById('username-error');
+        const passwordError = document.getElementById('password-error');
+
+        // Validazione dell'username durante la digitazione
+        usernameInput.addEventListener('input', function() {
+            validateField(usernameInput, usernameError, validateUsername);
+        });
+
+        // Validazione dell'username quando si perde il focus dal campo username
+        usernameInput.addEventListener('blur', validateUsername);
+
+        // Validazione della password durante la digitazione
+        passwordInput.addEventListener('input', function() {
+            validateField(passwordInput, passwordError, validatePassword);
+        });
+
+        // Validazione della password quando si perde il focus dal campo password
+        passwordInput.addEventListener('blur', validatePassword);
+
+        // Controlla che l'username non sia vuoto
+        function validateUsername() {
+            const username = usernameInput.value.trim();
+            if (username === "") {
+                usernameError.textContent = "Username obbligatorio.";
+                usernameInput.classList.add('inputError');
+                usernameError.classList.add('inputError');
+                return false;
+            } else {
+                usernameError.textContent = "";
+                usernameInput.classList.remove('inputError');
+                usernameError.classList.remove('inputError');
+                return true;
+            }
+        }
+
+        // Controlla che la password non sia vuota
+        function validatePassword() {
+            const password = passwordInput.value.trim();
+            if (password === "") {
+                passwordError.textContent = "Password obbligatoria.";
+                passwordInput.classList.add('inputError');
+                passwordError.classList.add('inputError');
+                return false;
+            } else {
+                passwordError.textContent = "";
+                passwordInput.classList.remove('inputError');
+                passwordError.classList.remove('inputError');
+                return true;
+            }
+        }
+    }
+
     // Validazione per il form profilo
     if (formProfilo) {
-        const emailInput = document.getElementById('email-profilo');
+        const emailInput = document.getElementById('email');
         const passwordInput = document.getElementById('password');
-        const confirmPasswordInput = document.getElementById('conferma-password');
+        const confirmPasswordInput = document.getElementById('confermaPassword');
         const emailError = document.getElementById('email-error');
         const passwordError = document.getElementById('password-error');
         
@@ -425,24 +482,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (email === "") {
                     emailError.textContent = "Email obbligatoria.";
+                    emailInput.classList.add('inputError');
+                    emailError.classList.add('inputError');
                     resolve(false);
                 } else if (!emailRegex.test(email)) {
                     emailError.textContent = "Email non valida.";
+                    emailInput.classList.add('inputError');
+                    emailError.classList.add('inputError');
                     resolve(false);
                 } else {
                     checkUniqueField('email-profilo', email)
                         .then(data => {
                             if (data.exists) {
                                 emailError.textContent = "Email già registrata.";
+                                emailInput.classList.add('inputError');
+                                emailError.classList.add('inputError');
                                 resolve(false);
                             } else {
                                 emailError.textContent = "";
+                                emailInput.classList.remove('inputError');
+                                emailError.classList.remove('inputError');
                                 resolve(true);
                             }
                         })
                         .catch(error => {
                             console.error('Errore:', error);
                             emailError.textContent = "Si è verificato un errore. Riprova.";
+                            emailInput.classList.add('inputError');
+                            emailError.classList.add('inputError');
                             resolve(false);
                         });
                 }
@@ -454,9 +521,15 @@ document.addEventListener('DOMContentLoaded', function() {
             const confirmPassword = confirmPasswordInput.value.trim();
             if (password !== "" && confirmPassword !== "" && password !== confirmPassword) {
                 passwordError.textContent = "Le password non coincidono.";
+                passwordInput.classList.add('inputError');
+                confirmPasswordInput.classList.add('inputError');
+                passwordError.classList.add('inputError');
                 return false;
             } else {
                 passwordError.textContent = "";
+                passwordInput.classList.remove('inputError');
+                confirmPasswordInput.classList.remove('inputError');
+                passwordError.classList.remove('inputError');
                 return true;
             }
         }
@@ -490,12 +563,16 @@ document.addEventListener('DOMContentLoaded', function() {
             // Se non è stato selezionato alcun file, non eseguire la validazione
             if (!file) {
                 locandinaError.textContent = "";
+                locandinaInput.classList.remove('inputError');
+                locandinaError.classList.remove('inputError');
                 return;
             }
     
             // Verifica se il file è un'immagine
             if (!file.type.startsWith('image/')) {
                 locandinaError.textContent = "Il file deve essere un'immagine.";
+                locandinaInput.classList.add('inputError');
+                locandinaError.classList.add('inputError');
                 locandinaInput.value = ""; // Resetta il valore dell'input per consentire all'utente di selezionare un nuovo file
                 return;
             }
@@ -504,12 +581,16 @@ document.addEventListener('DOMContentLoaded', function() {
             const maxSize = 10 * 1024 * 1024; // 10 MB in byte
             if (file.size > maxSize) {
                 locandinaError.textContent = "Il file non può superare i 10 MB.";
+                locandinaInput.classList.add('inputError');
+                locandinaError.classList.add('inputError');
                 locandinaInput.value = ""; // Resetta il valore dell'input per consentire all'utente di selezionare un nuovo file
                 return;
             }
     
             // Se tutti i controlli passano, rimuovi eventuali messaggi di errore
             locandinaError.textContent = "";
+            locandinaInput.classList.remove('inputError');
+            locandinaError.classList.remove('inputError');
         });
     
         formEvento.addEventListener('submit', function(event) {
@@ -543,21 +624,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 const titolo = titoloClassificaInput.value.trim();
                 if (titolo === "") {
                     titoloClassificaError.textContent = "Titolo obbligatorio.";
+                    titoloClassificaInput.classList.add('inputError');
+                    titoloClassificaError.classList.add('inputError');
                     resolve(false);
                 } else {
                     checkUniqueField('titolo-classifica', titolo)
                         .then(data => {
                             if (data.exists) {
                                 titoloClassificaError.textContent = "Esiste già una classifica con questo titolo.";
+                                titoloClassificaInput.classList.add('inputError');
+                                titoloClassificaError.classList.add('inputError');
                                 resolve(false);
                             } else {
                                 titoloClassificaError.textContent = "";
+                                titoloClassificaInput.classList.remove('inputError');
+                                titoloClassificaError.classList.remove('inputError');
                                 resolve(true);
                             }
                         })
                         .catch(error => {
                             console.error('Errore:', error);
                             titoloClassificaError.textContent = "Si è verificato un errore. Riprova.";
+                            titoloClassificaInput.classList.add('inputError');
+                            titoloClassificaError.classList.add('inputError');
                             resolve(false);
                         });
                 }
@@ -597,21 +686,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 const titolo = titoloTipoEventoInput.value.trim();
                 if (titolo === "") {
                     titoloTipoEventoError.textContent = "Titolo obbligatorio.";
+                    titoloTipoEventoInput.classList.add('inputError');
+                    titoloTipoEventoError.classList.add('inputError');
                     resolve(false);
                 } else {
                     checkUniqueField('titolo-tipo-evento', titolo)
                         .then(data => {
                             if (data.exists) {
                                 titoloTipoEventoError.textContent = "Esiste già un tipo evento con questo titolo.";
+                                titoloTipoEventoInput.classList.add('inputError');
+                                titoloTipoEventoError.classList.add('inputError');
                                 resolve(false);
                             } else {
                                 titoloTipoEventoError.textContent = "";
+                                titoloTipoEventoInput.classList.remove('inputError');
+                                titoloTipoEventoError.classList.remove('inputError');
                                 resolve(true);
                             }
                         })
                         .catch(error => {
                             console.error('Errore:', error);
                             titoloTipoEventoError.textContent = "Si è verificato un errore. Riprova.";
+                            titoloTipoEventoInput.classList.add('inputError');
+                            titoloTipoEventoError.classList.add('inputError');
                             resolve(false);
                         });
                 }
@@ -668,24 +765,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (email === "") {
                     emailError.textContent = "Email obbligatoria.";
+                    emailInput.classList.add('inputError');
+                    emailError.classList.add('inputError');
                     resolve(false);
                 } else if (!emailRegex.test(email)) {
                     emailError.textContent = "Email non valida.";
+                    emailInput.classList.add('inputError');
+                    emailError.classList.add('inputError');
                     resolve(false);
                 } else {
                     checkUniqueField('email', email)
                         .then(data => {
                             if (data.exists) {
                                 emailError.textContent = "Email già registrata.";
+                                emailInput.classList.add('inputError');
+                                emailError.classList.add('inputError');
                                 resolve(false);
                             } else {
                                 emailError.textContent = "";
+                                emailInput.classList.remove('inputError');
+                                emailError.classList.remove('inputError');
                                 resolve(true);
                             }
                         })
                         .catch(error => {
                             console.error('Errore:', error);
                             emailError.textContent = "Si è verificato un errore. Riprova.";
+                            emailInput.classList.add('inputError');
+                            emailError.classList.add('inputError');
                             resolve(false);
                         });
                 }
@@ -698,21 +805,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 const username = usernameInput.value.trim();
                 if (username === "") {
                     usernameError.textContent = "Username obbligatorio.";
+                    usernameInput.classList.add('inputError');
+                    usernameError.classList.add('inputError');
                     resolve(false);
                 } else {
                     checkUniqueField('username', username)
                         .then(data => {
                             if (data.exists) {
                                 usernameError.textContent = "Username già utilizzato.";
+                                usernameInput.classList.add('inputError');
+                                usernameError.classList.add('inputError');
                                 resolve(false);
                             } else {
                                 usernameError.textContent = "";
+                                usernameInput.classList.remove('inputError');
+                                usernameError.classList.remove('inputError');
                                 resolve(true);
                             }
                         })
                         .catch(error => {
                             console.error('Errore:', error);
                             usernameError.textContent = "Si è verificato un errore. Riprova.";
+                            usernameInput.classList.add('inputError');
+                            usernameError.classList.add('inputError');
                             resolve(false);
                         });
                 }

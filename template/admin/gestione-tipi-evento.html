@@ -1,11 +1,11 @@
 <div id="tipi-evento" class="limitedWidth">
-    <form method="post" action="gestione-tipi-evento.php" class="aggiunta-modifica">
+    <form method="post" action="gestione-tipi-evento.php" class="aggiunta-modifica" id="form-tipo-evento">
         <h3 id="titolo">Gestione Tipi Evento</h3>
         {messaggiForm}
         <div id="messaggi">
             <ul id="messaggi-form">
                 {messaggioForm}
-                <li>{messaggio}</li>{/messaggioForm}
+                <li class="{tipoMessaggio}">{messaggio}</li>{/messaggioForm}
             </ul>
         </div>
         {/messaggiForm}
@@ -13,8 +13,9 @@
             <fieldset>
                 <legend>{legend}</legend>
                 <p>I campi contrassegnati con (*) sono obbligatori.</p>
-                <label for="titolo">Titolo (*):</label>
-                <input type="text" id="titolo" name="nuovoTitolo" value="{nuovoTitolo}" placeholder="Titolo" required aria-required="true">
+                <label for="titolo-tipo-evento">Titolo (*):</label>
+                <input type="text" id="titolo-tipo-evento" name="nuovoTitolo" value="{nuovoTitolo}" placeholder="Titolo" required aria-required="true">
+                <div id="titolo-error"></div>
                 <label for="descrizione">Descrizione:</label>
                 <textarea id="descrizione" name="nuovaDescrizione" placeholder="Descrizione" rows="8" cols="50">{nuovaDescrizione}</textarea>
                 <input type="hidden" name="titolo" value="{titolo}">

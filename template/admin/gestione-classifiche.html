@@ -1,11 +1,11 @@
 <div id="classifiche" class="limitedWidth">
-    <form method="post" action="gestione-classifiche.php" class="aggiunta-modifica">
+    <form method="post" action="gestione-classifiche.php" class="aggiunta-modifica" id="form-classifica">
         <h3 id="titolo">Gestione Classifiche</h3>
         {messaggiForm}
         <div id="messaggi">
             <ul id="messaggi-form">
                 {messaggioForm}
-                <li>{messaggio}</li>{/messaggioForm}
+                <li class="{tipoMessaggio}">{messaggio}</li>{/messaggioForm}
             </ul>
         </div>
         {/messaggiForm}
@@ -15,6 +15,7 @@
                 <p>I campi contrassegnati con (*) sono obbligatori.</p>
                 <label for="titoloClassifica">Titolo Classifica (*):</label>
                 <input type="text" id="titoloClassifica" name="nuovoTitoloClassifica" value="{nuovoTitoloClassifica}" required aria-required="true">
+                <div id="titolo-error" class="error"></div>
                 <label for="tipoEvento">Tipo Evento (*):</label>
                 <select id="tipoEvento" name="nuovoTipoEvento" required aria-required="true">
                             <option value=""{selezioneDefault} disabled>Scegli il tipo evento</option>

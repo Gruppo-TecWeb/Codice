@@ -34,7 +34,7 @@ if ($connectionOk) {
     $messaggioForm = get_content_between_markers($messaggiFormHTML, 'messaggioForm');
     $righeTabella = '';
     $validIdEvento = isset($_POST['idEvento']) ? validate_input($_POST['idEvento']) : (isset($_GET['idEvento']) ? validate_input($_GET['idEvento']) : '');
-    $eventoSelezionato = isset($_POST['idEvento']) || isset($_GET['idEvento']);
+    $eventoSelezionato = $validIdEvento != '';
     $validTitolo = $eventoSelezionato ? $connection->get_evento($validIdEvento)['Titolo'] : '';
     $validData = $eventoSelezionato ? date_format(date_create($connection->get_evento($validIdEvento)['Data']), 'd/m/y') : '';
     $validRappersPoints = [];
@@ -64,10 +64,12 @@ if ($connectionOk) {
         if ($eventoSelezionato) {
             $connection->delete_punteggi_evento($validIdEvento);
             $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'successMessage',
                 '{messaggio}' => 'Punteggi eliminati con successo'
             ]);
         } else {
             $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
                 '{messaggio}' => 'Errore imprevisto, nessun evento selezionato'
             ]);
         }
@@ -75,10 +77,12 @@ if ($connectionOk) {
         if ($eventoSelezionato) {
             $connection->update_punteggi_evento($validIdEvento, $validRappersPoints);
             $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'successMessage',
                 '{messaggio}' => 'Punteggi aggiornati con successo'
             ]);
         } else {
             $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
                 '{messaggio}' => 'Errore imprevisto, nessun evento selezionato'
             ]);
         }

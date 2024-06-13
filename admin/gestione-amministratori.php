@@ -93,11 +93,13 @@ if ($connectionOk) {
             } else {
                 if ($erroreUsername == '1') {
                     $messaggiForm .= multi_replace($messaggioForm, [
+                        '{tipoMessaggio}' => 'inputError',
                         '{messaggio}' => "<span lang=\"en\">Username</span> già in uso"
                     ]);
                 }
                 if ($erroreEmail == '1') {
                     $messaggiForm .= multi_replace($messaggioForm, [
+                        '{tipoMessaggio}' => 'inputError',
                         '{messaggio}' => "<span lang=\"en\">E-Mail</span> già registrata"
                     ]);
                 }
@@ -132,22 +134,28 @@ if ($connectionOk) {
             } else {
                 if ($erroreUsername == '1') {
                     $messaggiForm .= multi_replace($messaggioForm, [
+                        '{tipoMessaggio}' => 'inputError',
                         '{messaggio}' => "<span lang=\"en\">Username</span> già in uso"
                     ]);
                 }
                 if ($erroreEmail == '1') {
                     $messaggiForm .= multi_replace($messaggioForm, [
+                        '{tipoMessaggio}' => 'inputError',
                         '{messaggio}' => "<span lang=\"en\">E-Mail</span> già registrata"
                     ]);
                 }
             }
             if ($errore == '0') {
                 $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'successMessage',
                     '{messaggio}' => 'Modifica effettuata con successo'
                 ]);
                 $username = $validNuovoUsername;
             } else {
-                $messaggiForm .= $messaggiForm == '' ? multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]) : '';
+                $messaggiForm .= $messaggiForm == '' ? multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => "Errore imprevisto"
+                    ]) : '';
             }
         }
     } else {
