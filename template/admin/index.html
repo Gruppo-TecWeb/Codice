@@ -40,7 +40,7 @@
                     <div id="eventi-box">{eventiProgrammati}
                         <ol>{eventoProgrammato}
                             <li>
-                                <span>{titolo} <time datetime="{data}">{dataVisualizzata}</time></span>
+                                <span class="label-element"><span class="element-title">{titolo}</span> <time datetime="{data}">{dataVisualizzata}</time></span>
                                 <form method="post" action="gestione-eventi.php">
                                     <input type="hidden" name="idEvento" value="{idEvento}">
                                     <button type="submit" name="modifica" value="true">Modifica<span class="screen-reader-only"> l'evento {titolo} del {data}</span></button>
@@ -57,7 +57,7 @@
                     <div id="punteggi-box">{punteggiMancanti}
                         <ol>{punteggioMancante}
                             <li>
-                                <span>{titolo} <time datetime="{data}">{dataVisualizzata}</time></span>
+                                <span class="label-element"><span class="element-title">{titolo}</span> <time datetime="{data}">{dataVisualizzata}</time></span>
                                 <form method="post" action="gestione-eventi.php">
                                     <input type="hidden" name="idEvento" value="{idEvento}">
                                     <button type="submit" name="punteggi" value="true">Inserisci i punteggi<span class="screen-reader-only"> per l'evento {titolo} del {data}</span></button>

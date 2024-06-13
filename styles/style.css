@@ -1542,6 +1542,9 @@ div#admin-window {
     justify-content: space-between;
     align-items: center;
     padding: 1em;
+    position:sticky;
+    top: 2.5em;
+    background: var(--colorBackground);
 }
 
 .adminPage #titolo-button button {
@@ -1577,6 +1580,10 @@ div#admin-window {
 
 .adminPage span.label-element span.element-title {
     font-weight: bold;
+    margin-right: 1em;
+}
+
+.adminPage span.element-data {
     margin-right: 1em;
 }
 
@@ -1728,6 +1735,67 @@ div#admin-window {
 .adminPage ul#messaggi-form {
     list-style: none;
 }
+
+.adminPage #evento-box {
+    display: flex;
+    justify-content: space-between;
+}
+
+.adminPage #evento h2 {
+    text-align: center;
+}
+
+.adminPage #evento-box img {
+    height: 40vh;
+    width: fit-content;
+    position: sticky;
+    top: 4em;
+    object-fit: contain;
+    border: 1px solid var(--colorAccent);
+    /* padding: 1em; */
+}
+
+.adminPage #evento-info {
+    height: fit-content;
+    width: 46%;
+    position: sticky;
+    top: 4em;
+    padding-block: 2.5em;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1em 2em;
+    align-content: center;
+    align-self: stretch;
+}
+
+.adminPage #evento-info::before,
+.adminPage #evento-info::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    height: 1.5em;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.adminPage #evento-info::before {
+    top: 0;
+    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
+}
+
+.adminPage #evento-info::after {
+    bottom: 0;
+    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
+}
+
+.adminPage #evento-info dt {
+    font-weight: bold;
+}
+
+.adminPage #evento-info dd {
+    white-space: pre-wrap;
+}
+
 
 /*
  * PAGINE ERROR DOCUMENT 

@@ -777,6 +777,25 @@ label {
     margin: 0.2em;
 }
 
+.adminPage #evento-box {
+    flex-direction: column-reverse;
+}
+
+.adminPage #evento-box img {
+    width: 100%;
+    position: relative;
+    top: unset;
+}
+
+.adminPage #evento-info {
+    width: 100%;
+    position: relative;
+    top: unset;
+    gap: 0 1em;
+    box-sizing: border-box;
+    padding: 2.5em 0;
+}
+
 
 /* 
  * PAGINA CLASSIFICHE 
