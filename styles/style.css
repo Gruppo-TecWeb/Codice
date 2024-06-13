@@ -1599,6 +1599,33 @@ div#admin-window {
 }
 
 .adminPage div#datiUtente {
+    display: flex;
+    justify-content: space-between;
+}
+
+.adminPage div#datiUtente img {
+    height: fit-content;
+    width: 46%;
+    position: sticky;
+    top: 4em;
+    object-fit: contain;
+    border: 1px solid var(--colorAccent);
+}
+
+.adminPage div#datiUtente dl {
+    height: fit-content;
+    width: 46%;
+    position: sticky;
+    top: 4em;
+    padding-block: 2.5em;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1em 2em;
+    align-content: center;
+    align-self: stretch;
+}
+/*
+.adminPage div#datiUtente {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1em;
@@ -1620,7 +1647,7 @@ div#admin-window {
     align-content: center;
     align-self: stretch;
 }
-
+*/
 .adminPage div#datiUtente dl::before {
     top: 0;
     background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);

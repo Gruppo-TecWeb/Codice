@@ -43,7 +43,7 @@
         <ol id="lista-eventi-gestione-classifiche">
             {elementoLista}
             <li>
-                <span>{titoloEvento} {dataVisualizzataEvento}</span>
+                <span class="label-element"><span class="element-title">{titoloEvento}</span> (<time datetime="{dataEvento}">{dataVisualizzataEvento}</time>)</span>
                 <form method="post" action="gestione-eventi.php">
                     <input type="hidden" name="idEvento" value="{idEvento}">
                     <button type="submit" name="punteggi" value="true">Punteggi</button>
