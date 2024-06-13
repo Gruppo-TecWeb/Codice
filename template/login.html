@@ -1,12 +1,6 @@
 <div class="limitedWidth adminPage">
     <form method="post" action="login.php">
-        <div id="titolo-button">
-            <h3>Accedi all'area riservata.</h3>
-            <div id="titolo-buttons">
-                <button type="submit" id="submit" name="submit" value="Login">Accedi</button>
-                <button type="reset" id="reset" name="reset" value="Annulla">Annulla</button>
-            </div>
-        </div>
+        <h3 id="titolo">Accedi all'area riservata.</h3>
         {messaggiForm}
         <div id="messaggi">
             <ul id="messaggi-form">
@@ -15,7 +9,7 @@
             </ul>
         </div>
         {/messaggiForm}
-        <div class="elementi-presenti aggiunta-modifica">
+        <div id="login" class="elementi-presenti aggiunta-modifica">
             <fieldset>
                 <legend>Inserisci i dati per il <span lang="en">login</span>.</legend>
                 <label for="username" lang="en">Username: </label>
@@ -23,6 +17,10 @@
                 <label for="password" lang="en">Password: </label>
                 <input type="password" id="password" name="password" placeholder="Password">
             </fieldset>
+        </div>
+        <div id="buttons">
+            <button type="submit" id="submit" name="submit" value="Login">Accedi</button>
+            <button type="reset" id="reset" name="reset" value="Annulla">Annulla</button>
         </div>
     </form>
 </div>

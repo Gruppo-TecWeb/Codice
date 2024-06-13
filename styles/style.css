@@ -1803,6 +1803,38 @@ div#admin-window {
     white-space: pre-wrap;
 }
 
+#login form {
+    display: grid;
+    grid-template-areas:
+        'titolo bottoni'
+        'input  input  ';
+    justify-content: space-between;
+}
+
+#login form h3#titolo {
+    grid-area: titolo;
+    padding: 1em;
+}
+
+#login form div#buttons {
+    grid-area: bottoni;
+    display: flex;
+    padding: 1em;
+    align-items: center;
+    justify-content: space-between;
+    width: fit-content;
+}
+
+#login form div#buttons button {
+    font-size: 1em;
+    padding: 1em;
+    margin: 0.25em;
+}
+
+#login form div#login {
+    grid-area: input;
+}
+
 
 /*
  * PAGINE ERROR DOCUMENT 
