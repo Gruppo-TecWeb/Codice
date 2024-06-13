@@ -11,8 +11,8 @@
     <div>
         <label for="tipoEvento">Filtra per tipo</label>
         <select id="tipoEvento" name="tipoEvento">
-            <option value=""{selezioneTipoEventoDefault}>Tutti gli eventi</option>
-            {listaTipiEvento}<option value="{tipoEvento}"{selezioneTipoEvento}>{tipoEvento}</option>
+            <option value="" {selezioneTipoEventoDefault}>Tutti gli eventi</option>
+            {listaTipiEvento}<option value="{tipoEvento}" {selezioneTipoEvento}>{tipoEvento}</option>
             {/listaTipiEvento}
         </select>
     </div>
@@ -35,6 +35,7 @@
     {listaEventi}
     <ul id="lista-eventi">
         {eventoElement}
+        {eventoImmagine}
         <li>
             <a href="evento.php?id={idEvento}">
                 <img src="assets/media/locandine/{locandinaEvento}" alt="">
@@ -42,6 +43,20 @@
                 <p><time datetime="{valueDataEvento}">{dataEvento}</time></p>
             </a>
         </li>
+        {/eventoImmagine}
+        {eventoNoImmagine}
+        <li class="eventoNoImmagine">
+            <a href="evento.php?id={idEvento}">
+                <div aria-hidden="true" class="cornice">
+                    <div class="scritte">
+                        {titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}
+                    </div>
+                </div>
+                <h3>{titoloEvento}</h3>
+                <p><time datetime="{valueDataEvento}">{dataEvento}</time></p>
+            </a>
+        </li>
+        {/eventoNoImmagine}
         {/eventoElement}
     </ul>
     {messaggioListaEventi}
