@@ -85,7 +85,7 @@ if ($connectionOk) {
                 '{messaggio}' => "Errore imprevisto"
             ]);
         }
-    } else {
+    } elseif (isset($_GET['errore'])) {
         $messaggiForm .= multi_replace($messaggioForm, [
             '{tipoMessaggio}' => 'inputError',
             '{messaggio}' => "Errore imprevisto"

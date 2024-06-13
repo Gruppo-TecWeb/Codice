@@ -86,12 +86,10 @@ if ($connectionOk) {
             ]);
         }
     } elseif (isset($_GET['errore'])) {
-        if (isset($_GET['errore'])) {
             $messaggiForm .= multi_replace($messaggioForm, [
                 '{tipoMessaggio}' => 'inputError',
                 '{messaggio}' => "Errore imprevisto"
             ]);
-        }
     }
 
     $amministratori = $connection->get_utenti_admin();
