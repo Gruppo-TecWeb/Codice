@@ -118,6 +118,7 @@ if ($connectionOk) {
             '{ora}' => date_format(date_create($ora), 'G:i'),
             '{luogo}' => $luogo,
             '{locandina}' => $locandina,
+            '{titoloStile}' => str_replace(' ', '_', $titolo)
         ]);
         $breadcrumbs = multi_replace($breadcrumbs, [
             '{id}' => $eventoId,

@@ -165,7 +165,8 @@ if ($connectionOk) {
                 '{valueDataEvento}' => $evento['Data'],
                 '{dataEvento}' => date_format_ita($evento['Data']),
                 '{locandinaEvento}' => $evento['Locandina'],
-                '{titoloEvento}' => $evento['Titolo']
+                '{titoloEvento}' => $evento['Titolo'],
+                '{titoloEventoStile}' => str_replace(' ', '_', $evento['Titolo'])
             ]);
         }
         $lista_eventi_string = replace_content_between_markers($lista_eventi_string, [
