@@ -1831,18 +1831,20 @@ div#admin-window {
     list-style: none;
 }
 
-.adminPage #evento-box {
+.adminPage div#titolo-button {
+    position: unset;
+    background: unset;
+}
+
+.adminPage #evento-box-admin {
     display: flex;
     justify-content: space-between;
 }
 
-.adminPage #evento h2 {
-    text-align: center;
-}
-
-.adminPage #evento-box img {
-    height: 40vh;
-    width: fit-content;
+.adminPage #evento-box-admin img {
+    height: fit-content;
+    max-height: 60vh;
+    width: 46%;
     position: sticky;
     top: 4em;
     object-fit: contain;
@@ -1850,7 +1852,7 @@ div#admin-window {
     /* padding: 1em; */
 }
 
-.adminPage #evento-info {
+.adminPage #evento-info-admin {
     height: fit-content;
     width: 46%;
     position: sticky;
@@ -1863,8 +1865,8 @@ div#admin-window {
     align-self: stretch;
 }
 
-.adminPage #evento-info::before,
-.adminPage #evento-info::after {
+.adminPage #evento-info-admin::before,
+.adminPage #evento-info-admin::after {
     content: '';
     position: absolute;
     left: 0;
@@ -1873,21 +1875,21 @@ div#admin-window {
     box-sizing: border-box;
 }
 
-.adminPage #evento-info::before {
+.adminPage #evento-info-admin::before {
     top: 0;
     background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
 }
 
-.adminPage #evento-info::after {
+.adminPage #evento-info-admin::after {
     bottom: 0;
     background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
 }
 
-.adminPage #evento-info dt {
+.adminPage #evento-info-admin dt {
     font-weight: bold;
 }
 
-.adminPage #evento-info dd {
+.adminPage #evento-info-admin dd {
     white-space: pre-wrap;
 }
 
