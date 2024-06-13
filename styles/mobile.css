@@ -583,6 +583,7 @@ label {
 }
 
 #evento #evento-info {
+    min-height: unset;
     padding: calc((100% - var(--widthMenu)) / 2);
 }
 

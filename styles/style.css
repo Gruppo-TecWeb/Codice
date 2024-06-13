@@ -1027,6 +1027,7 @@ p.eventiMessaggio {
 #evento-info {
     grid-area: dl;
     padding: 1.5em;
+    min-height: 100vh;
     z-index: var(--elevationLow);
 }
 
