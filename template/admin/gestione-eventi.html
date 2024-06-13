@@ -13,6 +13,8 @@
             <fieldset>
                 <legend>{legend}</legend>
                 <p>I campi contrassegnati con (*) sono obbligatori.</p>
+                <label for="titolo">Titolo (*):</label>
+                <input type="text" id="titolo" name="nuovoTitolo" value="{nuovoTitolo}" placeholder="Titolo" required aria-required="true">
                 <label for="tipoEvento">Tipo Evento (*):</label>
                 <select id="tipoEvento" name="nuovoTipoEvento" required aria-required="true">
                     <option value=""{selezioneDefault} disabled>Scegli il tipo evento</option>
@@ -20,8 +22,6 @@
                     {listaTipoEvento}<option value="{tipoEvento}"{selezioneTipoEvento}>{tipoEvento}</option>
                     {/listaTipoEvento}
                 </select>
-                <label for="titolo">Titolo (*):</label>
-                <input type="text" id="titolo" name="nuovoTitolo" value="{nuovoTitolo}" placeholder="Titolo" required aria-required="true">
                 <label for="data">Data (*):</label>
                 <input type="date" id="data" name="nuovaData" value="{nuovaData}" required aria-required="true">
                 <label for="ora">Ora (*):</label>
