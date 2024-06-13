@@ -1547,6 +1547,10 @@ div#admin-window {
     background: var(--colorBackground);
 }
 
+.adminPage div#profilo div#titolo-button {
+    z-index: var(--elevationHigh);
+}
+
 .adminPage #titolo-button button {
     padding: 1em;
     font-size: 1em;
@@ -1615,15 +1619,18 @@ div#admin-window {
     width: 46%;
     position: sticky;
     top: 4em;
-    object-fit: contain;
+    object-fit: cover;
     border: 1px solid var(--colorAccent);
+    aspect-ratio: 1/1;
+    padding: 1em;
+    box-sizing: border-box;
 }
 
 .adminPage div#datiUtente dl {
     height: fit-content;
     width: 46%;
     position: sticky;
-    top: 4em;
+    top: 12em;
     padding-block: 2.5em;
     display: grid;
     grid-template-columns: auto 1fr;
