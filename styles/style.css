@@ -1624,30 +1624,7 @@ div#admin-window {
     align-content: center;
     align-self: stretch;
 }
-/*
-.adminPage div#datiUtente {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1em;
-}
 
-.adminPage div#datiUtente img {
-    width: 100%;
-}
-
-.adminPage div#datiUtente dl {
-    height: fit-content;
-    width: 100%;
-    position: sticky;
-    top: 4em;
-    padding-block: 2.5em;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 1em 2em;
-    align-content: center;
-    align-self: stretch;
-}
-*/
 .adminPage div#datiUtente dl::before {
     top: 0;
     background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
@@ -1724,7 +1701,8 @@ div#admin-window {
 .adminPage div.aggiunta-modifica select,
 .adminPage div.aggiunta-modifica input[type="date"],
 .adminPage div.aggiunta-modifica input[type="time"],
-.adminPage div.aggiunta-modifica input[type="file"] {
+.adminPage div.aggiunta-modifica input[type="file"],
+.adminPage div.aggiunta-modifica input[type="password"] {
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
