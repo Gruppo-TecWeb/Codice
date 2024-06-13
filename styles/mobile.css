@@ -807,17 +807,17 @@ label {
     margin: 0.2em;
 }
 
-.adminPage #evento-box {
+.adminPage #evento-box-admin {
     flex-direction: column-reverse;
 }
 
-.adminPage #evento-box img {
+.adminPage #evento-box-admin img {
     width: 100%;
     position: relative;
     top: unset;
 }
 
-.adminPage #evento-info {
+.adminPage #evento-info-admin {
     width: 100%;
     position: relative;
     top: unset;
