@@ -1360,7 +1360,7 @@ audio::-webkit-media-controls-play-button {
 #lista_beats .descBeats {
     width: 100%;
     box-sizing: border-box;
-    border-top: 2px solid var(--colorLinkHoverBackground);
+    border-top: 1px solid var(--colorLinkHoverBackground);
     padding: 1em;
     align-self: baseline;
     background-color: var(--colorSecondary);
@@ -1381,7 +1381,9 @@ audio::-webkit-media-controls-play-button {
     position: sticky;
     bottom: 0;
     display: grid;
-    grid-template-rows: auto 1fr;
+	grid-template-areas:
+		"titolo btnNext"
+		"audio audio";
     grid-template-columns: 1fr auto;
     align-items: center;
     padding: 0.5em 1em;
@@ -1389,45 +1391,51 @@ audio::-webkit-media-controls-play-button {
 }
 
 #audio_container h3 {
+    grid-area: titolo;
     font-weight: bold;
     font-size: 1.25em;
     color: var(--colorTextOnAccent);
-    grid-column: 1 / -1;
 }
 
 #audio_container #audio {
+    grid-area: audio;
     width: 100%;
+	height: 2.5em;
 }
 
 
 #autoNext {
-    border: 1px solid var(--colorAccent);
-    border-radius: 10px;
+    grid-area: btnNext;
+    display: flex;
+    align-items: center;
     border-style: solid;
     height: max-content;
-
+	border-radius: 20px;
+    border: 2px solid var(--colorSecondary);
 }
 
-#autoNext:hover[aria-pressed="false"] {
-    background-color: var(--colorSecondary);
-    color: var(--colorAccent);
+#autoNext svg {
+    height: 100%;
+    fill: var(--colorTextOnAccent);
 }
 
-#autoNext[aria-pressed="false"] {
-    cursor: pointer;
-
-    font-weight: bold;
-    border: 1px solid var(--colorAccent);
-    color: var(--colorTextOnAccent);
-    background-color: var(--colorAccent);
-    /* transition: 0.3s; */
+#autoNext:focus {
+    background-color:  var(--colorAccent);
+	color: var(--colorTextOnAccent);
 }
 
-#autoNext[aria-pressed="true"] {
-    background-color: var(--colorSecondary);
-    color: var(--colorAccent);
+#autoNext:hover {
+    background-color:  var(--colorSecondary);
+	color: var(--colorAccent);
+}
+#autoNext:hover svg {
+    fill: var(--colorAccent);
 }
 
+#autoNext[aria-pressed="true"]::before {
+    content: "\2022";
+	margin-right: 10px;
+}
 
 /* 
  * PAGINA CLASSIFICHE 
