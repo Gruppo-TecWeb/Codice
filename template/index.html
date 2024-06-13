@@ -26,23 +26,17 @@
 
     </div>
     <div id="video-home">
-        <video aria-label="Video di presentazione del collettivo" aria-details="#video-descrizione" controls autoplay loop muted poster="assets/media/poster.jpg" width="1080" height="1920" controlsList="nodownload" oncontextmenu="return false;">
+        <video aria-label="Video di presentazione del collettivo" aria-describedby="video-descrizione" controls autoplay loop muted poster="assets/media/poster.jpg" width="1080" height="1920">
             <source src="assets/media/video_fungo.mp4" type="video/mp4">
             <source src="assets/media/video_fungo.webm" type="video/webm">
-            <p>Il tuo browser non supporta questo video</p>
             <track kind="captions" label="Video descrizione" src="assets/media/transcript_video.webvtt" srclang="it">
-            </track>
+            <p>Il tuo browser non supporta questo video</p>
         </video>
-        <details id="video-descrizione" class="navigationHelp">
-            <summary>
-                Descrizione del video
-            </summary>
-            <p aria-label="Video descrizione">
-                Brevi sequenze in cui, di sera, una folla di giovani è radunata in una piazza illuminata dai lampioni, vicino all'iconica struttura circolare con una tettoia, che ricorda un Fungo, mentre in mezzo alla folla, alcune persone stanno facendo
-                <span lang="en">freestyle</span>, sono competitive ma amichevoli, altre ballano <span lang="en">break dance</span>.
-            </p>
-        </details>
-        <p aria-label="Audio descrizione" id="audio-descrizione">
+        <p id="video-descrizione" class="navigationHelp">
+            Brevi sequenze in cui, di sera, una folla di giovani è radunata in una piazza illuminata dai lampioni, vicino all'iconica struttura circolare con una tettoia, che ricorda un Fungo, mentre in mezzo alla folla, alcune persone stanno facendo
+            <span lang="en">freestyle</span>, sono competitive ma amichevoli, altre ballano <span lang="en">break dance</span>.
+        </p>
+        <p id="audio-descrizione">
             Questo video non ha audio
         </p>
     </div>
