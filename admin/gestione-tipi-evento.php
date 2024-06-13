@@ -54,8 +54,11 @@ if ($connectionOk) {
   
     if (isset($_POST['elimina'])) {
         $connection->delete_tipo_evento($validTitolo);
-        $eliminato = $connection->get_tipo_evento($validTitolo) ? 0 : 1;
-        header("location: tipi-evento.php?eliminato=$eliminato");
+        if ($connection->get_tipo_evento($validTitolo)) {
+            header("location: tipi-evento.php?eliminato=false");
+        } else {
+            header("location: tipi-evento.php?eliminato=true");
+        }
         exit;
     } elseif (isset($_POST['modifica'])) {
         $legend = $legendModifica;
@@ -88,7 +91,7 @@ if ($connectionOk) {
                 ]);
             }
             if ($errore == '0') {
-                header("location: tipi-evento.php?aggiunto=1");
+                header("location: tipi-evento.php?aggiunto=true");
                 exit;
             }
         } elseif ($_POST['azione'] == 'modifica') {
@@ -124,7 +127,7 @@ if ($connectionOk) {
             }
         }
     } else {
-        header("location: tipi-evento.php");
+        header("location: tipi-evento.php?errore=invalid");
         exit;
     }
 

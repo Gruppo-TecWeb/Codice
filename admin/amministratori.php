@@ -34,35 +34,64 @@ if ($connectionOk) {
     $messaggiFormHTML = get_content_between_markers($content, 'messaggiForm');
     $messaggioForm = get_content_between_markers($messaggiFormHTML, 'messaggioForm');
 
-    if (isset($_GET['errore'])) {
-        $messaggiForm .= multi_replace($messaggioForm, [
-            '{tipoMessaggio}' => 'inputError',
-            '{messaggio}' => "Errore imprevisto"
-        ]);
-    }
-
     if (isset($_GET['eliminato'])) {
-        if ($_GET['eliminato'] == 0) {
+        if ($_GET['eliminato'] == 'false') {
             $messaggiForm .= multi_replace($messaggioForm, [
                 '{tipoMessaggio}' => 'inputError',
                 '{messaggio}' => "Errore nell'eliminazione dell'Amministratore"
             ]);
-        } else {
+        } elseif ($_GET['eliminato'] == 'true') {
             $messaggiForm .= multi_replace($messaggioForm, [
                 '{tipoMessaggio}' => 'successMessage',
                 '{messaggio}' => "Amministratore eliminato correttamente"
             ]);
+        } else {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore imprevisto"
+            ]);
         }
     } elseif (isset($_GET['aggiunto'])) {
-        $messaggiForm .= multi_replace($messaggioForm, [
-            '{tipoMessaggio}' => 'successMessage',
-            '{messaggio}' => "Amministratore aggiunto correttamente"
-        ]);
+        if ($_GET['aggiunto'] == 'false') {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore nell'aggiunta dell'Amministratore"
+            ]);
+        } elseif ($_GET['aggiunto'] == 'true') {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'successMessage',
+                '{messaggio}' => "Amministratore aggiunto correttamente"
+            ]);
+        } else {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore imprevisto"
+            ]);
+        }
     } elseif (isset($_GET['modificato'])) {
-        $messaggiForm .= multi_replace($messaggioForm, [
-            '{tipoMessaggio}' => 'successMessage',
-            '{messaggio}' => "Amministratore modificato correttamente"
-        ]);
+        if ($_GET['modificato'] == 'false') {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore nella modifica dell'Amministratore"
+            ]);
+        } elseif ($_GET['modificato'] == 'true') {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'successMessage',
+                '{messaggio}' => "Amministratore modificato correttamente"
+            ]);
+        } else {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore imprevisto"
+            ]);
+        }
+    } elseif (isset($_GET['errore'])) {
+        if (isset($_GET['errore'])) {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore imprevisto"
+            ]);
+        }
     }
 
     $amministratori = $connection->get_utenti_admin();

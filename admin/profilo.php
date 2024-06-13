@@ -34,19 +34,31 @@ if ($connectionOk) {
     $messaggiForm = '';
     $messaggiFormHTML = get_content_between_markers($content, 'messaggiForm');
     $messaggioForm = get_content_between_markers($messaggiFormHTML, 'messaggioForm');
-    
-    if (isset($_GET['errore'])) {
-        $messaggiForm .= multi_replace($messaggioForm, [
-            '{tipoMessaggio}' => 'inputError',
-            '{messaggio}' => "Errore imprevisto"
-        ]);
-    }
 
     $utente = $connection->get_utente_by_username($_SESSION["username"]);
 
     if ($utente === null) {
         header("location: errore500.php");
         exit;
+    }
+    
+    if (isset($_GET['modificato'])) {
+        if ($_GET['modificato'] == 'false') {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore nella modifica del profilo"
+            ]);
+        } elseif ($_GET['modificato'] == 'true') {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'successMessage',
+                '{messaggio}' => "Profilo modificato correttamente"
+            ]);
+        } elseif (isset($_GET['errore'])) {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore imprevisto"
+            ]);
+        }
     }
 
     $messaggiFormHTML = $messaggiForm == '' ? '' : replace_content_between_markers($messaggiFormHTML, ['messaggioForm' => $messaggiForm]);

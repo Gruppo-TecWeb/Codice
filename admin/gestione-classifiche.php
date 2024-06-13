@@ -55,8 +55,11 @@ if ($connectionOk) {
 
     if (isset($_POST['elimina'])) {
         $connection->delete_classifica($validIdCLassifica);
-        $eliminato = $connection->get_classifica($validIdCLassifica) ? 0 : 1;
-        header("location: classifiche.php?eliminato=$eliminato");
+        if ($connection->get_classifica($validIdCLassifica)) {
+            header("location: classifiche.php?eliminato=false");
+        } else {
+            header("location: classifiche.php?eliminato=true");
+        }
         exit;
     }
 
@@ -129,7 +132,7 @@ if ($connectionOk) {
                 ]);
             }
             if ($errore == '0') {
-                header("location: classifiche.php?aggiunto=1");
+                header("location: classifiche.php?aggiunto=true");
                 exit;
             } else {
                 $messaggiForm .= multi_replace($messaggioForm, [
@@ -168,7 +171,7 @@ if ($connectionOk) {
             }
         }
     } else {
-        header("location: classifiche.php");
+        header("location: classifiche.php?errore=invalid");
         exit;
     }
     

@@ -83,7 +83,7 @@ if ($connectionOk) {
         } else {
             $messaggiForm .= multi_replace($messaggioForm, [
                 '{tipoMessaggio}' => 'inputError',
-                '{messaggio}' => 'Errore imprevisto, nessun evento selezionato'
+                '{messaggio}' => 'Nessun evento selezionato'
             ]);
         }
     }
