@@ -1,25 +1,32 @@
 <div id="classifiche" class="limitedWidth">
-    <h3>Gestione Classifiche</h3>
-    <form method="post" action="gestione-classifiche.php">
-        <button type="submit" name="aggiungi" value="true">Aggiungi nuova Classifica</button>
-    </form>
-
-    {messaggiForm}<ul>
-        {messaggioForm}<li>{messaggio}</li>{/messaggioForm}
-    </ul>
+    <div id="titolo-button">
+        <h3>Gestione Classifiche</h3>
+        <form method="post" action="gestione-classifiche.php">
+            <button id="aggiungi" type="submit" name="aggiungi" value="true">Aggiungi nuova Classifica</button>
+        </form>
+    </div>
+    {messaggiForm}
+    <div id="messaggi">
+        <ul id="messaggi-form">
+            {messaggioForm}
+            <li>{messaggio}</li>{/messaggioForm}
+        </ul>
+    </div>
     {/messaggiForm}
 
     <!-- Lista delle classifiche esistenti in ordine cronologico con possibilità di modificarle o eliminarle. -->
-    <h4>Classifiche presenti</h4>
-    <ol id="lista-classifiche">
-        {elementoLista}<li>
-            <span>{titoloClassifica}</span>
-            <form method="post" action="gestione-classifiche.php">
-                <input type="hidden" name="idClassifica" value="{idClassifica}">
-                <button type="submit" name="modifica" value="true">Modifica<span class="screen-reader-only"> la classifica {titoloClassifica}</span></button>
-                <button type="submit" name="elimina" value="true">Elimina<span class="screen-reader-only"> la classifica {titoloClassifica}</span></button>
-            </form>
-        </li>
-        {/elementoLista}
-    </ol>
+    <div class="elementi-presenti">
+        <ol id="lista-classifiche">
+            {elementoLista}
+            <li>
+                <span class="label-element"><span class="element-title">{titoloClassifica}</span></span>
+                <form method="post" action="gestione-classifiche.php">
+                    <input type="hidden" name="idClassifica" value="{idClassifica}">
+                    <button type="submit" name="modifica" value="true">Modifica<span class="screen-reader-only"> la classifica {titoloClassifica}</span></button>
+                    <button type="submit" name="elimina" value="true">Elimina<span class="screen-reader-only"> la classifica {titoloClassifica}</span></button>
+                </form>
+            </li>
+            {/elementoLista}
+        </ol>
+    </div>
 </div>

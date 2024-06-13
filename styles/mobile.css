@@ -1,5 +1,5 @@
 /*
-* COMUNE
+ * COMUNE
  */
 
 :root {
@@ -701,16 +701,8 @@ label {
 
 
 /* 
- * PAGINA CLASSIFICHE 
+ * AREA DI AMMINISTRAZIONE 
  */
-
-
-/* .adminPage {
-    --widthMenu: 100%;
-    --minWidthMenu: 100%;
-    --marginBottomMenu: 0em;
-    --bordarRadiusCard: 0px;
-} */
 
 .adminPage table th,
 .adminPage table td {
@@ -726,13 +718,88 @@ label {
     height: 3em;
 }
 
+.adminPage div#titolo-button {
+    flex-direction: column;
+}
 
-/* .adminPage #breadcrumbs-container {
-    --widthMenu: 100%;
-    --minWidthMenu: 100%;
-    --marginBottomMenu: 0em;
-    --bordarRadiusCard: 0px;
-} */
+.adminPage ol {
+    padding: 0.5em;
+}
+
+.adminPage ol li {
+    padding: 0.5em;
+    flex-direction: column;
+}
+
+.adminPage ol li span {
+    padding: 0.5em;
+}
+
+.adminPage div#datiUtente {
+    flex-direction: column-reverse;
+}
+
+.adminPage div#datiUtente img {
+    width: 100%;
+    position: relative;
+    top: unset;
+}
+
+.adminPage div#datiUtente dl {
+    width: 100%;
+    position: relative;
+    top: unset;
+    gap: 0 1em;
+    box-sizing: border-box;
+    padding: 2.5em 0;
+}
+
+.adminPage input[type="checkbox"] {
+    width: 1em;
+    height: 1em;
+}
+
+.adminPage label:has(input[type="checkbox"]) {
+    display: flex;
+    align-items: center;
+}
+
+.adminPage ol li span.label-element {
+    justify-content: center;
+}
+
+.adminPage ol li form {
+    display: flex;
+    justify-content: center;
+}
+
+.adminPage ol li form button {
+    margin: 0.2em;
+}
+
+.adminPage #evento-box {
+    flex-direction: column-reverse;
+}
+
+.adminPage #evento-box img {
+    width: 100%;
+    position: relative;
+    top: unset;
+}
+
+.adminPage #evento-info {
+    width: 100%;
+    position: relative;
+    top: unset;
+    gap: 0 1em;
+    box-sizing: border-box;
+    padding: 2.5em 0;
+}
+
+
+/* 
+ * PAGINA CLASSIFICHE 
+ */
 
 .div-classifica {
     flex-direction: column-reverse;

@@ -1,19 +1,27 @@
 <div id="profilo" class="limitedWidth">
-            <h3>Profilo personale</h3>
-
-            {messaggi}
-            <ul>
-                {messaggio}
-                <li>{testo}</li>{/messaggio}
-            </ul>
-            {/messaggi}
-            
-            <img src="../assets/media/img_profilo/{immagineProfilo}" alt="Immagine Profilo">
-            <dl id="datiUtente">
-                <dt>Username:</dt>
-                <dd>{username}</dd>
-                <dt>E-Mail:</dt>
-                <dd>{email}</dd>
-            </dl>
-            <a href="gestione-profilo.php">Modifica Profilo</a>
-        </div>
+    <div id="titolo-button">
+        <h3>Profilo personale</h3>
+        <form method="post" action="gestione-profilo.php">
+            <button id="aggiungi" type="submit" name="aggiungi" value="true">Modifica Profilo</button>
+        </form>
+    </div>
+    {messaggiForm}
+    <div id="messaggi">
+        <ul id="messaggi-form">
+            {messaggioForm}
+            <li>{testo}</li>{/messaggioForm}
+        </ul>
+    </div>
+    {/messaggiForm}
+    
+    <!-- Dati dell'utente loggato. -->
+    <div id="datiUtente" class="elementi-presenti">
+        <img src="../assets/media/img_profilo/{immagineProfilo}" alt="Immagine Profilo">
+        <dl id="datiUtente">
+            <dt>Username:</dt>
+            <dd>{username}</dd>
+            <dt>E-Mail:</dt>
+            <dd>{email}</dd>
+        </dl>
+    </div>
+</div>

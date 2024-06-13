@@ -181,6 +181,7 @@ if ($connectionOk) {
             $listaEventi .= multi_replace($elementoLista, [
                 '{idEvento}' => $evento['Id'],
                 '{titoloEvento}' => $evento['Titolo'],
+                '{dataEvento}' => date_format(date_create($evento['Data']), 'Y-m-d'),
                 '{dataVisualizzataEvento}' => date_format(date_create($evento['Data']), 'd/m/y')
             ]);
         }
@@ -210,7 +211,7 @@ if ($connectionOk) {
         ]);
     }
 
-    $messaggiFormHTML = replace_content_between_markers($messaggiFormHTML, ['messaggioForm' => $messaggiForm]);
+    $messaggiFormHTML = $messaggiForm == '' ? '' : replace_content_between_markers($messaggiFormHTML, ['messaggioForm' => $messaggiForm]);
 
     $content = multi_replace($content, [
         '{legend}' => $legend,

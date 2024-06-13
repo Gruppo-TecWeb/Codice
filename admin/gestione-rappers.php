@@ -155,7 +155,7 @@ if ($connectionOk) {
         exit;
     }
 
-    $messaggiFormHTML = replace_content_between_markers($messaggiFormHTML, ['messaggioForm' => $messaggiForm]);
+    $messaggiFormHTML = $messaggiForm == '' ? '' : replace_content_between_markers($messaggiFormHTML, ['messaggioForm' => $messaggiForm]);
 
     $content = multi_replace($content, [
         '{legend}' => $legend,

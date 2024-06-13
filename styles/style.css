@@ -242,13 +242,6 @@ button:focus,
     color: var(--colorAccent);
 }
 
-/* nasconde il testo che rende univoci i button modifica/punteggi/elimina dell'area admin */
-span.screen-reader-only {
-    color: var(--colorAccent);
-    text-indent: -999em;
-    font-size: 0.0001em;
-}
-
 /* .toggleIconButton {} */
 
 
@@ -1388,6 +1381,10 @@ table tbody tr:nth-child(odd) {
     background-color: var(--colorSecondary);
 }
 
+table tbody tr:nth-child(even) {
+    background-color: var(--colorBackground);
+}
+
 table tbody tr:hover {
     background-color: var(--colorLinkHoverBackground);
 }
@@ -1470,16 +1467,20 @@ div#introduzione {
  * AREA DI AMMINISTRAZIONE 
  */
 
+/* nasconde il testo che rende univoci i button modifica/punteggi/elimina dell'area admin */
+span.screen-reader-only {
+    color: var(--colorAccent);
+    text-indent: -999em;
+    font-size: 0.0001em;
+}
+
 .adminPage {
-    --colorBackground: #191919;
     padding-top: calc(2 * 0.6em + 2 * 3px + 1em + 1.5em + 1em);
 }
 
 .adminPage header {
     height: calc(2 * 0.6em + 2 * 3px + 1em + 1.5em);
     align-items: center;
-    /* background-color: var(--colorSecondary);
-    border: 2px solid var(--colorAccent); */
 }
 
 .adminPage header>a {
@@ -1534,12 +1535,304 @@ div#admin-window {
     padding: 0.6em 1em;
     border: none;
     color: var(--colorLinkVisited);
-    border-left: 1px solid var(--colorAccent);
-    border-radius: 3px;
+}
+
+.adminPage div#titolo-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+    position:sticky;
+    top: 2.5em;
+    background: var(--colorBackground);
+}
+
+.adminPage div#profilo div#titolo-button {
+    z-index: var(--elevationHigh);
+}
+
+.adminPage #titolo-button button {
+    padding: 1em;
+    font-size: 1em;
+}
+
+.adminPage #titolo-button  div#titolo-buttons {
+    display: flex;
+    gap: 0.5em;
+}
+
+.adminPage ol {
+    list-style: none;
+    padding: 0;
+}
+
+.adminPage ol li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.6em 1em;
+    border-bottom: 1px solid var(--colorAccent);
+}
+
+.adminPage ol li:last-child {
+    border-bottom: none;
+}
+
+.adminPage span.label-element {
+    display: flex;
+    align-items: center;
+}
+
+.adminPage span.label-element span.element-title {
+    font-weight: bold;
+    margin-right: 1em;
+}
+
+.adminPage span.element-data {
+    margin-right: 1em;
+}
+
+.adminPage div.elementi-presenti {
+    padding: 1.25em;
+    background-color: var(--colorSecondary);
+    border-radius: 0.5em;
+    box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.1);
+    margin-bottom: 0.9375em;
+}
+
+.adminPage h3 {
+    font-size: 2em;
+    margin-block: 0.75em;
+}
+
+.adminPage h4 {
+    font-size: 1.5em;
+    margin-block: 0.5em;
+}
+
+.adminPage div#datiUtente {
+    display: flex;
+    justify-content: space-between;
+}
+
+.adminPage div#datiUtente img {
+    height: fit-content;
+    width: 46%;
+    position: sticky;
+    top: 4em;
+    object-fit: cover;
+    border: 1px solid var(--colorAccent);
+    aspect-ratio: 1/1;
+    padding: 1em;
+    box-sizing: border-box;
+}
+
+.adminPage div#datiUtente dl {
+    height: fit-content;
+    width: 46%;
+    position: sticky;
+    top: 12em;
+    padding-block: 2.5em;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1em 2em;
+    align-content: center;
+    align-self: stretch;
+}
+
+.adminPage div#datiUtente dl::before {
+    top: 0;
+    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
+}
+
+.adminPage div#datiUtente dl::before, .adminPage div#datiUtente dl::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    height: 1.5em;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.adminPage div#datiUtente dl::after {
+    bottom: 0;
+    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
+}
+
+.adminPage div#datiUtente dl dt {
+    font-weight: bold;
+}
+
+.adminPage div#datiUtente dl dd, .adminPage div#datiUtente dl dt {
+    padding: 0.2em 0.5em;
 }
 
 #eventi img {
     width: 15em;
+}
+
+.adminPage p.dashboard {
+    padding: 1em;
+    margin-bottom: 0.9375em;
+}
+
+.adminPage div.dashboard {
+    padding: 1.25em;
+    background-color: var(--colorSecondary);
+    border-radius: 0.5em;
+    box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.1);
+    margin-bottom: 0.9375em;
+}
+
+.adminPage div.data {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+}
+
+.adminPage span.data-label {
+    font-weight: bold;
+}
+
+.adminPage span.data-value {
+    padding: 0.2em 0.5em;
+}
+
+.adminPage div.aggiunta-modifica label {
+    display: block;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+}
+
+.adminPage div.aggiunta-modifica legend {
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+.adminPage div.aggiunta-modifica input[type="text"],
+.adminPage div.aggiunta-modifica input[type="email"],
+.adminPage div.aggiunta-modifica textarea,
+.adminPage div.aggiunta-modifica select,
+.adminPage div.aggiunta-modifica input[type="date"],
+.adminPage div.aggiunta-modifica input[type="time"],
+.adminPage div.aggiunta-modifica input[type="file"],
+.adminPage div.aggiunta-modifica input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.adminPage div.aggiunta-modifica input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.adminPage div#messaggi {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+    background-color: var(--colorSecondary);
+    padding: 1.25em;
+    border-radius: 0.5em;
+    box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.1);
+    margin-bottom: 0.9375em;
+}
+
+.adminPage ul#messaggi-form {
+    list-style: none;
+}
+
+.adminPage #evento-box {
+    display: flex;
+    justify-content: space-between;
+}
+
+.adminPage #evento h2 {
+    text-align: center;
+}
+
+.adminPage #evento-box img {
+    height: 40vh;
+    width: fit-content;
+    position: sticky;
+    top: 4em;
+    object-fit: contain;
+    border: 1px solid var(--colorAccent);
+    /* padding: 1em; */
+}
+
+.adminPage #evento-info {
+    height: fit-content;
+    width: 46%;
+    position: sticky;
+    top: 4em;
+    padding-block: 2.5em;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1em 2em;
+    align-content: center;
+    align-self: stretch;
+}
+
+.adminPage #evento-info::before,
+.adminPage #evento-info::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    height: 1.5em;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.adminPage #evento-info::before {
+    top: 0;
+    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
+}
+
+.adminPage #evento-info::after {
+    bottom: 0;
+    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
+}
+
+.adminPage #evento-info dt {
+    font-weight: bold;
+}
+
+.adminPage #evento-info dd {
+    white-space: pre-wrap;
+}
+
+#login form {
+    display: grid;
+    grid-template-areas:
+        'titolo bottoni'
+        'input  input  ';
+    justify-content: space-between;
+}
+
+#login form h3#titolo {
+    grid-area: titolo;
+    padding: 1em;
+}
+
+#login form div#buttons {
+    grid-area: bottoni;
+    display: flex;
+    padding: 1em;
+    align-items: center;
+    justify-content: space-between;
+    width: fit-content;
+}
+
+#login form div#buttons button {
+    font-size: 1em;
+    padding: 1em;
+    margin: 0.25em;
+}
+
+#login form div#login {
+    grid-area: input;
 }
 
 
