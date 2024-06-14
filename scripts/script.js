@@ -166,11 +166,14 @@ function init_beats() {
     document.getElementById("audio").addEventListener("play", function() {
         pressedButton.setAttribute("data-isPlaying", "true")
         pressedButton.title = "Interrompi " + newTitle;
+        pressedButton.setAttribute("aria-label","Interrompi " + newTitle);
+
     });
 
     document.getElementById("audio").addEventListener("pause", function() {
         pressedButton.setAttribute("data-isPlaying", "false")
         pressedButton.title = "Riproduci " + newTitle;
+        pressedButton.setAttribute("aria-label","Riproduci " + newTitle);
     });
 
     btnDescrizioni = document.getElementsByClassName("btnDesc");
