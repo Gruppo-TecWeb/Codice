@@ -849,6 +849,21 @@ label {
     padding: 2.5em 0;
 }
 
+#login form, .adminPage form.aggiunta-modifica {
+    grid-template-areas:
+        'titolo  '
+        'messaggi'
+        'input   '
+        'bottoni ';
+}
+
+#login form h3#titolo,
+.adminPage form.aggiunta-modifica h3#titolo,
+#login form div#input,
+.adminPage form.aggiunta-modifica div#input {
+    max-width: var(--widthMenu);
+}
+
 
 /* 
  * PAGINA CLASSIFICHE 
