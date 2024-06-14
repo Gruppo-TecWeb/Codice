@@ -162,6 +162,7 @@ function initIframe() {
  */
 
 function init_beats() {
+    setDurationBeats();
     pressedButton = document.getElementsByClassName("beat")[0].getElementsByTagName("button")[0];
     document.getElementById("audio").addEventListener("play", function() {
         pressedButton.setAttribute("data-isPlaying", "true")
@@ -195,14 +196,12 @@ function showDescription(index) {
 }
 
 
-function onJavaScript() {
+function setDurationBeats() {
     const beats = document.getElementsByClassName("beat");
     for (let i = 0; i < beats.length; i++) {
-        time = document.getElementsByTagName("time")[i];
+        const time = document.getElementsByTagName("time");
         const durata = document.getElementsByClassName("durata")[i];
         const readDurata = document.getElementsByClassName("readDurata")[i];
-
-        
 
         audiosTitle = document.getElementsByClassName("btnPlay")[i].getAttribute("data-title-beat");
         const audio = new Audio("assets/media/basi/" + audiosTitle + ".mp3");
@@ -211,7 +210,7 @@ function onJavaScript() {
             const minuti = Math.floor(audio.duration / 60);
             const secondi = Math.floor(audio.duration % 60);
             const datatime = "PT" + minuti + "M" + secondi + "S";
-            time.setAttribute("datetime",datatime);
+            time[i].setAttribute("datetime",datatime);
             if (minuti == 1) {
                 if (secondi < 10) {
                     durata.innerHTML = minuti + ":" + "0" + secondi;
