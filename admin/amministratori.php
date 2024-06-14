@@ -34,7 +34,12 @@ if ($connectionOk) {
     $messaggiFormHTML = get_content_between_markers($content, 'messaggiForm');
     $messaggioForm = get_content_between_markers($messaggiFormHTML, 'messaggioForm');
 
-    if (isset($_GET['eliminato'])) {
+    if (isset($_GET['errore'])) {
+        $messaggiForm .= multi_replace($messaggioForm, [
+            '{tipoMessaggio}' => 'inputError',
+            '{messaggio}' => "Errore imprevisto"
+        ]);
+    } elseif (isset($_GET['eliminato'])) {
         if ($_GET['eliminato'] == 'false') {
             $messaggiForm .= multi_replace($messaggioForm, [
                 '{tipoMessaggio}' => 'inputError',
@@ -85,11 +90,6 @@ if ($connectionOk) {
                 '{messaggio}' => "Errore imprevisto"
             ]);
         }
-    } elseif (isset($_GET['errore'])) {
-            $messaggiForm .= multi_replace($messaggioForm, [
-                '{tipoMessaggio}' => 'inputError',
-                '{messaggio}' => "Errore imprevisto"
-            ]);
     }
 
     $amministratori = $connection->get_utenti_admin();

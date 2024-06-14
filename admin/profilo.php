@@ -42,7 +42,12 @@ if ($connectionOk) {
         exit;
     }
     
-    if (isset($_GET['modificato'])) {
+    if (isset($_GET['errore'])) {
+        $messaggiForm .= multi_replace($messaggioForm, [
+            '{tipoMessaggio}' => 'inputError',
+            '{messaggio}' => "Errore imprevisto"
+        ]);
+    } elseif (isset($_GET['modificato'])) {
         if ($_GET['modificato'] == 'false') {
             $messaggiForm .= multi_replace($messaggioForm, [
                 '{tipoMessaggio}' => 'inputError',
@@ -53,7 +58,7 @@ if ($connectionOk) {
                 '{tipoMessaggio}' => 'successMessage',
                 '{messaggio}' => "Profilo modificato correttamente"
             ]);
-        } elseif (isset($_GET['errore'])) {
+        } else {
             $messaggiForm .= multi_replace($messaggioForm, [
                 '{tipoMessaggio}' => 'inputError',
                 '{messaggio}' => "Errore imprevisto"

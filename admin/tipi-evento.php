@@ -34,7 +34,12 @@ if ($connectionOk) {
     $messaggioForm = get_content_between_markers($messaggiFormHTML, 'messaggioForm');
     $lista = '';
 
-    if (isset($_GET['eliminato'])) {
+    if (isset($_GET['errore'])) {
+        $messaggiForm .= multi_replace($messaggioForm, [
+            '{tipoMessaggio}' => 'inputError',
+            '{messaggio}' => "Errore imprevisto"
+        ]);
+    } elseif (isset($_GET['eliminato'])) {
         if ($_GET['eliminato'] == 'false') {
             $messaggiForm .= multi_replace($messaggioForm, [
                 '{tipoMessaggio}' => 'inputError',
@@ -85,11 +90,6 @@ if ($connectionOk) {
                 '{messaggio}' => "Errore imprevisto"
             ]);
         }
-    } elseif (isset($_GET['errore'])) {
-        $messaggiForm .= multi_replace($messaggioForm, [
-            '{tipoMessaggio}' => 'inputError',
-            '{messaggio}' => "Errore imprevisto"
-        ]);
     }
 
     $tipiEvento = $connection->get_tipi_evento();
