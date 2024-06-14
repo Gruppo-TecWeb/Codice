@@ -197,14 +197,12 @@ function showDescription(index) {
 
 function onJavaScript() {
     const beats = document.getElementsByClassName("beat");
-
     for (let i = 0; i < beats.length; i++) {
+        time = document.getElementsByTagName("time")[i];
         const durata = document.getElementsByClassName("durata")[i];
         const readDurata = document.getElementsByClassName("readDurata")[i];
 
-        audioJump = beats[i].getElementsByTagName("a")[0];
-        audioJump.setAttribute("aria-hidden", "false");
-        audioJump.setAttribute("tabindex", "0");
+        
 
         audiosTitle = document.getElementsByClassName("btnPlay")[i].getAttribute("data-title-beat");
         const audio = new Audio("assets/media/basi/" + audiosTitle + ".mp3");
@@ -212,7 +210,8 @@ function onJavaScript() {
         audio.addEventListener('loadedmetadata', () => {
             const minuti = Math.floor(audio.duration / 60);
             const secondi = Math.floor(audio.duration % 60);
-
+            const datatime = "PT" + minuti + "M" + secondi + "S";
+            time.setAttribute("datetime",datatime);
             if (minuti == 1) {
                 if (secondi < 10) {
                     durata.innerHTML = minuti + ":" + "0" + secondi;
