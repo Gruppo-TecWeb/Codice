@@ -380,13 +380,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function checkUniqueField(tipo, value) {
+    function checkUniqueField(tipo, value, elementToEdit = null) {
+        const requestBody = { tipo: tipo, [tipo]: value };
+        if (elementToEdit !== null) {
+            requestBody.elementToEdit = elementToEdit;
+        }
+    
         return fetch('../utilities/verifica-dati-form.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ tipo: tipo, [tipo]: value })
+            body: JSON.stringify(requestBody)
         })
         .then(response => response.json())
         .catch(error => {
@@ -491,7 +496,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     emailError.classList.add('inputError');
                     resolve(false);
                 } else {
-                    checkUniqueField('email-profilo', email)
+                    elementToEdit = document.getElementById('element-to-edit').value;
+                    if (elementToEdit == '') {
+                        elementToEdit = null;
+                    }
+                    checkUniqueField('email-profilo', email, elementToEdit)
                         .then(data => {
                             if (data.exists) {
                                 emailError.textContent = "Email già registrata.";
@@ -610,7 +619,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Validazione per il form classifiche
     if (formClassifica) {
-        const titoloClassificaInput = document.getElementById('titolo-classifica');
+        const titoloClassificaInput = document.getElementById('titoloClassifica');
         const titoloClassificaError = document.getElementById('titolo-error');
         
         // Validazione del titolo durante la digitazione
@@ -628,7 +637,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     titoloClassificaError.classList.add('inputError');
                     resolve(false);
                 } else {
-                    checkUniqueField('titolo-classifica', titolo)
+                    elementToEdit = document.getElementById('element-to-edit').value;
+                    if (elementToEdit == '') {
+                        elementToEdit = null;
+                    }
+                    checkUniqueField('titolo-classifica', titolo, elementToEdit)
                         .then(data => {
                             if (data.exists) {
                                 titoloClassificaError.textContent = "Esiste già una classifica con questo titolo.";
@@ -690,7 +703,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     titoloTipoEventoError.classList.add('inputError');
                     resolve(false);
                 } else {
-                    checkUniqueField('titolo-tipo-evento', titolo)
+                    elementToEdit = document.getElementById('element-to-edit').value;
+                    if (elementToEdit == '') {
+                        elementToEdit = null;
+                    }
+                    checkUniqueField('titolo-tipo-evento', titolo, elementToEdit)
                         .then(data => {
                             if (data.exists) {
                                 titoloTipoEventoError.textContent = "Esiste già un tipo evento con questo titolo.";
@@ -774,7 +791,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     emailError.classList.add('inputError');
                     resolve(false);
                 } else {
-                    checkUniqueField('email', email)
+                    elementToEdit = document.getElementById('element-to-edit').value;
+                    if (elementToEdit == '') {
+                        elementToEdit = null;
+                    }
+                    checkUniqueField('email', email, elementToEdit)
                         .then(data => {
                             if (data.exists) {
                                 emailError.textContent = "Email già registrata.";
@@ -809,7 +830,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     usernameError.classList.add('inputError');
                     resolve(false);
                 } else {
-                    checkUniqueField('username', username)
+                    elementToEdit = document.getElementById('element-to-edit').value;
+                    if (elementToEdit == '') {
+                        elementToEdit = null;
+                    }
+                    checkUniqueField('username', username, elementToEdit)
                         .then(data => {
                             if (data.exists) {
                                 usernameError.textContent = "Username già utilizzato.";

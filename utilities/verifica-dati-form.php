@@ -25,6 +25,7 @@ if (!$connectionOk) {
 
 $input = json_decode(file_get_contents('php://input'), true);
 $tipo = $input['tipo'];
+$elementToEdit = isset($input['elementToEdit']) ? $input['elementToEdit'] : null;
 $response = array('error' => 'Invalid type');
 
 switch ($tipo) {
@@ -41,25 +42,41 @@ switch ($tipo) {
 
     case 'username':
         $username = validate_input($input['username']);
-        $exists = count($connection->get_utente_by_username($username)) > 0;
+        if ($elementToEdit && strtolower($connection->get_utente_by_username($elementToEdit)['Username']) == strtolower($username)) {
+            $exists = false;
+        } else {
+            $exists = count($connection->get_utente_by_username($username)) > 0;
+        }
         $response = array('exists' => $exists);
         break;
 
     case 'email':
         $email = validate_input($input['email']);
-        $exists = count($connection->get_utente_by_email($email)) > 0;
+        if ($elementToEdit && strtolower($connection->get_utente_by_username($elementToEdit)['Email']) == strtolower($email)) {
+            $exists = false;
+        } else {
+            $exists = count($connection->get_utente_by_email($email)) > 0;
+        }
         $response = array('exists' => $exists);
         break;
 
     case 'titolo-classifica':
         $titolo = validate_input($input['titolo-classifica']);
-        $exists = count($connection->get_classifiche($titolo)) > 0;
+        if ($elementToEdit && strtolower($connection->get_classifica($elementToEdit)['Titolo']) == strtolower($titolo)) {
+            $exists = false;
+        } else {
+            $exists = count($connection->get_classifiche($titolo)) > 0;
+        }
         $response = array('exists' => $exists);
         break;
 
     case 'titolo-tipo-evento':
         $titolo = validate_input($input['titolo-tipo-evento']);
-        $exists = count($connection->get_tipo_evento($titolo)) > 0;
+        if ($elementToEdit && strtolower($connection->get_tipo_evento($elementToEdit)['Titolo']) == strtolower($titolo)) {
+            $exists = false;
+        } else {
+            $exists = count($connection->get_tipo_evento($titolo)) > 0;
+        }
         $response = array('exists' => $exists);
         break;
 
