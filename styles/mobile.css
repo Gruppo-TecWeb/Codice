@@ -398,6 +398,7 @@ footer .logo {
     z-index: var(--elevationMiddle);
 }
 
+
 /* #video-home #btn-video {
     left: calc((100% - var(--menuWidth)) / 2);
     border: transparent;
@@ -537,10 +538,7 @@ label {
 }
 
 #evento #content {
-    grid-template-areas:
-        'titolo'
-        'img'
-        'dl';
+    grid-template-areas: 'titolo' 'img' 'dl';
     grid-template-columns: unset;
 }
 
@@ -592,6 +590,7 @@ label {
  * PAGINA MODALITA' 
  */
 
+
 /* 
  * PAGINA BATTLE
  */
@@ -614,7 +613,6 @@ label {
     height: 100%;
     margin: 1em;
 }
-
 
 #lista_battle {
     width: 96vw;
@@ -668,32 +666,31 @@ label {
     height: 100%;
     min-height: 30px;
     min-width: 44px;
-	padding: unset;
-	border: unset;
-	border-radius: unset;
+    padding: unset;
+    border: unset;
+    border-radius: unset;
 }
 
-#autoNext svg {
-    fill: var(--colorTextOnAccent);
-}
 #autoNext span {
     position: absolute;
     text-indent: -999em;
 }
 
-#autoNext:active, #autoNext:hover  {
+#autoNext:active,
+#autoNext:hover {
     background-color: var(--colorAccent);
     color: var(--colorTextOnAccent);
 }
 
-#autoNext:active svg, #autoNext:hover svg {
+#autoNext:active svg,
+#autoNext:hover svg {
     fill: var(--colorTextOnAccent);
 }
 
 #autoNext[aria-pressed="true"] {
     background-color: var(--colorSecondary);
-	color: var(--colorAccent);
-	border: 3px solid var(--colorAccent);
+    color: var(--colorAccent);
+    border: 3px solid var(--colorAccent);
 }
 
 #autoNext[aria-pressed="true"] svg {

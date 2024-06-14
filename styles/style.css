@@ -24,7 +24,7 @@
 }
 
 @media screen and (min-width: 2560px) {
-    :root {
+     :root {
         --widthMax: 1800px;
     }
 }
@@ -241,6 +241,7 @@ button:focus,
     fill: var(--colorAccent);
     color: var(--colorAccent);
 }
+
 
 /* .toggleIconButton {} */
 
@@ -921,14 +922,12 @@ p.eventiMessaggio {
 #evento #content {
     padding-bottom: unset;
     display: grid;
-    grid-template-areas:
-        'indietro titolo'
-        'img titolo'
-        'img dl';
+    grid-template-areas: 'indietro titolo' 'img titolo' 'img dl';
     grid-template-columns: 40% 60%;
     grid-template-rows: min-content;
     align-items: start;
 }
+
 
 /* fixare allineamento dl sotto */
 
@@ -1048,6 +1047,7 @@ p.eventiMessaggio {
 /* 
  * PAGINA MODALITA' 
  */
+
 #intro_battle {
     margin-bottom: 2em;
 }
@@ -1061,7 +1061,6 @@ p.eventiMessaggio {
     box-sizing: border-box;
     background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
     border-bottom: 2px solid var(--colorAccent);
-
 }
 
 #modalita main {
@@ -1092,7 +1091,6 @@ p.eventiMessaggio {
     color: var(--colorSecondary);
     font-size: larger;
     width: 50%;
-
     margin: 1em 0em 1em 1em;
     position: sticky;
     bottom: 0;
@@ -1107,12 +1105,9 @@ p.eventiMessaggio {
 #container_iframe h3 {
     background-color: var(--colorBackground);
     color: var(--colorAccent);
-
     border-radius: 20px 20px 0px 0px;
-
     width: max-content;
     padding: 0.5em;
-
 }
 
 #container_iframe iframe {
@@ -1120,8 +1115,6 @@ p.eventiMessaggio {
     height: 27vw;
     border-radius: 20px;
     border-style: none;
-
-
 }
 
 #container_lista_battle {
@@ -1177,14 +1170,13 @@ p.eventiMessaggio {
     background-color: var(--colorBackground);
     color: var(--colorText);
     width: 100%;
-
 }
 
 
 /*qua c'è anche il margin del footer da correggere*/
+
 .descBattle:first-child {
     border-top: 0em;
-
 }
 
 .descBattle:last-child {
@@ -1194,8 +1186,6 @@ p.eventiMessaggio {
 .descBattle:hover {
     background-color: var(--colorButtonHover);
 }
-
-
 
 .descBattle dt a {
     display: block;
@@ -1232,7 +1222,6 @@ p.eventiMessaggio {
     background-position: center;
 }
 
-
 .descBattle:hover button {
     opacity: 1;
 }
@@ -1241,6 +1230,7 @@ p.eventiMessaggio {
 /* 
  * PAGINA BEATS
  */
+
 #beats #content {
     padding-bottom: 0em;
 }
@@ -1381,9 +1371,7 @@ audio::-webkit-media-controls-play-button {
     position: sticky;
     bottom: 0;
     display: grid;
-	grid-template-areas:
-		"titolo btnNext"
-		"audio audio";
+    grid-template-areas: "titolo btnNext" "audio audio";
     grid-template-columns: 1fr auto;
     align-items: center;
     padding: 0.5em 1em;
@@ -1400,9 +1388,8 @@ audio::-webkit-media-controls-play-button {
 #audio_container #audio {
     grid-area: audio;
     width: 100%;
-	height: 2.5em;
+    height: 2.5em;
 }
-
 
 #autoNext {
     grid-area: btnNext;
@@ -1410,7 +1397,7 @@ audio::-webkit-media-controls-play-button {
     align-items: center;
     border-style: solid;
     height: max-content;
-	border-radius: 20px;
+    border-radius: 20px;
     border: 2px solid var(--colorSecondary);
 }
 
@@ -1420,22 +1407,33 @@ audio::-webkit-media-controls-play-button {
 }
 
 #autoNext:focus {
-    background-color:  var(--colorAccent);
-	color: var(--colorTextOnAccent);
+    background-color: var(--colorAccent);
+    color: var(--colorTextOnAccent);
 }
 
 #autoNext:hover {
-    background-color:  var(--colorSecondary);
-	color: var(--colorAccent);
+    background-color: var(--colorSecondary);
+    color: var(--colorAccent);
 }
+
 #autoNext:hover svg {
+    fill: var(--colorAccent);
+}
+
+#autoNext[aria-pressed="true"] {
+    background-color: var(--colorSecondary);
+    color: var(--colorAccent);
+}
+
+#autoNext[aria-pressed="true"] svg {
     fill: var(--colorAccent);
 }
 
 #autoNext[aria-pressed="true"]::before {
     content: "\2022";
-	margin-right: 10px;
+    margin-right: 10px;
 }
+
 
 /* 
  * PAGINA CLASSIFICHE 
@@ -1578,7 +1576,9 @@ div#introduzione {
  * AREA DI AMMINISTRAZIONE 
  */
 
+
 /* nasconde il testo che rende univoci i button modifica/punteggi/elimina dell'area admin */
+
 span.screen-reader-only {
     color: var(--colorAccent);
     text-indent: -999em;
@@ -1920,9 +1920,7 @@ div#admin-window {
 
 #login form {
     display: grid;
-    grid-template-areas:
-        'titolo bottoni'
-        'input  input  ';
+    grid-template-areas: 'titolo bottoni' 'input  input  ';
     justify-content: space-between;
 }
 
