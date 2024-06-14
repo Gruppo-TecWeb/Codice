@@ -24,7 +24,7 @@
 }
 
 @media screen and (min-width: 2560px) {
-    :root {
+     :root {
         --widthMax: 1800px;
     }
 }
@@ -798,9 +798,13 @@ footer #footer-credits {
     flex-direction: column;
     box-sizing: border-box;
     justify-content: space-between;
-    color: var(--colorText);
+    color: var(--colorLink);
     text-decoration: none;
     height: 100%;
+}
+
+#lista-eventi li a:visited {
+    color: var(--colorLinkVisited);
 }
 
 #lista-eventi li img {
@@ -820,12 +824,37 @@ footer #footer-credits {
 #lista-eventi li h3 {
     text-decoration: underline;
     height: 100%;
+    word-wrap: break-word;
 }
 
 #lista-eventi li h3,
 #lista-eventi li p {
     background-color: var(--colorSecondary);
     padding: 1em;
+}
+
+#lista-eventi .eventoNoImmagine h3 {
+    height: unset;
+}
+
+#lista-eventi .eventoNoImmagine .cornice {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    padding: 1.5em;
+    overflow: hidden;
+    box-sizing: border-box;
+    border-bottom: 1px solid var(--colorAccent);
+}
+
+#lista-eventi .eventoNoImmagine .cornice .scritte {
+    height: 100%;
+    transform: rotate(336deg) scale(1.5);
+    user-select: none;
+    word-wrap: break-word;
+    text-align: center;
+    font-size: 1.25em;
+    font-family: 'HORIZONTALE';
+    color: var(--colorAccent);
 }
 
 #filtri-applicati {
@@ -890,67 +919,127 @@ p.eventiMessaggio {
  * PAGINA EVENTO
  */
 
-#evento main>a::before {
-    content: "\2039    ";
+#evento #content {
+    padding-bottom: unset;
+    display: grid;
+    grid-template-areas: 'indietro titolo' 'img titolo' 'img dl';
+    grid-template-columns: 40% 60%;
+    grid-template-rows: min-content;
+    align-items: start;
 }
 
-#evento-box {
-    display: flex;
-    justify-content: space-between;
-}
 
-#evento h2 {
+/* fixare allineamento dl sotto */
+
+#evento #indietro::before {
+    content: "\2039 ";
+    height: 100%;
+    margin-right: 10px;
+    aspect-ratio: 1 / 1;
+    display: inline-block;
+    color: var(--colorTextOnAccent);
+    background-color: var(--colorAccent);
+    font-size: 2em;
+    font-weight: bold;
     text-align: center;
+    align-content: center;
+    box-sizing: border-box;
+    text-decoration: none;
+    border: 1px solid var(--colorAccent);
 }
 
-#evento-box img {
-    height: fit-content;
-    width: 46%;
+#evento #indietro:hover::before {
+    color: var(--colorAccent);
+    background-color: var(--colorSecondary);
+}
+
+#evento #indietro {
+    grid-area: indietro;
+    height: 3em;
+    box-sizing: border-box;
+    border: 1px solid var(--colorAccent);
+}
+
+#evento #titolo {
+    grid-area: titolo;
+    padding-block: 0.35em;
+    margin: unset;
+    box-sizing: border-box;
+    /* position: sticky;
+    top: 4em; */
+    z-index: var(--elevationHigh);
+    border: 1px solid var(--colorAccent);
+    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, var(--colorTextOnAccent) 2px, var(--colorTextOnAccent) 8px);
+}
+
+#evento #titolo h2 {
+    margin: unset;
+    padding: 0.15em;
+    font-family: 'Horizontale';
+    background-color: var(--colorSecondary);
+}
+
+#evento #img-container {
+    grid-area: img;
+    border: 1px solid var(--colorAccent);
+    padding: 1.5em;
+    box-sizing: border-box;
+    text-align: center;
+    height: 100%;
+    position: relative;
+}
+
+#evento #scritte-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    z-index: var(--elevationLow);
+}
+
+#evento #scritte {
+    height: 100%;
+    pointer-events: none;
+    user-select: none;
+    word-wrap: break-word;
+    transform: rotate(336deg) scale(1.5);
+    font-size: 3vw;
+    font-family: 'HORIZONTALE';
+    text-align: center;
+    opacity: 0.3;
+    color: var(--colorAccent);
+}
+
+#evento #img-container img {
+    border: 1px solid var(--colorAccent);
+    max-width: 100%;
+    max-height: 88vh;
+    object-fit: contain;
     position: sticky;
     top: 4em;
-    object-fit: contain;
-    border: 1px solid var(--colorAccent);
-    /* padding: 1em; */
+    z-index: var(--elevationHigh);
 }
 
 #evento-info {
-    height: fit-content;
-    width: 46%;
-    position: sticky;
-    top: 4em;
-    padding-block: 2.5em;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 1em 2em;
-    align-content: center;
-    align-self: stretch;
-}
-
-#evento-info::before,
-#evento-info::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    height: 1.5em;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-#evento-info::before {
-    top: 0;
-    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
-}
-
-#evento-info::after {
-    bottom: 0;
-    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
+    grid-area: dl;
+    padding: 1.5em;
+    min-height: 100vh;
+    z-index: var(--elevationLow);
 }
 
 #evento-info dt {
     font-weight: bold;
+    font-size: 1.75em;
 }
 
 #evento-info dd {
+    font-size: 1.2em;
+    margin-bottom: 1em;
+}
+
+#evento-info dd#descrizione {
     white-space: pre-wrap;
 }
 
@@ -958,6 +1047,7 @@ p.eventiMessaggio {
 /* 
  * PAGINA MODALITA' 
  */
+
 #intro_battle {
     margin-bottom: 2em;
 }
@@ -971,78 +1061,77 @@ p.eventiMessaggio {
     box-sizing: border-box;
     background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
     border-bottom: 2px solid var(--colorAccent);
-
 }
 
 #modalita main {
     padding-bottom: unset;
 }
 
-    #container_battle {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        background-color: var(--colorAccent);
-        padding: 0em;
-        align-items: center;
-        margin: 0em;
-        
-    }
-    
-    #container_battle h2{
-        background-color: var(--colorBackground);
-        color: var(--colorAccent);
-        border-radius: 20px 20px 20px 20px;
-        width: max-content;
-        padding: 0.5em;      
-    }
-    
-    #container_iframe {
-        margin: 0em;
-        text-align: center;
-        color: var(--colorSecondary);
-        font-size: larger;
-        width: 50%;
+#container_battle {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: var(--colorAccent);
+    padding: 0em;
+    align-items: center;
+    margin: 0em;
+}
 
-        margin: 1em 0em 1em 1em;
-        position: sticky;
-        bottom: 0;
-        top: 3em;
-        display: flex;
-        flex-direction: column; /* Imposta la direzione dei figli su verticale */
-        align-items: center; /* Centra orizzontalmente */
-    }
-        
-    #container_iframe h3 {
-        background-color: var(--colorBackground);
-        color: var(--colorAccent);
+#container_battle h2 {
+    background-color: var(--colorBackground);
+    color: var(--colorAccent);
+    border-radius: 20px 20px 20px 20px;
+    width: max-content;
+    padding: 0.5em;
+}
 
-        border-radius: 20px 20px 0px 0px;
+#container_iframe {
+    margin: 0em;
+    text-align: center;
+    color: var(--colorSecondary);
+    font-size: larger;
+    width: 50%;
+    margin: 1em 0em 1em 1em;
+    position: sticky;
+    bottom: 0;
+    top: 3em;
+    display: flex;
+    flex-direction: column;
+    /* Imposta la direzione dei figli su verticale */
+    align-items: center;
+    /* Centra orizzontalmente */
+}
 
-        width: max-content;
-        padding: 0.5em;
-       
-    }
-    #container_iframe iframe {
-        width: 48vw;
-        height: 27vw;
-        border-radius: 20px;
-        border-style: none;
-        
-        
-    }
-    #container_lista_battle{
-        display: flex;
-        flex-direction: column;
-        align-items: center; /* Centra orizzontalmente */
-        margin-bottom: 1.1em;
-    }
-    
-    #lista_battle {
-        display: flex;
-        flex-direction: column;
-        align-items: center; /* Centra orizzontalmente */
-    }
+#container_iframe h3 {
+    background-color: var(--colorBackground);
+    color: var(--colorAccent);
+    border-radius: 20px 20px 0px 0px;
+    width: max-content;
+    padding: 0.5em;
+}
+
+#container_iframe iframe {
+    width: 48vw;
+    height: 27vw;
+    border-radius: 20px;
+    border-style: none;
+}
+
+#container_lista_battle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Centra orizzontalmente */
+    margin-bottom: 1.1em;
+}
+
+#lista_battle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Centra orizzontalmente */
+}
+
 #lista_battle button {
     cursor: pointer;
     height: 3em;
@@ -1068,9 +1157,6 @@ p.eventiMessaggio {
     background-position: center;
 }
 
-
-
-
 .descBattle {
     display: flex;
     flex-direction: row;
@@ -1084,14 +1170,13 @@ p.eventiMessaggio {
     background-color: var(--colorBackground);
     color: var(--colorText);
     width: 100%;
-
 }
 
 
 /*qua c'è anche il margin del footer da correggere*/
+
 .descBattle:first-child {
     border-top: 0em;
-
 }
 
 .descBattle:last-child {
@@ -1101,8 +1186,6 @@ p.eventiMessaggio {
 .descBattle:hover {
     background-color: var(--colorButtonHover);
 }
-
-
 
 .descBattle dt a {
     display: block;
@@ -1139,7 +1222,6 @@ p.eventiMessaggio {
     background-position: center;
 }
 
-
 .descBattle:hover button {
     opacity: 1;
 }
@@ -1148,9 +1230,11 @@ p.eventiMessaggio {
 /* 
  * PAGINA BEATS
  */
-#beats #content{
+
+#beats #content {
     padding-bottom: 0em;
 }
+
 #intro_beats {
     padding-bottom: 2em;
     box-sizing: border-box;
@@ -1225,6 +1309,9 @@ audio::-webkit-media-controls-play-button {
 }
 
 #lista_beats .btnDesc {
+    height: min-content;
+    min-width: 12em;
+    margin: auto;
     padding: 0 1em;
     white-space: nowrap;
 }
@@ -1263,10 +1350,14 @@ audio::-webkit-media-controls-play-button {
 #lista_beats .descBeats {
     width: 100%;
     box-sizing: border-box;
-    border-top: 2px dashed var(--colorAccent);
+    border-top: 1px solid var(--colorLinkHoverBackground);
     padding: 1em;
     align-self: baseline;
     background-color: var(--colorSecondary);
+}
+
+#lista_beats .beat:hover .descBeats {
+    background-color: var(--colorLinkHoverBackground);
 }
 
 #lista_beats .descBeats[data-show="false"] {
@@ -1280,7 +1371,7 @@ audio::-webkit-media-controls-play-button {
     position: sticky;
     bottom: 0;
     display: grid;
-    grid-template-rows: auto 1fr;
+    grid-template-areas: "titolo btnNext" "audio audio";
     grid-template-columns: 1fr auto;
     align-items: center;
     padding: 0.5em 1em;
@@ -1288,42 +1379,59 @@ audio::-webkit-media-controls-play-button {
 }
 
 #audio_container h3 {
+    grid-area: titolo;
     font-weight: bold;
     font-size: 1.25em;
     color: var(--colorTextOnAccent);
-    grid-column: 1 / -1;
 }
 
 #audio_container #audio {
+    grid-area: audio;
     width: 100%;
+    height: 2.5em;
 }
 
-
-#autoNext{
-    border: 1px solid var(--colorAccent);
-    border-radius: 10px;
+#autoNext {
+    grid-area: btnNext;
+    display: flex;
+    align-items: center;
     border-style: solid;
     height: max-content;
-
+    border-radius: 20px;
+    border: 2px solid var(--colorSecondary);
 }
-#autoNext:hover[aria-pressed="false"] {
+
+#autoNext svg {
+    height: 100%;
+    fill: var(--colorTextOnAccent);
+}
+
+#autoNext:focus {
+    background-color: var(--colorAccent);
+    color: var(--colorTextOnAccent);
+}
+
+#autoNext:hover {
     background-color: var(--colorSecondary);
     color: var(--colorAccent);
 }
 
-#autoNext[aria-pressed="false"] {
-    cursor: pointer;
-    
-    font-weight: bold;
-    border: 1px solid var(--colorAccent);
-    color: var(--colorTextOnAccent);
-    background-color: var(--colorAccent);
-    /* transition: 0.3s; */
+#autoNext:hover svg {
+    fill: var(--colorAccent);
 }
 
 #autoNext[aria-pressed="true"] {
     background-color: var(--colorSecondary);
     color: var(--colorAccent);
+}
+
+#autoNext[aria-pressed="true"] svg {
+    fill: var(--colorAccent);
+}
+
+#autoNext[aria-pressed="true"]::before {
+    content: "\2022";
+    margin-right: 10px;
 }
 
 
@@ -1380,6 +1488,10 @@ table th {
 
 table tbody tr:nth-child(odd) {
     background-color: var(--colorSecondary);
+}
+
+table tbody tr:nth-child(even) {
+    background-color: var(--colorBackground);
 }
 
 table tbody tr:hover {
@@ -1464,16 +1576,22 @@ div#introduzione {
  * AREA DI AMMINISTRAZIONE 
  */
 
+
+/* nasconde il testo che rende univoci i button modifica/punteggi/elimina dell'area admin */
+
+span.screen-reader-only {
+    color: var(--colorAccent);
+    text-indent: -999em;
+    font-size: 0.0001em;
+}
+
 .adminPage {
-    --colorBackground: #191919;
     padding-top: calc(2 * 0.6em + 2 * 3px + 1em + 1.5em + 1em);
 }
 
 .adminPage header {
     height: calc(2 * 0.6em + 2 * 3px + 1em + 1.5em);
     align-items: center;
-    /* background-color: var(--colorSecondary);
-    border: 2px solid var(--colorAccent); */
 }
 
 .adminPage header>a {
@@ -1528,12 +1646,306 @@ div#admin-window {
     padding: 0.6em 1em;
     border: none;
     color: var(--colorLinkVisited);
-    border-left: 1px solid var(--colorAccent);
-    border-radius: 3px;
 }
 
-#eventi img {
+.adminPage div#titolo-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+    position: sticky;
+    top: 2.5em;
+    background: var(--colorBackground);
+}
+
+.adminPage div#profilo div#titolo-button {
+    z-index: var(--elevationHigh);
+}
+
+.adminPage #titolo-button button {
+    padding: 1em;
+    font-size: 1em;
+}
+
+.adminPage #titolo-button div#titolo-buttons {
+    display: flex;
+    gap: 0.5em;
+}
+
+.adminPage ol {
+    list-style: none;
+    padding: 0;
+}
+
+.adminPage ol li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.6em 1em;
+    border-bottom: 1px solid var(--colorAccent);
+}
+
+.adminPage ol li:last-child {
+    border-bottom: none;
+}
+
+.adminPage span.label-element {
+    display: flex;
+    align-items: center;
+}
+
+.adminPage span.label-element span.element-title {
+    font-weight: bold;
+    margin-right: 1em;
+}
+
+.adminPage span.element-data {
+    margin-right: 1em;
+}
+
+.adminPage div.elementi-presenti {
+    padding: 1.25em;
+    background-color: var(--colorSecondary);
+    border-radius: 0.5em;
+    box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.1);
+    margin-bottom: 0.9375em;
+}
+
+.adminPage h3 {
+    font-size: 2em;
+    margin-block: 0.75em;
+}
+
+.adminPage h4 {
+    font-size: 1.5em;
+    margin-block: 0.5em;
+}
+
+.adminPage div#datiUtente {
+    display: flex;
+    justify-content: space-between;
+}
+
+.adminPage div#datiUtente img {
+    height: fit-content;
+    width: 46%;
+    position: sticky;
+    top: 4em;
+    object-fit: cover;
+    border: 1px solid var(--colorAccent);
+    aspect-ratio: 1/1;
+    padding: 1em;
+    box-sizing: border-box;
+}
+
+.adminPage div#datiUtente dl {
+    height: fit-content;
+    width: 46%;
+    position: sticky;
+    top: 12em;
+    padding-block: 2.5em;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1em 2em;
+    align-content: center;
+    align-self: stretch;
+}
+
+.adminPage div#datiUtente dl::before {
+    top: 0;
+    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
+}
+
+.adminPage div#datiUtente dl::before,
+.adminPage div#datiUtente dl::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    height: 1.5em;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.adminPage div#datiUtente dl::after {
+    bottom: 0;
+    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
+}
+
+.adminPage div#datiUtente dl dt {
+    font-weight: bold;
+}
+
+.adminPage div#datiUtente dl dd,
+.adminPage div#datiUtente dl dt {
+    padding: 0.2em 0.5em;
+}
+
+.adminPage #eventi img {
     width: 15em;
+}
+
+.adminPage p.dashboard {
+    padding: 1em;
+    margin-bottom: 0.9375em;
+}
+
+.adminPage div.dashboard {
+    padding: 1.25em;
+    background-color: var(--colorSecondary);
+    border-radius: 0.5em;
+    box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.1);
+    margin-bottom: 0.9375em;
+}
+
+.adminPage div.data {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+}
+
+.adminPage span.data-label {
+    font-weight: bold;
+}
+
+.adminPage span.data-value {
+    padding: 0.2em 0.5em;
+}
+
+.adminPage div.aggiunta-modifica label {
+    display: block;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+}
+
+.adminPage div.aggiunta-modifica legend {
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+.adminPage div.aggiunta-modifica input[type="text"],
+.adminPage div.aggiunta-modifica input[type="email"],
+.adminPage div.aggiunta-modifica textarea,
+.adminPage div.aggiunta-modifica select,
+.adminPage div.aggiunta-modifica input[type="date"],
+.adminPage div.aggiunta-modifica input[type="time"],
+.adminPage div.aggiunta-modifica input[type="file"],
+.adminPage div.aggiunta-modifica input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.adminPage div.aggiunta-modifica input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.adminPage div#messaggi {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+    background-color: var(--colorSecondary);
+    padding: 1.25em;
+    border-radius: 0.5em;
+    box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.1);
+    margin-bottom: 0.9375em;
+}
+
+.adminPage ul#messaggi-form {
+    list-style: none;
+}
+
+.adminPage div#titolo-button {
+    position: unset;
+    background: unset;
+}
+
+.adminPage #evento-box-admin {
+    display: flex;
+    justify-content: space-between;
+}
+
+.adminPage #evento-box-admin img {
+    height: fit-content;
+    max-height: 60vh;
+    width: 46%;
+    position: sticky;
+    top: 4em;
+    object-fit: contain;
+    border: 1px solid var(--colorAccent);
+    /* padding: 1em; */
+}
+
+.adminPage #evento-info-admin {
+    height: fit-content;
+    width: 46%;
+    position: sticky;
+    top: 4em;
+    padding-block: 2.5em;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1em 2em;
+    align-content: center;
+    align-self: stretch;
+}
+
+.adminPage #evento-info-admin::before,
+.adminPage #evento-info-admin::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    height: 1.5em;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.adminPage #evento-info-admin::before {
+    top: 0;
+    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
+}
+
+.adminPage #evento-info-admin::after {
+    bottom: 0;
+    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
+}
+
+.adminPage #evento-info-admin dt {
+    font-weight: bold;
+}
+
+.adminPage #evento-info-admin dd {
+    white-space: pre-wrap;
+}
+
+#login form {
+    display: grid;
+    grid-template-areas: 'titolo bottoni' 'input  input  ';
+    justify-content: space-between;
+}
+
+#login form h3#titolo {
+    grid-area: titolo;
+    padding: 1em;
+}
+
+#login form div#buttons {
+    grid-area: bottoni;
+    display: flex;
+    padding: 1em;
+    align-items: center;
+    justify-content: space-between;
+    width: fit-content;
+}
+
+#login form div#buttons button {
+    font-size: 1em;
+    padding: 1em;
+    margin: 0.25em;
+}
+
+#login form div#login {
+    grid-area: input;
 }
 
 

@@ -41,6 +41,17 @@ if ($connectionOk) {
 
         $content = file_get_contents("template/evento.html");
 
+        // Creazione della locandina dell'evento
+        $locandinaEvento = '';
+        if ($locandina != null) {
+            $eventoConLocandinaTemplate = get_content_between_markers($content, 'conLocandina');
+            $locandinaEvento = multi_replace($eventoConLocandinaTemplate, [
+                '{locandina}' => $locandina
+            ]);
+        } else {
+            $locandinaEvento = get_content_between_markers($content, 'noLocandina');
+        }
+
         // Creazione della descrizione dell'evento
         $descrizioneEvento = '';
         if ($descrizione != null) {
@@ -96,6 +107,7 @@ if ($connectionOk) {
         }
 
         $content = multi_replace(replace_content_between_markers($content, [
+            'locandinaEvento' => $locandinaEvento,
             'stagioneEvento' => $stagioneEvento,
             'descrizioneEvento' => $descrizioneEvento,
             'classificaEvento' => $classificaEventoHTML
@@ -106,6 +118,7 @@ if ($connectionOk) {
             '{ora}' => date_format(date_create($ora), 'G:i'),
             '{luogo}' => $luogo,
             '{locandina}' => $locandina,
+            '{titoloStile}' => str_replace(' ', '_', $titolo)
         ]);
         $breadcrumbs = multi_replace($breadcrumbs, [
             '{id}' => $eventoId,

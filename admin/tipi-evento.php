@@ -30,7 +30,8 @@ $connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
     $messaggiForm = '';
-    $messaggioForm = get_content_between_markers($content, 'messaggioForm');
+    $messaggiFormHTML = get_content_between_markers($content, 'messaggiForm');
+    $messaggioForm = get_content_between_markers($messaggiFormHTML, 'messaggioForm');
     $lista = '';
 
     if (isset($_GET['errore'])) {
@@ -58,9 +59,11 @@ if ($connectionOk) {
         ]);
     }
 
+    $messaggiFormHTML = $messaggiForm == '' ? '' : replace_content_between_markers($messaggiFormHTML, ['messaggioForm' => $messaggiForm]);
+
     $content = replace_content_between_markers($content, [
         'elementoLista' => $lista,
-        'messaggiForm' => $messaggiForm
+        'messaggiForm' => $messaggiFormHTML
     ]);
 
     $connection->close_DB_connection();

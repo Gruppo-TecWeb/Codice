@@ -30,7 +30,8 @@ $connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
     $messaggiForm = '';
-    $messaggioForm = get_content_between_markers($content, 'messaggioForm');
+    $messaggiFormHTML = get_content_between_markers($content, 'messaggiForm');
+    $messaggioForm = get_content_between_markers($messaggiFormHTML, 'messaggioForm');
     $buttonElimina = get_content_between_markers($content, 'buttonElimina');
     $legend = '';
     $legendAggiungi = 'Aggiungi <span lang="en">Rapper</span>';
@@ -154,6 +155,8 @@ if ($connectionOk) {
         exit;
     }
 
+    $messaggiFormHTML = $messaggiForm == '' ? '' : replace_content_between_markers($messaggiFormHTML, ['messaggioForm' => $messaggiForm]);
+
     $content = multi_replace($content, [
         '{legend}' => $legend,
         '{nuovoUsername}' => $nuovoUsername,
@@ -163,7 +166,7 @@ if ($connectionOk) {
         '{valueAzione}' => $valueAzione
     ]);
     $content = replace_content_between_markers($content, [
-        'messaggiForm' => $messaggiForm,
+        'messaggiForm' => $messaggiFormHTML,
         'buttonElimina' => $buttonElimina
     ]);
 

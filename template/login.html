@@ -1,26 +1,26 @@
-<div class="limitedWidth">
-            <h2>Accedi all'area riservata.</h2>
-            <form method="post" action="login.php">
-                <div id="messaggiForm">
-                    {messaggiForm}<ul>
-                        {messaggioForm}<li>{messaggio}</li>{/messaggioForm}
-                    </ul>
-                    {/messaggiForm}
-                </div>
-                <fieldset>
-                    <legend>Inserisci i dati per il <span lang="en">login</span>.</legend>
-                    <div id="usernameField">
-                        <label for="username" lang="en">Username: </label>
-                        <input type="text" id="username" name="username" placeholder="Username" value="{valoreUsername}" required>
-                    </div>
-                    <div id="passwordField">
-                        <label for="password" lang="en">Password: </label>
-                        <input type="password" id="password" name="password" placeholder="Password">
-                    </div>
-                    <div id="buttonsField">
-                        <input type="submit" id="submit" name="submit" value="Login">
-                        <input type="reset" id="reset" name="reset" value="Annulla">
-                    </div>
-                </fieldset>
-            </form>
+<div class="limitedWidth adminPage">
+    <form method="post" action="login.php">
+        <h3 id="titolo">Accedi all'area riservata.</h3>
+        {messaggiForm}
+        <div id="messaggi">
+            <ul id="messaggi-form">
+                {messaggioForm}
+                <li>{messaggio}</li>{/messaggioForm}
+            </ul>
         </div>
+        {/messaggiForm}
+        <div id="login" class="elementi-presenti aggiunta-modifica">
+            <fieldset>
+                <legend>Inserisci i dati per il <span lang="en">login</span>.</legend>
+                <label for="username" lang="en">Username: </label>
+                <input type="text" id="username" name="username" placeholder="Username" value="{valoreUsername}" required>
+                <label for="password" lang="en">Password: </label>
+                <input type="password" id="password" name="password" placeholder="Password">
+            </fieldset>
+        </div>
+        <div id="buttons">
+            <button type="submit" id="submit" name="submit" value="Login">Accedi</button>
+            <button type="reset" id="reset" name="reset" value="Annulla">Annulla</button>
+        </div>
+    </form>
+</div>
