@@ -178,7 +178,7 @@ main {
 
 div#messaggi li.successMessage::before {
     content: "✓";
-    color: green;
+    color: lime;
     margin-right: 10px;
     margin-bottom: 1em;
 }
@@ -1911,26 +1911,6 @@ div#admin-window {
     gap: 1em 2em;
     align-content: center;
     align-self: stretch;
-}
-
-.adminPage #evento-info-admin::before,
-.adminPage #evento-info-admin::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    height: 1.5em;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.adminPage #evento-info-admin::before {
-    top: 0;
-    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
-}
-
-.adminPage #evento-info-admin::after {
-    bottom: 0;
-    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
 }
 
 .adminPage #evento-info-admin dt {

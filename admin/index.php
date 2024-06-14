@@ -43,8 +43,14 @@ if ($connectionOk) {
         // dashboard prossimo evento
         $prossimiEventi = $connection->get_lista_eventi(date('Y-m-d'));
         if (count($prossimiEventi) > 0) {
+            $locandinaHTML = '';
+            if ($prossimiEventi[0]['Locandina'] != null) {
+                $locandinaHTML = get_content_between_markers($prossimoEventoHTML, 'locandinaHTML');
+                $locandinaHTML = multi_replace($locandinaHTML, [
+                    '{locandina}' => $prossimiEventi[0]['Locandina']
+                ]);
+            }
             $prossimoEventoHTML = multi_replace($prossimoEventoHTML, [
-                '{locandina}' => $prossimiEventi[0]['Locandina'],
                 '{titoloEvento}' => $prossimiEventi[0]['Titolo'],
                 '{data}' => date_format(date_create($prossimiEventi[0]['Data']), 'Y-m-d'),
                 '{dataVisualizzata}' => date_format_ita($prossimiEventi[0]['Data']),
@@ -53,6 +59,9 @@ if ($connectionOk) {
                 '{descrizione}' => $prossimiEventi[0]['Descrizione'],
                 '{tipoEvento}' => $prossimiEventi[0]['TipoEvento'],
                 '{idEvento}' => $prossimiEventi[0]['Id']
+            ]);
+            $prossimoEventoHTML = replace_content_between_markers($prossimoEventoHTML, [
+                'locandinaHTML' => $locandinaHTML
             ]);
         } else {
             $prossimoEventoHTML = $nessunEventoProgrammatoHTML;

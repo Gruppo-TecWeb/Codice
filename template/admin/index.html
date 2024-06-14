@@ -17,8 +17,10 @@
                         </form>
                     </div>
                     <div id="evento-box-admin">
-                        <img src="./../assets/media/locandine/{locandina}" alt="">
+                        {locandinaHTML}<img src="./../assets/media/locandine/{locandina}" alt="">{/locandinaHTML}
                         <dl id="evento-info-admin">
+                            <dt>Tipo evento:</dt>
+                            <dd>{tipoEvento}</dd>
                             <dt>Data:</dt>
                             <dd><time datetime="{data}">{dataVisualizzata}</time></dd>
                             <dt>Ora:</dt>
@@ -27,8 +29,6 @@
                             <dd>{luogo}</dd>
                             <dt>Descrizione:</dt>
                             <dd>{descrizione}</dd>
-                            <dt>Tipo evento:</dt>
-                            <dd>{tipoEvento}</dd>
                         </dl>
                     </div>
                     {/prossimoEvento}{nessunEventoProgrammato}
