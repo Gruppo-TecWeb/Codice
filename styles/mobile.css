@@ -439,7 +439,7 @@ footer .logo {
     object-fit: contain;
 }
 
-.ddImg p {
+.ddImg figcaption {
     box-sizing: border-box;
     padding: 0.5em calc((100% - var(--widthMenu)) / 2);
 }
