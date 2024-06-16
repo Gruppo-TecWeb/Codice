@@ -757,6 +757,10 @@ label {
  * AREA DI AMMINISTRAZIONE 
  */
 
+.adminPage {
+    padding-top: 3.5em;
+}
+
 .adminPage table th,
 .adminPage table td {
     padding: 0.1em;
@@ -849,12 +853,9 @@ label {
     padding: 2.5em 0;
 }
 
-#login form, .adminPage form.aggiunta-modifica {
-    grid-template-areas:
-        'titolo  '
-        'messaggi'
-        'input   '
-        'bottoni ';
+#login form,
+.adminPage form.aggiunta-modifica {
+    grid-template-areas: 'titolo  ' 'messaggi' 'input   ' 'bottoni ';
 }
 
 #login form h3#titolo,
@@ -864,13 +865,15 @@ label {
     max-width: var(--widthMenu);
 }
 
-#login form div#buttons, .adminPage form.aggiunta-modifica div#buttons {
+#login form div#buttons,
+.adminPage form.aggiunta-modifica div#buttons {
     display: unset;
     padding: unset;
 }
 
-.adminPage {
-    padding-top: 3.5em;
+#login form h3#titolo,
+.adminPage form.aggiunta-modifica h3#titolo {
+    padding: unset;
 }
 
 
