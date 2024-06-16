@@ -119,6 +119,9 @@ if ($connectionOk) {
                 '{tipoMessaggio}' => 'successMessage',
                 '{messaggio}' => 'Modifica effettuata con successo'
             ]);
+
+            header("location: profilo.php?modificato=true");
+            exit;
         }
     }
 

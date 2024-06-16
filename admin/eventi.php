@@ -90,6 +90,40 @@ if ($connectionOk) {
                 '{messaggio}' => "Errore imprevisto"
             ]);
         }
+    } elseif (isset($_GET['punteggi-eliminati'])) {
+        if ($_GET['punteggi-eliminati'] == 'false') {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore nell'eliminazione dei punteggi"
+            ]);
+        } elseif ($_GET['punteggi-eliminati'] == 'true') {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'successMessage',
+                '{messaggio}' => "Punteggi eliminati correttamente"
+            ]);
+        } else {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore imprevisto"
+            ]);
+        }
+    } elseif (isset($_GET['punteggi-modificati'])) {
+        if ($_GET['punteggi-modificati'] == 'false') {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore nella modifica dei punteggi"
+            ]);
+        } elseif ($_GET['punteggi-modificati'] == 'true') {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'successMessage',
+                '{messaggio}' => "Punteggi modificati correttamente"
+            ]);
+        } else {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore imprevisto"
+            ]);
+        }
     }
 
     $eventi = $connection->get_eventi();

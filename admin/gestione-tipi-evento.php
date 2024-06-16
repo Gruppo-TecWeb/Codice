@@ -119,6 +119,9 @@ if ($connectionOk) {
                     '{messaggio}' => 'Modifica effettuata con successo'
                 ]);
                 $titolo = $validNuovoTitolo;
+
+                header("location: tipi-evento.php?modificato=true");
+                exit;
             } else {
                 $messaggiForm .= $messaggiForm == '' ? multi_replace($messaggioForm, [
                     '{tipoMessaggio}' => 'inputError',
