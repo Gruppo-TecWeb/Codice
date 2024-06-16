@@ -1,22 +1,15 @@
 <div id="punteggi" class="limitedWidth">
-    <form method="post" action="gestione-punteggi.php">
-        <div id="titolo-button">
-            <h3>Gestione Punteggi</h3>
-            <div id="titolo-buttons">
-                <button type="submit" name="conferma" value="true">Conferma</button>
-                <button type="submit" name="elimina" value="true">Elimina Punteggi</button>
-                <button type="button" value="annulla" onClick="tornaIndietro()">Annulla</button>
-            </div>
-        </div>
+    <form method="post" action="gestione-punteggi.php" class="aggiunta-modifica">
+        <h3 id="titolo">Gestione Punteggi</h3>
         {messaggiForm}
         <div id="messaggi">
             <ul id="messaggi-form">
                 {messaggioForm}
-                <li>{messaggio}</li>{/messaggioForm}
+                <li class="{tipoMessaggio}">{messaggio}</li>{/messaggioForm}
             </ul>
         </div>
         {/messaggiForm}
-        <div class="elementi-presenti aggiunta-modifica">
+        <div id="input" class="elementi-presenti aggiunta-modifica">
             <fieldset>
                 <legend>Punteggi</legend>
                 <span id="sumTabella" class="navigationHelp">Tabella che elenca tutti i <span lang="en">rappers</span> 
@@ -40,6 +33,11 @@
                 </table>
             <input type="hidden" name="idEvento" value="{idEvento}">
             </fieldset>
+        </div>
+        <div id="buttons">
+            <button type="submit" name="conferma" value="true">Conferma</button>
+            <button type="submit" name="elimina" value="true">Elimina Punteggi</button>
+            <button type="button" value="annulla" onClick="tornaIndietro()">Annulla</button>
         </div>
     </form>
 </div>

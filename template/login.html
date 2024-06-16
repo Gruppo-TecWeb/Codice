@@ -1,21 +1,24 @@
 <div class="limitedWidth adminPage">
-    <form method="post" action="login.php">
+    <form method="post" action="login.php" id="form-login">
         <h3 id="titolo">Accedi all'area riservata.</h3>
         {messaggiForm}
         <div id="messaggi">
             <ul id="messaggi-form">
                 {messaggioForm}
-                <li>{messaggio}</li>{/messaggioForm}
+                <li class="{tipoMessaggio}">{messaggio}</li>{/messaggioForm}
             </ul>
         </div>
         {/messaggiForm}
-        <div id="login" class="elementi-presenti aggiunta-modifica">
+        <div id="input" class="elementi-presenti aggiunta-modifica">
             <fieldset>
                 <legend>Inserisci i dati per il <span lang="en">login</span>.</legend>
-                <label for="username" lang="en">Username: </label>
-                <input type="text" id="username" name="username" placeholder="Username" value="{valoreUsername}" required>
-                <label for="password" lang="en">Password: </label>
-                <input type="password" id="password" name="password" placeholder="Password">
+                <p>I campi contrassegnati con (*) sono obbligatori.</p>
+                <label for="username" lang="en">Username (*): </label>
+                <input type="text" id="username" name="username" placeholder="Username" value="{valoreUsername}" required aria-required="true">
+                <div id="username-error"></div>
+                <label for="password" lang="en">Password (*): </label>
+                <input type="password" id="password" name="password" placeholder="Password" required aria-required="true">
+                <div id="password-error"></div>
             </fieldset>
         </div>
         <div id="buttons">

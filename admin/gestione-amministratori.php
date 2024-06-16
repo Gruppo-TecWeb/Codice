@@ -56,12 +56,15 @@ if ($connectionOk) {
   
     if (isset($_POST['elimina'])) {
         if ($_SESSION['username'] == $_POST['username']) {
-            header("location: amministratori.php?eliminato=0");
+            header("location: amministratori.php?eliminato=false");
             exit;
         } else {
             $connection->delete_user($validUsername);
-            $eliminato = $connection->get_utente_by_email($validEmail) ? 0 : 1;
-            header("location: amministratori.php?eliminato=$eliminato");
+            if (count($connection->get_utente_by_email($validEmail)) != 0) {
+                header("location: amministratori.php?eliminato=false");
+            } else {
+                header("location: amministratori.php?eliminato=true");
+            }
             exit;
         }
     } elseif (isset($_POST['modifica'])) {
@@ -93,17 +96,19 @@ if ($connectionOk) {
             } else {
                 if ($erroreUsername == '1') {
                     $messaggiForm .= multi_replace($messaggioForm, [
+                        '{tipoMessaggio}' => 'inputError',
                         '{messaggio}' => "<span lang=\"en\">Username</span> già in uso"
                     ]);
                 }
                 if ($erroreEmail == '1') {
                     $messaggiForm .= multi_replace($messaggioForm, [
+                        '{tipoMessaggio}' => 'inputError',
                         '{messaggio}' => "<span lang=\"en\">E-Mail</span> già registrata"
                     ]);
                 }
             }
             if ($errore == '0') {
-                header("location: amministratori.php?aggiunto=1");
+                header("location: amministratori.php?aggiunto=true");
                 exit;
             }
         } elseif ($_POST['azione'] == 'modifica') {
@@ -132,26 +137,32 @@ if ($connectionOk) {
             } else {
                 if ($erroreUsername == '1') {
                     $messaggiForm .= multi_replace($messaggioForm, [
+                        '{tipoMessaggio}' => 'inputError',
                         '{messaggio}' => "<span lang=\"en\">Username</span> già in uso"
                     ]);
                 }
                 if ($erroreEmail == '1') {
                     $messaggiForm .= multi_replace($messaggioForm, [
+                        '{tipoMessaggio}' => 'inputError',
                         '{messaggio}' => "<span lang=\"en\">E-Mail</span> già registrata"
                     ]);
                 }
             }
             if ($errore == '0') {
                 $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'successMessage',
                     '{messaggio}' => 'Modifica effettuata con successo'
                 ]);
                 $username = $validNuovoUsername;
             } else {
-                $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);
+                $messaggiForm .= $messaggiForm == '' ? multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => "Errore imprevisto"
+                    ]) : '';
             }
         }
     } else {
-        header("location: amministratori.php");
+        header("location: amministratori.php?errore=invalid");
         exit;
     }
 

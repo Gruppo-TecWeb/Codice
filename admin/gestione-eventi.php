@@ -82,11 +82,11 @@ if ($connectionOk) {
 
     if (isset($_POST['elimina'])) {
         $connection->delete_evento($validIdEvento);
-        $eliminato = $connection->get_evento($validIdEvento) ? 0 : 1;
-        if ($eliminato) {
-            unlink($percorsoLocandine . $locandina);
+        if ($connection->get_evento($validIdEvento)) {
+            header("location: eventi.php?eliminato=false");
+        } else {
+            header("location: eventi.php?eliminato=true");
         }
-        header("location: eventi.php?eliminato=$eliminato");
         exit;
     }
 
@@ -154,6 +154,7 @@ if ($connectionOk) {
                     if (count($errori) > 0) {
                         foreach ($errori as $errore) {
                             $messaggiForm .= multi_replace($messaggioForm, [
+                                '{tipoMessaggio}' => 'inputError',
                                 '{messaggio}' => $errore
                             ]);
                         }
@@ -165,12 +166,13 @@ if ($connectionOk) {
                     }
                 }
                 if ($errore == '0') {
-                    header("location: eventi.php?aggiunto=1");
+                    header("location: eventi.php?aggiunto=true");
                     exit;
                 }
             }
             else {
                 $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
                     '{messaggio}' => "Errore nell'aggiunta dell'evento"
                 ]);
             }
@@ -185,6 +187,7 @@ if ($connectionOk) {
                 if (count($errori) > 0) {
                     foreach ($errori as $errore) {
                         $messaggiForm .= multi_replace($messaggioForm, [
+                            '{tipoMessaggio}' => 'inputError',
                             '{messaggio}' => $errore
                         ]);
                     }
@@ -200,6 +203,7 @@ if ($connectionOk) {
             }
             if ($errore == '0') {
                 $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'successMessage',
                     '{messaggio}' => 'Modifica effettuata con successo'
                 ]);
             }
@@ -211,7 +215,7 @@ if ($connectionOk) {
             $locandina = '';
         }
     } else {
-        header("location: eventi.php");
+        header("location: eventi.php?errore=invalid");
         exit;
     }
 

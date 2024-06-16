@@ -1,39 +1,39 @@
 <div id="classifiche" class="limitedWidth">
-    <form method="post" action="gestione-classifiche.php">
-        <div id="titolo-button">
-            <h3>Gestione Classifiche</h3>
-            <div id="titolo-buttons">
-                <button type="submit" name="conferma" value="true">Conferma</button> {buttonElimina}
-                <button type="submit" name="elimina" value="true">Elimina</button> {/buttonElimina}
-                <button type="button" value="annulla" onClick="tornaIndietro()">Annulla</button>
-            </div>
-        </div>
+    <form method="post" action="gestione-classifiche.php" class="aggiunta-modifica" id="form-classifica">
+        <h3 id="titolo">Gestione Classifiche</h3>
         {messaggiForm}
         <div id="messaggi">
             <ul id="messaggi-form">
                 {messaggioForm}
-                <li>{messaggio}</li>{/messaggioForm}
+                <li class="{tipoMessaggio}">{messaggio}</li>{/messaggioForm}
             </ul>
         </div>
         {/messaggiForm}
-        <div class="elementi-presenti aggiunta-modifica">
+        <div id="input" class="elementi-presenti aggiunta-modifica">
             <fieldset>
                 <legend>{legend}</legend>
-                <label for="titoloClassifica">Titolo Classifica:</label>
-                <input type="text" id="titoloClassifica" name="nuovoTitoloClassifica" value="{nuovoTitoloClassifica}" required>
-                <label for="tipoEvento">Tipo Evento:</label>
-                <select id="tipoEvento" name="nuovoTipoEvento" required>
+                <p>I campi contrassegnati con (*) sono obbligatori.</p>
+                <label for="titoloClassifica">Titolo Classifica (*):</label>
+                <input type="text" id="titoloClassifica" name="nuovoTitoloClassifica" value="{nuovoTitoloClassifica}" required aria-required="true">
+                <div id="titolo-error" class="error"></div>
+                <label for="tipoEvento">Tipo Evento (*):</label>
+                <select id="tipoEvento" name="nuovoTipoEvento" required aria-required="true">
                             <option value=""{selezioneDefault} disabled>Scegli il tipo evento</option>
                             {listaTipoEvento}<option value="{tipoEvento}"{selezioneTipoEvento}>{tipoEvento}</option>
                             {/listaTipoEvento}
                         </select>
-                <label for="dataInizio">Data Inizio:</label>
-                <input type="date" id="dataInizio" name="nuovaDataInizio" value="{nuovaDataInizio}" required>
-                <label for="dataFine">Data Fine:</label>
-                <input type="date" id="dataFine" name="nuovaDataFine" value="{nuovaDataFine}" required>
-                <input type="hidden" name="idClassifica" value="{idClassifica}">
+                <label for="dataInizio">Data Inizio (*):</label>
+                <input type="date" id="dataInizio" name="nuovaDataInizio" value="{nuovaDataInizio}" required aria-required="true">
+                <label for="dataFine">Data Fine (*):</label>
+                <input type="date" id="dataFine" name="nuovaDataFine" value="{nuovaDataFine}" required aria-required="true">
+                <input type="hidden" name="idClassifica" value="{idClassifica}" id="element-to-edit">
                 <input type="hidden" name="azione" value="{valueAzione}">
             </fieldset>
+        </div>
+        <div id="buttons">
+            <button type="submit" name="conferma" value="true">Conferma</button> {buttonElimina}
+            <button type="submit" name="elimina" value="true">Elimina</button> {/buttonElimina}
+            <button type="button" value="annulla" onClick="tornaIndietro()">Annulla</button>
         </div>
     </form>{listaEventi}
 

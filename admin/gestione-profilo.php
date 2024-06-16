@@ -68,6 +68,7 @@ if ($connectionOk) {
         if ($validEmail != '' && $email != $validEmail) {
             if (count($connection->get_utente_by_email($validEmail)) > 0) {
                 $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
                     '{messaggio}' => 'Questa e-mail è già associata ad un altro account'
                 ]);
                 $errore = true;
@@ -81,6 +82,7 @@ if ($connectionOk) {
         if (!$errore && $validPassword != '' && $validConfermaPassword != '') {
             if ($validPassword != $validConfermaPassword) {
                 $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
                     '{messaggio}' => 'Le password non coincidono'
                 ]);
                 $errore = true;
@@ -95,6 +97,7 @@ if ($connectionOk) {
             if (count($errori) > 0) {
                 foreach ($errori as $errore) {
                     $messaggiForm .= multi_replace($messaggioForm, [
+                        '{tipoMessaggio}' => 'inputError',
                         '{messaggio}' => $errore
                     ]);
                 }
@@ -113,6 +116,7 @@ if ($connectionOk) {
         }
         if (!$errore && $modificato) {
             $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'successMessage',
                 '{messaggio}' => 'Modifica effettuata con successo'
             ]);
         }

@@ -164,6 +164,29 @@ main {
  * ERROR
  */
 
+ div#input input.inputError {
+    background-color: #ffaf004d;
+    margin-bottom: 0.5em;
+ }
+
+ div.inputError::before, div#messaggi li.inputError::before {
+    content: "⚠";
+    color: yellow;
+    margin-right: 10px;
+    margin-bottom: 1em;
+}
+
+div#messaggi li.successMessage::before {
+    content: "✓";
+    color: lime;
+    margin-right: 10px;
+    margin-bottom: 1em;
+}
+
+div.inputError {
+    margin-bottom: 1em;
+}
+
 
 /* 
  * SUCESS
@@ -1856,7 +1879,7 @@ div#admin-window {
     list-style: none;
 }
 
-.adminPage div#titolo-button {
+.adminPage div#adminIndex div#titolo-button {
     position: unset;
     background: unset;
 }
@@ -1890,26 +1913,6 @@ div#admin-window {
     align-self: stretch;
 }
 
-.adminPage #evento-info-admin::before,
-.adminPage #evento-info-admin::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    height: 1.5em;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.adminPage #evento-info-admin::before {
-    top: 0;
-    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
-}
-
-.adminPage #evento-info-admin::after {
-    bottom: 0;
-    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
-}
-
 .adminPage #evento-info-admin dt {
     font-weight: bold;
 }
@@ -1918,18 +1921,21 @@ div#admin-window {
     white-space: pre-wrap;
 }
 
-#login form {
+#login form, .adminPage form.aggiunta-modifica {
     display: grid;
-    grid-template-areas: 'titolo bottoni' 'input  input  ';
+    grid-template-areas:
+        'titolo bottoni   '
+        'messaggi messaggi'
+        'input  input     ';
     justify-content: space-between;
 }
 
-#login form h3#titolo {
+#login form h3#titolo, .adminPage form.aggiunta-modifica h3#titolo {
     grid-area: titolo;
     padding: 1em;
 }
 
-#login form div#buttons {
+#login form div#buttons, .adminPage form.aggiunta-modifica div#buttons {
     grid-area: bottoni;
     display: flex;
     padding: 1em;
@@ -1938,13 +1944,18 @@ div#admin-window {
     width: fit-content;
 }
 
-#login form div#buttons button {
+#login form div#messaggi, .adminPage form.aggiunta-modifica div#messaggi {
+    grid-area: messaggi;
+    padding: 1em;
+}
+
+#login form div#buttons button, .adminPage form.aggiunta-modifica div#buttons button {
     font-size: 1em;
     padding: 1em;
     margin: 0.25em;
 }
 
-#login form div#login {
+#login form div#input, .adminPage form.aggiunta-modifica div#input {
     grid-area: input;
 }
 

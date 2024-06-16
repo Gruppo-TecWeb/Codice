@@ -1,36 +1,39 @@
 <div id="profilo" class="limitedWidth">
-    <form method="post" action="gestione-profilo.php" enctype="multipart/form-data">
-        <div id="titolo-button">
-            <h3>Modifica Profilo</h3>
-            <div id="titolo-buttons">
-                <button type="submit" name="conferma" value="true">Conferma</button>
-                <button type="button" value="annulla" onClick="tornaIndietro()">Annulla</button>
-            </div>
-        </div>
+    <form method="post" action="gestione-profilo.php" enctype="multipart/form-data" class="aggiunta-modifica" id="form-profilo">
+        <h3 id="titolo">Modifica Profilo</h3>
         {messaggiForm}
         <div id="messaggi">
             <ul id="messaggi-form">
                 {messaggioForm}
-                <li>{messaggio}</li>{/messaggioForm}
+                <li class="{tipoMessaggio}">{messaggio}</li>{/messaggioForm}
             </ul>
         </div>
         {/messaggiForm}
-        <div class="elementi-presenti aggiunta-modifica">
+        <div id="input" class="elementi-presenti aggiunta-modifica">
             <fieldset>
-                <legend>Utente: {username}</legend>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" value="{email}" required>
+                <legend>Modifica il profilo utente: {username}</legend>
+                <p>I campi contrassegnati con (*) sono obbligatori.</p>
+                <label for="email">Email (*):</label>
+                <input type="email" id="email" name="email" value="{email}" required aria-required="true">
+                <div id="email-error" class="error"></div>
                 <label for="password">Nuova Password:</label>
                 <input type="password" id="password" name="password" placeholder="password">
                 <label for="confermaPassword">Conferma Nuova Password:</label>
                 <input type="password" id="confermaPassword" name="confermaPassword" placeholder="conferma password">
+                <div id="password-error" class="error"></div>
                 <label for="immagineProfilo">Immagine Profilo:</label>
                 <input type="file" id="immagineProfilo" name="immagineProfilo" accept="image/*">
+                <div id="locandina-error" class="error"></div>
                 <label for="eliminaImmagineProfilo">
                     <input type="checkbox" id="eliminaImmagineProfilo" name="eliminaImmagineProfilo">
                     Elimina l'immagine del profilo
                 </label>
+                <input type="hidden" name="username" value="{username}" id="element-to-edit">
             </fieldset>
+        </div>
+        <div id="buttons">
+            <button type="submit" name="conferma" value="true">Conferma</button>
+            <button type="button" value="annulla" onClick="tornaIndietro()">Annulla</button>
         </div>
     </form>
 </div>

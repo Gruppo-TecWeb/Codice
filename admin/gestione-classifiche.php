@@ -55,8 +55,11 @@ if ($connectionOk) {
 
     if (isset($_POST['elimina'])) {
         $connection->delete_classifica($validIdCLassifica);
-        $eliminato = $connection->get_classifica($validIdCLassifica) ? 0 : 1;
-        header("location: classifiche.php?eliminato=$eliminato");
+        if ($connection->get_classifica($validIdCLassifica)) {
+            header("location: classifiche.php?eliminato=false");
+        } else {
+            header("location: classifiche.php?eliminato=true");
+        }
         exit;
     }
 
@@ -124,14 +127,16 @@ if ($connectionOk) {
                 $errore = $connection->get_classifiche($validNuovoTitolo) ? '0' : '1';
             } else {
                 $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
                     '{messaggio}' => "Esiste già una Classifica con questo Titolo"
                 ]);
             }
             if ($errore == '0') {
-                header("location: classifiche.php?aggiunto=1");
+                header("location: classifiche.php?aggiunto=true");
                 exit;
             } else {
                 $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
                     '{messaggio}' => "Errore imprevisto"
                 ]);
             }
@@ -148,20 +153,25 @@ if ($connectionOk) {
                 $errore = $connection->get_classifiche($validNuovoTitolo) ? '0' : '1';
             } else {
                 $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
                     '{messaggio}' => "Esiste già una Classifica con questo Titolo"
                 ]);
             }
             if ($errore == '0') {
                 $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'successMessage',
                     '{messaggio}' => 'Modifica effettuata con successo'
                 ]);
                 $classifica = $connection->get_classifica($validIdCLassifica);
             } else {
-                $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);
+                $messaggiForm .= $messaggiForm == '' ? multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => "Errore imprevisto"
+                    ]) : '';
             }
         }
     } else {
-        header("location: classifiche.php");
+        header("location: classifiche.php?errore=invalid");
         exit;
     }
     
