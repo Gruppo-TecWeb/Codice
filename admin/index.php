@@ -176,6 +176,7 @@ if ($connectionOk) {
         $prossimoEventoHTML = get_content_between_markers($dashboardAdminHTML, 'prossimoEvento');
         $eventiProgrammatiHTML = get_content_between_markers($dashboardAdminHTML, 'eventiProgrammati');
         $punteggiMancantiHTML = get_content_between_markers($dashboardAdminHTML, 'punteggiMancanti');
+        $nessunEventoProssimoHTML = get_content_between_markers($dashboardAdminHTML, 'nessunEventoProssimo');
         $nessunEventoProgrammatoHTML = get_content_between_markers($dashboardAdminHTML, 'nessunEventoProgrammato');
         $nessunPunteggioMancanteHTML = get_content_between_markers($dashboardAdminHTML, 'nessunPunteggioMancante');
 
@@ -203,7 +204,7 @@ if ($connectionOk) {
                 'locandinaHTML' => $locandinaHTML
             ]);
         } else {
-            $prossimoEventoHTML = $nessunEventoProgrammatoHTML;
+            $prossimoEventoHTML = $nessunEventoProssimoHTML;
         }
 
         // dashboard eventi programmati
@@ -261,8 +262,9 @@ if ($connectionOk) {
 
         $dashboardAdmin = multi_replace(replace_content_between_markers($dashboardAdminHTML, [
             'prossimoEvento' => $prossimoEventoHTML,
-            'nessunEventoProgrammato' => '',
+            'nessunEventoProssimo' => '',
             'eventiProgrammati' => $eventiProgrammatiHTML,
+            'nessunEventoProgrammato' => '',
             'punteggiMancanti' => $punteggiMancantiHTML,
             'nessunPunteggioMancante' => ''
         ]), [
