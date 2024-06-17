@@ -164,12 +164,12 @@ main {
  * ERROR
  */
 
- div#input input.inputError {
+div#input input.inputError {
     background-color: #ffaf004d;
     margin-bottom: 0.5em;
- }
+}
 
- div.inputError::before,
+div.inputError::before,
 div#messaggi li.inputError::before {
     content: "⚠";
     color: yellow;
@@ -1367,10 +1367,6 @@ audio::-webkit-media-controls-play-button {
     margin: 1em;
 }
 
-#lista_beats .descBeats span {
-    background-color: var(--colorSecondary);
-}
-
 #lista_beats .descBeats {
     width: 100%;
     box-sizing: border-box;
@@ -1922,10 +1918,7 @@ div#admin-window {
 #login form,
 .adminPage form.aggiunta-modifica {
     display: grid;
-    grid-template-areas:
-        'titolo bottoni   '
-        'messaggi messaggi'
-        'input  input     ';
+    grid-template-areas: 'titolo bottoni   ' 'messaggi messaggi' 'input  input     ';
     justify-content: space-between;
 }
 
