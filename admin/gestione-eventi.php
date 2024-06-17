@@ -53,7 +53,7 @@ if ($connectionOk) {
     $errore = '0';
     
     if (isset($_GET['punteggi'])) {
-        header("location: gestione-punteggi.php?idEvento=$validIdEvento");
+        header("location: gestione-punteggi.php?idEvento=$validIdEvento&provenienza=eventi");
         exit;
     }
 
@@ -206,6 +206,9 @@ if ($connectionOk) {
                     '{tipoMessaggio}' => 'successMessage',
                     '{messaggio}' => 'Modifica effettuata con successo'
                 ]);
+
+                header("location: eventi.php?modificato=true");
+                exit;
             }
         }
         if (isset($_POST['eliminaLocandina'])) {
@@ -213,6 +216,9 @@ if ($connectionOk) {
                 $validIdEvento, $validNuovoTipoEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, '');
             unlink($percorsoLocandine . $locandina);
             $locandina = '';
+
+            header("location: eventi.php?modificato=true");
+            exit;
         }
     } else {
         header("location: eventi.php?errore=invalid");

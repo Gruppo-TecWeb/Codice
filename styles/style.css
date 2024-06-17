@@ -1362,7 +1362,7 @@ audio::-webkit-media-controls-play-button {
     display: none;
 }
 
-#lista_beats .durata {
+#lista_beats time {
     align-self: center;
     margin: 1em;
 }
