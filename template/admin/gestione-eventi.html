@@ -37,18 +37,16 @@
                 <label for="eliminaLocandina">
                     <input type="checkbox" id="eliminaLocandina" name="eliminaLocandina">
                     Elimina la locandina
-                </label>
-                {/eliminaLocandina}
-                {imgLocandina}<img src="{locandina}" alt="Locandina">{/imgLocandina}
+                </label> {/eliminaLocandina} {imgLocandina}
+                <img src="{locandina}" alt="Locandina">{/imgLocandina}
                 <input type="hidden" name="locandina" value="{locandina}">
                 <input type="hidden" name="idEvento" value="{idEvento}">
                 <input type="hidden" name="azione" value="{valueAzione}">
             </fieldset>
         </div>
-        <div id="buttons">
-            <button type="submit" name="conferma" value="true">Conferma</button>
-            {buttonElimina}<button type="submit" name="elimina" value="true">Elimina</button>
-            {/buttonElimina}
+        <div id="buttons" class="subMenu">
+            <button type="submit" name="conferma" value="true">Conferma</button> {buttonElimina}
+            <button type="submit" name="elimina" value="true">Elimina</button> {/buttonElimina}
             <button type="button" value="annulla" onClick="tornaIndietro()">Annulla</button>
         </div>
     </form>

@@ -777,6 +777,12 @@ label {
 
 .adminPage div#titolo-button {
     flex-direction: column;
+    position: unset;
+}
+
+.adminPage div#titolo-button .subMenu button {
+    width: 100%;
+    padding: unset;
 }
 
 .adminPage ol {
@@ -867,8 +873,24 @@ label {
 
 #login form div#buttons,
 .adminPage form.aggiunta-modifica div#buttons {
-    display: unset;
     padding: unset;
+}
+
+#login form div#buttons,
+.adminPage form.aggiunta-modifica div#buttons :first-child {
+    margin-left: unset;
+}
+
+#login form div#buttons,
+.adminPage form.aggiunta-modifica div#buttons :last-child {
+    margin-right: unset;
+}
+
+#login form div#buttons button,
+.adminPage form.aggiunta-modifica div#buttons button {
+    padding: unset;
+    margin: 0 0.125em;
+    width: 100%;
 }
 
 #login form h3#titolo,
