@@ -69,13 +69,13 @@ if ($connectionOk) {
                 '{testoMessaggio}' => 'Errore imprevisto'
             ]);
         }
-    } elseif (isset($_GET['prossimi-eliminati'])) {
-        if ($_GET['prossimi-eliminati'] == 'false') {
+    } elseif (isset($_GET['prossimi-eliminato'])) {
+        if ($_GET['prossimi-eliminato'] == 'false') {
             $messaggiEventiProgrammati .= multi_replace($messaggioTemplate, [
                 '{tipoMessaggio}' => 'inputError',
                 '{testoMessaggio}' => 'Errore nell\'eliminazione dell\'Evento'
             ]);
-        } elseif ($_GET['prossimi-eliminati'] == 'true') {
+        } elseif ($_GET['prossimi-eliminato'] == 'true') {
             $messaggiEventiProgrammati .= multi_replace($messaggioTemplate, [
                 '{tipoMessaggio}' => 'successMessage',
                 '{testoMessaggio}' => 'Evento eliminato correttamente'

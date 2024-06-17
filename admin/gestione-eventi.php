@@ -93,7 +93,13 @@ if ($connectionOk) {
                 header("location: eventi.php?eliminato=false");
             }
         } else {
-            header("location: eventi.php?eliminato=true");
+            if ($provenienza == 'dashboard-prossimo-evento') {
+                header("location: index.php?prossimo-eliminato=true#messaggi");
+            } elseif ($provenienza == 'dashboard-eventi-programmati') {
+                header("location: index.php?prossimi-eliminato=true#messaggi");
+            } else {
+                header("location: eventi.php?eliminato=true");
+            }
         }
         exit;
     }
