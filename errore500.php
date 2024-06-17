@@ -17,6 +17,7 @@ $menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 $logout = '';
+$classList = '';
 
 http_response_code(500);
 
@@ -34,5 +35,6 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{content}' => $content,
-    '{onload}' => $onload
+    '{onload}' => $onload,
+    '{classList}' => $classList
 ]);

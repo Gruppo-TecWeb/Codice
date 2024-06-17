@@ -20,6 +20,7 @@ $menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 $logout = '';
+$classList = '';
 
 $connection = DBAccess::get_instance();
 $connectionOk = $connection->open_DB_connection();
@@ -147,5 +148,6 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{content}' => $content,
-    '{onload}' => $onload
+    '{onload}' => $onload,
+    '{classList}' => $classList
 ]);

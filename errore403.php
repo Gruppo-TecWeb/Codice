@@ -19,6 +19,7 @@ $menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 $logout = '';
+$classList = '';
 
 http_response_code(403);
 
@@ -38,5 +39,6 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{content}' => $content,
     '{onload}' => $onload,
     '{percorso}' => $percorso,
-    '{percorsoAdmin}' => $percorsoAdmin
+    '{percorsoAdmin}' => $percorsoAdmin,
+    '{classList}' => $classList
 ]);

@@ -19,6 +19,7 @@ $keywords = 'amministrazione, admin, restraining stirpe, freestyle, freestyle ra
 $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
+$classList = '';
 
 if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
@@ -147,5 +148,6 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{content}' => $content,
-    '{onload}' => $onload
+    '{onload}' => $onload,
+    '{classList}' => $classList
 ]);
