@@ -1676,9 +1676,8 @@ div#admin-window {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1em;
     position: sticky;
-    top: 2.5em;
+    top: 4em;
     background: var(--colorBackground);
 }
 
