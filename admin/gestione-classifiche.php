@@ -34,13 +34,13 @@ if ($connectionOk) {
     $validNuovaDataInizio = isset($_POST['nuovaDataInizio']) ? validate_input($_POST['nuovaDataInizio']) : "";
     $validNuovaDataFine = isset($_POST['nuovaDataFine']) ? validate_input($_POST['nuovaDataFine']) : "";
     $validIdEvento = isset($_POST['idEvento']) ? validate_input($_POST['idEvento']) : "";
-    $validIdCLassifica = isset($_POST['idClassifica']) ? validate_input($_POST['idClassifica']) : "";
+    $validIdCLassifica = isset($_GET['idClassifica']) ? validate_input($_GET['idClassifica']) : "";
     if (((isset($_POST['nuovoTitoloClassifica']) && $_POST['nuovoTitoloClassifica'] != "") && $validNuovoTitolo == "") ||
         ((isset($_POST['nuovoTipoEvento']) && $_POST['nuovoTipoEvento'] != "") && $validNuovoTipoEvento == "") ||
         ((isset($_POST['nuovaDataInizio']) && $_POST['nuovaDataInizio'] != "") && $validNuovaDataInizio == "") ||
         ((isset($_POST['nuovaDataFine']) && $_POST['nuovaDataFine'] != "") && $validNuovaDataFine == "") ||
         ((isset($_POST['idEvento']) && $_POST['idEvento'] != "") && $validIdEvento == "") ||
-        ((isset($_POST['idClassifica']) && $_POST['idClassifica'] != "") && $validIdCLassifica == "") ||
+        ((isset($_GET['idClassifica']) && $_GET['idClassifica'] != "") && $validIdCLassifica == "") ||
         (isset($_POST['punteggi']) && $validIdEvento == "") ||
         $validIdCLassifica != "" && $connection->get_classifica($validIdCLassifica) == null) {
                 header("location: classifiche.php?errore=invalid");
@@ -53,7 +53,7 @@ if ($connectionOk) {
         exit;
     }
 
-    if (isset($_POST['elimina'])) {
+    if (isset($_GET['elimina']) || isset($_POST['elimina'])) {
         $connection->delete_classifica($validIdCLassifica);
         if ($connection->get_classifica($validIdCLassifica)) {
             header("location: classifiche.php?eliminato=false");
@@ -99,14 +99,14 @@ if ($connectionOk) {
     $nuovaDataInizio = '';
     $nuovaDataFine = '';
     
-    if (isset($_POST['modifica'])) {
+    if (isset($_GET['modifica'])) {
         $legend = $legendModifica;
         $valueAzione = 'modifica';
         $nuovoTitoloClassifica = $classifica['Titolo'];
         $nuovoTipoEvento = $classifica['TipoEvento'];
         $nuovaDataInizio = $classifica['DataInizio'];
         $nuovaDataFine = $classifica['DataFine'];
-    } elseif (isset($_POST['aggiungi'])) {
+    } elseif (isset($_GET['aggiungi'])) {
         $buttonElimina = '';
         $legend = $legendAggiungi;
         $selezioneDefault = ' selected';
@@ -189,6 +189,7 @@ if ($connectionOk) {
 
         foreach ($eventi as $evento) {
             $listaEventi .= multi_replace($elementoLista, [
+                '{idClassifica}' => $classifica['Id'],
                 '{idEvento}' => $evento['Id'],
                 '{titoloEvento}' => $evento['Titolo'],
                 '{dataEvento}' => date_format(date_create($evento['Data']), 'Y-m-d'),

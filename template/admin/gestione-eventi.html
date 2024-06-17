@@ -1,5 +1,5 @@
 <div id="eventi" class="limitedWidth">
-    <form method="post" action="gestione-eventi.php" enctype="multipart/form-data" class="aggiunta-modifica" id="form-evento">
+    <form method="post" action="gestione-eventi.php?idEvento={idEvento}" enctype="multipart/form-data" class="aggiunta-modifica" id="form-evento">
         <h3 id="titolo">Gestione Eventi</h3>
         {messaggiForm}
         <div id="messaggi">
@@ -40,8 +40,6 @@
                 </label>
                 {/eliminaLocandina}
                 {imgLocandina}<img src="{locandina}" alt="Locandina">{/imgLocandina}
-                <input type="hidden" name="locandina" value="{locandina}">
-                <input type="hidden" name="idEvento" value="{idEvento}">
                 <input type="hidden" name="azione" value="{valueAzione}">
             </fieldset>
         </div>

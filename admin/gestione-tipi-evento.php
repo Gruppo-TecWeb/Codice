@@ -38,7 +38,7 @@ if ($connectionOk) {
     $legendModifica = 'Modifica Tipo Evento';
     $validNuovoTitolo = isset($_POST['nuovoTitolo']) ? validate_input($_POST['nuovoTitolo']) : "";
     $validNuovaDescrizione = isset($_POST['nuovaDescrizione']) ? validate_input($_POST['nuovaDescrizione']) : "";
-    $validTitolo = isset($_POST['titolo']) ? validate_input($_POST['titolo']) : "";
+    $validTitolo = isset($_GET['titolo']) ? validate_input($_GET['titolo']) : "";
     $nuovoTitolo = '';
     $nuovaDescrizione = '';
     $titolo = '';
@@ -46,13 +46,13 @@ if ($connectionOk) {
     $valueAzione = '';
     if (((isset($_POST['nuovoTitolo']) && $_POST['nuovoTitolo'] != "") && $validNuovoTitolo == "") ||
         ((isset($_POST['nuovaDescrizione']) && $_POST['nuovaDescrizione'] != "") && $validNuovaDescrizione == "") ||
-        ((isset($_POST['titolo']) && $_POST['titolo'] != "") && $validTitolo == "")) {
+        ((isset($_GET['titolo']) && $_GET['titolo'] != "") && $validTitolo == "")) {
         header("location: tipi-evento.php?errore=invalid");
         exit;
     }
     $errore = '0';
   
-    if (isset($_POST['elimina'])) {
+    if (isset($_GET['elimina']) || isset($_POST['elimina'])) {
         $connection->delete_tipo_evento($validTitolo);
         if ($connection->get_tipo_evento($validTitolo)) {
             header("location: tipi-evento.php?eliminato=false");
@@ -60,14 +60,14 @@ if ($connectionOk) {
             header("location: tipi-evento.php?eliminato=true");
         }
         exit;
-    } elseif (isset($_POST['modifica'])) {
+    } elseif (isset($_GET['modifica'])) {
         $legend = $legendModifica;
         $nuovoTitolo = $validTitolo;
         $nuovaDescrizione = $connection->get_tipo_evento($validTitolo)['Descrizione'];
         $titolo = $validTitolo;
         $descrizione = $nuovaDescrizione;
         $valueAzione = 'modifica';
-    } elseif (isset($_POST['aggiungi'])) {
+    } elseif (isset($_GET['aggiungi'])) {
         $buttonElimina = '';
         $legend = $legendAggiungi;
         $valueAzione = 'aggiungi';

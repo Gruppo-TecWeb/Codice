@@ -36,7 +36,7 @@ if ($connectionOk) {
     $validNuovoLuogo = isset($_POST['nuovoLuogo']) ? validate_input($_POST['nuovoLuogo']) : "";
     $validNuovaDescrizione = isset($_POST['nuovaDescrizione']) ? validate_input($_POST['nuovaDescrizione']) : "";
     $validNuovaLocandina = isset($_FILES['nuovaLocandina']) ? basename($_FILES["nuovaLocandina"]["name"]) : "";
-    $validIdEvento = isset($_POST['idEvento']) ? validate_input($_POST['idEvento']) : "";
+    $validIdEvento = isset($_GET['idEvento']) ? validate_input($_GET['idEvento']) : "";
     if (((isset($_POST['nuovoTipoEvento']) && $_POST['nuovoTipoEvento'] != "") && $validNuovoTipoEvento == "") ||
         ((isset($_POST['nuovoTitolo']) && $_POST['nuovoTitolo'] != "") && $validNuovoTitolo == "") ||
         ((isset($_POST['nuovaData']) && $_POST['nuovaData'] != "") && $validNuovaData == "") ||
@@ -44,15 +44,15 @@ if ($connectionOk) {
         ((isset($_POST['nuovoLuogo']) && $_POST['nuovoLuogo'] != "") && $validNuovoLuogo == "") ||
         ((isset($_POST['nuovaDescrizione']) && $_POST['nuovaDescrizione'] != "") && $validNuovaDescrizione == "") ||
         ((isset($_POST['nuovaLocandina']) && $_POST['nuovaLocandina'] != "") && $validNuovaLocandina == "") ||
-        ((isset($_POST['idEvento']) && $_POST['idEvento'] != "") && $validIdEvento == "") ||
-        (isset($_POST['punteggi']) && $validIdEvento == "") ||
+        ((isset($_GET['idEvento']) && $_GET['idEvento'] != "") && $validIdEvento == "") ||
+        (isset($_GET['punteggi']) && $validIdEvento == "") ||
         $validIdEvento != "" && $connection->get_evento($validIdEvento) == null) {
         header("location: eventi.php?errore=invalid");
         exit;
     }
     $errore = '0';
     
-    if (isset($_POST['punteggi'])) {
+    if (isset($_GET['punteggi'])) {
         header("location: gestione-punteggi.php?idEvento=$validIdEvento");
         exit;
     }
@@ -80,7 +80,7 @@ if ($connectionOk) {
         }
     }
 
-    if (isset($_POST['elimina'])) {
+    if (isset($_GET['elimina']) || isset($_POST['elimina'])) {
         $connection->delete_evento($validIdEvento);
         if ($connection->get_evento($validIdEvento)) {
             header("location: eventi.php?eliminato=false");
@@ -121,14 +121,14 @@ if ($connectionOk) {
         $nessunaSelezione = ' selected';
     }
 
-    if (isset($_POST['modifica'])) {
+    if (isset($_GET['modifica'])) {
         if (!$validIdEvento || $validIdEvento == "") {
             header("location: eventi.php?errore=invalid");
             exit;
         }
         $legend = $legendModifica;
         $valueAzione = 'modifica';
-    } elseif (isset($_POST['aggiungi'])) {
+    } elseif (isset($_GET['aggiungi'])) {
         $buttonElimina = '';
         $legend = $legendAggiungi;
         $valueAzione = 'aggiungi';
