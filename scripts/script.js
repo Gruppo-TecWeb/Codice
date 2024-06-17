@@ -384,6 +384,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const formRapper = document.getElementById('form-rapper');
     const formAmministratore = document.getElementById('form-amministratore');
 
+    let clickedButton = null;
+    const urlParams = new URLSearchParams(window.location.search);
+    const form = formProfilo || formEvento || formClassifica || formTipoEvento || formRapper || formAmministratore;
+
+    if (form) {
+        form.addEventListener('click', function(event) {
+            if (event.target.type === 'submit') {
+                clickedButton = event.target;
+            }
+        });
+    }
+
     // Funzioni di validazione generiche
     function validateField(inputElement, errorElement, validationFn) {
         inputElement.addEventListener('input', function() {
@@ -507,10 +519,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     emailError.classList.add('inputError');
                     resolve(false);
                 } else {
-                    elementToEdit = document.getElementById('element-to-edit').value;
-                    if (elementToEdit == '') {
-                        elementToEdit = null;
-                    }
+                    elementToEdit = urlParams.has('username') ? urlParams.get('username') : null;
                     checkUniqueField('email-profilo', email, elementToEdit)
                         .then(data => {
                             if (data.exists) {
@@ -566,6 +575,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 confermaInput.name = 'conferma';
                 confermaInput.value = 'true';
                 formProfilo.appendChild(confermaInput);
+
+                if (clickedButton) {
+                    const hiddenInput = document.createElement('input');
+                    hiddenInput.type = 'hidden';
+                    hiddenInput.name = clickedButton.name;
+                    hiddenInput.value = clickedButton.value;
+                    form.appendChild(hiddenInput);
+                }
 
                 formProfilo.submit();
             }
@@ -648,10 +665,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     titoloClassificaError.classList.add('inputError');
                     resolve(false);
                 } else {
-                    elementToEdit = document.getElementById('element-to-edit').value;
-                    if (elementToEdit == '') {
-                        elementToEdit = null;
-                    }
+                    elementToEdit = urlParams.has('idClassifica') ? urlParams.get('idClassifica') : null;
+                    console.log(elementToEdit);
                     checkUniqueField('titolo-classifica', titolo, elementToEdit)
                         .then(data => {
                             if (data.exists) {
@@ -689,6 +704,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 confermaInput.value = 'true';
                 formClassifica.appendChild(confermaInput);
 
+                if (clickedButton) {
+                    const hiddenInput = document.createElement('input');
+                    hiddenInput.type = 'hidden';
+                    hiddenInput.name = clickedButton.name;
+                    hiddenInput.value = clickedButton.value;
+                    form.appendChild(hiddenInput);
+                }
+
                 formClassifica.submit();
             }
         });
@@ -714,10 +737,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     titoloTipoEventoError.classList.add('inputError');
                     resolve(false);
                 } else {
-                    elementToEdit = document.getElementById('element-to-edit').value;
-                    if (elementToEdit == '') {
-                        elementToEdit = null;
-                    }
+                    elementToEdit = urlParams.has('titolo') ? urlParams.get('titolo') : null;
                     checkUniqueField('titolo-tipo-evento', titolo, elementToEdit)
                         .then(data => {
                             if (data.exists) {
@@ -754,6 +774,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 confermaInput.name = 'conferma';
                 confermaInput.value = 'true';
                 formTipoEvento.appendChild(confermaInput);
+
+                if (clickedButton) {
+                    const hiddenInput = document.createElement('input');
+                    hiddenInput.type = 'hidden';
+                    hiddenInput.name = clickedButton.name;
+                    hiddenInput.value = clickedButton.value;
+                    form.appendChild(hiddenInput);
+                }
 
                 formTipoEvento.submit();
             }
@@ -802,10 +830,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     emailError.classList.add('inputError');
                     resolve(false);
                 } else {
-                    elementToEdit = document.getElementById('element-to-edit').value;
-                    if (elementToEdit == '') {
-                        elementToEdit = null;
-                    }
+                    elementToEdit = urlParams.has('username') ? urlParams.get('username') : null;
                     checkUniqueField('email', email, elementToEdit)
                         .then(data => {
                             if (data.exists) {
@@ -841,10 +866,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     usernameError.classList.add('inputError');
                     resolve(false);
                 } else {
-                    elementToEdit = document.getElementById('element-to-edit').value;
-                    if (elementToEdit == '') {
-                        elementToEdit = null;
-                    }
+                    elementToEdit = urlParams.has('username') ? urlParams.get('username') : null;
                     checkUniqueField('username', username, elementToEdit)
                         .then(data => {
                             if (data.exists) {
@@ -882,6 +904,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 confermaInput.name = 'conferma';
                 confermaInput.value = 'true';
                 form.appendChild(confermaInput);
+
+                if (clickedButton) {
+                    const hiddenInput = document.createElement('input');
+                    hiddenInput.type = 'hidden';
+                    hiddenInput.name = clickedButton.name;
+                    hiddenInput.value = clickedButton.value;
+                    form.appendChild(hiddenInput);
+                }
 
                 form.submit();
             }

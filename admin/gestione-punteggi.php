@@ -35,7 +35,6 @@ if ($connectionOk) {
     $righeTabella = '';
     $validIdEvento = isset($_POST['idEvento']) ? validate_input($_POST['idEvento']) : (isset($_GET['idEvento']) ? validate_input($_GET['idEvento']) : '');
     $provenienza = isset($_GET['provenienza']) ? validate_input($_GET['provenienza']) : '';
-    $destinazione = isset($_POST['provenienza']) ? validate_input($_POST['provenienza']) : '';
     $eventoSelezionato = $validIdEvento != '';
     $validTitolo = $eventoSelezionato ? $connection->get_evento($validIdEvento)['Titolo'] : '';
     $validData = $eventoSelezionato ? date_format(date_create($connection->get_evento($validIdEvento)['Data']), 'd/m/y') : '';
@@ -58,9 +57,14 @@ if ($connectionOk) {
     }
     if (((isset($_POST['idEvento']) && $_POST['idEvento'] != "") && $validIdEvento == "") ||
         ((isset($_GET['provenienza']) && $_GET['provenienza'] != "") && $provenienza == "") ||
-        ((isset($_POST['provenienza']) && $_POST['provenienza'] != "") && $destinazione == "") ||
         ($count_punteggi != count($validRappersPoints))) {
-        header("location: classifiche.php?errore=invalid");
+        if ($provenienza == 'classifiche') {
+            header("location: classifiche.php?errore=invalid");
+        } elseif ($provenienza == 'dashboard-punteggi-mancanti') {
+            header("location: index.php?punteggi-errore=invalid#messaggi");
+        } else {
+            header("location: eventi.php?errore=invalid");
+        }
         exit;
     }
   
@@ -72,10 +76,12 @@ if ($connectionOk) {
                 '{messaggio}' => 'Punteggi eliminati con successo'
             ]);
 
-            if ($destinazione == 'classifiche') {
-                header("location: classifiche.php?punteggi-modificati=true");
+            if ($provenienza == 'classifiche') {
+                header("location: classifiche.php?punteggi-eliminati=true");
+            } elseif ($provenienza == 'dashboard-punteggi-mancanti') {
+                header("location: index.php?punteggi-eliminati=true#messaggi");
             } else {
-                header("location: eventi.php?punteggi-modificati=true");
+                header("location: eventi.php?punteggi-eliminati=true");
             }
             exit;
         } else {
@@ -92,8 +98,10 @@ if ($connectionOk) {
                 '{messaggio}' => 'Punteggi aggiornati con successo'
             ]);
 
-            if ($destinazione == 'classifiche') {
+            if ($provenienza == 'classifiche') {
                 header("location: classifiche.php?punteggi-modificati=true");
+            } elseif ($provenienza == 'dashboard-punteggi-mancanti') {
+                header("location: index.php?punteggi-modificati=true#messaggi");
             } else {
                 header("location: eventi.php?punteggi-modificati=true");
             }

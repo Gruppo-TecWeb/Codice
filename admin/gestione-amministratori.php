@@ -38,8 +38,7 @@ if ($connectionOk) {
     $legendModifica = 'Modifica Amministratore';
     $validNuovoUsername = isset($_POST['nuovoUsername']) ? validate_input($_POST['nuovoUsername']) : "";
     $validNuovaEmail = isset($_POST['nuovaEmail']) ? validate_input($_POST['nuovaEmail']) : "";
-    $validUsername = isset($_POST['username']) ? validate_input($_POST['username']) : "";
-    $validEmail = isset($_POST['email']) ? validate_input($_POST['email']) : "";
+    $validUsername = isset($_GET['username']) ? validate_input($_GET['username']) : "";
     $nuovoUsername = '';
     $nuovaEmail = '';
     $username = '';
@@ -47,15 +46,20 @@ if ($connectionOk) {
     $valueAzione = '';
     if (((isset($_POST['nuovoUsername']) && $_POST['nuovoUsername'] != "") && $validNuovoUsername == "") ||
         ((isset($_POST['nuovaEmail']) && $_POST['nuovaEmail'] != "") && $validNuovaEmail == "") ||
-        ((isset($_POST['username']) && $_POST['username'] != "") && $validUsername == "") ||
-        ((isset($_POST['email']) && $_POST['email'] != "") && $validEmail == "")) {
+        ((isset($_GET['username']) && $_GET['username'] != "") && $validUsername == "")) {
         header("location: amministratori.php?errore=invalid");
         exit;
     }
     $errore = '0';
+
+    $user = $connection->get_utente_by_username($validUsername);
+    $validEmail = '';
+    if (count($user) != 0) {
+        $validEmail = $user['Email'];
+    }
   
-    if (isset($_POST['elimina'])) {
-        if ($_SESSION['username'] == $_POST['username']) {
+    if (isset($_GET['elimina']) || isset($_POST['elimina'])) {
+        if ($_SESSION['username'] == $_GET['username']) {
             header("location: amministratori.php?eliminato=false");
         } else {
             $connection->delete_user($validUsername);
@@ -66,14 +70,14 @@ if ($connectionOk) {
             }
         }
         exit;
-    } elseif (isset($_POST['modifica'])) {
+    } elseif (isset($_GET['modifica'])) {
         $legend = $legendModifica;
         $nuovoUsername = $validUsername;
         $nuovaEmail = $validEmail;
         $username = $validUsername;
         $email = $validEmail;
         $valueAzione = 'modifica';
-    } elseif (isset($_POST['aggiungi'])) {
+    } elseif (isset($_GET['aggiungi'])) {
         $buttonElimina = '';
         $legend = $legendAggiungi;
         $valueAzione = 'aggiungi';
