@@ -1543,10 +1543,23 @@ div#Fungo {
     justify-content: space-between;
 }
 
+body .titolo-filtri {
+    position: sticky;
+    top: 2em;
+    background-color: var(--colorBackground);
+    z-index: var(--elevationHigh);
+}
+
+div.des-classifica p {
+    position: sticky;
+    top: 12em;
+    z-index: var(--elevationMiddle);
+}
+
 
 /*
-* CHI SIAMO
-*/
+ * CHI SIAMO
+ */
 
 #chi-siamo-container h3 {
     padding: 0.5em;
@@ -1595,14 +1608,17 @@ div#introduzione {
     height: 50%;
 }
 
+#chi-siamo p {
+    /* text-align: justify; */
+    text-align: left;
+}
+
 
 /* 
  * AREA DI AMMINISTRAZIONE 
  */
 
-
 /* nasconde il testo che rende univoci i button modifica/punteggi/elimina dell'area admin */
-
 span.screen-reader-only {
     color: var(--colorAccent);
     text-indent: -999em;
@@ -2001,14 +2017,4 @@ div#admin-window {
 #errore403 .errorImage,
 #errore404 .errorImage {
     background-image: url("../assets/media/errore400.png");
-}
-
-
-/* 
- * PAGINA CHI SIAMO
- */
-
-#chi-siamo p {
-    /* text-align: justify; */
-    text-align: left;
 }
