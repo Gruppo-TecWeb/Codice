@@ -49,7 +49,7 @@ if ($connectionOk) {
     $errore = '0';
 
     if (isset($_POST['punteggi'])) {
-        header("location: gestione-punteggi.php?idEvento=$validIdEvento");
+        header("location: gestione-punteggi.php?idEvento=$validIdEvento&provenienza=classifiche");
         exit;
     }
 
@@ -163,6 +163,9 @@ if ($connectionOk) {
                     '{messaggio}' => 'Modifica effettuata con successo'
                 ]);
                 $classifica = $connection->get_classifica($validIdCLassifica);
+
+                header("location: classifiche.php?modificato=true");
+                exit;
             } else {
                 $messaggiForm .= $messaggiForm == '' ? multi_replace($messaggioForm, [
                     '{tipoMessaggio}' => 'inputError',

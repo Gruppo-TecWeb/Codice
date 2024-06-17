@@ -34,6 +34,8 @@ if ($connectionOk) {
     $messaggioForm = get_content_between_markers($messaggiFormHTML, 'messaggioForm');
     $righeTabella = '';
     $validIdEvento = isset($_POST['idEvento']) ? validate_input($_POST['idEvento']) : (isset($_GET['idEvento']) ? validate_input($_GET['idEvento']) : '');
+    $provenienza = isset($_GET['provenienza']) ? validate_input($_GET['provenienza']) : '';
+    $destinazione = isset($_POST['provenienza']) ? validate_input($_POST['provenienza']) : '';
     $eventoSelezionato = $validIdEvento != '';
     $validTitolo = $eventoSelezionato ? $connection->get_evento($validIdEvento)['Titolo'] : '';
     $validData = $eventoSelezionato ? date_format(date_create($connection->get_evento($validIdEvento)['Data']), 'd/m/y') : '';
@@ -55,6 +57,8 @@ if ($connectionOk) {
         }
     }
     if (((isset($_POST['idEvento']) && $_POST['idEvento'] != "") && $validIdEvento == "") ||
+        ((isset($_GET['provenienza']) && $_GET['provenienza'] != "") && $provenienza == "") ||
+        ((isset($_POST['provenienza']) && $_POST['provenienza'] != "") && $destinazione == "") ||
         ($count_punteggi != count($validRappersPoints))) {
         header("location: classifiche.php?errore=invalid");
         exit;
@@ -67,6 +71,13 @@ if ($connectionOk) {
                 '{tipoMessaggio}' => 'successMessage',
                 '{messaggio}' => 'Punteggi eliminati con successo'
             ]);
+
+            if ($destinazione == 'classifiche') {
+                header("location: classifiche.php?punteggi-modificati=true");
+            } else {
+                header("location: eventi.php?punteggi-modificati=true");
+            }
+            exit;
         } else {
             $messaggiForm .= multi_replace($messaggioForm, [
                 '{tipoMessaggio}' => 'inputError',
@@ -80,6 +91,13 @@ if ($connectionOk) {
                 '{tipoMessaggio}' => 'successMessage',
                 '{messaggio}' => 'Punteggi aggiornati con successo'
             ]);
+
+            if ($destinazione == 'classifiche') {
+                header("location: classifiche.php?punteggi-modificati=true");
+            } else {
+                header("location: eventi.php?punteggi-modificati=true");
+            }
+            exit;
         } else {
             $messaggiForm .= multi_replace($messaggioForm, [
                 '{tipoMessaggio}' => 'inputError',
@@ -107,7 +125,8 @@ if ($connectionOk) {
         'rigaTabella' => $righeTabella
     ]);
     $content = multi_replace($content, [
-        '{idEvento}' => $validIdEvento
+        '{idEvento}' => $validIdEvento,
+        '{provenienza}' => $provenienza
     ]);
 
     $connection->close_DB_connection();

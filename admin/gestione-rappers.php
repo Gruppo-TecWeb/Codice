@@ -57,7 +57,6 @@ if ($connectionOk) {
     if (isset($_POST['elimina'])) {
         if ($_SESSION['username'] == $_POST['username']) {
             header("location: rappers.php?eliminato=false");
-            exit;
         } else {
             $connection->delete_user($validUsername);
             if ($connection->get_utente_by_username($validUsername)) {
@@ -65,8 +64,8 @@ if ($connectionOk) {
             } else {
                 header("location: rappers.php?eliminato=true");
             }
-            exit;
         }
+        exit;
     } elseif (isset($_POST['modifica'])) {
         $legend = $legendModifica;
         $nuovoUsername = $validUsername;
@@ -154,6 +153,9 @@ if ($connectionOk) {
                     '{messaggio}' => 'Modifica effettuata con successo'
                 ]);
                 $username = $validNuovoUsername;
+
+                header("location: rappers.php?modificato=true");
+                exit;
             } else {
                 $messaggiForm .= $messaggiForm == '' ? multi_replace($messaggioForm, [
                     '{tipoMessaggio}' => 'inputError',
