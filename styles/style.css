@@ -164,12 +164,13 @@ main {
  * ERROR
  */
 
- div#input input.inputError {
+div#input input.inputError {
     background-color: #ffaf004d;
     margin-bottom: 0.5em;
- }
+}
 
- div.inputError::before, div#messaggi li.inputError::before {
+div.inputError::before,
+div#messaggi li.inputError::before {
     content: "⚠";
     color: yellow;
     margin-right: 10px;
@@ -1366,10 +1367,6 @@ audio::-webkit-media-controls-play-button {
     margin: 1em;
 }
 
-#lista_beats .descBeats span {
-    background-color: var(--colorSecondary);
-}
-
 #lista_beats .descBeats {
     width: 100%;
     box-sizing: border-box;
@@ -1921,21 +1918,21 @@ div#admin-window {
     white-space: pre-wrap;
 }
 
-#login form, .adminPage form.aggiunta-modifica {
+#login form,
+.adminPage form.aggiunta-modifica {
     display: grid;
-    grid-template-areas:
-        'titolo bottoni   '
-        'messaggi messaggi'
-        'input  input     ';
+    grid-template-areas: 'titolo bottoni   ' 'messaggi messaggi' 'input  input     ';
     justify-content: space-between;
 }
 
-#login form h3#titolo, .adminPage form.aggiunta-modifica h3#titolo {
+#login form h3#titolo,
+.adminPage form.aggiunta-modifica h3#titolo {
     grid-area: titolo;
     padding: 1em;
 }
 
-#login form div#buttons, .adminPage form.aggiunta-modifica div#buttons {
+#login form div#buttons,
+.adminPage form.aggiunta-modifica div#buttons {
     grid-area: bottoni;
     display: flex;
     padding: 1em;
@@ -1944,18 +1941,21 @@ div#admin-window {
     width: fit-content;
 }
 
-#login form div#messaggi, .adminPage form.aggiunta-modifica div#messaggi {
+#login form div#messaggi,
+.adminPage form.aggiunta-modifica div#messaggi {
     grid-area: messaggi;
     padding: 1em;
 }
 
-#login form div#buttons button, .adminPage form.aggiunta-modifica div#buttons button {
+#login form div#buttons button,
+.adminPage form.aggiunta-modifica div#buttons button {
     font-size: 1em;
     padding: 1em;
     margin: 0.25em;
 }
 
-#login form div#input, .adminPage form.aggiunta-modifica div#input {
+#login form div#input,
+.adminPage form.aggiunta-modifica div#input {
     grid-area: input;
 }
 
