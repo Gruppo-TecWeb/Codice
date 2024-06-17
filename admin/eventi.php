@@ -128,6 +128,7 @@ if ($connectionOk) {
 
     $eventi = $connection->get_eventi();
     $elementoLista = get_content_between_markers($content, 'elementoLista');
+    $nessunElemento = get_content_between_markers($content, 'nessunElemento');
 
     foreach ($eventi as $evento) {
         $lista .= multi_replace($elementoLista, [
@@ -139,9 +140,11 @@ if ($connectionOk) {
     }
 
     $messaggiFormHTML = $messaggiForm == '' ? '' : replace_content_between_markers($messaggiFormHTML, ['messaggioForm' => $messaggiForm]);
+    $lista = $lista == '' ? $nessunElemento : $lista;
 
     $content = replace_content_between_markers($content, [
         'elementoLista' => $lista,
+        'nessunElemento' => '',
         'messaggiForm' => $messaggiFormHTML
     ]);
 

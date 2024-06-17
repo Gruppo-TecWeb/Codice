@@ -1,5 +1,5 @@
 <div id="tipi-evento" class="limitedWidth">
-    <form method="post" action="gestione-tipi-evento.php" class="aggiunta-modifica" id="form-tipo-evento">
+    <form method="post" action="gestione-tipi-evento.php?titolo={titolo}" class="aggiunta-modifica" id="form-tipo-evento">
         <h3 id="titolo">Gestione Tipi Evento</h3>
         {messaggiForm}
         <div id="messaggi">
@@ -18,7 +18,6 @@
                 <div id="titolo-error"></div>
                 <label for="descrizione">Descrizione:</label>
                 <textarea id="descrizione" name="nuovaDescrizione" placeholder="Descrizione" rows="8" cols="50">{nuovaDescrizione}</textarea>
-                <input type="hidden" name="titolo" value="{titolo}" id="element-to-edit">
                 <input type="hidden" name="azione" value="{valueAzione}">
             </fieldset>
         </div>

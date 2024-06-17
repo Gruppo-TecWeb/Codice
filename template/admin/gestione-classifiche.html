@@ -1,5 +1,5 @@
 <div id="classifiche" class="limitedWidth">
-    <form method="post" action="gestione-classifiche.php" class="aggiunta-modifica" id="form-classifica">
+    <form method="post" action="gestione-classifiche.php?idClassifica={idClassifica}" class="aggiunta-modifica" id="form-classifica">
         <h3 id="titolo">Gestione Classifiche</h3>
         {messaggiForm}
         <div id="messaggi">
@@ -26,7 +26,6 @@
                 <input type="date" id="dataInizio" name="nuovaDataInizio" value="{nuovaDataInizio}" required aria-required="true">
                 <label for="dataFine">Data Fine (*):</label>
                 <input type="date" id="dataFine" name="nuovaDataFine" value="{nuovaDataFine}" required aria-required="true">
-                <input type="hidden" name="idClassifica" value="{idClassifica}" id="element-to-edit">
                 <input type="hidden" name="azione" value="{valueAzione}">
             </fieldset>
         </div>
@@ -44,7 +43,7 @@
             {elementoLista}
             <li>
                 <span class="label-element"><span class="element-title">{titoloEvento}</span> (<time datetime="{dataEvento}">{dataVisualizzataEvento}</time>)</span>
-                <form method="post" action="gestione-classifiche.php">
+                <form method="post" action="gestione-classifiche.php?idClassifica={idClassifica}">
                     <input type="hidden" name="idEvento" value="{idEvento}">
                     <button type="submit" name="punteggi" value="true">Punteggi</button>
                 </form>

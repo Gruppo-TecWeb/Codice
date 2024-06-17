@@ -94,6 +94,7 @@ if ($connectionOk) {
 
     $amministratori = $connection->get_utenti_admin();
     $elementoLista = get_content_between_markers($content, 'elementoLista');
+    $nessunElemento = get_content_between_markers($content, 'nessunElemento');
 
     foreach ($amministratori as $amministratore) {
         $elementiLista .= multi_replace($elementoLista, [
@@ -103,9 +104,11 @@ if ($connectionOk) {
     }
 
     $messaggiFormHTML = $messaggiForm == '' ? '' : replace_content_between_markers($messaggiFormHTML, ['messaggioForm' => $messaggiForm]);
+    $elementiLista = $elementiLista == '' ? $nessunElemento : $elementiLista;
 
     $content = replace_content_between_markers($content, [
         'elementoLista' => $elementiLista,
+        'nessunElemento' => '',
         'messaggiForm' => $messaggiFormHTML
     ]);
 
