@@ -162,15 +162,19 @@ function initIframe() {
  */
 
 function init_beats() {
+    setDurationBeats();
     pressedButton = document.getElementsByClassName("beat")[0].getElementsByTagName("button")[0];
     document.getElementById("audio").addEventListener("play", function() {
         pressedButton.setAttribute("data-isPlaying", "true")
         pressedButton.title = "Interrompi " + newTitle;
+        pressedButton.setAttribute("aria-label","Interrompi " + newTitle);
+
     });
 
     document.getElementById("audio").addEventListener("pause", function() {
         pressedButton.setAttribute("data-isPlaying", "false")
         pressedButton.title = "Riproduci " + newTitle;
+        pressedButton.setAttribute("aria-label","Riproduci " + newTitle);
     });
 
     btnDescrizioni = document.getElementsByClassName("btnDesc");
@@ -192,15 +196,12 @@ function showDescription(index) {
 }
 
 
-function onJavaScript() {
+function setDurationBeats() {
     const beats = document.getElementsByClassName("beat");
-
     for (let i = 0; i < beats.length; i++) {
+        const time = document.getElementsByTagName("time");
         const durata = document.getElementsByClassName("durata")[i];
         const readDurata = document.getElementsByClassName("readDurata")[i];
-
-        playerJump = beats[i].getElementsByTagName("a")[0].getElementsByTagName("span")[0];
-        playerJump.setAttribute("aria-hidden", "true");
 
         audiosTitle = document.getElementsByClassName("btnPlay")[i].getAttribute("data-title-beat");
         const audio = new Audio("assets/media/basi/" + audiosTitle + ".mp3");
@@ -208,7 +209,8 @@ function onJavaScript() {
         audio.addEventListener('loadedmetadata', () => {
             const minuti = Math.floor(audio.duration / 60);
             const secondi = Math.floor(audio.duration % 60);
-
+            const datatime = "PT" + minuti + "M" + secondi + "S";
+            time[i].setAttribute("datetime",datatime);
             if (minuti == 1) {
                 if (secondi < 10) {
                     durata.innerHTML = minuti + ":" + "0" + secondi;
@@ -248,7 +250,7 @@ function playerAudio(nomeBase) {
     audio = document.getElementById("audio");
     audioContainer = document.getElementById("audio_container");
     h3 = audioContainer.getElementsByTagName("h3")[0];
-    newTitle = nomeBase.slice(0, -4).replaceAll("-", " ");
+    newTitle = nomeBase.slice(0, -4);
     beats = document.getElementsByClassName("beat")
 
     for (let i = 0; i < beats.length; i++) {
@@ -256,9 +258,14 @@ function playerAudio(nomeBase) {
             pressedButton = beats[i].getElementsByTagName("button")[0];
             audioJump = beats[i].getElementsByTagName("a")[0];
             audioJump.setAttribute("tabindex", "0");
+            audioJump.setAttribute("aria-hidden", "false");
 
-            playerJump = beats[i].getElementsByTagName("a")[0].getElementsByTagName("span")[0];
-            playerJump.setAttribute("aria-hidden", "false");
+            /*playerJump = beats[i].getElementsByTagName("a")[0].getElementsByTagName("span")[0];
+            playerJump.setAttribute("aria-hidden", "false");*/
+        }else{
+            audioJump = beats[i].getElementsByTagName("a")[0];
+            audioJump.setAttribute("tabindex", "-1");
+            audioJump.setAttribute("aria-hidden", "true");
         }
     }
 
@@ -284,10 +291,14 @@ function newBeat(nomeBase) {
     for (let i = 0; i < beats.length; i++) {
         buttonPP = beats[i].getElementsByTagName("button")[0];
         audioJump = beats[i].getElementsByTagName("a")[0];
-        playerJump.setAttribute("aria-hidden", "false");
+        //audioJump.setAttribute("tabindex", "0");
+        //audioJump.setAttribute("aria-hidden", "false");
+        //playerJump.setAttribute("aria-hidden", "false");
+        
 
         if (buttonPP.title.substr(0, 10) == "Interrompi") {
             audioJump.setAttribute("tabindex", "-1");
+            audioJump.setAttribute("aria-hidden", "true");
 
             buttonPP.setAttribute("data-isPlaying", "false")
             buttonPP.title = "Riproduci " + buttonPP.getAttribute("data-title-beat");
@@ -324,7 +335,7 @@ function autoPlay(nomeBase) {
 }
 
 function nextAudio(nomeBase) {
-    newTitle = nomeBase.slice(0, -4).replaceAll("-", " ");
+    newTitle = nomeBase.slice(0, -4);
     beats = document.getElementsByClassName("beat")
     for (let i = 0; i < beats.length; i++) {
         if (beats[i].getElementsByTagName("button")[0].getAttribute("data-title-beat") == nomeBase.slice(0, -4)) {
