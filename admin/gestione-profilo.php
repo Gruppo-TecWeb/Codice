@@ -19,7 +19,7 @@ $keywords = 'profilo, amministrazione, admin';
 $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
-$classList = '';
+$classList = 'fullMenu';
 
 $immagineProfiloDefault = 'default_profile_pic.png';
 $percorsoImmaginiProfilo = './../assets/media/img_profilo/';

@@ -210,6 +210,12 @@ header .logo {
     transition: 0.5s;
 }
 
+.fullMenu #breadcrumbs-container {
+    min-width: var(--widthMenu);
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+}
+
 #breadcrumbs-container[data-menu-open=true] {
     min-width: var(--widthMenu);
     border-top-right-radius: 0;
@@ -622,12 +628,6 @@ label {
 /* 
  * PAGINA BEATS
 */
-
-#beats #breadcrumbs-container {
-    min-width: var(--widthMenu);
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
-}
 
 #beats footer {
     padding-bottom: calc(var(--marginBottomMenu) + var(--minHeightButton) + 2em + 6em);

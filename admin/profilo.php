@@ -19,7 +19,7 @@ $keywords = 'profilo, amministrazione, admin, restraining stirpe, freestyle, fre
 $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
-$classList = '';
+$classList = 'fullMenu';
 
 $immagineProfiloDefault = 'default_profile_pic.png';
 

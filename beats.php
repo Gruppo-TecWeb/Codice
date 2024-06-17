@@ -22,7 +22,7 @@ $menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = "init_beats(), onJavaScript(), autoPlay('11 - Goodbye - Big Joe.mp3')";
 $logout = '';
-$classList = '';
+$classList = 'fullMenu';
 
 if (isset($_SESSION["login"])) {
     $logout = get_content_between_markers($paginaHTML, 'logout');

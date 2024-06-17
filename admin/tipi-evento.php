@@ -19,7 +19,7 @@ $keywords = 'Fungo, amministrazione, tipi evento';
 $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
-$classList = '';
+$classList = 'fullMenu';
 
 if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
