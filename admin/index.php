@@ -235,7 +235,7 @@ if ($connectionOk) {
                 if ($evento['Data'] < date('Y-m-d') && $connection->get_punteggi_evento($evento['Id']) == null) {
                     $listaPunteggiMancanti .= multi_replace($punteggioMancanteHTML, [
                         '{titolo}' => $evento['Titolo'],
-                        '{data}' => date_format(date_create($evento[0]['Data']), 'Y-m-d'),
+                        '{data}' => date_format(date_create($evento['Data']), 'Y-m-d'),
                         '{dataVisualizzata}' => date_format_ita($evento['Data']),
                         '{idEvento}' => $evento['Id']
                     ]);
