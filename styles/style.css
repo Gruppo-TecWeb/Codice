@@ -738,7 +738,7 @@ footer #footer-credits {
     border-bottom: 1px solid var(--colorAccent);
 }
 
-.ddImg p {
+.ddImg figcaption {
     padding-left: 1em;
     box-sizing: border-box;
 }
