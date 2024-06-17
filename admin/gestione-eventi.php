@@ -93,6 +93,7 @@ if ($connectionOk) {
                 header("location: eventi.php?eliminato=false");
             }
         } else {
+            unlink($percorsoLocandine . $locandina);
             if ($provenienza == 'dashboard-prossimo-evento') {
                 header("location: index.php?prossimo-eliminato=true#messaggi");
             } elseif ($provenienza == 'dashboard-eventi-programmati') {

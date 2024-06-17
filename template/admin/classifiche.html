@@ -26,7 +26,11 @@
                     <button type="submit" name="elimina" value="true">Elimina<span class="screen-reader-only"> la classifica {titoloClassifica}</span></button>
                 </form>
             </li>
-            {/elementoLista}
+            {/elementoLista}{nessunElemento}
+            <li>
+                <span class="label-element">Nessuna classifica presente</span>
+            </li>
+            {/nessunElemento}
         </ol>
     </div>
 </div>
