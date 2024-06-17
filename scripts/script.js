@@ -388,11 +388,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const urlParams = new URLSearchParams(window.location.search);
     const form = formProfilo || formEvento || formClassifica || formTipoEvento || formRapper || formAmministratore;
 
-    form.addEventListener('click', function(event) {
-        if (event.target.type === 'submit') {
-            clickedButton = event.target;
-        }
-    });
+    if (form) {
+        form.addEventListener('click', function(event) {
+            if (event.target.type === 'submit') {
+                clickedButton = event.target;
+            }
+        });
+    }
 
     // Funzioni di validazione generiche
     function validateField(inputElement, errorElement, validationFn) {

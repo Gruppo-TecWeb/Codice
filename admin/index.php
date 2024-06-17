@@ -31,6 +31,145 @@ $connectionOk = $connection->open_DB_connection();
 if ($connectionOk) {
     $dashboardAdminHTML = get_content_between_markers($content, 'dashboardAdmin');
     $dashboardAdmin = '';
+    $messaggiProssimoEvento = '';
+    $messaggiEventiProgrammati = '';
+    $messaggiPunteggi = '';
+    $messaggiListaTemplate = get_content_between_markers($dashboardAdminHTML, 'messaggiProssimo');
+    $messaggioTemplate = get_content_between_markers($messaggiListaTemplate, 'messaggio');
+
+    if (isset($_GET['prossimo-errore'])) {
+        $messaggiProssimoEvento .= multi_replace($messaggioTemplate, [
+            '{tipoMessaggio}' => 'inputError',
+            '{testoMessaggio}' => 'Errore imprevisto'
+        ]);
+    } elseif (isset($_GET['prossimi-errore'])) {
+        $messaggiEventiProgrammati .= multi_replace($messaggioTemplate, [
+            '{tipoMessaggio}' => 'inputError',
+            '{testoMessaggio}' => 'Errore imprevisto'
+        ]);
+    } elseif (isset($_GET['punteggi-errore'])) {
+        $messaggiPunteggi .= multi_replace($messaggioTemplate, [
+            '{tipoMessaggio}' => 'inputError',
+            '{testoMessaggio}' => 'Errore imprevisto'
+        ]);
+    } elseif (isset($_GET['prossimo-eliminato'])) {
+        if ($_GET['prossimo-eliminato'] == 'false') {
+            $messaggiProssimoEvento .= multi_replace($messaggioTemplate, [
+                '{tipoMessaggio}' => 'inputError',
+                '{testoMessaggio}' => 'Errore nell\'eliminazione dell\'Evento'
+            ]);
+        } elseif ($_GET['prossimo-eliminato'] == 'true') {
+            $messaggiProssimoEvento .= multi_replace($messaggioTemplate, [
+                '{tipoMessaggio}' => 'successMessage',
+                '{testoMessaggio}' => 'Evento eliminato correttamente'
+            ]);
+        } else {
+            $messaggiProssimoEvento .= multi_replace($messaggioTemplate, [
+                '{tipoMessaggio}' => 'inputError',
+                '{testoMessaggio}' => 'Errore imprevisto'
+            ]);
+        }
+    } elseif (isset($_GET['prossimi-eliminati'])) {
+        if ($_GET['prossimi-eliminati'] == 'false') {
+            $messaggiEventiProgrammati .= multi_replace($messaggioTemplate, [
+                '{tipoMessaggio}' => 'inputError',
+                '{testoMessaggio}' => 'Errore nell\'eliminazione dell\'Evento'
+            ]);
+        } elseif ($_GET['prossimi-eliminati'] == 'true') {
+            $messaggiEventiProgrammati .= multi_replace($messaggioTemplate, [
+                '{tipoMessaggio}' => 'successMessage',
+                '{testoMessaggio}' => 'Evento eliminato correttamente'
+            ]);
+        } else {
+            $messaggiEventiProgrammati .= multi_replace($messaggioTemplate, [
+                '{tipoMessaggio}' => 'inputError',
+                '{testoMessaggio}' => 'Errore imprevisto'
+            ]);
+        }
+    } elseif (isset($_GET['punteggi-eliminati'])) {
+        if ($_GET['punteggi-eliminati'] == 'false') {
+            $messaggiPunteggi .= multi_replace($messaggioTemplate, [
+                '{tipoMessaggio}' => 'inputError',
+                '{testoMessaggio}' => 'Errore nell\'eliminazione dei punteggi'
+            ]);
+        } elseif ($_GET['punteggi-eliminati'] == 'true') {
+            $messaggiPunteggi .= multi_replace($messaggioTemplate, [
+                '{tipoMessaggio}' => 'successMessage',
+                '{testoMessaggio}' => 'Punteggi eliminati correttamente'
+            ]);
+        } else {
+            $messaggiPunteggi .= multi_replace($messaggioTemplate, [
+                '{tipoMessaggio}' => 'inputError',
+                '{testoMessaggio}' => 'Errore imprevisto'
+            ]);
+        }
+    } elseif (isset($_GET['prossimo-modificato'])) {
+        if ($_GET['prossimo-modificato'] == 'false') {
+            $messaggiProssimoEvento .= multi_replace($messaggioTemplate, [
+                '{tipoMessaggio}' => 'inputError',
+                '{testoMessaggio}' => 'Errore nella modifica dell\'Evento'
+            ]);
+        } elseif ($_GET['prossimo-modificato'] == 'true') {
+            $messaggiProssimoEvento .= multi_replace($messaggioTemplate, [
+                '{tipoMessaggio}' => 'successMessage',
+                '{testoMessaggio}' => 'Evento modificato correttamente'
+            ]);
+        } else {
+            $messaggiProssimoEvento .= multi_replace($messaggioTemplate, [
+                '{tipoMessaggio}' => 'inputError',
+                '{testoMessaggio}' => 'Errore imprevisto'
+            ]);
+        }
+    } elseif (isset($_GET['prossimi-modificato'])) {
+        if ($_GET['prossimi-modificato'] == 'false') {
+            $messaggiEventiProgrammati .= multi_replace($messaggioTemplate, [
+                '{tipoMessaggio}' => 'inputError',
+                '{testoMessaggio}' => 'Errore nella modifica dell\'Evento'
+            ]);
+        } elseif ($_GET['prossimi-modificato'] == 'true') {
+            $messaggiEventiProgrammati .= multi_replace($messaggioTemplate, [
+                '{tipoMessaggio}' => 'successMessage',
+                '{testoMessaggio}' => 'Evento modificato correttamente'
+            ]);
+        } else {
+            $messaggiEventiProgrammati .= multi_replace($messaggioTemplate, [
+                '{tipoMessaggio}' => 'inputError',
+                '{testoMessaggio}' => 'Errore imprevisto'
+            ]);
+        }
+    } elseif (isset($_GET['punteggi-modificati'])) {
+        if ($_GET['punteggi-modificati'] == 'false') {
+            $messaggiPunteggi .= multi_replace($messaggioTemplate, [
+                '{tipoMessaggio}' => 'inputError',
+                '{testoMessaggio}' => 'Errore nella modifica dei punteggi'
+            ]);
+        } elseif ($_GET['punteggi-modificati'] == 'true') {
+            $messaggiPunteggi .= multi_replace($messaggioTemplate, [
+                '{tipoMessaggio}' => 'successMessage',
+                '{testoMessaggio}' => 'Punteggi modificati correttamente'
+            ]);
+        } else {
+            $messaggiPunteggi .= multi_replace($messaggioTemplate, [
+                '{tipoMessaggio}' => 'inputError',
+                '{testoMessaggio}' => 'Errore imprevisto'
+            ]);
+        }
+    }
+    
+    $messaggiProssimoEvento = $messaggiProssimoEvento == '' ? '' : replace_content_between_markers($messaggiListaTemplate, [
+        'messaggio' => $messaggiProssimoEvento
+    ]);
+    $messaggiEventiProgrammati = $messaggiEventiProgrammati == '' ? '' : replace_content_between_markers($messaggiListaTemplate, [
+        'messaggio' => $messaggiEventiProgrammati
+    ]);
+    $messaggiPunteggi = $messaggiPunteggi == '' ? '' : replace_content_between_markers($messaggiListaTemplate, [
+        'messaggio' => $messaggiPunteggi
+    ]);
+    $dashboardAdminHTML = replace_content_between_markers($dashboardAdminHTML, [
+        'messaggiProssimo' => $messaggiProssimoEvento,
+        'messaggiProssimi' => $messaggiEventiProgrammati,
+        'messaggiPunteggi' => $messaggiPunteggi
+    ]);
 
     // creazione dashboard admin
     if (($connection->get_utente_by_username($_SESSION["username"]))["TipoUtente"] == 'A') {

@@ -58,7 +58,13 @@ if ($connectionOk) {
     if (((isset($_POST['idEvento']) && $_POST['idEvento'] != "") && $validIdEvento == "") ||
         ((isset($_GET['provenienza']) && $_GET['provenienza'] != "") && $provenienza == "") ||
         ($count_punteggi != count($validRappersPoints))) {
-        header("location: classifiche.php?errore=invalid");
+        if ($provenienza == 'classifiche') {
+            header("location: classifiche.php?errore=invalid");
+        } elseif ($provenienza == 'dashboard-punteggi-mancanti') {
+            header("location: index.php?punteggi-errore=invalid#messaggi");
+        } else {
+            header("location: eventi.php?errore=invalid");
+        }
         exit;
     }
   
@@ -71,9 +77,11 @@ if ($connectionOk) {
             ]);
 
             if ($provenienza == 'classifiche') {
-                header("location: classifiche.php?punteggi-modificati=true");
+                header("location: classifiche.php?punteggi-eliminati=true");
+            } elseif ($provenienza == 'dashboard-punteggi-mancanti') {
+                header("location: index.php?punteggi-eliminati=true#messaggi");
             } else {
-                header("location: eventi.php?punteggi-modificati=true");
+                header("location: eventi.php?punteggi-eliminati=true");
             }
             exit;
         } else {
@@ -92,6 +100,8 @@ if ($connectionOk) {
 
             if ($provenienza == 'classifiche') {
                 header("location: classifiche.php?punteggi-modificati=true");
+            } elseif ($provenienza == 'dashboard-punteggi-mancanti') {
+                header("location: index.php?punteggi-modificati=true#messaggi");
             } else {
                 header("location: eventi.php?punteggi-modificati=true");
             }

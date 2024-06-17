@@ -1898,7 +1898,6 @@ div#admin-window {
     top: 4em;
     object-fit: contain;
     border: 1px solid var(--colorAccent);
-    /* padding: 1em; */
 }
 
 .adminPage #evento-info-admin {
@@ -1964,6 +1963,10 @@ div#admin-window {
 #login form div#input,
 .adminPage form.aggiunta-modifica div#input {
     grid-area: input;
+}
+
+.adminPage #adminIndex div.dashboard {
+    scroll-margin-top: 4em;
 }
 
 
