@@ -127,8 +127,10 @@ if ($connectionOk) {
     }
 
     $classifiche = $connection->get_classifiche();
+    $elementoLista = get_content_between_markers($content, 'elementoLista');
+    $nessunElemento = get_content_between_markers($content, 'nessunElemento');
+
     foreach ($classifiche as $classifica) {
-        $elementoLista = get_content_between_markers($content, 'elementoLista');
         $lista .= multi_replace($elementoLista, [
             '{titoloClassifica}' => $classifica['Titolo'],
             '{dataInizio}' => date_format(date_create($classifica['DataInizio']), 'Y-m-d'),
@@ -140,9 +142,11 @@ if ($connectionOk) {
     }
 
     $messaggiFormHTML = $messaggiForm == '' ? '' : replace_content_between_markers($messaggiFormHTML, ['messaggioForm' => $messaggiForm]);
+    $lista = $lista == '' ? $nessunElemento : $lista;
 
     $content = replace_content_between_markers($content, [
         'elementoLista' => $lista,
+        'nessunElemento' => '',
         'messaggiForm' => $messaggiFormHTML
     ]);
 

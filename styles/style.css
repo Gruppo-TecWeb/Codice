@@ -1672,9 +1672,8 @@ div#admin-window {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1em;
     position: sticky;
-    top: 2.5em;
+    top: 4em;
     background: var(--colorBackground);
 }
 
@@ -1737,7 +1736,7 @@ div#admin-window {
 
 .adminPage h4 {
     font-size: 1.5em;
-    margin-block: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 .adminPage div#datiUtente {
@@ -1805,7 +1804,6 @@ div#admin-window {
 
 .adminPage p.dashboard {
     padding: 1em;
-    margin-bottom: 0.9375em;
 }
 
 .adminPage div.dashboard {
@@ -1894,7 +1892,6 @@ div#admin-window {
     top: 4em;
     object-fit: contain;
     border: 1px solid var(--colorAccent);
-    /* padding: 1em; */
 }
 
 .adminPage #evento-info-admin {
@@ -1957,6 +1954,10 @@ div#admin-window {
 #login form div#input,
 .adminPage form.aggiunta-modifica div#input {
     grid-area: input;
+}
+
+.adminPage #adminIndex div.dashboard {
+    scroll-margin-top: 4em;
 }
 
 
