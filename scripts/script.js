@@ -129,7 +129,7 @@ function setIframe(battle) {
 
 function newIframe() {
     var link = pressedButton.getAttribute("data-link");
-    actualTitle.innerHTML = newTitle;
+    actualTitle.innerHTML = "Esempio "+ newTitle;
 
     var videoId = link.split('embed/')[1].split('?')[0];
     var start = pressedButton.getAttribute("data-start");
