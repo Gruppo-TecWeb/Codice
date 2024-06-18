@@ -1187,7 +1187,7 @@ p.eventiMessaggio {
     background-color: var(--colorButtonHover);
 }
 
-.descBattle dt a {
+.descBattle dt strong{
     display: block;
     text-align: center;
     padding: 0.5em;

@@ -98,8 +98,37 @@ function onPlayerStateChange(event) {
     }
 }
 
+function initIframe() {
+    descBattles = document.getElementsByClassName("descBattle");
+    actualTitle = document.getElementsByTagName("h3")[1];
+
+    thisBattle = descBattles[0];
+    newTitle = thisBattle.getElementsByTagName("strong")[0].innerHTML;;
+    pressedButton = thisBattle.getElementsByTagName("button")[0];
+}
+
+function setIframe(battle) {
+    thisBattle = descBattles[battle];
+    pressedButton = thisBattle.getElementsByTagName("button")[0];
+    newTitle = thisBattle.getElementsByTagName("strong")[0].innerHTML;
+
+    if (pressedButton.title.substr(0, 10) == "Interrompi") {
+        player.pauseVideo();
+        pressedButton.setAttribute("data-isPlaying", "false");
+        pressedButton.title = "Riproduci " + newTitle;
+    } else {
+        if (actualTitle.innerHTML == newTitle) {
+            player.playVideo();
+            pressedButton.setAttribute("data-isPlaying", "true");
+            pressedButton.title = "Interrompi " + newTitle;
+        } else {
+            newIframe();
+        }
+    }
+}
+
 function newIframe() {
-    var link = thisBattle.getElementsByTagName("a")[0].href;
+    var link = pressedButton.getAttribute("data-link");
     actualTitle.innerHTML = newTitle;
 
     var videoId = link.split('embed/')[1].split('?')[0];
@@ -124,36 +153,9 @@ function newIframe() {
     pressedButton.title = "Interrompi " + newTitle;
 }
 
-function setIframe(battle) {
-    thisBattle = descBattles[battle];
-    pressedButton = thisBattle.getElementsByTagName("button")[0];
-    newTitle = thisBattle.getElementsByTagName("a")[0].title;
-
-    if (pressedButton.title.substr(0, 10) == "Interrompi") {
-        player.pauseVideo();
-        pressedButton.setAttribute("data-isPlaying", "false");
-        pressedButton.title = "Riproduci " + newTitle;
-    } else {
-        if (actualTitle.innerHTML == newTitle) {
-            player.playVideo();
-            pressedButton.setAttribute("data-isPlaying", "true");
-            pressedButton.title = "Interrompi " + newTitle;
-        } else {
-            newIframe();
-        }
-    }
-}
 
 
 
-function initIframe() {
-    descBattles = document.getElementsByClassName("descBattle");
-    actualTitle = document.getElementsByTagName("h3")[1];
-
-    thisBattle = descBattles[0];
-    newTitle = thisBattle.getElementsByTagName("a")[0].title;
-    pressedButton = thisBattle.getElementsByTagName("button")[0];
-}
 
 
 
