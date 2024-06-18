@@ -1,5 +1,5 @@
 <div id="rappers" class="limitedWidth">
-    <form method="post" action="gestione-rappers.php" class="aggiunta-modifica" id="form-rapper">
+    <form method="post" action="gestione-rappers.php?username={username}" class="aggiunta-modifica" id="form-rapper">
         <h3 id="titolo">Gestione Rappers</h3>
         {messaggiForm}
         <div id="messaggi">
@@ -19,8 +19,6 @@
                 <label for="email" lang="en">E-Mail (*):</label>
                 <input type="email" id="email" name="nuovaEmail" value="{nuovaEmail}" placeholder="E-Mail" required aria-required="true">
                 <div id="email-error" class="error"></div>
-                <input type="hidden" name="username" value="{username}" id="element-to-edit">
-                <input type="hidden" name="email" value="{email}">
                 <input type="hidden" name="azione" value="{valueAzione}">
             </fieldset>
         </div>

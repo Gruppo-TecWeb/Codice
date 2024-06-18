@@ -20,6 +20,7 @@ $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 $classList = 'fullMenu';
+$logo = get_content_between_markers($paginaHTML, 'logoLink');
 
 if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
@@ -91,10 +92,45 @@ if ($connectionOk) {
                 '{messaggio}' => "Errore imprevisto"
             ]);
         }
+    } elseif (isset($_GET['punteggi-eliminati'])) {
+        if ($_GET['punteggi-eliminati'] == 'false') {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore nell'eliminazione dei punteggi"
+            ]);
+        } elseif ($_GET['punteggi-eliminati'] == 'true') {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'successMessage',
+                '{messaggio}' => "Punteggi eliminati correttamente"
+            ]);
+        } else {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore imprevisto"
+            ]);
+        }
+    } elseif (isset($_GET['punteggi-modificati'])) {
+        if ($_GET['punteggi-modificati'] == 'false') {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore nella modifica dei punteggi"
+            ]);
+        } elseif ($_GET['punteggi-modificati'] == 'true') {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'successMessage',
+                '{messaggio}' => "Punteggi modificati correttamente"
+            ]);
+        } else {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore imprevisto"
+            ]);
+        }
     }
 
     $eventi = $connection->get_eventi();
     $elementoLista = get_content_between_markers($content, 'elementoLista');
+    $nessunElemento = get_content_between_markers($content, 'nessunElemento');
 
     foreach ($eventi as $evento) {
         $lista .= multi_replace($elementoLista, [
@@ -106,9 +142,11 @@ if ($connectionOk) {
     }
 
     $messaggiFormHTML = $messaggiForm == '' ? '' : replace_content_between_markers($messaggiFormHTML, ['messaggioForm' => $messaggiForm]);
+    $lista = $lista == '' ? $nessunElemento : $lista;
 
     $content = replace_content_between_markers($content, [
         'elementoLista' => $lista,
+        'nessunElemento' => '',
         'messaggiForm' => $messaggiFormHTML
     ]);
 
@@ -119,6 +157,7 @@ if ($connectionOk) {
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'logo' => $logo,
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu
 ]), [

@@ -104,7 +104,7 @@ header {
     justify-content: center;
 }
 
-header>a {
+header h1.logo {
     margin: 0;
 }
 
@@ -445,7 +445,7 @@ footer .logo {
     object-fit: contain;
 }
 
-.ddImg p {
+.ddImg figcaption {
     box-sizing: border-box;
     padding: 0.5em calc((100% - var(--widthMenu)) / 2);
 }
@@ -923,6 +923,19 @@ table#tabella-classifica {
 div#Micelio,
 div#Fungo {
     background-image: none;
+}
+
+body .titolo-filtri {
+    position: unset;
+    top: unset;
+    z-index: unset;
+    background-color: unset;
+}
+
+div.des-classifica p {
+    position: unset;
+    top: unset;
+    z-index: unset;
 }
 
 

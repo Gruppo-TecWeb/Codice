@@ -20,6 +20,7 @@ $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 $classList = 'fullMenu';
+$logo = get_content_between_markers($paginaHTML, 'logoLink');
 
 if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
@@ -95,6 +96,7 @@ if ($connectionOk) {
 
     $rappers = $connection->get_utenti_base();
     $elementoLista = get_content_between_markers($content, 'elementoLista');
+    $nessunElemento = get_content_between_markers($content, 'nessunElemento');
 
     foreach ($rappers as $rapper) {
         $elementiLista .= multi_replace($elementoLista, [
@@ -104,9 +106,11 @@ if ($connectionOk) {
     }
 
     $messaggiFormHTML = $messaggiForm == '' ? '' : replace_content_between_markers($messaggiFormHTML, ['messaggioForm' => $messaggiForm]);
+    $elementiLista = $elementiLista == '' ? $nessunElemento : $elementiLista;
 
     $content = replace_content_between_markers($content, [
         'elementoLista' => $elementiLista,
+        'nessunElemento' => '',
         'messaggiForm' => $messaggiFormHTML
     ]);
 
@@ -117,6 +121,7 @@ if ($connectionOk) {
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'logo' => $logo,
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu
 ]), [

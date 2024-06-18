@@ -45,16 +45,14 @@ function init_evento() {
 }
 
 /*
- * PAGINA INDEX
+ * PAGINA HOME
  */
 
 function init_index() {
-    const logo = document.querySelector('header a h1');
+    const logo = document.querySelector('header h1.logo');
     const hero = document.querySelector('#hero h2');
 
     logo.classList.add('js');
-
-    document.querySelector('header>a').setAttribute('href', '#content');
 
     window.addEventListener('scroll', function() {
         var position = hero.getBoundingClientRect();
@@ -162,15 +160,19 @@ function initIframe() {
  */
 
 function init_beats() {
+    setDurationBeats();
     pressedButton = document.getElementsByClassName("beat")[0].getElementsByTagName("button")[0];
     document.getElementById("audio").addEventListener("play", function() {
         pressedButton.setAttribute("data-isPlaying", "true")
         pressedButton.title = "Interrompi " + newTitle;
+        pressedButton.setAttribute("aria-label", "Interrompi " + newTitle);
+
     });
 
     document.getElementById("audio").addEventListener("pause", function() {
         pressedButton.setAttribute("data-isPlaying", "false")
         pressedButton.title = "Riproduci " + newTitle;
+        pressedButton.setAttribute("aria-label", "Riproduci " + newTitle);
     });
 
     btnDescrizioni = document.getElementsByClassName("btnDesc");
@@ -192,15 +194,12 @@ function showDescription(index) {
 }
 
 
-function onJavaScript() {
+function setDurationBeats() {
     const beats = document.getElementsByClassName("beat");
-
     for (let i = 0; i < beats.length; i++) {
+        const time = document.getElementsByTagName("time");
         const durata = document.getElementsByClassName("durata")[i];
         const readDurata = document.getElementsByClassName("readDurata")[i];
-
-        playerJump = beats[i].getElementsByTagName("a")[0].getElementsByTagName("span")[0];
-        playerJump.setAttribute("aria-hidden", "true");
 
         audiosTitle = document.getElementsByClassName("btnPlay")[i].getAttribute("data-title-beat");
         const audio = new Audio("assets/media/basi/" + audiosTitle + ".mp3");
@@ -208,7 +207,8 @@ function onJavaScript() {
         audio.addEventListener('loadedmetadata', () => {
             const minuti = Math.floor(audio.duration / 60);
             const secondi = Math.floor(audio.duration % 60);
-
+            const datatime = "PT" + minuti + "M" + secondi + "S";
+            time[i].setAttribute("datetime", datatime);
             if (minuti == 1) {
                 if (secondi < 10) {
                     durata.innerHTML = minuti + ":" + "0" + secondi;
@@ -248,7 +248,7 @@ function playerAudio(nomeBase) {
     audio = document.getElementById("audio");
     audioContainer = document.getElementById("audio_container");
     h3 = audioContainer.getElementsByTagName("h3")[0];
-    newTitle = nomeBase.slice(0, -4).replaceAll("-", " ");
+    newTitle = nomeBase.slice(0, -4);
     beats = document.getElementsByClassName("beat")
 
     for (let i = 0; i < beats.length; i++) {
@@ -256,9 +256,14 @@ function playerAudio(nomeBase) {
             pressedButton = beats[i].getElementsByTagName("button")[0];
             audioJump = beats[i].getElementsByTagName("a")[0];
             audioJump.setAttribute("tabindex", "0");
+            audioJump.setAttribute("aria-hidden", "false");
 
-            playerJump = beats[i].getElementsByTagName("a")[0].getElementsByTagName("span")[0];
-            playerJump.setAttribute("aria-hidden", "false");
+            /*playerJump = beats[i].getElementsByTagName("a")[0].getElementsByTagName("span")[0];
+            playerJump.setAttribute("aria-hidden", "false");*/
+        } else {
+            audioJump = beats[i].getElementsByTagName("a")[0];
+            audioJump.setAttribute("tabindex", "-1");
+            audioJump.setAttribute("aria-hidden", "true");
         }
     }
 
@@ -284,10 +289,14 @@ function newBeat(nomeBase) {
     for (let i = 0; i < beats.length; i++) {
         buttonPP = beats[i].getElementsByTagName("button")[0];
         audioJump = beats[i].getElementsByTagName("a")[0];
-        playerJump.setAttribute("aria-hidden", "false");
+        //audioJump.setAttribute("tabindex", "0");
+        //audioJump.setAttribute("aria-hidden", "false");
+        //playerJump.setAttribute("aria-hidden", "false");
+
 
         if (buttonPP.title.substr(0, 10) == "Interrompi") {
             audioJump.setAttribute("tabindex", "-1");
+            audioJump.setAttribute("aria-hidden", "true");
 
             buttonPP.setAttribute("data-isPlaying", "false")
             buttonPP.title = "Riproduci " + buttonPP.getAttribute("data-title-beat");
@@ -324,7 +333,7 @@ function autoPlay(nomeBase) {
 }
 
 function nextAudio(nomeBase) {
-    newTitle = nomeBase.slice(0, -4).replaceAll("-", " ");
+    newTitle = nomeBase.slice(0, -4);
     beats = document.getElementsByClassName("beat")
     for (let i = 0; i < beats.length; i++) {
         if (beats[i].getElementsByTagName("button")[0].getAttribute("data-title-beat") == nomeBase.slice(0, -4)) {
@@ -373,6 +382,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const formRapper = document.getElementById('form-rapper');
     const formAmministratore = document.getElementById('form-amministratore');
 
+    let clickedButton = null;
+    const urlParams = new URLSearchParams(window.location.search);
+    const form = formProfilo || formEvento || formClassifica || formTipoEvento || formRapper || formAmministratore;
+
+    if (form) {
+        form.addEventListener('click', function(event) {
+            if (event.target.type === 'submit') {
+                clickedButton = event.target;
+            }
+        });
+    }
+
     // Funzioni di validazione generiche
     function validateField(inputElement, errorElement, validationFn) {
         inputElement.addEventListener('input', function() {
@@ -385,19 +406,19 @@ document.addEventListener('DOMContentLoaded', function() {
         if (elementToEdit !== null) {
             requestBody.elementToEdit = elementToEdit;
         }
-    
+
         return fetch('../utilities/verifica-dati-form.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(requestBody)
-        })
-        .then(response => response.json())
-        .catch(error => {
-            console.error('Errore:', error);
-            return { error: 'Si è verificato un errore.' };
-        });
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestBody)
+            })
+            .then(response => response.json())
+            .catch(error => {
+                console.error('Errore:', error);
+                return { error: 'Si è verificato un errore.' };
+            });
     }
 
     // Validazione per il form di login
@@ -463,12 +484,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const confirmPasswordInput = document.getElementById('confermaPassword');
         const emailError = document.getElementById('email-error');
         const passwordError = document.getElementById('password-error');
-        
+
         // Validazione dell'email durante la digitazione
         emailInput.addEventListener('input', function() {
             validateField(emailInput, emailError, validateEmail);
         });
-        
+
         // Validazione dell'email quando si perde il focus dal campo email
         emailInput.addEventListener('blur', validateEmail);
 
@@ -496,10 +517,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     emailError.classList.add('inputError');
                     resolve(false);
                 } else {
-                    elementToEdit = document.getElementById('element-to-edit').value;
-                    if (elementToEdit == '') {
-                        elementToEdit = null;
-                    }
+                    elementToEdit = urlParams.has('username') ? urlParams.get('username') : null;
                     checkUniqueField('email-profilo', email, elementToEdit)
                         .then(data => {
                             if (data.exists) {
@@ -524,7 +542,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         }
-    
+
         function validatePasswords() {
             const password = passwordInput.value.trim();
             const confirmPassword = confirmPasswordInput.value.trim();
@@ -548,13 +566,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const isEmailValid = await validateEmail();
             const arePasswordsValid = validatePasswords();
-            
+
             if (isEmailValid && arePasswordsValid) {
                 const confermaInput = document.createElement('input');
                 confermaInput.type = 'hidden';
                 confermaInput.name = 'conferma';
                 confermaInput.value = 'true';
                 formProfilo.appendChild(confermaInput);
+
+                if (clickedButton) {
+                    const hiddenInput = document.createElement('input');
+                    hiddenInput.type = 'hidden';
+                    hiddenInput.name = clickedButton.name;
+                    hiddenInput.value = clickedButton.value;
+                    form.appendChild(hiddenInput);
+                }
 
                 formProfilo.submit();
             }
@@ -568,7 +594,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         locandinaInput.addEventListener('change', function(event) {
             const file = locandinaInput.files[0];
-    
+
             // Se non è stato selezionato alcun file, non eseguire la validazione
             if (!file) {
                 locandinaError.textContent = "";
@@ -576,7 +602,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 locandinaError.classList.remove('inputError');
                 return;
             }
-    
+
             // Verifica se il file è un'immagine
             if (!file.type.startsWith('image/')) {
                 locandinaError.textContent = "Il file deve essere un'immagine.";
@@ -585,7 +611,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 locandinaInput.value = ""; // Resetta il valore dell'input per consentire all'utente di selezionare un nuovo file
                 return;
             }
-    
+
             // Verifica se il file supera i 10 MB
             const maxSize = 10 * 1024 * 1024; // 10 MB in byte
             if (file.size > maxSize) {
@@ -595,21 +621,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 locandinaInput.value = ""; // Resetta il valore dell'input per consentire all'utente di selezionare un nuovo file
                 return;
             }
-    
+
             // Se tutti i controlli passano, rimuovi eventuali messaggi di errore
             locandinaError.textContent = "";
             locandinaInput.classList.remove('inputError');
             locandinaError.classList.remove('inputError');
         });
-    
+
         formEvento.addEventListener('submit', function(event) {
             const file = locandinaInput.files[0];
-    
+
             // Se non è stato selezionato alcun file, non bloccare l'invio del modulo
             if (!file) {
                 return;
             }
-    
+
             // Se ci sono errori nella validazione del file, blocca l'invio del modulo
             if (locandinaError.textContent !== "") {
                 event.preventDefault();
@@ -621,7 +647,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (formClassifica) {
         const titoloClassificaInput = document.getElementById('titoloClassifica');
         const titoloClassificaError = document.getElementById('titolo-error');
-        
+
         // Validazione del titolo durante la digitazione
         titoloClassificaInput.addEventListener('input', function() {
             validateField(titoloClassificaInput, titoloClassificaError, validateTitolo);
@@ -637,10 +663,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     titoloClassificaError.classList.add('inputError');
                     resolve(false);
                 } else {
-                    elementToEdit = document.getElementById('element-to-edit').value;
-                    if (elementToEdit == '') {
-                        elementToEdit = null;
-                    }
+                    elementToEdit = urlParams.has('idClassifica') ? urlParams.get('idClassifica') : null;
+                    console.log(elementToEdit);
                     checkUniqueField('titolo-classifica', titolo, elementToEdit)
                         .then(data => {
                             if (data.exists) {
@@ -670,13 +694,21 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault(); // Blocca l'invio del modulo inizialmente
 
             const isTitoloValid = await validateTitolo();
-            
+
             if (isTitoloValid) {
                 const confermaInput = document.createElement('input');
                 confermaInput.type = 'hidden';
                 confermaInput.name = 'conferma';
                 confermaInput.value = 'true';
                 formClassifica.appendChild(confermaInput);
+
+                if (clickedButton) {
+                    const hiddenInput = document.createElement('input');
+                    hiddenInput.type = 'hidden';
+                    hiddenInput.name = clickedButton.name;
+                    hiddenInput.value = clickedButton.value;
+                    form.appendChild(hiddenInput);
+                }
 
                 formClassifica.submit();
             }
@@ -703,10 +735,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     titoloTipoEventoError.classList.add('inputError');
                     resolve(false);
                 } else {
-                    elementToEdit = document.getElementById('element-to-edit').value;
-                    if (elementToEdit == '') {
-                        elementToEdit = null;
-                    }
+                    elementToEdit = urlParams.has('titolo') ? urlParams.get('titolo') : null;
                     checkUniqueField('titolo-tipo-evento', titolo, elementToEdit)
                         .then(data => {
                             if (data.exists) {
@@ -736,13 +765,21 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault(); // Blocca l'invio del modulo inizialmente
 
             const isTitoloValid = await validateTitolo();
-            
+
             if (isTitoloValid) {
                 const confermaInput = document.createElement('input');
                 confermaInput.type = 'hidden';
                 confermaInput.name = 'conferma';
                 confermaInput.value = 'true';
                 formTipoEvento.appendChild(confermaInput);
+
+                if (clickedButton) {
+                    const hiddenInput = document.createElement('input');
+                    hiddenInput.type = 'hidden';
+                    hiddenInput.name = clickedButton.name;
+                    hiddenInput.value = clickedButton.value;
+                    form.appendChild(hiddenInput);
+                }
 
                 formTipoEvento.submit();
             }
@@ -791,10 +828,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     emailError.classList.add('inputError');
                     resolve(false);
                 } else {
-                    elementToEdit = document.getElementById('element-to-edit').value;
-                    if (elementToEdit == '') {
-                        elementToEdit = null;
-                    }
+                    elementToEdit = urlParams.has('username') ? urlParams.get('username') : null;
                     checkUniqueField('email', email, elementToEdit)
                         .then(data => {
                             if (data.exists) {
@@ -830,10 +864,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     usernameError.classList.add('inputError');
                     resolve(false);
                 } else {
-                    elementToEdit = document.getElementById('element-to-edit').value;
-                    if (elementToEdit == '') {
-                        elementToEdit = null;
-                    }
+                    elementToEdit = urlParams.has('username') ? urlParams.get('username') : null;
                     checkUniqueField('username', username, elementToEdit)
                         .then(data => {
                             if (data.exists) {
@@ -858,19 +889,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         }
-        
+
         form.addEventListener('submit', async function(event) {
             event.preventDefault(); // Blocca l'invio del modulo inizialmente
 
             const isEmailValid = await validateEmail();
             const isUsernameValid = await validateUsername();
-            
+
             if (isEmailValid && isUsernameValid) {
                 const confermaInput = document.createElement('input');
                 confermaInput.type = 'hidden';
                 confermaInput.name = 'conferma';
                 confermaInput.value = 'true';
                 form.appendChild(confermaInput);
+
+                if (clickedButton) {
+                    const hiddenInput = document.createElement('input');
+                    hiddenInput.type = 'hidden';
+                    hiddenInput.name = clickedButton.name;
+                    hiddenInput.value = clickedButton.value;
+                    form.appendChild(hiddenInput);
+                }
 
                 form.submit();
             }

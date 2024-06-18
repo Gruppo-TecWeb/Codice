@@ -23,6 +23,7 @@ $username = '';
 $messaggioForm = '';
 $messaggiForm = '';
 $classList = '';
+$logo = get_content_between_markers($paginaHTML, 'logoLink');
 
 $connection = DBAccess::get_instance();
 $connectionOk = $connection->open_DB_connection();
@@ -84,6 +85,7 @@ if ($connectionOk) {
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'logo' => $logo,
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu,
     'logout' => ''

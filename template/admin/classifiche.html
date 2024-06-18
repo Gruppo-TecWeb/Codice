@@ -1,7 +1,7 @@
 <div id="classifiche" class="limitedWidth">
     <div id="titolo-button">
         <h3>Gestione Classifiche</h3>
-        <form method="post" action="gestione-classifiche.php" class="subMenu">
+        <form method="get" action="gestione-classifiche.php" class="subMenu">
             <button id="aggiungi" type="submit" name="aggiungi" value="true">Aggiungi nuova Classifica</button>
         </form>
     </div>
@@ -19,14 +19,18 @@
         <ol id="lista-classifiche">
             {elementoLista}
             <li>
-                <span class="label-element"><span class="element-title">{titoloClassifica}</span></span>
-                <form method="post" action="gestione-classifiche.php">
+                <span class="label-element"><span class="element-title">{titoloClassifica}</span> (<time datetime="{dataInizio}">{dataInizioVisualizzata}</time> - <time datetime="{dataFine}">{dataFineVisualizzata}</time>)</span>
+                <form method="get" action="gestione-classifiche.php">
                     <input type="hidden" name="idClassifica" value="{idClassifica}">
                     <button type="submit" name="modifica" value="true">Modifica<span class="screen-reader-only"> la classifica {titoloClassifica}</span></button>
                     <button type="submit" name="elimina" value="true">Elimina<span class="screen-reader-only"> la classifica {titoloClassifica}</span></button>
                 </form>
             </li>
-            {/elementoLista}
+            {/elementoLista}{nessunElemento}
+            <li>
+                <span class="label-element">Nessuna classifica presente</span>
+            </li>
+            {/nessunElemento}
         </ol>
     </div>
 </div>

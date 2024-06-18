@@ -20,6 +20,7 @@ $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 $classList = 'fullMenu';
+$logo = get_content_between_markers($paginaHTML, 'logoLink');
 
 if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
@@ -37,7 +38,8 @@ if ($connectionOk) {
     $validNuovoLuogo = isset($_POST['nuovoLuogo']) ? validate_input($_POST['nuovoLuogo']) : "";
     $validNuovaDescrizione = isset($_POST['nuovaDescrizione']) ? validate_input($_POST['nuovaDescrizione']) : "";
     $validNuovaLocandina = isset($_FILES['nuovaLocandina']) ? basename($_FILES["nuovaLocandina"]["name"]) : "";
-    $validIdEvento = isset($_POST['idEvento']) ? validate_input($_POST['idEvento']) : "";
+    $validIdEvento = isset($_GET['idEvento']) ? validate_input($_GET['idEvento']) : "";
+    $provenienza = isset($_GET['provenienza']) ? validate_input($_GET['provenienza']) : '';
     if (((isset($_POST['nuovoTipoEvento']) && $_POST['nuovoTipoEvento'] != "") && $validNuovoTipoEvento == "") ||
         ((isset($_POST['nuovoTitolo']) && $_POST['nuovoTitolo'] != "") && $validNuovoTitolo == "") ||
         ((isset($_POST['nuovaData']) && $_POST['nuovaData'] != "") && $validNuovaData == "") ||
@@ -45,16 +47,17 @@ if ($connectionOk) {
         ((isset($_POST['nuovoLuogo']) && $_POST['nuovoLuogo'] != "") && $validNuovoLuogo == "") ||
         ((isset($_POST['nuovaDescrizione']) && $_POST['nuovaDescrizione'] != "") && $validNuovaDescrizione == "") ||
         ((isset($_POST['nuovaLocandina']) && $_POST['nuovaLocandina'] != "") && $validNuovaLocandina == "") ||
-        ((isset($_POST['idEvento']) && $_POST['idEvento'] != "") && $validIdEvento == "") ||
-        (isset($_POST['punteggi']) && $validIdEvento == "") ||
-        $validIdEvento != "" && $connection->get_evento($validIdEvento) == null) {
+        ((isset($_GET['idEvento']) && $_GET['idEvento'] != "") && $validIdEvento == "") ||
+        (isset($_GET['punteggi']) && $validIdEvento == "") ||
+        $validIdEvento != "" && $connection->get_evento($validIdEvento) == null ||
+        ((isset($_GET['provenienza']) && $_GET['provenienza'] != "") && $provenienza == "")) {
         header("location: eventi.php?errore=invalid");
         exit;
     }
     $errore = '0';
     
-    if (isset($_POST['punteggi'])) {
-        header("location: gestione-punteggi.php?idEvento=$validIdEvento");
+    if (isset($_GET['punteggi'])) {
+        header("location: gestione-punteggi.php?idEvento=$validIdEvento&provenienza=eventi");
         exit;
     }
 
@@ -81,12 +84,25 @@ if ($connectionOk) {
         }
     }
 
-    if (isset($_POST['elimina'])) {
+    if (isset($_GET['elimina']) || isset($_POST['elimina'])) {
         $connection->delete_evento($validIdEvento);
         if ($connection->get_evento($validIdEvento)) {
-            header("location: eventi.php?eliminato=false");
+            if ($provenienza == 'dashboard-prossimo-evento') {
+                header("location: index.php?prossimo-eliminato=false#messaggi");
+            } elseif ($provenienza == 'dashboard-eventi-programmati') {
+                header("location: index.php?prossimi-eliminato=false#messaggi");
+            } else {
+                header("location: eventi.php?eliminato=false");
+            }
         } else {
-            header("location: eventi.php?eliminato=true");
+            unlink($percorsoLocandine . $locandina);
+            if ($provenienza == 'dashboard-prossimo-evento') {
+                header("location: index.php?prossimo-eliminato=true#messaggi");
+            } elseif ($provenienza == 'dashboard-eventi-programmati') {
+                header("location: index.php?prossimi-eliminato=true#messaggi");
+            } else {
+                header("location: eventi.php?eliminato=true");
+            }
         }
         exit;
     }
@@ -122,19 +138,25 @@ if ($connectionOk) {
         $nessunaSelezione = ' selected';
     }
 
-    if (isset($_POST['modifica'])) {
+    if (isset($_GET['modifica'])) {
         if (!$validIdEvento || $validIdEvento == "") {
-            header("location: eventi.php?errore=invalid");
+            if ($provenienza == 'dashboard-prossimo-evento') {
+                header("location: index.php?prossimo-errore=invalid#messaggi");
+            } elseif ($provenienza == 'dashboard-eventi-programmati') {
+                header("location: index.php?prossimi-errore=invalid#messaggi");
+            } else {
+                header("location: eventi.php?errore=invalid");
+            }
             exit;
         }
         $legend = $legendModifica;
         $valueAzione = 'modifica';
-    } elseif (isset($_POST['aggiungi'])) {
+    } elseif (isset($_GET['aggiungi'])) {
         $buttonElimina = '';
         $legend = $legendAggiungi;
         $valueAzione = 'aggiungi';
         $selezioneDefault = ' selected';
-    } elseif (isset($_POST['conferma']) || isset($_POST['eliminaLocandina'])) {
+    } elseif (isset($_POST['conferma'])) {
         $nuovoTipoEvento = $validNuovoTipoEvento;
         $nuovoTitolo = $validNuovoTitolo;
         $nuovaData = $validNuovaData;
@@ -201,22 +223,39 @@ if ($connectionOk) {
                     $connection->update_evento(
                         $validIdEvento, $validNuovoTipoEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, $locandina);
                 }
+            } elseif (isset($_POST['eliminaLocandina'])) {
+                $connection->update_evento(
+                    $validIdEvento, $validNuovoTipoEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, '');
+                unlink($percorsoLocandine . $locandina);
+                $locandina = '';
+
             }
+
             if ($errore == '0') {
                 $messaggiForm .= multi_replace($messaggioForm, [
                     '{tipoMessaggio}' => 'successMessage',
                     '{messaggio}' => 'Modifica effettuata con successo'
                 ]);
+
+
+                if ($provenienza == 'dashboard-prossimo-evento') {
+                    header("location: index.php?prossimo-modificato=true#messaggi");
+                } elseif ($provenienza == 'dashboard-eventi-programmati') {
+                    header("location: index.php?prossimi-modificato=true#messaggi");
+                } else {
+                    header("location: eventi.php?modificato=true");
+                }
+                exit;
             }
         }
-        if (isset($_POST['eliminaLocandina'])) {
-            $connection->update_evento(
-                $validIdEvento, $validNuovoTipoEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, '');
-            unlink($percorsoLocandine . $locandina);
-            $locandina = '';
-        }
     } else {
-        header("location: eventi.php?errore=invalid");
+        if ($provenienza == 'dashboard-prossimo-evento') {
+            header("location: index.php?prossimo-errore=invalid#messaggi");
+        } elseif ($provenienza == 'dashboard-eventi-programmati') {
+            header("location: index.php?prossimi-errore=invalid#messaggi");
+        } else {
+            header("location: eventi.php?errore=invalid");
+        }
         exit;
     }
 
@@ -235,7 +274,8 @@ if ($connectionOk) {
         '{nuovaLocandina}' => $locandina,
         '{locandina}' => '../assets/media/locandine/'. $locandina,
         '{valueAzione}' => $valueAzione,
-        '{idEvento}' => $validIdEvento
+        '{idEvento}' => $validIdEvento,
+        '{provenienza}' => $provenienza
     ]);
     $content = replace_content_between_markers($content, [
         'listaTipoEvento' => $listaTipoEvento,
@@ -252,6 +292,7 @@ if ($connectionOk) {
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'logo' => $logo,
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu
 ]), [

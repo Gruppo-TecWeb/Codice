@@ -21,6 +21,7 @@ $breadcrumbs = get_breadcrumbs($pageId);
 $onload = 'init_index()';
 $logout = '';
 $classList = '';
+$logo = get_content_between_markers($paginaHTML, 'logoNoLink');
 
 if (isset($_SESSION["login"])) {
     $logout = get_content_between_markers($paginaHTML, 'logout');
@@ -70,6 +71,7 @@ $content = replace_content_between_markers($content, [
 ]);
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'logo' => $logo,
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu,
     'logout' => $logout

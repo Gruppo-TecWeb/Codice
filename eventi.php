@@ -21,6 +21,7 @@ $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 $logout = '';
 $classList = '';
+$logo = get_content_between_markers($paginaHTML, 'logoLink');
 
 $connection = DBAccess::get_instance();
 $connectionOk = $connection->open_DB_connection();
@@ -207,6 +208,7 @@ if (isset($_SESSION["login"])) {
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'logo' => $logo,
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu,
     'logout' => $logout
