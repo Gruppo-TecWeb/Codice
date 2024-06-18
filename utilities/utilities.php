@@ -128,6 +128,11 @@ function validate_input($data) {
     return $data;
 }
 
+function validate_date_time($date, $format = 'Y-m-d H:i:s') {
+    $d = \DateTime::createFromFormat($format, $date);
+    return $d && $d->format($format) == $date;
+}
+
 function get_content_between_markers($content, $marker) {
     $start = strpos($content, '{' . $marker . '}');
     $end = strpos($content, '{/' . $marker . '}');

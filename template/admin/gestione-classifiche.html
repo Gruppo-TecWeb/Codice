@@ -13,19 +13,21 @@
             <fieldset>
                 <legend>{legend}</legend>
                 <p>I campi contrassegnati con (*) sono obbligatori.</p>
-                <label for="titoloClassifica">Titolo Classifica (*):</label>
-                <input type="text" id="titoloClassifica" name="nuovoTitoloClassifica" value="{nuovoTitoloClassifica}" required aria-required="true">
+                <label for="titolo-classifica">Titolo Classifica (*):</label>
+                <input type="text" id="titolo-classifica" name="nuovoTitoloClassifica" value="{nuovoTitoloClassifica}" required aria-required="true">
                 <div id="titolo-error" class="error"></div>
-                <label for="tipoEvento">Tipo Evento (*):</label>
-                <select id="tipoEvento" name="nuovoTipoEvento" required aria-required="true">
+                <label for="tipo-evento">Tipo Evento (*):</label>
+                <select id="tipo-evento" name="nuovoTipoEvento" required aria-required="true">
                             <option value=""{selezioneDefault} disabled>Scegli il tipo evento</option>
                             {listaTipoEvento}<option value="{tipoEvento}"{selezioneTipoEvento}>{tipoEvento}</option>
                             {/listaTipoEvento}
-                        </select>
-                <label for="dataInizio">Data Inizio (*):</label>
-                <input type="date" id="dataInizio" name="nuovaDataInizio" value="{nuovaDataInizio}" required aria-required="true">
-                <label for="dataFine">Data Fine (*):</label>
-                <input type="date" id="dataFine" name="nuovaDataFine" value="{nuovaDataFine}" required aria-required="true">
+                </select>
+                <label for="data-inizio">Data Inizio (*):</label>
+                <input type="date" id="data-inizio" name="nuovaDataInizio" value="{nuovaDataInizio}" required aria-required="true">
+                <div id="data-inizio-error" class="error"></div>
+                <label for="data-fine">Data Fine (*):</label>
+                <input type="date" id="data-fine" name="nuovaDataFine" value="{nuovaDataFine}" required aria-required="true">
+                <div id="data-fine-error" class="error"></div>
                 <input type="hidden" name="azione" value="{valueAzione}">
             </fieldset>
         </div>

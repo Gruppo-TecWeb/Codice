@@ -54,7 +54,7 @@ if ($connectionOk) {
         header("location: eventi.php?errore=invalid");
         exit;
     }
-    $errore = '0';
+    $errore = false;
     
     if (isset($_GET['punteggi'])) {
         header("location: gestione-punteggi.php?idEvento=$validIdEvento&provenienza=eventi");
@@ -164,88 +164,189 @@ if ($connectionOk) {
         $nuovoLuogo = $validNuovoLuogo;
         $nuovaDescrizione = $validNuovaDescrizione;
         if ($_POST['azione'] == 'aggiungi') {
-            $errore = '0';
             $legend = $legendAggiungi;
             $valueAzione = 'aggiungi';
-            $countEventi = count($connection->get_eventi());
-            $validNuovoIdEvento = $connection->insert_evento(
-                $validNuovoTipoEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, '');
-            $errore = count($connection->get_eventi()) == $countEventi ? '1' : '0';
-            if ($errore == '0') {
-                if (!isset($_POST['eliminaLocandina']) && $validNuovaLocandina != "" && getimagesize($_FILES["nuovaLocandina"]["tmp_name"]) !== false) {
-                    $errori = carica_file($_FILES["nuovaLocandina"], $percorsoLocandine, $validNuovoIdEvento . '_' . $validNuovaLocandina);
-                    if (count($errori) > 0) {
-                        foreach ($errori as $errore) {
-                            $messaggiForm .= multi_replace($messaggioForm, [
-                                '{tipoMessaggio}' => 'inputError',
-                                '{messaggio}' => $errore
-                            ]);
-                        }
-                        $errore = '1';
-                    } else {
-                        $locandina = $validNuovoIdEvento . '_' . $validNuovaLocandina;
-                        $connection->update_evento(
-                            $validNuovoIdEvento, $validNuovoTipoEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, $locandina);
-                    }
-                }
-                if ($errore == '0') {
-                    header("location: eventi.php?aggiunto=true");
-                    exit;
-                }
-            }
-            else {
+            if ($validNuovoTitolo == "") {
                 $messaggiForm .= multi_replace($messaggioForm, [
                     '{tipoMessaggio}' => 'inputError',
-                    '{messaggio}' => "Errore nell'aggiunta dell'evento"
+                    '{messaggio}' => 'Il titolo è obbligatorio'
                 ]);
+                $errore = true;
+            }
+            if ($validNuovaData == "") {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'La data è obbligatoria'
+                ]);
+                $errore = true;
+            }
+            if ($validNuovaOra == "") {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => "L'ora è obbligatoria"
+                ]);
+                $errore = true;
+            }
+            if ($validNuovoLuogo == "") {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Il luogo è obbligatorio'
+                ]);
+                $errore = true;
+            }
+            if (validate_date_time(date_format(date_create($validNuovaData), 'Y-m-d'), 'Y-m-d') == false) {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Data non valida'
+                ]);
+                $errore = true;
+            }
+            if (validate_date_time(date_format(date_create($validNuovaOra), 'H:i:s'), 'H:i:s') == false) {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => "Ora non valida"
+                ]);
+                $errore = true;
+            }
+            if (!$errore) {
+                $countEventi = count($connection->get_eventi());
+                $validNuovoIdEvento = $connection->insert_evento(
+                $validNuovoTipoEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, '');
+                if (count($connection->get_eventi()) == $countEventi) {
+                    $messaggiForm .= multi_replace($messaggioForm, [
+                        '{tipoMessaggio}' => 'inputError',
+                        '{messaggio}' => "Errore nell'aggiunta dell'Evento"
+                    ]);
+                } else {
+                    if (!isset($_POST['eliminaLocandina']) && $validNuovaLocandina != "" && getimagesize($_FILES["nuovaLocandina"]["tmp_name"]) !== false) {
+                        $erroriCaricamento = carica_file($_FILES["nuovaLocandina"], $percorsoLocandine, $validNuovoIdEvento . '_' . $validNuovaLocandina);
+                        if (count($erroriCaricamento) > 0) {
+                            foreach ($erroriCaricamento as $erroreCaricamento) {
+                                $messaggiForm .= multi_replace($messaggioForm, [
+                                    '{tipoMessaggio}' => 'inputError',
+                                    '{messaggio}' => $erroreCaricamento
+                                ]);
+                            }
+                            $errore = true;
+                        } else {
+                            $locandina = $validNuovoIdEvento . '_' . $validNuovaLocandina;
+                            $connection->update_evento(
+                                $validNuovoIdEvento, $validNuovoTipoEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, $locandina);
+                        }
+                    }
+                    if ($errore == '0') {
+                        $messaggiForm .= multi_replace($messaggioForm, [
+                            '{tipoMessaggio}' => 'successMessage',
+                            '{messaggio}' => 'Evento aggiunto con successo'
+                        ]);
+                        header("location: eventi.php?aggiunto=true");
+                        exit;
+                    }
+                }
             }
         } elseif ($_POST['azione'] == 'modifica') {
-            $errore = '0';
             $legend = $legendModifica;
             $valueAzione = 'modifica';
-            $connection->update_evento(
-                $validIdEvento, $validNuovoTipoEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, $locandina);
-            if (!isset($_POST['eliminaLocandina']) && $validNuovaLocandina != "" && getimagesize($_FILES["nuovaLocandina"]["tmp_name"]) !== false) {
-                $errori = carica_file($_FILES["nuovaLocandina"], $percorsoLocandine, $validIdEvento . '_' . $validNuovaLocandina);
-                if (count($errori) > 0) {
-                    foreach ($errori as $errore) {
-                        $messaggiForm .= multi_replace($messaggioForm, [
-                            '{tipoMessaggio}' => 'inputError',
-                            '{messaggio}' => $errore
-                        ]);
-                    }
-                    $errore = '1';
-                } else {
-                    if ($locandina != '') {
-                        unlink($percorsoLocandine . $locandina);
-                    }
-                    $locandina = $validIdEvento . '_' . $validNuovaLocandina;
-                    $connection->update_evento(
-                        $validIdEvento, $validNuovoTipoEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, $locandina);
-                }
-            } elseif (isset($_POST['eliminaLocandina'])) {
-                $connection->update_evento(
-                    $validIdEvento, $validNuovoTipoEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, '');
-                unlink($percorsoLocandine . $locandina);
-                $locandina = '';
-
-            }
-
-            if ($errore == '0') {
+            if ($validNuovoTitolo == "") {
                 $messaggiForm .= multi_replace($messaggioForm, [
-                    '{tipoMessaggio}' => 'successMessage',
-                    '{messaggio}' => 'Modifica effettuata con successo'
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Il titolo è obbligatorio'
                 ]);
+                $errore = true;
+            }
+            if ($validNuovaData == "") {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'La data è obbligatoria'
+                ]);
+                $errore = true;
+            }
+            if ($validNuovaOra == "") {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => "L'ora è obbligatoria"
+                ]);
+                $errore = true;
+            }
+            if ($validNuovoLuogo == "") {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Il luogo è obbligatorio'
+                ]);
+                $errore = true;
+            }
+            if (validate_date_time(date_format(date_create($validNuovaData), 'Y-m-d'), 'Y-m-d') == false) {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Data non valida'
+                ]);
+                $errore = true;
+            }
+            if (validate_date_time(date_format(date_create($validNuovaOra), 'H:i:s'), 'H:i:s') == false) {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => "Ora non valida"
+                ]);
+                $errore = true;
+            }
+            if (!$errore) {
+                $connection->update_evento(
+                    $validIdEvento, $validNuovoTipoEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, $locandina);
+                if (!isset($_POST['eliminaLocandina']) && $validNuovaLocandina != "" && getimagesize($_FILES["nuovaLocandina"]["tmp_name"]) !== false) {
+                    $erroriCaricamento = carica_file($_FILES["nuovaLocandina"], $percorsoLocandine, $validIdEvento . '_' . $validNuovaLocandina);
+                    if (count($erroriCaricamento) > 0) {
+                        foreach ($erroriCaricamento as $erroreCaricamento) {
+                            $messaggiForm .= multi_replace($messaggioForm, [
+                                '{tipoMessaggio}' => 'inputError',
+                                '{messaggio}' => $erroreCaricamento
+                            ]);
+                        }
+                        $errore = true;
+                    } else {
+                        if ($locandina != '') {
+                            unlink($percorsoLocandine . $locandina);
+                        }
+                        $locandina = $validIdEvento . '_' . $validNuovaLocandina;
+                        $connection->update_evento(
+                            $validIdEvento, $validNuovoTipoEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, $locandina);
+                    }
+                } elseif (isset($_POST['eliminaLocandina'])) {
+                    $connection->update_evento(
+                        $validIdEvento, $validNuovoTipoEvento, $validNuovoTitolo, $validNuovaDescrizione, $validNuovaData, $validNuovaOra, $validNuovoLuogo, '');
+                    unlink($percorsoLocandine . $locandina);
+                    $locandina = '';
 
-
-                if ($provenienza == 'dashboard-prossimo-evento') {
-                    header("location: index.php?prossimo-modificato=true#messaggi");
-                } elseif ($provenienza == 'dashboard-eventi-programmati') {
-                    header("location: index.php?prossimi-modificato=true#messaggi");
-                } else {
-                    header("location: eventi.php?modificato=true");
                 }
-                exit;
+
+                $updatedEvento = $connection->get_evento($validIdEvento);
+                if (!$errore &&
+                    $updatedEvento['TipoEvento'] == $validNuovoTipoEvento &&
+                    $updatedEvento['Titolo'] == $validNuovoTitolo &&
+                    date_format(date_create($updatedEvento['Data']), 'Y-m-d') == date_format(date_create($validNuovaData), 'Y-m-d') &&
+                    date_format(date_create($updatedEvento['Ora']), 'H:m:s') == date_format(date_create($validNuovaOra), 'H:m:s') &&
+                    $updatedEvento['Luogo'] == $validNuovoLuogo &&
+                    $updatedEvento['Descrizione'] == $validNuovaDescrizione &&
+                    $updatedEvento['Locandina'] == $locandina) {
+                    $messaggiForm .= multi_replace($messaggioForm, [
+                        '{tipoMessaggio}' => 'successMessage',
+                        '{messaggio}' => 'Evento modificato con successo'
+                    ]);
+
+
+                    if ($provenienza == 'dashboard-prossimo-evento') {
+                        header("location: index.php?prossimo-modificato=true#messaggi");
+                    } elseif ($provenienza == 'dashboard-eventi-programmati') {
+                        header("location: index.php?prossimi-modificato=true#messaggi");
+                    } else {
+                        header("location: eventi.php?modificato=true");
+                    }
+                    exit;
+                } else {
+                    $messaggiForm .= multi_replace($messaggioForm, [
+                        '{tipoMessaggio}' => 'inputError',
+                        '{messaggio}' => "Errore nella modifica dell'Evento"
+                    ]);
+                }
             }
         }
     } else {

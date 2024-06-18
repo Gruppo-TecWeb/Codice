@@ -48,7 +48,7 @@ if ($connectionOk) {
                 header("location: classifiche.php?errore=invalid");
                 exit;
     }
-    $errore = '0';
+    $errore = true;
 
     if (isset($_POST['punteggi'])) {
         header("location: gestione-punteggi.php?idEvento=$validIdEvento&provenienza=classifiche");
@@ -120,59 +120,143 @@ if ($connectionOk) {
         $nuovaDataInizio = $validNuovaDataInizio;
         $nuovaDataFine = $validNuovaDataFine;
         if ($_POST['azione'] == 'aggiungi') {
-            $errore = '0';
             $legend = $legendAggiungi;
             $valueAzione = 'aggiungi';
-            $errore = $connection->get_classifiche($validNuovoTitolo) ? '1' : '0';
-            if ($errore == '0') {
-                $connection->insert_classifica($validNuovoTitolo, $validNuovoTipoEvento, $validNuovaDataInizio, $validNuovaDataFine);
-                $errore = $connection->get_classifiche($validNuovoTitolo) ? '0' : '1';
-            } else {
+            if ($validNuovoTitolo == "") {
                 $messaggiForm .= multi_replace($messaggioForm, [
                     '{tipoMessaggio}' => 'inputError',
-                    '{messaggio}' => "Esiste già una Classifica con questo Titolo"
+                    '{messaggio}' => 'Il titolo è obbligatorio'
                 ]);
+                $errore = true;
             }
-            if ($errore == '0') {
-                header("location: classifiche.php?aggiunto=true");
-                exit;
-            } else {
+            if ($validNuovoTipoEvento == "") {
                 $messaggiForm .= multi_replace($messaggioForm, [
                     '{tipoMessaggio}' => 'inputError',
-                    '{messaggio}' => "Errore imprevisto"
+                    '{messaggio}' => 'Il tipo di evento è obbligatorio'
                 ]);
+                $errore = true;
+            }
+            if ($validNuovaDataInizio == "") {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'La data inizio è obbligatoria'
+                ]);
+                $errore = true;
+            }
+            if ($validNuovaDataFine == "") {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'La data fine è obbligatoria'
+                ]);
+                $errore = true;
+            }
+            if (validate_date_time(date_format(date_create($validNuovaDataInizio), 'Y-m-d'), 'Y-m-d') == false) {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Data inizio non valida'
+                ]);
+                $errore = true;
+            }
+            if (validate_date_time(date_format(date_create($validNuovaDataFine), 'Y-m-d'), 'Y-m-d') == false) {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Data fine non valida'
+                ]);
+                $errore = true;
+            }
+            if ($connection->get_classifiche($validNuovoTitolo)) {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Esiste già una Classifica con questo titolo'
+                ]);
+                $errore = true;
+            }
+            if (!$errore) {
+                $connection->insert_classifica($validNuovoTitolo, $validNuovoTipoEvento, $validNuovaDataInizio, $validNuovaDataFine);
+                if ($connection->get_classifiche($validNuovoTitolo)) {
+                    $messaggiForm .= multi_replace($messaggioForm, [
+                        '{tipoMessaggio}' => 'successMessage',
+                        '{messaggio}' => 'Classifica aggiunta con successo'
+                    ]);
+                    header("location: classifiche.php?aggiunto=true");
+                } else {
+                    $messaggiForm .= multi_replace($messaggioForm, [
+                        '{tipoMessaggio}' => 'inputError',
+                        '{messaggio}' => 'Errore nell\'inserimento della Classifica'
+                    ]);
+                }
             }
         } elseif ($_POST['azione'] == 'modifica') {
-            $errore = '0';
             $legend = $legendModifica;
             $valueAzione = 'modifica';
-            if ($validNuovoTitolo != $classifica['Titolo']) {
-                $errore = $connection->get_classifiche($validNuovoTitolo) ? '1' : '0';
+            if ($validNuovoTitolo != $classifica['Titolo'] && $connection->get_classifiche($validNuovoTitolo)) {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Esiste già una Classifica con questo titolo'
+                ]);
+                $errore = true;
             }
-            if ($errore == '0') {
+            if ($validNuovoTitolo == "") {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Il titolo è obbligatorio'
+                ]);
+                $errore = true;
+            }
+            if ($validNuovoTipoEvento == "") {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Il tipo di evento è obbligatorio'
+                ]);
+                $errore = true;
+            }
+            if ($validNuovaDataInizio == "") {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'La data inizio è obbligatoria'
+                ]);
+                $errore = true;
+            }
+            if ($validNuovaDataFine == "") {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'La data fine è obbligatoria'
+                ]);
+                $errore = true;
+            }
+            if (validate_date_time(date_format(date_create($validNuovaDataInizio), 'Y-m-d'), 'Y-m-d') == false) {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Data inizio non valida'
+                ]);
+                $errore = true;
+            }
+            if (validate_date_time(date_format(date_create($validNuovaDataFine), 'Y-m-d'), 'Y-m-d') == false) {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Data fine non valida'
+                ]);
+                $errore = true;
+            }
+            if (!$errore) {
                 $connection->update_classifica(
                     $validIdCLassifica, $validNuovoTitolo, $validNuovoTipoEvento, $validNuovaDataInizio, $validNuovaDataFine);
-                $errore = $connection->get_classifiche($validNuovoTitolo) ? '0' : '1';
-            } else {
-                $messaggiForm .= multi_replace($messaggioForm, [
-                    '{tipoMessaggio}' => 'inputError',
-                    '{messaggio}' => "Esiste già una Classifica con questo Titolo"
-                ]);
-            }
-            if ($errore == '0') {
-                $messaggiForm .= multi_replace($messaggioForm, [
-                    '{tipoMessaggio}' => 'successMessage',
-                    '{messaggio}' => 'Modifica effettuata con successo'
-                ]);
-                $classifica = $connection->get_classifica($validIdCLassifica);
-
-                header("location: classifiche.php?modificato=true");
-                exit;
-            } else {
-                $messaggiForm .= $messaggiForm == '' ? multi_replace($messaggioForm, [
-                    '{tipoMessaggio}' => 'inputError',
-                    '{messaggio}' => "Errore imprevisto"
-                    ]) : '';
+                $updatedClassifica = $connection->get_classifica($validIdCLassifica);
+                if ($updatedClassifica['Titolo'] == $validNuovoTitolo &&
+                    $updatedClassifica['TipoEvento'] == $validNuovoTipoEvento &&
+                    $updatedClassifica['DataInizio'] == $validNuovaDataInizio &&
+                    $updatedClassifica['DataFine'] == $validNuovaDataFine) {
+                    $messaggiForm .= multi_replace($messaggioForm, [
+                        '{tipoMessaggio}' => 'successMessage',
+                        '{messaggio}' => 'Classifica modificata con successo'
+                    ]);
+                    header("location: classifiche.php?modificato=true");
+                } else {
+                    $messaggiForm .= multi_replace($messaggioForm, [
+                        '{tipoMessaggio}' => 'inputError',
+                        '{messaggio}' => 'Errore nell\'aggiornamento della Classifica'
+                    ]);
+                }                    
             }
         }
     } else {

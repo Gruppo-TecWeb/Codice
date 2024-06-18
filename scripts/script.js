@@ -421,6 +421,53 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
+    function validateData(dataEventoInput, dataEventoError) {
+        const data = dataEventoInput.value.trim();
+        if (data === "") {
+            dataEventoError.textContent = "Data obbligatoria";
+            dataEventoInput.classList.add('inputError');
+            dataEventoError.classList.add('inputError');
+            return false;
+        } else {
+            const date = new Date(data);
+            if (isNaN(date.getTime())) {
+                dataEventoError.textContent = "Data non valida";
+                dataEventoInput.classList.add('inputError');
+                dataEventoError.classList.add('inputError');
+                return false;
+            } else {
+                dataEventoError.textContent = "";
+                dataEventoInput.classList.remove('inputError');
+                dataEventoError.classList.remove('inputError');
+                return true;
+            }
+        }
+    }
+
+    function validateOra(oraEventoInput, oraEventoError) {
+        const ora = oraEventoInput.value.trim();
+        if (ora === "") {
+            oraEventoError.textContent = "Ora obbligatoria";
+            oraEventoInput.classList.add('inputError');
+            oraEventoError.classList.add('inputError');
+            return false;
+        } else {
+            const timeRegex = /^(\d{1,2}):(\d{1,2})(?::(\d{1,2}))?$/;
+            if (!timeRegex.test(ora)) {
+                oraEventoError.textContent = "Ora non valida";
+                oraEventoInput.classList.add('inputError');
+                oraEventoError.classList.add('inputError');
+                return false;
+            } else {
+                oraEventoError.textContent = "";
+                oraEventoInput.classList.remove('inputError');
+                oraEventoError.classList.remove('inputError');
+                return true;
+            }
+        }
+    }
+
+
     // Validazione per il form di login
     if (formLogin) {
         const usernameInput = document.getElementById('username');
@@ -443,6 +490,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Validazione della password quando si perde il focus dal campo password
         passwordInput.addEventListener('blur', validatePassword);
+
+        formLogin.addEventListener('submit', function(event) {
+            const isUsernameValid = validateUsername();
+            const isPasswordValid = validatePassword();
+
+            if (!isUsernameValid || !isPasswordValid) {
+                event.preventDefault();
+            }
+        });
 
         // Controlla che l'username non sia vuoto
         function validateUsername() {
@@ -493,13 +549,24 @@ document.addEventListener('DOMContentLoaded', function() {
         // Validazione dell'email quando si perde il focus dal campo email
         emailInput.addEventListener('blur', validateEmail);
 
-        // Controllo password e conferma password quando si perde il focus dal campo password o conferma
+        // Controllo password quando si perde il focus dal campo password
         passwordInput.addEventListener('blur', function() {
             if (confirmPasswordInput.value.trim() !== "") {
                 validatePasswords();
             }
         });
-        confirmPasswordInput.addEventListener('blur', validatePasswords);
+
+        // Validazione e controllo che non sia vuota la conferma password quando si perde il focus dal campo conferma password
+        confirmPasswordInput.addEventListener('blur', function() {
+            validatePasswords();
+        });
+
+        // Controllo conferma password durante la digitazione se la password è già stata inserita
+        confirmPasswordInput.addEventListener('input', function() {
+            if (passwordInput.value.trim() !== "") {
+                validatePasswords();
+            }
+        });
 
         function validateEmail() {
             return new Promise((resolve, reject) => {
@@ -546,7 +613,7 @@ document.addEventListener('DOMContentLoaded', function() {
         function validatePasswords() {
             const password = passwordInput.value.trim();
             const confirmPassword = confirmPasswordInput.value.trim();
-            if (password !== "" && confirmPassword !== "" && password !== confirmPassword) {
+            if (password !== "" && password !== confirmPassword) {
                 passwordError.textContent = "Le password non coincidono.";
                 passwordInput.classList.add('inputError');
                 confirmPasswordInput.classList.add('inputError');
@@ -589,8 +656,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Validazione per il form eventi
     if (formEvento) {
+        const titoloEventoInput = document.getElementById('titolo-evento');
+        const titoloEventoError = document.getElementById('titolo-error');
+        const dataEventoInput = document.getElementById('data');
+        const dataEventoError = document.getElementById('data-error');
+        const oraEventoInput = document.getElementById('ora');
+        const oraEventoError = document.getElementById('ora-error');
+        const luogoEventoInput = document.getElementById('luogo');
+        const luogoEventoError = document.getElementById('luogo-error');
         const locandinaInput = document.getElementById('locandina');
         const locandinaError = document.getElementById('locandina-error');
+
+        // Controlla durante la digitazione che il titolo sia stato inserito
+        titoloEventoInput.addEventListener('input', function() {
+            validateField(titoloEventoInput, titoloEventoError, validateTitolo);
+        });
+
+        // Controlla durante la digitazione che la data sia stata inserita e sia valida
+        dataEventoInput.addEventListener('input', function() {
+            validateField(dataEventoInput, dataEventoError, validateData);
+        });
+
+        // Controlla durante la digitazione che l'ora sia stata inserita e sia valida
+        oraEventoInput.addEventListener('input', function() {
+            validateField(oraEventoInput, oraEventoError, validateOra);
+        });
+
+        // Controlla durante la digitazione che il luogo sia stato inserito
+        luogoEventoInput.addEventListener('input', function() {
+            validateField(luogoEventoInput, luogoEventoError, validateLuogo);
+        });
 
         locandinaInput.addEventListener('change', function(event) {
             const file = locandinaInput.files[0];
@@ -628,32 +723,89 @@ document.addEventListener('DOMContentLoaded', function() {
             locandinaError.classList.remove('inputError');
         });
 
-        formEvento.addEventListener('submit', function(event) {
-            const file = locandinaInput.files[0];
-
-            // Se non è stato selezionato alcun file, non bloccare l'invio del modulo
-            if (!file) {
-                return;
+        function validateTitolo() {
+            const titolo = titoloEventoInput.value.trim();
+            if (titolo === "") {
+                titoloEventoError.textContent = "Titolo obbligatorio";
+                titoloEventoInput.classList.add('inputError');
+                titoloEventoError.classList.add('inputError');
+                return false;
+            } else {
+                titoloEventoError.textContent = "";
+                titoloEventoInput.classList.remove('inputError');
+                titoloEventoError.classList.remove('inputError');
+                return true;
             }
+        }
 
-            // Se ci sono errori nella validazione del file, blocca l'invio del modulo
-            if (locandinaError.textContent !== "") {
-                event.preventDefault();
+        function validateLuogo() {
+            const luogo = luogoEventoInput.value.trim();
+            if (luogo === "") {
+                luogoEventoError.textContent = "Luogo obbligatorio";
+                luogoEventoInput.classList.add('inputError');
+                luogoEventoError.classList.add('inputError');
+                return false;
+            } else {
+                luogoEventoError.textContent = "";
+                luogoEventoInput.classList.remove('inputError');
+                luogoEventoError.classList.remove('inputError');
+                return true;
+            }
+        }
+
+        formEvento.addEventListener('submit', async function(event) {
+            event.preventDefault(); // Blocca l'invio del modulo inizialmente
+
+            const isTitoloValid = validateTitolo();
+            const isDataValid = validateData(dataEventoInput, dataEventoError);
+            const isOraValid = validateOra(oraEventoInput, oraEventoError);
+            const isLuogoValid = validateLuogo();
+
+            if (isTitoloValid && isDataValid && isOraValid && isLuogoValid) {
+                const confermaInput = document.createElement('input');
+                confermaInput.type = 'hidden';
+                confermaInput.name = 'conferma';
+                confermaInput.value = 'true';
+                formEvento.appendChild(confermaInput);
+
+                if (clickedButton) {
+                    const hiddenInput = document.createElement('input');
+                    hiddenInput.type = 'hidden';
+                    hiddenInput.name = clickedButton.name;
+                    hiddenInput.value = clickedButton.value;
+                    form.appendChild(hiddenInput);
+                }
+
+                formEvento.submit();
             }
         });
     }
 
     // Validazione per il form classifiche
     if (formClassifica) {
-        const titoloClassificaInput = document.getElementById('titoloClassifica');
+        const titoloClassificaInput = document.getElementById('titolo-classifica');
         const titoloClassificaError = document.getElementById('titolo-error');
+        const dataInizioInput = document.getElementById('data-inizio');
+        const dataInizioError = document.getElementById('data-inizio-error');
+        const dataFineInput = document.getElementById('data-fine');
+        const dataFineError = document.getElementById('data-fine-error');
 
         // Validazione del titolo durante la digitazione
         titoloClassificaInput.addEventListener('input', function() {
             validateField(titoloClassificaInput, titoloClassificaError, validateTitolo);
         });
+        
+        // Validazione della data di inizio durante la digitazione
+        dataInizioInput.addEventListener('input', function() {
+            validateField(dataInizioInput, dataInizioError, validateData);
+        });
 
-        // controlla che il titolo sia stato inserito e sia unico
+        // Validazione della data di fine durante la digitazione
+        dataFineInput.addEventListener('input', function() {
+            validateField(dataFineInput, dataFineError, validateData);
+        });
+
+        // Controlla che il titolo sia stato inserito e sia unico
         function validateTitolo() {
             return new Promise((resolve, reject) => {
                 const titolo = titoloClassificaInput.value.trim();
@@ -694,8 +846,10 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault(); // Blocca l'invio del modulo inizialmente
 
             const isTitoloValid = await validateTitolo();
+            const isDataInizioValid = validateData(dataInizioInput, dataInizioError);
+            const isDataFineValid = validateData(dataFineInput, dataFineError);
 
-            if (isTitoloValid) {
+            if (isTitoloValid && isDataInizioValid && isDataFineValid) {
                 const confermaInput = document.createElement('input');
                 confermaInput.type = 'hidden';
                 confermaInput.name = 'conferma';

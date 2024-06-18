@@ -94,20 +94,35 @@ if ($connectionOk) {
         }
     } elseif (isset($_POST['conferma'])) {
         if ($eventoSelezionato) {
-            $connection->update_punteggi_evento($validIdEvento, $validRappersPoints);
-            $messaggiForm .= multi_replace($messaggioForm, [
-                '{tipoMessaggio}' => 'successMessage',
-                '{messaggio}' => 'Punteggi aggiornati con successo'
-            ]);
-
-            if ($provenienza == 'classifiche') {
-                header("location: classifiche.php?punteggi-modificati=true");
-            } elseif ($provenienza == 'dashboard-punteggi-mancanti') {
-                header("location: index.php?punteggi-modificati=true#messaggi");
-            } else {
-                header("location: eventi.php?punteggi-modificati=true");
+            // controllo che tutti i punteggi siano effettivamente degli interi
+            $errore = false;
+            foreach ($validRappersPoints as $points) {
+                if (!is_numeric($points) || !ctype_digit($points)) {
+                    $errore = true;
+                    break;
+                }
             }
-            exit;
+            if ($errore) {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Punteggi non validi'
+                ]);
+            } else {
+                $connection->update_punteggi_evento($validIdEvento, $validRappersPoints);
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'successMessage',
+                    '{messaggio}' => 'Punteggi aggiornati con successo'
+                ]);
+
+                if ($provenienza == 'classifiche') {
+                    header("location: classifiche.php?punteggi-modificati=true");
+                } elseif ($provenienza == 'dashboard-punteggi-mancanti') {
+                    header("location: index.php?punteggi-modificati=true#messaggi");
+                } else {
+                    header("location: eventi.php?punteggi-modificati=true");
+                }
+                exit;
+            }
         } else {
             $messaggiForm .= multi_replace($messaggioForm, [
                 '{tipoMessaggio}' => 'inputError',

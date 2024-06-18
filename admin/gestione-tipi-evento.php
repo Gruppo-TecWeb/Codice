@@ -52,7 +52,7 @@ if ($connectionOk) {
         header("location: tipi-evento.php?errore=invalid");
         exit;
     }
-    $errore = '0';
+    $errore = false;
   
     if (isset($_GET['elimina']) || isset($_POST['elimina'])) {
         $connection->delete_tipo_evento($validTitolo);
@@ -79,56 +79,78 @@ if ($connectionOk) {
         $titolo = $validTitolo;
         $descrizione = $validTitolo == "" ? "" : $connection->get_tipo_evento($validTitolo)['Descrizione'];
         if ($_POST['azione'] == 'aggiungi') {
-            $errore = '0';
             $legend = $legendAggiungi;
             $valueAzione = 'aggiungi';
-            $errore = $connection->get_tipo_evento($validNuovoTitolo) ? '1' : '0';
-            if ($errore == '0') {
-                $connection->insert_tipo_evento($validNuovoTitolo, $validNuovaDescrizione);
-                $errore = $connection->get_tipo_evento($validNuovoTitolo) ? '0' : '1';
-            } else {
+            if ($validNuovoTitolo == "") {
                 $messaggiForm .= multi_replace($messaggioForm, [
                     '{tipoMessaggio}' => 'inputError',
-                    '{messaggio}' => "Tipo Evento già esistente con questo titolo"
+                    '{messaggio}' => 'Il titolo è obbligatorio'
                 ]);
+                $errore = true;
             }
-            if ($errore == '0') {
-                header("location: tipi-evento.php?aggiunto=true");
-                exit;
+            if ($connection->get_tipo_evento($validNuovoTitolo)) {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Esiste già un Tipo Evento con questo Titolo'
+                ]);
+                $errore = true;
+            }
+            if (!$errore) {
+                $connection->insert_tipo_evento($validNuovoTitolo, $validNuovaDescrizione);
+                if ($connection->get_tipo_evento($validNuovoTitolo)) {
+                    $messaggiForm .= multi_replace($messaggioForm, [
+                        '{tipoMessaggio}' => 'successMessage',
+                        '{messaggio}' => 'Tipo Evento aggiunto con successo'
+                    ]);
+                    header("location: tipi-evento.php?aggiunto=true");
+                    exit;
+                } else {
+                    $messaggiForm .= multi_replace($messaggioForm, [
+                        '{tipoMessaggio}' => 'inputError',
+                        '{messaggio}' => 'Errore nell\'inserimento del Tipo Evento'
+                    ]);
+                }
             }
         } elseif ($_POST['azione'] == 'modifica') {
-            $errore = '0';
             $legend = $legendModifica;
             $valueAzione = 'modifica';
-            if ($validTitolo != $validNuovoTitolo) {
-                $errore = $connection->get_tipo_evento($validNuovoTitolo) ? '1' : '0';
+            if ($validNuovoTitolo == "") {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Il titolo è obbligatorio'
+                ]);
+                $errore = true;
             }
-            if ($errore == '0') {
+            if ($validTitolo != $validNuovoTitolo && $connection->get_tipo_evento($validNuovoTitolo)) {
+                $errore = true;
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Esiste già un Tipo Evento con questo titolo'
+                ]);
+            }
+            if (!$errore) {
                 $connection->update_tipo_evento($validTitolo, $validNuovoTitolo, $validNuovaDescrizione);
-                $tipo_evento = $connection->get_tipo_evento($validNuovoTitolo);
-                if (count($tipo_evento) == 0) {
-                    $errore = '1';
+                $updatedTipoEvento = $connection->get_tipo_evento($validNuovoTitolo);
+                if (count($updatedTipoEvento) != 0 &&
+                    $updatedTipoEvento['Descrizione'] == $validNuovaDescrizione) {
+                    $messaggiForm .= multi_replace($messaggioForm, [
+                        '{tipoMessaggio}' => 'successMessage',
+                        '{messaggio}' => 'Tipo Evento modificato con successo'
+                    ]);
+                    $titolo = $validNuovoTitolo;
+                    header("location: tipi-evento.php?modificato=true");
+                    exit;
+                } else {
+                    $messaggiForm .= multi_replace($messaggioForm, [
+                        '{tipoMessaggio}' => 'inputError',
+                        '{messaggio}' => 'Errore nella modifica del Tipo Evento'
+                    ]);
                 }
             } else {
                 $messaggiForm .= multi_replace($messaggioForm, [
                     '{tipoMessaggio}' => 'inputError',
                     '{messaggio}' => "Tipo Evento già esistente con questo titolo"
                 ]);
-            }
-            if ($errore == '0') {
-                $messaggiForm .= multi_replace($messaggioForm, [
-                    '{tipoMessaggio}' => 'successMessage',
-                    '{messaggio}' => 'Modifica effettuata con successo'
-                ]);
-                $titolo = $validNuovoTitolo;
-
-                header("location: tipi-evento.php?modificato=true");
-                exit;
-            } else {
-                $messaggiForm .= $messaggiForm == '' ? multi_replace($messaggioForm, [
-                    '{tipoMessaggio}' => 'inputError',
-                    '{messaggio}' => "Errore imprevisto"
-                ]) : '';
             }
         }
     } else {
