@@ -130,7 +130,8 @@ function setIframe(battle) {
 function newIframe() {
     var link = pressedButton.getAttribute("data-link");
     actualTitle.innerHTML = "Esempio "+ newTitle;
-
+    thisBattle.getElementsByClassName("playerJump")[0].setAttribute("aria-hidden", "false");
+    thisBattle.getElementsByClassName("playerJump")[0].setAttribute("tabindex", "0");
     var videoId = link.split('embed/')[1].split('?')[0];
     var start = pressedButton.getAttribute("data-start");
     var end = pressedButton.getAttribute("data-end");
@@ -142,11 +143,16 @@ function newIframe() {
     });
 
     for (var i = 0; i < descBattles.length; i++) {
+        if(descBattles[i] != thisBattle){
+            descBattles[i].getElementsByClassName("playerJump")[0].setAttribute("aria-hidden", "true");
+            descBattles[i].getElementsByClassName("playerJump")[0].setAttribute("tabindex", "-1");
+        }
         var buttonPP = descBattles[i].getElementsByTagName("button")[0];
         if (buttonPP.title.substr(0, 10) == "Interrompi") {
             buttonPP.setAttribute("data-isPlaying", "false");
             buttonPP.title = "Riproduci " + newTitle;
         }
+        
     }
 
     pressedButton.setAttribute("data-isPlaying", "true");
