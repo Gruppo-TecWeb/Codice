@@ -178,8 +178,11 @@ function init_beats() {
     });
 
     btnDescrizioni = document.getElementsByClassName("btnDesc");
+    descBeats = document.getElementsByClassName("descBeats");
     for (let i = 0; i < btnDescrizioni.length; i++) {
+        descBeats[i].setAttribute("id", "desc_" + i);
         btnDescrizioni[i].setAttribute("data-show", "false");
+        btnDescrizioni[i].setAttribute("aria-controls", "desc_" + i);
         btnDescrizioni[i].addEventListener("click", (event) => {
             showDescription(i);
         });
@@ -191,7 +194,7 @@ function showDescription(index) {
     btnDescrizione = document.getElementsByClassName("btnDesc")[index];
     show = descrizione.getAttribute("data-show");
     descrizione.setAttribute("data-show", show === "true" ? "false" : "true");
-    descrizione.setAttribute("aria-hidden", show === "true" ? "true" : "false");
+    descrizione.setAttribute("hidden", show === "true" ? "true" : "false");
 
     btnDescrizione.setAttribute("data-show", show === "true" ? "false" : "true");
     btnDescrizione.setAttribute("aria-expanded", show === "true" ? "false" : "true");  
