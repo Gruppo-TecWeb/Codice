@@ -104,7 +104,7 @@ header {
     justify-content: center;
 }
 
-header>a {
+header h1.logo {
     margin: 0;
 }
 

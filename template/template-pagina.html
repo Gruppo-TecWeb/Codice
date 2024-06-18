@@ -26,14 +26,22 @@
                 <li><a class="navigationHelp" href="#menu">Vai al menù principale</a></li>
             </ul>
         </nav>
+        {logo} {logoLink}
         <a href="index.php">
             <h1 class="logo">Fungo</h1>
         </a>
+        {/logoLink} {logoNoLink}
+		<div class="logoNoLink">
+            <h1 class="logo">Fungo</h1>
+		</div>
+        {/logoNoLink} {/logo}
         <nav id="menu" class="mobileCard" aria-labelledby="menu-title" data-menu-open="false">
             <h2 id="menu-title">Menù</h2>
             <ul>
-                {menu}{liCurrent}<li><span aria-current="page" id="currentLink" class="menuItem" {lang}>{anchor}</span></li>
-                {/liCurrent}{liNotCurrent}<li><a href="{pageHref}" class="menuItem" {lang}>{anchor}</a></li>
+                {menu}{liCurrent}
+                <li><span aria-current="page" id="currentLink" class="menuItem" {lang}>{anchor}</span></li>
+                {/liCurrent}{liNotCurrent}
+                <li><a href="{pageHref}" class="menuItem" {lang}>{anchor}</a></li>
                 {/liNotCurrent}{/menu}
             </ul>
         </nav>
