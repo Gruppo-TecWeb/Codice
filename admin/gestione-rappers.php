@@ -59,7 +59,6 @@ if ($connectionOk) {
     if (count($user) != 0) {
         $validEmail = $user['Email'];
     }
-echo var_dump($validUsername);
     if (isset($_GET['elimina']) || isset($_POST['elimina'])) {
         if ($_SESSION['username'] == $_GET['username']) {
             header("location: rappers.php?eliminato=false");
