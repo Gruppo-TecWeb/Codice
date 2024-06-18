@@ -903,6 +903,19 @@ div#Fungo {
     background-image: none;
 }
 
+body .titolo-filtri {
+    position: unset;
+    top: unset;
+    z-index: unset;
+    background-color: unset;
+}
+
+div.des-classifica p {
+    position: unset;
+    top: unset;
+    z-index: unset;
+}
+
 
 /*
  * PAGINE ERROR DOCUMENT
