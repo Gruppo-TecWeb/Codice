@@ -19,6 +19,7 @@ $keywords = 'Fungo, amministrazione, rappers';
 $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
+$classList = 'fullMenu';
 $logo = get_content_between_markers($paginaHTML, 'logoLink');
 
 if (!isset($_SESSION["login"])) {
@@ -58,7 +59,6 @@ if ($connectionOk) {
     if (count($user) != 0) {
         $validEmail = $user['Email'];
     }
-echo var_dump($validUsername);
     if (isset($_GET['elimina']) || isset($_POST['elimina'])) {
         if ($_SESSION['username'] == $_GET['username']) {
             header("location: rappers.php?eliminato=false");
@@ -204,5 +204,6 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{content}' => $content,
-    '{onload}' => $onload
+    '{onload}' => $onload,
+    '{classList}' => $classList
 ]);

@@ -29,7 +29,7 @@
                 <input type="hidden" name="azione" value="{valueAzione}">
             </fieldset>
         </div>
-        <div id="buttons">
+        <div id="buttons" class="subMenu">
             <button type="submit" name="conferma" value="true">Conferma</button> {buttonElimina}
             <button type="submit" name="elimina" value="true">Elimina</button> {/buttonElimina}
             <button type="button" value="annulla" onClick="tornaIndietro()">Annulla</button>
@@ -54,7 +54,7 @@
 
     <!-- classifica attuale -->
     <div class="elementi-presenti aggiunta-modifica">
-        
+
         <div class="div-classifica">
             <span id="sumTabella" class="navigationHelp">Tabella che riassume la classifica attuale con l'indicazione
                         di <span lang="en">ranking</span>, nome d'arte del <span lang="en">freestyler</span>, punteggio ottenuto.</span>
@@ -78,6 +78,6 @@
                 </tbody>
             </table>
         </div>
-        
+
     </div>{/tabellaClassifica}
 </div>

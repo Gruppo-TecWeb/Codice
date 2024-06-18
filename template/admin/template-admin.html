@@ -18,7 +18,7 @@
     <script src="../scripts/script.js"></script>
 </head>
 
-<body id="{pageId}" class="adminPage" onload="{onload}" data-menu-open="false">
+<body id="{pageId}" class="adminPage {classList}" onload="{onload}" data-menu-open="false">
     <header>
         <nav id="menu-skip" aria-label="Aiuti alla navigazione">
             <ul>
@@ -36,8 +36,10 @@
         <nav id="menu" class="mobileCard" aria-labelledby="menu-title" data-menu-open="false">
             <h2 id="menu-title">Menù Admin</h2>
             <ul>
-                {menu}{liCurrent}<li><span aria-current="page" id="currentLink" class="menuItem"{lang}>{anchor}</span></li>
-                {/liCurrent} {liNotCurrent}<li><a href="{pageHref}" class="menuItem"{lang}>{anchor}</a></li>
+                {menu}{liCurrent}
+                <li><span aria-current="page" id="currentLink" class="menuItem" {lang}>{anchor}</span></li>
+                {/liCurrent} {liNotCurrent}
+                <li><a href="{pageHref}" class="menuItem" {lang}>{anchor}</a></li>
                 {/liNotCurrent}{/menu}
             </ul>
         </nav>
