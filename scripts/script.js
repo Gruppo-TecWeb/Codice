@@ -194,7 +194,8 @@ function showDescription(index) {
     btnDescrizione = document.getElementsByClassName("btnDesc")[index];
     show = descrizione.getAttribute("data-show");
     descrizione.setAttribute("data-show", show === "true" ? "false" : "true");
-    descrizione.setAttribute("hidden", show === "true" ? "true" : "false");
+    descrizione.hasAttribute("hidden") ? descrizione.removeAttribute("hidden") : descrizione.setAttribute("hidden","");
+    //descrizione.setAttribute("hidden", show === "true" ? "true" : "false");
 
     btnDescrizione.setAttribute("data-show", show === "true" ? "false" : "true");
     btnDescrizione.setAttribute("aria-expanded", show === "true" ? "false" : "true");  
