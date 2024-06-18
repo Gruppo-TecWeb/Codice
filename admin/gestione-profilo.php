@@ -19,6 +19,7 @@ $keywords = 'profilo, amministrazione, admin';
 $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
+$logo = get_content_between_markers($paginaHTML, 'logoLink');
 
 $immagineProfiloDefault = 'default_profile_pic.png';
 $percorsoImmaginiProfilo = './../assets/media/img_profilo/';
@@ -139,6 +140,7 @@ if ($connectionOk) {
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'logo' => $logo,
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu
 ]), [

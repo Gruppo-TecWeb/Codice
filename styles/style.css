@@ -1631,7 +1631,7 @@ span.screen-reader-only {
     align-items: center;
 }
 
-.adminPage header>a {
+.adminPage header>a, .adminPage header .logoNoLink {
     margin-inline: 1em 0;
     text-decoration-color: var(--colorTextOnAccent);
 }
