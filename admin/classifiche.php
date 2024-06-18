@@ -19,6 +19,7 @@ $keywords = 'classifiche, tipi evento, restraining stirpe, freestyle, freestyle 
 $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
+$logo = get_content_between_markers($paginaHTML, 'logoLink');
 
 if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
@@ -157,6 +158,7 @@ if ($connectionOk) {
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'logo' => $logo,
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu
 ]), [

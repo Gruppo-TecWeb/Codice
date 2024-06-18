@@ -353,8 +353,12 @@ header>* {
 }
 
 header>a {
-    margin-inline: 5vw 1vw;
     text-decoration: none;
+    margin-inline: 5vw 1vw;
+}
+
+header .logoNoLink {
+    margin-inline: 5vw 1vw;
 }
 
 #menu-skip ul {
@@ -496,23 +500,18 @@ footer #footer-credits {
     padding-top: unset;
 }
 
-#index header>a {
-    cursor: default;
-    pointer-events: none;
-}
-
-#index header a h1.logo {
+#index header h1.logo {
     transition: opacity 0.1s;
 }
 
-#index header a h1.logo {
+#index header h1.logo {
     overflow: hidden;
     text-indent: 120%;
     white-space: nowrap;
     /* opacity: 0.1; */
 }
 
-#index header a h1.logo.scrolled {
+#index header h1.logo.scrolled {
     overflow: unset;
     text-indent: unset;
     opacity: 1;
@@ -1614,7 +1613,9 @@ div#introduzione {
  * AREA DI AMMINISTRAZIONE 
  */
 
+
 /* nasconde il testo che rende univoci i button modifica/punteggi/elimina dell'area admin */
+
 span.screen-reader-only {
     color: var(--colorAccent);
     text-indent: -999em;
@@ -1630,7 +1631,7 @@ span.screen-reader-only {
     align-items: center;
 }
 
-.adminPage header>a {
+.adminPage header>a, .adminPage header .logoNoLink {
     margin-inline: 1em 0;
     text-decoration-color: var(--colorTextOnAccent);
 }
