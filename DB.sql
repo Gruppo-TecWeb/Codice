@@ -86,6 +86,7 @@ INSERT INTO Utenti (Username, Password, Email) VALUES ('DjSeef', '', 'djseef@fun
 INSERT INTO Utenti (Username, Password, Email) VALUES ('Ange', '', 'ange@fungo.it');
 INSERT INTO Utenti (Username, Password, Email) VALUES ('T-Brex', '', 'tbrex@fungo.it');
 INSERT INTO Utenti (Username, Password, Email) VALUES ('Trick', '', 'trick@fungo.it');
+
 INSERT INTO Utenti (Username, Password, Email) VALUES ('3ska', '', '3ska@fungo.it');
 INSERT INTO Utenti (Username, Password, Email) VALUES ('Alex M.', '', 'alexm@fungo.it');
 INSERT INTO Utenti (Username, Password, Email) VALUES ('Buddah', '', 'buddah@fungo.it');

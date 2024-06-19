@@ -209,3 +209,17 @@ function replace_lang_array(array $inputArray) {
     unset($input);
     return $inputArray;
 }
+
+function replace_lang_dictionary(array $inputDictionary) {
+    if ($inputDictionary == null) {
+        return null;
+    }
+    foreach ($inputDictionary as $key => $value) {
+        if (is_string($value)) {
+            $inputDictionary[$key] = replace_lang($value);
+        } elseif (is_array($value)) {
+            $inputDictionary[$key] = replace_lang_array($value);
+        }
+    }
+    return $inputDictionary;
+}
