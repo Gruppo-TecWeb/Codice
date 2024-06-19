@@ -37,6 +37,7 @@ if ($connectionOk) {
         header("location: errore404.php");
         exit;
     } else {
+        $evento = replace_lang_array($evento);
         [$tipoEvento, $titolo, $descrizione, $data, $ora, $luogo, $locandina] = array_values($evento);
         
         $title = str_replace('{titoloEvento}', strip_tags($titolo), $title);

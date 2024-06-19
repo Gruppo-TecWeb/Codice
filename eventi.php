@@ -50,6 +50,12 @@ if ($connectionOk) {
     $oldest_date = $lista_eventi_array == null ? $connection->get_oldest_date() : '';
     $connection->close_DB_connection();
 
+    for($i = 0; $i < count($lista_eventi_array); $i++) {
+        $lista_eventi_array[$i] = replace_lang_array($lista_eventi_array[$i]);
+    }
+    $eventi_senza_tipo = replace_lang_array($eventi_senza_tipo);
+    $lista_tipi_evento_array = replace_lang_array($lista_tipi_evento_array);
+    
     $numero_pagine = ceil(count($lista_eventi_array) / $eventi_per_pagina);
 
     // Costruzione del messaggio di risultati

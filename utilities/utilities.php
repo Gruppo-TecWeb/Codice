@@ -3,7 +3,7 @@
 namespace Utilities;
 
 const MB = 1048576;
-const MAX_FILE_SIZE = 10*MB;
+const MAX_FILE_SIZE = 10 * MB;
 const PAGES_ARRAY = [
     'index'                         => ['href' => 'index.php',                   'anchor' => 'Home',                                      'lang' => 'en', 'menuOrder' => 1, 'admin' => 0, 'parentId' => ''],
     'eventi'                        => ['href' => 'eventi.php',                  'anchor' => 'Eventi',                                    'lang' => '',   'menuOrder' => 2, 'admin' => 0, 'parentId' => 'index'],
@@ -187,4 +187,25 @@ function date_format_ita($data) {
     $anno = $dataOggetto->format('Y');
 
     return $giorno . ' ' . $mese . ' ' . $anno;
+}
+
+function replace_lang(string $input) {
+    $startTag = '<span lang="${1}">';
+    $endTag = '</span>';
+
+    $input = preg_replace('/\{\/.{2}\}/', '</span>', $input);
+
+    $input = preg_replace('/\{(\w{2})\}/', '<span lang="${1}">', $input);
+
+    return $input;
+}
+
+function replace_lang_array(array $inputArray) {
+    foreach ($inputArray as &$input) {
+        if (is_string($input)) {
+            $input = replace_lang($input);
+        }
+    }
+    unset($input);
+    return $inputArray;
 }
