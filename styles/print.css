@@ -17,6 +17,15 @@
     display: none;
 }
 
+a:visited {
+    color: rgb(89, 89, 89);
+}
+
+img {
+    width: 5cm;
+    object-fit: cover;
+}
+
 button,
 .button,
 .iconButton,
@@ -33,8 +42,25 @@ h3,
 h4,
 h5,
 h6 {
-    margin-top: 0.5em;
     margin-bottom: 0.25em;
+}
+
+p {
+    margin: 0.5em;
+}
+
+dt {
+    font-weight: bold;
+    margin-top: 0.25em;
+}
+
+
+/* 
+ * MENU
+ */
+
+#menu-skip ul {
+    display: none;
 }
 
 #menu {
@@ -42,9 +68,147 @@ h6 {
 }
 
 .title {
-    font-family: Horizontale;
+    font-family: "Horizontale";
+}
+
+.logo {
+    font-family: "Horizontale";
+    font-size: 2rem;
 }
 
 footer {
     margin-top: 5em;
+}
+
+
+/*
+ * PAGINA HOME
+ */
+
+#index header h1.logo {
+    display: none;
+}
+
+#index #hero h2 {
+    margin-top: unset;
+    font-size: 4cm;
+    text-align: center;
+}
+
+#video-home {
+    display: none;
+}
+
+#evento-home {
+    margin: 2em;
+
+}
+
+#evento-home div {
+    width: fit-content;
+    padding: 1em;
+    margin: 0.25em;
+    border: 2px solid black;
+}
+
+#evento-home h4 {
+    font-size: 1.5em;
+}
+
+#evento-home a {
+    display: none;
+}
+
+#eventi-home dl {
+    display: flex;
+}
+
+.eventoPrincipaleHome {
+    padding: 1em;
+}
+.eventoPrincipaleHome figure {
+    margin: 0.25em;
+    box-sizing: border-box;
+    border: 1px solid;
+}
+
+.eventoPrincipaleHome .ddImg img {
+    height: 5cm;
+    width: 100%;
+    padding: 0.5em;
+    box-sizing: border-box;
+    object-fit: contain;
+}
+
+.eventoPrincipaleHome .ddImg figcaption {
+    border-top: 1px solid;
+    padding: 0.5em;
+}
+
+/*
+ * PAGINA EVENTI
+ */
+
+#eventi form {
+    display: none;
+}
+
+#lista-eventi {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: auto;
+}
+
+#lista-eventi li {
+    border: 1px solid;
+    list-style: none;
+}
+
+#lista-eventi li a {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    justify-content: space-between;
+    height: 4cm;
+}
+
+#lista-eventi li img {
+    height: 100%;
+    padding: 1.5em;
+    aspect-ratio: 1 / 1;
+    box-sizing: border-box;
+    object-fit: contain;
+    border-bottom: 1px solid var(--colorAccent);
+}
+
+#lista-eventi .eventoNoImmagine h3 {
+    height: unset;
+}
+
+#lista-eventi .eventoNoImmagine .cornice {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    padding: 1.5em;
+    overflow: hidden;
+    box-sizing: border-box;
+    border-bottom: 1px solid var(--colorAccent);
+}
+
+#lista-eventi .eventoNoImmagine .cornice .scritte {
+    height: 100%;
+    transform: rotate(336deg) scale(1.5);
+    user-select: none;
+    word-wrap: break-word;
+    text-align: center;
+    font-size: 1.25em;
+    font-family: 'Horizontale';
+    color: var(--colorAccent);
+}
+
+#filtri-applicati {
+    font-weight: bold;
+}
+
+#paginazione-eventi ul {
+    display: none;
 }

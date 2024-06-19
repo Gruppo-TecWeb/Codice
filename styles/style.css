@@ -148,14 +148,14 @@ main {
 
 .logo {
     text-shadow: 0 0 8px var(--colorText);
-    font-family: Horizontale;
+    font-family: "Horizontale";
     font-size: 2.5rem;
     color: var(--colorText);
 }
 
 .title {
     text-shadow: 0 0 8px var(--colorText);
-    font-family: Horizontale;
+    font-family: "Horizontale";
     color: var(--colorText);
 }
 
@@ -876,7 +876,7 @@ footer #footer-credits {
     word-wrap: break-word;
     text-align: center;
     font-size: 1.25em;
-    font-family: 'HORIZONTALE';
+    font-family: 'Horizontale';
     color: var(--colorAccent);
 }
 
@@ -1631,7 +1631,8 @@ span.screen-reader-only {
     align-items: center;
 }
 
-.adminPage header>a, .adminPage header .logoNoLink {
+.adminPage header>a,
+.adminPage header .logoNoLink {
     margin-inline: 1em 0;
     text-decoration-color: var(--colorTextOnAccent);
 }
