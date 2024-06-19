@@ -339,6 +339,8 @@ footer .logo {
 }
 
 #evento-home {
+    display: flex;
+    flex-direction: column;
     padding: 0;
     background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0) 10px);
 }
