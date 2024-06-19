@@ -95,6 +95,7 @@ if ($connectionOk) {
     }
 
     $amministratori = $connection->get_utenti_admin();
+    $amministratori = replace_lang_dictionary($amministratori);
     $elementoLista = get_content_between_markers($content, 'elementoLista');
     $nessunElemento = get_content_between_markers($content, 'nessunElemento');
 

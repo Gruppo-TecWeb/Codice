@@ -30,8 +30,11 @@ if ($connectionOk) {
     $classifiche = '';
     $validIdClassifica = isset($_GET['classifica']) ? validate_input($_GET['classifica']) : "";
     $classifica = $connection->get_classifica($validIdClassifica);
+    if ($classifica != null)
+        $classifica = replace_lang_dictionary($classifica);
     if (((isset($_GET['classifica']) && $_GET['classifica'] != "") && $validIdClassifica == "") ||
-        ((isset($_GET['classifica']) && $_GET['classifica'] != "") && $classifica == null)) {
+        ((isset($_GET['classifica']) && $_GET['classifica'] != "") && $classifica == null)
+    ) {
         header("location: classifiche.php?errore=invalid");
         exit;
     }
@@ -47,8 +50,10 @@ if ($connectionOk) {
     }
 
     $resultClassifiche = $connection->get_classifiche();
+    $resultClassifiche = replace_lang_dictionary($resultClassifiche);
     if (!isset($_GET['classifica'])) {
         $classifica = $connection->get_classifica_corrente();
+        $classifica = replace_lang_dictionary($classifica);
         if ($classifica == null || $connection->get_punteggi_classifica($classifica['TipoEvento'], $classifica['DataInizio'], $classifica['DataFine']) == null) {
             // ordino le classifiche per data di fine in modo decrescente
             usort($resultClassifiche, function ($a, $b) {
@@ -71,7 +76,7 @@ if ($connectionOk) {
         $titoloClassifica = $resultClassifica['Titolo'];
         $tipoEvento = $resultClassifica['TipoEvento'];
         $selected = $idClassifica == $classifica['Id'] ? ' selected' : '';
-        
+
         $option = get_content_between_markers($content, 'listaClassifiche');
         $classifiche .= multi_replace($option, [
             '{idClassifica}' => $idClassifica,
@@ -84,6 +89,7 @@ if ($connectionOk) {
     if ($classifica != null) {
         $tipoEvento = $classifica['TipoEvento'];
         $descrizioneEvento = $connection->get_tipo_evento($tipoEvento)['Descrizione'];
+        $descrizioneEvento = replace_lang($descrizioneEvento);
         $punteggiClassifica = $connection->get_punteggi_classifica($tipoEvento, $classifica['DataInizio'], $classifica['DataFine']);
         $titoloClassifica = $classifica['Titolo'];
         if ($punteggiClassifica != null) {

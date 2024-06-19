@@ -129,6 +129,7 @@ if ($connectionOk) {
     }
 
     $eventi = $connection->get_eventi();
+    $eventi = replace_lang_dictionary($eventi);
     $elementoLista = get_content_between_markers($content, 'elementoLista');
     $nessunElemento = get_content_between_markers($content, 'nessunElemento');
 

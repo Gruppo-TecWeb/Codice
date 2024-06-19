@@ -129,6 +129,7 @@ if ($connectionOk) {
     }
 
     $classifiche = $connection->get_classifiche();
+    $classifiche = replace_lang_dictionary($classifiche);
     $elementoLista = get_content_between_markers($content, 'elementoLista');
     $nessunElemento = get_content_between_markers($content, 'nessunElemento');
 

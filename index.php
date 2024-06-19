@@ -35,8 +35,8 @@ $connection = DBAccess::get_instance();
 $connectionOk = $connection->open_DB_connection();
 if ($connectionOk) {
     $headingEvento = '';
-
     $listaEventi  = $connection->get_lista_eventi(date('Y-m-d')); // lista eventi futuri
+
     if (count($listaEventi) > 0) { // se ci sono eventi futuri
         $headingEvento = get_content_between_markers($eventoHome, 'prossimoEvento');
     } else { // altrimenti prendo i passati
@@ -46,6 +46,7 @@ if ($connectionOk) {
     if (count($listaEventi) > 0) { // se ho ottenuto eventi
         $eventoId = $listaEventi[0]['Id'];
         $evento = $connection->get_evento($eventoId);
+        $evento = replace_lang_array($evento);
         [$tipoEvento, $titolo, $descrizione, $data, $ora, $luogo, $locandina] = array_values($evento);
 
         $contentEvento = multi_replace(replace_content_between_markers($eventoHome, [

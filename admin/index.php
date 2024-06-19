@@ -184,6 +184,9 @@ if ($connectionOk) {
 
         // dashboard prossimo evento
         $prossimiEventi = $connection->get_lista_eventi(date('Y-m-d'));
+        for($i = 0; $i < count($prossimiEventi); $i++) {
+            $prossimiEventi=replace_lang_array($prossimiEventi);
+        }   
         if (count($prossimiEventi) > 0) {
             $locandinaHTML = '';
             if ($prossimiEventi[0]['Locandina'] != null) {
@@ -230,10 +233,12 @@ if ($connectionOk) {
 
         // dashboard punteggi mancanti
         $classifiche = $connection->get_classifiche();
+        $classifiche = replace_lang_dictionary($classifiche);
         $punteggioMancanteHTML = get_content_between_markers($punteggiMancantiHTML, 'punteggioMancante');
         $listaPunteggiMancanti = '';
         foreach ($classifiche as $classifica) {
             $eventiClassifica = $connection->get_eventi_classifica($classifica['Id']);
+            $eventiClassifica = replace_lang_array($eventiClassifica);
             foreach ($eventiClassifica as $evento) {
                 if ($evento['Data'] < date('Y-m-d') && $connection->get_punteggi_evento($evento['Id']) == null) {
                     $listaPunteggiMancanti .= multi_replace($punteggioMancanteHTML, [
