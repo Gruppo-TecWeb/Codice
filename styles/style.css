@@ -951,9 +951,6 @@ p.eventiMessaggio {
     align-items: start;
 }
 
-
-/* fixare allineamento dl sotto */
-
 #evento #indietro::before {
     content: "\2039 ";
     height: 100%;
