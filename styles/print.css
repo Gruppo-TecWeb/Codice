@@ -413,3 +413,17 @@ table th {
 #beats .durata::before {
     content: "Durata: ";
 }
+
+
+/*
+ * CHI SIAMO
+ */
+
+#chi-siamo img {
+    margin: 0.5em;
+    float: left;
+}
+
+#chi-siamo h3 {
+    clear: both;
+}
