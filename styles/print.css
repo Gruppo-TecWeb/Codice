@@ -165,20 +165,39 @@ footer {
 }
 
 #lista-eventi li a {
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    justify-content: space-between;
     height: 4cm;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-areas:
+    'img titolo'
+    'img data';
+    grid-template-columns: auto 1fr;
+}
+
+#lista-eventi li a:visited {
+    color: rgb(89, 89, 89);
 }
 
 #lista-eventi li img {
-    height: 100%;
-    padding: 1.5em;
+    grid-area: img;
+    height: 4cm;
+    padding: 1em;
     aspect-ratio: 1 / 1;
     box-sizing: border-box;
     object-fit: contain;
-    border-bottom: 1px solid var(--colorAccent);
+    border-right: 1px solid black;
+}
+
+#lista-eventi li h3 {
+    grid-area: titolo;
+    margin: 1em;
+    box-sizing: border-box;
+}
+
+#lista-eventi li p {
+    grid-area: data;
+    margin: 1em;
+    box-sizing: border-box;
 }
 
 #lista-eventi .eventoNoImmagine h3 {
@@ -186,12 +205,14 @@ footer {
 }
 
 #lista-eventi .eventoNoImmagine .cornice {
-    width: 100%;
+    grid-area: img;
+    height: 4cm;
+    padding: 1em;
     aspect-ratio: 1 / 1;
-    padding: 1.5em;
-    overflow: hidden;
     box-sizing: border-box;
-    border-bottom: 1px solid var(--colorAccent);
+    object-fit: contain;
+    border-right: 1px solid black;
+    overflow: hidden;
 }
 
 #lista-eventi .eventoNoImmagine .cornice .scritte {
@@ -202,7 +223,7 @@ footer {
     text-align: center;
     font-size: 1.25em;
     font-family: 'Horizontale';
-    color: var(--colorAccent);
+    text-decoration: none;
 }
 
 #filtri-applicati {
