@@ -54,7 +54,9 @@ dt {
     margin-top: 0.25em;
 }
 
-ul {
+ul,
+ol,
+dl {
     margin: 0.5em;
 }
 
