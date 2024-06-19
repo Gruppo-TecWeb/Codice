@@ -101,21 +101,21 @@ function onPlayerStateChange(event) {
 function initIframe() {
     descBattles = document.getElementsByClassName("descBattle");
     actualTitle = document.getElementsByTagName("h3")[1];
-    //set desc_id
+    var idDescVideo = []; 
+
     for (var i = 0; i < descBattles.length; i++) {
         descVideo = descBattles[i].getElementsByTagName("p")[0];
         descVideo.setAttribute("id","desc_"+i);
-        console.log(descVideo.getAttribute("id"));
+        
+        idDescVideo[i]=descVideo.getAttribute("id");
+        console.log(idDescVideo[i]);
+        console.log(descVideo);
     }
-    
-    //console.log(idDescVideo);
-    idDescVideo = descVideo[0].getAttribute("id");
-    console.log(idDescVideo);
-    
+
     
     
     iframe = document.getElementById("iframe_battle");
-    iframe.setAttribute("aria-describedby",idDescVideo);
+    iframe.setAttribute("aria-describedby",idDescVideo[0]);
 
     thisBattle = descBattles[0];
     newTitle = thisBattle.getElementsByTagName("strong")[0].innerHTML;;
@@ -137,7 +137,7 @@ function setIframe(battle) {
             pressedButton.setAttribute("data-isPlaying", "true");
             pressedButton.title = "Interrompi " + newTitle;
         } else {
-            iframe.setAttribute("aria-describedby",battle);
+            iframe.setAttribute("aria-describedby","desc_"+battle);
             newIframe();
         }
     }
