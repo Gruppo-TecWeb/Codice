@@ -787,6 +787,11 @@ label {
     padding: unset;
 }
 
+
+.adminPage.fullMenu footer {
+    padding-bottom: 10em;
+}
+
 .adminPage ol {
     padding: 0.5em;
 }
@@ -873,7 +878,15 @@ label {
     max-width: var(--widthMenu);
 }
 
-#login form div#buttons,
+#login {
+    padding-top: unset;
+}
+
+#login form div#buttons {
+    padding: unset;
+    width: 100%;
+}
+
 .adminPage form.aggiunta-modifica div#buttons {
     padding: unset;
 }
