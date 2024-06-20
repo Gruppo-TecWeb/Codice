@@ -88,11 +88,11 @@ function onYouTubeIframeAPIReady() {
 function onPlayerStateChange(event) {
     if (event.data == YT.PlayerState.PAUSED) {
         pressedButton.setAttribute("data-isPlaying", "false");
-        pressedButton.title = "Riproduci " + newTitle;
+        pressedButton.title = "Riproduci esempio " + newTitle;
     }
     if (event.data == YT.PlayerState.PLAYING) {
         pressedButton.setAttribute("data-isPlaying", "true");
-        pressedButton.title = "Interrompi " + newTitle;
+        pressedButton.title = "Interrompi esempio " + newTitle;
     }
 }
 
@@ -122,19 +122,24 @@ function setIframe(battle) {
     thisBattle = descBattles[battle];
     pressedButton = thisBattle.getElementsByTagName("button")[0];
     newTitle = thisBattle.getElementsByTagName("dt")[0].getElementsByTagName("span")[0].innerHTML;
+    oldTitle=actualTitle.innerHTML;
+    
 
+    
     if (pressedButton.title.substr(0, 10) == "Interrompi") {
         player.pauseVideo();
         pressedButton.setAttribute("data-isPlaying", "false");
-        pressedButton.title = "Riproduci " + newTitle;
+        pressedButton.title = "Riproduci esempio " + actualTitle.innerHTML;
     } else {
-        
-        if (actualTitle.innerHTML == "Esempio "+ newTitle) {
+        if (actualTitle.innerHTML == "esempio "+ newTitle) {
             player.playVideo();
             pressedButton.setAttribute("data-isPlaying", "true");
-            pressedButton.title = "Interrompi " + newTitle;
+            pressedButton.title = "Interrompi esempio " + newTitle;
         } else {
+
             iframe.setAttribute("aria-describedby","desc_"+battle);
+            pressedButton.setAttribute("title","Riproduci esempio "+actualTitle.innerHTML);
+           // console.log(pressedButton.title);
             newIframe();
         }
     }
@@ -142,7 +147,7 @@ function setIframe(battle) {
 
 function newIframe() {
     var link = pressedButton.getAttribute("data-link");
-    actualTitle.innerHTML = "Esempio "+ newTitle;
+    actualTitle.innerHTML = "esempio "+ newTitle;
     thisBattle.getElementsByClassName("playerJump")[0].setAttribute("aria-hidden", "false");
     thisBattle.getElementsByClassName("playerJump")[0].setAttribute("tabindex", "0");
     var videoId = link.split('embed/')[1].split('?')[0];
@@ -154,7 +159,7 @@ function newIframe() {
         startSeconds: start,
         endSeconds: end
     });
-
+    //console.log(pressedButton.title);
     for (var i = 0; i < descBattles.length; i++) {
         if(descBattles[i] != thisBattle){
             descBattles[i].getElementsByClassName("playerJump")[0].setAttribute("aria-hidden", "true");
@@ -163,13 +168,14 @@ function newIframe() {
         var buttonPP = descBattles[i].getElementsByTagName("button")[0];
         if (buttonPP.title.substr(0, 10) == "Interrompi") {
             buttonPP.setAttribute("data-isPlaying", "false");
-            buttonPP.title = "Riproduci " + newTitle;
+            buttonPP.title = "Riproduci " + oldTitle;
         }
         
     }
 
     pressedButton.setAttribute("data-isPlaying", "true");
-    pressedButton.title = "Interrompi " + newTitle;
+    pressedButton.title = "Interrompi esempio " + newTitle;
+    console.log(pressedButton.title);
 }
 
 
