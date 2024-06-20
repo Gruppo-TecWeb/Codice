@@ -1094,7 +1094,7 @@ p.eventiMessaggio {
 
 #container_battle {
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     justify-content: center;
     background-color: var(--colorAccent);
     padding: 0em;
@@ -1212,12 +1212,13 @@ p.eventiMessaggio {
     background-color: var(--colorButtonHover);
 }
 
-.descBattle dt a {
+.descBattle dt span{
     display: block;
     text-align: center;
     padding: 0.5em;
     margin: 0em;
     width: 6em;
+    font-weight: bold;
 }
 
 .descBattle dd {

@@ -96,36 +96,19 @@ function onPlayerStateChange(event) {
     }
 }
 
-function newIframe() {
-    var link = thisBattle.getElementsByTagName("a")[0].href;
-    actualTitle.innerHTML = newTitle;
+function initIframe() {
+    descBattles = document.getElementsByClassName("descBattle");
+    actualTitle = document.getElementsByTagName("h3")[1];
 
-    var videoId = link.split('embed/')[1].split('?')[0];
-    var start = pressedButton.getAttribute("data-start");
-    var end = pressedButton.getAttribute("data-end");
-
-    player.loadVideoById({
-        videoId: videoId,
-        startSeconds: start,
-        endSeconds: end
-    });
-
-    for (var i = 0; i < descBattles.length; i++) {
-        var buttonPP = descBattles[i].getElementsByTagName("button")[0];
-        if (buttonPP.title.substr(0, 10) == "Interrompi") {
-            buttonPP.setAttribute("data-isPlaying", "false");
-            buttonPP.title = "Riproduci " + newTitle;
-        }
-    }
-
-    pressedButton.setAttribute("data-isPlaying", "true");
-    pressedButton.title = "Interrompi " + newTitle;
+    thisBattle = descBattles[0];
+    newTitle = thisBattle.getElementsByTagName("strong")[0].innerHTML;;
+    pressedButton = thisBattle.getElementsByTagName("button")[0];
 }
 
 function setIframe(battle) {
     thisBattle = descBattles[battle];
     pressedButton = thisBattle.getElementsByTagName("button")[0];
-    newTitle = thisBattle.getElementsByTagName("a")[0].title;
+    newTitle = thisBattle.getElementsByTagName("strong")[0].innerHTML;
 
     if (pressedButton.title.substr(0, 10) == "Interrompi") {
         player.pauseVideo();
@@ -142,16 +125,41 @@ function setIframe(battle) {
     }
 }
 
+function newIframe() {
+    var link = pressedButton.getAttribute("data-link");
+    actualTitle.innerHTML = "Esempio "+ newTitle;
+    thisBattle.getElementsByClassName("playerJump")[0].setAttribute("aria-hidden", "false");
+    thisBattle.getElementsByClassName("playerJump")[0].setAttribute("tabindex", "0");
+    var videoId = link.split('embed/')[1].split('?')[0];
+    var start = pressedButton.getAttribute("data-start");
+    var end = pressedButton.getAttribute("data-end");
 
+    player.loadVideoById({
+        videoId: videoId,
+        startSeconds: start,
+        endSeconds: end
+    });
 
-function initIframe() {
-    descBattles = document.getElementsByClassName("descBattle");
-    actualTitle = document.getElementsByTagName("h3")[1];
+    for (var i = 0; i < descBattles.length; i++) {
+        if(descBattles[i] != thisBattle){
+            descBattles[i].getElementsByClassName("playerJump")[0].setAttribute("aria-hidden", "true");
+            descBattles[i].getElementsByClassName("playerJump")[0].setAttribute("tabindex", "-1");
+        }
+        var buttonPP = descBattles[i].getElementsByTagName("button")[0];
+        if (buttonPP.title.substr(0, 10) == "Interrompi") {
+            buttonPP.setAttribute("data-isPlaying", "false");
+            buttonPP.title = "Riproduci " + newTitle;
+        }
+        
+    }
 
-    thisBattle = descBattles[0];
-    newTitle = thisBattle.getElementsByTagName("a")[0].title;
-    pressedButton = thisBattle.getElementsByTagName("button")[0];
+    pressedButton.setAttribute("data-isPlaying", "true");
+    pressedButton.title = "Interrompi " + newTitle;
 }
+
+
+
+
 
 
 
