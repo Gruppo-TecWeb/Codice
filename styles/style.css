@@ -1944,6 +1944,16 @@ div#admin-window {
     white-space: pre-wrap;
 }
 
+#login #form-login #buttons {
+    top: 2em;
+    padding-top: 2.5em;
+}
+
+#login #form-login #titolo {
+    top: 1em;
+    padding-top: 1.5em;
+}
+
 #login form,
 .adminPage form.aggiunta-modifica {
     display: grid;
