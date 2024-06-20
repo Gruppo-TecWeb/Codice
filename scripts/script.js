@@ -95,6 +95,12 @@ function onPlayerStateChange(event) {
         pressedButton.title = "Interrompi esempio " + newTitle;
     }
 }
+var descVideo = [];
+var innerDescVideo = [];
+
+function stripHTMLTags(str) {
+    return str.replace(/<\/?[^>]+(>|$)/g, "");
+}
 
 function initIframe() {
     descBattles = document.getElementsByClassName("descBattle");
@@ -105,16 +111,21 @@ function initIframe() {
     newTitle = thisBattle.getElementsByTagName("dt")[0].getElementsByTagName("span")[0].innerHTML;
     pressedButton = thisBattle.getElementsByTagName("button")[0];
     
-    var idDescVideo = []; 
-
+    var idDescVideo = [];
+     
+    
     for (var i = 0; i < descBattles.length; i++) {
-        var descVideo = descBattles[i].getElementsByTagName("p")[0];
+        descVideo = descBattles[i].getElementsByTagName("p")[0];
+        innerDescVideo[i]=stripHTMLTags(descVideo.innerHTML);
+        console.log(innerDescVideo);
         descVideo.setAttribute("id","desc_"+i);
         idDescVideo[i]=descVideo.getAttribute("id");
     }
     
     iframe = document.getElementById("iframe_battle");
     iframe.setAttribute("aria-describedby",idDescVideo[0]);
+    iframe.setAttribute("aria-label",innerDescVideo[0]);
+    //console.log(descVideo[0]);
 
 }
 
@@ -138,6 +149,7 @@ function setIframe(battle) {
         } else {
 
             iframe.setAttribute("aria-describedby","desc_"+battle);
+            iframe.setAttribute("aria-label",innerDescVideo[battle]);
             pressedButton.setAttribute("title","Riproduci esempio "+actualTitle.innerHTML);
            // console.log(pressedButton.title);
             newIframe();
