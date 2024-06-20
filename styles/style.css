@@ -91,6 +91,10 @@ a:visited {
     color: var(--colorLinkVisited);
 }
 
+.linkEsterno::after {
+    content: "\2197" / "";
+}
+
 .navigationHelp {
     position: absolute;
     width: 1px;
@@ -656,7 +660,8 @@ footer #footer-credits {
 }
 
 #video-home {
-    position: relative;
+    position: sticky;
+    top: 0;
     height: 100vh;
     border-left: 2px solid var(--colorAccent);
     border-bottom: 2px solid var(--colorAccent);
@@ -1077,6 +1082,14 @@ p.eventiMessaggio {
     margin-bottom: 2em;
 }
 
+#intro_battle h3 {
+    margin-top: 0.75em;
+}
+
+#intro_battle ul {
+    margin-block: 0.75em;
+}
+
 #intro_battle::after {
     content: '';
     position: absolute;
@@ -1098,14 +1111,14 @@ p.eventiMessaggio {
     justify-content: center;
     background-color: var(--colorAccent);
     padding: 0em;
-    align-items: center;
+    align-items: start;
     margin: 0em;
 }
 
 #container_battle h2 {
     background-color: var(--colorBackground);
     color: var(--colorAccent);
-    border-radius: 20px 20px 20px 20px;
+    border-radius: 14px;
     width: max-content;
     padding: 0.5em;
 }
@@ -1115,10 +1128,8 @@ p.eventiMessaggio {
     text-align: center;
     color: var(--colorSecondary);
     font-size: larger;
-    width: 50%;
     margin: 1em 0em 1em 1em;
     position: sticky;
-    bottom: 0;
     top: 3em;
     display: flex;
     flex-direction: column;
@@ -1130,7 +1141,7 @@ p.eventiMessaggio {
 #container_iframe h3 {
     background-color: var(--colorBackground);
     color: var(--colorAccent);
-    border-radius: 20px 20px 0px 0px;
+    border-radius: 14px 14px 0px 0px;
     width: max-content;
     padding: 0.5em;
 }
@@ -1138,7 +1149,7 @@ p.eventiMessaggio {
 #container_iframe iframe {
     width: 48vw;
     height: 27vw;
-    border-radius: 20px;
+    border-radius: 14px;
     border-style: none;
 }
 
@@ -1187,14 +1198,11 @@ p.eventiMessaggio {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin: 0em;
-    border-style: solid;
-    border-width: 0.2em 0em 0em 0em;
-    border-radius: 20px;
-    border-color: var(--colorAccent);
+    width: 100%;
+    margin: 2px;
+    border-radius: 14px;
     background-color: var(--colorBackground);
     color: var(--colorText);
-    width: 100%;
 }
 
 
@@ -1212,7 +1220,7 @@ p.eventiMessaggio {
     background-color: var(--colorButtonHover);
 }
 
-.descBattle dt span{
+.descBattle dt span {
     display: block;
     text-align: center;
     padding: 0.5em;
@@ -1364,7 +1372,7 @@ audio::-webkit-media-controls-play-button {
     display: none;
 }
 
-#lista_beats time {
+#lista_beats .time-container {
     align-self: center;
     margin: 1em;
 }
@@ -1934,6 +1942,16 @@ div#admin-window {
 
 .adminPage #evento-info-admin dd {
     white-space: pre-wrap;
+}
+
+#login #form-login #buttons {
+    top: 2em;
+    padding-top: 2.5em;
+}
+
+#login #form-login #titolo {
+    top: 1em;
+    padding-top: 1.5em;
 }
 
 #login form,
