@@ -518,17 +518,15 @@ footer #footer-credits {
 }
 
 #index #hero {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: space-between;
-    align-items: center;
     flex-direction: row;
     border-bottom: 2px solid var(--colorAccent);
 }
 
 #index #hero #titolo {
     width: 100%;
-    height: 100%;
     resize: horizontal;
     /* container-type: inline-size; */
 }
@@ -579,10 +577,12 @@ footer #footer-credits {
 }
 
 #evento-home {
-    position: relative;
     height: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto 1fr;
+    position: relative;
     padding-left: 2%;
-    overflow: hidden;
 }
 
 #evento-home::before {
@@ -597,28 +597,31 @@ footer #footer-credits {
 }
 
 #index #hero #evento-home h3 {
-    padding: 0.5em 1em;
+    padding: 0.5em;
     font-size: 1.5em;
     background-color: unset;
     z-index: var(--elevationHigh);
 }
 
 #evento-home>div {
-    width: 55%;
-    max-height: 85%;
+    width: fit-content;
+    height: fit-content;
     border: 1px solid;
+    margin: 0.5em;
+    grid-column: 1;
+    margin-top: unset;
     border-radius: 4px;
-    padding-bottom: 1em;
+    padding-bottom: 0.5em;
     overflow: hidden;
+    font-size: 1.1em;
     z-index: var(--elevationMiddle);
 }
 
 #evento-home>div>a {
-    display: inline;
+    display: block;
     width: 100%;
-    padding: 1em;
+    padding-inline: 1em;
     box-sizing: border-box;
-    text-align: end;
 }
 
 #index #hero #evento-home h4 {
@@ -631,14 +634,12 @@ footer #footer-credits {
 }
 
 #evento-home dl {
-    display: inline-grid;
+    display: grid;
     grid-template-columns: auto 1fr;
-    width: 50%;
     gap: 0 1em;
     padding: 0.2em 0.5em;
     box-sizing: border-box;
     color: var(--colorText);
-    font-size: 1.25em;
 }
 
 #evento-home dl dt {
@@ -646,15 +647,19 @@ footer #footer-credits {
 }
 
 #evento-home>a {
-    position: absolute;
-    bottom: 3em;
-    right: 3em;
+    width: 100%;
+    text-align: right;
+    padding-right: 1em;
+    padding-bottom: 1em;
+    align-self: end;
+    box-sizing: border-box;
 }
 
 #video-home {
     position: relative;
     height: 100vh;
     border-left: 2px solid var(--colorAccent);
+    border-bottom: 2px solid var(--colorAccent);
 }
 
 #video-home video {
@@ -1934,20 +1939,28 @@ div#admin-window {
 .adminPage form.aggiunta-modifica {
     display: grid;
     grid-template-areas: 'titolo bottoni   ' 'messaggi messaggi' 'input  input     ';
+    grid-template-columns: 1fr auto;
     justify-content: space-between;
 }
 
 #login form h3#titolo,
 .adminPage form.aggiunta-modifica h3#titolo {
     grid-area: titolo;
-    padding: 1em;
+    top: 2em;
+    background-color: var(--colorBackground);
+    position: sticky;
+    padding-block: 0.75em;
+    margin: unset;
 }
 
 #login form div#buttons,
 .adminPage form.aggiunta-modifica div#buttons {
     grid-area: bottoni;
+    position: sticky;
+    top: 4em;
+    background-color: var(--colorBackground);
     display: flex;
-    padding: 1em;
+    padding-block: 0.75em;
     align-items: center;
     justify-content: space-between;
     width: fit-content;
