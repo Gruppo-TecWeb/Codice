@@ -48,14 +48,15 @@ if ($connectionOk) {
     $eventi_senza_tipo = $connection->get_lista_eventi("", "Altri eventi");
     $lista_tipi_evento_array = $connection->get_tipi_evento();
     $oldest_date = $lista_eventi_array == null ? $connection->get_oldest_date() : '';
+    if($oldest_date == null) $oldest_date = '';
     $connection->close_DB_connection();
 
-    for($i = 0; $i < count($lista_eventi_array); $i++) {
+    for ($i = 0; $i < count($lista_eventi_array); $i++) {
         $lista_eventi_array[$i] = replace_lang_array($lista_eventi_array[$i]);
     }
     $eventi_senza_tipo = replace_lang_array($eventi_senza_tipo);
     $lista_tipi_evento_array = replace_lang_array($lista_tipi_evento_array);
-    
+
     $numero_pagine = ceil(count($lista_eventi_array) / $eventi_per_pagina);
 
     // Costruzione del messaggio di risultati
@@ -151,6 +152,7 @@ if ($connectionOk) {
     $offset = ($pagina - 1) * $eventi_per_pagina;
     $lista_eventi_array = array_slice($lista_eventi_array, $offset, $eventi_per_pagina);
     $lista_eventi_string = '';
+    $messaggio_lista_eventi = '';
     if ($lista_eventi_array == null) {
         $messaggioListaEventiTemplate = get_content_between_markers($content, 'messaggioListaEventi');
         if ($tipoEvento != '' || $data != '') {
@@ -158,10 +160,25 @@ if ($connectionOk) {
         } else {
             $messaggio = 'Non ci sono eventi in programma';
         }
-        $lista_eventi_string .= multi_replace($messaggioListaEventiTemplate, [
-            '{messaggio}' => $messaggio,
-            '{dataEventiPassati}' => $oldest_date
-        ]);
+        if ($oldest_date != '') {
+            $olderDateTemplate = get_content_between_markers($messaggioListaEventiTemplate, 'older_date');
+            $olderDateTemplate = multi_replace($olderDateTemplate, [
+                '{dataEventiPassati}' => $oldest_date
+            ]);
+            $lista_eventi_string .= replace_content_between_markers(multi_replace($messaggioListaEventiTemplate, [
+                '{messaggio}' => $messaggio,
+                '{dataEventiPassati}' => $oldest_date
+            ]), [
+                'older_date' => $olderDateTemplate
+            ]);
+        } else {
+            $messaggioListaEventiTemplate = replace_content_between_markers(multi_replace($messaggioListaEventiTemplate, [
+                '{messaggio}' => 'Non ci sono ancora eventi disponibili, non siamo nel flow giusto per ora.'
+            ]), [
+                'older_date' => ''
+            ]);
+            $lista_eventi_string .= $messaggioListaEventiTemplate;
+        }
     } else {
         $lista_eventi_string .= get_content_between_markers($content, 'listaEventi');
         $eventoImmagineTemplate = get_content_between_markers($content, 'eventoImmagine');
@@ -187,7 +204,7 @@ if ($connectionOk) {
     $messaggioFiltri .= $data != date('Y-m-d') ? 'eventi a partire dalla data: ' . multi_replace(get_content_between_markers($content, 'messaggioFiltri'), [
         '{valueDataEvento}' => $data,
         '{dataEvento}' => date_format_ita($data)
-    
+
     ]) : '';
     $messaggioFiltri .= $tipoEvento != '' ? ' di tipo: ' . $tipoEvento : '';
 
