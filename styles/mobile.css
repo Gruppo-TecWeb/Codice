@@ -787,7 +787,6 @@ label {
     padding: unset;
 }
 
-
 .adminPage.fullMenu footer {
     padding-bottom: 10em;
 }
@@ -875,6 +874,7 @@ label {
 .adminPage form.aggiunta-modifica h3#titolo,
 #login form div#input,
 .adminPage form.aggiunta-modifica div#input {
+    position: unset;
     max-width: var(--widthMenu);
 }
 
@@ -889,6 +889,8 @@ label {
 
 .adminPage form.aggiunta-modifica div#buttons {
     padding: unset;
+    position: fixed;
+    top: unset;
 }
 
 #login form div#buttons,
@@ -910,7 +912,8 @@ label {
 
 #login form h3#titolo,
 .adminPage form.aggiunta-modifica h3#titolo {
-    padding: unset;
+    /* padding: unset; */
+    text-align: center;
 }
 
 
