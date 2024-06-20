@@ -1365,7 +1365,7 @@ audio::-webkit-media-controls-play-button {
     display: none;
 }
 
-#lista_beats time {
+#lista_beats .time-container {
     align-self: center;
     margin: 1em;
 }
