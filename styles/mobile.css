@@ -396,6 +396,7 @@ footer .logo {
 }
 
 #video-home {
+    position: relative;
     width: 100%;
     border-left: unset;
 }

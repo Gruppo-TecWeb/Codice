@@ -656,7 +656,8 @@ footer #footer-credits {
 }
 
 #video-home {
-    position: relative;
+    position: sticky;
+    top: 0;
     height: 100vh;
     border-left: 2px solid var(--colorAccent);
     border-bottom: 2px solid var(--colorAccent);
