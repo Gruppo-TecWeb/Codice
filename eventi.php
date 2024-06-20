@@ -20,6 +20,8 @@ $menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 $logout = '';
+$classList = '';
+$logo = get_content_between_markers($paginaHTML, 'logoLink');
 
 $connection = DBAccess::get_instance();
 $connectionOk = $connection->open_DB_connection();
@@ -48,6 +50,12 @@ if ($connectionOk) {
     $oldest_date = $lista_eventi_array == null ? $connection->get_oldest_date() : '';
     $connection->close_DB_connection();
 
+    for($i = 0; $i < count($lista_eventi_array); $i++) {
+        $lista_eventi_array[$i] = replace_lang_array($lista_eventi_array[$i]);
+    }
+    $eventi_senza_tipo = replace_lang_array($eventi_senza_tipo);
+    $lista_tipi_evento_array = replace_lang_array($lista_tipi_evento_array);
+    
     $numero_pagine = ceil(count($lista_eventi_array) / $eventi_per_pagina);
 
     // Costruzione del messaggio di risultati
@@ -206,6 +214,7 @@ if (isset($_SESSION["login"])) {
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'logo' => $logo,
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu,
     'logout' => $logout
@@ -215,5 +224,6 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{content}' => $content,
-    '{onload}' => $onload
+    '{onload}' => $onload,
+    '{classList}' => $classList
 ]);
