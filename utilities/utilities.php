@@ -3,7 +3,7 @@
 namespace Utilities;
 
 const MB = 1048576;
-const MAX_FILE_SIZE = 10*MB;
+const MAX_FILE_SIZE = 10 * MB;
 const PAGES_ARRAY = [
     'index'                         => ['href' => 'index.php',                   'anchor' => 'Home',                                      'lang' => 'en', 'menuOrder' => 1, 'admin' => 0, 'parentId' => ''],
     'eventi'                        => ['href' => 'eventi.php',                  'anchor' => 'Eventi',                                    'lang' => '',   'menuOrder' => 2, 'admin' => 0, 'parentId' => 'index'],
@@ -128,6 +128,11 @@ function validate_input($data) {
     return $data;
 }
 
+function validate_date_time($date, $format = 'Y-m-d H:i:s') {
+    $d = \DateTime::createFromFormat($format, $date);
+    return $d && $d->format($format) == $date;
+}
+
 function get_content_between_markers($content, $marker) {
     $start = strpos($content, '{' . $marker . '}');
     $end = strpos($content, '{/' . $marker . '}');
@@ -187,4 +192,39 @@ function date_format_ita($data) {
     $anno = $dataOggetto->format('Y');
 
     return $giorno . ' ' . $mese . ' ' . $anno;
+}
+
+function replace_lang(string $input) {
+    $startTag = '<span lang="${1}">';
+    $endTag = '</span>';
+
+    $input = preg_replace('/\{\/.{2}\}/', '</span>', $input);
+
+    $input = preg_replace('/\{(\w{2})\}/', '<span lang="${1}">', $input);
+
+    return $input;
+}
+
+function replace_lang_array(array $inputArray) {
+    foreach ($inputArray as &$input) {
+        if (is_string($input)) {
+            $input = replace_lang($input);
+        }
+    }
+    unset($input);
+    return $inputArray;
+}
+
+function replace_lang_dictionary(array $inputDictionary) {
+    if ($inputDictionary == null) {
+        return null;
+    }
+    foreach ($inputDictionary as $key => $value) {
+        if (is_string($value)) {
+            $inputDictionary[$key] = replace_lang($value);
+        } elseif (is_array($value)) {
+            $inputDictionary[$key] = replace_lang_array($value);
+        }
+    }
+    return $inputDictionary;
 }

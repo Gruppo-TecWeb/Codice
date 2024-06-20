@@ -19,6 +19,8 @@ $keywords = 'Fungo, amministrazione, tipi evento';
 $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
+$classList = 'fullMenu';
+$logo = get_content_between_markers($paginaHTML, 'logoLink');
 
 if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
@@ -38,7 +40,7 @@ if ($connectionOk) {
     $legendModifica = 'Modifica Tipo Evento';
     $validNuovoTitolo = isset($_POST['nuovoTitolo']) ? validate_input($_POST['nuovoTitolo']) : "";
     $validNuovaDescrizione = isset($_POST['nuovaDescrizione']) ? validate_input($_POST['nuovaDescrizione']) : "";
-    $validTitolo = isset($_POST['titolo']) ? validate_input($_POST['titolo']) : "";
+    $validTitolo = isset($_GET['titolo']) ? validate_input($_GET['titolo']) : "";
     $nuovoTitolo = '';
     $nuovaDescrizione = '';
     $titolo = '';
@@ -46,25 +48,28 @@ if ($connectionOk) {
     $valueAzione = '';
     if (((isset($_POST['nuovoTitolo']) && $_POST['nuovoTitolo'] != "") && $validNuovoTitolo == "") ||
         ((isset($_POST['nuovaDescrizione']) && $_POST['nuovaDescrizione'] != "") && $validNuovaDescrizione == "") ||
-        ((isset($_POST['titolo']) && $_POST['titolo'] != "") && $validTitolo == "")) {
+        ((isset($_GET['titolo']) && $_GET['titolo'] != "") && $validTitolo == "")) {
         header("location: tipi-evento.php?errore=invalid");
         exit;
     }
-    $errore = '0';
+    $errore = false;
   
-    if (isset($_POST['elimina'])) {
+    if (isset($_GET['elimina']) || isset($_POST['elimina'])) {
         $connection->delete_tipo_evento($validTitolo);
-        $eliminato = $connection->get_tipo_evento($validTitolo) ? 0 : 1;
-        header("location: tipi-evento.php?eliminato=$eliminato");
+        if ($connection->get_tipo_evento($validTitolo)) {
+            header("location: tipi-evento.php?eliminato=false");
+        } else {
+            header("location: tipi-evento.php?eliminato=true");
+        }
         exit;
-    } elseif (isset($_POST['modifica'])) {
+    } elseif (isset($_GET['modifica'])) {
         $legend = $legendModifica;
         $nuovoTitolo = $validTitolo;
         $nuovaDescrizione = $connection->get_tipo_evento($validTitolo)['Descrizione'];
         $titolo = $validTitolo;
         $descrizione = $nuovaDescrizione;
         $valueAzione = 'modifica';
-    } elseif (isset($_POST['aggiungi'])) {
+    } elseif (isset($_GET['aggiungi'])) {
         $buttonElimina = '';
         $legend = $legendAggiungi;
         $valueAzione = 'aggiungi';
@@ -72,53 +77,84 @@ if ($connectionOk) {
         $nuovoTitolo = $validNuovoTitolo;
         $nuovaDescrizione = $validNuovaDescrizione;
         $titolo = $validTitolo;
-        $descrizione = $connection->get_tipo_evento($validTitolo)['Descrizione'];
+        $descrizione = $validTitolo == "" ? "" : $connection->get_tipo_evento($validTitolo)['Descrizione'];
         if ($_POST['azione'] == 'aggiungi') {
-            $errore = '0';
             $legend = $legendAggiungi;
             $valueAzione = 'aggiungi';
-            $errore = $connection->get_tipo_evento($validNuovoTitolo) ? '1' : '0';
-            if ($errore == '0') {
-                $connection->insert_tipo_evento($validNuovoTitolo, $validNuovaDescrizione);
-                $errore = $connection->get_tipo_evento($validNuovoTitolo) ? '0' : '1';
-            } else {
+            if ($validNuovoTitolo == "") {
                 $messaggiForm .= multi_replace($messaggioForm, [
-                    '{messaggio}' => "Tipo Evento già esistente con questo titolo"
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Il titolo è obbligatorio'
                 ]);
+                $errore = true;
             }
-            if ($errore == '0') {
-                header("location: tipi-evento.php?aggiunto=1");
-                exit;
+            if ($connection->get_tipo_evento($validNuovoTitolo)) {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Esiste già un Tipo Evento con questo Titolo'
+                ]);
+                $errore = true;
+            }
+            if (!$errore) {
+                $connection->insert_tipo_evento($validNuovoTitolo, $validNuovaDescrizione);
+                if ($connection->get_tipo_evento($validNuovoTitolo)) {
+                    $messaggiForm .= multi_replace($messaggioForm, [
+                        '{tipoMessaggio}' => 'successMessage',
+                        '{messaggio}' => 'Tipo Evento aggiunto con successo'
+                    ]);
+                    header("location: tipi-evento.php?aggiunto=true");
+                    exit;
+                } else {
+                    $messaggiForm .= multi_replace($messaggioForm, [
+                        '{tipoMessaggio}' => 'inputError',
+                        '{messaggio}' => 'Errore nell\'inserimento del Tipo Evento'
+                    ]);
+                }
             }
         } elseif ($_POST['azione'] == 'modifica') {
-            $errore = '0';
             $legend = $legendModifica;
             $valueAzione = 'modifica';
-            if ($validTitolo != $validNuovoTitolo) {
-                $errore = $connection->get_tipo_evento($validNuovoTitolo) ? '1' : '0';
+            if ($validNuovoTitolo == "") {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Il titolo è obbligatorio'
+                ]);
+                $errore = true;
             }
-            if ($errore == '0') {
+            if ($validTitolo != $validNuovoTitolo && $connection->get_tipo_evento($validNuovoTitolo)) {
+                $errore = true;
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Esiste già un Tipo Evento con questo titolo'
+                ]);
+            }
+            if (!$errore) {
                 $connection->update_tipo_evento($validTitolo, $validNuovoTitolo, $validNuovaDescrizione);
-                $tipo_evento = $connection->get_tipo_evento($validNuovoTitolo);
-                if (count($tipo_evento) == 0) {
-                    $errore = '1';
+                $updatedTipoEvento = $connection->get_tipo_evento($validNuovoTitolo);
+                if (count($updatedTipoEvento) != 0 &&
+                    $updatedTipoEvento['Descrizione'] == $validNuovaDescrizione) {
+                    $messaggiForm .= multi_replace($messaggioForm, [
+                        '{tipoMessaggio}' => 'successMessage',
+                        '{messaggio}' => 'Tipo Evento modificato con successo'
+                    ]);
+                    $titolo = $validNuovoTitolo;
+                    header("location: tipi-evento.php?modificato=true");
+                    exit;
+                } else {
+                    $messaggiForm .= multi_replace($messaggioForm, [
+                        '{tipoMessaggio}' => 'inputError',
+                        '{messaggio}' => 'Errore nella modifica del Tipo Evento'
+                    ]);
                 }
             } else {
                 $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
                     '{messaggio}' => "Tipo Evento già esistente con questo titolo"
                 ]);
             }
-            if ($errore == '0') {
-                $messaggiForm .= multi_replace($messaggioForm, [
-                    '{messaggio}' => 'Modifica effettuata con successo'
-                ]);
-                $titolo = $validNuovoTitolo;
-            } else {
-                $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);
-            }
         }
     } else {
-        header("location: tipi-evento.php");
+        header("location: tipi-evento.php?errore=invalid");
         exit;
     }
 
@@ -144,6 +180,7 @@ if ($connectionOk) {
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'logo' => $logo,
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu
 ]), [
@@ -152,5 +189,6 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{content}' => $content,
-    '{onload}' => $onload
+    '{onload}' => $onload,
+    '{classList}' => $classList
 ]);

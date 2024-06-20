@@ -20,6 +20,8 @@ $menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = 'init_index()';
 $logout = '';
+$classList = '';
+$logo = get_content_between_markers($paginaHTML, 'logoNoLink');
 
 if (isset($_SESSION["login"])) {
     $logout = get_content_between_markers($paginaHTML, 'logout');
@@ -33,8 +35,8 @@ $connection = DBAccess::get_instance();
 $connectionOk = $connection->open_DB_connection();
 if ($connectionOk) {
     $headingEvento = '';
-
     $listaEventi  = $connection->get_lista_eventi(date('Y-m-d')); // lista eventi futuri
+
     if (count($listaEventi) > 0) { // se ci sono eventi futuri
         $headingEvento = get_content_between_markers($eventoHome, 'prossimoEvento');
     } else { // altrimenti prendo i passati
@@ -44,6 +46,7 @@ if ($connectionOk) {
     if (count($listaEventi) > 0) { // se ho ottenuto eventi
         $eventoId = $listaEventi[0]['Id'];
         $evento = $connection->get_evento($eventoId);
+        $evento = replace_lang_array($evento);
         [$tipoEvento, $titolo, $descrizione, $data, $ora, $luogo, $locandina] = array_values($evento);
 
         $contentEvento = multi_replace(replace_content_between_markers($eventoHome, [
@@ -69,6 +72,7 @@ $content = replace_content_between_markers($content, [
 ]);
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'logo' => $logo,
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu,
     'logout' => $logout
@@ -78,5 +82,6 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{content}' => $content,
-    '{onload}' => $onload
+    '{onload}' => $onload,
+    '{classList}' => $classList
 ]);

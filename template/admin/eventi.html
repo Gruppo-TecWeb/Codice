@@ -1,7 +1,7 @@
 <div id="eventi" class="limitedWidth">
     <div id="titolo-button">
         <h3>Gestione Eventi</h3>
-        <form method="post" action="gestione-eventi.php">
+        <form method="get" action="gestione-eventi.php" class="subMenu">
             <button id="aggiungi" type="submit" name="aggiungi" value="true">Aggiungi nuovo Evento</button>
         </form>
     </div>
@@ -9,7 +9,7 @@
     <div id="messaggi">
         <ul id="messaggi-form">
             {messaggioForm}
-            <li>{messaggio}</li>{/messaggioForm}
+            <li class="{tipoMessaggio}">{messaggio}</li>{/messaggioForm}
         </ul>
     </div>
     {/messaggiForm}
@@ -20,14 +20,18 @@
             {elementoLista}
             <li>
                 <span class="label-element"><span class="element-title">{titolo}</span> (<time datetime="{data}">{dataVisualizzata}</time>)</span>
-                <form method="post" action="gestione-eventi.php">
+                <form method="get" action="gestione-eventi.php">
                     <input type="hidden" name="idEvento" value="{idEvento}">
                     <button type="submit" name="modifica" value="true">Modifica<span class="screen-reader-only"> l'evento {titolo} del {data}</span></button>
                     <button type="submit" name="punteggi" value="true"><span class="screen-reader-only">Gestisci i </span>Punteggi<span class="screen-reader-only"> dell'evento {titolo} del {data}</span></button>
                     <button type="submit" name="elimina" value="true">Elimina<span class="screen-reader-only"> l'evento {titolo} del {data}</span></button>
                 </form>
             </li>
-            {/elementoLista}
+            {/elementoLista}{nessunElemento}
+            <li>
+                <span class="label-element">Nessun evento presente</span>
+            </li>
+            {/nessunElemento}
         </ol>
     </div>
 </div>

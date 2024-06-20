@@ -104,7 +104,7 @@ header {
     justify-content: center;
 }
 
-header>a {
+header h1.logo {
     margin: 0;
 }
 
@@ -208,6 +208,12 @@ header .logo {
 
 #breadcrumbs-container {
     transition: 0.5s;
+}
+
+.fullMenu #breadcrumbs-container {
+    min-width: var(--widthMenu);
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
 }
 
 #breadcrumbs-container[data-menu-open=true] {
@@ -333,6 +339,8 @@ footer .logo {
 }
 
 #evento-home {
+    display: flex;
+    flex-direction: column;
     padding: 0;
     background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0) 10px);
 }
@@ -388,6 +396,7 @@ footer .logo {
 }
 
 #video-home {
+    position: relative;
     width: 100%;
     border-left: unset;
 }
@@ -439,7 +448,7 @@ footer .logo {
     object-fit: contain;
 }
 
-.ddImg p {
+.ddImg figcaption {
     box-sizing: border-box;
     padding: 0.5em calc((100% - var(--widthMenu)) / 2);
 }
@@ -590,44 +599,55 @@ label {
  * PAGINA MODALITA' 
  */
 
-
-/* 
- * PAGINA BATTLE
- */
+#intro_battle ul {
+    list-style: none;
+}
 
 #container_battle {
     display: flex;
-    flex-direction: column;
-}
-
-#container_iframe iframe {
-    width: 96vw;
-    height: 45vw;
+    flex-direction: column-reverse;
+    align-items: center;
 }
 
 #container_iframe {
+    width: var(--widthMenu);
     position: sticky;
-    top: 0;
-    background-color: var(--accentColor);
-    width: 100%;
+    top: 0.5em;
     height: 100%;
-    margin: 1em;
+    margin: unset;
+    padding-top: 2em;
+    border-radius: 14px;
+    background-color: var(--colorAccent);
+}
+
+#container_iframe iframe {
+    height: 45vw;
+    border-radius: 14px;
+    box-sizing: border-box;
+    width: 100%;
+    border: 4px solid var(--colorAccent);
+}
+
+#container_iframe h3 {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
 }
 
 #lista_battle {
-    width: 96vw;
+    width: 100%;
 }
 
 
 /* 
  * PAGINA BEATS
 */
-
-#beats #breadcrumbs-container {
-    min-width: var(--widthMenu);
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
-}
 
 #beats footer {
     padding-bottom: calc(var(--marginBottomMenu) + var(--minHeightButton) + 2em + 6em);
@@ -757,6 +777,10 @@ label {
  * AREA DI AMMINISTRAZIONE 
  */
 
+.adminPage {
+    padding-top: 3.5em;
+}
+
 .adminPage table th,
 .adminPage table td {
     padding: 0.1em;
@@ -773,6 +797,16 @@ label {
 
 .adminPage div#titolo-button {
     flex-direction: column;
+    position: unset;
+}
+
+.adminPage div#titolo-button .subMenu button {
+    width: 100%;
+    padding: unset;
+}
+
+.adminPage.fullMenu footer {
+    padding-bottom: 10em;
 }
 
 .adminPage ol {
@@ -849,6 +883,57 @@ label {
     padding: 2.5em 0;
 }
 
+#login form,
+.adminPage form.aggiunta-modifica {
+    grid-template-areas: 'titolo  ' 'messaggi' 'input   ' 'bottoni ';
+}
+
+#login form h3#titolo,
+.adminPage form.aggiunta-modifica h3#titolo,
+#login form div#input,
+.adminPage form.aggiunta-modifica div#input {
+    position: unset;
+    max-width: var(--widthMenu);
+}
+
+#login {
+    padding-top: unset;
+}
+
+#login form div#buttons {
+    padding: unset;
+    width: 100%;
+}
+
+.adminPage form.aggiunta-modifica div#buttons {
+    padding: unset;
+    position: fixed;
+    top: unset;
+}
+
+#login form div#buttons,
+.adminPage form.aggiunta-modifica div#buttons :first-child {
+    margin-left: unset;
+}
+
+#login form div#buttons,
+.adminPage form.aggiunta-modifica div#buttons :last-child {
+    margin-right: unset;
+}
+
+#login form div#buttons button,
+.adminPage form.aggiunta-modifica div#buttons button {
+    padding: unset;
+    margin: 0 0.125em;
+    width: 100%;
+}
+
+#login form h3#titolo,
+.adminPage form.aggiunta-modifica h3#titolo {
+    /* padding: unset; */
+    text-align: center;
+}
+
 
 /* 
  * PAGINA CLASSIFICHE 
@@ -874,6 +959,19 @@ table#tabella-classifica {
 div#Micelio,
 div#Fungo {
     background-image: none;
+}
+
+body .titolo-filtri {
+    position: unset;
+    top: unset;
+    z-index: unset;
+    background-color: unset;
+}
+
+div.des-classifica p {
+    position: unset;
+    top: unset;
+    z-index: unset;
 }
 
 
