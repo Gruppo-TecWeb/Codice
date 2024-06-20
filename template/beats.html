@@ -23,7 +23,7 @@
 					<h3 lang="en" class="titleBeat">Goodbye - Big Joe</h3>
 					<button
 						class="btnPlay"
-						onclick="playerAudio('Goodbye - Big Joe.mp3')"
+						onclick="playerAudio('Goodbye - Big Joe.mp3', 1)"
 						aria-label="Riproduci Goodbye - Big Joe"
 						title="Riproduci Goodbye - Big Joe"
 						data-title-beat="Goodbye - Big Joe"
@@ -39,7 +39,7 @@
 				</div>
 			</div>
 
-			<div class="descBeats" data-show="false" hidden>
+			<div id="desc_1" class="descBeats" data-show="false" hidden>
 				Un ritmo ipnotico che fluisce come un fiume in piena, dando spazio alle
 				tue parole per danzare sulla sua corrente.
 			</div>
@@ -54,7 +54,7 @@
 					<h3 lang="en" class="titleBeat">Big L Ebonics</h3>
 					<button
 						class="btnPlay"
-						onclick="playerAudio('Big L Ebonics.mp3')"
+						onclick="playerAudio('Big L Ebonics.mp3', 2)"
 						aria-label="Riproduci Big L Ebonics"
 						title="Riproduci Big L Ebonics"
 						data-title-beat="Big L Ebonics"
@@ -70,7 +70,7 @@
 				</div>
 			</div>
 
-			<div class="descBeats" data-show="false" hidden>
+			<div id="desc_2" class="descBeats" data-show="false" hidden>
 				Un <span lang="en">beat</span> con elementi futuristici e suoni
 				elettronici che ti trasportano in un mondo di possibilità nel quale puoi
 				sperimentare senza limiti.
@@ -87,7 +87,7 @@
 
 					<button
 						class="btnPlay"
-						onclick="playerAudio('Busta Rhymes - Psycobusta.mp3')"
+						onclick="playerAudio('Busta Rhymes - Psycobusta.mp3', 3)"
 						aria-label="Riproduci Busta Rhymes - Psycobusta"
 						title="Riproduci Busta Rhymes - Psycobusta"
 						data-title-beat="Busta Rhymes - Psycobusta"
@@ -103,7 +103,7 @@
 				</div>
 			</div>
 
-			<div class="descBeats" data-show="false" hidden>
+			<div id="desc_3" class="descBeats" data-show="false" hidden>
 				Una composizione minimalista che mette in risalto la tua voce,
 				permettendoti di dominare la scena con il tuo stile unico.
 			</div>
@@ -121,7 +121,7 @@
 
 					<button
 						class="btnPlay"
-						onclick="playerAudio('Dilated Peoples - The Platform (Erik Sermon Remix).mp3')"
+						onclick="playerAudio('Dilated Peoples - The Platform (Erik Sermon Remix).mp3', 4)"
 						aria-label="Riproduci Dilated Peoples - The Platform (Erik Sermon Remix)"
 						title="Riproduci Dilated Peoples - The Platform (Erik Sermon Remix)"
 						data-title-beat="Dilated Peoples - The Platform (Erik Sermon Remix)"
@@ -137,7 +137,7 @@
 				</div>
 			</div>
 
-			<div class="descBeats" data-show="false" hidden>
+			<div id="desc_4" class="descBeats" data-show="false" hidden>
 				Un <span lang="en">beat</span> dal groove classico e accattivante, un
 				richiamo alle radici dell'<span lang="en">hip-hop</span>, pronto a far
 				vibrare l'anima delle tue rime.
@@ -154,7 +154,7 @@
 
 					<button
 						class="btnPlay"
-						onclick="playerAudio('DJ Premier - BAP.mp3')"
+						onclick="playerAudio('DJ Premier - BAP.mp3', 5)"
 						aria-label="Riproduci DJ Premier - BAP"
 						title="Riproduci DJ Premier - BAP"
 						data-title-beat="DJ Premier - BAP"
@@ -171,7 +171,7 @@
 				</div>
 			</div>
 
-			<div class="descBeats" data-show="false" hidden>
+			<div id="desc_5" class="descBeats" data-show="false" hidden>
 				Una base ritmica pesante e decisa, pronta a sostenere le tue rime con
 				una potenza inarrestabile.
 			</div>
@@ -187,7 +187,7 @@
 
 					<button
 						class="btnPlay"
-						onclick="playerAudio('DJ Premier - That White.mp3')"
+						onclick="playerAudio('DJ Premier - That White.mp3', 6)"
 						aria-label="Riproduci DJ Premier - That White"
 						title="Riproduci DJ Premier - That White"
 						data-title-beat="DJ Premier - That White"
@@ -203,7 +203,7 @@
 				</div>
 			</div>
 
-			<div class="descBeats" data-show="false" hidden>
+			<div id="desc_6" class="descBeats" data-show="false" hidden>
 				Una traccia con un ritmo contagioso e un beat che invoglia all'azione,
 				perfetto per mettere in mostra la tua versatilità e la tua abilità nel
 				<span lang="en">freestyle rap</span>.
@@ -220,7 +220,7 @@
 
 					<button
 						class="btnPlay"
-						onclick="playerAudio('Full Clip-Gangstarr.mp3')"
+						onclick="playerAudio('Full Clip-Gangstarr.mp3', 7)"
 						aria-label="Riproduci Full Clip-Gangstarr"
 						title="Riproduci Full Clip-Gangstarr"
 						data-title-beat="Full Clip-Gangstarr"
@@ -236,7 +236,7 @@
 				</div>
 			</div>
 
-			<div class="descBeats" data-show="false" hidden>
+			<div id="desc_7" class="descBeats" data-show="false" hidden>
 				Un <span lang="en">beat</span> con una melodia maliziosa che ti invita a
 				sfidare le convenzioni e a esplorare nuove dimensioni nel tuo
 				<span lang="en">freestyle</span>.
@@ -253,7 +253,7 @@
 
 					<button
 						class="btnPlay"
-						onclick="playerAudio('Funkdoobiest - Lost in Thought.mp3')"
+						onclick="playerAudio('Funkdoobiest - Lost in Thought.mp3', 8)"
 						aria-label="Riproduci Funkdoobiest - Lost in Thought"
 						title="Riproduci Funkdoobiest - Lost in Thought"
 						data-title-beat="Funkdoobiest - Lost in Thought"
@@ -269,7 +269,7 @@
 				</div>
 			</div>
 
-			<div class="descBeats" data-show="false" hidden>
+			<div id="desc_8" class="descBeats" data-show="false" hidden>
 				Un <span lang="en">beat</span> con un mix di elementi jazz e percussioni
 				incalzanti, regalando una base sofisticata per le tue improvvisazioni
 				poetiche.
@@ -286,7 +286,7 @@
 
 					<button
 						class="btnPlay"
-						onclick="playerAudio('Gang Starr - Battle.mp3')"
+						onclick="playerAudio('Gang Starr - Battle.mp3', 9)"
 						aria-label="Riproduci Gang Starr - Battle"
 						title="Riproduci Gang Starr - Battle"
 						data-title-beat="Gang Starr - Battle"
@@ -302,7 +302,7 @@
 				</div>
 			</div>
 
-			<div class="descBeats" data-show="false" hidden>
+			<div id="desc_9" class="descBeats" data-show="false" hidden>
 				Una mescolanza di suoni urbani e ritmi urbani, creando un'atmosfera che
 				ti avvolge e ti spinge a esprimere la tua autenticità nel
 				<span lang="en">freestyle</span>.
@@ -319,7 +319,7 @@
 
 					<button
 						class="btnPlay"
-						onclick="playerAudio('J. Cole - Fire Squad.mp3')"
+						onclick="playerAudio('J. Cole - Fire Squad.mp3', 10)"
 						aria-label="Riproduci J. Cole - Fire Squad"
 						title="Riproduci J. Cole - Fire Squad"
 						data-title-beat="J. Cole - Fire Squad"
@@ -335,7 +335,7 @@
 				</div>
 			</div>
 
-			<div class="descBeats" data-show="false" hidden>
+			<div id="desc_10" class="descBeats" data-show="false" hidden>
 				Un <span lang="en">beat</span> dall'andamento selvaggio e irregolare,
 				perfetto per testare le tue abilità nel mantenere il controllo durante
 				il <span lang="en">freestyle</span>.
@@ -354,7 +354,7 @@
 
 					<button
 						class="btnPlay"
-						onclick="playerAudio('Jam Baxter - Fine (Prod GhostTown).mp3')"
+						onclick="playerAudio('Jam Baxter - Fine (Prod GhostTown).mp3', 11)"
 						aria-label="Riproduci Jam Baxter - Fine (Prod GhostTown)"
 						title="Riproduci Jam Baxter - Fine (Prod GhostTown)"
 						data-title-beat="Jam Baxter - Fine (Prod GhostTown)"
@@ -370,7 +370,7 @@
 				</div>
 			</div>
 
-			<div class="descBeats" data-show="false" hidden>
+			<div id="desc_11" class="descBeats" data-show="false" hidden>
 				Un <span lang="en">beat</span> dai suoni energetici e taglienti, pronto
 				a guidare le tue rime con una potente base ritmica.
 			</div>
@@ -386,7 +386,7 @@
 
 					<button
 						class="btnPlay"
-						onclick="playerAudio('Method Man _ Redman - A-Yo.mp3')"
+						onclick="playerAudio('Method Man _ Redman - A-Yo.mp3', 12)"
 						aria-label="Riproduci Method Man _ Redman - A-Yo"
 						title="Riproduci Method Man _ Redman - A-Yo"
 						data-title-beat="Method Man _ Redman - A-Yo"
@@ -402,7 +402,7 @@
 				</div>
 			</div>
 
-			<div class="descBeats" data-show="false" hidden>
+			<div id="desc_12" class="descBeats" data-show="false" hidden>
 				Un <span lang="en">beat</span> dal ritmo incalzante che cattura
 				l'attenzione sin dai primi battiti, perfetto per scatenare la tua
 				creatività nel <span lang="en">freestyle rap</span>.
@@ -419,7 +419,7 @@
 
 					<button
 						class="btnPlay"
-						onclick="playerAudio('Movie Villains.mp3')"
+						onclick="playerAudio('Movie Villains.mp3', 13)"
 						aria-label="Riproduci Movie Villains"
 						title="Riproduci Movie Villains"
 						data-title-beat="Movie Villains"
@@ -435,7 +435,7 @@
 				</div>
 			</div>
 
-			<div class="descBeats" data-show="false" hidden>
+			<div id="desc_13" class="descBeats" data-show="false" hidden>
 				Un <span lang="en">beat</span> oscuro e potente, perfetto per
 				trasportarti nel mondo dei cattivi del cinema. Con i suoi bassi profondi
 				e i suoni inquietanti, ti farà sentire come il protagonista di un film
@@ -453,7 +453,7 @@
 
 					<button
 						class="btnPlay"
-						onclick="playerAudio('Noyz Narcos - Trucemala.mp3')"
+						onclick="playerAudio('Noyz Narcos - Trucemala.mp3', 14)"
 						aria-label="Riproduci Noyz Narcos - Trucemala"
 						title="Riproduci Noyz Narcos - Trucemala"
 						data-title-beat="Noyz Narcos - Trucemala"
@@ -469,7 +469,7 @@
 				</div>
 			</div>
 
-			<div class="descBeats" data-show="false" hidden>
+			<div id="desc_14" class="descBeats" data-show="false" hidden>
 				Questo <span lang="en">beat</span> cattura l'essenza del rap hardcore,
 				con ritmi aggressivi e bassi intensi. Ideale per testi forti e decisi,
 				ti darà l'energia giusta per esprimere la tua rabbia e passione.
@@ -486,7 +486,7 @@
 
 					<button
 						class="btnPlay"
-						onclick="playerAudio('RA Rugged man - Dangerous Three.mp3')"
+						onclick="playerAudio('RA Rugged man - Dangerous Three.mp3', 15)"
 						aria-label="Riproduci RA Rugged man - Dangerous Three"
 						title="Riproduci RA Rugged man - Dangerous Three"
 						data-title-beat="RA Rugged man - Dangerous Three"
@@ -502,7 +502,7 @@
 				</div>
 			</div>
 
-			<div class="descBeats" data-show="false" hidden>
+			<div id="desc_15" class="descBeats" data-show="false" hidden>
 				Un <span lang="en">beat</span> incalzante e grintoso, caratterizzato da
 				campionamenti <span lang="en">vintage</span> e ritmi serrati. Perfetto
 				per mostrare le tue abilità liriche e mantenere alta l'attenzione degli
@@ -522,7 +522,7 @@
 
 					<button
 						class="btnPlay"
-						onclick="playerAudio('Step Brothers (Alchemist _ Evidence) - Step Masters.mp3')"
+						onclick="playerAudio('Step Brothers (Alchemist _ Evidence) - Step Masters.mp3', 16)"
 						aria-label="Riproduci Step Brothers (Alchemist _ Evidence) - Step Masters"
 						title="Riproduci Step Brothers (Alchemist _ Evidence) - Step Masters"
 						data-title-beat="Step Brothers (Alchemist _ Evidence) - Step Masters"
@@ -538,7 +538,7 @@
 				</div>
 			</div>
 
-			<div class="descBeats" data-show="false" hidden>
+			<div id="desc_16" class="descBeats" data-show="false" hidden>
 				Un <span lang="en">beat</span> sofisticato e melodico che unisce
 				elementi di jazz e hip-hop. Ideale per raccontare storie e mostrare il
 				tuo talento nel costruire narrazioni coinvolgenti attraverso il rap.
@@ -557,7 +557,7 @@
 
 					<button
 						class="btnPlay"
-						onclick="playerAudio('Wu Tang Clan _ Mobb Deep - Phat Beat.mp3')"
+						onclick="playerAudio('Wu Tang Clan _ Mobb Deep - Phat Beat.mp3', 17)"
 						aria-label="Riproduci Wu Tang Clan _ Mobb Deep - Phat Beat"
 						title="Riproduci Wu Tang Clan _ Mobb Deep - Phat Beat"
 						data-title-beat="Wu Tang Clan _ Mobb Deep - Phat Beat"
@@ -573,7 +573,7 @@
 				</div>
 			</div>
 
-			<div class="descBeats" data-show="false" hidden>
+			<div id="desc_17" class="descBeats" data-show="false" hidden>
 				Un <span lang="en">beat</span> classico che combina l'energia grezza del
 				Wu-Tang Clan con la profondità lirica dei Mobb Deep. Ideale per testi
 				riflessivi e potenti, questo beat ti porterà direttamente nelle strade
@@ -591,7 +591,7 @@
 
 					<button
 						class="btnPlay"
-						onclick="playerAudio('Tecniche Perfette - 5.mp3')"
+						onclick="playerAudio('Tecniche Perfette - 5.mp3', 18)"
 						aria-label="Riproduci Tecniche Perfette - 5"
 						title="Riproduci Tecniche Perfette - 5"
 						data-title-beat="Tecniche Perfette - 5"
@@ -607,7 +607,7 @@
 				</div>
 			</div>
 
-			<div class="descBeats" data-show="false" hidden>
+			<div id="desc_18" class="descBeats" data-show="false" hidden>
 				Un <span lang="en">beat</span> dal ritmo travolgente, con batteria
 				pesante e melodie accattivanti. Perfetto per le battaglie di freestyle e
 				per mettere in mostra la tua capacità di improvvisazione.
@@ -624,7 +624,7 @@
 
 					<button
 						class="btnPlay"
-						onclick="playerAudio('Timbaland - They Ain_t Ready.mp3')"
+						onclick="playerAudio('Timbaland - They Ain_t Ready.mp3', 19)"
 						aria-label="Riproduci Timbaland - They Ain_t Ready"
 						title="Riproduci Timbaland - They Ain_t Ready"
 						data-title-beat="Timbaland - They Ain_t Ready"
@@ -640,7 +640,7 @@
 				</div>
 			</div>
 
-			<div class="descBeats" data-show="false" hidden>
+			<div id="desc_19" class="descBeats" data-show="false" hidden>
 				Un beat innovativo e sperimentale, con ritmi complessi e suoni
 				futuristici. Perfetto per dimostrare la tua originalità e creatività,
 				spingendo i confini del genere rap.
@@ -656,7 +656,7 @@
 		class="mobileCard subMenu"
 		data-title-actual-beat="chord-base-ambient-music">
 		<h3>Goodbye - Big Joe</h3>
-		<audio id="audio" controls>
+		<audio id="audio" aria-describedby="desc_1" controls>
 			<!--perchè nuHtmlChecker dice che controlsList="nodownload" è un errore? che dovrei utilizzare? -->
 			<source
 				src="assets/media/basi/Goodbye%20-%20Big%20Joe.mp3"
