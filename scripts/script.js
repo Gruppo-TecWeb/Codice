@@ -89,10 +89,12 @@ function onPlayerStateChange(event) {
     if (event.data == YT.PlayerState.PAUSED) {
         pressedButton.setAttribute("data-isPlaying", "false");
         pressedButton.title = "Riproduci esempio " + newTitle;
+        pressedButton.setAttribute("aria-label","Riproduci "+ newTitle);
     }
     if (event.data == YT.PlayerState.PLAYING) {
         pressedButton.setAttribute("data-isPlaying", "true");
         pressedButton.title = "Interrompi esempio " + newTitle;
+        pressedButton.setAttribute("aria-label","Interrompi "+ newTitle);
     }
 }
 
@@ -130,15 +132,18 @@ function setIframe(battle) {
         player.pauseVideo();
         pressedButton.setAttribute("data-isPlaying", "false");
         pressedButton.title = "Riproduci esempio " + actualTitle.innerHTML;
+        pressedButton.setAttribute("aria-label","Riproduci "+ newTitle);
     } else {
         if (actualTitle.innerHTML == "esempio "+ newTitle) {
             player.playVideo();
             pressedButton.setAttribute("data-isPlaying", "true");
             pressedButton.title = "Interrompi esempio " + newTitle;
+            pressedButton.setAttribute("aria-label","Interrompi "+ newTitle);
         } else {
 
             iframe.setAttribute("aria-describedby","desc_"+battle);
-            pressedButton.setAttribute("title","Riproduci esempio "+actualTitle.innerHTML);
+            pressedButton.title="Riproduci esempio "+actualTitle.innerHTML;
+            pressedButton.setAttribute("aria-label","Riproduci "+ newTitle);
            // console.log(pressedButton.title);
             newIframe();
         }
@@ -169,12 +174,14 @@ function newIframe() {
         if (buttonPP.title.substr(0, 10) == "Interrompi") {
             buttonPP.setAttribute("data-isPlaying", "false");
             buttonPP.title = "Riproduci " + oldTitle;
+            buttonPP.setAttribute("aria-label","Riproduci "+ oldTitle);
         }
         
     }
 
     pressedButton.setAttribute("data-isPlaying", "true");
     pressedButton.title = "Interrompi esempio " + newTitle;
+    pressedButton.setAttribute("aria-label","Interrompi "+ newTitle);
     console.log(pressedButton.title);
 }
 
