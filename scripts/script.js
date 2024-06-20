@@ -34,6 +34,7 @@ function tornaIndietro() {
     return true;
 }
 
+
 /*
  * PAGINA EVENTO
  */
@@ -43,6 +44,7 @@ function init_evento() {
     if (document.referrer.includes("eventi.php"))
         linkIndietro.setAttribute('href', document.referrer);
 }
+
 
 /*
  * PAGINA HOME
@@ -158,17 +160,11 @@ function newIframe() {
 }
 
 
-
-
-
-
-
 /*
  * PAGINA BEATS
  */
 
 function init_beats() {
-    setDurationBeats();
     pressedButton = document.getElementsByClassName("beat")[0].getElementsByTagName("button")[0];
     document.getElementById("audio").addEventListener("play", function() {
         pressedButton.setAttribute("data-isPlaying", "true")
@@ -207,44 +203,6 @@ function showDescription(index) {
     btnDescrizione.setAttribute("aria-expanded", show === "true" ? "false" : "true");  
     btnDescrizione.getElementsByTagName("span")[0].innerHTML = show === "true" ? "Audio descrizione" : "Nascondi";
 }
-
-
-function setDurationBeats() {
-    const beats = document.getElementsByClassName("beat");
-    for (let i = 0; i < beats.length; i++) {
-        const time = document.getElementsByTagName("time");
-        const durata = document.getElementsByClassName("durata")[i];
-        const readDurata = document.getElementsByClassName("readDurata")[i];
-
-        audiosTitle = document.getElementsByClassName("btnPlay")[i].getAttribute("data-title-beat");
-        const audio = new Audio("assets/media/basi/" + audiosTitle + ".mp3");
-
-        audio.addEventListener('loadedmetadata', () => {
-            const minuti = Math.floor(audio.duration / 60);
-            const secondi = Math.floor(audio.duration % 60);
-            const datatime = "PT" + minuti + "M" + secondi + "S";
-            time[i].setAttribute("datetime", datatime);
-            if (minuti == 1) {
-                if (secondi < 10) {
-                    durata.innerHTML = minuti + ":" + "0" + secondi;
-                    readDurata.innerHTML = minuti + " minuto e " + secondi + " secondi";
-                } else {
-                    durata.innerHTML = minuti + ":" + secondi;
-                    readDurata.innerHTML = minuti + " minuto e " + secondi + " secondi";
-                }
-            } else {
-                if (secondi < 10) {
-                    durata.innerHTML = minuti + ":" + "0" + secondi;
-                    readDurata.innerHTML = minuti + " minuti e " + secondi + " secondi";
-                } else {
-                    durata.innerHTML = minuti + ":" + secondi;
-                    readDurata.innerHTML = minuti + " minuti e " + secondi + " secondi";
-                }
-            }
-        });
-    }
-}
-
 
 var autoNext = false;
 
@@ -327,7 +285,6 @@ function newBeat(nomeBase) {
     audio.src = percorso + nomeBase;
 }
 
-
 function autoPlay(nomeBase) {
     document.getElementById("autoNext").onclick = function() {
         autoNext = !autoNext;
@@ -369,6 +326,7 @@ function nextAudio(nomeBase) {
         }
     }
 }
+
 
 /*
  * PAGINE ADMIN
