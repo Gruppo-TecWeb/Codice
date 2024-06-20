@@ -18,7 +18,7 @@
     <script src="scripts/script.js"></script>
 </head>
 
-<body id="{pageId}" onload="{onload}" data-menu-open="false">
+<body id="{pageId}" onload="{onload}" class="{classList}" data-menu-open="false">
     <header>
         <nav id="menu-skip" aria-label="Aiuti alla navigazione">
             <ul>
@@ -26,14 +26,22 @@
                 <li><a class="navigationHelp" href="#menu">Vai al menù principale</a></li>
             </ul>
         </nav>
+        {logo} {logoLink}
         <a href="index.php">
             <h1 class="logo">Fungo</h1>
         </a>
+        {/logoLink} {logoNoLink}
+		<div class="logoNoLink">
+            <h1 class="logo">Fungo</h1>
+		</div>
+        {/logoNoLink} {/logo}
         <nav id="menu" class="mobileCard" aria-labelledby="menu-title" data-menu-open="false">
             <h2 id="menu-title">Menù</h2>
             <ul>
-                {menu}{liCurrent}<li><span aria-current="page" id="currentLink" class="menuItem" {lang}>{anchor}</span></li>
-                {/liCurrent}{liNotCurrent}<li><a href="{pageHref}" class="menuItem" {lang}>{anchor}</a></li>
+                {menu}{liCurrent}
+                <li><span aria-current="page" id="currentLink" class="menuItem"{lang}>{anchor}</span></li>
+                {/liCurrent}{liNotCurrent}
+                <li><a href="{pageHref}" class="menuItem"{lang}>{anchor}</a></li>
                 {/liNotCurrent}{/menu}
             </ul>
         </nav>
@@ -55,8 +63,8 @@
     </main>
     <footer>
         <div id="footer-content" class="limitedWidth">
-            <a href="#content" id="btn-scroll-up" class="iconButton" title="Torna sù">
-                <span class="navigationHelp">Torna sù</span>
+            <a href="#content" id="btn-scroll-up" class="iconButton" title="Torna su">
+                <span class="navigationHelp">Torna su</span>
                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
                     <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M112 244l144-144 144 144M256 120v292" /></svg>
             </a>

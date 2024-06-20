@@ -19,6 +19,8 @@ $keywords = 'profilo, amministrazione, admin';
 $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
+$classList = 'fullMenu';
+$logo = get_content_between_markers($paginaHTML, 'logoLink');
 
 $immagineProfiloDefault = 'default_profile_pic.png';
 $percorsoImmaginiProfilo = './../assets/media/img_profilo/';
@@ -44,7 +46,7 @@ if ($connectionOk) {
         header("location: profilo.php?errore=invalid");
         exit;
     }
-    $errore = '0';
+    $errore = false;
     $messaggiForm = '';
     $messaggiFormHTML = get_content_between_markers($content, 'messaggiForm');
     $messaggioForm = get_content_between_markers($messaggiFormHTML, 'messaggioForm');
@@ -62,16 +64,31 @@ if ($connectionOk) {
     $immagineProfilo = $utente["ImmagineProfilo"];
 
     if (isset($_POST["conferma"])) {
-        $errore = false;
         $modificato = false;
 
-        if ($validEmail != '' && $email != $validEmail) {
+        if ($email != $validEmail) {
             if (count($connection->get_utente_by_email($validEmail)) > 0) {
                 $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
                     '{messaggio}' => 'Questa e-mail è già associata ad un altro account'
                 ]);
                 $errore = true;
-            } else {
+            }
+            if (filter_var($validEmail, FILTER_VALIDATE_EMAIL) === false) {
+                $errore = true;
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Indirizzo e-mail non valido'
+                ]);
+            }
+            if ($validEmail == '') {
+                $errore = true;
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Inserire un indirizzo e-mail'
+                ]);
+            }
+            if (!$errore) {
                 $connection->change_email($username, $validEmail);
                 $modificato = true;
                 $email = $validEmail;
@@ -81,6 +98,7 @@ if ($connectionOk) {
         if (!$errore && $validPassword != '' && $validConfermaPassword != '') {
             if ($validPassword != $validConfermaPassword) {
                 $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
                     '{messaggio}' => 'Le password non coincidono'
                 ]);
                 $errore = true;
@@ -95,6 +113,7 @@ if ($connectionOk) {
             if (count($errori) > 0) {
                 foreach ($errori as $errore) {
                     $messaggiForm .= multi_replace($messaggioForm, [
+                        '{tipoMessaggio}' => 'inputError',
                         '{messaggio}' => $errore
                     ]);
                 }
@@ -113,8 +132,12 @@ if ($connectionOk) {
         }
         if (!$errore && $modificato) {
             $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'successMessage',
                 '{messaggio}' => 'Modifica effettuata con successo'
             ]);
+
+            header("location: profilo.php?modificato=true");
+            exit;
         }
     }
 
@@ -132,6 +155,7 @@ if ($connectionOk) {
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'logo' => $logo,
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu
 ]), [
@@ -140,5 +164,6 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{content}' => $content,
-    '{onload}' => $onload
+    '{onload}' => $onload,
+    '{classList}' => $classList
 ]);

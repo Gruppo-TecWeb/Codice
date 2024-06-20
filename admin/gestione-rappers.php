@@ -19,6 +19,8 @@ $keywords = 'Fungo, amministrazione, rappers';
 $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
+$classList = 'fullMenu';
+$logo = get_content_between_markers($paginaHTML, 'logoLink');
 
 if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
@@ -38,8 +40,7 @@ if ($connectionOk) {
     $legendModifica = 'Modifica <span lang="en">Rapper</span>';
     $validNuovoUsername = isset($_POST['nuovoUsername']) ? validate_input($_POST['nuovoUsername']) : "";
     $validNuovaEmail = isset($_POST['nuovaEmail']) ? validate_input($_POST['nuovaEmail']) : "";
-    $validUsername = isset($_POST['username']) ? validate_input($_POST['username']) : "";
-    $validEmail = isset($_POST['email']) ? validate_input($_POST['email']) : "";
+    $validUsername = isset($_GET['username']) ? validate_input($_GET['username']) : "";
     $nuovoUsername = '';
     $nuovaEmail = '';
     $username = '';
@@ -47,31 +48,37 @@ if ($connectionOk) {
     $valueAzione = '';
     if (((isset($_POST['nuovoUsername']) && $_POST['nuovoUsername'] != "") && $validNuovoUsername == "") ||
         ((isset($_POST['nuovaEmail']) && $_POST['nuovaEmail'] != "") && $validNuovaEmail == "") ||
-        ((isset($_POST['username']) && $_POST['username'] != "") && $validUsername == "") ||
-        ((isset($_POST['email']) && $_POST['email'] != "") && $validEmail == "")) {
+        ((isset($_POST['username']) && $_POST['username'] != "") && $validUsername == "")) {
         header("location: rappers.php?errore=invalid");
         exit;
     }
-    $errore = '0';
-  
-    if (isset($_POST['elimina'])) {
-        if ($_SESSION['username'] == $_POST['username']) {
-            header("location: rappers.php?eliminato=0");
-            exit;
+    $errore = false;
+
+    $user = $connection->get_utente_by_username($validUsername);
+    $validEmail = '';
+    if (count($user) != 0) {
+        $validEmail = $user['Email'];
+    }
+    if (isset($_GET['elimina']) || isset($_POST['elimina'])) {
+        if ($_SESSION['username'] == $_GET['username']) {
+            header("location: rappers.php?eliminato=false");
         } else {
             $connection->delete_user($validUsername);
-            $eliminato = $connection->get_utente_by_email($validEmail) ? 0 : 1;
-            header("location: rappers.php?eliminato=$eliminato");
-            exit;
+            if ($connection->get_utente_by_username($validUsername)) {
+                header("location: rappers.php?eliminato=false");
+            } else {
+                header("location: rappers.php?eliminato=true");
+            }
         }
-    } elseif (isset($_POST['modifica'])) {
+        exit;
+    } elseif (isset($_GET['modifica'])) {
         $legend = $legendModifica;
         $nuovoUsername = $validUsername;
         $nuovaEmail = $validEmail;
         $username = $validUsername;
         $email = $validEmail;
         $valueAzione = 'modifica';
-    } elseif (isset($_POST['aggiungi'])) {
+    } elseif (isset($_GET['aggiungi'])) {
         $buttonElimina = '';
         $legend = $legendAggiungi;
         $valueAzione = 'aggiungi';
@@ -81,77 +88,105 @@ if ($connectionOk) {
         $username = $validUsername;
         $email = $validEmail;
         if ($_POST['azione'] == 'aggiungi') {
-            $errore = '0';
             $legend = $legendAggiungi;
             $valueAzione = 'aggiungi';
-            $erroreUsername = $connection->get_utente_by_username($validNuovoUsername) ? '1' : '0';
-            $erroreEmail = $connection->get_utente_by_email($validNuovaEmail) ? '1' : '0';
-            $errore = $erroreUsername == '0' && $erroreEmail == '0' ? '0' : '1';
-            if ($errore == '0') {
-                $connection->insert_utente($validNuovoUsername, '', $validNuovaEmail);
-                $errore = $connection->get_utente_by_username($validNuovoUsername) ? '0' : '1';
-            } else {
-                if ($erroreUsername == '1') {
-                    $messaggiForm .= multi_replace($messaggioForm, [
-                        '{messaggio}' => "Nome d'arte già utilizzato"
-                    ]);
-                }
-                if ($erroreEmail == '1') {
-                    $messaggiForm .= multi_replace($messaggioForm, [
-                        '{messaggio}' => "<span lang=\"en\">E-Mail</span> già registrata"
-                    ]);
-                }
+            if ($connection->get_utente_by_username($validNuovoUsername)) {
+                $errore = true;
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Username già in uso'
+                ]);
             }
-            if ($errore == '0') {
-                header("location: rappers.php?aggiunto=1");
-                exit;
+            if ($connection->get_utente_by_email($validNuovaEmail)) {
+                $errore = true;
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Indirizzo e-mail già registrato'
+                ]);
+            }
+            if (filter_var($validNuovaEmail, FILTER_VALIDATE_EMAIL) === false) {
+                $errore = true;
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Indirizzo e-mail non valido'
+                ]);
+            }
+            if ($validNuovaEmail == '') {
+                $errore = true;
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Inserire un indirizzo e-mail'
+                ]);
+            }
+            if ($validNuovoUsername == '') {
+                $errore = true;
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Inserire uno username'
+                ]);
+            }
+            if (!$errore) {
+                $connection->insert_utente($validNuovoUsername, '', $validNuovaEmail);
+                if (count($connection->get_utente_by_username($validNuovoUsername)) == 0) {
+                    $messaggiForm .= multi_replace($messaggioForm, [
+                        '{tipoMessaggio}' => 'inputError',
+                        '{messaggio}' => 'Errore nell\'inserimento del <span lang=\'en\'>Rapper</span>'
+                    ]);
+                } else {
+                    $messaggiForm .= multi_replace($messaggioForm, [
+                        '{tipoMessaggio}' => 'successMessage',
+                        '{messaggio}' => '<span lang=\'en\'>Rapper</span> aggiunto con successo'
+                    ]);
+                    header("location: rappers.php?aggiunto=true");
+                    exit;
+                }
             }
         } elseif ($_POST['azione'] == 'modifica') {
-            $errore = '0';
-            $erroreUsername = '0';
-            $erroreEmail = '0';
             $legend = $legendModifica;
             $valueAzione = 'modifica';
-            if ($validUsername != $validNuovoUsername) {
-                $erroreUsername = $connection->get_utente_by_username($validNuovoUsername) ? '1' : '0';
-            }
-            if ($validEmail != $validNuovaEmail) {
-                $erroreEmail = $connection->get_utente_by_email($validNuovaEmail) ? '1' : '0';
-            }
-            $errore = $erroreUsername == '0' && $erroreEmail == '0' ? '0' : '1';
-            if ($errore == '0') {
-                $connection->update_user($validUsername, $validNuovoUsername, $validNuovaEmail);
-                $user = $connection->get_utente_by_email($validNuovaEmail);
-                if (count($user) == 0) {
-                    $errore = '1';
-                }
-                $user = $connection->get_utente_by_username($validNuovoUsername);
-                if (count($user) == 0) {
-                    $errore = '1';
-                }
-            } else {
-                if ($erroreUsername == '1') {
-                    $messaggiForm .= multi_replace($messaggioForm, [
-                        '{messaggio}' => "Nome d'arte già utilizzato"
-                    ]);
-                }
-                if ($erroreEmail == '1') {
-                    $messaggiForm .= multi_replace($messaggioForm, [
-                        '{messaggio}' => "<span lang=\"en\">E-Mail</span> già registrata"
-                    ]);
-                }
-            }
-            if ($errore == '0') {
+            if ($validUsername != $validNuovoUsername && $connection->get_utente_by_username($validNuovoUsername)) {
+                $errore = true;
                 $messaggiForm .= multi_replace($messaggioForm, [
-                    '{messaggio}' => 'Modifica effettuata con successo'
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Username già in uso'
                 ]);
-                $username = $validNuovoUsername;
-            } else {
-                $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);
+            }
+            if ($validEmail != $validNuovaEmail && $connection->get_utente_by_email($validNuovaEmail)) {
+                $errore = true;
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Indirizzo e-mail già registrato'
+                ]);
+            }
+            if (filter_var($validNuovaEmail, FILTER_VALIDATE_EMAIL) === false) {
+                $errore = true;
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Indirizzo e-mail non valido'
+                ]);
+            }
+            if (!$errore) {
+                $connection->update_user($validUsername, $validNuovoUsername, $validNuovaEmail);
+                $updatedUser = $connection->get_utente_by_username($validNuovoUsername);
+                if (count($updatedUser) == 0 ||
+                    $updatedUser['Email'] != $validNuovaEmail) {
+                    $messaggiForm .= multi_replace($messaggioForm, [
+                        '{tipoMessaggio}' => 'inputError',
+                        '{messaggio}' => 'Errore nella modifica del <span lang=\'en\'>Rapper</span>'
+                    ]);
+                } else {
+                    $messaggiForm .= multi_replace($messaggioForm, [
+                        '{tipoMessaggio}' => 'successMessage',
+                        '{messaggio}' => '<span lang=\'en\'>Rapper</span> modificato con successo'
+                    ]);
+                    $username = $validNuovoUsername;
+                    header("location: rappers.php?modificato=true");
+                    exit;
+                }
             }
         }
     } else {
-        header("location: rappers.php");
+        header("location: rappers.php?errore=invalid");
         exit;
     }
 
@@ -177,6 +212,7 @@ if ($connectionOk) {
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'logo' => $logo,
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu
 ]), [
@@ -185,5 +221,6 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{content}' => $content,
-    '{onload}' => $onload
+    '{onload}' => $onload,
+    '{classList}' => $classList
 ]);

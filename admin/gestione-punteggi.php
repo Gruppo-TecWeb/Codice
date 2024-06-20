@@ -19,6 +19,8 @@ $keywords = 'Fungo, amministrazione, punteggi';
 $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
+$classList = 'fullMenu';
+$logo = get_content_between_markers($paginaHTML, 'logoLink');
 
 if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
@@ -34,7 +36,8 @@ if ($connectionOk) {
     $messaggioForm = get_content_between_markers($messaggiFormHTML, 'messaggioForm');
     $righeTabella = '';
     $validIdEvento = isset($_POST['idEvento']) ? validate_input($_POST['idEvento']) : (isset($_GET['idEvento']) ? validate_input($_GET['idEvento']) : '');
-    $eventoSelezionato = isset($_POST['idEvento']) || isset($_GET['idEvento']);
+    $provenienza = isset($_GET['provenienza']) ? validate_input($_GET['provenienza']) : '';
+    $eventoSelezionato = $validIdEvento != '';
     $validTitolo = $eventoSelezionato ? $connection->get_evento($validIdEvento)['Titolo'] : '';
     $validData = $eventoSelezionato ? date_format(date_create($connection->get_evento($validIdEvento)['Data']), 'd/m/y') : '';
     $validRappersPoints = [];
@@ -55,8 +58,15 @@ if ($connectionOk) {
         }
     }
     if (((isset($_POST['idEvento']) && $_POST['idEvento'] != "") && $validIdEvento == "") ||
+        ((isset($_GET['provenienza']) && $_GET['provenienza'] != "") && $provenienza == "") ||
         ($count_punteggi != count($validRappersPoints))) {
-        header("location: classifiche.php?errore=invalid");
+        if ($provenienza == 'classifiche') {
+            header("location: classifiche.php?errore=invalid");
+        } elseif ($provenienza == 'dashboard-punteggi-mancanti') {
+            header("location: index.php?punteggi-errore=invalid#messaggi");
+        } else {
+            header("location: eventi.php?errore=invalid");
+        }
         exit;
     }
   
@@ -64,22 +74,59 @@ if ($connectionOk) {
         if ($eventoSelezionato) {
             $connection->delete_punteggi_evento($validIdEvento);
             $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'successMessage',
                 '{messaggio}' => 'Punteggi eliminati con successo'
             ]);
+
+            if ($provenienza == 'classifiche') {
+                header("location: classifiche.php?punteggi-eliminati=true");
+            } elseif ($provenienza == 'dashboard-punteggi-mancanti') {
+                header("location: index.php?punteggi-eliminati=true#messaggi");
+            } else {
+                header("location: eventi.php?punteggi-eliminati=true");
+            }
+            exit;
         } else {
             $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
                 '{messaggio}' => 'Errore imprevisto, nessun evento selezionato'
             ]);
         }
     } elseif (isset($_POST['conferma'])) {
         if ($eventoSelezionato) {
-            $connection->update_punteggi_evento($validIdEvento, $validRappersPoints);
-            $messaggiForm .= multi_replace($messaggioForm, [
-                '{messaggio}' => 'Punteggi aggiornati con successo'
-            ]);
+            // controllo che tutti i punteggi siano effettivamente degli interi
+            $errore = false;
+            foreach ($validRappersPoints as $points) {
+                if (!is_numeric($points) || !ctype_digit($points)) {
+                    $errore = true;
+                    break;
+                }
+            }
+            if ($errore) {
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
+                    '{messaggio}' => 'Punteggi non validi'
+                ]);
+            } else {
+                $connection->update_punteggi_evento($validIdEvento, $validRappersPoints);
+                $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'successMessage',
+                    '{messaggio}' => 'Punteggi aggiornati con successo'
+                ]);
+
+                if ($provenienza == 'classifiche') {
+                    header("location: classifiche.php?punteggi-modificati=true");
+                } elseif ($provenienza == 'dashboard-punteggi-mancanti') {
+                    header("location: index.php?punteggi-modificati=true#messaggi");
+                } else {
+                    header("location: eventi.php?punteggi-modificati=true");
+                }
+                exit;
+            }
         } else {
             $messaggiForm .= multi_replace($messaggioForm, [
-                '{messaggio}' => 'Errore imprevisto, nessun evento selezionato'
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => 'Nessun evento selezionato'
             ]);
         }
     }
@@ -103,7 +150,8 @@ if ($connectionOk) {
         'rigaTabella' => $righeTabella
     ]);
     $content = multi_replace($content, [
-        '{idEvento}' => $validIdEvento
+        '{idEvento}' => $validIdEvento,
+        '{provenienza}' => $provenienza
     ]);
 
     $connection->close_DB_connection();
@@ -113,6 +161,7 @@ if ($connectionOk) {
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'logo' => $logo,
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu
 ]), [
@@ -122,5 +171,6 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{pageId}' => $pageId,
     '{content}' => $content,
     '{onload}' => $onload,
-    '{evento}' => $eventoSelezionato ? $validTitolo . ' ' . $validData : ''
+    '{evento}' => $eventoSelezionato ? $validTitolo . ' ' . $validData : '',
+    '{classList}' => $classList
 ]);

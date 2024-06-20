@@ -1,27 +1,19 @@
 <div id="punteggi" class="limitedWidth">
-    <form method="post" action="gestione-punteggi.php">
-        <div id="titolo-button">
-            <h3>Gestione Punteggi</h3>
-            <div id="titolo-buttons">
-                <button type="submit" name="conferma" value="true">Conferma</button>
-                <button type="submit" name="elimina" value="true">Elimina Punteggi</button>
-                <button type="button" value="annulla" onClick="tornaIndietro()">Annulla</button>
-            </div>
-        </div>
+    <form method="post" action="gestione-punteggi.php?idEvento={idEvento}&provenienza={provenienza}" class="aggiunta-modifica">
+        <h3 id="titolo">Gestione Punteggi</h3>
         {messaggiForm}
         <div id="messaggi">
             <ul id="messaggi-form">
                 {messaggioForm}
-                <li>{messaggio}</li>{/messaggioForm}
+                <li class="{tipoMessaggio}">{messaggio}</li>{/messaggioForm}
             </ul>
         </div>
         {/messaggiForm}
-        <div class="elementi-presenti aggiunta-modifica">
+        <div id="input" class="elementi-presenti aggiunta-modifica">
             <fieldset>
                 <legend>Punteggi</legend>
-                <span id="sumTabella" class="navigationHelp">Tabella che elenca tutti i <span lang="en">rappers</span> 
-                presenti nel <span lang="en">database</span> con l'indicazione del nome d'arte e una cella dove poter 
-                vedere ed eventualmente modificare il punteggio del relativo artista per l'evento selezionato.</span>
+                <span id="sumTabella" class="navigationHelp">Tabella che elenca tutti i <span lang="en">rappers</span> presenti nel <span lang="en">database</span> con l'indicazione del nome d'arte e una cella dove poter vedere ed eventualmente modificare
+                il punteggio del relativo artista per l'evento selezionato.</span>
                 <table id="tabella-classifiche" aria-describedby="sumTabella">
                     <caption>Modifica i punteggi di ciascun <span lang="en">rapper</span></caption>
                     <thead>
@@ -31,15 +23,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {rigaTabella}<tr>
+                        {rigaTabella}
+                        <tr>
                             <td data-title="Rapper"><input type="hidden" id="{idRapper}" name="username[]" value="{rapper}">{rapper}</td>
-                            <td data-title="Punteggio"><input type="number" id="punti-{idRapper}" name="punti[]" min="0" max="99"{valuePunti} aria-label="Punteggio di {rapper}"></td>
+                            <td data-title="Punteggio"><input type="number" id="punti-{idRapper}" name="punti[]" min="0" max="99" {valuePunti} aria-label="Punteggio di {rapper}"></td>
                         </tr>
                         {/rigaTabella}
                     </tbody>
                 </table>
-            <input type="hidden" name="idEvento" value="{idEvento}">
             </fieldset>
+        </div>
+        <div id="buttons" class="subMenu">
+            <button type="button" value="annulla" onClick="tornaIndietro()">Annulla</button>
+            <button type="submit" name="elimina" value="true">Elimina Punteggi</button>
+            <button type="submit" name="conferma" value="true">Conferma</button>
         </div>
     </form>
 </div>
