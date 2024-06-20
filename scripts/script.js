@@ -105,12 +105,12 @@ function initIframe() {
     for (var i = 0; i < descBattles.length; i++) {
         descVideo = descBattles[i].getElementsByTagName("p")[0];
         descVideo.setAttribute("id","desc_"+i);
-        console.log(descVideo.getAttribute("id"));
+        //console.log(descVideo.getAttribute("id"));
     }
     
-    //console.log(idDescVideo);
+    //console.log(idDescVideo;
     idDescVideo = descVideo[0].getAttribute("id");
-    console.log(idDescVideo);
+    //console.log(idDescVideo);
     
     
     
