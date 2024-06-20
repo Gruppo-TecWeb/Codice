@@ -91,6 +91,10 @@ a:visited {
     color: var(--colorLinkVisited);
 }
 
+.linkEsterno::after {
+    content: "\2197" / "";
+}
+
 .navigationHelp {
     position: absolute;
     width: 1px;
