@@ -92,7 +92,7 @@ a:visited {
 }
 
 .linkEsterno::after {
-    content: "\2197";
+    content: "\2197" / "";
 }
 
 .navigationHelp {
