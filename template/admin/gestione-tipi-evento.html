@@ -14,7 +14,7 @@
                 <legend>{legend}</legend>
                 <p>I campi contrassegnati con (*) sono obbligatori.</p>
                 <label for="titolo-tipo-evento">Titolo (*):</label>
-                <input type="text" id="titolo-tipo-evento" name="nuovoTitolo" value="{nuovoTitolo}" placeholder="Titolo" required aria-required="true">
+                <input type="text" id="titolo-tipo-evento" name="nuovoTitolo" value="{nuovoTitolo}" placeholder="Titolo" required>
                 <div id="titolo-error"></div>
                 <label for="descrizione">Descrizione:</label>
                 <textarea id="descrizione" name="nuovaDescrizione" placeholder="Descrizione" rows="8" cols="50">{nuovaDescrizione}</textarea>
@@ -22,9 +22,9 @@
             </fieldset>
         </div>
         <div id="buttons" class="subMenu">
-            <button type="submit" name="conferma" value="true">Conferma</button> {buttonElimina}
-            <button type="submit" name="elimina" value="true">Elimina</button> {/buttonElimina}
-            <button type="button" value="annulla" onClick="tornaIndietro()">Annulla</button>
+            <button type="button" value="annulla" onClick="tornaIndietro()">Annulla</button>{buttonElimina}
+            <button type="submit" name="elimina" value="true">Elimina</button>{/buttonElimina}
+            <button type="submit" name="conferma" value="true">Conferma</button>
         </div>
     </form>
 </div>

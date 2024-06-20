@@ -14,7 +14,7 @@
                 <legend>Modifica il profilo utente: {username}</legend>
                 <p>I campi contrassegnati con (*) sono obbligatori.</p>
                 <label for="email">Email (*):</label>
-                <input type="email" id="email" name="email" value="{email}" required aria-required="true">
+                <input type="email" id="email" name="email" value="{email}" required>
                 <div id="email-error" class="error"></div>
                 <label for="password">Nuova Password:</label>
                 <input type="password" id="password" name="password" placeholder="password">
@@ -31,8 +31,8 @@
             </fieldset>
         </div>
         <div id="buttons" class="subMenu">
-            <button type="submit" name="conferma" value="true">Conferma</button>
             <button type="button" value="annulla" onClick="tornaIndietro()">Annulla</button>
+            <button type="submit" name="conferma" value="true">Conferma</button>
         </div>
     </form>
 </div>

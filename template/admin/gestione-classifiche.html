@@ -14,27 +14,27 @@
                 <legend>{legend}</legend>
                 <p>I campi contrassegnati con (*) sono obbligatori.</p>
                 <label for="titolo-classifica">Titolo Classifica (*):</label>
-                <input type="text" id="titolo-classifica" name="nuovoTitoloClassifica" value="{nuovoTitoloClassifica}" required aria-required="true">
+                <input type="text" id="titolo-classifica" name="nuovoTitoloClassifica" value="{nuovoTitoloClassifica}" required>
                 <div id="titolo-error" class="error"></div>
                 <label for="tipo-evento">Tipo Evento (*):</label>
-                <select id="tipo-evento" name="nuovoTipoEvento" required aria-required="true">
+                <select id="tipo-evento" name="nuovoTipoEvento" required>
                             <option value=""{selezioneDefault} disabled>Scegli il tipo evento</option>
                             {listaTipoEvento}<option value="{tipoEvento}"{selezioneTipoEvento}>{tipoEvento}</option>
                             {/listaTipoEvento}
                 </select>
                 <label for="data-inizio">Data Inizio (*):</label>
-                <input type="date" id="data-inizio" name="nuovaDataInizio" value="{nuovaDataInizio}" required aria-required="true">
+                <input type="date" id="data-inizio" name="nuovaDataInizio" value="{nuovaDataInizio}" required>
                 <div id="data-inizio-error" class="error"></div>
                 <label for="data-fine">Data Fine (*):</label>
-                <input type="date" id="data-fine" name="nuovaDataFine" value="{nuovaDataFine}" required aria-required="true">
+                <input type="date" id="data-fine" name="nuovaDataFine" value="{nuovaDataFine}" required>
                 <div id="data-fine-error" class="error"></div>
                 <input type="hidden" name="azione" value="{valueAzione}">
             </fieldset>
         </div>
         <div id="buttons" class="subMenu">
-            <button type="submit" name="conferma" value="true">Conferma</button> {buttonElimina}
-            <button type="submit" name="elimina" value="true">Elimina</button> {/buttonElimina}
-            <button type="button" value="annulla" onClick="tornaIndietro()">Annulla</button>
+            <button type="button" value="annulla" onClick="tornaIndietro()">Annulla</button>{buttonElimina}
+            <button type="submit" name="elimina" value="true">Elimina</button>{/buttonElimina}
+            <button type="submit" name="conferma" value="true">Conferma</button>
         </div>
     </form>{listaEventi}
 
