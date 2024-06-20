@@ -32,8 +32,10 @@
         <nav id="menu" class="mobileCard" aria-labelledby="menu-title" data-menu-open="false">
             <h2 id="menu-title">Menù</h2>
             <ul>
-                {menu}{liCurrent}<li><span aria-current="page" id="currentLink" class="menuItem" {lang}>{anchor}</span></li>
-                {/liCurrent}{liNotCurrent}<li><a href="{pageHref}" class="menuItem" {lang}>{anchor}</a></li>
+                {menu}{liCurrent}
+                <li><span aria-current="page" id="currentLink" class="menuItem" {lang}>{anchor}</span></li>
+                {/liCurrent}{liNotCurrent}
+                <li><a href="{pageHref}" class="menuItem" {lang}>{anchor}</a></li>
                 {/liNotCurrent}{/menu}
             </ul>
         </nav>
@@ -64,13 +66,13 @@
             <section id="footer-info">
                 <h3 class="logo">Fungo</h3>
                 <p>Questo sito è stato pensato e sviluppato per umani, con grande cura e attenzione a tutte le categorie di utenti finali. Questo è il modo in cui lavoriamo.</p>
-                <p>Prodotto da: <a href="https://github.com/Gruppo-TecWeb">Antonio Benetazzo, Alessando Bressan, Sebastiano Lewental, Riccardo Zaupa(link esterno)</a>.</p>
+                <p>Prodotto da: <a class="linkEsterno" href="https://github.com/Gruppo-TecWeb">Antonio Benetazzo, Alessando Bressan, Sebastiano Lewental, Riccardo Zaupa <span class="navigationHelp">(link esterno)</span></a>.</p>
             </section>
             <section>
                 <h3>Su di noi</h3>
                 <ul>
                     <li><a href="chi-siamo.php">Chi siamo</a></li>
-                    <li><a href="https://www.instagram.com/fungo.micelio/">Pagina Instagram(link esterno)</a></li>
+                    <li><a class="linkEsterno" href="https://www.instagram.com/fungo.micelio/">Pagina Instagram <span class="navigationHelp">(link esterno)</span></a></li>
                 </ul>
             </section>
             <section>
