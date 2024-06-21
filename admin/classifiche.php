@@ -12,67 +12,155 @@ session_start();
 $paginaHTML = file_get_contents("../template/admin/template-admin.html");
 $content = file_get_contents("../template/admin/classifiche.html");
 
-$title = 'Admin &minus; Classifiche &minus; Fungo';
+$title = 'Classifiche &minus; Admin &minus; Fungo';
 $pageId = 'admin/' . basename(__FILE__, '.php');
 $description = 'Pagina di amministrazione delle classifiche dei tipi di evento organizzati dal collettivo rap Restraining Stirpe Crew.';
 $keywords = 'classifiche, tipi evento, restraining stirpe, freestyle, freestyle rap, rap, battle, live, dj set, micelio, fungo';
 $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
+$classList = 'fullMenu';
+$logo = get_content_between_markers($paginaHTML, 'logoLink');
 
 if (!isset($_SESSION["login"])) {
     header("location: ../login.php");
+    exit;
 }
 
-$connection = DBAccess::getInstance();
-$connectionOk = $connection->openDBConnection();
+$connection = DBAccess::get_instance();
+$connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
     $messaggiForm = '';
-    $messaggioForm = get_content_between_markers($content, 'messaggioForm');
-    $righeTabella = '';
+    $messaggiFormHTML = get_content_between_markers($content, 'messaggiForm');
+    $messaggioForm = get_content_between_markers($messaggiFormHTML, 'messaggioForm');
+    $lista = '';
 
     if (isset($_GET['errore'])) {
-        $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore imprevisto"]);
-    }
-
-    if (isset($_GET['eliminato'])) {
-        if ($_GET['eliminato'] == 0) {
-            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Errore nell'eliminazione della classifica"]);
+        $messaggiForm .= multi_replace($messaggioForm, [
+            '{tipoMessaggio}' => 'inputError',
+            '{messaggio}' => "Errore imprevisto"
+        ]);
+    } elseif (isset($_GET['eliminato'])) {
+        if ($_GET['eliminato'] == 'false') {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore nell'eliminazione della classifica"
+            ]);
+        } elseif ($_GET['eliminato'] == 'true') {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'successMessage',
+                '{messaggio}' => "Classifica eliminata correttamente"
+            ]);
         } else {
-            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Classifica eliminata correttamente"]);
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore imprevisto"
+            ]);
         }
     } elseif (isset($_GET['aggiunto'])) {
-        $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Classifica aggiunta correttamente"]);
+        if ($_GET['aggiunto'] == 'false') {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore nell'aggiunta della classifica"
+            ]);
+        } elseif ($_GET['aggiunto'] == 'true') {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'successMessage',
+                '{messaggio}' => "Classifica aggiunta correttamente"
+            ]);
+        } else {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore imprevisto"
+            ]);
+        }
     } elseif (isset($_GET['modificato'])) {
-        $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Classifica modificata correttamente"]);
+        if ($_GET['modificato'] == 'false') {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore nella modifica della classifica"
+            ]);
+        } elseif ($_GET['modificato'] == 'true') {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'successMessage',
+                '{messaggio}' => "Classifica modificata correttamente"
+            ]);
+        } else {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore imprevisto"
+            ]);
+        }
+    } elseif (isset($_GET['punteggi-eliminati'])) {
+        if ($_GET['punteggi-eliminati'] == 'false') {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore nell'eliminazione dei punteggi"
+            ]);
+        } elseif ($_GET['punteggi-eliminati'] == 'true') {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'successMessage',
+                '{messaggio}' => "Punteggi eliminati correttamente"
+            ]);
+        } else {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore imprevisto"
+            ]);
+        }
+    } elseif (isset($_GET['punteggi-modificati'])) {
+        if ($_GET['punteggi-modificati'] == 'false') {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore nella modifica dei punteggi"
+            ]);
+        } elseif ($_GET['punteggi-modificati'] == 'true') {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'successMessage',
+                '{messaggio}' => "Punteggi modificati correttamente"
+            ]);
+        } else {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore imprevisto"
+            ]);
+        }
     }
 
     $classifiche = $connection->get_classifiche();
-    $rigaTabella = get_content_between_markers($content, 'rigaTabella');
+    $classifiche = replace_lang_dictionary($classifiche);
+    $elementoLista = get_content_between_markers($content, 'elementoLista');
+    $nessunElemento = get_content_between_markers($content, 'nessunElemento');
 
     foreach ($classifiche as $classifica) {
-        $righeTabella .= multi_replace($rigaTabella, [
-            '{tipoEvento}' => $classifica['TipoEvento'],
-            '{dataInizio}' => date_format(date_create($classifica['DataInizio']), 'd/m/y'),
-            '{dataFine}' => date_format(date_create($classifica['DataFine']), 'd/m/y'),
-            '{valueTipoEvento}' => $classifica['TipoEvento'],
-            '{valueDataInizio}' => date_format(date_create($classifica['DataInizio']), 'Y-m-d'),
-            '{valueDataFine}' => date_format(date_create($classifica['DataFine']), 'Y-m-d')
+        $lista .= multi_replace($elementoLista, [
+            '{titoloClassifica}' => $classifica['Titolo'],
+            '{dataInizio}' => date_format(date_create($classifica['DataInizio']), 'Y-m-d'),
+            '{dataFine}' => date_format(date_create($classifica['DataFine']), 'Y-m-d'),
+            '{dataInizioVisualizzata}' => date_format(date_create($classifica['DataInizio']), 'd/m/y'),
+            '{dataFineVisualizzata}' => date_format(date_create($classifica['DataFine']), 'd/m/y'),
+            '{idClassifica}' => $classifica['Id']
         ]);
     }
 
+    $messaggiFormHTML = $messaggiForm == '' ? '' : replace_content_between_markers($messaggiFormHTML, ['messaggioForm' => $messaggiForm]);
+    $lista = $lista == '' ? $nessunElemento : $lista;
+
     $content = replace_content_between_markers($content, [
-        'rigaTabella' => $righeTabella,
-        'messaggiForm' => $messaggiForm
+        'elementoLista' => $lista,
+        'nessunElemento' => '',
+        'messaggiForm' => $messaggiFormHTML
     ]);
 
-    $connection->closeDBConnection();
+    $connection->close_DB_connection();
 } else {
     header("location: ../errore500.php");
+    exit;
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'logo' => $logo,
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu
 ]), [
@@ -81,5 +169,6 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{content}' => $content,
-    '{onload}' => $onload
+    '{onload}' => $onload,
+    '{classList}' => $classList
 ]);

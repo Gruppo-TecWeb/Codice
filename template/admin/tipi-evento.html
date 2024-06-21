@@ -1,42 +1,36 @@
 <div id="tipi_evento" class="limitedWidth">
-            <h3>Gestione Tipi Evento</h3>
-            <form method="post" action="gestione-tipi-evento.php">
-                <button type="submit" name="aggiungi" value="true">Aggiungi nuovo Tipo Evento</button>
-            </form>
+    <div id="titolo-button">
+        <h3>Gestione Tipi Evento</h3>
+        <form method="get" action="gestione-tipi-evento.php" class="subMenu">
+            <button id="aggiungi" type="submit" name="aggiungi" value="true">Aggiungi nuovo Tipo Evento</button>
+        </form>
+    </div>
+    {messaggiForm}
+    <div id="messaggi">
+        <ul id="messaggi-form">
+            {messaggioForm}
+            <li class="{tipoMessaggio}">{messaggio}</li>{/messaggioForm}
+        </ul>
+    </div>
+    {/messaggiForm}
 
-            {messaggiForm}<ul>
-                {messaggioForm}<li>{messaggio}</li>{/messaggioForm}
-            </ul>
-            {/messaggiForm}
-
-            <!-- Tabella che elenca i tipi evento esistenti con possibilità di modificarli o eliminarli. -->
-            <span id="sumTabella" class="navigationHelp">Tabella che elenca i Tipi Evento
-                esistenti con l'indicazione del titolo del Tipo Evento e l'eventuale descrizione.
-                Per ciascuna riga sono presenti anche dei bottoni 
-                che permettono di modificare quel Tipo Evento o di eliminarlo.</span>
-            <table id="tabella-tipi-evento" aria-describedby="sumTabella">
-                <caption>Tipi Evento presenti</caption>
-                <thead>
-                    <tr>
-                        <th scope="col">Titolo</th>
-                        <th scope="col">Descrizione</th>
-                        <th scope="col">Azioni</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {rigaTabella}
-                    <tr>
-                        <td data-title="Titolo">{titolo}</td>
-                        <td data-title="Descrizione">{descrizione}</td>
-                        <td data-title="Azioni">
-                            <form method="post" action="gestione-tipi-evento.php">
-                                <input type="hidden" name="titolo" value="{titolo}">
-                                <button type="submit" name="modifica" value="true">Modifica</button>
-                                <button type="submit" name="elimina" value="true">Elimina</button>
-                            </form>
-                        </td>
-                    </tr>
-                    {/rigaTabella}
-                </tbody>
-            </table>
-        </div>
+    <!-- Lista dei tipi evento esistenti in ordine alfabetico con possibilità di modificarli o eliminarli. -->
+    <div class="elementi-presenti">
+        <ol id="lista-tipi-evento">
+            {elementoLista}
+            <li>
+                <span class="label-element"><span class="element-title">{titolo}</span></span>
+                <form method="get" action="gestione-tipi-evento.php">
+                    <input type="hidden" name="titolo" value="{titolo}">
+                    <button type="submit" name="modifica" value="true">Modifica<span class="screen-reader-only"> il tipo evento {titolo}</span></button>
+                    <button type="submit" name="elimina" value="true">Elimina<span class="screen-reader-only"> il tipo evento {titolo}</span></button>
+                </form>
+            </li>
+            {/elementoLista}{nessunElemento}
+            <li>
+                <span class="label-element">Nessun tipo evento presente</span>
+            </li>
+            {/nessunElemento}
+        </ol>
+    </div>
+</div>

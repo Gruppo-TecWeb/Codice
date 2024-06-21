@@ -1,25 +1,31 @@
 <div id="amministratori" class="limitedWidth">
-            <h3>Gestione Amministratori</h3>
-
-            <!-- Form per aggiungere o modificare amministratori -->
-
-            {messaggiForm}<ul>
-                {messaggioForm}<li>{messaggio}</li>{/messaggioForm}
+    <form method="post" action="gestione-amministratori.php?username={username}" class="aggiunta-modifica" id="form-amministratore">
+        <h3 id="titolo">Gestione Amministratori</h3>
+        {messaggiForm}
+        <div id="messaggi">
+            <ul id="messaggi-form">
+                {messaggioForm}
+                <li class="{tipoMessaggio}">{messaggio}</li>{/messaggioForm}
             </ul>
-            {/messaggiForm}
-            
-            <form method="post" action="gestione-amministratori.php">
-                <fieldset>
-                    <legend>{legend}</legend>
-                    <label for="username" lang="en">Username:</label>
-                    <input type="text" id="username" name="nuovoUsername" value="{nuovoUsername}" placeholder="Username" required>
-                    <label for="email" lang="en">E-Mail:</label>
-                    <input type="email" id="email" name="nuovaEmail" value="{nuovaEmail}" placeholder="E-Mail" required>
-                    <input type="hidden" name="username" value="{username}">
-                    <input type="hidden" name="email" value="{email}">
-                    <input type="hidden" name="azione" value="{valueAzione}">
-                
-                    <button type="submit" name="conferma" value="true">Conferma</button>
-                </fieldset>
-            </form>
         </div>
+        {/messaggiForm}
+        <div id="input" class="elementi-presenti aggiunta-modifica">
+            <fieldset>
+                <legend>{legend}</legend>
+                <p>I campi contrassegnati con (*) sono obbligatori.</p>
+                <label for="username" lang="en">Username (*):</label>
+                <input type="text" id="username" name="nuovoUsername" value="{nuovoUsername}" placeholder="Username" required>
+                <div id="username-error" class="error"></div>
+                <label for="email" lang="en">E-Mail (*):</label>
+                <input type="email" id="email" name="nuovaEmail" value="{nuovaEmail}" placeholder="E-Mail" required>
+                <div id="email-error" class="error"></div>
+                <input type="hidden" name="azione" value="{valueAzione}">
+            </fieldset>
+        </div>
+        <div id="buttons" class="subMenu">
+            <button type="button" value="annulla" onClick="tornaIndietro()">Annulla</button>{buttonElimina}
+            <button type="submit" name="elimina" value="true">Elimina</button>{/buttonElimina}
+            <button type="submit" name="conferma" value="true">Conferma</button>
+        </div>
+    </form>
+</div>

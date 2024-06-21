@@ -20,6 +20,8 @@ $menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = 'init_index()';
 $logout = '';
+$classList = '';
+$logo = get_content_between_markers($paginaHTML, 'logoNoLink');
 
 if (isset($_SESSION["login"])) {
     $logout = get_content_between_markers($paginaHTML, 'logout');
@@ -29,37 +31,40 @@ if (isset($_SESSION["login"])) {
 $eventoHome = get_content_between_markers($content, 'eventoHome');
 $contentEvento = '';
 
-$connection = DBAccess::getInstance();
-$connectionOk = $connection->openDBConnection();
+$connection = DBAccess::get_instance();
+$connectionOk = $connection->open_DB_connection();
 if ($connectionOk) {
     $headingEvento = '';
+    $listaEventi  = $connection->get_lista_eventi(date('Y-m-d')); // lista eventi futuri
 
-    $listaEventi  = $connection->getListaEventi(); // lista eventi futuri
     if (count($listaEventi) > 0) { // se ci sono eventi futuri
         $headingEvento = get_content_between_markers($eventoHome, 'prossimoEvento');
-    } else { // altrimenti prendo i pasaati
-        $listaEventi = $connection->getListaEventi('', '', false); // lista eventi passati
+    } else { // altrimenti prendo i passati
+        $listaEventi = $connection->get_lista_eventi(date('Y-m-d'), '', false); // lista eventi passati
         $headingEvento = get_content_between_markers($eventoHome, 'ultimoEvento');
     }
     if (count($listaEventi) > 0) { // se ho ottenuto eventi
         $eventoId = $listaEventi[0]['Id'];
-        $evento = $connection->getEvento($eventoId);
-        [$titolo, $descrizione, $data, $ora, $luogo, $locandina, $tipoEvento, $dataInizioClassifica] = array_values($evento);
+        $evento = $connection->get_evento($eventoId);
+        $evento = replace_lang_array($evento);
+        [$tipoEvento, $titolo, $descrizione, $data, $ora, $luogo, $locandina] = array_values($evento);
 
         $contentEvento = multi_replace(replace_content_between_markers($eventoHome, [
             'intestazione' => $headingEvento
         ]), [
             '{id}' => $eventoId,
             '{titolo}' => $titolo,
-            '{data}' => $data,
-            '{ora}' => $ora,
+            '{data}' => date_format(date_create($data), 'Y-m-d'),
+            '{dataVisualizzata}' => date_format_ita($data),
+            '{ora}' => date_format(date_create($ora), 'H:i'),
             '{luogo}' => $luogo
         ]);
     }
-    $connection->closeDBConnection();
+    $connection->close_DB_connection();
 }
 else {
     header("location: errore500.php");
+    exit;
 }
 
 $content = replace_content_between_markers($content, [
@@ -67,6 +72,7 @@ $content = replace_content_between_markers($content, [
 ]);
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'logo' => $logo,
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu,
     'logout' => $logout
@@ -76,5 +82,6 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{content}' => $content,
-    '{onload}' => $onload
+    '{onload}' => $onload,
+    '{classList}' => $classList
 ]);

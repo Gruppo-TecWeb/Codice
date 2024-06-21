@@ -9,11 +9,11 @@
         <input type="date" name="data" id="data" value="{data}">
     </div>
     <div>
-        <label for="titolo">Filtra per tipo</label>
-        <select id="titolo" name="titolo" autocomplete="organization-title">
-            <option value="" selected>Tutti gli eventi</option>
-            {listaTitoli}<option value="{titoloEvento}" {selezioneEvento}>{titoloEvento}</option>
-            {/listaTitoli}
+        <label for="tipoEvento">Filtra per tipo</label>
+        <select id="tipoEvento" name="tipoEvento">
+            <option value="" {selezioneTipoEventoDefault}>Tutti gli eventi</option>
+            {listaTipiEvento}<option value="{tipoEvento}" {selezioneTipoEvento}>{tipoEvento}</option>
+            {/listaTipiEvento}
         </select>
     </div>
     <div>
@@ -35,6 +35,7 @@
     {listaEventi}
     <ul id="lista-eventi">
         {eventoElement}
+        {eventoImmagine}
         <li>
             <a href="evento.php?id={idEvento}">
                 <img src="assets/media/locandine/{locandinaEvento}" alt="">
@@ -42,10 +43,24 @@
                 <p><time datetime="{valueDataEvento}">{dataEvento}</time></p>
             </a>
         </li>
+        {/eventoImmagine}
+        {eventoNoImmagine}
+        <li class="eventoNoImmagine">
+            <a href="evento.php?id={idEvento}">
+                <div aria-hidden="true" class="cornice">
+                    <div class="scritte">
+                        {titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}_{titoloEventoStile}
+                    </div>
+                </div>
+                <h3>{titoloEvento}</h3>
+                <p><time datetime="{valueDataEvento}">{dataEvento}</time></p>
+            </a>
+        </li>
+        {/eventoNoImmagine}
         {/eventoElement}
     </ul>
     {messaggioListaEventi}
-    <p class="eventiMessaggio limitedWidth">{messaggio}, sfoglia i nostri <a href="eventi.php?data={dataEventiPassati}">eventi passati</a></p>
+    <p class="eventiMessaggio limitedWidth">{messaggio} {older_date}, sfoglia i nostri <a href="eventi.php?data={dataEventiPassati}">eventi passati</a>{/older_date}</p> 
     {/messaggioListaEventi} {/listaEventi}
 </div>
 {pagination}
@@ -57,7 +72,7 @@
         {pages} {currentPage}
         <li class="elemento-paginazione-eventi"><a href="#" aria-label="Pagina {numeroPagina}" aria-current="true">{numeroPagina}</a></li>
         {/currentPage} {notCurrentPage}
-        <li class="elemento-paginazione-eventi {classe}"><a href="eventi.php?pagina={numeroPagina}&data={data}&titolo={titolo}" aria-label='Vai alla pagina {numeroPagina}'>{messaggio}</a></li>
+        <li class="elemento-paginazione-eventi {classe}"><a href="eventi.php?pagina={numeroPagina}&data={data}&tipoEvento={tipoEvento}" aria-label='Vai alla pagina {numeroPagina}'>{messaggio}</a></li>
         {/notCurrentPage} {ellipsis}
         <li><a class="ellipsis">&#8230;</a></li>
         {/ellipsis} {/pages}

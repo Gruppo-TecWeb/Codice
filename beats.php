@@ -20,14 +20,17 @@ $percorso = '';
 $percorsoAdmin = 'admin/';
 $menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
-$onload = "init_beats(), onJavaScript(), autoPlay('11 - Goodbye - Big Joe.mp3')";
+$onload = "init_beats(), autoPlay('11 - Goodbye - Big Joe.mp3')";
 $logout = '';
+$classList = 'fullMenu';
+$logo = get_content_between_markers($paginaHTML, 'logoLink');
 
 if (isset($_SESSION["login"])) {
     $logout = get_content_between_markers($paginaHTML, 'logout');
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'logo' => $logo,
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu,
     'logout' => $logout
@@ -37,5 +40,6 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{content}' => $content,
-    '{onload}' => $onload
+    '{onload}' => $onload,
+    '{classList}' => $classList
 ]);

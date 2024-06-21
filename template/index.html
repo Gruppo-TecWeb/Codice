@@ -1,7 +1,7 @@
 <section id="hero">
     <div id="titolo">
         <h2 class="title">Fungo</h2>
-        <h3>Collettivo Rap, Padova</h3>
+        <h3>Collettivo <span lang="en">Rap</span>, Padova</h3>
         <p>Uniti dalla passione per il <span lang="en">freestyle rap</span>, organizziamo periodicamente eventi di puro scambio di <span lang="en">flow</span> e <span lang="en">vibe</span>: <strong>sfide di <span lang="en">freestyle</span></strong>, progetti
             sociali e culturali, incontri con talenti emergenti e molto altro,
             <a href="chi-siamo.php">scopri di più su di noi</a>. Tutti sono invitati a partecipare (gratuitamente) sia come spettatori che come protagonisti sul palco, hai talento o sei interessato? Vieni al prossimo evento.</p>
@@ -13,19 +13,32 @@
                 <h4>{titolo}</h4>
                 <dl>
                     <dt>Data:</dt>
-                    <dd><time datetime="{data}">{data}</time></dd>
+                    <dd><time datetime="{data}">{dataVisualizzata}</time></dd>
                     <dt>Ora:</dt>
                     <dd><time datetime="{ora}">{ora}</time></dd>
                     <dt>Luogo:</dt>
                     <dd>{luogo}</dd>
                 </dl>
-                <a href="evento.php?id={id}">Più informazioni</a>
+				<a href="evento.php?id={id}">Più informazioni sull'evento {titolo}</a>
             </div> {/eventoHome}
             <a href="eventi.php">Guarda tutti gli eventi</a>
         </div>
 
     </div>
-    <div id="hero-image">
+    <div id="video-home">
+        <video aria-label="Video di presentazione del collettivo" aria-describedby="video-descrizione" controls autoplay loop muted poster="assets/media/poster.jpg" width="1080" height="1920">
+            <source src="assets/media/video_fungo.mp4" type="video/mp4">
+            <source src="assets/media/video_fungo.webm" type="video/webm">
+            <track kind="captions" label="Video descrizione" src="assets/media/transcript_video.webvtt" srclang="it">
+            <p>Il tuo <span lang="en">browser</span> non supporta questo video</p>
+        </video>
+        <p id="video-descrizione" class="navigationHelp">
+            Brevi sequenze in cui, di sera, una folla di giovani è radunata in una piazza illuminata dai lampioni, vicino all'iconica struttura circolare con una tettoia, che ricorda un Fungo, mentre in mezzo alla folla alcune persone stanno facendo
+            <span lang="en">freestyle</span>, sono competitive ma amichevoli, altre ballano <span lang="en">break dance</span>.
+        </p>
+        <p id="audio-descrizione">
+            Questo video non ha audio
+        </p>
     </div>
 </section>
 <section id="eventi-home">
@@ -33,20 +46,25 @@
     <dl>
         <div class="eventoPrincipaleHome">
             <dt>Fungo</dt>
-            <dd class="ddDesc">Il Fungo prende il nome dall'iconica struttura presente in piazza zanellato a Padova, dove ha luogo solitamente ogni martedì. Si tratta di una serie di eventi legati al mondo rap freestyle durante i quali si svolgono delle battle tra i vari
-                partecipanti. Le classifiche sono i risultati di questi incontri.</dd>
-            <dd class="ddImg"><img src="assets/media/fungo_evento.png" alt="">
-                <p>L'iconica struttura con la tettoia circolare da cui proviene il nome Fungo.</p>
+            <dd class="ddDesc">Il Fungo prende il nome dall'iconica struttura presente in piazza zanellato a Padova, dove ha luogo solitamente ogni martedì. Si tratta di una serie di eventi legati al mondo <span lang="en">rap freestyle</span> durante i quali si svolgono delle <span lang="en">battle</span> tra i vari
+                partecipanti. Le classifiche sono i risultati di questi incontri. <a href="eventi.php?tipoEvento=Fungo">Vedi gli eventi Fungo</a></dd>
+            <dd class="ddImg">
+                <figure>
+                    <img src="assets/media/fungo_evento.png" alt="">
+                    <figcaption>L'iconica struttura con la tettoia circolare da cui proviene il nome Fungo.</figcaption>
+                </figure>
             </dd>
         </div>
         <div class="eventoPrincipaleHome">
             <dt>Micelio</dt>
-            <dd class="ddDesc">Il Micelio è la versione invernale del Fungo e ha luogo solitamente ogni martedì presso il Distretto Est, a Padova. Si tratta di una serie di eventi legati al mondo rap freestyle durante i quali si svolgono delle battle tra i vari partecipanti.
-                Le classifiche sono i risultati di questi incontri.</dd>
-            <dd class="ddImg"><img src="assets/media/micelio_evento.jpg" alt="">
-                <p>Il <span lang="en">ring</span> dove avvengono le <span lang="en">battle</span> al Micelio.</p>
+            <dd class="ddDesc">Il Micelio è la versione invernale del Fungo e ha luogo solitamente ogni martedì presso il Distretto Est, a Padova. Si tratta di una serie di eventi legati al mondo <span lang="en">rap freestyle</span> durante i quali si svolgono delle <span lang="en">battle</span> tra i vari partecipanti.
+                Le classifiche sono i risultati di questi incontri. <a href="eventi.php?tipoEvento=Micelio">Vedi gli eventi Micelio</a></dd>
+            <dd class="ddImg">
+                <figure>
+                    <img src="assets/media/micelio_evento.jpg" alt="">
+                    <figcaption>Il <span lang="en">ring</span> dove avvengono le <span lang="en">battle</span> al Micelio.</figcaption>
+                </figure>
             </dd>
-
         </div>
     </dl>
 
@@ -54,6 +72,6 @@
 <section id="freestyle" class="limitedWidth normal">
     <h3>Il <span lang="en">freestyle</span></h3>
     <p>Il <span lang="en">freestyle rap</span> è un'arte, dove i <span lang="en">rapper</span> improvvisano e eseguono versi in rima seguendo un <span lang="en">beat</span>, senza avere testi precedentemente scritti. Elementi chiave includono improvvisazione,
-        ritmo e <span lang="en">flow</span>, rime e <span lang="en">punch-line</span>, creatività verbale, interazione con l'ambiente e, spesso, una componente competitiva. <a href="modalita.php">Leggi di più</a></p>
-    <p><a href="beats.php">Qui</a> trovi la lista della basi strumentali selezionate dai nostri DJ, usale per i tuoi <span lang="en">freestyle</span>.</p>
+        ritmo e <span lang="en">flow</span>, rime e <span lang="en">punch-line</span>, creatività verbale, interazione con l'ambiente e, spesso, una componente competitiva. <a href="modalita.php">Leggi di più sul <span lang="en">freestyle</span></a>.</p>
+    <p><a href="beats.php">Nella pagina <span lang="en">beats</span></a> trovi la lista della basi strumentali selezionate dai nostri <abbr title="Disc jockey">DJ</abbr>, usale per i tuoi <span lang="en">freestyle</span>.</p>
 </section>

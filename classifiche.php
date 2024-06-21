@@ -20,98 +20,125 @@ $menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 $logout = '';
+$classList = '';
+$logo = get_content_between_markers($paginaHTML, 'logoLink');
 
-$connection = DBAccess::getInstance();
-$connectionOk = $connection->openDBConnection();
+$connection = DBAccess::get_instance();
+$connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
     $classifiche = '';
-    $sceltaEffettuata = false;
-    $titoloEvento = '';
-    $dataInizioEvento = null;
+    $validIdClassifica = isset($_GET['classifica']) ? validate_input($_GET['classifica']) : "";
+    $classifica = $connection->get_classifica($validIdClassifica);
+    if ($classifica != null)
+        $classifica = replace_lang_dictionary($classifica);
+    if (((isset($_GET['classifica']) && $_GET['classifica'] != "") && $validIdClassifica == "") ||
+        ((isset($_GET['classifica']) && $_GET['classifica'] != "") && $classifica == null)
+    ) {
+        header("location: classifiche.php?errore=invalid");
+        exit;
+    }
 
-    if (!isset($_GET["reset"]) && isset($_GET["classifica"]) && $_GET["classifica"] != "") {
-        $classifica = explode('{.}', validate_input($_GET["classifica"]));
-        $titoloEvento = $classifica[0];
-        $dataInizioEvento = date_create($classifica[1]);
-        $sceltaEffettuata = true;
-    } else {
-        $titoloEvento = $connection->get_tipo_evento()['Titolo'];
-        $dataInizioEvento = date_create($connection->get_data_inizio_corrente($titoloEvento));
+    if (isset($_GET['errore'])) {
+        header("location: errore404.php");
+        exit;
+    }
+
+    if (isset($_GET['reset'])) {
+        header("location: classifiche.php");
+        exit;
+    }
+
+    $resultClassifiche = $connection->get_classifiche();
+    $resultClassifiche = replace_lang_dictionary($resultClassifiche);
+    if (!isset($_GET['classifica'])) {
+        $classifica = $connection->get_classifica_corrente();
+        $classifica = replace_lang_dictionary($classifica);
+        if ($classifica == null || $connection->get_punteggi_classifica($classifica['TipoEvento'], $classifica['DataInizio'], $classifica['DataFine']) == null) {
+            // ordino le classifiche per data di fine in modo decrescente
+            usort($resultClassifiche, function ($a, $b) {
+                return strtotime($b['DataFine']) - strtotime($a['DataFine']);
+            });
+            // per ogni classifica passata controllo se ci sono punteggi
+            foreach ($resultClassifiche as $resultClassifica) {
+                $punteggiClassifica = $connection->get_punteggi_classifica($resultClassifica['TipoEvento'], $resultClassifica['DataInizio'], $resultClassifica['DataFine']);
+                if ($punteggiClassifica != null) {
+                    $classifica = $resultClassifica;
+                    break;
+                }
+            }
+        }
     }
 
     // creo la lista delle classifiche per la scelta dall'archivio
-    $resultClassifiche = $connection->get_classifiche();
     foreach ($resultClassifiche as $resultClassifica) {
-        $dataInizio = date_create($resultClassifica['DataInizio']);
-        $dataFine = $resultClassifica['DataFine'] ? date_create($resultClassifica['DataFine']) : $dataInizio;
-        $evento = $resultClassifica['TipoEvento'];
-        $dataVisualizzata = '';
-        $selected = '';
+        $idClassifica = $resultClassifica['Id'];
+        $titoloClassifica = $resultClassifica['Titolo'];
+        $tipoEvento = $resultClassifica['TipoEvento'];
+        $selected = $idClassifica == $classifica['Id'] ? ' selected' : '';
 
-        if ($dataInizio == $dataFine) {
-            $dataVisualizzata = date_format($dataInizio, 'd/m/y');
-        } elseif (date_format($dataInizio, 'Y') != date_format($dataFine, 'Y')) {
-            $dataVisualizzata = date_format($dataInizio, 'Y') . ' - ' . date_format($dataFine, 'Y');
-        } elseif (date_format($dataInizio, 'm') != date_format($dataFine, 'm')) {
-            $dataVisualizzata = date_format($dataInizio, 'm/y') . ' - ' . date_format($dataFine, 'm/y');
-        } else {
-            $dataVisualizzata = date_format($dataInizio, 'd/m/y') . ' - ' . date_format($dataFine, 'd/m/y');
-        }
-
-        if ($titoloEvento == $evento && date_format($dataInizioEvento, 'Y-m-d') == date_format($dataInizio, 'Y-m-d')) {
-            $titoloEvento = $evento;
-            $dataInizioEvento = $dataInizio;
-            $selected = ' selected';
-        }
         $option = get_content_between_markers($content, 'listaClassifiche');
         $classifiche .= multi_replace($option, [
-            '{tipoEvento}' => $evento,
-            '{dataInizio}' => date_format($dataInizio, 'Y-m-d'),
+            '{idClassifica}' => $idClassifica,
             '{selezioneClassifica}' => $selected,
-            '{opzioneClassifica}' => $evento . ' ' . $dataVisualizzata
+            '{opzioneClassifica}' => $titoloClassifica
         ]);
     }
 
     // creo le classifiche per la visualizzazione
-    $descrizioneEvento = $connection->get_tipo_evento($titoloEvento)['Descrizione'];
-    $classifica = $connection->get_classifica($titoloEvento, date_format($dataInizioEvento, 'Y-m-d'));
     if ($classifica != null) {
-        $classificaHTML = get_content_between_markers($content, 'tabellaClassifica');
-        $tabella = multi_replace($classificaHTML, [
-            '{tipoEvento}' => $titoloEvento,
-            '{desTipoEvento}' => multi_replace($descrizioneEvento, [
-                'battle' => "<span lang='en'>battle</span>",
-            ]),
-        ]);
-        $righe = '';
-        $rigaHTML = get_content_between_markers($content, 'rigaClassifica');
-        foreach ($classifica as $riga) {
-            $righe .= multi_replace($rigaHTML, [
-                '{ranking}' => $riga['ranking'],
-                '{freestyler}' => $riga['partecipante'],
-                '{punti}' => $riga['punti']
+        $tipoEvento = $classifica['TipoEvento'];
+        $descrizioneEvento = $connection->get_tipo_evento($tipoEvento)['Descrizione'];
+        $descrizioneEvento = replace_lang($descrizioneEvento);
+        $punteggiClassifica = $connection->get_punteggi_classifica($tipoEvento, $classifica['DataInizio'], $classifica['DataFine']);
+        $titoloClassifica = $classifica['Titolo'];
+        if ($punteggiClassifica != null) {
+            $classificaHTML = get_content_between_markers($content, 'tabellaClassifica');
+            $tabella = multi_replace($classificaHTML, [
+                '{tipoEvento}' => $tipoEvento,
+                '{desTipoEvento}' => $descrizioneEvento,
+                '{titoloClassifica}' => $titoloClassifica
+            ]);
+            $righe = '';
+            $rigaHTML = get_content_between_markers($content, 'rigaClassifica');
+            foreach ($punteggiClassifica as $riga) {
+                $righe .= multi_replace($rigaHTML, [
+                    '{ranking}' => $riga['ranking'],
+                    '{freestyler}' => $riga['partecipante'],
+                    '{punti}' => $riga['punti']
+                ]);
+            }
+            $content = replace_content_between_markers($content, [
+                'listaClassificheDefault' => '',
+                'listaClassifiche' => $classifiche,
+                'tabellaClassifica' => $tabella,
+                'rigaClassifica' => $righe,
+                'nessunaClassifica' => '',
+                'nessunPunteggio' => ''
+            ]);
+        } else {
+            $content = replace_content_between_markers($content, [
+                'listaClassificheDefault' => '',
+                'listaClassifiche' => $classifiche,
+                'tabellaClassifica' => '',
+                'nessunaClassifica' => '',
+                'nessunPunteggio' => get_content_between_markers($content, 'nessunPunteggio')
             ]);
         }
-        $content = replace_content_between_markers($content, [
-            'listaClassificheDefault' => '',
-            'listaClassifiche' => $classifiche,
-            'tabellaClassifica' => $tabella,
-            'rigaClassifica' => $righe,
-            'nessunaClassifica' => ''
-        ]);
     } else {
         $content = replace_content_between_markers($content, [
             'listaClassificheDefault' => get_content_between_markers($content, 'listaClassificheDefault'),
             'listaClassifiche' => '',
             'tabellaClassifica' => '',
-            'nessunaClassifica' => get_content_between_markers($content, 'nessunaClassifica')
+            'nessunaClassifica' => get_content_between_markers($content, 'nessunaClassifica'),
+            'nessunPunteggio' => ''
         ]);
     }
 
-    $connection->closeDBConnection();
+    $connection->close_DB_connection();
 } else {
     header("location: errore500.php");
+    exit;
 }
 
 if (isset($_SESSION["login"])) {
@@ -119,6 +146,7 @@ if (isset($_SESSION["login"])) {
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'logo' => $logo,
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu,
     'logout' => $logout
@@ -128,5 +156,6 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{content}' => $content,
-    '{onload}' => $onload
+    '{onload}' => $onload,
+    '{classList}' => $classList
 ]);

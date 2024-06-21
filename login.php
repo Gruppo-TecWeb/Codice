@@ -22,13 +22,16 @@ $onload = '';
 $username = '';
 $messaggioForm = '';
 $messaggiForm = '';
+$classList = '';
+$logo = get_content_between_markers($paginaHTML, 'logoLink');
 
-$connection = DBAccess::getInstance();
-$connectionOk = $connection->openDBConnection();
+$connection = DBAccess::get_instance();
+$connectionOk = $connection->open_DB_connection();
 
 if ($connectionOk) {
     if (isset($_SESSION["login"])) {
         header("location: admin/index.php");
+        exit;
     }
 
     $messaggioForm = get_content_between_markers($content, 'messaggioForm');
@@ -38,21 +41,29 @@ if ($connectionOk) {
         $password = validate_input($_POST["password"]);
         if ($username == "") {
             $errore = true;
-            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Inserire <span lang=\"en\">Username</span>"]);
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Inserire <span lang=\"en\">Username</span>"
+            ]);
         }
         if ($password == "") {
             $errore = true;
-            $messaggiForm .= multi_replace($messaggioForm, ['{messaggio}' => "Inserire <span lang=\"en\">Password</span>"]);
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Inserire <span lang=\"en\">Password</span>"
+            ]);
         }
         if (!$errore) {
             $utente = $connection->login($username, $password);
             if (!(is_null($utente))) {
-                $_SESSION["datiUtente"] = $utente;
+                $_SESSION["username"] = $utente['Username'];
                 $_SESSION["login"] = true;
                 header("location: admin/index.php");
+                exit;
             } else {
                 $errore = true;
                 $messaggiForm .= multi_replace($messaggioForm, [
+                    '{tipoMessaggio}' => 'inputError',
                     '{messaggio}' => "<span lang=\"en\">Username</span> e/o <span lang=\"en\">Password</span> errati"]);
             }
         }
@@ -63,16 +74,18 @@ if ($connectionOk) {
             );
         }
     }
-    $connection->closeDBConnection();
+    $connection->close_DB_connection();
     
     $content = multi_replace(replace_content_between_markers($content, ['messaggiForm' => $messaggiForm]), [
         '{valoreUsername}' => $username
     ]);
 } else {
     header("location: errore500.php");
+    exit;
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'logo' => $logo,
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu,
     'logout' => ''
@@ -82,5 +95,6 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{content}' => $content,
-    '{onload}' => $onload
+    '{onload}' => $onload,
+    '{classList}' => $classList
 ]);

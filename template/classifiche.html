@@ -1,31 +1,33 @@
-<h2 class="limitedWidth">Classifiche</h2>
-<nav id="filtri-skip">
-    <a href="#tabella-classifica" class="navigationHelp">Salta ai risultati</a>
-</nav>
-<div class="limitedWidth">
-    <form method="get" action="classifiche.php">
-        <fieldset>
-            <legend>Puoi visualizzare le classifiche passate dal nostro archivio:</legend>
-            <label for="classifica">Classifica: </label>
-            <select id="classifica" name="classifica" autocomplete="off">
-                {listaClassificheDefault}<option value="Scegli la classifica" selected>Scegli la classifica</option>
-                {/listaClassificheDefault}{listaClassifiche}<option value="{tipoEvento}{.}{dataInizio}"{selezioneClassifica}>{opzioneClassifica}</option>
-                {/listaClassifiche}
-            </select>
-        </fieldset>
-        <fieldset>
-            <button type="submit" name="form_submit">Visualizza</button>
-            <button type="submit" name="reset" lang="en">Reset</button>
-        </fieldset>
-    </form>
+<div class="limitedWidth titolo-filtri">
+    <h2>Classifiche</h2>
+    <nav id="filtri-skip">
+        <a href="#tabella-classifica" class="navigationHelp">Salta ai risultati</a>
+    </nav>
+    <div>
+        <form method="get" action="classifiche.php">
+            <fieldset>
+                <legend>Puoi visualizzare le classifiche passate dal nostro archivio:</legend>
+                <label for="classifica">Classifica: </label>
+                <select id="classifica" name="classifica" autocomplete="off">
+                    {listaClassificheDefault}<option value="Scegli la classifica" selected>Scegli la classifica</option>
+                    {/listaClassificheDefault}{listaClassifiche}<option value="{idClassifica}"{selezioneClassifica}>{opzioneClassifica}</option>
+                    {/listaClassifiche}
+                </select>
+                <button type="submit">Visualizza</button>
+                <button type="submit" name="reset" lang="en">Reset</button>
+            </fieldset>
+        </form>
+    </div>
 </div>
 {tabellaClassifica}
 <div class="limitedWidth div-classifica" id="{tipoEvento}">
-    <p>{desTipoEvento}</p>
-    <span id="sumTabella" class="navigationHelp">Tabella che riassume la classifica del {tipoEvento} con l'indicazione
+    <div class="des-classifica">
+        <p>{desTipoEvento}</p>
+    </div>
+    <span id="sumTabella" class="navigationHelp">Tabella che riassume la classifica del {titoloClassifica} con l'indicazione
         di <span lang="en">ranking</span>, nome d'arte del <span lang="en">freestyler</span>, punteggio ottenuto.</span>
     <table id="tabella-classifica" aria-describedby="sumTabella">
-        <caption>Classifica {tipoEvento}</caption>
+        <caption>Classifica {titoloClassifica}</caption>
         <thead>
             <tr>
                 <th scope="col" lang="en">Ranking</th>
@@ -45,4 +47,5 @@
     </table>
 </div>
 {/tabellaClassifica} {nessunaClassifica}
-<p class="limitedWidth">Non sono presenti classifiche</p>{/nessunaClassifica}
+<p class="limitedWidth">Non sono presenti classifiche</p>{/nessunaClassifica} {nessunPunteggio}
+<p class="limitedWidth">Non sono presenti punteggi in questa classifica</p>{/nessunPunteggio}

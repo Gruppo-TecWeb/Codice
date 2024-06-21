@@ -18,7 +18,7 @@
     <script src="../scripts/script.js"></script>
 </head>
 
-<body id="{pageId}" class="adminPage" onload="{onload}" data-menu-open="true">
+<body id="{pageId}" class="adminPage {classList}" onload="{onload}" data-menu-open="false">
     <header>
         <nav id="menu-skip" aria-label="Aiuti alla navigazione">
             <ul>
@@ -26,21 +26,25 @@
                 <li><a class="navigationHelp" href="#menu">Vai al menù principale</a></li>
             </ul>
         </nav>
+		{logo} {logoLink}
         <a href="index.php">
             <h1 class="logoAdmin">Fungo: Admin</h1>
-        </a>
-        <nav id="menu" class="mobileCard" aria-labelledby="menu-title" data-menu-open="true">
+		</a> {/logoLink} {logoNoLink}
+		<div class="logoNoLink">
+            <h1 class="logoAdmin">Fungo: Admin</h1>
+		</div> {/logoNoLink} {/logo}
+        <nav id="menu" class="mobileCard" aria-labelledby="menu-title" data-menu-open="false">
             <h2 id="menu-title">Menù Admin</h2>
             <ul>
-                {menu} {liCurrent}
+                {menu}{liCurrent}
                 <li><span aria-current="page" id="currentLink" class="menuItem" {lang}>{anchor}</span></li>
                 {/liCurrent} {liNotCurrent}
                 <li><a href="{pageHref}" class="menuItem" {lang}>{anchor}</a></li>
-                {/liNotCurrent} {/menu}
+                {/liNotCurrent}{/menu}
             </ul>
         </nav>
     </header>
-    <div id="breadcrumbs-container" class="limitedWidth mobileCard" data-menu-open="true">
+    <div id="breadcrumbs-container" class="limitedWidth mobileCard" data-menu-open="false">
         <nav id="breadcrumbs" aria-label="Percorso">
             {breadcrumbs}
             <p>
@@ -77,7 +81,7 @@
             <section>
                 <h3>Amministrazione</h3>
                 <ul>
-                    <li><a href="../index.php">Area utente</a></li>
+                    <li><a href="../index.php">Torna al sito</a></li>
                     <li lang="en"><a href="../logout.php">Logout</a></li>
                 </ul>
             </section>

@@ -18,7 +18,7 @@
     <script src="scripts/script.js"></script>
 </head>
 
-<body id="{pageId}" onload="{onload}" data-menu-open="true">
+<body id="{pageId}" onload="{onload}" class="{classList}" data-menu-open="false">
     <header>
         <nav id="menu-skip" aria-label="Aiuti alla navigazione">
             <ul>
@@ -26,21 +26,27 @@
                 <li><a class="navigationHelp" href="#menu">Vai al menù principale</a></li>
             </ul>
         </nav>
+        {logo} {logoLink}
         <a href="index.php">
             <h1 class="logo">Fungo</h1>
         </a>
-        <nav id="menu" class="mobileCard" aria-labelledby="menu-title" data-menu-open="true">
+        {/logoLink} {logoNoLink}
+		<div class="logoNoLink">
+            <h1 class="logo">Fungo</h1>
+		</div>
+        {/logoNoLink} {/logo}
+        <nav id="menu" class="mobileCard" aria-labelledby="menu-title" data-menu-open="false">
             <h2 id="menu-title">Menù</h2>
             <ul>
-                {menu} {liCurrent}
-                <li><span aria-current="page" id="currentLink" class="menuItem" {lang}>{anchor}</span></li>
-                {/liCurrent} {liNotCurrent}
-                <li><a href="{pageHref}" class="menuItem" {lang}>{anchor}</a></li>
-                {/liNotCurrent} {/menu}
+                {menu}{liCurrent}
+                <li><span aria-current="page" id="currentLink" class="menuItem"{lang}>{anchor}</span></li>
+                {/liCurrent}{liNotCurrent}
+                <li><a href="{pageHref}" class="menuItem"{lang}>{anchor}</a></li>
+                {/liNotCurrent}{/menu}
             </ul>
         </nav>
     </header>
-    <div id="breadcrumbs-container" class="limitedWidth mobileCard" data-menu-open="true">
+    <div id="breadcrumbs-container" class="limitedWidth mobileCard" data-menu-open="false">
         <nav id="breadcrumbs" aria-label="Percorso">
             {breadcrumbs}
             <p>
@@ -57,21 +63,22 @@
     </main>
     <footer>
         <div id="footer-content" class="limitedWidth">
-            <a href="#content" id="btn-scroll-up" class="iconButton" title="Torna sù">
-                <span class="navigationHelp">Torna sù</span>
-                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M112 244l144-144 144 144M256 120v292"/></svg>
+            <a href="#content" id="btn-scroll-up" class="iconButton" title="Torna su">
+                <span class="navigationHelp">Torna su</span>
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M112 244l144-144 144 144M256 120v292" /></svg>
             </a>
             <h2 class="navigationHelp">Informazioni su questo sito</h2>
             <section id="footer-info">
                 <h3 class="logo">Fungo</h3>
                 <p>Questo sito è stato pensato e sviluppato per umani, con grande cura e attenzione a tutte le categorie di utenti finali. Questo è il modo in cui lavoriamo.</p>
-                <p>Prodotto da <a href="https://github.com/Gruppo-TecWeb">TecWeb</a>: Antonio Benetazzo, Alessando Bressan, Sebastiano Lewental, Riccardo Zaupa.</p>
+                <p>Prodotto da: <a class="linkEsterno" href="https://github.com/Gruppo-TecWeb">Antonio Benetazzo, Alessando Bressan, Sebastiano Lewental, Riccardo Zaupa <span class="navigationHelp">(link esterno)</span></a>.</p>
             </section>
             <section>
                 <h3>Su di noi</h3>
                 <ul>
                     <li><a href="chi-siamo.php">Chi siamo</a></li>
-                    <li><a href="https://www.instagram.com/fungo.micelio/">Pagina Instagram</a></li>
+                    <li><a class="linkEsterno" href="https://www.instagram.com/fungo.micelio/">Pagina Instagram <span class="navigationHelp">(link esterno)</span></a></li>
                 </ul>
             </section>
             <section>
