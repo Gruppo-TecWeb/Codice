@@ -1049,7 +1049,6 @@ p.eventiMessaggio {
     object-fit: contain;
     position: sticky;
     top: 4em;
-    z-index: var(--elevationHigh);
 }
 
 #evento-info {
