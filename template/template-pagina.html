@@ -14,6 +14,8 @@
     <link rel="stylesheet" type="text/css" href="styles/mobile.css" media="screen and (max-width:600px)">
     <link rel="stylesheet" type="text/css" href="styles/print.css" media="print">
 
+    <link rel="stylesheet" type="text/css" href="styles/{style}" media="screen">
+
     <link rel="shortcut icon" type="images/svg" href="assets/icons/fungo.svg">
     <script src="scripts/script.js"></script>
 </head>
@@ -39,9 +41,9 @@
             <h2 id="menu-title">Menù</h2>
             <ul>
                 {menu}{liCurrent}
-                <li><span aria-current="page" id="currentLink" class="menuItem"{lang}>{anchor}</span></li>
+                <li><span aria-current="page" id="currentLink" class="menuItem" {lang}>{anchor}</span></li>
                 {/liCurrent}{liNotCurrent}
-                <li><a href="{pageHref}" class="menuItem"{lang}>{anchor}</a></li>
+                <li><a href="{pageHref}" class="menuItem" {lang}>{anchor}</a></li>
                 {/liNotCurrent}{/menu}
             </ul>
         </nav>
