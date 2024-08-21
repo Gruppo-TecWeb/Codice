@@ -1,0 +1,92 @@
+#form-classifiche label {
+    margin-bottom: 0;
+    margin-right: 10px;
+}
+
+.div-classifica {
+    background-repeat: no-repeat;
+    background-position-x: right;
+    background-size: contain;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+.div-classifica p {
+    margin: 1em;
+    min-width: 48%;
+    text-align: right;
+    height: fit-content;
+    background: radial-gradient(#000000, 82%, #00000000);
+}
+
+table {
+    width: 100%;
+    min-width: 48%;
+    border-collapse: collapse;
+}
+
+table caption {
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+table thead {
+    background-color: var(--colorAccent);
+    color: var(--colorTextOnAccent);
+}
+
+table th,
+table td {
+    padding: 0.3em 0.5em;
+}
+
+table th {
+    text-align: left;
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: var(--colorSecondary);
+}
+
+table tbody tr:nth-child(even) {
+    background-color: var(--colorBackground);
+}
+
+table tbody tr:hover {
+    background-color: var(--colorLinkHoverBackground);
+}
+
+table#tabella-classifica .classifica-punti {
+    text-align: right;
+}
+
+div#Micelio {
+    background-image: radial-gradient(closest-side at 82%, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), url(../assets/media/micelio_classifica.jpg);
+}
+
+div#Fungo {
+    background-image: radial-gradient(closest-side at 82%, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), url(../assets/media/fungo_classifica.jpg);
+}
+
+.div-classifica {
+    background-repeat: no-repeat;
+    background-position-x: right;
+    background-size: contain;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+body .titolo-filtri {
+    position: sticky;
+    top: 2em;
+    background-color: var(--colorBackground);
+    z-index: var(--elevationHigh);
+}
+
+div.des-classifica p {
+    position: sticky;
+    top: 12em;
+    z-index: var(--elevationMiddle);
+}

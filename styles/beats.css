@@ -1,0 +1,198 @@
+#beats #content {
+    padding-bottom: 0em;
+}
+
+#intro_beats {
+    padding-bottom: 2em;
+    box-sizing: border-box;
+    position: relative;
+}
+
+#beats_container {
+    padding-top: 2em;
+    position: relative;
+    background: var(--colorBackground);
+}
+
+#beats_container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 2em;
+    width: 100%;
+    box-sizing: border-box;
+    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
+    border-bottom: 2px solid var(--colorAccent);
+}
+
+audio::-webkit-media-controls-panel {
+    background-color: var(--colorAccent);
+}
+
+audio::-webkit-media-controls-play-button {
+    border-radius: 3px;
+}
+
+#lista_beats .beat {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 2px solid var(--colorAccent);
+    background-color: var(--colorSecondary);
+}
+
+#lista_beats .beat:hover {
+    background-color: var(--colorLinkHoverBackground);
+}
+
+#lista_beats .firstRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#lista_beats .titoloContainer {
+    display: inline-flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    width: 100%;
+}
+
+#lista_beats .titleBeat {
+    width: 100%;
+}
+
+#lista_beats .btnPlay {
+    margin: 1em;
+    width: 3em;
+    opacity: 0.6;
+    border-style: none;
+    background-size: 100%;
+    color: var(--txtColor);
+    background: transparent;
+}
+
+#lista_beats .btnDesc {
+    height: min-content;
+    min-width: 12em;
+    margin: auto;
+    padding: 0 1em;
+    white-space: nowrap;
+}
+
+#lista_beats .beat:hover .btnPlay[data-isPlaying="false"] {
+    background-image: url("../assets/icons/play.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    color: transparent;
+    opacity: 1;
+}
+
+#lista_beats .btnPlay[data-isPlaying="true"] {
+    background-image: url("../assets/icons/pause.svg");
+    color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    opacity: 1;
+}
+
+#lista_beats .audioBeats[data-java="true"] {
+    display: none;
+}
+
+#lista_beats .time-container {
+    align-self: center;
+    margin: 1em;
+}
+
+#lista_beats .descBeats {
+    width: 100%;
+    box-sizing: border-box;
+    border-top: 1px solid var(--colorLinkHoverBackground);
+    padding: 1em;
+    align-self: baseline;
+    background-color: var(--colorSecondary);
+}
+
+#lista_beats .beat:hover .descBeats {
+    background-color: var(--colorLinkHoverBackground);
+}
+
+#lista_beats .descBeats[data-show="false"] {
+    position: absolute;
+    text-indent: -999em;
+    border: unset;
+    z-index: var(--elevationBelow);
+}
+
+#audio_container {
+    position: sticky;
+    bottom: 0;
+    display: grid;
+    grid-template-areas: "titolo btnNext" "audio audio";
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    padding: 0.5em 1em;
+    background-color: var(--colorAccent);
+}
+
+#audio_container h3 {
+    grid-area: titolo;
+    font-weight: bold;
+    font-size: 1.25em;
+    color: var(--colorTextOnAccent);
+}
+
+#audio_container #audio {
+    grid-area: audio;
+    width: 100%;
+    height: 2.5em;
+}
+
+#autoNext {
+    grid-area: btnNext;
+    display: flex;
+    align-items: center;
+    border-style: solid;
+    height: max-content;
+    border-radius: 20px;
+    border: 2px solid var(--colorSecondary);
+}
+
+#autoNext svg {
+    height: 100%;
+    fill: var(--colorTextOnAccent);
+}
+
+#autoNext:focus {
+    background-color: var(--colorAccent);
+    color: var(--colorTextOnAccent);
+}
+
+#autoNext:hover {
+    background-color: var(--colorSecondary);
+    color: var(--colorAccent);
+}
+
+#autoNext:hover svg {
+    fill: var(--colorAccent);
+}
+
+#autoNext[aria-pressed="true"] {
+    background-color: var(--colorSecondary);
+    color: var(--colorAccent);
+}
+
+#autoNext[aria-pressed="true"] svg {
+    fill: var(--colorAccent);
+}
+
+#autoNext[aria-pressed="true"]::before {
+    content: "\2022";
+    margin-right: 10px;
+}
