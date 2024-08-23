@@ -10,6 +10,7 @@ $paginaHTML = file_get_contents("template/template-pagina.html");
 $content = file_get_contents("template/modalita.html");
 $style = 'modalita.css';
 $styleMobile = 'modalita.mobile.css';
+$stylePrint = 'modalita.print.css';
 
 $title = 'Modalità &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
@@ -38,6 +39,7 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{pageId}' => $pageId,
     '{style}' => $style,
     '{styleMobile}' => $styleMobile,
+    '{stylePrint}' => $stylePrint,
     '{content}' => $content,
     '{onload}' => $onload,
     '{classList}' => $classList
