@@ -15,6 +15,11 @@ $style = 'classifiche.css';
 $styleMobile = 'classifiche.mobile.css';
 $stylePrint = 'classifiche.print.css';
 
+$linkStyleMobile = get_content_between_markers($paginaHTML, 'linkStyleMobile');
+$linkStyleMobile = multi_replace($linkStyleMobile, ['{styleMobile}' => $styleMobile]);
+$linkStylePrint = get_content_between_markers($paginaHTML, 'linkStylePrint');
+$linkStylePrint = multi_replace($linkStylePrint, ['{stylePrint}' => $stylePrint]);
+
 $title = 'Classifiche &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = 'Classifiche attuali sulla base dei punteggi ottenuti durante le battle di freestyle rap degli eventi Fungo e Micelio.';
@@ -152,15 +157,15 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     'logo' => $logo,
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu,
-    'logout' => $logout
+    'logout' => $logout,
+    'linkStyleMobile' => $linkStyleMobile,
+    'linkStylePrint' => $linkStylePrint
 ]), [
     '{title}' => $title,
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{style}' => $style,
-    '{styleMobile}' => $styleMobile,
-    '{stylePrint}' => $stylePrint,
     '{content}' => $content,
     '{onload}' => $onload,
     '{classList}' => $classList

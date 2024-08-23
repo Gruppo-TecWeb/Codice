@@ -14,6 +14,10 @@ $content = file_get_contents("template/login.html");
 $style = 'login.css';
 $styleMobile = 'login.mobile.css';
 
+$linkStyleMobile = get_content_between_markers($paginaHTML, 'linkStyleMobile');
+$linkStyleMobile = multi_replace($linkStyleMobile, ['{styleMobile}' => $styleMobile]);
+$linkStylePrint = '';
+
 $title = 'Login &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = 'Pagina dove poter effettuare l\'accesso all\'area autenticata del sito.';
@@ -90,14 +94,15 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     'logo' => $logo,
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu,
-    'logout' => ''
+    'logout' => '',
+    'linkStyleMobile' => $linkStyleMobile,
+    'linkStylePrint' => $linkStylePrint
 ]), [
     '{title}' => $title,
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{style}' => $style,
-    '{styleMobile}' => $styleMobile,
     '{content}' => $content,
     '{onload}' => $onload,
     '{classList}' => $classList

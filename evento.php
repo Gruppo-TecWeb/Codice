@@ -14,6 +14,11 @@ $style = 'evento.css';
 $styleMobile = 'evento.mobile.css';
 $stylePrint = 'evento.print.css';
 
+$linkStyleMobile = get_content_between_markers($paginaHTML, 'linkStyleMobile');
+$linkStyleMobile = multi_replace($linkStyleMobile, ['{styleMobile}' => $styleMobile]);
+$linkStylePrint = get_content_between_markers($paginaHTML, 'linkStylePrint');
+$linkStylePrint = multi_replace($linkStylePrint, ['{stylePrint}' => $stylePrint]);
+
 $title = 'Evento {titoloEvento} &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = 'Pagina di presentazione di un evento organizzato dal collettivo rap Restraining Stirpe Crew.';
@@ -144,15 +149,15 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     'logo' => $logo,
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu,
-    'logout' => $logout
+    'logout' => $logout,
+    'linkStyleMobile' => $linkStyleMobile,
+    'linkStylePrint' => $linkStylePrint
 ]), [
     '{title}' => $title,
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{style}' => $style,
-    '{styleMobile}' => $styleMobile,
-    '{stylePrint}' => $stylePrint,
     '{content}' => $content,
     '{onload}' => $onload,
     '{classList}' => $classList

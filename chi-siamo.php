@@ -11,6 +11,10 @@ $content = file_get_contents("template/chi-siamo.html");
 $style = 'chi-siamo.css';
 $stylePrint = 'chi-siamo.print.css';
 
+$linkStyleMobile = '';
+$linkStylePrint = get_content_between_markers($paginaHTML, 'linkStylePrint');
+$linkStylePrint = multi_replace($linkStylePrint, ['{stylePrint}' => $stylePrint]);
+
 $title = 'Chi siamo &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = 'Pagina di presentazione del collettivo rap Restraining Stirpe Crew. Organizziamo e gestiamo gli eventi legati al Fungo e al Micelio, durante i quali si svolgono battle di freestyle rap, live di musica rap e dj set.';
@@ -30,14 +34,15 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     'logo' => $logo,
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu,
-    'logout' => $logout
+    'logout' => $logout,
+    'linkStyleMobile' => $linkStyleMobile,
+    'linkStylePrint' => $linkStylePrint
 ]), [
     '{title}' => $title,
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{style}' => $style,
-    '{stylePrint}' => $stylePrint,
     '{content}' => $content,
     '{onload}' => $onload,
     '{classList}' => $classList

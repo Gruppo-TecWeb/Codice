@@ -15,6 +15,11 @@ $style = 'beats.css';
 $styleMobile = 'beats.mobile.css';
 $stylePrint = 'beats.print.css';
 
+$linkStyleMobile = get_content_between_markers($paginaHTML, 'linkStyleMobile');
+$linkStyleMobile = multi_replace($linkStyleMobile, ['{styleMobile}' => $styleMobile]);
+$linkStylePrint = get_content_between_markers($paginaHTML, 'linkStylePrint');
+$linkStylePrint = multi_replace($linkStylePrint, ['{stylePrint}' => $stylePrint]);
+
 $title = 'Beats &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = "Basi per freestyle di rap";
@@ -36,15 +41,15 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     'logo' => $logo,
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu,
-    'logout' => $logout
+    'logout' => $logout,
+    'linkStyleMobile' => $linkStyleMobile,
+    'linkStylePrint' => $linkStylePrint
 ]), [
     '{title}' => $title,
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{style}' => $style,
-    '{styleMobile}' => $styleMobile,
-    '{stylePrint}' => $stylePrint,
     '{content}' => $content,
     '{onload}' => $onload,
     '{classList}' => $classList
