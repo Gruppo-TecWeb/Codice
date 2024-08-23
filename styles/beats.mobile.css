@@ -1,0 +1,122 @@
+#beats footer {
+    padding-bottom: calc(var(--marginBottomMenu) + var(--minHeightButton) + 2em + 6em);
+}
+
+#audio_container {
+    padding: unset;
+    position: fixed;
+    width: var(--widthMenu);
+    min-height: 44px;
+    box-sizing: border-box;
+    bottom: calc(var(--marginBottomMenu) + 44px + 2px);
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: hidden;
+    z-index: var(--elevationHigh);
+    background: var(--colorSecondary);
+    border-radius: unset;
+    border-top-left-radius: var(--bordarRadiusCard);
+    border-top-right-radius: var(--bordarRadiusCard);
+    border: solid 2px var(--colorCardBorder);
+    background-color: var(--colorSecondary);
+    align-items: center;
+}
+
+#audio_container h3 {
+    font-size: 1em;
+    padding: 0.5em;
+    color: var(--colorText);
+    grid-row: 1;
+}
+
+#autoNext {
+    display: unset;
+    grid-row: 1;
+    height: 100%;
+    min-height: 30px;
+    min-width: 44px;
+    padding: unset;
+    border: unset;
+    border-radius: unset;
+}
+
+#autoNext span {
+    position: absolute;
+    text-indent: -999em;
+}
+
+#autoNext:active,
+#autoNext:hover {
+    background-color: var(--colorAccent);
+    color: var(--colorTextOnAccent);
+}
+
+#autoNext:active svg,
+#autoNext:hover svg {
+    fill: var(--colorTextOnAccent);
+}
+
+#autoNext[aria-pressed="true"] {
+    background-color: var(--colorSecondary);
+    color: var(--colorAccent);
+    border: 3px solid var(--colorAccent);
+}
+
+#autoNext[aria-pressed="true"] svg {
+    fill: var(--colorAccent);
+}
+
+#autoNext[aria-pressed="true"]::before {
+    content: unset;
+}
+
+#audio_container #audio {
+    width: 100%;
+    height: 44px;
+    grid-column: 1 / 4;
+    grid-row: 2;
+    background-color: var(--colorAccent);
+}
+
+#lista_beats .beat .btnPlay[data-isPlaying="false"] {
+    background-image: url("../assets/icons/play.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    color: transparent;
+    opacity: 1;
+}
+
+#lista_beats .beat .btnDesc {
+    min-width: unset;
+    min-height: 44px;
+    aspect-ratio: 1 / 1;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+}
+
+#lista_beats .beat .btnDesc span {
+    position: absolute;
+    text-indent: -999em;
+}
+
+#lista_beats .beat .btnDesc[data-show="true"] {
+    background-image: url("../assets/icons/close.svg");
+    background-color: var(--colorAccent);
+}
+
+#lista_beats .beat .btnDesc[data-show="false"] {
+    background-image: url("../assets/icons/information.svg");
+    background-color: var(--colorAccent);
+}
+
+#lista_beats .durata {
+    align-self: center;
+}
+
+#lista_beats .descBeats {
+    text-align: center;
+    padding: 1em;
+    margin: 0em;
+}

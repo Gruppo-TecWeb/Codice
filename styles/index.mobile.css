@@ -1,0 +1,170 @@
+#index #breadcrumbs-container {
+    position: fixed;
+    text-indent: unset;
+}
+
+#index #hero {
+    height: unset;
+    flex-direction: column-reverse;
+}
+
+#index #hero #titolo {
+    height: unset;
+    /* container-type: unset; */
+}
+
+#index #hero h2 {
+    position: absolute;
+    left: 50%;
+    top: 43%;
+    transform: translate(-50%, -50%);
+    width: unset;
+    margin: unset;
+    text-shadow: 0 0 8px var(--txtColor);
+    font-size: 3em;
+    background-color: unset;
+    border: unset;
+    z-index: var(--elevationHigh);
+}
+
+#index #hero #titolo>h3 {
+    position: absolute;
+    left: 50%;
+    top: 52%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    padding: unset;
+    text-align: center;
+    font-size: 1.15em;
+    text-shadow: 0 0 8px var(--txtColor);
+    background-color: unset;
+    border: unset;
+    z-index: var(--elevationHigh);
+}
+
+#index #hero #titolo p {
+    padding: calc((100% - var(--widthMenu)) / 2);
+    border-bottom: unset;
+    border-top: 2px solid var(--colorAccent);
+    border-bottom: 2px solid var(--colorAccent);
+}
+
+#evento-home {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0) 10px);
+}
+
+#evento-home::before {
+    all: unset;
+}
+
+#index #hero #evento-home h3 {
+    padding: 0.5em 1em;
+    font-size: 1.5em;
+    box-sizing: border-box;
+    background-color: var(--colorSecondary);
+}
+
+#evento-home>div {
+    position: unset;
+    transform: unset;
+    width: unset;
+    margin: 1em;
+    border: 1px solid;
+    border-radius: 4px;
+    background-color: var(--colorBackground);
+}
+
+#evento-home>a {
+    position: unset;
+    display: block;
+    padding: 1em;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: end;
+    background-color: var(--colorSecondary);
+}
+
+#evento-home dl {
+    grid-template-columns: unset;
+    gap: 0;
+    padding: unset;
+    padding-left: 1em;
+    font-size: 1.10em;
+}
+
+#evento-home dl dd {
+    padding-left: 1em;
+}
+
+#hero-image {
+    max-width: unset;
+    width: 100%;
+    z-index: var(--elevationMiddle);
+    border-left: unset;
+}
+
+#video-home {
+    position: relative;
+    width: 100%;
+    border-left: unset;
+}
+
+#video-home video {
+    max-width: unset;
+    width: 100%;
+    z-index: var(--elevationMiddle);
+}
+
+
+/* #video-home #btn-video {
+    left: calc((100% - var(--menuWidth)) / 2);
+    border: transparent;
+    background: transparent;
+    fill: var(--accentColor);
+}
+
+#video-home #btn-video.playing #play {
+    fill: var(--accentColor);
+} */
+
+#eventi-home h3 {
+    padding: 0.5em calc((100% - var(--widthMenu)) / 2);
+}
+
+#eventi-home dl .eventoPrincipaleHome:nth-child(even) {
+    flex-direction: column;
+}
+
+#eventi-home .eventoPrincipaleHome {
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+}
+
+#eventi-home dl dt {
+    writing-mode: unset;
+    padding: 0.5em calc((100% - var(--widthMenu)) / 2);
+}
+
+.ddImg {
+    border: 2px solid var(--colorAccent);
+}
+
+.ddImg img {
+    width: 100%;
+    padding: 0.5em calc((100% - var(--widthMenu)) / 2);
+    object-fit: contain;
+}
+
+.ddImg figcaption {
+    box-sizing: border-box;
+    padding: 0.5em calc((100% - var(--widthMenu)) / 2);
+}
+
+.ddDesc {
+    line-height: unset;
+    padding: 0.5em calc((100% - var(--widthMenu)) / 2);
+}

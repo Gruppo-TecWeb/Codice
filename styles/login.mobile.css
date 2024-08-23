@@ -1,0 +1,37 @@
+#login form {
+    grid-template-areas: 'titolo  ' 'messaggi' 'input   ' 'bottoni ';
+}
+
+#login form h3#titolo,
+#login form div#input {
+    position: unset;
+    max-width: var(--widthMenu);
+}
+
+#login {
+    padding-top: unset;
+}
+
+#login form div#buttons {
+    padding: unset;
+    width: 100%;
+}
+
+#login form div#buttons {
+    margin-left: unset;
+}
+
+#login form div#buttons {
+    margin-right: unset;
+}
+
+#login form div#buttons button {
+    padding: unset;
+    margin: 0 0.125em;
+    width: 100%;
+}
+
+#login form h3#titolo {
+    /* padding: unset; */
+    text-align: center;
+}

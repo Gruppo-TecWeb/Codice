@@ -12,6 +12,7 @@ session_start();
 $paginaHTML = file_get_contents("template/template-pagina.html");
 $content = file_get_contents("template/index.html");
 $style = 'index.css';
+$styleMobile = 'index.mobile.css';
 
 $title = 'Fungo';
 $pageId = basename(__FILE__, '.php');
@@ -83,6 +84,7 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{style}' => $style,
+    '{styleMobile}' => $styleMobile,
     '{content}' => $content,
     '{onload}' => $onload,
     '{classList}' => $classList
