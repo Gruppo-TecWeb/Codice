@@ -1,0 +1,17 @@
+#container_iframe {
+    display: none;
+}
+
+#modalita ul {
+    margin: 0.5em;
+    margin-left: 2em;
+    list-style: circle;
+}
+
+#modalita dl {
+    margin: 0.5em;
+}
+
+#modalita dl dd {
+    margin-left: 0.5em;
+}

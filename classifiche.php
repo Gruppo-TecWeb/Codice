@@ -13,6 +13,7 @@ $paginaHTML = file_get_contents("template/template-pagina.html");
 $content = file_get_contents("template/classifiche.html");
 $style = 'classifiche.css';
 $styleMobile = 'classifiche.mobile.css';
+$stylePrint = 'classifiche.print.css';
 
 $title = 'Classifiche &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
@@ -159,6 +160,7 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{pageId}' => $pageId,
     '{style}' => $style,
     '{styleMobile}' => $styleMobile,
+    '{stylePrint}' => $stylePrint,
     '{content}' => $content,
     '{onload}' => $onload,
     '{classList}' => $classList

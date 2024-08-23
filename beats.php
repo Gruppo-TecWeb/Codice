@@ -13,6 +13,7 @@ $paginaHTML = file_get_contents("template/template-pagina.html");
 $content = file_get_contents("template/beats.html");
 $style = 'beats.css';
 $styleMobile = 'beats.mobile.css';
+$stylePrint = 'beats.print.css';
 
 $title = 'Beats &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
@@ -43,6 +44,7 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{pageId}' => $pageId,
     '{style}' => $style,
     '{styleMobile}' => $styleMobile,
+    '{stylePrint}' => $stylePrint,
     '{content}' => $content,
     '{onload}' => $onload,
     '{classList}' => $classList

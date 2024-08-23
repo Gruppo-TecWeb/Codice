@@ -9,6 +9,7 @@ session_start();
 $paginaHTML = file_get_contents("template/template-pagina.html");
 $content = file_get_contents("template/chi-siamo.html");
 $style = 'chi-siamo.css';
+$stylePrint = 'chi-siamo.print.css';
 
 $title = 'Chi siamo &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
@@ -36,6 +37,7 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{style}' => $style,
+    '{stylePrint}' => $stylePrint,
     '{content}' => $content,
     '{onload}' => $onload,
     '{classList}' => $classList

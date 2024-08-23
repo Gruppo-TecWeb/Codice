@@ -12,6 +12,7 @@ session_start();
 $paginaHTML = file_get_contents("template/template-pagina.html");
 $style = 'evento.css';
 $styleMobile = 'evento.mobile.css';
+$stylePrint = 'evento.print.css';
 
 $title = 'Evento {titoloEvento} &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
@@ -151,6 +152,7 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{pageId}' => $pageId,
     '{style}' => $style,
     '{styleMobile}' => $styleMobile,
+    '{stylePrint}' => $stylePrint,
     '{content}' => $content,
     '{onload}' => $onload,
     '{classList}' => $classList

@@ -1,0 +1,19 @@
+#beats #audio_container {
+    display: none;
+}
+
+#beats .beat h3 {
+    margin-top: 1em;
+}
+
+#beats .descBeats {
+    display: block;
+}
+
+#beats .descBeats::before {
+    content: "Audio descrizione: ";
+}
+
+#beats .durata::before {
+    content: "Durata: ";
+}
