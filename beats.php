@@ -11,10 +11,12 @@ session_start();
 
 $paginaHTML = file_get_contents("template/template-pagina.html");
 $content = file_get_contents("template/beats.html");
-$style = 'beats.css';
-$styleMobile = 'beats.mobile.css';
-$stylePrint = 'beats.print.css';
+$style = 'beats/beats.css';
+$styleMobile = 'beats/beats.mobile.css';
+$stylePrint = 'beats/beats.print.css';
 
+$linkStyle = get_content_between_markers($paginaHTML, 'linkStyle');
+$linkStyle = multi_replace($linkStyle, ['{style}' => $style]);
 $linkStyleMobile = get_content_between_markers($paginaHTML, 'linkStyleMobile');
 $linkStyleMobile = multi_replace($linkStyleMobile, ['{styleMobile}' => $styleMobile]);
 $linkStylePrint = get_content_between_markers($paginaHTML, 'linkStylePrint');
@@ -42,6 +44,7 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu,
     'logout' => $logout,
+    'linkStyle' => $linkStyle,
     'linkStyleMobile' => $linkStyleMobile,
     'linkStylePrint' => $linkStylePrint
 ]), [
@@ -49,7 +52,6 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
-    '{style}' => $style,
     '{content}' => $content,
     '{onload}' => $onload,
     '{classList}' => $classList

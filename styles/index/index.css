@@ -206,7 +206,7 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-image: url('../assets/media/poster.jpg');
+    background-image: url('../../assets/media/poster.jpg');
 }
 
 #eventi-home h3 {

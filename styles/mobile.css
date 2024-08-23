@@ -462,27 +462,3 @@ div.des-classifica p {
     top: unset;
     z-index: unset;
 }
-
-
-/*
- * PAGINE ERROR DOCUMENT
- */
-
-.errorDocument .errorImage {
-    width: 100%;
-}
-
-
-/* 
- * PAGINA CHI SIAMO
- */
-
-#chi-siamo-container .eventi-container {
-    display: flex;
-    flex-direction: column;
-    padding: 1em;
-}
-
-#chi-siamo-container #info-eventi {
-    padding: unset;
-}

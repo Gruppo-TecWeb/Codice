@@ -940,39 +940,3 @@ div#admin-window {
 .adminPage #adminIndex div.dashboard {
     scroll-margin-top: 4em;
 }
-
-
-/*
- * PAGINE ERROR DOCUMENT 
- */
-
-#errore500 main,
-#errore403 main,
-#errore404 main {
-    padding-bottom: 0;
-}
-
-#errore500 main h3,
-#errore403 main h3,
-#errore404 main h3 {
-    margin-block: 0.5em;
-}
-
-.errorDocument .errorImage {
-    width: 75%;
-    aspect-ratio: 600/380;
-    margin: auto;
-    object-fit: cover;
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: center bottom;
-}
-
-#errore500 .errorImage {
-    background-image: url("../assets/media/errore500.jpg");
-}
-
-#errore403 .errorImage,
-#errore404 .errorImage {
-    background-image: url("../assets/media/errore400.png");
-}

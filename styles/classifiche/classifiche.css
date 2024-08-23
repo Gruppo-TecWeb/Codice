@@ -62,11 +62,11 @@ table#tabella-classifica .classifica-punti {
 }
 
 div#Micelio {
-    background-image: radial-gradient(closest-side at 82%, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), url(../assets/media/micelio_classifica.jpg);
+    background-image: radial-gradient(closest-side at 82%, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), url(../../assets/media/micelio_classifica.jpg);
 }
 
 div#Fungo {
-    background-image: radial-gradient(closest-side at 82%, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), url(../assets/media/fungo_classifica.jpg);
+    background-image: radial-gradient(closest-side at 82%, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)), url(../../assets/media/fungo_classifica.jpg);
 }
 
 .div-classifica {

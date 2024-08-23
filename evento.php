@@ -10,10 +10,12 @@ use DB\DBAccess;
 session_start();
 
 $paginaHTML = file_get_contents("template/template-pagina.html");
-$style = 'evento.css';
-$styleMobile = 'evento.mobile.css';
-$stylePrint = 'evento.print.css';
+$style = 'evento/evento.css';
+$styleMobile = 'evento/evento.mobile.css';
+$stylePrint = 'evento/evento.print.css';
 
+$linkStyle = get_content_between_markers($paginaHTML, 'linkStyle');
+$linkStyle = multi_replace($linkStyle, ['{style}' => $style]);
 $linkStyleMobile = get_content_between_markers($paginaHTML, 'linkStyleMobile');
 $linkStyleMobile = multi_replace($linkStyleMobile, ['{styleMobile}' => $styleMobile]);
 $linkStylePrint = get_content_between_markers($paginaHTML, 'linkStylePrint');
@@ -150,6 +152,7 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu,
     'logout' => $logout,
+    'linkStyle' => $linkStyle,
     'linkStyleMobile' => $linkStyleMobile,
     'linkStylePrint' => $linkStylePrint
 ]), [
@@ -157,7 +160,6 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{description}' => $description,
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
-    '{style}' => $style,
     '{content}' => $content,
     '{onload}' => $onload,
     '{classList}' => $classList

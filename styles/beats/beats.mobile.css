@@ -79,7 +79,7 @@
 }
 
 #lista_beats .beat .btnPlay[data-isPlaying="false"] {
-    background-image: url("../assets/icons/play.svg");
+    background-image: url("../../assets/icons/play.svg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
@@ -102,12 +102,12 @@
 }
 
 #lista_beats .beat .btnDesc[data-show="true"] {
-    background-image: url("../assets/icons/close.svg");
+    background-image: url("../../assets/icons/close.svg");
     background-color: var(--colorAccent);
 }
 
 #lista_beats .beat .btnDesc[data-show="false"] {
-    background-image: url("../assets/icons/information.svg");
+    background-image: url("../../assets/icons/information.svg");
     background-color: var(--colorAccent);
 }
 
