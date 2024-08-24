@@ -1,673 +1,379 @@
-<div id="intro_beats" class="limitedWidth">
-	<h2 lang="en">Beats</h2>
-	<p>
-		Qui trovi la lista della basi strumentali, con rispettive descrizioni,
-		selezionate dai nostri DJ, usale per i tuoi
-		<span lang="en">freestyle</span>.
-	</p>
-	<p>
-		Seleziona il <span lang="en">beat</span> che più preferisci e clicca sul
-		pulsante <span lang="en">play</span> per farlo partire.
-	</p>
-	<p>
-		Se vuoi ascoltare tutte le basi in sequenza, clicca sul pulsante
-		riproduzione automatica e goditi la musica!
-	</p>
-	<strong>Le basi non hanno parole, sono solo strumentali</strong>
+<div id="intro" class="limitedWidth">
+    <h2 lang="en">Beats</h2>
+    <p>
+        Qui trovi la lista della basi strumentali, con rispettive descrizioni, selezionate dai nostri DJ, usale per i tuoi
+        <span lang="en">freestyle</span>.
+    </p>
+    <p>
+        Seleziona il <span lang="en">beat</span> che più preferisci e clicca sul pulsante <span lang="en">play</span> per farlo partire.
+    </p>
+    <p>
+        Se vuoi ascoltare tutte le basi in sequenza, clicca sul pulsante riproduzione automatica e goditi la musica!
+    </p>
+    <strong>Le basi non hanno parole, sono solo strumentali</strong>
 </div>
-<div id="beats_container">
-	<ul id="lista_beats">
-		<li class="beat">
-			<div class="firstRow">
-				<div class="titoloContainer">
-					<h3 lang="en" class="titleBeat">Goodbye - Big Joe</h3>
-					<button
-						class="btnPlay"
-						onclick="playerAudio('Goodbye - Big Joe.mp3', 1)"
-						aria-label="Riproduci Goodbye - Big Joe"
-						title="Riproduci Goodbye - Big Joe"
-						data-title-beat="Goodbye - Big Joe"
-						data-isPlaying="false">
-						<span aria-hidden="true">1</span>
-					</button>
-				</div>
-				<button class="btnDesc" aria-expanded="false">
+<div id="beats">
+    <ul>
+        <li class="beat">
+            <div class="firstRow">
+                <h3 lang="en">Goodbye - Big Joe</h3>
+                <button class="btnPlay" onclick="playerAudio('Goodbye - Big Joe.mp3', 1)" aria-label="Riproduci Goodbye - Big Joe" title="Riproduci Goodbye - Big Joe" data-title="Goodbye - Big Joe" data-playing="false">
+					<span aria-hidden="true">1</span>
+				</button>
+                <button class="btnDesc" aria-expanded="false">
 					<span>Audio descrizione</span><span lang="en" class="navigationHelp">Goodbye - Big Joe</span>
 				</button>
-				<div class="time-container">
-					<time datetime="PT3M4S">3:04</time>
-				</div>
-			</div>
+                <time datetime="PT3M4S">3:04</time>
+            </div>
 
-			<div id="desc_1" class="descBeats" data-show="false" hidden>
-				Un ritmo ipnotico che fluisce come un fiume in piena, dando spazio alle
-				tue parole per danzare sulla sua corrente.
-			</div>
-			<a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">
-				<span>Vai al <span lang="en">player</span> della canzone</span>
-			</a>
-		</li>
+            <div id="desc-1" class="descBeat" data-show="false" hidden>
+                Un ritmo ipnotico che fluisce come un fiume in piena, dando spazio alle tue parole per danzare sulla sua corrente.
+            </div>
+            <a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">Vai al <span lang="en">player</span> della canzone</a>
+        </li>
 
-		<li class="beat">
-			<div class="firstRow">
-				<div class="titoloContainer">
-					<h3 lang="en" class="titleBeat">Big L Ebonics</h3>
-					<button
-						class="btnPlay"
-						onclick="playerAudio('Big L Ebonics.mp3', 2)"
-						aria-label="Riproduci Big L Ebonics"
-						title="Riproduci Big L Ebonics"
-						data-title-beat="Big L Ebonics"
-						data-isPlaying="false">
-						<span aria-hidden="true">2</span>
-					</button>
-				</div>
-				<button class="btnDesc" aria-expanded="false">
+        <li class="beat">
+            <div class="firstRow">
+                <h3 lang="en">Big L Ebonics</h3>
+                <button class="btnPlay" onclick="playerAudio('Big L Ebonics.mp3', 2)" aria-label="Riproduci Big L Ebonics" title="Riproduci Big L Ebonics" data-title="Big L Ebonics" data-playing="false">
+					<span aria-hidden="true">2</span>
+				</button>
+                <button class="btnDesc" aria-expanded="false">
 					<span>Audio descrizione</span><span lang="en" class="navigationHelp">Big L Ebonics</span>
 				</button>
-				<div class="time-container">
-					<time datetime="PT3M30S">3:30</time>
-				</div>
-			</div>
+                <time datetime="PT3M30S">3:30</time>
+            </div>
 
-			<div id="desc_2" class="descBeats" data-show="false" hidden>
-				Un <span lang="en">beat</span> con elementi futuristici e suoni
-				elettronici che ti trasportano in un mondo di possibilità nel quale puoi
-				sperimentare senza limiti.
-			</div>
-			<a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">
-				<span>Vai al <span lang="en">player</span> della canzone</span>
-			</a>
-		</li>
+            <div id="desc-2" class="descBeat" data-show="false" hidden>
+                Un <span lang="en">beat</span> con elementi futuristici e suoni elettronici che ti trasportano in un mondo di possibilità nel quale puoi sperimentare senza limiti.
+            </div>
+            <a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">Vai al <span lang="en">player</span> della canzone</a>
+        </li>
 
-		<li class="beat">
-			<div class="firstRow">
-				<div class="titoloContainer">
-					<h3 lang="en" class="titleBeat">Busta Rhymes - Psycobusta</h3>
-
-					<button
-						class="btnPlay"
-						onclick="playerAudio('Busta Rhymes - Psycobusta.mp3', 3)"
-						aria-label="Riproduci Busta Rhymes - Psycobusta"
-						title="Riproduci Busta Rhymes - Psycobusta"
-						data-title-beat="Busta Rhymes - Psycobusta"
-						data-isPlaying="false">
-						<span aria-hidden="true">3</span>
-					</button>
-				</div>
-				<button class="btnDesc" aria-expanded="false">
+        <li class="beat">
+            <div class="firstRow">
+                <h3 lang="en">Busta Rhymes - Psycobusta</h3>
+                <button class="btnPlay" onclick="playerAudio('Busta Rhymes - Psycobusta.mp3', 3)" aria-label="Riproduci Busta Rhymes - Psycobusta" title="Riproduci Busta Rhymes - Psycobusta" data-title="Busta Rhymes - Psycobusta" data-playing="false">
+					<span aria-hidden="true">3</span>
+				</button>
+                <button class="btnDesc" aria-expanded="false">
 					<span>Audio descrizione</span><span lang="en" class="navigationHelp">Busta Rhymes - Psycobusta</span>
 				</button>
-				<div class="time-container">
-					<time datetime="PT3M52S">3:52</time>
-				</div>
-			</div>
+                <time datetime="PT3M52S">3:52</time>
+            </div>
 
-			<div id="desc_3" class="descBeats" data-show="false" hidden>
-				Una composizione minimalista che mette in risalto la tua voce,
-				permettendoti di dominare la scena con il tuo stile unico.
-			</div>
-			<a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">
-				<span>Vai al <span lang="en">player</span> della canzone</span>
-			</a>
-		</li>
+            <div id="desc-3" class="descBeat" data-show="false" hidden>
+                Una composizione minimalista che mette in risalto la tua voce, permettendoti di dominare la scena con il tuo stile unico.
+            </div>
+            <a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">Vai al <span lang="en">player</span> della canzone</a>
+        </li>
 
-		<li class="beat">
-			<div class="firstRow">
-				<div class="titoloContainer">
-					<h3 lang="en" class="titleBeat">
-						Dilated Peoples - The Platform (Erik Sermon Remix)
-					</h3>
-
-					<button
-						class="btnPlay"
-						onclick="playerAudio('Dilated Peoples - The Platform (Erik Sermon Remix).mp3', 4)"
-						aria-label="Riproduci Dilated Peoples - The Platform (Erik Sermon Remix)"
-						title="Riproduci Dilated Peoples - The Platform (Erik Sermon Remix)"
-						data-title-beat="Dilated Peoples - The Platform (Erik Sermon Remix)"
-						data-isPlaying="false">
-						<span aria-hidden="true">4</span>
-					</button>
-				</div>
-				<button class="btnDesc" aria-expanded="false">
+        <li class="beat">
+            <div class="firstRow">
+                <h3 lang="en">Dilated Peoples - The Platform (Erik Sermon Remix)</h3>
+                <button class="btnPlay" onclick="playerAudio('Dilated Peoples - The Platform (Erik Sermon Remix).mp3', 4)" aria-label="Riproduci Dilated Peoples - The Platform (Erik Sermon Remix)" title="Riproduci Dilated Peoples - The Platform (Erik Sermon Remix)" data-title="Dilated Peoples - The Platform (Erik Sermon Remix)"
+                    data-playing="false">
+					<span aria-hidden="true">4</span>
+				</button>
+                <button class="btnDesc" aria-expanded="false">
 					<span>Audio descrizione</span><span lang="en" class="navigationHelp">Dilated Peoples - The Platform (Erik Sermon Remix)</span>
 				</button>
-				<div class="time-container">
-					<time datetime="PT3M22S">3:22</time>
-				</div>
-			</div>
+                <time datetime="PT3M22S">3:22</time>
+            </div>
 
-			<div id="desc_4" class="descBeats" data-show="false" hidden>
-				Un <span lang="en">beat</span> dal groove classico e accattivante, un
-				richiamo alle radici dell'<span lang="en">hip-hop</span>, pronto a far
-				vibrare l'anima delle tue rime.
-			</div>
-			<a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">
-				<span>Vai al <span lang="en">player</span> della canzone</span>
-			</a>
-		</li>
+            <div id="desc-4" class="descBeat" data-show="false" hidden>
+                Un <span lang="en">beat</span> dal groove classico e accattivante, un richiamo alle radici dell'<span lang="en">hip-hop</span>, pronto a far vibrare l'anima delle tue rime.
+            </div>
+            <a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">Vai al <span lang="en">player</span> della canzone</a>
+        </li>
 
-		<li class="beat">
-			<div class="firstRow">
-				<div class="titoloContainer">
-					<h3 lang="en" class="titleBeat">DJ Premier - BAP</h3>
-
-					<button
-						class="btnPlay"
-						onclick="playerAudio('DJ Premier - BAP.mp3', 5)"
-						aria-label="Riproduci DJ Premier - BAP"
-						title="Riproduci DJ Premier - BAP"
-						data-title-beat="DJ Premier - BAP"
-						data-isPlaying="false">
-						<span aria-hidden="true">5</span>
-					</button>
-				</div>
-
-				<button class="btnDesc" aria-expanded="false">
+        <li class="beat">
+            <div class="firstRow">
+                <h3 lang="en">DJ Premier - BAP</h3>
+                <button class="btnPlay" onclick="playerAudio('DJ Premier - BAP.mp3', 5)" aria-label="Riproduci DJ Premier - BAP" title="Riproduci DJ Premier - BAP" data-title="DJ Premier - BAP" data-playing="false">
+					<span aria-hidden="true">5</span>
+				</button>
+                <button class="btnDesc" aria-expanded="false">
 					<span>Audio descrizione</span><span lang="en" class="navigationHelp">DJ Premier - BAP</span>
 				</button>
-				<div class="time-container">
-					<time datetime="PT4M46S">4:46</time>
-				</div>
-			</div>
+                <time datetime="PT4M46S">4:46</time>
+            </div>
 
-			<div id="desc_5" class="descBeats" data-show="false" hidden>
-				Una base ritmica pesante e decisa, pronta a sostenere le tue rime con
-				una potenza inarrestabile.
-			</div>
-			<a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">
-				<span>Vai al <span lang="en">player</span> della canzone</span>
-			</a>
-		</li>
+            <div id="desc-5" class="descBeat" data-show="false" hidden>
+                Una base ritmica pesante e decisa, pronta a sostenere le tue rime con una potenza inarrestabile.
+            </div>
+            <a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">Vai al <span lang="en">player</span> della canzone</a>
+        </li>
 
-		<li class="beat">
-			<div class="firstRow">
-				<div class="titoloContainer">
-					<h3 lang="en" class="titleBeat">DJ Premier - That White</h3>
-
-					<button
-						class="btnPlay"
-						onclick="playerAudio('DJ Premier - That White.mp3', 6)"
-						aria-label="Riproduci DJ Premier - That White"
-						title="Riproduci DJ Premier - That White"
-						data-title-beat="DJ Premier - That White"
-						data-isPlaying="false">
-						<span aria-hidden="true">6</span>
-					</button>
-				</div>
-				<button class="btnDesc" aria-expanded="false">
+        <li class="beat">
+            <div class="firstRow">
+                <h3 lang="en">DJ Premier - That White</h3>
+                <button class="btnPlay" onclick="playerAudio('DJ Premier - That White.mp3', 6)" aria-label="Riproduci DJ Premier - That White" title="Riproduci DJ Premier - That White" data-title="DJ Premier - That White" data-playing="false">
+					<span aria-hidden="true">6</span>
+				</button>
+                <button class="btnDesc" aria-expanded="false">
 					<span>Audio descrizione</span><span lang="en" class="navigationHelp">DJ Premier - That White</span>
 				</button>
-				<div class="time-container">
-					<time datetime="PT2M46S">2:46</time>
-				</div>
-			</div>
+                <time datetime="PT2M46S">2:46</time>
+            </div>
 
-			<div id="desc_6" class="descBeats" data-show="false" hidden>
-				Una traccia con un ritmo contagioso e un beat che invoglia all'azione,
-				perfetto per mettere in mostra la tua versatilità e la tua abilità nel
-				<span lang="en">freestyle rap</span>.
-			</div>
-			<a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">
-				<span>Vai al <span lang="en">player</span> della canzone</span>
-			</a>
-		</li>
+            <div id="desc-6" class="descBeat" data-show="false" hidden>
+                Una traccia con un ritmo contagioso e un beat che invoglia all'azione, perfetto per mettere in mostra la tua versatilità e la tua abilità nel
+                <span lang="en">freestyle rap</span>.
+            </div>
+            <a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">Vai al <span lang="en">player</span> della canzone</a>
+        </li>
 
-		<li class="beat">
-			<div class="firstRow">
-				<div class="titoloContainer">
-					<h3 lang="en" class="titleBeat">Full Clip-Gangstarr</h3>
-
-					<button
-						class="btnPlay"
-						onclick="playerAudio('Full Clip-Gangstarr.mp3', 7)"
-						aria-label="Riproduci Full Clip-Gangstarr"
-						title="Riproduci Full Clip-Gangstarr"
-						data-title-beat="Full Clip-Gangstarr"
-						data-isPlaying="false">
-						<span aria-hidden="true">7</span>
-					</button>
-				</div>
-				<button class="btnDesc" aria-expanded="false">
+        <li class="beat">
+            <div class="firstRow">
+                <h3 lang="en">Full Clip-Gangstarr</h3>
+                <button class="btnPlay" onclick="playerAudio('Full Clip-Gangstarr.mp3', 7)" aria-label="Riproduci Full Clip-Gangstarr" title="Riproduci Full Clip-Gangstarr" data-title="Full Clip-Gangstarr" data-playing="false">
+					<span aria-hidden="true">7</span>
+				</button>
+                <button class="btnDesc" aria-expanded="false">
 					<span>Audio descrizione</span><span lang="en" class="navigationHelp">Full Clip-Gangstarr</span>
 				</button>
-				<div class="time-container">
-					<time datetime="PT3M37S">3:37</time>
-				</div>
-			</div>
+                <time datetime="PT3M37S">3:37</time>
+            </div>
 
-			<div id="desc_7" class="descBeats" data-show="false" hidden>
-				Un <span lang="en">beat</span> con una melodia maliziosa che ti invita a
-				sfidare le convenzioni e a esplorare nuove dimensioni nel tuo
-				<span lang="en">freestyle</span>.
-			</div>
-			<a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">
-				<span>Vai al <span lang="en">player</span> della canzone</span>
-			</a>
-		</li>
+            <div id="desc-7" class="descBeat" data-show="false" hidden>
+                Un <span lang="en">beat</span> con una melodia maliziosa che ti invita a sfidare le convenzioni e a esplorare nuove dimensioni nel tuo
+                <span lang="en">freestyle</span>.
+            </div>
+            <a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">Vai al <span lang="en">player</span> della canzone</a>
+        </li>
 
-		<li class="beat">
-			<div class="firstRow">
-				<div class="titoloContainer">
-					<h3 lang="en" class="titleBeat">Funkdoobiest - Lost in Thought</h3>
-
-					<button
-						class="btnPlay"
-						onclick="playerAudio('Funkdoobiest - Lost in Thought.mp3', 8)"
-						aria-label="Riproduci Funkdoobiest - Lost in Thought"
-						title="Riproduci Funkdoobiest - Lost in Thought"
-						data-title-beat="Funkdoobiest - Lost in Thought"
-						data-isPlaying="false">
-						<span aria-hidden="true">8</span>
-					</button>
-				</div>
-				<button class="btnDesc" aria-expanded="false">
+        <li class="beat">
+            <div class="firstRow">
+                <h3 lang="en">Funkdoobiest - Lost in Thought</h3>
+                <button class="btnPlay" onclick="playerAudio('Funkdoobiest - Lost in Thought.mp3', 8)" aria-label="Riproduci Funkdoobiest - Lost in Thought" title="Riproduci Funkdoobiest - Lost in Thought" data-title="Funkdoobiest - Lost in Thought" data-playing="false">
+					<span aria-hidden="true">8</span>
+				</button>
+                <button class="btnDesc" aria-expanded="false">
 					<span>Audio descrizione</span><span lang="en" class="navigationHelp">Funkdoobiest - Lost in Thought</span>
 				</button>
-				<div class="time-container">
-					<time datetime="PT3M32S">3:32</time>
-				</div>
-			</div>
+                <time datetime="PT3M32S">3:32</time>
+            </div>
 
-			<div id="desc_8" class="descBeats" data-show="false" hidden>
-				Un <span lang="en">beat</span> con un mix di elementi jazz e percussioni
-				incalzanti, regalando una base sofisticata per le tue improvvisazioni
-				poetiche.
-			</div>
-			<a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">
-				<span>Vai al <span lang="en">player</span> della canzone</span>
-			</a>
-		</li>
+            <div id="desc-8" class="descBeat" data-show="false" hidden>
+                Un <span lang="en">beat</span> con un mix di elementi jazz e percussioni incalzanti, regalando una base sofisticata per le tue improvvisazioni poetiche.
+            </div>
+            <a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">Vai al <span lang="en">player</span> della canzone</a>
+        </li>
 
-		<li class="beat">
-			<div class="firstRow">
-				<div class="titoloContainer">
-					<h3 lang="en" class="titleBeat">Gang Starr - Battle</h3>
-
-					<button
-						class="btnPlay"
-						onclick="playerAudio('Gang Starr - Battle.mp3', 9)"
-						aria-label="Riproduci Gang Starr - Battle"
-						title="Riproduci Gang Starr - Battle"
-						data-title-beat="Gang Starr - Battle"
-						data-isPlaying="false">
-						<span aria-hidden="true">9</span>
-					</button>
-				</div>
-				<button class="btnDesc" aria-expanded="false">
+        <li class="beat">
+            <div class="firstRow">
+                <h3 lang="en">Gang Starr - Battle</h3>
+                <button class="btnPlay" onclick="playerAudio('Gang Starr - Battle.mp3', 9)" aria-label="Riproduci Gang Starr - Battle" title="Riproduci Gang Starr - Battle" data-title="Gang Starr - Battle" data-playing="false">
+					<span aria-hidden="true">9</span>
+				</button>
+                <button class="btnDesc" aria-expanded="false">
 					<span>Audio descrizione</span><span lang="en" class="navigationHelp">Gang Starr - Battle</span>
 				</button>
-				<div class="time-container">
-					<time datetime="PT2M56S">2:56</time>
-				</div>
-			</div>
+                <time datetime="PT2M56S">2:56</time>
+            </div>
 
-			<div id="desc_9" class="descBeats" data-show="false" hidden>
-				Una mescolanza di suoni urbani e ritmi urbani, creando un'atmosfera che
-				ti avvolge e ti spinge a esprimere la tua autenticità nel
-				<span lang="en">freestyle</span>.
-			</div>
-			<a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">
-				<span>Vai al <span lang="en">player</span> della canzone</span>
-			</a>
-		</li>
+            <div id="desc-9" class="descBeat" data-show="false" hidden>
+                Una mescolanza di suoni urbani e ritmi urbani, creando un'atmosfera che ti avvolge e ti spinge a esprimere la tua autenticità nel
+                <span lang="en">freestyle</span>.
+            </div>
+            <a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">Vai al <span lang="en">player</span> della canzone</a>
+        </li>
 
-		<li class="beat">
-			<div class="firstRow">
-				<div class="titoloContainer">
-					<h3 lang="en" class="titleBeat">J. Cole - Fire Squad</h3>
-
-					<button
-						class="btnPlay"
-						onclick="playerAudio('J. Cole - Fire Squad.mp3', 10)"
-						aria-label="Riproduci J. Cole - Fire Squad"
-						title="Riproduci J. Cole - Fire Squad"
-						data-title-beat="J. Cole - Fire Squad"
-						data-isPlaying="false">
-						<span aria-hidden="true">10</span>
-					</button>
-				</div>
-				<button class="btnDesc" aria-expanded="false">
+        <li class="beat">
+            <div class="firstRow">
+                <h3 lang="en">J. Cole - Fire Squad</h3>
+                <button class="btnPlay" onclick="playerAudio('J. Cole - Fire Squad.mp3', 10)" aria-label="Riproduci J. Cole - Fire Squad" title="Riproduci J. Cole - Fire Squad" data-title="J. Cole - Fire Squad" data-playing="false">
+					<span aria-hidden="true">10</span>
+				</button>
+                <button class="btnDesc" aria-expanded="false">
 					<span>Audio descrizione</span><span lang="en" class="navigationHelp">J. Cole - Fire Squad</span>
 				</button>
-				<div class="time-container">
-					<time datetime="PT4M21S">4:21</time>
-				</div>
-			</div>
+                <time datetime="PT4M21S">4:21</time>
+            </div>
 
-			<div id="desc_10" class="descBeats" data-show="false" hidden>
-				Un <span lang="en">beat</span> dall'andamento selvaggio e irregolare,
-				perfetto per testare le tue abilità nel mantenere il controllo durante
-				il <span lang="en">freestyle</span>.
-			</div>
-			<a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">
-				<span>Vai al <span lang="en">player</span> della canzone</span>
-			</a>
-		</li>
+            <div id="desc-10" class="descBeat" data-show="false" hidden>
+                Un <span lang="en">beat</span> dall'andamento selvaggio e irregolare, perfetto per testare le tue abilità nel mantenere il controllo durante il <span lang="en">freestyle</span>.
+            </div>
+            <a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">Vai al <span lang="en">player</span> della canzone</a>
+        </li>
 
-		<li class="beat">
-			<div class="firstRow">
-				<div class="titoloContainer">
-					<h3 lang="en" class="titleBeat">
-						Jam Baxter - Fine (Prod GhostTown)
-					</h3>
-
-					<button
-						class="btnPlay"
-						onclick="playerAudio('Jam Baxter - Fine (Prod GhostTown).mp3', 11)"
-						aria-label="Riproduci Jam Baxter - Fine (Prod GhostTown)"
-						title="Riproduci Jam Baxter - Fine (Prod GhostTown)"
-						data-title-beat="Jam Baxter - Fine (Prod GhostTown)"
-						data-isPlaying="false">
-						<span aria-hidden="true">11</span>
-					</button>
-				</div>
-				<button class="btnDesc" aria-expanded="false">
+        <li class="beat">
+            <div class="firstRow">
+                <h3 lang="en">Jam Baxter - Fine (Prod GhostTown)</h3>
+                <button class="btnPlay" onclick="playerAudio('Jam Baxter - Fine (Prod GhostTown).mp3', 11)" aria-label="Riproduci Jam Baxter - Fine (Prod GhostTown)" title="Riproduci Jam Baxter - Fine (Prod GhostTown)" data-title="Jam Baxter - Fine (Prod GhostTown)"
+                    data-playing="false">
+					<span aria-hidden="true">11</span>
+				</button>
+                <button class="btnDesc" aria-expanded="false">
 					<span>Audio descrizione</span><span lang="en" class="navigationHelp">Jam Baxter - Fine (Prod GhostTown)</span>
 				</button>
-				<div class="time-container">
-					<time datetime="PT4M06S">4:06</time>
-				</div>
-			</div>
+                <time datetime="PT4M06S">4:06</time>
+            </div>
 
-			<div id="desc_11" class="descBeats" data-show="false" hidden>
-				Un <span lang="en">beat</span> dai suoni energetici e taglienti, pronto
-				a guidare le tue rime con una potente base ritmica.
-			</div>
-			<a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">
-				<span>Vai al <span lang="en">player</span> della canzone</span>
-			</a>
-		</li>
+            <div id="desc-11" class="descBeat" data-show="false" hidden>
+                Un <span lang="en">beat</span> dai suoni energetici e taglienti, pronto a guidare le tue rime con una potente base ritmica.
+            </div>
+            <a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">Vai al <span lang="en">player</span> della canzone</a>
+        </li>
 
-		<li class="beat">
-			<div class="firstRow">
-				<div class="titoloContainer">
-					<h3 lang="en" class="titleBeat">Method Man _ Redman - A-Yo</h3>
-
-					<button
-						class="btnPlay"
-						onclick="playerAudio('Method Man _ Redman - A-Yo.mp3', 12)"
-						aria-label="Riproduci Method Man _ Redman - A-Yo"
-						title="Riproduci Method Man _ Redman - A-Yo"
-						data-title-beat="Method Man _ Redman - A-Yo"
-						data-isPlaying="false">
-						<span aria-hidden="true">12</span>
-					</button>
-				</div>
-				<button class="btnDesc" aria-expanded="false">
+        <li class="beat">
+            <div class="firstRow">
+                <h3 lang="en">Method Man _ Redman - A-Yo</h3>
+                <button class="btnPlay" onclick="playerAudio('Method Man _ Redman - A-Yo.mp3', 12)" aria-label="Riproduci Method Man _ Redman - A-Yo" title="Riproduci Method Man _ Redman - A-Yo" data-title="Method Man _ Redman - A-Yo" data-playing="false">
+					<span aria-hidden="true">12</span>
+				</button>
+                <button class="btnDesc" aria-expanded="false">
 					<span>Audio descrizione</span><span lang="en" class="navigationHelp">Method Man Redman - A-Yo</span>
 				</button>
-				<div class="time-container">
-					<time datetime="PT3M43S">3:43</time>
-				</div>
-			</div>
+                <time datetime="PT3M43S">3:43</time>
+            </div>
 
-			<div id="desc_12" class="descBeats" data-show="false" hidden>
-				Un <span lang="en">beat</span> dal ritmo incalzante che cattura
-				l'attenzione sin dai primi battiti, perfetto per scatenare la tua
-				creatività nel <span lang="en">freestyle rap</span>.
-			</div>
-			<a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">
-				<span>Vai al <span lang="en">player</span> della canzone</span>
-			</a>
-		</li>
+            <div id="desc-12" class="descBeat" data-show="false" hidden>
+                Un <span lang="en">beat</span> dal ritmo incalzante che cattura l'attenzione sin dai primi battiti, perfetto per scatenare la tua creatività nel <span lang="en">freestyle rap</span>.
+            </div>
+            <a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">Vai al <span lang="en">player</span> della canzone</a>
+        </li>
 
-		<li class="beat">
-			<div class="firstRow">
-				<div class="titoloContainer">
-					<h3 lang="en" class="titleBeat">Movie Villains</h3>
-
-					<button
-						class="btnPlay"
-						onclick="playerAudio('Movie Villains.mp3', 13)"
-						aria-label="Riproduci Movie Villains"
-						title="Riproduci Movie Villains"
-						data-title-beat="Movie Villains"
-						data-isPlaying="false">
-						<span aria-hidden="true">13</span>
-					</button>
-				</div>
-				<button class="btnDesc" aria-expanded="false">
+        <li class="beat">
+            <div class="firstRow">
+                <h3 lang="en">Movie Villains</h3>
+                <button class="btnPlay" onclick="playerAudio('Movie Villains.mp3', 13)" aria-label="Riproduci Movie Villains" title="Riproduci Movie Villains" data-title="Movie Villains" data-playing="false">
+					<span aria-hidden="true">13</span>
+				</button>
+                <button class="btnDesc" aria-expanded="false">
 					<span>Audio descrizione</span><span lang="en" class="navigationHelp">Movie Villains</span>
 				</button>
-				<div class="time-container">
-					<time datetime="PT3M35S">3:35</time>
-				</div>
-			</div>
+                <time datetime="PT3M35S">3:35</time>
+            </div>
 
-			<div id="desc_13" class="descBeats" data-show="false" hidden>
-				Un <span lang="en">beat</span> oscuro e potente, perfetto per
-				trasportarti nel mondo dei cattivi del cinema. Con i suoi bassi profondi
-				e i suoni inquietanti, ti farà sentire come il protagonista di un film
-				d'azione.
-			</div>
-			<a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">
-				<span>Vai al <span lang="en">player</span> della canzone</span>
-			</a>
-		</li>
+            <div id="desc-13" class="descBeat" data-show="false" hidden>
+                Un <span lang="en">beat</span> oscuro e potente, perfetto per trasportarti nel mondo dei cattivi del cinema. Con i suoi bassi profondi e i suoni inquietanti, ti farà sentire come il protagonista di un film d'azione.
+            </div>
+            <a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">Vai al <span lang="en">player</span> della canzone</a>
+        </li>
 
-		<li class="beat">
-			<div class="firstRow">
-				<div class="titoloContainer">
-					<h3 lang="en" class="titleBeat">Noyz Narcos - Trucemala</h3>
-
-					<button
-						class="btnPlay"
-						onclick="playerAudio('Noyz Narcos - Trucemala.mp3', 14)"
-						aria-label="Riproduci Noyz Narcos - Trucemala"
-						title="Riproduci Noyz Narcos - Trucemala"
-						data-title-beat="Noyz Narcos - Trucemala"
-						data-isPlaying="false">
-						<span aria-hidden="true">14</span>
-					</button>
-				</div>
-				<button class="btnDesc" aria-expanded="false">
+        <li class="beat">
+            <div class="firstRow">
+                <h3 lang="en">Noyz Narcos - Trucemala</h3>
+                <button class="btnPlay" onclick="playerAudio('Noyz Narcos - Trucemala.mp3', 14)" aria-label="Riproduci Noyz Narcos - Trucemala" title="Riproduci Noyz Narcos - Trucemala" data-title="Noyz Narcos - Trucemala" data-playing="false">
+					<span aria-hidden="true">14</span>
+				</button>
+                <button class="btnDesc" aria-expanded="false">
 					<span>Audio descrizione</span><span lang="en" class="navigationHelp">Noyz Narcos - Trucemala</span>
 				</button>
-				<div class="time-container">
-					<time datetime="PT5M21S">5:21</time>
-				</div>
-			</div>
+                <time datetime="PT5M21S">5:21</time>
+            </div>
 
-			<div id="desc_14" class="descBeats" data-show="false" hidden>
-				Questo <span lang="en">beat</span> cattura l'essenza del rap hardcore,
-				con ritmi aggressivi e bassi intensi. Ideale per testi forti e decisi,
-				ti darà l'energia giusta per esprimere la tua rabbia e passione.
-			</div>
-			<a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">
-				<span>Vai al <span lang="en">player</span> della canzone</span>
-			</a>
-		</li>
+            <div id="desc-14" class="descBeat" data-show="false" hidden>
+                Questo <span lang="en">beat</span> cattura l'essenza del rap hardcore, con ritmi aggressivi e bassi intensi. Ideale per testi forti e decisi, ti darà l'energia giusta per esprimere la tua rabbia e passione.
+            </div>
+            <a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">Vai al <span lang="en">player</span> della canzone</a>
+        </li>
 
-		<li class="beat">
-			<div class="firstRow">
-				<div class="titoloContainer">
-					<h3 lang="en" class="titleBeat">RA Rugged man - Dangerous Three</h3>
-
-					<button
-						class="btnPlay"
-						onclick="playerAudio('RA Rugged man - Dangerous Three.mp3', 15)"
-						aria-label="Riproduci RA Rugged man - Dangerous Three"
-						title="Riproduci RA Rugged man - Dangerous Three"
-						data-title-beat="RA Rugged man - Dangerous Three"
-						data-isPlaying="false">
-						<span aria-hidden="true">15</span>
-					</button>
-				</div>
-				<button class="btnDesc" aria-expanded="false">
+        <li class="beat">
+            <div class="firstRow">
+                <h3 lang="en">RA Rugged man - Dangerous Three</h3>
+                <button class="btnPlay" onclick="playerAudio('RA Rugged man - Dangerous Three.mp3', 15)" aria-label="Riproduci RA Rugged man - Dangerous Three" title="Riproduci RA Rugged man - Dangerous Three" data-title="RA Rugged man - Dangerous Three" data-playing="false">
+					<span aria-hidden="true">15</span>
+				</button>
+                <button class="btnDesc" aria-expanded="false">
 					<span>Audio descrizione</span><span lang="en" class="navigationHelp">RA Rugged man - Dangerous Three</span>
 				</button>
-				<div class="time-container">
-					<time datetime="PT2M04S">2:04</time>
-				</div>
-			</div>
+                <time datetime="PT2M04S">2:04</time>
+            </div>
 
-			<div id="desc_15" class="descBeats" data-show="false" hidden>
-				Un <span lang="en">beat</span> incalzante e grintoso, caratterizzato da
-				campionamenti <span lang="en">vintage</span> e ritmi serrati. Perfetto
-				per mostrare le tue abilità liriche e mantenere alta l'attenzione degli
-				ascoltatori.
-			</div>
-			<a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">
-				<span>Vai al <span lang="en">player</span> della canzone</span>
-			</a>
-		</li>
+            <div id="desc-15" class="descBeat" data-show="false" hidden>
+                Un <span lang="en">beat</span> incalzante e grintoso, caratterizzato da campionamenti <span lang="en">vintage</span> e ritmi serrati. Perfetto per mostrare le tue abilità liriche e mantenere alta l'attenzione degli ascoltatori.
+            </div>
+            <a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">Vai al <span lang="en">player</span> della canzone</a>
+        </li>
 
-		<li class="beat">
-			<div class="firstRow">
-				<div class="titoloContainer">
-					<h3 lang="en" class="titleBeat">
-						Step Brothers (Alchemist _ Evidence) - Step Masters
-					</h3>
-
-					<button
-						class="btnPlay"
-						onclick="playerAudio('Step Brothers (Alchemist _ Evidence) - Step Masters.mp3', 16)"
-						aria-label="Riproduci Step Brothers (Alchemist _ Evidence) - Step Masters"
-						title="Riproduci Step Brothers (Alchemist _ Evidence) - Step Masters"
-						data-title-beat="Step Brothers (Alchemist _ Evidence) - Step Masters"
-						data-isPlaying="false">
-						<span aria-hidden="true">16</span>
-					</button>
-				</div>
-				<button class="btnDesc" aria-expanded="false">
+        <li class="beat">
+            <div class="firstRow">
+                <h3 lang="en">Step Brothers (Alchemist _ Evidence) - Step Masters</h3>
+                <button class="btnPlay" onclick="playerAudio('Step Brothers (Alchemist _ Evidence) - Step Masters.mp3', 16)" aria-label="Riproduci Step Brothers (Alchemist _ Evidence) - Step Masters" title="Riproduci Step Brothers (Alchemist _ Evidence) - Step Masters"
+                    data-title="Step Brothers (Alchemist _ Evidence) - Step Masters" data-playing="false">
+					<span aria-hidden="true">16</span>
+				</button>
+                <button class="btnDesc" aria-expanded="false">
 					<span>Audio descrizione</span><span lang="en" class="navigationHelp">Step Brothers (Alchemist _ Evidence) - Step Masters</span>
 				</button>
-				<div class="time-container">
-					<time datetime="PT2M58S">2:58</time>
-				</div>
-			</div>
+                <time datetime="PT2M58S">2:58</time>
+            </div>
 
-			<div id="desc_16" class="descBeats" data-show="false" hidden>
-				Un <span lang="en">beat</span> sofisticato e melodico che unisce
-				elementi di jazz e hip-hop. Ideale per raccontare storie e mostrare il
-				tuo talento nel costruire narrazioni coinvolgenti attraverso il rap.
-			</div>
-			<a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">
-				<span>Vai al <span lang="en">player</span> della canzone</span>
-			</a>
-		</li>
+            <div id="desc-16" class="descBeat" data-show="false" hidden>
+                Un <span lang="en">beat</span> sofisticato e melodico che unisce elementi di jazz e hip-hop. Ideale per raccontare storie e mostrare il tuo talento nel costruire narrazioni coinvolgenti attraverso il rap.
+            </div>
+            <a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">Vai al <span lang="en">player</span> della canzone</a>
+        </li>
 
-		<li class="beat">
-			<div class="firstRow">
-				<div class="titoloContainer">
-					<h3 lang="en" class="titleBeat">
-						Wu Tang Clan - Mobb Deep - Phat Beat
-					</h3>
-
-					<button
-						class="btnPlay"
-						onclick="playerAudio('Wu Tang Clan _ Mobb Deep - Phat Beat.mp3', 17)"
-						aria-label="Riproduci Wu Tang Clan _ Mobb Deep - Phat Beat"
-						title="Riproduci Wu Tang Clan _ Mobb Deep - Phat Beat"
-						data-title-beat="Wu Tang Clan _ Mobb Deep - Phat Beat"
-						data-isPlaying="false">
-						<span aria-hidden="true">17</span>
-					</button>
-				</div>
-				<button class="btnDesc" aria-expanded="false">
+        <li class="beat">
+            <div class="firstRow">
+                <h3 lang="en">Wu Tang Clan - Mobb Deep - Phat Beat</h3>
+                <button class="btnPlay" onclick="playerAudio('Wu Tang Clan _ Mobb Deep - Phat Beat.mp3', 17)" aria-label="Riproduci Wu Tang Clan _ Mobb Deep - Phat Beat" title="Riproduci Wu Tang Clan _ Mobb Deep - Phat Beat" data-title="Wu Tang Clan _ Mobb Deep - Phat Beat"
+                    data-playing="false">
+					<span aria-hidden="true">17</span>
+				</button>
+                <button class="btnDesc" aria-expanded="false">
 					<span>Audio descrizione</span><span lang="en" class="navigationHelp">Wu Tang Clan - Mobb Deep - Phat Beat</span>
 				</button>
-				<div class="time-container">
-					<time datetime="PT3M08S">3:08</time>
-				</div>
-			</div>
+                <time datetime="PT3M08S">3:08</time>
+            </div>
 
-			<div id="desc_17" class="descBeats" data-show="false" hidden>
-				Un <span lang="en">beat</span> classico che combina l'energia grezza del
-				Wu-Tang Clan con la profondità lirica dei Mobb Deep. Ideale per testi
-				riflessivi e potenti, questo beat ti porterà direttamente nelle strade
-				di New York.
-			</div>
-			<a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">
-				<span>Vai al <span lang="en">player</span> della canzone</span>
-			</a>
-		</li>
+            <div id="desc-17" class="descBeat" data-show="false" hidden>
+                Un <span lang="en">beat</span> classico che combina l'energia grezza del Wu-Tang Clan con la profondità lirica dei Mobb Deep. Ideale per testi riflessivi e potenti, questo beat ti porterà direttamente nelle strade di New York.
+            </div>
+            <a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">Vai al <span lang="en">player</span> della canzone</a>
+        </li>
 
-		<li class="beat">
-			<div class="firstRow">
-				<div class="titoloContainer">
-					<h3 class="titleBeat">Tecniche Perfette - 5</h3>
-
-					<button
-						class="btnPlay"
-						onclick="playerAudio('Tecniche Perfette - 5.mp3', 18)"
-						aria-label="Riproduci Tecniche Perfette - 5"
-						title="Riproduci Tecniche Perfette - 5"
-						data-title-beat="Tecniche Perfette - 5"
-						data-isPlaying="false">
-						<span aria-hidden="true">18</span>
-					</button>
-				</div>
-				<button class="btnDesc" aria-expanded="false">
+        <li class="beat">
+            <div class="firstRow">
+                <h3>Tecniche Perfette - 5</h3>
+                <button class="btnPlay" onclick="playerAudio('Tecniche Perfette - 5.mp3', 18)" aria-label="Riproduci Tecniche Perfette - 5" title="Riproduci Tecniche Perfette - 5" data-title="Tecniche Perfette - 5" data-playing="false">
+					<span aria-hidden="true">18</span>
+				</button>
+                <button class="btnDesc" aria-expanded="false">
 					<span>Audio descrizione</span><span class="navigationHelp">Tecniche Perfette - 5</span>
 				</button>
-				<div class="time-container">
-					<time datetime="PT4M09S">4:09</time>
-				</div>
-			</div>
+                <time datetime="PT4M09S">4:09</time>
+            </div>
 
-			<div id="desc_18" class="descBeats" data-show="false" hidden>
-				Un <span lang="en">beat</span> dal ritmo travolgente, con batteria
-				pesante e melodie accattivanti. Perfetto per le battaglie di freestyle e
-				per mettere in mostra la tua capacità di improvvisazione.
-			</div>
-			<a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">
-				<span>Vai al <span lang="en">player</span> della canzone</span>
-			</a>
-		</li>
+            <div id="desc-18" class="descBeat" data-show="false" hidden>
+                Un <span lang="en">beat</span> dal ritmo travolgente, con batteria pesante e melodie accattivanti. Perfetto per le battaglie di freestyle e per mettere in mostra la tua capacità di improvvisazione.
+            </div>
+            <a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">Vai al <span lang="en">player</span> della canzone</a>
+        </li>
 
-		<li class="beat">
-			<div class="firstRow">
-				<div class="titoloContainer">
-					<h3 lang="en" class="titleBeat">Timbaland - They Ain_t Ready</h3>
-
-					<button
-						class="btnPlay"
-						onclick="playerAudio('Timbaland - They Ain_t Ready.mp3', 19)"
-						aria-label="Riproduci Timbaland - They Ain_t Ready"
-						title="Riproduci Timbaland - They Ain_t Ready"
-						data-title-beat="Timbaland - They Ain_t Ready"
-						data-isPlaying="false">
-						<span aria-hidden="true">19</span>
-					</button>
-				</div>
-				<button class="btnDesc" aria-expanded="false">
+        <li class="beat">
+            <div class="firstRow">
+                <h3 lang="en">Timbaland - They Ain_t Ready</h3>
+                <button class="btnPlay" onclick="playerAudio('Timbaland - They Ain_t Ready.mp3', 19)" aria-label="Riproduci Timbaland - They Ain_t Ready" title="Riproduci Timbaland - They Ain_t Ready" data-title="Timbaland - They Ain_t Ready" data-playing="false">
+					<span aria-hidden="true">19</span>
+				</button>
+                <button class="btnDesc" aria-expanded="false">
 					<span>Audio descrizione</span><span lang="en" class="navigationHelp">Timbaland - They Ain_t Ready</span>
 				</button>
-				<div class="time-container">
-					<time datetime="PT4M52S">4:52</time>
-				</div>
-			</div>
+                <time datetime="PT4M52S">4:52</time>
+            </div>
 
-			<div id="desc_19" class="descBeats" data-show="false" hidden>
-				Un beat innovativo e sperimentale, con ritmi complessi e suoni
-				futuristici. Perfetto per dimostrare la tua originalità e creatività,
-				spingendo i confini del genere rap.
-			</div>
-			<a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">
-				<span>Vai al <span lang="en">player</span> della canzone</span>
-			</a>
-		</li>
-	</ul>
+            <div id="desc-19" class="descBeat" data-show="false" hidden>
+                Un beat innovativo e sperimentale, con ritmi complessi e suoni futuristici. Perfetto per dimostrare la tua originalità e creatività, spingendo i confini del genere rap.
+            </div>
+            <a href="#audio" tabindex="-1" aria-hidden="true" class="navigationHelp">Vai al <span lang="en">player</span> della canzone</a>
+        </li>
+    </ul>
 
-	<div
-		id="audio_container"
-		class="mobileCard subMenu"
-		data-title-actual-beat="chord-base-ambient-music">
-		<h3>Goodbye - Big Joe</h3>
-		<audio id="audio" aria-describedby="desc_1" aria-label="Base attualmente in esecuzione" controls>
+    <div id="player" class="mobileCard subMenu" data-title-actual-beat="chord-base-ambient-music">
+        <h3>Goodbye - Big Joe</h3>
+        <audio id="audio" aria-describedby="desc-1" aria-label="Base attualmente in esecuzione" controls>
 			<!--perchè nuHtmlChecker dice che controlsList="nodownload" è un errore? che dovrei utilizzare? -->
 			<source
 				src="assets/media/basi/Goodbye%20-%20Big%20Joe.mp3"
 				type="audio/mpeg"
 			>
 		</audio>
-		<button
-			type="button"
-			id="autoNext"
-			title="Riproduzione automatica"
-			aria-pressed="false">
+        <button type="button" id="autoNext" title="Riproduzione automatica" aria-pressed="false">
 			<svg
 				aria-hidden="true"
 				xmlns="http://www.w3.org/2000/svg"
@@ -680,5 +386,5 @@
 			</svg>
 			<span>Riproduzione automatica</span>
 		</button>
-	</div>
+    </div>
 </div>

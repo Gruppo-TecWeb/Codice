@@ -1,20 +1,20 @@
-#beats #content {
+#content {
     padding-bottom: 0em;
 }
 
-#intro_beats {
+#intro {
     padding-bottom: 2em;
     box-sizing: border-box;
     position: relative;
 }
 
-#beats_container {
+#beats {
     padding-top: 2em;
     position: relative;
     background: var(--colorBackground);
 }
 
-#beats_container::before {
+#beats::before {
     content: '';
     position: absolute;
     top: 0;
@@ -34,7 +34,7 @@ audio::-webkit-media-controls-play-button {
     border-radius: 3px;
 }
 
-#lista_beats .beat {
+.beat {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
@@ -43,29 +43,25 @@ audio::-webkit-media-controls-play-button {
     background-color: var(--colorSecondary);
 }
 
-#lista_beats .beat:hover {
+.beat:hover {
     background-color: var(--colorLinkHoverBackground);
 }
 
-#lista_beats .firstRow {
+.beat .firstRow {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
 }
 
-#lista_beats .titoloContainer {
-    display: inline-flex;
-    flex-direction: row-reverse;
-    align-items: center;
+.beat h3 {
+    order: 1;
     width: 100%;
+    align-self: center;
 }
 
-#lista_beats .titleBeat {
-    width: 100%;
-}
-
-#lista_beats .btnPlay {
+.beat .btnPlay {
+    order: 0;
     margin: 1em;
     width: 3em;
     opacity: 0.6;
@@ -75,7 +71,8 @@ audio::-webkit-media-controls-play-button {
     background: transparent;
 }
 
-#lista_beats .btnDesc {
+.beat .btnDesc {
+    order: 2;
     height: min-content;
     min-width: 12em;
     margin: auto;
@@ -83,7 +80,7 @@ audio::-webkit-media-controls-play-button {
     white-space: nowrap;
 }
 
-#lista_beats .beat:hover .btnPlay[data-isPlaying="false"] {
+.beat:hover .btnPlay[data-playing="false"] {
     background-image: url("../../assets/icons/play.svg");
     background-repeat: no-repeat;
     background-position: center;
@@ -92,8 +89,8 @@ audio::-webkit-media-controls-play-button {
     opacity: 1;
 }
 
-#lista_beats .btnPlay[data-isPlaying="true"] {
-    background-image: url("../..assets/icons/pause.svg");
+.beat .btnPlay[data-playing="true"] {
+    background-image: url("../../assets/icons/pause.svg");
     color: transparent;
     background-repeat: no-repeat;
     background-position: center;
@@ -101,16 +98,13 @@ audio::-webkit-media-controls-play-button {
     opacity: 1;
 }
 
-#lista_beats .audioBeats[data-java="true"] {
-    display: none;
-}
-
-#lista_beats .time-container {
+.beat time {
+    order: 3;
     align-self: center;
     margin: 1em;
 }
 
-#lista_beats .descBeats {
+.beat .descBeat {
     width: 100%;
     box-sizing: border-box;
     border-top: 1px solid var(--colorLinkHoverBackground);
@@ -119,18 +113,18 @@ audio::-webkit-media-controls-play-button {
     background-color: var(--colorSecondary);
 }
 
-#lista_beats .beat:hover .descBeats {
+.beat:hover .descBeat {
     background-color: var(--colorLinkHoverBackground);
 }
 
-#lista_beats .descBeats[data-show="false"] {
+.beat .descBeat[data-show="false"] {
     position: absolute;
     text-indent: -999em;
     border: unset;
     z-index: var(--elevationBelow);
 }
 
-#audio_container {
+#player {
     position: sticky;
     bottom: 0;
     display: grid;
@@ -141,14 +135,14 @@ audio::-webkit-media-controls-play-button {
     background-color: var(--colorAccent);
 }
 
-#audio_container h3 {
+#player h3 {
     grid-area: titolo;
     font-weight: bold;
     font-size: 1.25em;
     color: var(--colorTextOnAccent);
 }
 
-#audio_container #audio {
+#player audio {
     grid-area: audio;
     width: 100%;
     height: 2.5em;
