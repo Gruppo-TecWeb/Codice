@@ -1,0 +1,52 @@
+#login #form-login #buttons {
+    top: 2em;
+    padding-top: 2.5em;
+}
+
+#login #form-login #titolo {
+    top: 1em;
+    padding-top: 1.5em;
+}
+
+#login form {
+    display: grid;
+    grid-template-areas: 'titolo bottoni   ' 'messaggi messaggi' 'input  input     ';
+    grid-template-columns: 1fr auto;
+    justify-content: space-between;
+}
+
+#login form h3#titolo {
+    grid-area: titolo;
+    top: 2em;
+    background-color: var(--colorBackground);
+    position: sticky;
+    padding-block: 0.75em;
+    margin: unset;
+}
+
+#login form div#buttons {
+    grid-area: bottoni;
+    position: sticky;
+    top: 4em;
+    background-color: var(--colorBackground);
+    display: flex;
+    padding-block: 0.75em;
+    align-items: center;
+    justify-content: space-between;
+    width: fit-content;
+}
+
+#login form div#messaggi {
+    grid-area: messaggi;
+    padding: 1em;
+}
+
+#login form div#buttons button {
+    font-size: 1em;
+    padding: 1em;
+    margin: 0.25em;
+}
+
+#login form div#input {
+    grid-area: input;
+}

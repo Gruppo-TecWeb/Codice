@@ -1,0 +1,34 @@
+.div-classifica {
+    flex-direction: column-reverse;
+}
+
+.div-classifica p {
+    min-width: inherit;
+    margin: 0;
+    margin-block: 1em;
+    /* text-align: justify; */
+    text-align: left;
+}
+
+table#tabella-classifica {
+    width: 100%;
+    margin: auto;
+}
+
+div#Micelio,
+div#Fungo {
+    background-image: none;
+}
+
+body .titolo-filtri {
+    position: unset;
+    top: unset;
+    z-index: unset;
+    background-color: unset;
+}
+
+div.des-classifica p {
+    position: unset;
+    top: unset;
+    z-index: unset;
+}

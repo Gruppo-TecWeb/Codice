@@ -1,0 +1,35 @@
+#classifiche form {
+    display: none;
+}
+
+.des-classifica {
+    display: none;
+}
+
+table {
+    width: 100%;
+    min-width: 48%;
+    border-collapse: collapse;
+}
+
+table caption {
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+table thead {
+    background-color: #c9c9c9;
+}
+
+table tr {
+    border-bottom: 1px solid #c9c9c9;
+}
+
+table th,
+table td {
+    padding: 0.3em 0.5em;
+}
+
+table th {
+    text-align: left;
+}

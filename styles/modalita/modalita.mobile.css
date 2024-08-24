@@ -1,0 +1,44 @@
+#intro_battle ul {
+    list-style: none;
+}
+
+#container_battle {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+}
+
+#container_iframe {
+    width: var(--widthMenu);
+    position: sticky;
+    top: 0.5em;
+    height: 100%;
+    margin: unset;
+    padding-top: 2em;
+    border-radius: 14px;
+    background-color: var(--colorAccent);
+}
+
+#container_iframe iframe {
+    height: 45vw;
+    border-radius: 14px;
+    box-sizing: border-box;
+    width: 100%;
+    border: 4px solid var(--colorAccent);
+}
+
+#container_iframe h3 {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+#lista_battle {
+    width: 100%;
+}

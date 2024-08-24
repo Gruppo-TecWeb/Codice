@@ -1,0 +1,9 @@
+#chi-siamo-container .eventi-container {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+}
+
+#chi-siamo-container #info-eventi {
+    padding: unset;
+}

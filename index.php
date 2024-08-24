@@ -11,6 +11,16 @@ session_start();
 
 $paginaHTML = file_get_contents("template/template-pagina.html");
 $content = file_get_contents("template/index.html");
+$style = 'index/index.css';
+$styleMobile = 'index/index.mobile.css';
+$stylePrint = 'index/index.print.css';
+
+$linkStyle = get_content_between_markers($paginaHTML, 'linkStyle');
+$linkStyle = multi_replace($linkStyle, ['{style}' => $style]);
+$linkStyleMobile = get_content_between_markers($paginaHTML, 'linkStyleMobile');
+$linkStyleMobile = multi_replace($linkStyleMobile, ['{styleMobile}' => $styleMobile]);
+$linkStylePrint = get_content_between_markers($paginaHTML, 'linkStylePrint');
+$linkStylePrint = multi_replace($linkStylePrint, ['{stylePrint}' => $stylePrint]);
 
 $title = 'Fungo';
 $pageId = basename(__FILE__, '.php');
@@ -75,7 +85,10 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     'logo' => $logo,
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu,
-    'logout' => $logout
+    'logout' => $logout,
+    'linkStyle' => $linkStyle,
+    'linkStyleMobile' => $linkStyleMobile,
+    'linkStylePrint' => $linkStylePrint
 ]), [
     '{title}' => $title,
     '{description}' => $description,

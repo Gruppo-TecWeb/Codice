@@ -1,0 +1,59 @@
+#index header h1.logo {
+    display: none;
+}
+
+#index #hero h2 {
+    margin-top: unset;
+    font-size: 4cm;
+    text-align: center;
+}
+
+#video-home {
+    display: none;
+}
+
+#evento-home {
+    margin: 2em;
+}
+
+#evento-home div {
+    width: fit-content;
+    padding: 1em;
+    margin: 0.25em;
+    border: 2px solid black;
+}
+
+#evento-home h4 {
+    font-size: 1.5em;
+}
+
+#evento-home a {
+    display: none;
+}
+
+#eventi-home dl {
+    display: flex;
+}
+
+.eventoPrincipaleHome {
+    padding: 1em;
+}
+
+.eventoPrincipaleHome figure {
+    margin: 0.25em;
+    box-sizing: border-box;
+    border: 1px solid;
+}
+
+.eventoPrincipaleHome .ddImg img {
+    height: 5cm;
+    width: 100%;
+    padding: 0.5em;
+    box-sizing: border-box;
+    object-fit: contain;
+}
+
+.eventoPrincipaleHome .ddImg figcaption {
+    border-top: 1px solid;
+    padding: 0.5em;
+}

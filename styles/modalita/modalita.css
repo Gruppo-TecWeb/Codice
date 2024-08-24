@@ -1,0 +1,181 @@
+#intro_battle {
+    margin-bottom: 2em;
+}
+
+#intro_battle h3 {
+    margin-top: 0.75em;
+}
+
+#intro_battle ul {
+    margin-block: 0.75em;
+}
+
+#intro_battle::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    height: 2em;
+    width: 100%;
+    box-sizing: border-box;
+    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
+    border-bottom: 2px solid var(--colorAccent);
+}
+
+#modalita main {
+    padding-bottom: unset;
+}
+
+#container_battle {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    background-color: var(--colorAccent);
+    padding: 0em;
+    align-items: start;
+    margin: 0em;
+}
+
+#container_battle h2 {
+    background-color: var(--colorBackground);
+    color: var(--colorAccent);
+    border-radius: 14px;
+    width: max-content;
+    padding: 0.5em;
+}
+
+#container_iframe {
+    margin: 0em;
+    text-align: center;
+    color: var(--colorSecondary);
+    font-size: larger;
+    margin: 1em 0em 1em 1em;
+    position: sticky;
+    top: 3em;
+    display: flex;
+    flex-direction: column;
+    /* Imposta la direzione dei figli su verticale */
+    align-items: center;
+    /* Centra orizzontalmente */
+}
+
+#container_iframe h3 {
+    background-color: var(--colorBackground);
+    color: var(--colorAccent);
+    border-radius: 14px 14px 0px 0px;
+    width: max-content;
+    padding: 0.5em;
+}
+
+#container_iframe iframe {
+    width: 48vw;
+    height: 27vw;
+    border-radius: 14px;
+    border-style: none;
+}
+
+#container_lista_battle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Centra orizzontalmente */
+    margin-bottom: 1.1em;
+}
+
+#lista_battle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Centra orizzontalmente */
+}
+
+#lista_battle button {
+    cursor: pointer;
+    height: 3em;
+    border-style: none;
+    color: transparent;
+    background-color: transparent;
+    background-image: url("../../assets/icons/play.svg");
+    background-repeat: no-repeat;
+    background-size: 50%;
+    background-position: center;
+    width: 6em;
+}
+
+#lista_battle button[data-isPlaying="false"] {
+    background-image: url("../../assets/icons/play.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#lista_battle button[data-isPlaying="true"] {
+    background-image: url("../../assets/icons/pause.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.descBattle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 2px;
+    border-radius: 14px;
+    background-color: var(--colorBackground);
+    color: var(--colorText);
+}
+
+
+/*qua c'è anche il margin del footer da correggere*/
+
+.descBattle:first-child {
+    border-top: 0em;
+}
+
+.descBattle:last-child {
+    border-bottom: 0em;
+}
+
+.descBattle:hover {
+    background-color: var(--colorButtonHover);
+}
+
+.descBattle dt span {
+    display: block;
+    text-align: center;
+    padding: 0.5em;
+    margin: 0em;
+    width: 6em;
+    font-weight: bold;
+}
+
+.descBattle dd {
+    padding: 0.5em;
+}
+
+.descBattle>dd:first-of-type {
+    width: 100%;
+    padding: 0.5em;
+    text-align: center;
+    border-style: solid;
+    border-width: 0em 0.2em 0em 0.2em;
+    border-color: var(--colorAccent);
+    min-height: 2.4em;
+}
+
+.descBattle button {
+    cursor: pointer;
+    height: 2em;
+    border-style: none;
+    justify-content: space-between;
+    color: transparent;
+    background-color: transparent;
+    background-image: url("../../assets/icons/play.svg");
+    background-repeat: no-repeat;
+    background-size: 40%;
+    background-position: center;
+}
+
+.descBattle:hover button {
+    opacity: 1;
+}

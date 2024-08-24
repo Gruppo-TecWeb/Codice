@@ -1,0 +1,51 @@
+#chi-siamo-container h3 {
+    padding: 0.5em;
+    background: var(--colorSecondary);
+    border-bottom: 2px solid var(--colorAccent);
+    line-height: 1.5em;
+}
+
+#chi-siamo-container section,
+div#introduzione {
+    padding: 1.25em;
+    background-color: var(--colorSecondary);
+    border-radius: 0.5em;
+    box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.1);
+    margin-bottom: 0.9375em;
+}
+
+#chi-siamo-container .text-container {
+    margin-top: 1em;
+}
+
+#chi-siamo-container #eventi img {
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+#chi-siamo-container .eventi-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    padding: 1em;
+}
+
+#chi-siamo-container #info-eventi {
+    padding: 1em;
+}
+
+#chi-siamo-container #comunita-container {
+    margin-top: 1em;
+}
+
+#chi-siamo-container #comunita img {
+    margin-top: 1em;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: 50%;
+}
+
+#chi-siamo p {
+    /* text-align: justify; */
+    text-align: left;
+}

@@ -91,12 +91,12 @@ function onPlayerStateChange(event) {
     if (event.data == YT.PlayerState.PAUSED) {
         pressedButton.setAttribute("data-isPlaying", "false");
         pressedButton.title = "Riproduci esempio " + newTitle;
-        pressedButton.setAttribute("aria-label","Riproduci "+ newTitle);
+        pressedButton.setAttribute("aria-label", "Riproduci " + newTitle);
     }
     if (event.data == YT.PlayerState.PLAYING) {
         pressedButton.setAttribute("data-isPlaying", "true");
         pressedButton.title = "Interrompi esempio " + newTitle;
-        pressedButton.setAttribute("aria-label","Interrompi "+ newTitle);
+        pressedButton.setAttribute("aria-label", "Interrompi " + newTitle);
     }
 }
 var descVideo = [];
@@ -110,25 +110,25 @@ function initIframe() {
     descBattles = document.getElementsByClassName("descBattle");
     actualTitle = document.getElementsByTagName("h3")[1];
 
-    
+
     thisBattle = descBattles[0];
     newTitle = thisBattle.getElementsByTagName("dt")[0].getElementsByTagName("span")[0].innerHTML;
     pressedButton = thisBattle.getElementsByTagName("button")[0];
-    
+
     var idDescVideo = [];
-     
-    
+
+
     for (var i = 0; i < descBattles.length; i++) {
         descVideo = descBattles[i].getElementsByTagName("p")[0];
-        innerDescVideo[i]=stripHTMLTags(descVideo.innerHTML);
+        innerDescVideo[i] = stripHTMLTags(descVideo.innerHTML);
         console.log(innerDescVideo);
-        descVideo.setAttribute("id","desc_"+i);
-        idDescVideo[i]=descVideo.getAttribute("id");
+        descVideo.setAttribute("id", "desc_" + i);
+        idDescVideo[i] = descVideo.getAttribute("id");
     }
-    
+
     iframe = document.getElementById("iframe_battle");
-    iframe.setAttribute("aria-describedby",idDescVideo[0]);
-    iframe.setAttribute("aria-label",innerDescVideo[0]);
+    iframe.setAttribute("aria-describedby", idDescVideo[0]);
+    iframe.setAttribute("aria-label", innerDescVideo[0]);
     //console.log(descVideo[0]);
 
 }
@@ -137,27 +137,27 @@ function setIframe(battle) {
     thisBattle = descBattles[battle];
     pressedButton = thisBattle.getElementsByTagName("button")[0];
     newTitle = thisBattle.getElementsByTagName("dt")[0].getElementsByTagName("span")[0].innerHTML;
-    oldTitle=actualTitle.innerHTML;
-    
+    oldTitle = actualTitle.innerHTML;
 
-    
+
+
     if (pressedButton.title.substr(0, 10) == "Interrompi") {
         player.pauseVideo();
         pressedButton.setAttribute("data-isPlaying", "false");
         pressedButton.title = "Riproduci esempio " + actualTitle.innerHTML;
-        pressedButton.setAttribute("aria-label","Riproduci "+ newTitle);
+        pressedButton.setAttribute("aria-label", "Riproduci " + newTitle);
     } else {
-        if (actualTitle.innerHTML == "esempio "+ newTitle) {
+        if (actualTitle.innerHTML == "esempio " + newTitle) {
             player.playVideo();
             pressedButton.setAttribute("data-isPlaying", "true");
             pressedButton.title = "Interrompi esempio " + newTitle;
-            pressedButton.setAttribute("aria-label","Interrompi "+ newTitle);
+            pressedButton.setAttribute("aria-label", "Interrompi " + newTitle);
         } else {
 
-            iframe.setAttribute("aria-describedby","desc_"+battle);
-            iframe.setAttribute("aria-label",innerDescVideo[battle]);
-            pressedButton.setAttribute("title","Riproduci esempio "+actualTitle.innerHTML);
-           // console.log(pressedButton.title);
+            iframe.setAttribute("aria-describedby", "desc_" + battle);
+            iframe.setAttribute("aria-label", innerDescVideo[battle]);
+            pressedButton.setAttribute("title", "Riproduci esempio " + actualTitle.innerHTML);
+            // console.log(pressedButton.title);
             newIframe();
         }
     }
@@ -165,7 +165,7 @@ function setIframe(battle) {
 
 function newIframe() {
     var link = pressedButton.getAttribute("data-link");
-    actualTitle.innerHTML = "esempio "+ newTitle;
+    actualTitle.innerHTML = "esempio " + newTitle;
     thisBattle.getElementsByClassName("playerJump")[0].setAttribute("aria-hidden", "false");
     thisBattle.getElementsByClassName("playerJump")[0].setAttribute("tabindex", "0");
     var videoId = link.split('embed/')[1].split('?')[0];
@@ -179,7 +179,7 @@ function newIframe() {
     });
     //console.log(pressedButton.title);
     for (var i = 0; i < descBattles.length; i++) {
-        if(descBattles[i] != thisBattle){
+        if (descBattles[i] != thisBattle) {
             descBattles[i].getElementsByClassName("playerJump")[0].setAttribute("aria-hidden", "true");
             descBattles[i].getElementsByClassName("playerJump")[0].setAttribute("tabindex", "-1");
         }
@@ -187,14 +187,14 @@ function newIframe() {
         if (buttonPP.title.substr(0, 10) == "Interrompi") {
             buttonPP.setAttribute("data-isPlaying", "false");
             buttonPP.title = "Riproduci " + oldTitle;
-            buttonPP.setAttribute("aria-label","Riproduci "+ oldTitle);
+            buttonPP.setAttribute("aria-label", "Riproduci " + oldTitle);
         }
-        
+
     }
 
     pressedButton.setAttribute("data-isPlaying", "true");
     pressedButton.title = "Interrompi esempio " + newTitle;
-    pressedButton.setAttribute("aria-label","Interrompi "+ newTitle);
+    pressedButton.setAttribute("aria-label", "Interrompi " + newTitle);
     console.log(pressedButton.title);
 }
 
@@ -205,24 +205,24 @@ function newIframe() {
 
 function init_beats() {
     pressedButton = document.getElementsByClassName("beat")[0].getElementsByTagName("button")[0];
-    document.getElementById("audio").addEventListener("play", function() {
-        pressedButton.setAttribute("data-isPlaying", "true");
+    document.querySelector("#player audio").addEventListener("play", function() {
+        pressedButton.setAttribute("data-playing", "true");
         pressedButton.title = "Interrompi " + newTitle;
         pressedButton.setAttribute("aria-label", "Interrompi " + newTitle);
 
     });
 
-    document.getElementById("audio").addEventListener("pause", function() {
-        pressedButton.setAttribute("data-isPlaying", "false");
+    document.querySelector("#player audio").addEventListener("pause", function() {
+        pressedButton.setAttribute("data-playing", "false");
         pressedButton.title = "Riproduci " + newTitle;
         pressedButton.setAttribute("aria-label", "Riproduci " + newTitle);
     });
 
     btnDescrizioni = document.getElementsByClassName("btnDesc");
-    descBeats = document.getElementsByClassName("descBeats");
+    descBeats = document.getElementsByClassName("descBeat");
     for (let i = 0; i < btnDescrizioni.length; i++) {
         btnDescrizioni[i].setAttribute("data-show", "false");
-        btnDescrizioni[i].setAttribute("aria-controls", "desc_" + i);
+        btnDescrizioni[i].setAttribute("aria-controls", "desc-" + i);
         btnDescrizioni[i].addEventListener("click", (event) => {
             showDescription(i);
         });
@@ -230,40 +230,39 @@ function init_beats() {
 }
 
 function showDescription(index) {
-    descrizione = document.getElementsByClassName("descBeats")[index];
+    descrizione = document.getElementsByClassName("descBeat")[index];
     btnDescrizione = document.getElementsByClassName("btnDesc")[index];
     show = descrizione.getAttribute("data-show");
     descrizione.setAttribute("data-show", show === "true" ? "false" : "true");
-    descrizione.hasAttribute("hidden") ? descrizione.removeAttribute("hidden") : descrizione.setAttribute("hidden","");
+    descrizione.hasAttribute("hidden") ? descrizione.removeAttribute("hidden") : descrizione.setAttribute("hidden", "");
 
     btnDescrizione.setAttribute("data-show", show === "true" ? "false" : "true");
-    btnDescrizione.setAttribute("aria-expanded", show === "true" ? "false" : "true");  
+    btnDescrizione.setAttribute("aria-expanded", show === "true" ? "false" : "true");
     btnDescrizione.getElementsByTagName("span")[0].innerHTML = show === "true" ? "Audio descrizione" : "Nascondi";
 }
 
 var autoNext = false;
 
 function playerAudio(nomeBase, index) {
-    document.getElementById("audio").addEventListener("play", function() {
-        pressedButton.setAttribute("data-isPlaying", "true")
+    document.querySelector("#player audio").addEventListener("play", function() {
+        pressedButton.setAttribute("data-playing", "true")
         pressedButton.title = "Interrompi " + newTitle;
     });
 
-    document.getElementById("audio").addEventListener("pause", function() {
-        pressedButton.setAttribute("data-isPlaying", "false")
+    document.querySelector("#player audio").addEventListener("pause", function() {
+        pressedButton.setAttribute("data-playing", "false")
         pressedButton.title = "Riproduci " + newTitle;
     });
     //variabili varie
     percorso = "assets/media/basi/";
-    audio = document.getElementById("audio");
-    audio.setAttribute("aria-describedby", "desc_" + index);
-    audioContainer = document.getElementById("audio_container");
-    h3 = audioContainer.getElementsByTagName("h3")[0];
+    audio = document.querySelector("#player audio");
+    audio.setAttribute("aria-describedby", "desc-" + index);
+    h3 = document.querySelector("#player h3");
     newTitle = nomeBase.slice(0, -4);
     beats = document.getElementsByClassName("beat")
 
     for (let i = 0; i < beats.length; i++) {
-        if (beats[i].getElementsByTagName("button")[0].getAttribute("data-title-beat") == nomeBase.slice(0, -4)) {
+        if (beats[i].getElementsByTagName("button")[0].getAttribute("data-title") == nomeBase.slice(0, -4)) {
             pressedButton = beats[i].getElementsByTagName("button")[0];
             audioJump = beats[i].getElementsByTagName("a")[0];
             audioJump.setAttribute("tabindex", "0");
@@ -309,12 +308,12 @@ function newBeat(nomeBase) {
             audioJump.setAttribute("tabindex", "-1");
             audioJump.setAttribute("aria-hidden", "true");
 
-            buttonPP.setAttribute("data-isPlaying", "false")
-            buttonPP.title = "Riproduci " + buttonPP.getAttribute("data-title-beat");
+            buttonPP.setAttribute("data-playing", "false")
+            buttonPP.title = "Riproduci " + buttonPP.getAttribute("data-title");
         }
     }
     //settaggio title bottone e player audio
-    pressedButton.setAttribute("data-isPlaying", "true")
+    pressedButton.setAttribute("data-playing", "true")
     h3.innerHTML = newTitle;
     pressedButton.title = "Interrompi " + newTitle;
 
@@ -324,6 +323,7 @@ function newBeat(nomeBase) {
 }
 
 function autoPlay(nomeBase, index) {
+    audio = document.querySelector("#player audio");
     document.getElementById("autoNext").onclick = function() {
         autoNext = !autoNext;
         autoRip = document.getElementById("autoNext");
@@ -346,19 +346,19 @@ function nextAudio(nomeBase, index) {
     newTitle = nomeBase.slice(0, -4);
     beats = document.getElementsByClassName("beat")
     for (let i = 0; i < beats.length; i++) {
-        if (beats[i].getElementsByTagName("button")[0].getAttribute("data-title-beat") == nomeBase.slice(0, -4)) {
+        if (beats[i].getElementsByTagName("button")[0].getAttribute("data-title") == nomeBase.slice(0, -4)) {
             pressedButton = beats[i].getElementsByTagName("button")[0];
         }
     }
 
     for (let i = 0; i < beats.length; i++) {
         bottone = beats[i].getElementsByTagName("button")[0]
-        if (bottone.getAttribute("data-title-beat") == nomeBase.slice(0, -4)) {
+        if (bottone.getAttribute("data-title") == nomeBase.slice(0, -4)) {
             let next = beats[i + 1];
             if (next) {
                 let nextButton = next.getElementsByTagName("button");
-                newTitle = nextButton[0].getAttribute("data-title-beat") + ".mp3";
-                playerAudio(newTitle, index+1);
+                newTitle = nextButton[0].getAttribute("data-title") + ".mp3";
+                playerAudio(newTitle, index + 1);
             }
             break;
         }
@@ -805,7 +805,7 @@ document.addEventListener('DOMContentLoaded', function() {
         titoloClassificaInput.addEventListener('input', function() {
             validateField(titoloClassificaInput, titoloClassificaError, validateTitolo);
         });
-        
+
         // Validazione della data di inizio durante la digitazione
         dataInizioInput.addEventListener('input', function() {
             validateField(dataInizioInput, dataInizioError, validateData);

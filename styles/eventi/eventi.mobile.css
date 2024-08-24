@@ -1,0 +1,72 @@
+/* Form di ricerca */
+
+#form-eventi {
+    display: flex;
+    flex-direction: column;
+    height: unset;
+    border: unset;
+}
+
+#form-eventi>div {
+    display: block;
+    margin: 0.25em 0;
+    width: 100%;
+}
+
+#form-eventi>div * {
+    display: inline-block;
+    width: 49%;
+}
+
+.gridLine {
+    padding: 1em calc((100% - var(--widthMenu)) / 2);
+}
+
+#form-eventi select {
+    margin-left: 0;
+}
+
+#form-eventi label {
+    margin-right: 0;
+}
+
+#form-eventi select {
+    margin-left: 0;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+
+/* Lista degli eventi */
+
+#lista-eventi {
+    grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
+}
+
+#lista-eventi li img {
+    padding: 1em;
+}
+
+#lista-eventi li a h3 {
+    font-size: 1.10em;
+}
+
+#lista-eventi li h3,
+#lista-eventi li p {
+    padding: 0.5em;
+}
+
+#lista-eventi .eventoNoImmagine .cornice {
+    padding: 1em;
+}
+
+#lista-eventi .eventoNoImmagine .cornice .scritte {
+    font-size: 3vw;
+}
+
+#paginazione-eventi ul {
+    margin-top: 2em;
+    flex-wrap: wrap;
+}
