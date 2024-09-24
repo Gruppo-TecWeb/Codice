@@ -16,8 +16,6 @@ $title = 'Beats &minus; Fungo';
 $pageId = basename(__FILE__, '.php');
 $description = "Basi per freestyle di rap";
 $keywords = 'Basi, Beats, Instrumental, Freestyle, Rap';
-$percorso = '';
-$percorsoAdmin = 'admin/';
 $menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = "init_beats(), onJavaScript(), autoPlay('11 - Goodbye - Big Joe.mp3')";
@@ -56,10 +54,6 @@ if ($connectionOk) {
     // Sostituzione del blocco {beats} nel contenuto HTML
     $content = replace_content_between_markers($content,[
     'beats' => $beatsList,
-    ]);
-    $content=multi_replace($content, [
-        '{titolo}' => $percorso,
-        '{percorsoAdmin}' => $percorsoAdmin
     ]);
 
     // Chiusura della connessione al DB

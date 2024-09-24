@@ -61,6 +61,10 @@ class DBAccess {
         $query = "SELECT Id, Titolo, Descrizione FROM Basi";
         return $this->execute_query($query);
     }
+    public function get_modalità() {
+        $query = "SELECT Id, Titolo, Link, Descrizione FROM Modalità";
+        return $this->execute_query($query);
+    }
     
     public function get_lista_eventi($data = '', $tipoEvento = '', $ascendente = true) {
         $query = "SELECT e.Id,

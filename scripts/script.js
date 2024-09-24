@@ -163,6 +163,7 @@ function initIframe() {
 
 function init_beats() {
     pressedButton = document.getElementsByClassName("beat")[0].getElementsByTagName("button")[0];
+    
     document.getElementById("audio").addEventListener("play", function() {
         pressedButton.setAttribute("data-isPlaying", "true")
         pressedButton.title = "Interrompi " + newTitle;

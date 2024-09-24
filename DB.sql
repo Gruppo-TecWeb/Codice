@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS Modalità;
 DROP TABLE IF EXISTS Basi;
 DROP TABLE IF EXISTS Punteggi;
 DROP TABLE IF EXISTS Eventi;
@@ -44,11 +45,28 @@ CREATE TABLE Punteggi (
     FOREIGN KEY (Evento) REFERENCES Eventi(Id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (Partecipante) REFERENCES Utenti(Username) ON DELETE RESTRICT ON UPDATE CASCADE);
 
+CREATE TABLE Modalità (
+    Id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    Titolo VARCHAR(100) NOT NULL,
+    Link VARCHAR(255) NOT NULL,
+    Descrizione TEXT
+);
+
 CREATE TABLE Basi (
     Id int(11) PRIMARY KEY AUTO_INCREMENT,
     Titolo varchar(255) DEFAULT NULL,
     Descrizione varchar(255) DEFAULT NULL
 );
+INSERT INTO Modalità (Titolo, Link, Descrizione) VALUES
+('Minuto', 'https://www.youtube-nocookie.com/embed/RszfbKxb460?enablejsapi=1&amp;start=98&amp;end=210&amp;autoplay=1', 'I <span lang="en">rapper</span> fanno un minuto di <span lang="en">freestyle</span> a testa, semplice semplice.'),
+('4/4', 'https://www.youtube-nocookie.com/embed/2ttgML437Ho?enablejsapi=1&amp;start=370&amp;end=510&amp;autoplay=1', 'La modalità più classica tra tutte, a turno i <span lang="en">rapper</span> fanno 4 barre a testa!'),
+('Cypher', 'https://www.youtube-nocookie.com/embed/n2qPwcpdeeQ?enablejsapi=1&amp;start=117&amp;end=364&amp;autoplay=1', 'Un <span lang="en">cypher</span> è un gruppo di <span lang="en">rapper</span> che a turno rappano; modalità spesso utilizzata come sorta di riscaldamento pre-<span lang="en">battle</span>.'),
+('3/4', 'https://www.youtube-nocookie.com/embed/n2qPwcpdeeQ?enablejsapi=1&amp;start=778&amp;end=1014&amp;autoplay=1', 'Un <span lang="en">rapper</span> canta per <span aria-hidden="true"><strong><sup>3</sup>/<sub>4</sub></strong></span> e l''altro dovrà chiudere la rima nell''ultimo quarto rimanente, continuando a ruota.'),
+('KickBack', 'https://www.youtube-nocookie.com/embed/n2qPwcpdeeQ?enablejsapi=1&amp;start=1604&amp;end=3610&amp;autoplay=1', 'Un <span lang="en">rapper</span> fa una domanda e l''altro risponde, continuando con altre domande, tutto seguendo il tempo dei <span lang="en">tre quarti</span>.'),
+('Royal rumble', 'https://www.youtube-nocookie.com/embed/Czp97FOKaDM?enablejsapi=1&amp;autoplay=1', 'I <span lang="en">rapper</span> cantano a rotazione e il <span lang="en">rapper</span> meno apprezzato viene eliminato. Gli altri continuano a sfidarsi.'),
+('Argomento', 'https://www.youtube-nocookie.com/embed/95SZIlMiFfQ?enablejsapi=1&amp;start=4&amp;autoplay=1', 'Viene dato un argomento su cui i <span lang="en">rapper</span> dovranno cantare.'),
+('Acappella', 'https://www.youtube-nocookie.com/embed/OvVk892HzmE?enablejsapi=1&amp;start=762&amp;autoplay=1', 'I <span lang="en">rapper</span> si sfidano senza supporto musicale, concentrandosi solo sulle loro abilità vocali e liriche.'),
+('Oggetti', 'https://www.youtube-nocookie.com/embed/S8Ze0GCgo4k?enablejsapi=1&amp;autoplay=1', 'Ai <span lang="en">rapper</span> vengono forniti oggetti a sorpresa, su cui dovranno rappare.');
 
 INSERT INTO Basi (Id, Titolo, Descrizione) VALUES
 (1, 'Goodbye - Big Joe.mp3','Un ritmo ipnotico che fluisce come un fiume in piena, dando spazio alle tue parole per danzare sulla sua corrente.'),
