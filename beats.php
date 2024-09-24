@@ -42,16 +42,25 @@ if ($connectionOk) {
         $newBeatItem = $beatItem;
         // Sostituzione dei segnaposto nel template HTML
         $newBeatItem = multi_replace($newBeatItem, [
-            '{id}' => $row['Id'],
-            '{titolo}' => $row['Titolo'],
-            '{descrizione}' => $row['Descrizione']
+            
+            '{titoloConEstensione}' => $row['Titolo'],
+            $titleClean= str_replace('.mp3','',$row['Titolo']),
+            '{titolo}' => $titleClean,
+            '{descrizione}' => $row['Descrizione'],
+            '{id}' => $row['Id']
         ]);
         $beatsList .= $newBeatItem;
     }
     
 
     // Sostituzione del blocco {beats} nel contenuto HTML
-    $content = replace_content_between_markers($content,['beats' => $beatsList]);
+    $content = replace_content_between_markers($content,[
+    'beats' => $beatsList,
+    ]);
+    $content=multi_replace($content, [
+        '{titolo}' => $percorso,
+        '{percorsoAdmin}' => $percorsoAdmin
+    ]);
 
     // Chiusura della connessione al DB
     $connection->close_DB_connection();
