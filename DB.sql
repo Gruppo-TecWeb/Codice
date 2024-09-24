@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS Basi;
 DROP TABLE IF EXISTS Punteggi;
 DROP TABLE IF EXISTS Eventi;
 DROP TABLE IF EXISTS Classifiche;
@@ -42,6 +43,33 @@ CREATE TABLE Punteggi (
     PRIMARY KEY (Partecipante, Evento),
     FOREIGN KEY (Evento) REFERENCES Eventi(Id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (Partecipante) REFERENCES Utenti(Username) ON DELETE RESTRICT ON UPDATE CASCADE);
+
+CREATE TABLE Basi (
+    Id int(11) PRIMARY KEY AUTO_INCREMENT,
+    Titolo varchar(255) DEFAULT NULL,
+    Descrizione varchar(255) DEFAULT NULL
+);
+
+INSERT INTO Basi (Id, Titolo, Descrizione) VALUES
+(1, '11 - Goodbye - Big Joe.mp4','Un ritmo ipnotico che fluisce come un fiume in piena, dando spazio alle tue parole per danzare sulla sua corrente.'),
+(2, 'Big L  Ebonics.mp3','Un beat con elementi futuristici e suoni elettronici che ti trasportano in un mondo di possibilità nel quale puoi sperimentare senza limiti.'),
+(3, 'Busta Rhymes - Psycobusta.mp3','Una composizione minimalista che mette in risalto la tua voce, permettendoti di dominare la scena con il tuo stile unico.'),
+(4, 'Dilated Peoples - The Platform (Erik Sermon Remix).mp3','Un beat dal groove classico e accattivante, un richiamo alle radici dell''hip-hop, pronto a far vibrare l''anima delle tue rime.'),
+(5, 'DJ Premier - BAP.mp3','Una base ritmica pesante e decisa, pronta a sostenere le tue rime con una potenza inarrestabile.'),
+(6, 'DJ Premier - That White.mp3','Una traccia con un ritmo contagioso e un beat che invoglia all''azione, perfetto per mettere in mostra la tua versatilità e la tua abilità nel freestyle rap'),
+(7, 'Full Clip-Gangstarr.mp3','Un beat con una melodia maliziosa che ti invita a sfidare le convenzioni e a esplorare nuove dimensioni nel tuo freestyle.'),
+(8, 'Funkdoobiest - Lost in Thought.mp4','Un beat con un mix di elementi jazz e percussioni incalzanti, regalando una base sofisticata per le tue improvvisazioni poetiche.'),
+(9, 'Gang Starr - Battle.mp3','Una mescolanza di suoni urbani e ritmi urbani, creando un''atmosfera che ti avvolge e ti spinge a esprimere la tua autenticità nel freestyle.'),
+(10, 'J. Cole - Fire Squad.wav','Un beat dall''andamento selvaggio e irregolare, perfetto per testare le tue abilità nel mantenere il controllo durante il freestyle.'),
+(11, 'Jam Baxter - Fine (Prod GhostTown).mp4','Un beat dai suoni energetici e taglienti, pronto a guidare le tue rime con una potente base ritmica.'),
+(12, 'Method Man _ Redman - A-Yo.mp4','Un beat dal ritmo incalzante che cattura l''attenzione sin dai primi battiti, perfetto per scatenare la tua creatività nel freestyle rap.'),
+(13, 'Movie Villains.mp4','Un beat oscuro e potente, perfetto per trasportarti nel mondo dei cattivi del cinema. Con i suoi bassi profondi e i suoni inquietanti, ti farà sentire come il protagonista di un film d''azione.'),
+(14, 'Noyz Narcos - Trucemala.mp3','Questo beat cattura l''essenza del rap hardcore, con ritmi aggressivi e bassi intensi. Ideale per testi forti e decisi, ti darà l''energia giusta per esprimere la tua rabbia e passione'),
+(15, 'RA Rugged man - Dangerous Three.mp3','Un beat incalzante e grintoso, caratterizzato da campionamenti vintage e ritmi serrati. Perfetto per mostrare le tue abilità liriche e mantenere alta l''attenzione degli ascoltatori.'),
+(16, 'Step Brothers (Alchemist _ Evidence) - Step Masters.mp4','Un beat sofisticato e melodico che unisce elementi di jazz e hip-hop. Ideale per raccontare storie e mostrare il tuo talento nel costruire narrazioni coinvolgenti attraverso il rap.'),
+(17, 'Tecniche Perfette - 5.mp4','Un beat classico che combina l''energia grezza del Wu-Tang Clan con la profondità lirica dei Mobb Deep. Ideale per testi riflessivi e potenti, questo beat ti porterà direttamente nelle strade di New York.'),
+(18, 'Wu Tang Clan _ Mobb Deep - Phat Beat.mp3','Un beat dal ritmo travolgente, con batteria pesante e melodie accattivanti. Perfetto per le battaglie di freestyle e per mettere in mostra la tua capacità di improvvisazione.'),
+(19, 'Timbaland - They Ain_t Ready.mp3','Un beat innovativo e sperimentale, con ritmi complessi e suoni futuristici. Perfetto per dimostrare la tua originalità e creatività, spingendo i confini del genere rap.');
 
 INSERT INTO Utenti (Username, Password, Email, TipoUtente) VALUES ('root', '$2y$10$x0SPRF3nMtr.a.gcpzJwqeS4YToXKGXLAGEHIzi7d//SkEpayFf8i', 'root@mail.it', 'R');
 INSERT INTO Utenti (Username, Password, Email, TipoUtente) VALUES ('admin', '$2y$10$6HccIqtLp.aSP1X4H/X3GeNJaXsTLVrNCPYIaMURXPUfxSL7qjphi', 'admin@fungo.it', 'A');

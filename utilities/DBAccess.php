@@ -57,6 +57,11 @@ class DBAccess {
         }
     }
 
+    public function get_beats() {
+        $query = "SELECT Id, Titolo, Descrizione FROM Basi";
+        return $this->execute_query($query);
+    }
+    
     public function get_lista_eventi($data = '', $tipoEvento = '', $ascendente = true) {
         $query = "SELECT e.Id,
         e.TipoEvento,
@@ -223,6 +228,7 @@ class DBAccess {
         $ris = $this->execute_query($query);
         return $ris ? $ris[0] : null;
     }
+
 
     public function get_punteggi_classifica($tipoEvento, $dataInizio, $dataFine) {
         $ris = $this->execute_query(

@@ -27,6 +27,39 @@ if (isset($_SESSION["login"])) {
     $logout = get_content_between_markers($paginaHTML, 'logout');
 }
 
+// Connessione al database
+$connection = DBAccess::get_instance();
+$connectionOk = $connection->open_DB_connection();
+
+if ($connectionOk) {
+    // Estrazione dati dalla tabella Basi
+    $result = $connection->get_beats();
+
+    // Preparazione del contenuto dinamico
+    $beatsList = '';
+    $beatItem = get_content_between_markers($content, 'beats');
+    foreach ($result as $row) {
+        $newBeatItem = $beatItem;
+        // Sostituzione dei segnaposto nel template HTML
+        $newBeatItem = multi_replace($newBeatItem, [
+            '{id}' => $row['Id'],
+            '{titolo}' => $row['Titolo'],
+            '{descrizione}' => $row['Descrizione']
+        ]);
+        $beatsList .= $newBeatItem;
+    }
+    
+
+    // Sostituzione del blocco {beats} nel contenuto HTML
+    $content = replace_content_between_markers($content,['beats' => $beatsList]);
+
+    // Chiusura della connessione al DB
+    $connection->close_DB_connection();
+} else {
+    $content = "<p>Errore di connessione al database</p>";
+}
+
+// Output della pagina
 echo multi_replace(replace_content_between_markers($paginaHTML, [
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu,
