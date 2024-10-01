@@ -73,7 +73,7 @@ function init_index() {
  */
 
 var player;
-var descBattles;
+var battles;
 var pressedButton;
 var actualTitle;
 var newTitle;
@@ -112,8 +112,8 @@ function newIframe() {
         endSeconds: end
     });
 
-    for (var i = 0; i < descBattles.length; i++) {
-        var buttonPP = descBattles[i].getElementsByTagName("button")[0];
+    for (var i = 0; i < battles.length; i++) {
+        var buttonPP = battles[i].getElementsByTagName("button")[0];
         if (buttonPP.title.substr(0, 10) == "Interrompi") {
             buttonPP.setAttribute("data-isPlaying", "false");
             buttonPP.title = "Riproduci " + newTitle;
@@ -125,7 +125,7 @@ function newIframe() {
 }
 
 function setIframe(battle) {
-    thisBattle = descBattles[battle];
+    thisBattle = battles[battle];
     pressedButton = thisBattle.getElementsByTagName("button")[0];
     newTitle = thisBattle.getElementsByTagName("a")[0].title;
 
@@ -147,12 +147,32 @@ function setIframe(battle) {
 
 
 function initIframe() {
-    descBattles = document.getElementsByClassName("descBattle");
+    battles = document.getElementsByClassName("battle");
     actualTitle = document.getElementsByTagName("h3")[1];
 
-    thisBattle = descBattles[0];
+    thisBattle = battles[0];
     newTitle = thisBattle.getElementsByTagName("a")[0].title;
     pressedButton = thisBattle.getElementsByTagName("button")[0];
+
+    btnDescrizioni = document.getElementsByClassName("btnDesc");
+    for (let i = 0; i < btnDescrizioni.length; i++) {
+        btnDescrizioni[i].setAttribute("data-show", "false");
+        btnDescrizioni[i].addEventListener("click", (event) => {
+            showDescriptionModalità(i);
+        });
+    }
+}
+
+
+
+
+function showDescriptionModalità(index) {
+    descrizione = document.getElementsByClassName("descModalità")[index];
+    btnDescrizione = document.getElementsByClassName("btnDesc")[index];
+    show = descrizione.getAttribute("data-show");
+    descrizione.setAttribute("data-show", show === "true" ? "false" : "true");
+    btnDescrizione.setAttribute("data-show", show === "true" ? "false" : "true");
+    btnDescrizione.getElementsByTagName("span")[0].innerHTML = show === "true" ? "Audio descrizione" : "Nascondi";
 }
 
 
@@ -181,6 +201,7 @@ function init_beats() {
             showDescription(i);
         });
     }
+    setDurata()
 }
 
 function showDescription(index) {
@@ -193,7 +214,7 @@ function showDescription(index) {
 }
 
 
-function onJavaScript() {
+function setDurata() {
     const beats = document.getElementsByClassName("beat");
 
     for (let i = 0; i < beats.length; i++) {
@@ -247,8 +268,8 @@ function playerAudio(nomeBase) {
     //variabili varie
     percorso = "assets/media/basi/";
     audio = document.getElementById("audio");
-    audioContainer = document.getElementById("audio_container");
-    h3 = audioContainer.getElementsByTagName("h3")[0];
+    //audioContainer = document.getElementById("audio_container");
+    h3 = document.getElementById("audio_container").getElementsByTagName("h3")[0];
     newTitle = nomeBase.slice(0, -4).replaceAll("-", " ");
     beats = document.getElementsByClassName("beat")
 

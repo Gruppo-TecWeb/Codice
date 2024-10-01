@@ -1124,16 +1124,12 @@ p.eventiMessaggio {
     /* Centra orizzontalmente */
     margin-bottom: 1.1em;
 }
-
-#lista_battle {
+#lista_battle .titoloContainer{
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* Centra orizzontalmente */
+    flex-direction: row-reverse;
+    
 }
-
-#lista_battle button {
-    cursor: pointer;
+#lista_battle .btnPlayPause {
     height: 3em;
     border-style: none;
     color: transparent;
@@ -1145,84 +1141,124 @@ p.eventiMessaggio {
     width: 6em;
 }
 
-#lista_battle button[data-isPlaying="false"] {
+#lista_battle .btnPlayPause[data-isPlaying="false"] {
     background-image: url("../assets/icons/play.svg");
     background-repeat: no-repeat;
     background-position: center;
 }
 
-#lista_battle button[data-isPlaying="true"] {
+#lista_battle .btnPlayPause[data-isPlaying="true"] {
     background-image: url("../assets/icons/pause.svg");
     background-repeat: no-repeat;
     background-position: center;
 }
 
-.descBattle {
+#lista_battle .btnDesc {
+    height: min-content;
+    min-width: 12em;
+    margin: auto;
+    padding: 0 1em;
+    white-space: nowrap;
+}
+
+#lista_battle .descModalità{
+    text-align: center;
+    border-style: none;
+    border-width: 0em;    
+    display: inline;
+
+}
+#lista_battle .descModalità[data-show="false"] {
+    position: absolute;
+    text-indent: -999em;
+    border: unset;
+    z-index: var(--elevationBelow);
+
+    padding: 0.5em;
+    
+}
+
+
+.battle {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    align-self: baseline;
+    
+    width: 100%;
     margin: 0em;
+    padding: 1em 0em 1em 0em;
+    box-sizing: border-box;
+    border-top: 1px solid var(--colorLinkHoverBackground);
     border-style: solid;
-    border-width: 0.2em 0em 0em 0em;
     border-radius: 20px;
     border-color: var(--colorAccent);
-    background-color: var(--colorBackground);
+    
     color: var(--colorText);
+    background-color: var(--colorSecondary);
+}
+
+#lista_battle .beat:hover .battle {
+    background-color: var(--colorLinkHoverBackground);
+}
+#lista_battle .firstRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     width: 100%;
 }
 
 
 /*qua c'è anche il margin del footer da correggere*/
 
-.descBattle:first-child {
+.battle:first-child {
     border-top: 0em;
 }
 
-.descBattle:last-child {
+.battle:last-child {
     border-bottom: 0em;
 }
 
-.descBattle:hover {
+.battle:hover {
     background-color: var(--colorButtonHover);
 }
 
-.descBattle dt a {
-    display: block;
-    text-align: center;
+.battle dt {
+    display: flex;
+    justify-content: center;  /* Centra orizzontalmente */
+    align-items: center;      /* Centra verticalmente */
+    text-align: center;       /* Assicura che il testo sia centrato */
     padding: 0.5em;
-    margin: 0em;
+}
+
+.battle dt a {
+    display: inline-block;
+    text-align: center;
     width: 6em;
 }
 
-.descBattle dd {
-    padding: 0.5em;
+
+.battle dd {
+    display: flex;
+    justify-content: center;  /* Centra orizzontalmente */
+    align-items: center;      /* Centra verticalmente */
+    text-align: center;       /* Assicura che il testo sia centrato */
+    padding: 1em;
+    
 }
 
-.descBattle>dd:first-of-type {
-    width: 100%;
+
+.battle dd:first-of-type {
     padding: 0.5em;
     text-align: center;
-    border-style: solid;
+    border-style: none;
     border-width: 0em 0.2em 0em 0.2em;
     border-color: var(--colorAccent);
-    min-height: 2.4em;
+    border-radius: 0em;
 }
 
-.descBattle button {
-    cursor: pointer;
-    height: 2em;
-    border-style: none;
-    justify-content: space-between;
-    color: transparent;
-    background-color: transparent;
-    background-image: url("../assets/icons/play.svg");
-    background-repeat: no-repeat;
-    background-size: 40%;
-    background-position: center;
-}
-
-.descBattle:hover button {
+.battle:hover .btnPlayPause {
     opacity: 1;
 }
 

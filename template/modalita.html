@@ -7,7 +7,6 @@
     </p>
     <h3>Regole</h3>
 
-
     <ul>
         <li>A meno che non sia specificato diversamente, i rapper solitamente si esibiscono seguendo il ritmo dei <span aria-hidden="true"><sup>4</sup>/<sub>4</sub></span><span class="screenReaderOnly">quattro quarti</span>. Questa notazione indica che ogni
             misura musicale è composta da quattro battiti, stabilendo un fondamento ritmico comune per la performance.</li>
@@ -34,27 +33,28 @@
         <h2>Modalità</h2>
         <p id="descrizione-lista" class="screenReaderOnly">Lista delle modalità con successive spiegazioni.</p>
         <dl id="lista_battle" aria-describedby="descrizione-lista">
-            <!--
-            Ho bisogno di ricordare
-            4/4, quattro quarti, <sup>4</sup>/<sub>4</sub> e
-             3/4, tre quarti, <sup>3</sup>/<sub>4</sub> e
-            Cypher, KickBack, Royal rumble sotto <span lang="en">
-                -->
             {listaModalità}
-            <div class="descBattle">
-                <dt data-java="false">
-                    <a title="Esempio {modalitàEstesa}"
-                        href="{link}">
-                        <strong>{modalitàTag}</strong>
-                    </a>
-                </dt>
-                <dd>
+            <div class="battle">
+                <div class="firstRow">
+                    <div class="titoloContainer">
+                        <dt data-java="false">
+                            <a title="Esempio {modalitàEstesa}"
+                                href="{link}">
+                                <strong>{modalitàTag}</strong>
+                            </a>
+                        </dt>
+                        <dd>
+                            <button type="button" class="btnPlayPause" title="Riproduci esempio {modalità}" onclick="setIframe({id})" data-start="370" data-end="510"></button>
+                                <span class="navigationHelp"> esempio {modalitàEstesa}</span>
+                            </button>
+                        </dd>
+                    </div>
+                    <dd>
+                        <button class="btnDesc" aria-hidden="true" tabindex="-1"><span>Audio descrizione</span><span class="navigationHelp">{titolo}</span></button>
+                    </dd>
+                </div>
+                <dd class="descModalità"data-show="false">
                     {descrizione}
-                </dd>
-                <dd>
-                    <button type="button" title="Riproduci esempio {modalità}" onclick="setIframe({id})" data-start="370" data-end="510">
-                        Riproduci esempio {modalitàEstesa}
-                    </button>
                 </dd>
             </div> 
             {/listaModalità}

@@ -18,7 +18,7 @@ $description = "Basi per freestyle di rap";
 $keywords = 'Basi, Beats, Instrumental, Freestyle, Rap';
 $menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
-$onload = "init_beats(), onJavaScript(), autoPlay('11 - Goodbye - Big Joe.mp3')";
+$onload = "init_beats(), autoPlay('11 - Goodbye - Big Joe.mp3')";
 $logout = '';
 
 if (isset($_SESSION["login"])) {
