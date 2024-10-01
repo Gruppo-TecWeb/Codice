@@ -17,6 +17,8 @@ $menu = get_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
 $logout = '';
+$classList = '';
+$logo = get_content_between_markers($paginaHTML, 'logoLink');
 
 http_response_code(500);
 
@@ -25,6 +27,7 @@ if (isset($_SESSION["login"])) {
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'logo' => $logo,
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu,
     'logout' => $logout
@@ -34,5 +37,6 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{content}' => $content,
-    '{onload}' => $onload
+    '{onload}' => $onload,
+    '{classList}' => $classList
 ]);

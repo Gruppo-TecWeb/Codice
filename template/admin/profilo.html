@@ -1,23 +1,23 @@
 <div id="profilo" class="limitedWidth">
     <div id="titolo-button">
         <h3>Profilo personale</h3>
-        <form method="post" action="gestione-profilo.php">
-            <button id="aggiungi" type="submit" name="aggiungi" value="true">Modifica Profilo</button>
+        <form method="get" action="gestione-profilo.php" class="subMenu">
+            <button id="modifica" type="submit" name="modifica" value="true">Modifica Profilo</button>
         </form>
     </div>
     {messaggiForm}
     <div id="messaggi">
         <ul id="messaggi-form">
             {messaggioForm}
-            <li>{testo}</li>{/messaggioForm}
+            <li class="{tipoMessaggio}">{messaggio}</li>{/messaggioForm}
         </ul>
     </div>
     {/messaggiForm}
-    
+
     <!-- Dati dell'utente loggato. -->
     <div id="datiUtente" class="elementi-presenti">
         <img src="../assets/media/img_profilo/{immagineProfilo}" alt="Immagine Profilo">
-        <dl id="datiUtente">
+        <dl>
             <dt>Username:</dt>
             <dd>{username}</dd>
             <dt>E-Mail:</dt>

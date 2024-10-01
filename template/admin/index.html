@@ -2,72 +2,100 @@
             <h3>Area di amministrazione</h3>
             <p class="dashboard">In quest'area puoi gestire i contenuti del sito.</p>{dashboardAdmin}
             <div id="dashboard-admin">
-                <div id="utenti-attivi" class="dashboard admin">
-                    <h4>Utenti attivi</h4>
-                    <div id="utenti-box" class="data">
-                        <p><span class="data-label">Numero di utenti attivi:</span> <span class="data-value">{numeroUtenti}</span></p>
+                <div class="container dashboard-admin">
+                    <div id="utenti-attivi" class="dashboard admin">
+                        <h4>Utenti attivi</h4>
+                        <div id="utenti-box" class="data">
+                            <p class="dashboard"><span class="data-label">Numero di utenti attivi:</span> <span class="data-value">{numeroUtenti}</span></p>
+                        </div>
                     </div>
                 </div>
-                <div id="prossimo-evento" class="dashboard admin">{prossimoEvento}
-                    <div id="titolo-button">
-                        <h4>Prossimo evento: {titoloEvento}</h4>
-                        <form method="post" action="gestione-eventi.php">
-                            <input type="hidden" name="idEvento" value="{idEvento}">
-                            <button type="submit" name="modifica" value="true">Modifica il prossimo evento</button>
-                        </form>
+                <div class="container dashboard-admin">
+                    {messaggiProssimo}
+                    <div id="messaggi" class="dashboard">
+                        <ul id="messaggi-form">
+                            {messaggio}
+                            <li class="{tipoMessaggio}">{testoMessaggio}</li>{/messaggio}
+                        </ul>
                     </div>
-                    <div id="evento-box-admin">
-                        <img src="./../assets/media/locandine/{locandina}" alt="">
-                        <dl id="evento-info-admin">
-                            <dt>Data:</dt>
-                            <dd><time datetime="{data}">{dataVisualizzata}</time></dd>
-                            <dt>Ora:</dt>
-                            <dd><time datetime="{ora}">{ora}</time></dd>
-                            <dt>Luogo:</dt>
-                            <dd>{luogo}</dd>
-                            <dt>Descrizione:</dt>
-                            <dd>{descrizione}</dd>
-                            <dt>Tipo evento:</dt>
-                            <dd>{tipoEvento}</dd>
-                        </dl>
-                    </div>
-                    {/prossimoEvento}{nessunEventoProgrammato}
-                    <p class="dashboard">Non ci sono eventi programmati.</p>
-                    {/nessunEventoProgrammato}
-                </div>
-                <div id="eventi-programmati" class="dashboard admin">
-                    <h4>Eventi programmati</h4>
-                    <div id="eventi-box">{eventiProgrammati}
-                        <ol>{eventoProgrammato}
-                            <li>
-                                <span class="label-element"><span class="element-title">{titolo}</span> <time datetime="{data}">{dataVisualizzata}</time></span>
-                                <form method="post" action="gestione-eventi.php">
-                                    <input type="hidden" name="idEvento" value="{idEvento}">
-                                    <button type="submit" name="modifica" value="true">Modifica<span class="screen-reader-only"> l'evento {titolo} del {data}</span></button>
-                                    <button type="submit" name="elimina" value="true">Elimina<span class="screen-reader-only"> l'evento {titolo} del {data}</span></button>
-                                </form>
-                            </li>
-                            {/eventoProgrammato}
-                        </ol>
-                        {/eventiProgrammati}
+                    {/messaggiProssimo}
+                    <div id="prossimo-evento" class="dashboard admin">{prossimoEvento}
+                        <div id="titolo-button">
+                            <h4>Prossimo evento: {titoloEvento}</h4>
+                            <form method="get" action="gestione-eventi.php">
+                                <input type="hidden" name="idEvento" value="{idEvento}">
+                                <input type="hidden" name="provenienza" value="dashboard-prossimo-evento">
+                                <button type="submit" name="modifica" value="true">Modifica il prossimo evento</button>
+                            </form>
+                        </div>
+                        <div id="evento-box-admin">
+                            {locandinaHTML}<img src="./../assets/media/locandine/{locandina}" alt="">{/locandinaHTML}
+                            <dl id="evento-info-admin">
+                                <dt>Tipo evento:</dt>
+                                <dd>{tipoEvento}</dd>
+                                <dt>Data:</dt>
+                                <dd><time datetime="{data}">{dataVisualizzata}</time></dd>
+                                <dt>Ora:</dt>
+                                <dd><time datetime="{ora}">{ora}</time></dd>
+                                <dt>Luogo:</dt>
+                                <dd>{luogo}</dd>
+                                <dt>Descrizione:</dt>
+                                <dd>{descrizione}</dd>
+                            </dl>
+                        </div>
+                        {/prossimoEvento}{nessunEventoProssimo}
+                        <h4>Prossimo evento</h4>
+                        <div id="evento-box-admin">
+                            <p class="dashboard">Non ci sono eventi programmati.</p>
+                        </div>
+                        {/nessunEventoProssimo}
                     </div>
                 </div>
-                <div id="punteggi-mancanti" class="dashboard admin">
-                    <h4>Eventi con punteggi mancanti</h4>
-                    <div id="punteggi-box">{punteggiMancanti}
-                        <ol>{punteggioMancante}
-                            <li>
-                                <span class="label-element"><span class="element-title">{titolo}</span> <time datetime="{data}">{dataVisualizzata}</time></span>
-                                <form method="post" action="gestione-eventi.php">
-                                    <input type="hidden" name="idEvento" value="{idEvento}">
-                                    <button type="submit" name="punteggi" value="true">Inserisci i punteggi<span class="screen-reader-only"> per l'evento {titolo} del {data}</span></button>
-                                </form>
-                            </li>
-                            {/punteggioMancante}
-                        </ol>
-                        {/punteggiMancanti}{nessunPunteggioMancante}
-                        <p>Non ci sono eventi con punteggi mancanti.</p>
-                        {/nessunPunteggioMancante}
+                <div class="container dashboard-admin">
+                    {messaggiProssimi}
+                    {/messaggiProssimi}
+                    <div id="eventi-programmati" class="dashboard admin">
+                        <h4>Eventi programmati</h4>
+                        <div id="eventi-box">{eventiProgrammati}
+                            <ol>{eventoProgrammato}
+                                <li>
+                                    <span class="label-element"><span class="element-title">{titolo}</span> <time datetime="{data}">{dataVisualizzata}</time></span>
+                                    <form method="get" action="gestione-eventi.php">
+                                        <input type="hidden" name="idEvento" value="{idEvento}">
+                                        <input type="hidden" name="provenienza" value="dashboard-eventi-programmati">
+                                        <button type="submit" name="modifica" value="true">Modifica<span class="screen-reader-only"> l'evento {titolo} del {data}</span></button>
+                                        <button type="submit" name="elimina" value="true">Elimina<span class="screen-reader-only"> l'evento {titolo} del {data}</span></button>
+                                    </form>
+                                </li>
+                                {/eventoProgrammato}
+                            </ol>
+                            {/eventiProgrammati}{nessunEventoProgrammato}
+                            <p class="dashboard">Non ci sono eventi programmati.</p>
+                            {/nessunEventoProgrammato}
+                        </div>
+                    </div>
+                </div>
+                <div class="container dashboard-admin">
+                    {messaggiPunteggi}
+                    {/messaggiPunteggi}
+                    <div id="punteggi-mancanti" class="dashboard admin">
+                        <h4>Eventi con punteggi mancanti</h4>
+                        <div id="punteggi-box">{punteggiMancanti}
+                            <ol>{punteggioMancante}
+                                <li>
+                                    <span class="label-element"><span class="element-title">{titolo}</span> <time datetime="{data}">{dataVisualizzata}</time></span>
+                                    <form method="get" action="gestione-punteggi.php">
+                                        <input type="hidden" name="idEvento" value="{idEvento}">
+                                        <input type="hidden" name="provenienza" value="dashboard-punteggi-mancanti">
+                                        <button type="submit" name="punteggi" value="true">Inserisci i punteggi<span class="screen-reader-only"> per l'evento {titolo} del {data}</span></button>
+                                    </form>
+                                </li>
+                                {/punteggioMancante}
+                            </ol>
+                            {/punteggiMancanti}{nessunPunteggioMancante}
+                            <p class="dashboard">Non ci sono eventi con punteggi mancanti.</p>
+                            {/nessunPunteggioMancante}
+                        </div>
                     </div>
                 </div>
             </div>

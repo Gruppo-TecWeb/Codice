@@ -21,6 +21,8 @@ $breadcrumbs = get_breadcrumbs($pageId);
 $content = '';
 $onload = 'init_evento()';
 $logout = '';
+$classList = '';
+$logo = get_content_between_markers($paginaHTML, 'logoLink');
 
 $connection = DBAccess::get_instance();
 $connectionOk = $connection->open_DB_connection();
@@ -35,6 +37,7 @@ if ($connectionOk) {
         header("location: errore404.php");
         exit;
     } else {
+        $evento = replace_lang_array($evento);
         [$tipoEvento, $titolo, $descrizione, $data, $ora, $luogo, $locandina] = array_values($evento);
         
         $title = str_replace('{titoloEvento}', strip_tags($titolo), $title);
@@ -135,6 +138,7 @@ if (isset($_SESSION["login"])) {
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'logo' => $logo,
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu,
     'logout' => $logout
@@ -144,5 +148,6 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{content}' => $content,
-    '{onload}' => $onload
+    '{onload}' => $onload,
+    '{classList}' => $classList
 ]);

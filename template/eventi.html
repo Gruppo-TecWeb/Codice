@@ -1,4 +1,4 @@
-<nav id="filtri-skip" aria-label="Salta i filtri e vai ai risultati">
+<nav id="filtri-skip">
     <a href="#risultati-eventi" class="navigationHelp">Salta ai risultati</a>
 </nav>
 <h2 class="limitedWidth">Eventi</h2>
@@ -60,7 +60,7 @@
         {/eventoElement}
     </ul>
     {messaggioListaEventi}
-    <p class="eventiMessaggio limitedWidth">{messaggio}, sfoglia i nostri <a href="eventi.php?data={dataEventiPassati}">eventi passati</a></p>
+    <p class="eventiMessaggio limitedWidth">{messaggio} {older_date}, sfoglia i nostri <a href="eventi.php?data={dataEventiPassati}">eventi passati</a>{/older_date}</p> 
     {/messaggioListaEventi} {/listaEventi}
 </div>
 {pagination}

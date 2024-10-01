@@ -91,6 +91,10 @@ a:visited {
     color: var(--colorLinkVisited);
 }
 
+.linkEsterno::after {
+    content: "\2197" / "";
+}
+
 .navigationHelp {
     position: absolute;
     width: 1px;
@@ -148,14 +152,14 @@ main {
 
 .logo {
     text-shadow: 0 0 8px var(--colorText);
-    font-family: Horizontale;
+    font-family: "Horizontale";
     font-size: 2.5rem;
     color: var(--colorText);
 }
 
 .title {
     text-shadow: 0 0 8px var(--colorText);
-    font-family: Horizontale;
+    font-family: "Horizontale";
     color: var(--colorText);
 }
 
@@ -163,6 +167,30 @@ main {
 /* 
  * ERROR
  */
+
+div#input input.inputError {
+    background-color: #ffaf004d;
+    margin-bottom: 0.5em;
+}
+
+div.inputError::before,
+div#messaggi li.inputError::before {
+    content: "⚠";
+    color: yellow;
+    margin-right: 10px;
+    margin-bottom: 1em;
+}
+
+div#messaggi li.successMessage::before {
+    content: "✓";
+    color: lime;
+    margin-right: 10px;
+    margin-bottom: 1em;
+}
+
+div.inputError {
+    margin-bottom: 1em;
+}
 
 
 /* 
@@ -329,8 +357,12 @@ header>* {
 }
 
 header>a {
-    margin-inline: 5vw 1vw;
     text-decoration: none;
+    margin-inline: 5vw 1vw;
+}
+
+header .logoNoLink {
+    margin-inline: 5vw 1vw;
 }
 
 #menu-skip ul {
@@ -472,40 +504,33 @@ footer #footer-credits {
     padding-top: unset;
 }
 
-#index header>a {
-    cursor: default;
-    pointer-events: none;
-}
-
-#index header a h1.logo {
+#index header h1.logo {
     transition: opacity 0.1s;
 }
 
-#index header a h1.logo {
+#index header h1.logo {
     overflow: hidden;
     text-indent: 120%;
     white-space: nowrap;
     /* opacity: 0.1; */
 }
 
-#index header a h1.logo.scrolled {
+#index header h1.logo.scrolled {
     overflow: unset;
     text-indent: unset;
     opacity: 1;
 }
 
 #index #hero {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: space-between;
-    align-items: center;
     flex-direction: row;
     border-bottom: 2px solid var(--colorAccent);
 }
 
 #index #hero #titolo {
     width: 100%;
-    height: 100%;
     resize: horizontal;
     /* container-type: inline-size; */
 }
@@ -556,10 +581,12 @@ footer #footer-credits {
 }
 
 #evento-home {
-    position: relative;
     height: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto 1fr;
+    position: relative;
     padding-left: 2%;
-    overflow: hidden;
 }
 
 #evento-home::before {
@@ -574,28 +601,31 @@ footer #footer-credits {
 }
 
 #index #hero #evento-home h3 {
-    padding: 0.5em 1em;
+    padding: 0.5em;
     font-size: 1.5em;
     background-color: unset;
     z-index: var(--elevationHigh);
 }
 
 #evento-home>div {
-    width: 55%;
-    max-height: 85%;
+    width: fit-content;
+    height: fit-content;
     border: 1px solid;
+    margin: 0.5em;
+    grid-column: 1;
+    margin-top: unset;
     border-radius: 4px;
-    padding-bottom: 1em;
+    padding-bottom: 0.5em;
     overflow: hidden;
+    font-size: 1.1em;
     z-index: var(--elevationMiddle);
 }
 
 #evento-home>div>a {
-    display: inline;
+    display: block;
     width: 100%;
-    padding: 1em;
+    padding-inline: 1em;
     box-sizing: border-box;
-    text-align: end;
 }
 
 #index #hero #evento-home h4 {
@@ -608,14 +638,12 @@ footer #footer-credits {
 }
 
 #evento-home dl {
-    display: inline-grid;
+    display: grid;
     grid-template-columns: auto 1fr;
-    width: 50%;
     gap: 0 1em;
     padding: 0.2em 0.5em;
     box-sizing: border-box;
     color: var(--colorText);
-    font-size: 1.25em;
 }
 
 #evento-home dl dt {
@@ -623,15 +651,20 @@ footer #footer-credits {
 }
 
 #evento-home>a {
-    position: absolute;
-    bottom: 3em;
-    right: 3em;
+    width: 100%;
+    text-align: right;
+    padding-right: 1em;
+    padding-bottom: 1em;
+    align-self: end;
+    box-sizing: border-box;
 }
 
 #video-home {
-    position: relative;
+    position: sticky;
+    top: 0;
     height: 100vh;
     border-left: 2px solid var(--colorAccent);
+    border-bottom: 2px solid var(--colorAccent);
 }
 
 #video-home video {
@@ -715,7 +748,7 @@ footer #footer-credits {
     border-bottom: 1px solid var(--colorAccent);
 }
 
-.ddImg p {
+.ddImg figcaption {
     padding-left: 1em;
     box-sizing: border-box;
 }
@@ -853,7 +886,7 @@ footer #footer-credits {
     word-wrap: break-word;
     text-align: center;
     font-size: 1.25em;
-    font-family: 'HORIZONTALE';
+    font-family: 'Horizontale';
     color: var(--colorAccent);
 }
 
@@ -927,9 +960,6 @@ p.eventiMessaggio {
     grid-template-rows: min-content;
     align-items: start;
 }
-
-
-/* fixare allineamento dl sotto */
 
 #evento #indietro::before {
     content: "\2039 ";
@@ -1019,7 +1049,6 @@ p.eventiMessaggio {
     object-fit: contain;
     position: sticky;
     top: 4em;
-    z-index: var(--elevationHigh);
 }
 
 #evento-info {
@@ -1052,6 +1081,14 @@ p.eventiMessaggio {
     margin-bottom: 2em;
 }
 
+#intro_battle h3 {
+    margin-top: 0.75em;
+}
+
+#intro_battle ul {
+    margin-block: 0.75em;
+}
+
 #intro_battle::after {
     content: '';
     position: absolute;
@@ -1073,14 +1110,14 @@ p.eventiMessaggio {
     justify-content: center;
     background-color: var(--colorAccent);
     padding: 0em;
-    align-items: center;
+    align-items: start;
     margin: 0em;
 }
 
 #container_battle h2 {
     background-color: var(--colorBackground);
     color: var(--colorAccent);
-    border-radius: 20px 20px 20px 20px;
+    border-radius: 14px;
     width: max-content;
     padding: 0.5em;
 }
@@ -1090,10 +1127,8 @@ p.eventiMessaggio {
     text-align: center;
     color: var(--colorSecondary);
     font-size: larger;
-    width: 50%;
     margin: 1em 0em 1em 1em;
     position: sticky;
-    bottom: 0;
     top: 3em;
     display: flex;
     flex-direction: column;
@@ -1105,7 +1140,7 @@ p.eventiMessaggio {
 #container_iframe h3 {
     background-color: var(--colorBackground);
     color: var(--colorAccent);
-    border-radius: 20px 20px 0px 0px;
+    border-radius: 14px 14px 0px 0px;
     width: max-content;
     padding: 0.5em;
 }
@@ -1113,7 +1148,7 @@ p.eventiMessaggio {
 #container_iframe iframe {
     width: 48vw;
     height: 27vw;
-    border-radius: 20px;
+    border-radius: 14px;
     border-style: none;
 }
 
@@ -1236,6 +1271,7 @@ p.eventiMessaggio {
     display: inline-block;
     text-align: center;
     width: 6em;
+    font-weight: bold;
 }
 
 
@@ -1374,13 +1410,9 @@ audio::-webkit-media-controls-play-button {
     display: none;
 }
 
-#lista_beats .durata {
+#lista_beats .time-container {
     align-self: center;
     margin: 1em;
-}
-
-#lista_beats .descBeats span {
-    background-color: var(--colorSecondary);
 }
 
 #lista_beats .descBeats {
@@ -1555,10 +1587,23 @@ div#Fungo {
     justify-content: space-between;
 }
 
+body .titolo-filtri {
+    position: sticky;
+    top: 2em;
+    background-color: var(--colorBackground);
+    z-index: var(--elevationHigh);
+}
+
+div.des-classifica p {
+    position: sticky;
+    top: 12em;
+    z-index: var(--elevationMiddle);
+}
+
 
 /*
-* CHI SIAMO
-*/
+ * CHI SIAMO
+ */
 
 #chi-siamo-container h3 {
     padding: 0.5em;
@@ -1607,6 +1652,11 @@ div#introduzione {
     height: 50%;
 }
 
+#chi-siamo p {
+    /* text-align: justify; */
+    text-align: left;
+}
+
 
 /* 
  * AREA DI AMMINISTRAZIONE 
@@ -1630,7 +1680,8 @@ span.screen-reader-only {
     align-items: center;
 }
 
-.adminPage header>a {
+.adminPage header>a,
+.adminPage header .logoNoLink {
     margin-inline: 1em 0;
     text-decoration-color: var(--colorTextOnAccent);
 }
@@ -1688,9 +1739,8 @@ div#admin-window {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1em;
     position: sticky;
-    top: 2.5em;
+    top: 4em;
     background: var(--colorBackground);
 }
 
@@ -1753,7 +1803,7 @@ div#admin-window {
 
 .adminPage h4 {
     font-size: 1.5em;
-    margin-block: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 .adminPage div#datiUtente {
@@ -1821,7 +1871,6 @@ div#admin-window {
 
 .adminPage p.dashboard {
     padding: 1em;
-    margin-bottom: 0.9375em;
 }
 
 .adminPage div.dashboard {
@@ -1892,7 +1941,7 @@ div#admin-window {
     list-style: none;
 }
 
-.adminPage div#titolo-button {
+.adminPage div#adminIndex div#titolo-button {
     position: unset;
     background: unset;
 }
@@ -1910,7 +1959,6 @@ div#admin-window {
     top: 4em;
     object-fit: contain;
     border: 1px solid var(--colorAccent);
-    /* padding: 1em; */
 }
 
 .adminPage #evento-info-admin {
@@ -1926,26 +1974,6 @@ div#admin-window {
     align-self: stretch;
 }
 
-.adminPage #evento-info-admin::before,
-.adminPage #evento-info-admin::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    height: 1.5em;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.adminPage #evento-info-admin::before {
-    top: 0;
-    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
-}
-
-.adminPage #evento-info-admin::after {
-    bottom: 0;
-    background: repeating-linear-gradient(45deg, var(--colorAccent), var(--colorAccent) 2px, rgb(255 0 0 / 0%) 2px, rgba(255, 255, 255, 0) 10px);
-}
-
 .adminPage #evento-info-admin dt {
     font-weight: bold;
 }
@@ -1954,34 +1982,67 @@ div#admin-window {
     white-space: pre-wrap;
 }
 
-#login form {
+#login #form-login #buttons {
+    top: 2em;
+    padding-top: 2.5em;
+}
+
+#login #form-login #titolo {
+    top: 1em;
+    padding-top: 1.5em;
+}
+
+#login form,
+.adminPage form.aggiunta-modifica {
     display: grid;
-    grid-template-areas: 'titolo bottoni' 'input  input  ';
+    grid-template-areas: 'titolo bottoni   ' 'messaggi messaggi' 'input  input     ';
+    grid-template-columns: 1fr auto;
     justify-content: space-between;
 }
 
-#login form h3#titolo {
+#login form h3#titolo,
+.adminPage form.aggiunta-modifica h3#titolo {
     grid-area: titolo;
-    padding: 1em;
+    top: 2em;
+    background-color: var(--colorBackground);
+    position: sticky;
+    padding-block: 0.75em;
+    margin: unset;
 }
 
-#login form div#buttons {
+#login form div#buttons,
+.adminPage form.aggiunta-modifica div#buttons {
     grid-area: bottoni;
+    position: sticky;
+    top: 4em;
+    background-color: var(--colorBackground);
     display: flex;
-    padding: 1em;
+    padding-block: 0.75em;
     align-items: center;
     justify-content: space-between;
     width: fit-content;
 }
 
-#login form div#buttons button {
+#login form div#messaggi,
+.adminPage form.aggiunta-modifica div#messaggi {
+    grid-area: messaggi;
+    padding: 1em;
+}
+
+#login form div#buttons button,
+.adminPage form.aggiunta-modifica div#buttons button {
     font-size: 1em;
     padding: 1em;
     margin: 0.25em;
 }
 
-#login form div#login {
+#login form div#input,
+.adminPage form.aggiunta-modifica div#input {
     grid-area: input;
+}
+
+.adminPage #adminIndex div.dashboard {
+    scroll-margin-top: 4em;
 }
 
 
@@ -2018,14 +2079,4 @@ div#admin-window {
 #errore403 .errorImage,
 #errore404 .errorImage {
     background-image: url("../assets/media/errore400.png");
-}
-
-
-/* 
- * PAGINA CHI SIAMO
- */
-
-#chi-siamo p {
-    /* text-align: justify; */
-    text-align: left;
 }

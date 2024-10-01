@@ -19,6 +19,8 @@ $keywords = 'profilo, amministrazione, admin, restraining stirpe, freestyle, fre
 $menu = get_admin_menu($pageId);
 $breadcrumbs = get_breadcrumbs($pageId);
 $onload = '';
+$classList = 'fullMenu';
+$logo = get_content_between_markers($paginaHTML, 'logoLink');
 
 $immagineProfiloDefault = 'default_profile_pic.png';
 
@@ -34,15 +36,36 @@ if ($connectionOk) {
     $messaggiForm = '';
     $messaggiFormHTML = get_content_between_markers($content, 'messaggiForm');
     $messaggioForm = get_content_between_markers($messaggiFormHTML, 'messaggioForm');
-    if (isset($_GET['errore'])) {
-        $messaggiForm .= multi_replace($messaggioForm, ['{testo}' => "Errore imprevisto"]);
-    }
 
     $utente = $connection->get_utente_by_username($_SESSION["username"]);
 
     if ($utente === null) {
         header("location: errore500.php");
         exit;
+    }
+    
+    if (isset($_GET['errore'])) {
+        $messaggiForm .= multi_replace($messaggioForm, [
+            '{tipoMessaggio}' => 'inputError',
+            '{messaggio}' => "Errore imprevisto"
+        ]);
+    } elseif (isset($_GET['modificato'])) {
+        if ($_GET['modificato'] == 'false') {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore nella modifica del profilo"
+            ]);
+        } elseif ($_GET['modificato'] == 'true') {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'successMessage',
+                '{messaggio}' => "Profilo modificato correttamente"
+            ]);
+        } else {
+            $messaggiForm .= multi_replace($messaggioForm, [
+                '{tipoMessaggio}' => 'inputError',
+                '{messaggio}' => "Errore imprevisto"
+            ]);
+        }
     }
 
     $messaggiFormHTML = $messaggiForm == '' ? '' : replace_content_between_markers($messaggiFormHTML, ['messaggioForm' => $messaggiForm]);
@@ -60,6 +83,7 @@ if ($connectionOk) {
 }
 
 echo multi_replace(replace_content_between_markers($paginaHTML, [
+    'logo' => $logo,
     'breadcrumbs' => $breadcrumbs,
     'menu' => $menu
 ]), [
@@ -68,5 +92,6 @@ echo multi_replace(replace_content_between_markers($paginaHTML, [
     '{keywords}' => $keywords,
     '{pageId}' => $pageId,
     '{content}' => $content,
-    '{onload}' => $onload
+    '{onload}' => $onload,
+    '{classList}' => $classList
 ]);
