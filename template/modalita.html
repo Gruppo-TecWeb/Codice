@@ -35,22 +35,27 @@
             {listaModalità}
             <div class="battle">
                 <div class="firstRow">
-                    <div class="titoloContainer">
-                        <dt data-java="false">
-                            <a title="Esempio {modalitàEstesa}"
-                                href="{link}">
-                                <strong>{modalitàTag}</strong>
-                            </a>
-                        </dt>
-                        <dd>
-                            <button type="button" class="btnPlayPause" title="Riproduci esempio {modalità}" onclick="setIframe({id})" data-start="370" data-end="510"></button>
-                                <span class="navigationHelp"> esempio {modalitàEstesa}</span>
-                            </button>
-                        </dd>
-                    </div>
-                    <!--<dd>
-                        <button class="btnDesc" aria-hidden="true" tabindex="-1"><span>Audio descrizione</span><span class="navigationHelp">{titolo}</span></button>
-                    </dd>-->
+                    <dt data-java="false">
+                        <a title="Esempio {modalitàEstesa}"
+                            href="{link}">
+                            <strong>{modalitàTag}</strong>
+                        </a>
+                    </dt>
+                    <dd>
+                        <button type="button" class="btnPlayPause" title="Riproduci esempio {modalità}" onclick="setIframe({id})" data-start="370" data-end="510"></button>
+                            <span class="navigationHelp"> esempio {modalitàEstesa}</span>
+                        </button>
+                    </dd>
+                    <dd>
+                        <p class="screenReaderOnly">Due <span lang="en">rapper</span>, Shekkero e Frenk, cantano per un minuto a testa nel palco del <span lang="en">Mic Tison</span> con un tema a testa e per ogni tema delle parole proibite.
+                            Parte Frenk e segue Shekkero(shekkero ha un dread lungo almeno un metro con tanti elastici);</p>
+                            <a
+                                href="#iframe_battle"
+                                aria-hidden="false"
+                                tabindex="0"
+                                class="playerJump , navigationHelp"
+                                title="vai al player video youtube">vai al <span lang="en">player</span> video <span lang="en">youtube</span></a>
+                    </dd>
                 </div>
                 <dd class="descModalità">
                     {descrizione}

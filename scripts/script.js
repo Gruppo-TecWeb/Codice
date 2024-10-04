@@ -164,11 +164,13 @@ function setIframe(battle) {
 }
 
 function newIframe() {
-    var link = pressedButton.getAttribute("data-link");
-    actualTitle.innerHTML = "esempio "+ newTitle;
+    var link = thisBattle.getElementsByTagName("a")[0].href;
+    console.log(link);
+    actualTitle.innerHTML = newTitle;
     thisBattle.getElementsByClassName("playerJump")[0].setAttribute("aria-hidden", "false");
     thisBattle.getElementsByClassName("playerJump")[0].setAttribute("tabindex", "0");
     var videoId = link.split('embed/')[1].split('?')[0];
+    console.log(videoId);
     var start = pressedButton.getAttribute("data-start");
     var end = pressedButton.getAttribute("data-end");
 
@@ -189,7 +191,7 @@ function newIframe() {
     }
 
     pressedButton.setAttribute("data-isPlaying", "true");
-    pressedButton.title = "Interrompi esempio " + newTitle;
+    pressedButton.title = "Interrompi" + newTitle;
     pressedButton.setAttribute("aria-label","Interrompi "+ newTitle);
     console.log(pressedButton.title);
 }
@@ -225,13 +227,13 @@ function initIframe() {
     newTitle = thisBattle.getElementsByTagName("a")[0].title;
     pressedButton = thisBattle.getElementsByTagName("button")[0];
 
-    btnDescrizioni = document.getElementsByClassName("btnDesc");
+    /*btnDescrizioni = document.getElementsByClassName("btnDesc");
     for (let i = 0; i < btnDescrizioni.length; i++) {
         btnDescrizioni[i].setAttribute("data-show", "false");
         btnDescrizioni[i].addEventListener("click", (event) => {
             showDescriptionModalità(i);
         });
-    }
+    }*/
 }
 
 
