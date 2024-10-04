@@ -60,7 +60,8 @@ if ($connectionOk) {
             '{modalitàEstesa}' => $modalitàEstesa,       
             '{modalitàTag}' => $modalitàTag,
             '{link}' => $row['Link'],
-            '{descrizione}' => $row['Descrizione'],
+            '{descrizioneVideo}' => $row['DescrizioneVideo'],
+            '{descrizioneModalità}' => $row['DescrizioneModalità'],
             '{id}' => $row['Id']-1
         ]);
         $modalitàList .= $newModalitàItem;

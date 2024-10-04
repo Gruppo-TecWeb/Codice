@@ -49,7 +49,8 @@ CREATE TABLE Modalità (
     Id INTEGER PRIMARY KEY AUTO_INCREMENT,
     Titolo VARCHAR(100) NOT NULL,
     Link VARCHAR(255) NOT NULL,
-    Descrizione TEXT
+    DescrizioneModalità TEXT,
+    DescrizioneVideo TEXT,
 );
 
 CREATE TABLE Basi (
@@ -57,19 +58,19 @@ CREATE TABLE Basi (
     Titolo varchar(255) DEFAULT NULL,
     Descrizione varchar(255) DEFAULT NULL
 );
-INSERT INTO Modalità (Titolo, Link, Descrizione) VALUES
-('Minuto', 'https://www.youtube-nocookie.com/embed/RszfbKxb460?enablejsapi=1&amp;start=98&amp;end=210&amp;autoplay=1', 'I <span lang="en">rapper</span> fanno un minuto di <span lang="en">freestyle</span> a testa, semplice semplice.'),
-('4/4', 'https://www.youtube-nocookie.com/embed/2ttgML437Ho?enablejsapi=1&amp;start=370&amp;end=510&amp;autoplay=1', 'La modalità più classica tra tutte, a turno i <span lang="en">rapper</span> fanno 4 barre a testa!'),
-('Cypher', 'https://www.youtube-nocookie.com/embed/n2qPwcpdeeQ?enablejsapi=1&amp;start=117&amp;end=364&amp;autoplay=1', 'Un <span lang="en">cypher</span> è un gruppo di <span lang="en">rapper</span> che a turno rappano; modalità spesso utilizzata come sorta di riscaldamento pre-<span lang="en">battle</span>.'),
-('3/4', 'https://www.youtube-nocookie.com/embed/n2qPwcpdeeQ?enablejsapi=1&amp;start=778&amp;end=1014&amp;autoplay=1', 'Un <span lang="en">rapper</span> canta per <span aria-hidden="true"><strong><sup>3</sup>/<sub>4</sub></strong></span> e l''altro dovrà chiudere la rima nell''ultimo quarto rimanente, continuando a ruota.'),
-('KickBack', 'https://www.youtube-nocookie.com/embed/n2qPwcpdeeQ?enablejsapi=1&amp;start=1604&amp;end=3610&amp;autoplay=1', 'Un <span lang="en">rapper</span> fa una domanda e l''altro risponde, continuando con altre domande, tutto seguendo il tempo dei <span lang="en">tre quarti</span>.'),
-('Royal rumble', 'https://www.youtube-nocookie.com/embed/Czp97FOKaDM?enablejsapi=1&amp;autoplay=1', 'I <span lang="en">rapper</span> cantano a rotazione e il <span lang="en">rapper</span> meno apprezzato viene eliminato. Gli altri continuano a sfidarsi.'),
-('Argomento', 'https://www.youtube-nocookie.com/embed/95SZIlMiFfQ?enablejsapi=1&amp;start=4&amp;autoplay=1', 'Viene dato un argomento su cui i <span lang="en">rapper</span> dovranno cantare.'),
-('Acappella', 'https://www.youtube-nocookie.com/embed/OvVk892HzmE?enablejsapi=1&amp;start=762&amp;autoplay=1', 'I <span lang="en">rapper</span> si sfidano senza supporto musicale, concentrandosi solo sulle loro abilità vocali e liriche.'),
-('Oggetti', 'https://www.youtube-nocookie.com/embed/S8Ze0GCgo4k?enablejsapi=1&amp;autoplay=1', 'Ai <span lang="en">rapper</span> vengono forniti oggetti a sorpresa, su cui dovranno rappare.');
+INSERT INTO Modalità (Titolo, Link, DescrizioneModalità, DescrizioneVideo) VALUES
+('Minuto', 'https://www.youtube-nocookie.com/embed/RszfbKxb460?enablejsapi=1&amp;start=98&amp;end=210&amp;autoplay=1', 'I <span lang="en">rapper</span> fanno un minuto di <span lang="en">freestyle</span> a testa, semplice semplice.','Due <span lang="en">rapper</span>, Shekkero e Frenk, cantano per un minuto a testa nel palco del <span lang="en">Mic Tison</span> con un tema a testa e per ogni tema delle parole proibite. Parte Frenk e segue Shekkero(shekkero ha un dread lungo almeno un metro con tanti elastici, servirà per l''ascolto della battle)'),
+('4/4', 'https://www.youtube-nocookie.com/embed/2ttgML437Ho?enablejsapi=1&amp;start=370&amp;end=510&amp;autoplay=1', 'La modalità più classica tra tutte, a turno i <span lang="en">rapper</span> fanno 4 barre a testa!','Shekkero e Bruno Bag cantano per un quattro quarti a testa nel palco del Tritolo <span lang="en">Battle</span>. Parte Bruno Bug e segue Shekkero(Shekkero è vestito con un kilt e ha delle mutande che ricordano il cielo stellato)'),
+('Cypher', 'https://www.youtube-nocookie.com/embed/n2qPwcpdeeQ?enablejsapi=1&amp;start=117&amp;end=364&amp;autoplay=1', 'Un <span lang="en">cypher</span> è un gruppo di <span lang="en">rapper</span> che a turno rappano; modalità spesso utilizzata come sorta di riscaldamento pre-<span lang="en">battle</span>.','Il gruppo di <span lang="en">freestyler</span> della FEA cantano qualche barra per presentarsi nello studio di <span lang="en">OneTake</span>. Cantano in questo ordine:Shekkero, Hydra, Morbo, Blnkay, Kylian, Debbit, Drimer, Higher, Gabs, Frenk'),
+('3/4', 'https://www.youtube-nocookie.com/embed/n2qPwcpdeeQ?enablejsapi=1&amp;start=778&amp;end=1014&amp;autoplay=1', 'Un <span lang="en">rapper</span> canta per <span aria-hidden="true"><strong><sup>3</sup>/<sub>4</sub></strong></span> e l''altro dovrà chiudere la rima nell''ultimo quarto rimanente, continuando a ruota.','Frenk,Morbo e Gabs si affrontano in un tre quarti nello studio di <span lang="en">OneTake</span>. Parte Frenk e segue Gabs e poi Morbo'),
+('KickBack', 'https://www.youtube-nocookie.com/embed/n2qPwcpdeeQ?enablejsapi=1&amp;start=1604&amp;end=3610&amp;autoplay=1', 'Un <span lang="en">rapper</span> fa una domanda e l''altro risponde, continuando con altre domande, tutto seguendo il tempo dei <span lang="en">tre quarti</span>.','Hydra e Kylian si affrontano in un quattro quarti kickBack nello studio di <span lang="en">OneTake</span>. Parte kylian e segue Hydra'),
+('Royal rumble', 'https://www.youtube-nocookie.com/embed/Czp97FOKaDM?enablejsapi=1&amp;autoplay=1', 'I <span lang="en">rapper</span> cantano a rotazione e il <span lang="en">rapper</span> meno apprezzato viene eliminato. Gli altri continuano a sfidarsi.','Hydra, Shekkero e Higher si affrontano nel palco del SMIC DOWN in una <span lang="en">Royal Rumble</span> da cui ne uscirà un solo vincitore. Parte Shekkero, segue Hydra e poi Higher.'),
+('Argomento', 'https://www.youtube-nocookie.com/embed/95SZIlMiFfQ?enablejsapi=1&amp;start=4&amp;autoplay=1', 'Viene dato un argomento su cui i <span lang="en">rapper</span> dovranno cantare.','Carrellata di <span lang="en">freestyler</span> che cantano per quattro quarti a testa seguendo argomenti diversi'),
+('Acappella', 'https://www.youtube-nocookie.com/embed/OvVk892HzmE?enablejsapi=1&amp;start=762&amp;autoplay=1', 'I <span lang="en">rapper</span> si sfidano senza supporto musicale, concentrandosi solo sulle loro abilità vocali e liriche.','Hydra e Bruno Bug si affrontano cantando a cappella, ossia senza base, all''aperto, seduti su delle sedie nell''evento del MIC SCRAUSO 3. Parte Bruno Bug e segue Hydra.'),
+('Oggetti', 'https://www.youtube-nocookie.com/embed/S8Ze0GCgo4k?enablejsapi=1&amp;autoplay=1', 'Ai <span lang="en">rapper</span> vengono forniti oggetti a sorpresa, su cui dovranno rappare.','Kiave rappa a seconda degli oggetti che vengono forniti dal pubblico!');
 
 INSERT INTO Basi (Titolo, Descrizione) VALUES
-('Goodbye - Big Joe.mp3','Un ritmo ipnotico che fluisce come un fiume in piena, dando spazio alle tue parole per danzare sulla sua corrente.'),
+('Goodbye - Big Joe.mp3','Un ritmo ipnotico che fluisce come un fiume in piena, dando spazio alle tue parole per danzare sulla sua corrente.',''),
 ('Big L Ebonics.mp3','Un beat con elementi futuristici e suoni elettronici che ti trasportano in un mondo di possibilità nel quale puoi sperimentare senza limiti.'),
 ('Busta Rhymes - Psycobusta.mp3','Una composizione minimalista che mette in risalto la tua voce, permettendoti di dominare la scena con il tuo stile unico.'),
 ('Dilated Peoples - The Platform (Erik Sermon Remix).mp3','Un beat dal groove classico e accattivante, un richiamo alle radici dell''hip-hop, pronto a far vibrare l''anima delle tue rime.'),
