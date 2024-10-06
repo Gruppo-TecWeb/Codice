@@ -636,13 +636,6 @@ label {
     padding: 1em;
     margin: 0em;
 }
-
-#container_battle {
-    display: flex;
-    flex-direction: column-reverse;
-    align-items: center;
-}
-
 #container_iframe {
     width: var(--widthMenu);
     position: sticky;
@@ -652,6 +645,11 @@ label {
     padding-top: 2em;
     border-radius: 14px;
     background-color: var(--colorAccent);
+}
+#container_battle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #container_iframe iframe {

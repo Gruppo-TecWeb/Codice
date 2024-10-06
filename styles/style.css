@@ -1160,8 +1160,11 @@ p.eventiMessaggio {
     margin-bottom: 1.1em;
 }
 #lista_battle .firstRow{
+    padding: 1em;
     display: flex;
     flex-direction: row-reverse;
+    justify-content: left;
+    width: 100%;
     
 }
 #lista_battle .btnPlayPause {
@@ -1188,6 +1191,13 @@ p.eventiMessaggio {
     background-position: center;
 }
 
+#lista_battle .descModalità{
+    padding: 1em;
+    text-align: left;    
+    display: inline;
+    border-top: 2px solid var(--colorAccent);
+
+}
 /*#lista_battle .btnDesc {
     height: min-content;
     min-width: 12em;
@@ -1196,13 +1206,7 @@ p.eventiMessaggio {
     white-space: nowrap;
 }
 
-#lista_battle .descModalità{
-    text-align: center;
-    border-style: none;
-    border-width: 0em;    
-    display: inline;
 
-}
 #lista_battle .descModalità[data-show="false"] {
     position: absolute;
     text-indent: -999em;
@@ -1223,7 +1227,7 @@ p.eventiMessaggio {
     
     width: 100%;
     margin: 0em;
-    padding: 1em 0em 1em 0em;
+    padding: 0em;
     box-sizing: border-box;
     border-top: 1px solid var(--colorLinkHoverBackground);
     border-style: solid;
@@ -1274,7 +1278,7 @@ p.eventiMessaggio {
     justify-content: center;  /* Centra orizzontalmente */
     align-items: center;      /* Centra verticalmente */
     text-align: center;       /* Assicura che il testo sia centrato */
-    padding: 1em;
+    padding: 0em;
     
 }
 
@@ -1349,7 +1353,7 @@ audio::-webkit-media-controls-play-button {
 #lista_beats .firstRow {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: left;
     width: 100%;
 }
 
