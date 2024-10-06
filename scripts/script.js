@@ -73,7 +73,7 @@ function init_index() {
  */
 
 var player;
-var descBattles;
+var battles;
 var pressedButton;
 var actualTitle;
 var newTitle;
@@ -114,8 +114,18 @@ function newIframe() {
     thisBattle.getElementsByClassName("playerJump")[0].setAttribute("tabindex", "0");
     var videoId = link.split('embed/')[1].split('?')[0];
     
-    var start = pressedButton.getAttribute("data-start");
-    var end = pressedButton.getAttribute("data-end");
+    var start;
+    var end;
+
+
+    
+
+    url = new URL(link);
+    
+    // Usiamo il metodo searchParams per ottenere i parametri 'start' ed 'end'
+    start = url.searchParams.get('start');
+    end = url.searchParams.get('end');
+    console.log(`Start:${start} End:${end}`);
 
     player.loadVideoById({
         videoId: videoId,
@@ -123,8 +133,8 @@ function newIframe() {
         endSeconds: end
     });
 
-    for (var i = 0; i < descBattles.length; i++) {
-        var buttonPP = descBattles[i].getElementsByTagName("button")[0];
+    for (var i = 0; i < battles.length; i++) {
+        var buttonPP = battles[i].getElementsByTagName("button")[0];
         if (buttonPP.title.substr(0, 10) == "Interrompi") {
             buttonPP.setAttribute("data-isPlaying", "false");
             buttonPP.title = "Riproduci " + oldTitle;
@@ -139,11 +149,11 @@ function newIframe() {
 }
 
 function initIframe() {
-    descBattles = document.getElementsByClassName("battle");
+    battles = document.getElementsByClassName("battle");
     actualTitle = document.getElementsByTagName("h3")[1];
 
     
-    thisBattle = descBattles[0];
+    thisBattle = battles[0];
     
     newTitle = thisBattle.getElementsByTagName("dt")[0].getElementsByTagName("a")[0].innerHTML;
     pressedButton = thisBattle.getElementsByTagName("button")[0];
@@ -151,8 +161,8 @@ function initIframe() {
     var idDescVideo = [];
      
     
-    for (var i = 0; i < descBattles.length; i++) {
-        descVideo = descBattles[i].getElementsByTagName("p")[0];
+    for (var i = 0; i < battles.length; i++) {
+        descVideo = battles[i].getElementsByTagName("p")[0];
         innerDescVideo[i]=stripHTMLTags(descVideo.innerHTML);
        // console.log(innerDescVideo);
         descVideo.setAttribute("id","desc_"+i);
@@ -167,7 +177,7 @@ function initIframe() {
 }
 
 function setIframe(battle) {
-    thisBattle = descBattles[battle];
+    thisBattle = battles[battle];
     pressedButton = thisBattle.getElementsByTagName("button")[0];
     newTitle = thisBattle.getElementsByTagName("dt")[0].getElementsByTagName("a")[0].title;
     oldTitle=actualTitle.innerHTML;
