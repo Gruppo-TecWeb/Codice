@@ -1267,9 +1267,6 @@ p.eventiMessaggio {
 }
 
 .battle dt a {
-    display: inline-block;
-    text-align: center;
-    width: 6em;
     font-weight: bold;
 }
 

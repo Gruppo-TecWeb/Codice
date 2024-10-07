@@ -77,7 +77,7 @@ var battles;
 var pressedButton;
 var actualTitle;
 var newTitle;
-var thisBattle;
+var innerDescVideo = [];
 
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('iframe_battle', {
@@ -86,7 +86,7 @@ function onYouTubeIframeAPIReady() {
         }
     });
 }
-
+//Funzione che, quando viene bloccato/avviato il video dal player youtube, cambia anche il pulsante play/pause
 function onPlayerStateChange(event) {
     if (event.data == YT.PlayerState.PAUSED) {
         pressedButton.setAttribute("data-isPlaying", "false");
@@ -99,8 +99,9 @@ function onPlayerStateChange(event) {
         pressedButton.setAttribute("aria-label","Interrompi "+ newTitle);
     }
 }
-var descVideo = [];
-var innerDescVideo = [];
+
+
+
 
 function stripHTMLTags(str) {
     return str.replace(/<\/?[^>]+(>|$)/g, "");
@@ -125,8 +126,6 @@ function newIframe() {
     // Usiamo il metodo searchParams per ottenere i parametri 'start' ed 'end'
     start = url.searchParams.get('start');
     end = url.searchParams.get('end');
-    console.log(`Start:${start} End:${end}`);
-
     player.loadVideoById({
         videoId: videoId,
         startSeconds: start,
@@ -148,23 +147,21 @@ function newIframe() {
     pressedButton.setAttribute("aria-label","Interrompi "+ newTitle);
 }
 
+
 function initIframe() {
     battles = document.getElementsByClassName("battle");
     actualTitle = document.getElementsByTagName("h3")[1];
 
     
     thisBattle = battles[0];
-    
     newTitle = thisBattle.getElementsByTagName("dt")[0].getElementsByTagName("a")[0].innerHTML;
     pressedButton = thisBattle.getElementsByTagName("button")[0];
-    
     var idDescVideo = [];
-     
+    var descVideo = [];
     
     for (var i = 0; i < battles.length; i++) {
         descVideo = battles[i].getElementsByTagName("p")[0];
-        innerDescVideo[i]=stripHTMLTags(descVideo.innerHTML);
-       // console.log(innerDescVideo);
+        innerDescVideo[i]=descVideo.innerHTML;
         descVideo.setAttribute("id","desc_"+i);
         idDescVideo[i]=descVideo.getAttribute("id");
     }
@@ -172,7 +169,6 @@ function initIframe() {
     iframe = document.getElementById("iframe_battle");
     iframe.setAttribute("aria-describedby",idDescVideo[0]);
     iframe.setAttribute("aria-label",innerDescVideo[0]);
-    //console.log(descVideo[0]);
 
 }
 
