@@ -100,38 +100,29 @@ function onPlayerStateChange(event) {
     }
 }
 
-
-
-
-function stripHTMLTags(str) {
-    return str.replace(/<\/?[^>]+(>|$)/g, "");
-}
-
+//Funzione che permette di cambiare il video in riproduzione nel player youtube
 function newIframe() {
     var link = thisBattle.getElementsByTagName("a")[0].href;
     
     actualTitle.innerHTML = newTitle;
     thisBattle.getElementsByClassName("playerJump")[0].setAttribute("aria-hidden", "false");
     thisBattle.getElementsByClassName("playerJump")[0].setAttribute("tabindex", "0");
-    var videoId = link.split('embed/')[1].split('?')[0];
     
+    var videoId = link.split('embed/')[1].split('?')[0];
     var start;
     var end;
-
-
-    
-
     url = new URL(link);
     
     // Usiamo il metodo searchParams per ottenere i parametri 'start' ed 'end'
     start = url.searchParams.get('start');
     end = url.searchParams.get('end');
+
     player.loadVideoById({
         videoId: videoId,
         startSeconds: start,
         endSeconds: end
     });
-
+    //Riporto il vecchio video a stato di pausa
     for (var i = 0; i < modalità.length; i++) {
         var buttonPP = modalità[i].getElementsByTagName("button")[0];
         if (buttonPP.title.substr(0, 10) == "Interrompi") {
@@ -139,20 +130,17 @@ function newIframe() {
             buttonPP.title = "Riproduci " + oldTitle;
             buttonPP.setAttribute("aria-label","Riproduci "+ oldTitle);
         }
-        
     }
-
+    //Setto il nuovo video a stato di play
     pressedButton.setAttribute("data-isPlaying", "true");
     pressedButton.title = "Interrompi " + newTitle;
     pressedButton.setAttribute("aria-label","Interrompi "+ newTitle);
 }
 
-
+//Funzione che permette di inizializzare il player youtube e i vari elementi della pagina
 function initIframe() {
     modalità = document.getElementsByClassName("modalità");
     actualTitle = document.getElementsByTagName("h3")[1];
-
-    
     thisBattle = modalità[0];
     newTitle = thisBattle.getElementsByTagName("dt")[0].getElementsByTagName("a")[0].innerHTML;
     pressedButton = thisBattle.getElementsByTagName("button")[0];
@@ -171,7 +159,7 @@ function initIframe() {
     iframe.setAttribute("aria-label",innerDescVideo[0]);
 
 }
-
+//Funzione richiamata dal tasto play/pause di ogni video
 function setIframe(mod) {
     thisBattle = modalità[mod];
     pressedButton = thisBattle.getElementsByTagName("button")[0];
@@ -182,38 +170,18 @@ function setIframe(mod) {
     
     if (pressedButton.title.substr(0, 10) == "Interrompi") {
         player.pauseVideo();
-        pressedButton.setAttribute("data-isPlaying", "false");
-        pressedButton.title = "Riproduci esempio " + actualTitle.innerHTML;
-        pressedButton.setAttribute("aria-label","Riproduci "+ newTitle);
     } else {
         if (actualTitle.innerHTML == "esempio "+ newTitle) {
             player.playVideo();
-            pressedButton.setAttribute("data-isPlaying", "true");
-            pressedButton.title = "Interrompi esempio " + newTitle;
-            pressedButton.setAttribute("aria-label","Interrompi "+ newTitle);
         } else {
 
             iframe.setAttribute("aria-describedby","desc_"+mod);
             iframe.setAttribute("aria-label",innerDescVideo[mod]);
             pressedButton.setAttribute("title","Riproduci esempio "+actualTitle.innerHTML);
-           // console.log(pressedButton.title);
             newIframe();
         }
     }
 }
-
-
-
-
-function showDescriptionModalità(index) {
-    descrizione = document.getElementsByClassName("descModalità")[index];
-    btnDescrizione = document.getElementsByClassName("btnDesc")[index];
-    show = descrizione.getAttribute("data-show");
-    descrizione.setAttribute("data-show", show === "true" ? "false" : "true");
-    btnDescrizione.setAttribute("data-show", show === "true" ? "false" : "true");
-    btnDescrizione.getElementsByTagName("span")[0].innerHTML = show === "true" ? "Audio descrizione" : "Nascondi";
-}
-
 
 
 /*
