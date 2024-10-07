@@ -73,14 +73,14 @@ function init_index() {
  */
 
 var player;
-var battles;
+var modalità;
 var pressedButton;
 var actualTitle;
 var newTitle;
 var innerDescVideo = [];
 
 function onYouTubeIframeAPIReady() {
-    player = new YT.Player('iframe_battle', {
+    player = new YT.Player('iframe_modalità', {
         events: {
             'onStateChange': onPlayerStateChange
         }
@@ -132,8 +132,8 @@ function newIframe() {
         endSeconds: end
     });
 
-    for (var i = 0; i < battles.length; i++) {
-        var buttonPP = battles[i].getElementsByTagName("button")[0];
+    for (var i = 0; i < modalità.length; i++) {
+        var buttonPP = modalità[i].getElementsByTagName("button")[0];
         if (buttonPP.title.substr(0, 10) == "Interrompi") {
             buttonPP.setAttribute("data-isPlaying", "false");
             buttonPP.title = "Riproduci " + oldTitle;
@@ -149,31 +149,31 @@ function newIframe() {
 
 
 function initIframe() {
-    battles = document.getElementsByClassName("battle");
+    modalità = document.getElementsByClassName("modalità");
     actualTitle = document.getElementsByTagName("h3")[1];
 
     
-    thisBattle = battles[0];
+    thisBattle = modalità[0];
     newTitle = thisBattle.getElementsByTagName("dt")[0].getElementsByTagName("a")[0].innerHTML;
     pressedButton = thisBattle.getElementsByTagName("button")[0];
     var idDescVideo = [];
     var descVideo = [];
     
-    for (var i = 0; i < battles.length; i++) {
-        descVideo = battles[i].getElementsByTagName("p")[0];
+    for (var i = 0; i < modalità.length; i++) {
+        descVideo = modalità[i].getElementsByTagName("p")[0];
         innerDescVideo[i]=descVideo.innerHTML;
         descVideo.setAttribute("id","desc_"+i);
         idDescVideo[i]=descVideo.getAttribute("id");
     }
     
-    iframe = document.getElementById("iframe_battle");
+    iframe = document.getElementById("iframe_modalità");
     iframe.setAttribute("aria-describedby",idDescVideo[0]);
     iframe.setAttribute("aria-label",innerDescVideo[0]);
 
 }
 
-function setIframe(battle) {
-    thisBattle = battles[battle];
+function setIframe(mod) {
+    thisBattle = modalità[mod];
     pressedButton = thisBattle.getElementsByTagName("button")[0];
     newTitle = thisBattle.getElementsByTagName("dt")[0].getElementsByTagName("a")[0].title;
     oldTitle=actualTitle.innerHTML;
@@ -193,8 +193,8 @@ function setIframe(battle) {
             pressedButton.setAttribute("aria-label","Interrompi "+ newTitle);
         } else {
 
-            iframe.setAttribute("aria-describedby","desc_"+battle);
-            iframe.setAttribute("aria-label",innerDescVideo[battle]);
+            iframe.setAttribute("aria-describedby","desc_"+mod);
+            iframe.setAttribute("aria-label",innerDescVideo[mod]);
             pressedButton.setAttribute("title","Riproduci esempio "+actualTitle.innerHTML);
            // console.log(pressedButton.title);
             newIframe();

@@ -1077,19 +1077,19 @@ p.eventiMessaggio {
  * PAGINA MODALITA' 
  */
 
-#intro_battle {
+#intro_modalità {
     margin-bottom: 2em;
 }
 
-#intro_battle h3 {
+#intro_modalità h3 {
     margin-top: 0.75em;
 }
 
-#intro_battle ul {
+#intro_modalità ul {
     margin-block: 0.75em;
 }
 
-#intro_battle::after {
+#intro_modalità::after {
     content: '';
     position: absolute;
     left: 0;
@@ -1104,7 +1104,7 @@ p.eventiMessaggio {
     padding-bottom: unset;
 }
 
-#container_battle {
+#container_modalità {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -1114,7 +1114,7 @@ p.eventiMessaggio {
     margin: 0em;
 }
 
-#container_battle h2 {
+#container_modalità h2 {
     background-color: var(--colorBackground);
     color: var(--colorAccent);
     border-radius: 14px;
@@ -1152,14 +1152,14 @@ p.eventiMessaggio {
     border-style: none;
 }
 
-#container_lista_battle {
+#container_lista_modalità {
     display: flex;
     flex-direction: column;
     align-items: center;
     /* Centra orizzontalmente */
     margin-bottom: 1.1em;
 }
-#lista_battle .firstRow{
+#lista_modalità .firstRow{
     padding: 1em;
     display: flex;
     flex-direction: row-reverse;
@@ -1167,7 +1167,7 @@ p.eventiMessaggio {
     width: 100%;
     
 }
-#lista_battle .btnPlayPause {
+#lista_modalità .btnPlayPause {
     height: 3em;
     border-style: none;
     color: transparent;
@@ -1179,26 +1179,26 @@ p.eventiMessaggio {
     width: 6em;
 }
 
-#lista_battle .btnPlayPause[data-isPlaying="false"] {
+#lista_modalità .btnPlayPause[data-isPlaying="false"] {
     background-image: url("../assets/icons/play.svg");
     background-repeat: no-repeat;
     background-position: center;
 }
 
-#lista_battle .btnPlayPause[data-isPlaying="true"] {
+#lista_modalità .btnPlayPause[data-isPlaying="true"] {
     background-image: url("../assets/icons/pause.svg");
     background-repeat: no-repeat;
     background-position: center;
 }
 
-#lista_battle .descModalità{
+#lista_modalità .descModalità{
     padding: 1em;
     text-align: left;    
     display: inline;
     border-top: 2px solid var(--colorAccent);
 
 }
-/*#lista_battle .btnDesc {
+/*#lista_modalità .btnDesc {
     height: min-content;
     min-width: 12em;
     margin: auto;
@@ -1207,7 +1207,7 @@ p.eventiMessaggio {
 }
 
 
-#lista_battle .descModalità[data-show="false"] {
+#lista_modalità .descModalità[data-show="false"] {
     position: absolute;
     text-indent: -999em;
     border: unset;
@@ -1218,7 +1218,7 @@ p.eventiMessaggio {
 }
 */
 
-.battle {
+.modalità {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1238,7 +1238,7 @@ p.eventiMessaggio {
     background-color: var(--colorSecondary);
 }
 
-#lista_battle .beat:hover .battle {
+#lista_modalità .beat:hover .modalità {
     background-color: var(--colorLinkHoverBackground);
 }
 
@@ -1246,19 +1246,19 @@ p.eventiMessaggio {
 
 /*qua c'è anche il margin del footer da correggere*/
 
-.battle:first-child {
+.modalità:first-child {
     border-top: 0em;
 }
 
-.battle:last-child {
+.modalità:last-child {
     border-bottom: 0em;
 }
 
-.battle:hover {
+.modalità:hover {
     background-color: var(--colorButtonHover);
 }
 
-.battle dt {
+.modalità dt {
     display: flex;
     justify-content: center;  /* Centra orizzontalmente */
     align-items: center;      /* Centra verticalmente */
@@ -1266,12 +1266,12 @@ p.eventiMessaggio {
     padding: 0.5em;
 }
 
-.battle dt a {
+.modalità dt a {
     font-weight: bold;
 }
 
 
-.battle dd {
+.modalità dd {
     justify-content: center;  /* Centra orizzontalmente */
     align-items: center;      /* Centra verticalmente */
     text-align: center;       /* Assicura che il testo sia centrato */
@@ -1280,7 +1280,7 @@ p.eventiMessaggio {
 }
 
 
-.battle dd:first-of-type {
+.modalità dd:first-of-type {
     padding: 0.5em;
     text-align: center;
     border-style: none;
@@ -1289,7 +1289,7 @@ p.eventiMessaggio {
     border-radius: 0em;
 }
 
-.battle:hover .btnPlayPause {
+.modalità:hover .btnPlayPause {
     opacity: 1;
 }
 
