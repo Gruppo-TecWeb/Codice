@@ -173,6 +173,7 @@ function setIframe(mod) {
  * PAGINA BEATS
  */
 
+//Funzioni di supporto per l'iniziliazzazione della pagina
 function init_beats() {
     pressedButton = document.getElementsByClassName("beat")[0].getElementsByTagName("button")[0];
     
@@ -192,8 +193,6 @@ function init_beats() {
     btnDescrizioni = document.getElementsByClassName("btnDesc");
     descBeats = document.getElementsByClassName("descBeats");
     for (let i = 0; i < btnDescrizioni.length; i++) {
-        btnDescrizioni[i].setAttribute("data-show", "false");
-        btnDescrizioni[i].setAttribute("aria-controls", "desc_" + i);
         btnDescrizioni[i].addEventListener("click", (event) => {
             showDescription(i);
         });
@@ -202,25 +201,24 @@ function init_beats() {
 }
 
 function showDescription(index) {
-    descrizione = document.getElementsByClassName("descBeats")[index];
     btnDescrizione = document.getElementsByClassName("btnDesc")[index];
+    descrizione = document.getElementsByClassName("descBeats")[index];
     show = descrizione.getAttribute("data-show");
-    descrizione.setAttribute("data-show", show === "true" ? "false" : "true");
-    descrizione.hasAttribute("hidden") ? descrizione.removeAttribute("hidden") : descrizione.setAttribute("hidden","");
 
     btnDescrizione.setAttribute("data-show", show === "true" ? "false" : "true");
     btnDescrizione.setAttribute("aria-expanded", show === "true" ? "false" : "true");  
     btnDescrizione.getElementsByTagName("span")[0].innerHTML = show === "true" ? "Audio descrizione" : "Nascondi";
+    
+    descrizione.setAttribute("data-show", show === "true" ? "false" : "true");
+    descrizione.hasAttribute("hidden") ? descrizione.removeAttribute("hidden") : descrizione.setAttribute("hidden","");
+
+    
 }
 
-
+var beats = document.getElementsByClassName("beat");
 function setDurata() {
-    const beats = document.getElementsByClassName("beat");
-
+    time = document.getElementsByTagName("time");
     for (let i = 0; i < beats.length; i++) {
-        const durata = document.getElementsByClassName("durata")[i];
-        const readDurata = document.getElementsByClassName("readDurata")[i];
-
         playerJump = beats[i].getElementsByTagName("a")[0].getElementsByTagName("span")[0];
         playerJump.setAttribute("aria-hidden", "true");
 
@@ -230,48 +228,30 @@ function setDurata() {
         audio.addEventListener('loadedmetadata', () => {
             const minuti = Math.floor(audio.duration / 60);
             const secondi = Math.floor(audio.duration % 60);
-
-            if (minuti == 1) {
-                if (secondi < 10) {
-                    durata.innerHTML = minuti + ":" + "0" + secondi;
-                    readDurata.innerHTML = minuti + " minuto e " + secondi + " secondi";
-                } else {
-                    durata.innerHTML = minuti + ":" + secondi;
-                    readDurata.innerHTML = minuti + " minuto e " + secondi + " secondi";
-                }
-            } else {
-                if (secondi < 10) {
-                    durata.innerHTML = minuti + ":" + "0" + secondi;
-                    readDurata.innerHTML = minuti + " minuti e " + secondi + " secondi";
-                } else {
-                    durata.innerHTML = minuti + ":" + secondi;
-                    readDurata.innerHTML = minuti + " minuti e " + secondi + " secondi";
-                }
-            }
+            time[i].innerHTML = minuti + ":" + (secondi < 10 ? "0" : "") + secondi;
+            time[i].setAttribute("datetime","PT" + minuti + "M" + secondi + "S");
         });
     }
 }
 
 
-var autoNext = false;
 
-function playerAudio(nomeBase, index) {
+//Funzione richiamata dal tasto play/pause di ogni audio
+function playerAudio(nomeBase) {
     document.getElementById("audio").addEventListener("play", function() {
         pressedButton.setAttribute("data-isPlaying", "true")
-        pressedButton.title = "Interrompi " + newTitle;
+        pressedButton.title = "Interrompi " + nomeBase;
     });
 
     document.getElementById("audio").addEventListener("pause", function() {
         pressedButton.setAttribute("data-isPlaying", "false")
-        pressedButton.title = "Riproduci " + newTitle;
+        pressedButton.title = "Riproduci " + nomeBase;
     });
     //variabili varie
     percorso = "assets/media/basi/";
     audio = document.getElementById("audio");
-    //audioContainer = document.getElementById("audio_container");
-    h3 = document.getElementById("audio_container").getElementsByTagName("h3")[0];
+    actualTitle = document.getElementById("audio_container").getElementsByTagName("h3")[0];
     newTitle = nomeBase.slice(0, -4).replaceAll("-", " ");
-    beats = document.getElementsByClassName("beat")
 
     for (let i = 0; i < beats.length; i++) {
         if (beats[i].getElementsByTagName("button")[0].getAttribute("data-title-beat") == nomeBase.slice(0, -4)) {
@@ -280,17 +260,13 @@ function playerAudio(nomeBase, index) {
             audioJump.setAttribute("tabindex", "0");
             audioJump.setAttribute("aria-hidden", "false");
 
-            /*playerJump = beats[i].getElementsByTagName("a")[0].getElementsByTagName("span")[0];
-            playerJump.setAttribute("aria-hidden", "false");*/
         } else {
             audioJump = beats[i].getElementsByTagName("a")[0];
             audioJump.setAttribute("tabindex", "-1");
             audioJump.setAttribute("aria-hidden", "true");
         }
     }
-
-
-    if (h3.innerHTML == newTitle) {
+    if (actualTitle.innerHTML == newTitle) {
         if (pressedButton.title.slice(0, 10) == "Interrompi") {
             audio.pause();
 
@@ -303,7 +279,7 @@ function playerAudio(nomeBase, index) {
     }
 
     //bottone riproduzione automatica
-    autoPlay(nomeBase, index);
+    autoPlay(nomeBase);
 }
 
 function newBeat(nomeBase) {
@@ -311,11 +287,7 @@ function newBeat(nomeBase) {
     for (let i = 0; i < beats.length; i++) {
         buttonPlayPause = beats[i].getElementsByTagName("button")[0];
         audioJump = beats[i].getElementsByTagName("a")[0];
-        //audioJump.setAttribute("tabindex", "0");
-        //audioJump.setAttribute("aria-hidden", "false");
-        //playerJump.setAttribute("aria-hidden", "false");
-
-
+        
         if (buttonPlayPause.title.substr(0, 10) == "Interrompi") {
             audioJump.setAttribute("tabindex", "-1");
             audioJump.setAttribute("aria-hidden", "true");
@@ -326,15 +298,15 @@ function newBeat(nomeBase) {
     }
     //settaggio title bottone e player audio
     pressedButton.setAttribute("data-isPlaying", "true")
-    h3.innerHTML = newTitle;
+    actualTitle.innerHTML = newTitle;
     pressedButton.title = "Interrompi " + newTitle;
 
     //settaggio audio
     audio.setAttribute("autoplay", "true");
     audio.src = percorso + nomeBase;
 }
-
-function autoPlay(nomeBase, index) {
+var autoNext = false;
+function autoPlay(nomeBase) {
     document.getElementById("autoNext").onclick = function() {
         autoNext = !autoNext;
         autoRip = document.getElementById("autoNext");
@@ -342,9 +314,8 @@ function autoPlay(nomeBase, index) {
     }
     audio.onended = function() {
         if (autoNext) {
-            //autoplay.setAttribute("", "true");
             audio.setAttribute("autoplay", "true");
-            nextAudio(nomeBase, index);
+            nextAudio(nomeBase);
         } else {
 
             audio.setAttribute("autoplay", "false");
@@ -353,23 +324,22 @@ function autoPlay(nomeBase, index) {
     }
 }
 
-function nextAudio(nomeBase, index) {
+function nextAudio(nomeBase) {
     newTitle = nomeBase.slice(0, -4);
-    beats = document.getElementsByClassName("beat")
     for (let i = 0; i < beats.length; i++) {
-        if (beats[i].getElementsByTagName("button")[0].getAttribute("data-title-beat") == nomeBase.slice(0, -4)) {
+        if (beats[i].getElementsByTagName("button")[0].getAttribute("data-title-beat") == newTitle) {
             pressedButton = beats[i].getElementsByTagName("button")[0];
         }
     }
 
     for (let i = 0; i < beats.length; i++) {
         bottone = beats[i].getElementsByTagName("button")[0]
-        if (bottone.getAttribute("data-title-beat") == nomeBase.slice(0, -4)) {
+        if (bottone.getAttribute("data-title-beat") == newTitle) {
             let next = beats[i + 1];
             if (next) {
                 let nextButton = next.getElementsByTagName("button");
                 newTitle = nextButton[0].getAttribute("data-title-beat") + ".mp3";
-                playerAudio(newTitle, index+1);
+                playerAudio(newTitle);
             }
             break;
         }
