@@ -251,7 +251,7 @@ function playerAudio(nomeBase) {
     percorso = "assets/media/basi/";
     audio = document.getElementById("audio");
     actualTitle = document.getElementById("audio_container").getElementsByTagName("h3")[0];
-    newTitle = nomeBase.slice(0, -4).replaceAll("-", " ");
+    newTitle = nomeBase.slice(0, -4);
 
     for (let i = 0; i < beats.length; i++) {
         if (beats[i].getElementsByTagName("button")[0].getAttribute("data-title-beat") == nomeBase.slice(0, -4)) {
