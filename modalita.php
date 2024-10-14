@@ -41,7 +41,8 @@ if ($connectionOk) {
     $modalitàItem = get_content_between_markers($content, 'listaModalità');
     foreach ($result as $row) {
         $newModalitàItem = $modalitàItem;
-        // Sostituzione dei segnaposto nel template HTML
+        //creazione variabili specifiche per controllare i lang e i 3/4, 4/4.
+        //Forse, almeno per il lang, sarebbe meglio metterlo nel DB
         if($row['Titolo']=="KickBack" || $row['Titolo']=="Royal Rumble"||$row['Titolo']=="Cypher"){
             $modalitàTag='<span lang="en">'.$row['Titolo'].'</span>';
             $modalitàEstesa = $row['Titolo'];
@@ -55,6 +56,8 @@ if ($connectionOk) {
             $modalitàEstesa = $row['Titolo'];
             $modalitàTag = $row['Titolo'];
         }
+
+        // Sostituzione dei segnaposto nel template HTML
         $newModalitàItem = multi_replace($newModalitàItem, [           
             '{modalità}' => $row['Titolo'],
             '{modalitàEstesa}' => $modalitàEstesa,       

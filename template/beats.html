@@ -14,6 +14,7 @@
             <div class="firstRow">
                 <div class="titoloContainer">
                     <h3 lang="en" class="titleBeat">{titolo}</h3>
+                    <!--da impostare i lang (e la classe?) all'h3-->
                     <button 
 						class="btnPlay" 
 						onclick="playerAudio('{titoloConEstensione}')" 
@@ -31,7 +32,7 @@
 					<span>Audio descrizione</span><span class="navigationHelp">{titolo}</span>
 				</button>
 				<div class="time-container">
-					<time datetime="PT3M32S">3:32</time>
+					<time datetime="PT0M0S">0:00</time>
 				</div>      
             </div>
             <a href="#audio" tabindex="-1">
@@ -45,9 +46,9 @@
     </ul>
 
     <div id="audio_container" class="mobileCard subMenu" data-title-actual-beat="chord-base-ambient-music">
-        <h3>Goodbye - Big Joe</h3>
+        <h3 lang="en" class="actualBeat">Goodbye - Big Joe</h3>
+        <!--da impostare i lang (e la classe?) all'h3-->
         <audio id="audio" controls>
-            <!--perchè nuHtmlChecker dice che controlsList="nodownload" è un errore? che dovrei utilizzare? -->
             <source src="assets/media/basi/Goodbye%20-%20Big%20Joe.mp3" type="audio/mpeg">
         </audio>
         <button type="button" id="autoNext" title="Riproduzione automatica" aria-pressed="false">
