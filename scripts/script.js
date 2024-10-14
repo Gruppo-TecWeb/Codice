@@ -77,7 +77,7 @@ function init_index() {
 //Funzione che permette di inizializzare il player youtube e i vari elementi della pagina
 function initIframe() {
     modalità = document.getElementsByClassName("modalità");
-    actualTitle = document.getElementsByTagName("h3")[1];
+    actualTitle = document.getElementsByClassName("actualTitle")[0];
     thisMod = modalità[0];
     newTitle = thisMod.getElementsByTagName("dt")[0].getElementsByTagName("a")[0].innerHTML;
     pressedButton = thisMod.getElementsByTagName("button")[0];
@@ -176,7 +176,7 @@ function setIframe(mod) {
 //Funzioni di supporto per l'iniziliazzazione della pagina
 function init_beats() {
     pressedButton = document.getElementsByClassName("beat")[0].getElementsByTagName("button")[0];
-    tecnicheTitle = document.getElementsByClassName("titleBeat")[0];
+    tecnicheTitle = document.getElementsByClassName("titleBeat");
     document.getElementById("audio").addEventListener("play", function() {
         pressedButton.setAttribute("data-isPlaying", "true");
         pressedButton.title = "Interrompi " + newTitle;
@@ -194,7 +194,6 @@ function init_beats() {
     descBeats = document.getElementsByClassName("descBeats");
     for (let i = 0; i < btnDescrizioni.length; i++) {
         //cambio a lang="it" per il titleBeat "Tecniche Perfette - 5"
-        tecnicheTitle = document.getElementsByClassName("titleBeat");
         if(tecnicheTitle[i].innerHTML == "Tecniche Perfette - 5")
             tecnicheTitle[i].setAttribute("lang","it");
         

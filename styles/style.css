@@ -1132,7 +1132,7 @@ p.eventiMessaggio {
     /* Centra orizzontalmente */
 }
 
-#container_iframe h3 {
+#container_iframe .actualTitle {
     background-color: var(--colorBackground);
     color: var(--colorAccent);
     border-radius: 14px 14px 0px 0px;
@@ -1193,7 +1193,8 @@ p.eventiMessaggio {
     border-top: 2px solid var(--colorAccent);
 
 }
-/*#lista_modalità .btnDesc {
+/*Sarebbe la parte per il button come in modalità
+#lista_modalità .btnDesc {
     height: min-content;
     min-width: 12em;
     margin: auto;
