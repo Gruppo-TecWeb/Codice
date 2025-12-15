@@ -62,7 +62,7 @@ class DBAccess {
         return $this->execute_query($query);
     }
     public function get_modalità() {
-        $query = "SELECT Id, Titolo, Link, Descrizione FROM Modalità";
+        $query = "SELECT Id, Titolo, Link, DescrizioneModalità FROM Modalità";
         return $this->execute_query($query);
     }
     

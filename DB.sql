@@ -68,26 +68,26 @@ INSERT INTO Modalità (Titolo, Link, Descrizione) VALUES
 ('Acappella', 'https://www.youtube-nocookie.com/embed/OvVk892HzmE?enablejsapi=1&amp;start=762&amp;autoplay=1', 'I <span lang="en">rapper</span> si sfidano senza supporto musicale, concentrandosi solo sulle loro abilità vocali e liriche.'),
 ('Oggetti', 'https://www.youtube-nocookie.com/embed/S8Ze0GCgo4k?enablejsapi=1&amp;autoplay=1', 'Ai <span lang="en">rapper</span> vengono forniti oggetti a sorpresa, su cui dovranno rappare.');
 
-INSERT INTO Basi (Id, Titolo, Descrizione) VALUES
-(1, 'Goodbye - Big Joe.mp3','Un ritmo ipnotico che fluisce come un fiume in piena, dando spazio alle tue parole per danzare sulla sua corrente.'),
-(2, 'Big L Ebonics.mp3','Un beat con elementi futuristici e suoni elettronici che ti trasportano in un mondo di possibilità nel quale puoi sperimentare senza limiti.'),
-(3, 'Busta Rhymes - Psycobusta.mp3','Una composizione minimalista che mette in risalto la tua voce, permettendoti di dominare la scena con il tuo stile unico.'),
-(4, 'Dilated Peoples - The Platform (Erik Sermon Remix).mp3','Un beat dal groove classico e accattivante, un richiamo alle radici dell''hip-hop, pronto a far vibrare l''anima delle tue rime.'),
-(5, 'DJ Premier - BAP.mp3','Una base ritmica pesante e decisa, pronta a sostenere le tue rime con una potenza inarrestabile.'),
-(6, 'DJ Premier - That White.mp3','Una traccia con un ritmo contagioso e un beat che invoglia all''azione, perfetto per mettere in mostra la tua versatilità e la tua abilità nel freestyle rap'),
-(7, 'Full Clip-Gangstarr.mp3','Un beat con una melodia maliziosa che ti invita a sfidare le convenzioni e a esplorare nuove dimensioni nel tuo freestyle.'),
-(8, 'Funkdoobiest - Lost in Thought.mp3','Un beat con un mix di elementi jazz e percussioni incalzanti, regalando una base sofisticata per le tue improvvisazioni poetiche.'),
-(9, 'Gang Starr - Battle.mp3','Una mescolanza di suoni urbani e ritmi urbani, creando un''atmosfera che ti avvolge e ti spinge a esprimere la tua autenticità nel freestyle.'),
-(10, 'J. Cole - Fire Squad.mp3','Un beat dall''andamento selvaggio e irregolare, perfetto per testare le tue abilità nel mantenere il controllo durante il freestyle.'),
-(11, 'Jam Baxter - Fine (Prod GhostTown).mp3','Un beat dai suoni energetici e taglienti, pronto a guidare le tue rime con una potente base ritmica.'),
-(12, 'Method Man _ Redman - A-Yo.mp3','Un beat dal ritmo incalzante che cattura l''attenzione sin dai primi battiti, perfetto per scatenare la tua creatività nel freestyle rap.'),
-(13, 'Movie Villains.mp3','Un beat oscuro e potente, perfetto per trasportarti nel mondo dei cattivi del cinema. Con i suoi bassi profondi e i suoni inquietanti, ti farà sentire come il protagonista di un film d''azione.'),
-(14, 'Noyz Narcos - Trucemala.mp3','Questo beat cattura l''essenza del rap hardcore, con ritmi aggressivi e bassi intensi. Ideale per testi forti e decisi, ti darà l''energia giusta per esprimere la tua rabbia e passione'),
-(15, 'RA Rugged man - Dangerous Three.mp3','Un beat incalzante e grintoso, caratterizzato da campionamenti vintage e ritmi serrati. Perfetto per mostrare le tue abilità liriche e mantenere alta l''attenzione degli ascoltatori.'),
-(16, 'Step Brothers (Alchemist _ Evidence) - Step Masters.mp3','Un beat sofisticato e melodico che unisce elementi di jazz e hip-hop. Ideale per raccontare storie e mostrare il tuo talento nel costruire narrazioni coinvolgenti attraverso il rap.'),
-(17, 'Tecniche Perfette - 5.mp3','Un beat classico che combina l''energia grezza del Wu-Tang Clan con la profondità lirica dei Mobb Deep. Ideale per testi riflessivi e potenti, questo beat ti porterà direttamente nelle strade di New York.'),
-(18, 'Wu Tang Clan _ Mobb Deep - Phat Beat.mp3','Un beat dal ritmo travolgente, con batteria pesante e melodie accattivanti. Perfetto per le battaglie di freestyle e per mettere in mostra la tua capacità di improvvisazione.'),
-(19, 'Timbaland - They Ain_t Ready.mp3','Un beat innovativo e sperimentale, con ritmi complessi e suoni futuristici. Perfetto per dimostrare la tua originalità e creatività, spingendo i confini del genere rap.');
+INSERT INTO Basi (Titolo, Descrizione) VALUES
+('Goodbye - Big Joe.mp3','Un ritmo ipnotico che fluisce come un fiume in piena, dando spazio alle tue parole per danzare sulla sua corrente.'),
+('Big L Ebonics.mp3','Un beat con elementi futuristici e suoni elettronici che ti trasportano in un mondo di possibilità nel quale puoi sperimentare senza limiti.'),
+('Busta Rhymes - Psycobusta.mp3','Una composizione minimalista che mette in risalto la tua voce, permettendoti di dominare la scena con il tuo stile unico.'),
+('Dilated Peoples - The Platform (Erik Sermon Remix).mp3','Un beat dal groove classico e accattivante, un richiamo alle radici dell''hip-hop, pronto a far vibrare l''anima delle tue rime.'),
+('DJ Premier - BAP.mp3','Una base ritmica pesante e decisa, pronta a sostenere le tue rime con una potenza inarrestabile.'),
+('DJ Premier - That White.mp3','Una traccia con un ritmo contagioso e un beat che invoglia all''azione, perfetto per mettere in mostra la tua versatilità e la tua abilità nel freestyle rap'),
+('Full Clip-Gangstarr.mp3','Un beat con una melodia maliziosa che ti invita a sfidare le convenzioni e a esplorare nuove dimensioni nel tuo freestyle.'),
+('Funkdoobiest - Lost in Thought.mp3','Un beat con un mix di elementi jazz e percussioni incalzanti, regalando una base sofisticata per le tue improvvisazioni poetiche.'),
+('Gang Starr - Battle.mp3','Una mescolanza di suoni urbani e ritmi urbani, creando un''atmosfera che ti avvolge e ti spinge a esprimere la tua autenticità nel freestyle.'),
+('J. Cole - Fire Squad.mp3','Un beat dall''andamento selvaggio e irregolare, perfetto per testare le tue abilità nel mantenere il controllo durante il freestyle.'),
+('Jam Baxter - Fine (Prod GhostTown).mp3','Un beat dai suoni energetici e taglienti, pronto a guidare le tue rime con una potente base ritmica.'),
+('Method Man _ Redman - A-Yo.mp3','Un beat dal ritmo incalzante che cattura l''attenzione sin dai primi battiti, perfetto per scatenare la tua creatività nel freestyle rap.'),
+('Movie Villains.mp3','Un beat oscuro e potente, perfetto per trasportarti nel mondo dei cattivi del cinema. Con i suoi bassi profondi e i suoni inquietanti, ti farà sentire come il protagonista di un film d''azione.'),
+('Noyz Narcos - Trucemala.mp3','Questo beat cattura l''essenza del rap hardcore, con ritmi aggressivi e bassi intensi. Ideale per testi forti e decisi, ti darà l''energia giusta per esprimere la tua rabbia e passione'),
+('RA Rugged man - Dangerous Three.mp3','Un beat incalzante e grintoso, caratterizzato da campionamenti vintage e ritmi serrati. Perfetto per mostrare le tue abilità liriche e mantenere alta l''attenzione degli ascoltatori.'),
+('Step Brothers (Alchemist _ Evidence) - Step Masters.mp3','Un beat sofisticato e melodico che unisce elementi di jazz e hip-hop. Ideale per raccontare storie e mostrare il tuo talento nel costruire narrazioni coinvolgenti attraverso il rap.'),
+('Tecniche Perfette - 5.mp3','Un beat classico che combina l''energia grezza del Wu-Tang Clan con la profondità lirica dei Mobb Deep. Ideale per testi riflessivi e potenti, questo beat ti porterà direttamente nelle strade di New York.'),
+('Wu Tang Clan _ Mobb Deep - Phat Beat.mp3','Un beat dal ritmo travolgente, con batteria pesante e melodie accattivanti. Perfetto per le battaglie di freestyle e per mettere in mostra la tua capacità di improvvisazione.'),
+('Timbaland - They Ain_t Ready.mp3','Un beat innovativo e sperimentale, con ritmi complessi e suoni futuristici. Perfetto per dimostrare la tua originalità e creatività, spingendo i confini del genere rap.');
 
 INSERT INTO Utenti (Username, Password, Email, TipoUtente) VALUES ('root', '$2y$10$x0SPRF3nMtr.a.gcpzJwqeS4YToXKGXLAGEHIzi7d//SkEpayFf8i', 'root@mail.it', 'R');
 INSERT INTO Utenti (Username, Password, Email, TipoUtente) VALUES ('admin', '$2y$10$6HccIqtLp.aSP1X4H/X3GeNJaXsTLVrNCPYIaMURXPUfxSL7qjphi', 'admin@fungo.it', 'A');

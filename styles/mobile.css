@@ -589,11 +589,44 @@ label {
 /* 
  * PAGINA MODALITA' 
  */
+ #lista_battle .battle .btnPlay[data-isPlaying="false"] {
+    background-image: url("../assets/icons/play.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    color: transparent;
+    opacity: 1;
+}
 
+#lista_battle .battle .btnDesc {
+    min-width: unset;
+    min-height: 44px;
+    aspect-ratio: 1 / 1;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+}
 
-/* 
- * PAGINA BATTLE
- */
+#lista_battle .battle .btnDesc span {
+    position: absolute;
+    text-indent: -999em;
+}
+
+#lista_battle .battle .btnDesc[data-show="true"] {
+    background-image: url("../assets/icons/close.svg");
+    background-color: var(--colorAccent);
+}
+
+#lista_battle .battle .btnDesc[data-show="false"] {
+    background-image: url("../assets/icons/information.svg");
+    background-color: var(--colorAccent);
+}
+
+#lista_battle .descModalità {
+    text-align: center;
+    padding: 1em;
+    margin: 0em;
+}
 
 #container_battle {
     display: flex;

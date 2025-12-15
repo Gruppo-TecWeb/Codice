@@ -33,6 +33,7 @@ $connectionOk = $connection->open_DB_connection();
 if ($connectionOk) {
     // Estrazione dati dalla tabella Basi
     $result = $connection->get_modalità();
+    
 
     // Preparazione del contenuto dinamico
     $modalitàList = '';
@@ -58,7 +59,7 @@ if ($connectionOk) {
             '{modalitàEstesa}' => $modalitàEstesa,       
             '{modalitàTag}' => $modalitàTag,
             '{link}' => $row['Link'],
-            '{descrizione}' => $row['Descrizione'],
+            '{descrizione}' => $row['DescrizioneModalità'],
             '{id}' => $row['Id']-1
         ]);
         $modalitàList .= $newModalitàItem;
